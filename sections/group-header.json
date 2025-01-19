@@ -118,9 +118,9 @@
       ],
       "settings": {
         "header_style": "menu_center",
-        "logo": "{{ shop.brand.logo }}",
+        "logo": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
         "logo_max_limit": 130,
-        "logo_padding": 0,
+        "logo_padding": 15,
         "logo_text_size": 5,
         "main_menu_linklist": "main-menu-n",
         "mobile_menu_linklist": "",
