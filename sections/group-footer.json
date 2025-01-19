@@ -1,1 +1,104 @@
-{"type":"footer","name":"Footer","sections":{"footer":{"type":"footer","blocks":{"linklist-1":{"type":"linklist","settings":{"linklist":"main-menu"}},"linklist-2":{"type":"linklist","settings":{"linklist":"footer"}},"text-3":{"type":"text","settings":{}},"social":{"type":"social","settings":{}},"newsletter":{"type":"newsletter","settings":{"show_image":false,"background_color":"#4F4F4F","text_color_value":"#ffffff"}}},"block_order":["linklist-1","linklist-2","text-3","social","newsletter"],"settings":{}},"subfooter":{"type":"subfooter","settings":{"footer_secondary_linklist":"footer"}}},"order":["footer","subfooter"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "linklist-1": {
+          "type": "linklist",
+          "settings": {
+            "linklist": "footer-third",
+            "title": "",
+            "accordion_default": "accordion-is-open"
+          }
+        },
+        "linklist-2": {
+          "type": "linklist",
+          "settings": {
+            "linklist": "footer-first",
+            "title": "",
+            "accordion_default": ""
+          }
+        },
+        "text-3": {
+          "type": "text",
+          "settings": {
+            "title": "",
+            "text": "",
+            "text_size": 4,
+            "accordion_default": ""
+          }
+        },
+        "social": {
+          "type": "social",
+          "settings": {
+            "title": "A new standard of Safety",
+            "text_size": 8,
+            "enable_follow_on_shop": false
+          }
+        },
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "show_image": true,
+            "image": "shopify://shop_images/shiro101_A_floating_baby_car_seat_product_photography_natural_30502f77-8fa1-4944-b7f4-57072e174134_3_1.png",
+            "wh_ratio": 2,
+            "newsletter_enable": true,
+            "recaptcha_enabled": false,
+            "kicker": "Our newsletter",
+            "heading": "Skip to the details",
+            "richtext": "<p>Receive the latest articles, tips, and offers from babyark.</p>",
+            "text_size": 4,
+            "background_color": "#1d2124",
+            "text_color_value": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "linklist-1",
+        "linklist-2",
+        "text-3",
+        "social",
+        "newsletter"
+      ],
+      "custom_css": [
+        ".footer__title {display: none;}"
+      ],
+      "settings": {
+        "menu_position": "left",
+        "footer_image": "shopify://shop_images/Vector_3.png",
+        "logo_max_limit": 320,
+        "width": "wrapper--full",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "subfooter": {
+      "type": "subfooter",
+      "settings": {
+        "footer_secondary_linklist": "footer",
+        "footer_payment_enable": false,
+        "footer_social_enable": false,
+        "show_locale_selector": true,
+        "show_currency_selector": true,
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "footer",
+    "subfooter"
+  ]
+}
