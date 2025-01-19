@@ -1,0 +1,92 @@
+
+
+
+@font-face {
+  font-family: "Libre Baskerville";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/libre_baskerville/librebaskerville_n4.c24788bb1ddc6b870a25ccf62d9704bf2cd8f587.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=155db70dc09e85b1af0d4ce0648e00bd0fd4e7f96ead2f5b2529fd33c1ddcf3d") format("woff2"),
+       url("//babyark.com/cdn/fonts/libre_baskerville/librebaskerville_n4.fa1b5384e2cad078403f0bf482eef6c0c1dd15f3.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=35ac562953e1413732a42f5d8654f7ba12e0c157acd04a3ea83af97fb8a72217") format("woff");
+}
+
+@font-face {
+  font-family: Poppins;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/poppins/poppins_n4.934accbf9f5987aa89334210e6c1e9151f37d3b6.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=7508df354be01a19d2d3ecbec80c89dadda809776b6365198d9f9ed444b7a3af") format("woff2"),
+       url("//babyark.com/cdn/fonts/poppins/poppins_n4.ee28d4489eaf5de9cf6e17e696991b5e9148c716.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=4978ec08572945d86d713d7af0b911f129781b74cb291f7bcc7455096f497221") format("woff");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/montserrat/montserrat_n5.e72d00d31ae5399d260a80ec70322c62c1819762.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=505aa8f3e10e37de257a885f16523a1d20726c0f663a8c2ee1dca87bb806d66f") format("woff2"),
+       url("//babyark.com/cdn/fonts/montserrat/montserrat_n5.18a018b6c83e89030c5d70a6d4c02c969f228500.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=42073eb17a8c355a3ee917b5da0c66fb84f792cece1d827694e64ff600941431") format("woff");
+}
+
+
+
+  @font-face {
+  font-family: "Libre Baskerville";
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/libre_baskerville/librebaskerville_n7.aacec9598b2555aad3e9091d97a21a25847c624a.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=4ff416991a184e59022b0a19be1b2f6171b78cc45f10eb61581854971fbb3db1") format("woff2"),
+       url("//babyark.com/cdn/fonts/libre_baskerville/librebaskerville_n7.55f9d4ea4fcfce063a8b3d8bf49cc219125f8ea3.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=dd20c16b160897c691b8e13459fa6ff97164c672538ad4a77eef93df5e081ebf") format("woff");
+}
+
+
+
+
+  @font-face {
+  font-family: Montserrat;
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/montserrat/montserrat_n6.7a3c341961dc23aaabcc116124b80f2a7abec1a2.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=7ad86a963daf19ec8c765686ee223c83c7b71a19167b71b644845177e207e59e") format("woff2"),
+       url("//babyark.com/cdn/fonts/montserrat/montserrat_n6.2c97c1a692c63ad09ab0635cb73b1939c5f417c0.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=60c35b48718e290636857279acb1cb41e3c54815b56bdc7bb550b60caead2ef7") format("woff");
+}
+
+
+
+
+  @font-face {
+  font-family: Poppins;
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/poppins/poppins_n5.25334cd7ff48c81cfd51a6bc5a81d92a1b4d4501.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=4a3845588bcc4c46dccf70d1aa5f04787280f3bfa9b51a7b796bd237038e1279") format("woff2"),
+       url("//babyark.com/cdn/fonts/poppins/poppins_n5.fc8eae64d8f1b5d2b8c42b45ddc0749aff4750a6.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=6fafac905be489ea747c4409853767264b26514e2f37e048fc233abc9ce19c3a") format("woff");
+}
+
+
+
+
+
+
+
+  @font-face {
+  font-family: Poppins;
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/poppins/poppins_i4.a7e8d886e15d5fb9bc964a53b3278effbf270e9c.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=f29219f86063c7a42420fc3c5e03f138d20ffb12c46fdab2d02c24a3db4144dc") format("woff2"),
+       url("//babyark.com/cdn/fonts/poppins/poppins_i4.e87de252199e27825a41bf81646996685d86452d.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=7108abdb08caaea5ecbdbc6a4dd04346ec81783aaf9fac80bac49479efa522b8") format("woff");
+}
+
+
+
+  @font-face {
+  font-family: Poppins;
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url("//babyark.com/cdn/fonts/poppins/poppins_i5.7a2d84979134c226101806900bea600c71eeb63d.woff2?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=c4db04c0ab569d7e1895c7a584e2eb2c1c434519099084c1c76652fecfaa3dee") format("woff2"),
+       url("//babyark.com/cdn/fonts/poppins/poppins_i5.8671d7a1ea0c17aae512b84c1f6f06c5ca63dd49.woff?h1=YmFieWFyay5jb20&h2=YmFieWFya3Nob3AuYWNjb3VudC5teXNob3BpZnkuY29t&hmac=69bf6cccfc15a72d49adbaa5625a363f6b30d7797f6c53bd69434a733ca6bb0f") format("woff");
+}
+
+

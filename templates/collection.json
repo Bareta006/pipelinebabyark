@@ -1,0 +1,1 @@
+{"sections":{"hero":{"type":"collection-hero","settings":{}},"subcollections":{"type":"collection-sub","settings":{}},"main":{"type":"collection","blocks":{"collections":{"type":"collections","settings":{}},"filters":{"type":"filters","settings":{}}},"block_order":["collections","filters"],"settings":{}}},"order":["hero","subcollections","main"]}
