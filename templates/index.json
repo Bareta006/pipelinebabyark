@@ -293,6 +293,59 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
+    },
+    "section_slideshow_KXjPLB": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_pCYFLc": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "image_yK6EGe": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "image_pCYFLc",
+        "image_yK6EGe"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_two_thirds",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -301,6 +354,7 @@
     "section_richtext_m948Td",
     "section_hero_bfR8QA",
     "section_hero_Vfa6xC",
-    "icon_slider_text_nzkdyr"
+    "icon_slider_text_nzkdyr",
+    "section_slideshow_KXjPLB"
   ]
 }
