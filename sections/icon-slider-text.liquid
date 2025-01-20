@@ -10,7 +10,7 @@
 /* Responsive text alignment */
 
 #shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
-  text-align: {{ section.settings.text_alignment }};
+  text-align: {{ section.settings.text_alignment_desktop }};
 }
 
 @media (max-width: 768px) {
@@ -101,7 +101,7 @@
     },
     {
       "type": "select",
-      "id": "text_alignment",
+      "id": "text_alignment_desktop",
       "label": "Text Alignment",
       "default": "left",
       "options": [
