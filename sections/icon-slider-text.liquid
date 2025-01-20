@@ -42,7 +42,7 @@
       {% endif %}
       
       {% if block.settings.title != blank %}
-        <h2>{{ block.settings.title }}</h2>
+        <h3>{{ block.settings.title }}</h3>
       {% endif %}
       
       {% if block.settings.description != blank %}
@@ -57,15 +57,7 @@
 </div>
 
 {% javascript %}
-    document.addEventListener('DOMContentLoaded', function() {
-      var elem = document.querySelector('.icon-slider-container');
-      theme.initializeSlider(elem, {
-        cellAlign: 'left',
-        contain: true,
-        wrapAround: true,
-        autoPlay: 3000
-      });
-    });
+theme.Sliders.init('.icon-slider-container');
     {% endjavascript %}
 
     
