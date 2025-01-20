@@ -28,63 +28,53 @@
 }
 </style>
 
-<section class="icon-slider-container {{ section.settings.bg }}" 
-         data-section-id="{{ section.id }}" 
-         data-section-type="icon-slider-text" 
-         style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
-  <div class="{{ section.settings.width }} section-padding">
-    {% for block in section.blocks %}
-      <div class="icon-slider-block" data-carousel>
-        <div data-carousel-slide>
-          {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}">
-          {% endif %}
-          
-          {% if block.settings.image %}
-            <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
-          {% elsif block.settings.svg_icon != blank %}
-            <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}></div>
-          {% endif %}
-          
-          {% if block.settings.title != blank %}
-            <h2>{{ block.settings.title }}</h2>
-          {% endif %}
-          
-          {% if block.settings.description != blank %}
-            <p>{{ block.settings.description }}</p>
-          {% endif %}
-          
-          {% if block.settings.link != blank %}
-            </a>
-          {% endif %}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
-</section>
+<div class="{{ section.settings.bg }} icon-slider-container" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  {% for block in section.blocks %}
+    <div class="icon-slider-block">
+      {% if block.settings.link != blank %}
+        <a href="{{ block.settings.link }}" style="text-align: inherit;">
+      {% endif %}
+      
+      {% if block.settings.image %}
+        <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
+      {% elsif block.settings.svg_icon != blank %}
+        <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}>
+      {% endif %}
+      
+      {% if block.settings.title != blank %}
+        <h3>{{ block.settings.title }}</h3>
+      {% endif %}
+      
+      {% if block.settings.description != blank %}
+        <p>{{ block.settings.description }}</p>
+      {% endif %}
+      
+      {% if block.settings.link != blank %}
+        </a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
 
+    {% javascript %}
 
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const carousels = document.querySelectorAll('[data-carousel]');
-
-  carousels.forEach((carousel) => {
-    // Initialize Flickity for each carousel block
-    new Flickity(carousel, {
-      cellAlign: 'center',
-      contain: true,
-      wrapAround: true,
-      autoPlay: true,
-      prevNextButtons: true,
-      pageDots: false,
+    document.addEventListener('DOMContentLoaded', function() {
+      var slider = document.querySelector('.icon-slider-container');
+      if (slider) {
+        new Flickity(slider, {
+          // Flickity options
+          cellAlign: 'left',
+          contain: true,
+          wrapAround: true,
+          autoPlay: 3000,
+          pageDots: true,
+          prevNextButtons: true,
+          adaptiveHeight: true // Adjust height based on the slide's height
+        });
+      }
     });
-  });
 
-  console.log(`${carousels.length} carousels initialized.`);
-});
-
-</script>
+    {% endjavascript %}
 
     
 {% schema %}
