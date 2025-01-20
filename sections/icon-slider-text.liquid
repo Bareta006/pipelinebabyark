@@ -61,7 +61,21 @@
 </section>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+  const carousels = document.querySelectorAll('flickity-carousel');
+  carousels.forEach((carousel) => {
+    new Flickity(carousel, {
+      cellAlign: 'center',
+      contain: true,
+      wrapAround: true,
+      prevNextButtons: true,
+      pageDots: false,
+    });
+  });
+});
 
+</script>
 
     
 {% schema %}
