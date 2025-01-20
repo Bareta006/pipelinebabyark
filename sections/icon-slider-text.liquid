@@ -1,7 +1,7 @@
 <!-- sections/icon-slider-text.liquid -->
 
 
-{% stylesheet %}
+<style>
 /* Background color styles */
 .bg--neutral { background-color: #f0f0f0; }
 .bg--light { background-color: #ffffff; }
@@ -17,7 +17,7 @@
     text-align: {{ section.settings.text_alignment_mobile }};
   }
 }
-{% endstylesheet %}
+</style>
 
 <div class="{{ section.settings.bg }} icon-slider-container" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
   {% for block in section.blocks %}
