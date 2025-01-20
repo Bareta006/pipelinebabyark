@@ -1,0 +1,120 @@
+<!-- sections/icon-slider-text.liquid -->
+
+{% schema %}
+{
+  "name": "Icon Slider Text",
+  "settings": [
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "bg--neutral",
+      "options": [
+        { "value": "bg--neutral", "label": "Neutral" },
+        { "value": "bg--light", "label": "Light" },
+        { "value": "bg--dark", "label": "Dark" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_slider_block",
+      "name": "Icon Slider Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image or SVG"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Icon Slider Text",
+      "category": "Custom",
+      "settings": {
+        "bg": "bg--neutral",
+        "padding_top": 20,
+        "padding_bottom": 20
+      },
+      "blocks": [
+        {
+          "type": "icon_slider_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+/* Add custom styles here */
+{% endstylesheet %}
+
+{% javascript %}
+/* Add custom JavaScript here */
+{% endjavascript %}
+
+<div class="{{ section.settings.bg }}" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="icon-slider-container">
+    {% for block in section.blocks %}
+      <div class="icon-slider-block">
+        {% if block.settings.link != blank %}
+          <a href="{{ block.settings.link }}">
+        {% endif %}
+        
+        {% if block.settings.image %}
+          <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
+        {% endif %}
+        
+        {% if block.settings.title != blank %}
+          <h2>{{ block.settings.title }}</h2>
+        {% endif %}
+        
+        {% if block.settings.description != blank %}
+          <p>{{ block.settings.description }}</p>
+        {% endif %}
+        
+        {% if block.settings.link != blank %}
+          </a>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
