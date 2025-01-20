@@ -66,17 +66,22 @@
 
 
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-  const carousels = document.querySelectorAll('flickity-carousel');
+document.addEventListener('DOMContentLoaded', () => {
+  const carousels = document.querySelectorAll('[data-carousel]');
+
   carousels.forEach((carousel) => {
+    // Initialize Flickity for each carousel block
     new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
       wrapAround: true,
+      autoPlay: true,
       prevNextButtons: true,
       pageDots: false,
     });
   });
+
+  console.log(`${carousels.length} carousels initialized.`);
 });
 
 </script>
