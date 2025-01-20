@@ -8,12 +8,12 @@
 .bg--dark { background-color: #333333; }
 
 /* Responsive text alignment */
-.icon-slider-container .icon-slider-block{
+#shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
   text-align: {{ section.settings.text_alignment }};
 }
 
 @media (max-width: 768px) {
-  .icon-slider-container .icon-slider-block{
+  #shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
     text-align: {{ section.settings.text_alignment_mobile }};
   }
 }
