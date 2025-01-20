@@ -290,8 +290,8 @@
         "bg": "bg--neutral",
         "padding_top": 60,
         "padding_bottom": 60,
-        "text_alignment": "text-center",
-        "text_alignment_mobile": "text-center"
+        "text_alignment_desktop": "center",
+        "text_alignment_mobile": "center"
       }
     }
   },
