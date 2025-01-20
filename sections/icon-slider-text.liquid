@@ -34,6 +34,28 @@
       "step": 1,
       "default": 20,
       "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_desktop",
+      "label": "Text Alignment (Desktop)",
+      "default": "text-left",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_alignment_mobile",
+      "label": "Text Alignment (Mobile)",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Center" },
+        { "value": "text-right", "label": "Right" }
+      ]
     }
   ],
   "blocks": [
@@ -84,14 +106,28 @@
 {% endschema %}
 
 {% stylesheet %}
-/* Add custom styles here */
+/* Background color styles */
+.bg--neutral { background-color: #f0f0f0; }
+.bg--light { background-color: #ffffff; }
+.bg--dark { background-color: #333333; }
+
+/* Responsive text alignment */
+.icon-slider-container {
+  text-align: var(--text-alignment-desktop);
+}
+
+@media (max-width: 768px) {
+  .icon-slider-container {
+    text-align: var(--text-alignment-mobile);
+  }
+}
 {% endstylesheet %}
 
 {% javascript %}
 /* Add custom JavaScript here */
 {% endjavascript %}
 
-<div class="{{ section.settings.bg }}" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+<div class="{{ section.settings.bg }}" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; --text-alignment-desktop: {{ section.settings.text_alignment_desktop }}; --text-alignment-mobile: {{ section.settings.text_alignment_mobile }};">
   <div class="icon-slider-container">
     {% for block in section.blocks %}
       <div class="icon-slider-block">
