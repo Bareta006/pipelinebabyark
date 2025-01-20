@@ -9,12 +9,12 @@
 
 /* Responsive text alignment */
 .icon-slider-container {
-  text-align: var(--text-alignment-desktop);
+  text-align: {{ section.settings.text_alignment }};
 }
 
 @media (max-width: 768px) {
   .icon-slider-container {
-    text-align: var(--text-alignment-mobile);
+    text-align: {{ section.settings.text_alignment_mobile }};
   }
 }
 {% endstylesheet %}
@@ -65,16 +65,19 @@
   "name": "Icon Slider Text",
   "settings": [
     {
-      "type": "select",
-      "id": "bg",
-      "label": "Background color",
-      "default": "bg--neutral",
-      "options": [
-        { "value": "bg--neutral", "label": "Neutral" },
-        { "value": "bg--light", "label": "Light" },
-        { "value": "bg--dark", "label": "Dark" }
-      ]
-    },
+        "type": "select",
+        "id": "bg",
+        "label": "Background color",
+        "default": "palette--light bg--neutral",
+        "options": [
+          { "value": "palette--light bg--neutral", "label": "Default"},
+          { "value": "palette--light bg--accent", "label": "Light"},
+          { "value": "palette--dark bg--invert", "label": "Dark"},
+          { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+          { "value": "palette--bright bg--bright", "label": "Bright"},
+          { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+        ]
+      },
     {
       "type": "range",
       "id": "padding_top",
