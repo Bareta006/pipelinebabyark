@@ -60,25 +60,7 @@
   </div>
 </section>
 
-    {% javascript %}
 
-    document.addEventListener('DOMContentLoaded', function() {
-      var slider = document.querySelector('.icon-slider-container');
-      if (slider) {
-        new Flickity(slider, {
-          // Flickity options
-          cellAlign: 'left',
-          contain: true,
-          wrapAround: true,
-          autoPlay: 3000,
-          pageDots: true,
-          prevNextButtons: true,
-          adaptiveHeight: true // Adjust height based on the slide's height
-        });
-      }
-    });
-
-    {% endjavascript %}
 
     
 {% schema %}
