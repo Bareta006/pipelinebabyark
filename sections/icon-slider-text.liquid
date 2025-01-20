@@ -1,5 +1,65 @@
 <!-- sections/icon-slider-text.liquid -->
 
+
+{% stylesheet %}
+/* Background color styles */
+.bg--neutral { background-color: #f0f0f0; }
+.bg--light { background-color: #ffffff; }
+.bg--dark { background-color: #333333; }
+
+/* Responsive text alignment */
+.icon-slider-container {
+  text-align: var(--text-alignment-desktop);
+}
+
+@media (max-width: 768px) {
+  .icon-slider-container {
+    text-align: var(--text-alignment-mobile);
+  }
+}
+{% endstylesheet %}
+
+<div class="{{ section.settings.bg }} icon-slider-container" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  {% for block in section.blocks %}
+    <div class="icon-slider-block" style="--text-alignment: {{ block.settings.text_alignment }}">
+      {% if block.settings.link != blank %}
+        <a href="{{ block.settings.link }}" style="text-align: inherit;">
+      {% endif %}
+      
+      {% if block.settings.image %}
+        <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
+      {% elsif block.settings.svg_icon != blank %}
+        <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}>
+      {% endif %}
+      
+      {% if block.settings.title != blank %}
+        <h2>{{ block.settings.title }}</h2>
+      {% endif %}
+      
+      {% if block.settings.description != blank %}
+        <p>{{ block.settings.description }}</p>
+      {% endif %}
+      
+      {% if block.settings.link != blank %}
+        </a>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+{% javascript %}
+    document.addEventListener('DOMContentLoaded', function() {
+      var elem = document.querySelector('.icon-slider-container');
+      theme.initializeSlider(elem, {
+        cellAlign: 'left',
+        contain: true,
+        wrapAround: true,
+        autoPlay: 3000
+      });
+    });
+    {% endjavascript %}
+
+    
 {% schema %}
 {
   "name": "Icon Slider Text",
@@ -37,8 +97,8 @@
     },
     {
       "type": "select",
-      "id": "text_alignment_desktop",
-      "label": "Text Alignment (Desktop)",
+      "id": "text_alignment",
+      "label": "Text Alignment",
       "default": "text-left",
       "options": [
         { "value": "text-left", "label": "Left" },
@@ -104,62 +164,3 @@
   ]
 }
 {% endschema %}
-
-{% stylesheet %}
-/* Background color styles */
-.bg--neutral { background-color: #f0f0f0; }
-.bg--light { background-color: #ffffff; }
-.bg--dark { background-color: #333333; }
-
-/* Responsive text alignment */
-.icon-slider-container {
-  text-align: var(--text-alignment-desktop);
-}
-
-@media (max-width: 768px) {
-  .icon-slider-container {
-    text-align: var(--text-alignment-mobile);
-  }
-}
-{% endstylesheet %}
-
-{% javascript %}
-document.addEventListener('DOMContentLoaded', function() {
-  var elem = document.querySelector('.icon-slider-container');
-  var flkty = new Flickity(elem, {
-    // options
-    cellAlign: 'left',
-    contain: true,
-    wrapAround: true,
-    autoPlay: 3000
-  });
-});
-{% endjavascript %}
-
-<div class="{{ section.settings.bg }}" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; --text-alignment-desktop: {{ section.settings.text_alignment_desktop }}; --text-alignment-mobile: {{ section.settings.text_alignment_mobile }};">
-  <div class="icon-slider-container">
-    {% for block in section.blocks %}
-      <div class="icon-slider-block">
-        {% if block.settings.link != blank %}
-          <a href="{{ block.settings.link }}">
-        {% endif %}
-        
-        {% if block.settings.image %}
-          <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
-        {% endif %}
-        
-        {% if block.settings.title != blank %}
-          <h2>{{ block.settings.title }}</h2>
-        {% endif %}
-        
-        {% if block.settings.description != blank %}
-          <p>{{ block.settings.description }}</p>
-        {% endif %}
-        
-        {% if block.settings.link != blank %}
-          </a>
-        {% endif %}
-      </div>
-    {% endfor %}
-  </div>
-</div>
