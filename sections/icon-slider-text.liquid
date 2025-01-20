@@ -27,10 +27,15 @@
 }
 }
 </style>
-
-<section class="icon-slider-container {{ section.settings.bg }}" data-section-id="{{ section.id }}" data-section-type="icon-slider-text" style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+<section class="icon-slider-container {{ section.settings.bg }}" 
+         data-section-id="{{ section.id }}" 
+         data-section-type="icon-slider-text" 
+         style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
-    <flickity-carousel>
+    <div class="flickity-carousel"
+         data-carousel 
+         data-slideshow-autoplay="{{ section.settings.autoplay }}"
+         data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
         <div class="icon-slider-block" data-carousel-slide>
           {% if block.settings.link != blank %}
@@ -40,7 +45,7 @@
           {% if block.settings.image %}
             <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
           {% elsif block.settings.svg_icon != blank %}
-            <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}>
+            <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}></div>
           {% endif %}
           
           {% if block.settings.title != blank %}
@@ -56,9 +61,10 @@
           {% endif %}
         </div>
       {% endfor %}
-    </flickity-carousel>
+    </div>
   </div>
 </section>
+
 
     {% javascript %}
 
