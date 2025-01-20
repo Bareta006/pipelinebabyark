@@ -8,12 +8,12 @@
 .bg--dark { background-color: #333333; }
 
 /* Responsive text alignment */
-.icon-slider-container {
+.icon-slider-container .icon-slider-block{
   text-align: {{ section.settings.text_alignment }};
 }
 
 @media (max-width: 768px) {
-  .icon-slider-container {
+  .icon-slider-container .icon-slider-block{
     text-align: {{ section.settings.text_alignment_mobile }};
   }
 }
@@ -21,7 +21,7 @@
 
 <div class="{{ section.settings.bg }} icon-slider-container" style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
   {% for block in section.blocks %}
-    <div class="icon-slider-block" style="--text-alignment: {{ block.settings.text_alignment }}">
+    <div class="icon-slider-block">
       {% if block.settings.link != blank %}
         <a href="{{ block.settings.link }}" style="text-align: inherit;">
       {% endif %}
