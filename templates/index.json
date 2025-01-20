@@ -271,15 +271,27 @@
             "description": "description",
             "link": ""
           }
+        },
+        "icon_slider_block_3L4kH4": {
+          "type": "icon_slider_block",
+          "settings": {
+            "image": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
+            "title": "title",
+            "description": "description",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "icon_slider_block_UQinBd"
+        "icon_slider_block_UQinBd",
+        "icon_slider_block_3L4kH4"
       ],
       "settings": {
         "bg": "bg--neutral",
         "padding_top": 60,
-        "padding_bottom": 60
+        "padding_bottom": 60,
+        "text_alignment_desktop": "text-center",
+        "text_alignment_mobile": "text-center"
       }
     }
   },
