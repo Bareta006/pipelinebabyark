@@ -287,7 +287,7 @@
         "icon_slider_block_3L4kH4"
       ],
       "settings": {
-        "bg": "palette--dark bg--invert",
+        "bg": "palette--light bg--neutral",
         "padding_top": 60,
         "padding_bottom": 60,
         "text_alignment_desktop": "center",
