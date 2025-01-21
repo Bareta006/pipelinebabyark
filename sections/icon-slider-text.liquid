@@ -35,38 +35,38 @@
          data-section-type="icon-slider-text" 
          style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
-    <div class="icon-slider-wrapper">
-      <div class="icon-slider-track">
-        {% for block in section.blocks %}
-          <div class="icon-slider-block">
-            {% if block.settings.link != blank %}
-              <a href="{{ block.settings.link }}">
-            {% endif %}
-            
-            {% if block.settings.image %}
-              <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
-            {% elsif block.settings.svg_icon != blank %}
-              <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}></div>
-            {% endif %}
-            
-            {% if block.settings.title != blank %}
-              <h3>{{ block.settings.title }}</h3>
-            {% endif %}
-            
-            {% if block.settings.description != blank %}
-              <p>{{ block.settings.description }}</p>
-            {% endif %}
-            
-            {% if block.settings.link != blank %}
-              </a>
-            {% endif %}
-          </div>
-        {% endfor %}
-      </div>
+    <div class="flickity-carousel"
+         data-carousel 
+         data-slideshow-autoplay="{{ section.settings.autoplay }}"
+         data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+      {% for block in section.blocks %}
+        <div class="icon-slider-block" data-carousel-slide>
+          {% if block.settings.link != blank %}
+            <a href="{{ block.settings.link }}">
+          {% endif %}
+          
+          {% if block.settings.image %}
+            <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
+          {% elsif block.settings.svg_icon != blank %}
+            <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}></div>
+          {% endif %}
+          
+          {% if block.settings.title != blank %}
+            <h3>{{ block.settings.title }}</h3>
+          {% endif %}
+          
+          {% if block.settings.description != blank %}
+            <p>{{ block.settings.description }}</p>
+          {% endif %}
+          
+          {% if block.settings.link != blank %}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>
-
 
 
     {% javascript %}
