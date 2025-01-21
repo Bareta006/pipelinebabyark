@@ -18,7 +18,9 @@
   text-align: {{ section.settings.text_alignment_desktop }};
   width: 100%;
 }
-
+.flickity-carousel{
+    overflow: hidden;
+}
 @media (max-width: 768px) {
   #shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
     text-align: {{ section.settings.text_alignment_mobile }};
