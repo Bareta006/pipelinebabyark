@@ -287,7 +287,7 @@
         "icon_slider_block_3L4kH4"
       ],
       "settings": {
-        "bg": "bg--neutral",
+        "bg": "palette--dark bg--invert",
         "padding_top": 60,
         "padding_bottom": 60,
         "text_alignment_desktop": "center",
@@ -301,7 +301,7 @@
           "type": "image",
           "settings": {
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Introducing",
             "title": "Image slideshow",
@@ -318,7 +318,7 @@
           "type": "image",
           "settings": {
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Introducing",
             "title": "Image slideshow",
