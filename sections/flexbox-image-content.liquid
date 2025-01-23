@@ -1,5 +1,130 @@
+<style>
+  #section-{{ section.id }} {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+    width: 100%;
+    position: relative;
+  }
+
+  #section-{{ section.id }} .flexbox-content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    gap: 20px;
+    position: relative;
+  }
+
+  #section-{{ section.id }} .content-box {
+    flex: 1 1 auto;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #section-{{ section.id }} .content-box .kicker {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 10px;
+  }
+
+  #section-{{ section.id }} .content-box h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  #section-{{ section.id }} .content-box p {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+
+  #section-{{ section.id }} .content-box button {
+    padding: 10px 20px;
+    border: 2px solid #000;
+    background: none;
+    color: #000;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  #section-{{ section.id }} .content-box button:hover {
+    background-color: #000;
+    color: #fff;
+  }
+</style>
+
+<section id="section-{{ section.id }}" class="flexbox-image-content-section">
+  <!-- Desktop Content -->
+  <div class="flexbox-content-wrapper">
+    <img src="{{ section.settings.desktop_image | img_url: 'master' }}" 
+         alt="{{ section.settings.desktop_alt_text }}" 
+         class="desktop-image">
+
+    <!-- Left Content Box -->
+    <div class="content-box left">
+      {% if section.settings.left_box_kicker != blank %}
+        <div class="kicker">{{ section.settings.left_box_kicker }}</div>
+      {% endif %}
+      {% if section.settings.left_box_title != blank %}
+        <h3>{{ section.settings.left_box_title }}</h3>
+      {% endif %}
+      {% if section.settings.left_box_text != blank %}
+        <p>{{ section.settings.left_box_text }}</p>
+      {% endif %}
+      {% if section.settings.left_box_button_text != blank %}
+        <button>{{ section.settings.left_box_button_text }}</button>
+      {% endif %}
+    </div>
+
+    <!-- Right Content Box -->
+    <div class="content-box right">
+      {% if section.settings.right_box_kicker != blank %}
+        <div class="kicker">{{ section.settings.right_box_kicker }}</div>
+      {% endif %}
+      {% if section.settings.right_box_title != blank %}
+        <h3>{{ section.settings.right_box_title }}</h3>
+      {% endif %}
+      {% if section.settings.right_box_text != blank %}
+        <p>{{ section.settings.right_box_text }}</p>
+      {% endif %}
+      {% if section.settings.right_box_button_text != blank %}
+        <button>{{ section.settings.right_box_button_text }}</button>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Mobile Content -->
+  <img src="{{ section.settings.mobile_image | img_url: 'master' }}" 
+       alt="{{ section.settings.mobile_alt_text }}" 
+       class="mobile-image">
+
+  <div class="mobile-content-box">
+    {% if section.settings.mobile_kicker != blank %}
+      <div class="kicker">{{ section.settings.mobile_kicker }}</div>
+    {% endif %}
+    {% if section.settings.mobile_title != blank %}
+      <h3>{{ section.settings.mobile_title }}</h3>
+    {% endif %}
+    {% if section.settings.mobile_text != blank %}
+      <p>{{ section.settings.mobile_text }}</p>
+    {% endif %}
+  </div>
+</section>
+
 {% schema %}
-<<<<<<< HEAD
 {
   "name": "Flexbox Image Content",
     "settings": [
@@ -121,10 +246,4 @@
     }
   ]
 }
-=======
-  {
-    "name": "Section name",
-    "settings": []
-  }
->>>>>>> 7956f25f1767f669355c01d63ece57d598af3f27
 {% endschema %}
