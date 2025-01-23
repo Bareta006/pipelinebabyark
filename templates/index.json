@@ -281,7 +281,9 @@
         "icon_slider_block_UQinBd",
         "icon_slider_block_3L4kH4"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "{border:40px solid #fff;}"
+      ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
         "padding_top": 60,
