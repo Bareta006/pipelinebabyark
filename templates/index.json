@@ -320,10 +320,10 @@
         "mobile_button_link": "",
         "left_box_justify": "flex-start",
         "left_box_align": "center",
-        "left_box_text_align": "center",
+        "left_box_text_align": "left",
         "right_box_justify": "flex-end",
         "right_box_align": "center",
-        "right_box_text_align": "center",
+        "right_box_text_align": "right",
         "mobile_box_vertical_align": "center",
         "mobile_box_text_align": "center"
       }
