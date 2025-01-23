@@ -136,7 +136,7 @@
         "img {object-fit: contain;}",
         ".index__column.grid__item {display: flex; flex-direction: column-reverse;}",
         ".accent-title-large {order: 1;}",
-        ".wrapper > div{align-items:start;}"
+        ".wrapper > div {align-items: stretch;}"
       ],
       "settings": {
         "title": "Locate Traceability Sticker",
