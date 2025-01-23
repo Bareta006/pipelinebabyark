@@ -262,8 +262,8 @@
           "type": "icon_slider_block",
           "settings": {
             "image": "shopify://shop_images/image_292.png",
-            "title": "title",
-            "description": "description",
+            "title": "\"A babyark combines natural forms with high-tech materials, including lightweight plastics and carbon fiber.\"",
+            "description": "",
             "link": ""
           }
         },
