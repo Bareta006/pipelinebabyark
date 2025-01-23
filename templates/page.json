@@ -136,7 +136,8 @@
         "img {object-fit: contain;}",
         ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
         ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}"
+        ".wrapper > div {align-items: stretch;}",
+        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
       ],
       "settings": {
         "title": "Locate Traceability Sticker",
@@ -146,7 +147,7 @@
         "wh_ratio": 1.5,
         "grid_large": 3,
         "grid_medium": 3,
-        "grid_mobile": 1.5,
+        "grid_mobile": 1,
         "progress_bar_mobile": false,
         "width": "wrapper",
         "padding_top": 36,
