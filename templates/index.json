@@ -158,7 +158,7 @@
           "settings": {
             "image": "shopify://shop_images/image.png",
             "overlay_opacity": 0,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "Features to give you a piece of mind",
@@ -175,7 +175,7 @@
           "type": "image",
           "settings": {
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Introducing",
             "title": "Image slideshow",
@@ -288,6 +288,28 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
+    },
+    "flexbox_image_content_qzggwp": {
+      "type": "flexbox-image-content",
+      "settings": {
+        "desktop_image": "shopify://shop_images/image_95123916-acbc-4af6-8ac2-1224353b3ded.png",
+        "desktop_alt_text": "Desktop Image",
+        "mobile_alt_text": "Mobile Image",
+        "left_box_kicker": "Left Kicker",
+        "left_box_title": "Left Title",
+        "left_box_text": "Left box content goes here.",
+        "left_box_button_text": "Learn More",
+        "right_box_kicker": "Right Kicker",
+        "right_box_title": "Right Title",
+        "right_box_text": "Right box content goes here.",
+        "right_box_button_text": "Contact Us",
+        "mobile_kicker": "Mobile Kicker",
+        "mobile_title": "Mobile Title",
+        "mobile_text": "Mobile content box content goes here.",
+        "background_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
@@ -296,6 +318,7 @@
     "section_richtext_m948Td",
     "section_slideshow_jHRLYV",
     "section_hero_Vfa6xC",
-    "icon_slider_text_nzkdyr"
+    "icon_slider_text_nzkdyr",
+    "flexbox_image_content_qzggwp"
   ]
 }
