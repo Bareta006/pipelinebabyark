@@ -1,5 +1,5 @@
 <style>
-  /* Scoped Section Styling */
+  /* General Section Styling */
   #section-{{ section.id }} {
     position: relative;
     display: flex;
@@ -10,44 +10,44 @@
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
-    height: auto; /* Set dynamically via Shopify settings */
     overflow: hidden;
+  }
+
+  /* Section height and padding */
+  #section-{{ section.id }}.desktop {
+    height: {{ section.settings.section_height }};
+    background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 
-  #section-{{ section.id }}.desktop {
-    height: {{ section.settings.section_height }};
-    background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
-  }
-
   #section-{{ section.id }}.mobile {
-    height: auto; /* Adjusted for mobile layouts */
+    height: auto;
     background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
   }
 
-  /* Two-column flex layout */
+  /* Two-column layout for desktop */
   #section-{{ section.id }} .flex-container {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    height: 100%;
     width: 100%;
+    height: 100%;
   }
 
   #section-{{ section.id }} .flex-column {
     display: flex;
     flex: 1;
-    position: relative;
     flex-direction: column;
     padding: 20px;
   }
 
+  /* Content box styling */
   #section-{{ section.id }} .content-box {
     display: flex;
     flex-direction: column;
-    justify-content: {{ section.settings.box_justify_content }};
-    align-items: {{ section.settings.box_align_items }};
+    justify-content: center; /* Defaults to center; controlled by editor */
+    align-items: center; /* Defaults to center; controlled by editor */
     padding: 15px;
     background: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
@@ -55,9 +55,9 @@
   }
 
   #section-{{ section.id }} .content-box h3 {
-    margin-bottom: 10px;
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 10px;
   }
 
   #section-{{ section.id }} .content-box p {
@@ -76,12 +76,31 @@
   }
 
   #section-{{ section.id }} .content-box button:hover {
-    background: #000;
+    background-color: #000;
     color: #fff;
   }
 
-  /* Mobile Layout */
+  /* Mobile-specific content box */
+  #section-{{ section.id }} .mobile-content-box {
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  /* Responsive Design for Mobile */
   @media (max-width: 768px) {
+    #section-{{ section.id }}.desktop {
+      display: none;
+    }
+
+    #section-{{ section.id }}.mobile {
+      display: flex;
+      height: auto;
+    }
+
     #section-{{ section.id }} .flex-container {
       flex-direction: column;
     }
@@ -92,11 +111,6 @@
 
     #section-{{ section.id }} .mobile-content-box {
       display: flex;
-      flex-direction: column;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 10px;
-      text-align: center;
     }
   }
 </style>
@@ -107,7 +121,7 @@
   <div class="flex-container">
     <!-- Left Column -->
     <div class="flex-column">
-      <div class="content-box">
+      <div class="content-box" style="justify-content: {{ section.settings.left_box_justify }}; align-items: {{ section.settings.left_box_align }}; color: {{ section.settings.left_box_text_color }};">
         {% if section.settings.left_box_kicker %}
           <div class="kicker">{{ section.settings.left_box_kicker }}</div>
         {% endif %}
@@ -117,15 +131,17 @@
         {% if section.settings.left_box_text %}
           <p>{{ section.settings.left_box_text }}</p>
         {% endif %}
-        {% if section.settings.left_box_button_text %}
-          <button>{{ section.settings.left_box_button_text }}</button>
+        {% if section.settings.left_box_button_html %}
+          <a href="{{ section.settings.left_box_button_link }}" class="button">
+            {{ section.settings.left_box_button_html }}
+          </a>
         {% endif %}
       </div>
     </div>
 
     <!-- Right Column -->
     <div class="flex-column">
-      <div class="content-box">
+      <div class="content-box" style="justify-content: {{ section.settings.right_box_justify }}; align-items: {{ section.settings.right_box_align }}; color: {{ section.settings.right_box_text_color }};">
         {% if section.settings.right_box_kicker %}
           <div class="kicker">{{ section.settings.right_box_kicker }}</div>
         {% endif %}
@@ -135,14 +151,16 @@
         {% if section.settings.right_box_text %}
           <p>{{ section.settings.right_box_text }}</p>
         {% endif %}
-        {% if section.settings.right_box_button_text %}
-          <button>{{ section.settings.right_box_button_text }}</button>
+        {% if section.settings.right_box_button_html %}
+          <a href="{{ section.settings.right_box_button_link }}" class="button">
+            {{ section.settings.right_box_button_html }}
+          </a>
         {% endif %}
       </div>
     </div>
   </div>
 
-  <!-- Mobile Layout -->
+  <!-- Mobile Content Box -->
   <div class="mobile-content-box">
     {% if section.settings.mobile_kicker %}
       <div class="kicker">{{ section.settings.mobile_kicker }}</div>
@@ -153,11 +171,17 @@
     {% if section.settings.mobile_text %}
       <p>{{ section.settings.mobile_text }}</p>
     {% endif %}
+    {% if section.settings.mobile_button_html %}
+      <a href="{{ section.settings.mobile_button_link }}" class="button">
+        {{ section.settings.mobile_button_html }}
+      </a>
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
+  {
   "name": "Background Image Section",
   "settings": [
     {
@@ -183,61 +207,43 @@
       "default": "750px"
     },
     {
-      "type": "text",
-      "id": "left_box_kicker",
-      "label": "Left Box Kicker"
+      "type": "textarea",
+      "id": "left_box_button_html",
+      "label": "Left Button Text (HTML)"
     },
     {
-      "type": "text",
-      "id": "left_box_title",
-      "label": "Left Box Title"
+      "type": "url",
+      "id": "left_box_button_link",
+      "label": "Left Button Link"
     },
     {
       "type": "textarea",
-      "id": "left_box_text",
-      "label": "Left Box Text"
+      "id": "right_box_button_html",
+      "label": "Right Button Text (HTML)"
     },
     {
-      "type": "text",
-      "id": "left_box_button_text",
-      "label": "Left Box Button Text"
+      "type": "url",
+      "id": "right_box_button_link",
+      "label": "Right Button Link"
     },
     {
-      "type": "text",
-      "id": "right_box_kicker",
-      "label": "Right Box Kicker"
+      "type": "color",
+      "id": "left_box_text_color",
+      "label": "Left Box Text Color",
+      "default": "#000000"
     },
     {
-      "type": "text",
-      "id": "right_box_title",
-      "label": "Right Box Title"
+      "type": "color",
+      "id": "right_box_text_color",
+      "label": "Right Box Text Color",
+      "default": "#000000"
     },
     {
-      "type": "textarea",
-      "id": "right_box_text",
-      "label": "Right Box Text"
+      "type": "color",
+      "id": "mobile_text_color",
+      "label": "Mobile Text Color",
+      "default": "#000000"
     },
-    {
-      "type": "text",
-      "id": "right_box_button_text",
-      "label": "Right Box Button Text"
-    },
-    {
-      "type": "text",
-      "id": "mobile_kicker",
-      "label": "Mobile Kicker"
-    },
-    {
-      "type": "text",
-      "id": "mobile_title",
-      "label": "Mobile Title"
-    },
-    {
-      "type": "textarea",
-      "id": "mobile_text",
-      "label": "Mobile Text"
-    },
-    
     {
       "type": "range",
       "id": "padding_top",
@@ -254,12 +260,8 @@
       "min": 0,
       "max": 100
     }
-  ],
-  "presets": [
-    {
-      "name": "Background Image Section",
-      "category": "Custom"
-    }
   ]
+}
+
 }
 {% endschema %}
