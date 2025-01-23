@@ -133,7 +133,7 @@
         {% endif %}
         {% if section.settings.left_box_button_html %}
           <a href="{{ section.settings.left_box_button_link }}" class="button">
-            {{ section.settings.left_box_button_html }}
+            {{ section.settings.left_box_button_html | html }}
           </a>
         {% endif %}
       </div>
