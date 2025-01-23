@@ -65,7 +65,12 @@
   }
 
   /* Content Styling */
-
+  #section-{{ section.id }} .content-box a {
+    max-width: 150px;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+}
 
   /* Mobile Content Box */
   #section-{{ section.id }} .mobile-content-box {
@@ -110,7 +115,7 @@
   <div class="flex-container">
     <!-- Left Column -->
     <div class="flex-column" style="align-items: {{ section.settings.left_box_justify }}; justify-content: {{ section.settings.left_box_align }}; color: {{ section.settings.left_box_text_color }};text-align: {{ section.settings.left_box_text_align }};">
-      <div class="content-box">
+      <div class="content-box" style="align-items: {{ section.settings.left_box_justify }}; justify-content: {{ section.settings.left_box_align }}; color: {{ section.settings.left_box_text_color }};text-align: {{ section.settings.left_box_text_align }};">
         {% if section.settings.left_box_kicker %}
           <div class="hero__kicker accent-size-3 aos-init aos-animate">
             <p>{{ section.settings.left_box_kicker }}</p>
@@ -136,7 +141,7 @@
 
     <!-- Right Column -->
     <div class="flex-column" style="align-items: {{ section.settings.right_box_justify }}; justify-content: {{ section.settings.right_box_align }}; color: {{ section.settings.right_box_text_color }};text-align: {{ section.settings.right_box_text_align }};">
-      <div class="content-box">
+      <div class="content-box" style="align-items: {{ section.settings.right_box_justify }}; justify-content: {{ section.settings.right_box_align }}; color: {{ section.settings.right_box_text_color }};text-align: {{ section.settings.right_box_text_align }};">
         {% if section.settings.right_box_kicker %}
           <div class="hero__kicker accent-size-3 aos-init aos-animate">
             <p>{{ section.settings.right_box_kicker }}</p>
