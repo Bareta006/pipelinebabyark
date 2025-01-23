@@ -150,60 +150,55 @@
         "padding_bottom": 128
       }
     },
-    "section_hero_bfR8QA": {
-      "type": "section-hero",
+    "section_slideshow_jHRLYV": {
+      "type": "section-slideshow",
       "blocks": {
-        "heading_6JCggF": {
-          "type": "heading",
+        "image_PBpaXQ": {
+          "type": "image",
           "settings": {
+            "image": "shopify://shop_images/image.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
             "title": "Features to give you a piece of mind",
-            "text_size": 10
-          }
-        },
-        "text_ateMjK": {
-          "type": "text",
-          "settings": {
             "richtext": "<p>BabyArck’s seat delivers superb safety with side-impact protection and a five-point harness. Its ergonomic design and plush padding ensure a snug, soothing ride.</p>",
-            "text_size": 4
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         },
-        "button_QFq4EE": {
-          "type": "button",
+        "image_QD4aEH": {
+          "type": "image",
           "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "Explore all FEATURES",
-            "link_2": "",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         }
       },
       "block_order": [
-        "heading_6JCggF",
-        "text_ateMjK",
-        "button_QFq4EE"
+        "image_PBpaXQ",
+        "image_QD4aEH"
       ],
       "settings": {
-        "image": "shopify://shop_images/image.png",
+        "autoplay": false,
+        "autoplay_speed": 4,
+        "preload_first_image": false,
         "height": "use_screen_full",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 600,
-        "text_align": "align--middle-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
+        "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
@@ -287,64 +282,11 @@
         "icon_slider_block_3L4kH4"
       ],
       "settings": {
-        "bg": "bg--neutral",
+        "bg": "palette--light bg--neutral",
         "padding_top": 60,
         "padding_bottom": 60,
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
-      }
-    },
-    "section_slideshow_KXjPLB": {
-      "type": "section-slideshow",
-      "blocks": {
-        "image_pCYFLc": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "image_yK6EGe": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "image_pCYFLc",
-        "image_yK6EGe"
-      ],
-      "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "preload_first_image": false,
-        "height": "use_screen_two_thirds",
-        "color_bg": "palette--light bg--neutral",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
       }
     }
   },
@@ -352,9 +294,8 @@
     "hero",
     "section_richtext_nCDz4x",
     "section_richtext_m948Td",
-    "section_hero_bfR8QA",
+    "section_slideshow_jHRLYV",
     "section_hero_Vfa6xC",
-    "icon_slider_text_nzkdyr",
-    "section_slideshow_KXjPLB"
+    "icon_slider_text_nzkdyr"
   ]
 }
