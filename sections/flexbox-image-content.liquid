@@ -1,59 +1,74 @@
 <style>
+  /* Scoped Section Styling */
   #section-{{ section.id }} {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto; /* Set dynamically via Shopify settings */
+    overflow: hidden;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
-    background-color: {{ section.settings.background_color }};
-    width: 100%;
-    position: relative;
   }
 
-  #section-{{ section.id }} .flexbox-content-wrapper {
+  #section-{{ section.id }}.desktop {
+    height: {{ section.settings.section_height }};
+    background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
+  }
+
+  #section-{{ section.id }}.mobile {
+    height: auto; /* Adjusted for mobile layouts */
+    background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
+  }
+
+  /* Two-column flex layout */
+  #section-{{ section.id }} .flex-container {
     display: flex;
     justify-content: space-between;
+    align-items: stretch;
+    height: 100%;
     width: 100%;
-    max-width: 1200px;
-    gap: 20px;
+  }
+
+  #section-{{ section.id }} .flex-column {
+    display: flex;
+    flex: 1;
     position: relative;
+    flex-direction: column;
+    padding: 20px;
   }
 
   #section-{{ section.id }} .content-box {
-    flex: 1 1 auto;
-    padding: 15px;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #section-{{ section.id }} .content-box .kicker {
-    font-size: 14px;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 10px;
+    justify-content: {{ section.settings.box_justify_content }};
+    align-items: {{ section.settings.box_align_items }};
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    text-align: center;
   }
 
   #section-{{ section.id }} .content-box h3 {
-    font-size: 24px;
     margin-bottom: 10px;
+    font-size: 20px;
+    font-weight: bold;
   }
 
   #section-{{ section.id }} .content-box p {
     font-size: 16px;
     margin-bottom: 15px;
-    color: #333;
   }
 
   #section-{{ section.id }} .content-box button {
     padding: 10px 20px;
     border: 2px solid #000;
-    background: none;
+    background: transparent;
     color: #000;
     font-size: 16px;
     border-radius: 5px;
@@ -61,64 +76,81 @@
   }
 
   #section-{{ section.id }} .content-box button:hover {
-    background-color: #000;
+    background: #000;
     color: #fff;
+  }
+
+  /* Mobile Layout */
+  @media (max-width: 768px) {
+    #section-{{ section.id }} .flex-container {
+      flex-direction: column;
+    }
+
+    #section-{{ section.id }} .flex-column {
+      display: none; /* Hide desktop columns */
+    }
+
+    #section-{{ section.id }} .mobile-content-box {
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      text-align: center;
+    }
   }
 </style>
 
-<section id="section-{{ section.id }}" class="flexbox-image-content-section">
-  <!-- Desktop Content -->
-  <div class="flexbox-content-wrapper">
-    <img src="{{ section.settings.desktop_image | img_url: 'master' }}" 
-         alt="{{ section.settings.desktop_alt_text }}" 
-         class="desktop-image">
 
-    <!-- Left Content Box -->
-    <div class="content-box left">
-      {% if section.settings.left_box_kicker != blank %}
-        <div class="kicker">{{ section.settings.left_box_kicker }}</div>
-      {% endif %}
-      {% if section.settings.left_box_title != blank %}
-        <h3>{{ section.settings.left_box_title }}</h3>
-      {% endif %}
-      {% if section.settings.left_box_text != blank %}
-        <p>{{ section.settings.left_box_text }}</p>
-      {% endif %}
-      {% if section.settings.left_box_button_text != blank %}
-        <button>{{ section.settings.left_box_button_text }}</button>
-      {% endif %}
+<section id="section-{{ section.id }}" 
+         class="desktop {{ section.settings.background_position }}">
+  <div class="flex-container">
+    <!-- Left Column -->
+    <div class="flex-column">
+      <div class="content-box">
+        {% if section.settings.left_box_kicker %}
+          <div class="kicker">{{ section.settings.left_box_kicker }}</div>
+        {% endif %}
+        {% if section.settings.left_box_title %}
+          <h3>{{ section.settings.left_box_title }}</h3>
+        {% endif %}
+        {% if section.settings.left_box_text %}
+          <p>{{ section.settings.left_box_text }}</p>
+        {% endif %}
+        {% if section.settings.left_box_button_text %}
+          <button>{{ section.settings.left_box_button_text }}</button>
+        {% endif %}
+      </div>
     </div>
 
-    <!-- Right Content Box -->
-    <div class="content-box right">
-      {% if section.settings.right_box_kicker != blank %}
-        <div class="kicker">{{ section.settings.right_box_kicker }}</div>
-      {% endif %}
-      {% if section.settings.right_box_title != blank %}
-        <h3>{{ section.settings.right_box_title }}</h3>
-      {% endif %}
-      {% if section.settings.right_box_text != blank %}
-        <p>{{ section.settings.right_box_text }}</p>
-      {% endif %}
-      {% if section.settings.right_box_button_text != blank %}
-        <button>{{ section.settings.right_box_button_text }}</button>
-      {% endif %}
+    <!-- Right Column -->
+    <div class="flex-column">
+      <div class="content-box">
+        {% if section.settings.right_box_kicker %}
+          <div class="kicker">{{ section.settings.right_box_kicker }}</div>
+        {% endif %}
+        {% if section.settings.right_box_title %}
+          <h3>{{ section.settings.right_box_title }}</h3>
+        {% endif %}
+        {% if section.settings.right_box_text %}
+          <p>{{ section.settings.right_box_text }}</p>
+        {% endif %}
+        {% if section.settings.right_box_button_text %}
+          <button>{{ section.settings.right_box_button_text }}</button>
+        {% endif %}
+      </div>
     </div>
   </div>
 
-  <!-- Mobile Content -->
-  <img src="{{ section.settings.mobile_image | img_url: 'master' }}" 
-       alt="{{ section.settings.mobile_alt_text }}" 
-       class="mobile-image">
-
+  <!-- Mobile Layout -->
   <div class="mobile-content-box">
-    {% if section.settings.mobile_kicker != blank %}
+    {% if section.settings.mobile_kicker %}
       <div class="kicker">{{ section.settings.mobile_kicker }}</div>
     {% endif %}
-    {% if section.settings.mobile_title != blank %}
+    {% if section.settings.mobile_title %}
       <h3>{{ section.settings.mobile_title }}</h3>
     {% endif %}
-    {% if section.settings.mobile_text != blank %}
+    {% if section.settings.mobile_text %}
       <p>{{ section.settings.mobile_text }}</p>
     {% endif %}
   </div>
@@ -126,102 +158,86 @@
 
 {% schema %}
 {
-  "name": "Flexbox Image Content",
-    "settings": [
+  "name": "Background Image Section",
+  "settings": [
     {
       "type": "image_picker",
       "id": "desktop_image",
-      "label": "Desktop Image"
-    },
-    {
-      "type": "text",
-      "id": "desktop_alt_text",
-      "label": "Desktop Image Alt Text",
-      "default": "Desktop Image"
+      "label": "Desktop Background Image"
     },
     {
       "type": "image_picker",
       "id": "mobile_image",
-      "label": "Mobile Image"
+      "label": "Mobile Background Image"
     },
     {
-      "type": "text",
-      "id": "mobile_alt_text",
-      "label": "Mobile Image Alt Text",
-      "default": "Mobile Image"
+      "type": "select",
+      "id": "section_height",
+      "label": "Section Height",
+      "options": [
+        { "value": "500px", "label": "500px" },
+        { "value": "650px", "label": "650px" },
+        { "value": "750px", "label": "750px" },
+        { "value": "100vh", "label": "Full Screen (100vh)" }
+      ],
+      "default": "750px"
     },
     {
       "type": "text",
       "id": "left_box_kicker",
-      "label": "Left Box Kicker",
-      "default": "Left Kicker"
+      "label": "Left Box Kicker"
     },
     {
       "type": "text",
       "id": "left_box_title",
-      "label": "Left Box Title",
-      "default": "Left Title"
+      "label": "Left Box Title"
     },
     {
       "type": "textarea",
       "id": "left_box_text",
-      "label": "Left Box Text",
-      "default": "Left box content goes here."
+      "label": "Left Box Text"
     },
     {
       "type": "text",
       "id": "left_box_button_text",
-      "label": "Left Box Button Text or HTML",
-      "default": "Learn More"
+      "label": "Left Box Button Text"
     },
     {
       "type": "text",
       "id": "right_box_kicker",
-      "label": "Right Box Kicker",
-      "default": "Right Kicker"
+      "label": "Right Box Kicker"
     },
     {
       "type": "text",
       "id": "right_box_title",
-      "label": "Right Box Title",
-      "default": "Right Title"
+      "label": "Right Box Title"
     },
     {
       "type": "textarea",
       "id": "right_box_text",
-      "label": "Right Box Text",
-      "default": "Right box content goes here."
+      "label": "Right Box Text"
     },
     {
       "type": "text",
       "id": "right_box_button_text",
-      "label": "Right Box Button Text or HTML",
-      "default": "Contact Us"
+      "label": "Right Box Button Text"
     },
     {
       "type": "text",
       "id": "mobile_kicker",
-      "label": "Mobile Kicker",
-      "default": "Mobile Kicker"
+      "label": "Mobile Kicker"
     },
     {
       "type": "text",
       "id": "mobile_title",
-      "label": "Mobile Title",
-      "default": "Mobile Title"
+      "label": "Mobile Title"
     },
     {
       "type": "textarea",
       "id": "mobile_text",
-      "label": "Mobile Text",
-      "default": "Mobile content box content goes here."
+      "label": "Mobile Text"
     },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#ffffff"
-    },
+    
     {
       "type": "range",
       "id": "padding_top",
@@ -241,7 +257,7 @@
   ],
   "presets": [
     {
-      "name": "Flexbox Image Content",
+      "name": "Background Image Section",
       "category": "Custom"
     }
   ]
