@@ -132,6 +132,10 @@
         "text_block_HAiyte",
         "text_block_43WHAX"
       ],
+      "custom_css": [
+        "img {object-fit: contain;}",
+        ".index__column.grid__item {display: flex; flex-direction: column-reverse;}"
+      ],
       "settings": {
         "title": "Locate Traceability Sticker",
         "bg": "palette--light bg--neutral",
