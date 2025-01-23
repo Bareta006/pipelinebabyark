@@ -18,6 +18,15 @@
   text-align: {{ section.settings.text_alignment_desktop }};
   width: 100%;
 }
+#shopify-section-{{ section.id }} .icon-slider-container h3{
+  width: 1000px;
+    min-height: 80px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+#shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block:not(.is-selected){
+  display: none;
+}
 @media (max-width: 768px) {
   #shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
     text-align: {{ section.settings.text_alignment_mobile }};
