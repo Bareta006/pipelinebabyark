@@ -146,7 +146,7 @@
         "wh_ratio": 1.5,
         "grid_large": 3,
         "grid_medium": 3,
-        "grid_mobile": 1.2,
+        "grid_mobile": 1.5,
         "progress_bar_mobile": false,
         "width": "wrapper",
         "padding_top": 36,
