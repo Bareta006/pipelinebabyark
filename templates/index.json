@@ -281,6 +281,9 @@
         "icon_slider_block_UQinBd",
         "icon_slider_block_3L4kH4"
       ],
+      "custom_css": [
+        "h3{width:960px; max-width:100%; margin:0 auto;}"
+      ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
         "padding_top": 60,
