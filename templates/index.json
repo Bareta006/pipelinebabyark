@@ -296,7 +296,7 @@
         "section_height": "750px",
         "desktop_padding_top": 40,
         "desktop_padding_bottom": 40,
-        "desktop_side_padding": 40,
+        "desktop_side_padding": 80,
         "mobile_padding_top": 20,
         "mobile_padding_bottom": 20,
         "mobile_side_padding": 20,
