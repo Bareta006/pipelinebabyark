@@ -292,8 +292,8 @@
     "flexbox_image_content_qzggwp": {
       "type": "flexbox-image-content",
       "settings": {
-        "desktop_image": "shopify://shop_images/image_95123916-acbc-4af6-8ac2-1224353b3ded.png",
-        "section_height": "750px",
+        "desktop_image": "shopify://shop_images/Container.png",
+        "section_height": "100vh",
         "desktop_padding_top": 0,
         "desktop_padding_bottom": 0,
         "desktop_side_padding": 50,
