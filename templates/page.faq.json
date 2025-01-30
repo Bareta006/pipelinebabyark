@@ -416,36 +416,36 @@
         "accordion_block_4_0": {
           "type": "text",
           "settings": {
-            "title": "Do you offer refunds?",
-            "content": "<p>Yes, we offer full and partial refunds.<br/><br/>Please enquire for more information about our Refund policy.</p>"
+            "title": "What's the difference between the Classic and Smart seats? Are they both safe?",
+            "content": "<p>The Classic seat has all of the standard babyark safety features: rigid LATCH, support leg, anti-rebound bar, SafeCoil™ energy absorption system, and the BioArk™ side impact wings. It does not have technology in the base, so it cannot provide app connectivity, visual guidance during installation, forgotten child alerts, or other notifications.</p>"
           }
         },
         "accordion_block_4_1": {
           "type": "text",
           "settings": {
-            "title": "How long after I complete a purchase can I ask for a refund?",
-            "content": "<p>A refund request can be submitted within a month after the purchase is made.</p>"
+            "title": "Are the fabric covers in both seats the same?",
+            "content": "<p>Yes - Both the Classic and Smart seats offer the same high-quality, machine washable, naturally flame-resistant fabrics with magnetic straps for easier loading, a quick-lock chest clip, and zippers for easy removal/replacement.</p>"
           }
         },
         "accordion_block_4_2": {
           "type": "text",
           "settings": {
-            "title": "How much can I get refunded?",
-            "content": "<p>In the case when the <strong>product and packaging are unopened and undamaged</strong>, you are <strong>eligible</strong>for a full refund.<br/><br/>In the case when <strong>the packaging has been opened and the product has been used</strong>, you are <strong>eligible</strong>for a partial refund.<br/><br/>In the case when a <strong>product has been damaged</strong>, and the damage is not covered by your warranty, you are <strong>not eligible</strong>for a refund.<br/><br/>Please check our <a href=\"/policies/terms-of-service\" title=\"Terms of Service\">Terms of Service</a> to see if you're eligible for a refund.</p>"
+            "title": "Will the app be available/useful for the Classic users?",
+            "content": "<p>Yes! For babyark Classic users, the app will still provide important information like an installation guide, instructions for daily use, and information about how to make adjustments to your babyark seat.</p>"
           }
         },
         "accordion_block_4_3": {
           "type": "text",
           "settings": {
-            "title": "Who pays the shipping costs in the case of a refund when the order doesn't have free shipping?",
-            "content": "<p>When an order does not include free shipping, all shipping costs (including the return shipping) are handled by the customer.</p>"
+            "title": "Will it still be able to detect if the seat has been involved in an accident?",
+            "content": "<p>Yes, Classic users will still have a visual cue and will be able to note if the steel coil has been elongated and if the top and bottom shells of the base are no longer aligned (vs the Smart which will have an additional app notification and a circulating red light on the safety LED ring on the smart base).</p>"
           }
         },
-        "accordion_block_4_4": {
+        "text_9HaBA8": {
           "type": "text",
           "settings": {
-            "title": "Who pays the shipping costs in the case of a refund when the order has free shipping?",
-            "content": "<p>When an order includes free shipping, only the cost of the return shipping is handled by the customer.</p>"
+            "title": "Can I buy an additional Classic base for my Smart seat?",
+            "content": "<p>Yes, you can install the Smart seat on Classic bases (without the app connectivity features that are available only in Smart Bases)</p>"
           }
         }
       },
@@ -454,14 +454,132 @@
         "accordion_block_4_1",
         "accordion_block_4_2",
         "accordion_block_4_3",
-        "accordion_block_4_4"
+        "text_9HaBA8"
       ],
       "settings": {
-        "title": "Returns & Refunds",
+        "title": "Classic vs Smart",
         "title_align": "text-left",
-        "title_size": 4,
+        "title_size": 6,
         "heading_size": 5,
-        "text_size": 5,
+        "text_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--narrow",
+        "padding_top": 64,
+        "padding_bottom": 128
+      }
+    },
+    "section_faq_ePgVYN": {
+      "type": "section-faq",
+      "blocks": {
+        "text_PVTVUa": {
+          "type": "text",
+          "settings": {
+            "title": "What does my warranty cover?",
+            "content": "<p>The three-year warranty on your babyark car seat covers all mechanical aspects of the car seat and base, including manufacturing defects and carbon mechanics.<br/>There is also a one-year warranty on all electrical components and soft goods.<br/>Any issues that arise from spilled liquids or improper usage of the car seat or base are not covered under warranty.</p>"
+          }
+        },
+        "text_8iJLJ6": {
+          "type": "text",
+          "settings": {
+            "title": "How do I know if the safety coils have been activated and my babyark needs to be replaced?",
+            "content": "<p>The babyark sensors in the Smart Base will detect whether the SafeCoil™ energy absorption system has been activated. The safety LED ring in the base will show a circulating red light and you will receive a notification on your phone via the babyark app.<br/>There will also be two additional visible cues:<br/>- The SafeCoil will be elongated when viewed through the transparent window in the base.<br/>- The top white/grey shell and bottom black shell of the base will be out of alignment.</p>"
+          }
+        },
+        "text_cKzGj4": {
+          "type": "text",
+          "settings": {
+            "title": "Why doesn’t the babyark car seat expire?",
+            "content": "<p>The babyark car seat doesn’t have an expiration date due to 6 main reasons:<br/>• The no expiration date is only valid with a 10-year complementary checkup (just like a checkup for your car) to make sure it is still working properly.<br/>• Our main structure is based on steel and aluminum, while the outer plastics that are exposed to the sun are only for aesthetic purposes<br/>• Harness – in case the harness has degraded or damaged over time, the harness can be replaced.<br/>• Crash detection – on top of the 5 NHTSA rules for a more than minor crash, we can detect if the babyark seat needs to be replaced due to a crash and notify you via the app. It is also a visual indication (shells of the base are not aligned – meaning the SafeCoil™ has been activated)<br/>• Labels – in case labels have been degraded or peeled off, we offer a labels replacement kit<br/>• Communication – with our app we can notify our customers about any changes and updated in the regulation</p>"
+          }
+        },
+        "text_HMTNrd": {
+          "type": "text",
+          "settings": {
+            "title": "How can I make a warranty claim?",
+            "content": "<p>The easiest way to make a claim is to reach out to our customer service department by email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a> , by phone <a href=\"tel:8889222927\" title=\"tel:18889222927\">1-(888) 922-2927</a> or using the online chat feature on our website.</p>"
+          }
+        },
+        "text_9NMb3M": {
+          "type": "text",
+          "settings": {
+            "title": "How can I know if my babyark hasn't been involved in a car accident?",
+            "content": "<p>babyark has 3 ways to detect crashes:<br/>• Visual indication - The Safe coils will be elongated, and the top and bottom shells will no longer be aligned.<br/>• Electronic light indication - If the crash was severe enough and the seat requires replacement, the safety LED ring in the base will circle in red.<br/>• App alert - If the crash was severe and the seat needs replacement, the babyark app will notify you.<br/><br/>If the babyark car seat did not detect a crash, it can continue to be used as long as it also meets the NHTSA (National Highway Traffic Safety Administration) minor crash guidelines: The vehicle was able to be driven away from the crash site<br/>ii. The vehicle door nearest the car seat was not damaged<br/>iii. None of the passengers in the vehicle sustained any injuries in the crash<br/>iv. If the vehicle has airbags, the airbags did not deploy during the crash<br/>v. There is no visible damage to the car seat<br/>If any of these conditions are not met the car seat must be replaced, even if the babyark seat did not detect a crash.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_PVTVUa",
+        "text_8iJLJ6",
+        "text_cKzGj4",
+        "text_HMTNrd",
+        "text_9NMb3M"
+      ],
+      "settings": {
+        "title": "Warranty",
+        "title_align": "text-left",
+        "title_size": 6,
+        "heading_size": 5,
+        "text_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--narrow",
+        "padding_top": 64,
+        "padding_bottom": 128
+      }
+    },
+    "section_faq_wczD9V": {
+      "type": "section-faq",
+      "blocks": {
+        "text_7hVaaX": {
+          "type": "text",
+          "settings": {
+            "title": "What is the babyark 100-day free trial policy?",
+            "content": "<p>We want to make sure the babyark car seat is the perfect fit for your family. If at any point during the first 100 days after purchase you change your mind, you can send your babyark back. No hassle, no questions asked.</p>"
+          }
+        },
+        "text_mMfRqM": {
+          "type": "text",
+          "settings": {
+            "title": "How do I know if the safety coils have been activated and my babyark needs to be replaced?",
+            "content": "<p>The babyark sensors in the Smart Base will detect whether the SafeCoil™ energy absorption system has been activated. The safety LED ring in the base will show a circulating red light and you will receive a notification on your phone via the babyark app.<br/>There will also be two additional visible cues:<br/>- The SafeCoil will be elongated when viewed through the transparent window in the base.<br/>- The top white/grey shell and bottom black shell of the base will be out of alignment.</p>"
+          }
+        },
+        "text_n6PL4E": {
+          "type": "text",
+          "settings": {
+            "title": "Why doesn’t the babyark car seat expire?",
+            "content": "<p>The babyark car seat doesn’t have an expiration date due to 6 main reasons:<br/>• The no expiration date is only valid with a 10-year complementary checkup (just like a checkup for your car) to make sure it is still working properly.<br/>• Our main structure is based on steel and aluminum, while the outer plastics that are exposed to the sun are only for aesthetic purposes<br/>• Harness – in case the harness has degraded or damaged over time, the harness can be replaced.<br/>• Crash detection – on top of the 5 NHTSA rules for a more than minor crash, we can detect if the babyark seat needs to be replaced due to a crash and notify you via the app. It is also a visual indication (shells of the base are not aligned – meaning the SafeCoil™ has been activated)<br/>• Labels – in case labels have been degraded or peeled off, we offer a labels replacement kit<br/>• Communication – with our app we can notify our customers about any changes and updated in the regulation</p>"
+          }
+        },
+        "text_aYfwWN": {
+          "type": "text",
+          "settings": {
+            "title": "How can I make a warranty claim?",
+            "content": "<p>The easiest way to make a claim is to reach out to our customer service department by email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a> , by phone <a href=\"tel:8889222927\" title=\"tel:18889222927\">1-(888) 922-2927</a> or using the online chat feature on our website.</p>"
+          }
+        },
+        "text_dETwVV": {
+          "type": "text",
+          "settings": {
+            "title": "How can I know if my babyark hasn't been involved in a car accident?",
+            "content": "<p>babyark has 3 ways to detect crashes:<br/>• Visual indication - The Safe coils will be elongated, and the top and bottom shells will no longer be aligned.<br/>• Electronic light indication - If the crash was severe enough and the seat requires replacement, the safety LED ring in the base will circle in red.<br/>• App alert - If the crash was severe and the seat needs replacement, the babyark app will notify you.<br/><br/>If the babyark car seat did not detect a crash, it can continue to be used as long as it also meets the NHTSA (National Highway Traffic Safety Administration) minor crash guidelines: The vehicle was able to be driven away from the crash site<br/>ii. The vehicle door nearest the car seat was not damaged<br/>iii. None of the passengers in the vehicle sustained any injuries in the crash<br/>iv. If the vehicle has airbags, the airbags did not deploy during the crash<br/>v. There is no visible damage to the car seat<br/>If any of these conditions are not met the car seat must be replaced, even if the babyark seat did not detect a crash.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_7hVaaX",
+        "text_mMfRqM",
+        "text_n6PL4E",
+        "text_aYfwWN",
+        "text_dETwVV"
+      ],
+      "settings": {
+        "title": "Shipping & Returns",
+        "title_align": "text-left",
+        "title_size": 6,
+        "heading_size": 5,
+        "text_size": 4,
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
@@ -531,6 +649,8 @@
     "accordion-section-2",
     "accordion-section-3",
     "accordion-section-4",
+    "section_faq_ePgVYN",
+    "section_faq_wczD9V",
     "icons"
   ]
 }
