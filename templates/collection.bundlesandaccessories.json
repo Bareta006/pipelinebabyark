@@ -11,18 +11,57 @@
   "sections": {
     "hero": {
       "type": "collection-hero",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "text_align": "align--middle-center",
+        "show_title": true,
+        "show_title_below": false,
+        "show_description": true,
+        "show_description_below": false,
+        "color_bg": "palette--light bg--neutral",
+        "show_image": true,
+        "bg_position": "center-center",
+        "image_height": "use_screen_one_third",
+        "overlay_opacity": 20,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "text_color": "text--white",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "width_text": "wrapper",
+        "padding_top_text": 36,
+        "padding_bottom_text": 0
+      }
     },
     "subcollections": {
       "type": "collection-sub",
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "subcollections": [],
+        "limit": 6,
+        "color_bg": "palette--light bg--neutral",
+        "text_color": "text--white",
+        "text_align": "align--middle-center",
+        "select_image": "collection",
+        "bg_position": "center-center",
+        "wh_ratio": 1.7,
+        "overlay_opacity": 20,
+        "overlay_color": "#000",
+        "grid_mobile": 1.2,
+        "width": "wrapper",
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
     },
     "main": {
       "type": "collection",
       "blocks": {
         "collections": {
           "type": "collections",
-          "settings": {}
+          "settings": {
+            "title": "All collections"
+          }
         },
         "filters": {
           "type": "filters",
@@ -33,12 +72,87 @@
         "collections",
         "filters"
       ],
-      "settings": {}
+      "disabled": true,
+      "settings": {
+        "product_limit": 36,
+        "grid_large": 3,
+        "grid_mobile": "2",
+        "enable_layout_toggle": true,
+        "color_bg": "palette--light bg--neutral",
+        "collection_sorting": true,
+        "hide_sidebar": false,
+        "collapse_filters": false,
+        "show_products_count": true,
+        "width": "wrapper",
+        "padding_top": 20,
+        "padding_bottom": 64
+      }
+    },
+    "section_hero_77iTgn": {
+      "type": "section-hero",
+      "blocks": {
+        "kicker_qeMwK7": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "Safe, Smart and Beautiful",
+            "enable_line": false,
+            "text_size": 4
+          }
+        },
+        "heading_6nQttF": {
+          "type": "heading",
+          "settings": {
+            "title": "Bundles & Accessories",
+            "text_size": 10
+          }
+        },
+        "button_tRbMmK": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "SEE IT IN ACTION",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "SHOP NOW",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn--outline",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "kicker_qeMwK7",
+        "heading_6nQttF",
+        "button_tRbMmK"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/image_340.png",
+        "height": "use_screen_full",
+        "overlay_opacity": 0,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "hero",
     "subcollections",
-    "main"
+    "main",
+    "section_hero_77iTgn"
   ]
 }

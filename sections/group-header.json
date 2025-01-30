@@ -133,7 +133,7 @@
         "cart_icon": "cart",
         "header_sticky": "sticky",
         "transparent_home": true,
-        "transparent_collection": false,
+        "transparent_collection": true,
         "transparent_blog": false,
         "transparent_article": false,
         "transparent_page": false,
