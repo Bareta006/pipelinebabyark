@@ -313,7 +313,8 @@
         "icon_slider_block_3L4kH4"
       ],
       "custom_css": [
-        "{border: 15px solid #fff;}"
+        "{border: 15px solid #fff;}",
+        ".icon-slider-container{border-radius:40px;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
