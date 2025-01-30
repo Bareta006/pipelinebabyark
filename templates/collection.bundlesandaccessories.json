@@ -132,6 +132,9 @@
         "heading_6nQttF",
         "button_tRbMmK"
       ],
+      "custom_css": [
+        ".text__standard {width: 480px; max-width: 100%;}"
+      ],
       "settings": {
         "image": "shopify://shop_images/image_340.png",
         "height": "use_screen_full",
