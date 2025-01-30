@@ -365,7 +365,7 @@
         "align_text": "text-center",
         "width": "wrapper",
         "padding_top": 50,
-        "padding_bottom": 36
+        "padding_bottom": 50
       }
     },
     "173824262189ac1f13": {
@@ -386,6 +386,23 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_newsletter_mVpNcT": {
+      "type": "section-newsletter",
+      "custom_css": [
+        ".section-newsletter {background-color: #f1f1f1;}",
+        ".kicker-flourished:after {display: none;}",
+        "h2 {font-size: 60px; font-weight: 500; line-height: 1; letter-spacing: -3.6px; padding-bottom:0;}",
+        "p {width: 470px; margin: 0 auto 20px; max-width: 100%;}"
+      ],
+      "settings": {
+        "title": "Join the Babyark",
+        "richtext": "<p>Stay updated on the latest Babyark News, exclusive offers and exciting news. Join our newsletter today!</p>",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -397,6 +414,7 @@
     "section_richtext_WJCppL",
     "17382369213956607f",
     "section_icons_W8cw7D",
-    "173824262189ac1f13"
+    "173824262189ac1f13",
+    "section_newsletter_mVpNcT"
   ]
 }
