@@ -9,6 +9,42 @@
  */
 {
   "sections": {
+    "section_slideshow_JVrK3A": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_heCqCd": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Picture_clothes-spr21-51_97fa03cf-5481-420d-abb6-3e85014d47aa_jpg.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "The World’s Most Premium Car Seat",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "image_heCqCd"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 4,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "hero": {
       "type": "section-hero",
       "blocks": {
@@ -243,6 +279,43 @@
         "padding_bottom": 0
       }
     },
+    "icon_slider_text_nzkdyr": {
+      "type": "icon-slider-text",
+      "blocks": {
+        "icon_slider_block_UQinBd": {
+          "type": "icon_slider_block",
+          "settings": {
+            "image": "shopify://shop_images/image_292.png",
+            "title": "\"A babyark combines natural forms with high-tech materials, including lightweight plastics and carbon fiber.\"",
+            "description": "",
+            "link": ""
+          }
+        },
+        "icon_slider_block_3L4kH4": {
+          "type": "icon_slider_block",
+          "settings": {
+            "image": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
+            "title": "title",
+            "description": "description",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_slider_block_UQinBd",
+        "icon_slider_block_3L4kH4"
+      ],
+      "custom_css": [
+        "{border: 40px solid #fff;}"
+      ],
+      "settings": {
+        "bg": "palette--dark bg--invert--accent",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "text_alignment_desktop": "center",
+        "text_alignment_mobile": "center"
+      }
+    },
     "section_hero_Vfa6xC": {
       "type": "section-hero",
       "blocks": {
@@ -293,46 +366,10 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
-    },
-    "icon_slider_text_nzkdyr": {
-      "type": "icon-slider-text",
-      "blocks": {
-        "icon_slider_block_UQinBd": {
-          "type": "icon_slider_block",
-          "settings": {
-            "image": "shopify://shop_images/image_292.png",
-            "title": "\"A babyark combines natural forms with high-tech materials, including lightweight plastics and carbon fiber.\"",
-            "description": "",
-            "link": ""
-          }
-        },
-        "icon_slider_block_3L4kH4": {
-          "type": "icon_slider_block",
-          "settings": {
-            "image": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
-            "title": "title",
-            "description": "description",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_slider_block_UQinBd",
-        "icon_slider_block_3L4kH4"
-      ],
-      "custom_css": [
-        "{border: 40px solid #fff;}"
-      ],
-      "settings": {
-        "bg": "palette--dark bg--invert--accent",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "text_alignment_desktop": "center",
-        "text_alignment_mobile": "center"
-      }
     }
   },
   "order": [
+    "section_slideshow_JVrK3A",
     "hero",
     "section_richtext_nCDz4x",
     "flexbox_image_content_qzggwp",
