@@ -105,7 +105,7 @@
     "flexbox_image_content_PqTF8w": {
       "type": "flexbox-image-content",
       "settings": {
-        "desktop_image": "shopify://shop_images/image_9c340b05-e67a-471c-a01b-19fb6785b0e4.png",
+        "desktop_image": "shopify://shop_images/image_3a906b70-a9f2-4fb5-bf13-5f071f8ac416.png",
         "section_height": "100vh",
         "desktop_padding_top": 40,
         "desktop_padding_bottom": 40,
@@ -117,7 +117,7 @@
         "right_box_text_color": "#000000",
         "mobile_text_color": "#000000",
         "left_box_kicker": "Explore all specs",
-        "left_box_title": "Shop Premium",
+        "left_box_title": "Shop Classic",
         "left_box_text": "",
         "left_box_button_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"13\" viewbox=\"0 0 15 13\" fill=\"none\">\n  <g clip-path=\"url(#clip0_446_5963)\">\n    <path d=\"M14.4917 6.85141L9.42922 11.9139C9.32367 12.0194 9.18052 12.0787 9.03125 12.0787C8.88198 12.0787 8.73883 12.0194 8.63328 11.9139C8.52773 11.8083 8.46844 11.6652 8.46844 11.5159C8.46844 11.3666 8.52773 11.2235 8.63328 11.1179L12.736 7.01594H1.71875C1.56957 7.01594 1.42649 6.95667 1.321 6.85118C1.21551 6.7457 1.15625 6.60262 1.15625 6.45344C1.15625 6.30425 1.21551 6.16118 1.321 6.05569C1.42649 5.9502 1.56957 5.89094 1.71875 5.89094H12.736L8.63328 1.78891C8.52773 1.68336 8.46844 1.5402 8.46844 1.39094C8.46844 1.24167 8.52773 1.09852 8.63328 0.992969C8.73883 0.887421 8.88198 0.828125 9.03125 0.828125C9.18052 0.828125 9.32367 0.887421 9.42922 0.992969L14.4917 6.05547C14.5441 6.10771 14.5855 6.16975 14.6138 6.23803C14.6421 6.30632 14.6566 6.37952 14.6566 6.45344C14.6566 6.52736 14.6421 6.60055 14.6138 6.66884C14.5855 6.73713 14.5441 6.79916 14.4917 6.85141Z\" fill=\"white\"></path>\n  </g>\n  <defs>\n    <clippath id=\"clip0_446_5963\">\n      <rect width=\"14\" height=\"12\" fill=\"white\" transform=\"translate(0.90625 0.453125)\"></rect>\n    </clippath>\n  </defs>\n</svg>",
         "left_box_button_link": "",
