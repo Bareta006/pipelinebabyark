@@ -199,7 +199,7 @@
         "desktop_image": "shopify://shop_images/Container.png",
         "section_height": "100vh",
         "desktop_padding_top": 0,
-        "desktop_padding_bottom": 100,
+        "desktop_padding_bottom": 79,
         "desktop_side_padding": 50,
         "mobile_padding_top": 20,
         "mobile_padding_bottom": 20,
