@@ -289,7 +289,7 @@
       ],
       "settings": {
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
