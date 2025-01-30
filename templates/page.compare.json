@@ -213,7 +213,9 @@
         "icon_block_pkbVGJ"
       ],
       "custom_css": [
-        "> div {background-color: #d5d5d5;}"
+        "> div {background-color: #d5d5d5;}",
+        ".grid__item {width: 20%;}",
+        ".clearfix{display:none;}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
