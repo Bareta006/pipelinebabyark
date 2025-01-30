@@ -67,72 +67,130 @@
         "padding_bottom": 0
       }
     },
-    "hero": {
-      "type": "section-hero",
+    "section_logos_xgKGpE": {
+      "type": "section-logos",
       "blocks": {
-        "banner-kicker": {
-          "type": "kicker",
+        "logo_image_UQwYFz": {
+          "type": "logo_image",
           "settings": {
-            "kicker": "Safe, Smart and Beautiful",
-            "enable_line": false,
-            "text_size": 3
+            "image": "shopify://shop_images/Group_29613069.png",
+            "link": "",
+            "new_tab": true,
+            "width": 90,
+            "spacing": 50
           }
         },
-        "banner-heading": {
-          "type": "heading",
+        "logo_image_fJr9Uh": {
+          "type": "logo_image",
           "settings": {
-            "title": "The World’s Most Premium Car Seat",
-            "text_size": 11
+            "image": "shopify://shop_images/Group_29613065.png",
+            "link": "",
+            "new_tab": true,
+            "width": 170,
+            "spacing": 50
           }
         },
-        "banner-text": {
-          "type": "text",
+        "logo_image_HEx9Cd": {
+          "type": "logo_image",
           "settings": {
-            "richtext": "",
-            "text_size": 1
+            "image": "shopify://shop_images/Group_29613067.png",
+            "link": "",
+            "new_tab": true,
+            "width": 95,
+            "spacing": 50
           }
         },
-        "banner-button": {
-          "type": "button",
+        "logo_image_JLYEXF": {
+          "type": "logo_image",
           "settings": {
-            "link_text_1": "SEE IT ACTION",
-            "link_1": "shopify://collections/all",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "BUY",
-            "link_2": "shopify://pages/contact",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "image": "shopify://shop_images/Group_4.png",
+            "link": "",
+            "new_tab": true,
+            "width": 130,
+            "spacing": 50
+          }
+        },
+        "logo_image_8afMKF": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613066.png",
+            "link": "",
+            "new_tab": true,
+            "width": 110,
+            "spacing": 50
+          }
+        },
+        "logo_image_wfNfBd": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613070.png",
+            "link": "",
+            "new_tab": true,
+            "width": 120,
+            "spacing": 50
+          }
+        },
+        "logo_image_eMzEtT": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613071.png",
+            "link": "",
+            "new_tab": true,
+            "width": 100,
+            "spacing": 50
+          }
+        },
+        "logo_image_j9bLym": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/image_377.png",
+            "link": "",
+            "new_tab": true,
+            "width": 175,
+            "spacing": 50
+          }
+        },
+        "logo_image_KzTmQ7": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613072.png",
+            "link": "",
+            "new_tab": true,
+            "width": 60,
+            "spacing": 50
+          }
+        },
+        "logo_image_mUgAVr": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/image_378.png",
+            "link": "",
+            "new_tab": true,
+            "width": 75,
+            "spacing": 50
           }
         }
       },
       "block_order": [
-        "banner-kicker",
-        "banner-heading",
-        "banner-text",
-        "banner-button"
+        "logo_image_UQwYFz",
+        "logo_image_fJr9Uh",
+        "logo_image_HEx9Cd",
+        "logo_image_JLYEXF",
+        "logo_image_8afMKF",
+        "logo_image_wfNfBd",
+        "logo_image_eMzEtT",
+        "logo_image_j9bLym",
+        "logo_image_KzTmQ7",
+        "logo_image_mUgAVr"
       ],
       "settings": {
-        "image": "shopify://shop_images/Picture_clothes-spr21-51_97fa03cf-5481-420d-abb6-3e85014d47aa_jpg.png",
-        "height": "use_screen_full",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": true,
-        "content_width": 700,
-        "text_align": "align--middle-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "enable_marquee": true,
+        "marquee_speed": 30,
         "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "section_richtext_nCDz4x": {
@@ -392,7 +450,7 @@
   },
   "order": [
     "section_slideshow_JVrK3A",
-    "hero",
+    "section_logos_xgKGpE",
     "section_richtext_nCDz4x",
     "flexbox_image_content_qzggwp",
     "section_richtext_m948Td",
