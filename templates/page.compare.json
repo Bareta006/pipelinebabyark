@@ -214,7 +214,7 @@
       ],
       "custom_css": [
         "> div {background-color: #d5d5d5;}",
-        ".kicker-flourished:after{display:none;}",
+        ".kicker-flourished:after {display: none;}",
         "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; }}"
       ],
       "settings": {
@@ -228,6 +228,46 @@
         "padding_top": 180,
         "padding_bottom": 70
       }
+    },
+    "section_richtext_WJCppL": {
+      "type": "section-richtext",
+      "blocks": {
+        "button_cmbwie": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Explore Babyark",
+            "link_1": "shopify://collections/all",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn--outline",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "button_cmbwie"
+      ],
+      "custom_css": [
+        "> section {background-color: #d5d5d5;}"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -235,6 +275,7 @@
     "section_slideshow_VrgPDy",
     "flexbox_image_content_MnpxaF",
     "flexbox_image_content_PqTF8w",
-    "section_icons_rJb3FF"
+    "section_icons_rJb3FF",
+    "section_richtext_WJCppL"
   ]
 }
