@@ -140,12 +140,68 @@
         "mobile_box_vertical_align": "center",
         "mobile_box_text_align": "center"
       }
+    },
+    "section_icons_rJb3FF": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_TYAXh9": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/Group_34860.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>Crash tested - FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_j4nqcR": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_color": "#AAAAAA",
+            "title": "Worldwide shipping",
+            "text": "<p>Ship anywhere, rates available at checkout.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_DXmqrr": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_color": "#AAAAAA",
+            "title": "24/7 support",
+            "text": "<p>Call us anytime at 1(800) 555-1234.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_TYAXh9",
+        "icon_block_j4nqcR",
+        "icon_block_DXmqrr"
+      ],
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 80,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "section_slideshow_VrgPDy",
     "flexbox_image_content_MnpxaF",
-    "flexbox_image_content_PqTF8w"
+    "flexbox_image_content_PqTF8w",
+    "section_icons_rJb3FF"
   ]
 }
