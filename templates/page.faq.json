@@ -541,29 +541,43 @@
         "text_mMfRqM": {
           "type": "text",
           "settings": {
-            "title": "How do I know if the safety coils have been activated and my babyark needs to be replaced?",
-            "content": "<p>The babyark sensors in the Smart Base will detect whether the SafeCoil™ energy absorption system has been activated. The safety LED ring in the base will show a circulating red light and you will receive a notification on your phone via the babyark app.<br/>There will also be two additional visible cues:<br/>- The SafeCoil will be elongated when viewed through the transparent window in the base.<br/>- The top white/grey shell and bottom black shell of the base will be out of alignment.</p>"
+            "title": "How soon will I receive my order?",
+            "content": "<p>Your babyark car seat will be shipped 1-2 business days after you place your order. Standard shipping takes 3-5 business days and express shipping takes 1-2 business days. You will receive tracking details once your order has been shipped.</p>"
           }
         },
         "text_n6PL4E": {
           "type": "text",
           "settings": {
-            "title": "Why doesn’t the babyark car seat expire?",
-            "content": "<p>The babyark car seat doesn’t have an expiration date due to 6 main reasons:<br/>• The no expiration date is only valid with a 10-year complementary checkup (just like a checkup for your car) to make sure it is still working properly.<br/>• Our main structure is based on steel and aluminum, while the outer plastics that are exposed to the sun are only for aesthetic purposes<br/>• Harness – in case the harness has degraded or damaged over time, the harness can be replaced.<br/>• Crash detection – on top of the 5 NHTSA rules for a more than minor crash, we can detect if the babyark seat needs to be replaced due to a crash and notify you via the app. It is also a visual indication (shells of the base are not aligned – meaning the SafeCoil™ has been activated)<br/>• Labels – in case labels have been degraded or peeled off, we offer a labels replacement kit<br/>• Communication – with our app we can notify our customers about any changes and updated in the regulation</p>"
+            "title": "Do you ship to my city?",
+            "content": "<p>Currently, we only ship to the contiguous United States (excluding Hawaii, Alaska, and Puerto Rico). If you are located outside of the US and would like to be notified when we start shipping to your city, please contact us at <a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>"
           }
         },
         "text_aYfwWN": {
           "type": "text",
           "settings": {
-            "title": "How can I make a warranty claim?",
-            "content": "<p>The easiest way to make a claim is to reach out to our customer service department by email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a> , by phone <a href=\"tel:8889222927\" title=\"tel:18889222927\">1-(888) 922-2927</a> or using the online chat feature on our website.</p>"
+            "title": " Can I exchange my seat for a different one?",
+            "content": "<p>Yes, exchanges are treated as a return and repurchase process. Here’s how it works:</p><p><strong>Initiate a Return</strong>: Start the return process for your original purchase by contacting us at <a href=\"mailto:contact@babyark.com\"><span style=\"text-decoration:underline\">contact@babyark.com</span></a> within 100 days of delivery.</p><p><strong>Place a New Order</strong>: Order the replacement item you want directly through our website.</p>"
           }
         },
         "text_dETwVV": {
           "type": "text",
           "settings": {
-            "title": "How can I know if my babyark hasn't been involved in a car accident?",
-            "content": "<p>babyark has 3 ways to detect crashes:<br/>• Visual indication - The Safe coils will be elongated, and the top and bottom shells will no longer be aligned.<br/>• Electronic light indication - If the crash was severe enough and the seat requires replacement, the safety LED ring in the base will circle in red.<br/>• App alert - If the crash was severe and the seat needs replacement, the babyark app will notify you.<br/><br/>If the babyark car seat did not detect a crash, it can continue to be used as long as it also meets the NHTSA (National Highway Traffic Safety Administration) minor crash guidelines: The vehicle was able to be driven away from the crash site<br/>ii. The vehicle door nearest the car seat was not damaged<br/>iii. None of the passengers in the vehicle sustained any injuries in the crash<br/>iv. If the vehicle has airbags, the airbags did not deploy during the crash<br/>v. There is no visible damage to the car seat<br/>If any of these conditions are not met the car seat must be replaced, even if the babyark seat did not detect a crash.</p>"
+            "title": "Will my 100-day trial transfer to the replacement seat?",
+            "content": "<p>Yes! When you purchase a replacement seat as part of an exchange, the 100-day trial will restart for the new seat from the date it is delivered.</p>"
+          }
+        },
+        "text_VMfiCi": {
+          "type": "text",
+          "settings": {
+            "title": "Are there any fees for exchanges or returns?",
+            "content": "<p>Customers are responsible for return shipping costs.</p>"
+          }
+        },
+        "text_fHRgFX": {
+          "type": "text",
+          "settings": {
+            "title": "Can I exchange a seat that has been used?",
+            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p>"
           }
         }
       },
@@ -572,10 +586,87 @@
         "text_mMfRqM",
         "text_n6PL4E",
         "text_aYfwWN",
-        "text_dETwVV"
+        "text_dETwVV",
+        "text_VMfiCi",
+        "text_fHRgFX"
       ],
       "settings": {
         "title": "Shipping & Returns",
+        "title_align": "text-left",
+        "title_size": 6,
+        "heading_size": 5,
+        "text_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--narrow",
+        "padding_top": 64,
+        "padding_bottom": 128
+      }
+    },
+    "section_faq_QdTxQH": {
+      "type": "section-faq",
+      "blocks": {
+        "text_7e39YT": {
+          "type": "text",
+          "settings": {
+            "title": "Can I pay off my purchase early?",
+            "content": "<p>Yes! There’s no penalty for paying early.</p>"
+          }
+        },
+        "text_QRAAT9": {
+          "type": "text",
+          "settings": {
+            "title": "How do I make my payments?",
+            "content": "<p>You can make or schedule payments at affirm.com or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p>"
+          }
+        },
+        "text_pNKG98": {
+          "type": "text",
+          "settings": {
+            "title": "Can I return an item I bought with Affirm?",
+            "content": "<p>Yes—you can return an item you bought with Affirm by initiating the return process with the store.</p>"
+          }
+        },
+        "text_gVqXWy": {
+          "type": "text",
+          "settings": {
+            "title": "Does checking my eligibility affect my credit score?",
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
+          }
+        },
+        "text_mJArLY": {
+          "type": "text",
+          "settings": {
+            "title": "Does checking my eligibility affect my credit score?",
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
+          }
+        },
+        "text_qY7dar": {
+          "type": "text",
+          "settings": {
+            "title": "Where can I learn more about Affirm?",
+            "content": "<p>You can visit their website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com</a>.</p>"
+          }
+        },
+        "text_kwHcHt": {
+          "type": "text",
+          "settings": {
+            "title": "Can I exchange a seat that has been used?",
+            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_7e39YT",
+        "text_QRAAT9",
+        "text_pNKG98",
+        "text_gVqXWy",
+        "text_mJArLY",
+        "text_qY7dar",
+        "text_kwHcHt"
+      ],
+      "settings": {
+        "title": "Affirm FAQs",
         "title_align": "text-left",
         "title_size": 6,
         "heading_size": 5,
@@ -651,6 +742,7 @@
     "accordion-section-4",
     "section_faq_ePgVYN",
     "section_faq_wczD9V",
+    "section_faq_QdTxQH",
     "icons"
   ]
 }
