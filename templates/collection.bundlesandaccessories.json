@@ -343,7 +343,7 @@
     "section_collection_slider_ecwqWf": {
       "type": "section-collection-slider",
       "settings": {
-        "collection": "",
+        "collection": "accessories",
         "product_limit": 12,
         "title": "You may be interested",
         "align_text": "title-left",
