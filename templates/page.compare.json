@@ -294,6 +294,98 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_icons_W8cw7D": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_jaQkDV": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment",
+            "icon_alt": "shopify://shop_images/SVG.svg",
+            "icon_color": "#ffffff",
+            "title": "Express delivery",
+            "text": "<p>DHL express delivery worldwide</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_gmMNq9": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/SVG_1.svg",
+            "icon_color": "#ffffff",
+            "title": "Free returns",
+            "text": "<p>Free return for 30 days for any order delivered in France</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_9K9QVB": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG_2.svg",
+            "icon_color": "#ffffff",
+            "title": "Available customer service",
+            "text": "<p>Available via Whatsapp on +33123456789</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_89pL6d": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG_3.svg",
+            "icon_color": "#AAAAAA",
+            "title": "Payment in 3x",
+            "text": "<p>Take advantage of a payment in 3x without fees from $100 of purchase</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_jaQkDV",
+        "icon_block_gmMNq9",
+        "icon_block_9K9QVB",
+        "icon_block_89pL6d"
+      ],
+      "custom_css": [
+        "p {color: #fff;}"
+      ],
+      "settings": {
+        "title": "",
+        "bg": "palette--dark bg--invert--accent",
+        "icons_size": 24,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "173824262189ac1f13": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_all_reviews_page_DwdrWV": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_all_reviews_page_DwdrWV"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -303,6 +395,8 @@
     "flexbox_image_content_PqTF8w",
     "section_icons_rJb3FF",
     "section_richtext_WJCppL",
-    "17382369213956607f"
+    "17382369213956607f",
+    "section_icons_W8cw7D",
+    "173824262189ac1f13"
   ]
 }
