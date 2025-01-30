@@ -34,6 +34,9 @@
       "block_order": [
         "image_heCqCd"
       ],
+      "custom_css": [
+        ".hero__content{width:640px; max-width:100%;}"
+      ],
       "settings": {
         "autoplay": false,
         "autoplay_speed": 4,
