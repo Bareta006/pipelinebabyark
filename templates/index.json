@@ -286,54 +286,6 @@
         "padding_bottom": 0
       }
     },
-    "section_richtext_m948Td": {
-      "type": "section-richtext",
-      "blocks": {
-        "heading_TYYiNC": {
-          "type": "heading",
-          "settings": {
-            "heading": "A new standard of Safety",
-            "text_size": 10
-          }
-        },
-        "button_8fXjKp": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SEE IT ACTION",
-            "link_2": "",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_TYYiNC",
-        "button_8fXjKp"
-      ],
-      "custom_css": [
-        "{border: 30px solid #fff;}"
-      ],
-      "settings": {
-        "align_text": "text-center",
-        "text_color": "text--white",
-        "bg": "palette--dark bg--invert--accent",
-        "content_width": 2000,
-        "width": "wrapper--full",
-        "padding_top": 128,
-        "padding_bottom": 128
-      }
-    },
     "icon_slider_text_nzkdyr": {
       "type": "icon-slider-text",
       "blocks": {
@@ -361,7 +313,7 @@
         "icon_slider_block_3L4kH4"
       ],
       "custom_css": [
-        "{border: 40px solid #fff;}"
+        "{border: 15px solid #fff;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
@@ -428,7 +380,6 @@
     "section_logos_xgKGpE",
     "flexbox_image_content_qzggwp",
     "section_slideshow_jHRLYV",
-    "section_richtext_m948Td",
     "icon_slider_text_nzkdyr",
     "section_hero_Vfa6xC"
   ]
