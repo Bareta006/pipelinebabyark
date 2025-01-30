@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -26,139 +27,125 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_tCdKie": {
-      "type": "section-richtext",
+    "section_slideshow_VrgPDy": {
+      "type": "section-slideshow",
       "blocks": {
-        "text_XGVLFP": {
-          "type": "text",
+        "image_VMgjhY": {
+          "type": "image",
           "settings": {
-            "text": "<p>For your child's continued safety. Although child restraint systems undergo testing and evaluation, it is possible that a child restraint could be recalled.<br/><br/>In case of a recall, we can reach you only if we have your name and address, so please fill in the registration form to be on our recall list.<br/><br/>In order to properly register your child restraint system, you will need to provide the model number, serial number and date of manufacture. This information is printed on the registration card and can also be found on a white label located on the back of the child restraint system.<br/><br/>For help on where to locate the information about your product, see the image below.</p><p><em>By clicking the \"Register\" button below I agree to the processing of my personal information as described in the </em><a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\"><span style=\"text-decoration:underline\"><em>Privacy Policy</em></span></a></p>",
-            "text_size": 4,
-            "text_columns": 1
+            "image": "shopify://shop_images/image_10_2e73fbe8-a874-4f51-90b7-8bc79adc25c8.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "360° protection - 13 safety patents",
+            "title": "Same standard of safety. Different type of experience.",
+            "richtext": "",
+            "text_align": "align--bottom-center",
+            "text_color": "text--white",
+            "link_text": "See it in action",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         }
       },
       "block_order": [
-        "text_XGVLFP"
+        "image_VMgjhY"
       ],
       "settings": {
-        "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "content_width": 2000,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
-    "1737642332f8ed41e1": {
-      "type": "apps",
-      "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
-          "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MzE0NTU=\"></div>"
-          }
-        }
-      },
-      "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
-      ],
+    "flexbox_image_content_MnpxaF": {
+      "type": "flexbox-image-content",
       "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "desktop_image": "shopify://shop_images/image_9c340b05-e67a-471c-a01b-19fb6785b0e4.png",
+        "section_height": "100vh",
+        "desktop_padding_top": 40,
+        "desktop_padding_bottom": 40,
+        "desktop_side_padding": 40,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "mobile_side_padding": 20,
+        "left_box_text_color": "#ffffff",
+        "right_box_text_color": "#000000",
+        "mobile_text_color": "#000000",
+        "left_box_kicker": "Explore all specs",
+        "left_box_title": "Shop Premium",
+        "left_box_text": "",
+        "left_box_button_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"13\" viewbox=\"0 0 15 13\" fill=\"none\">\n  <g clip-path=\"url(#clip0_446_5963)\">\n    <path d=\"M14.4917 6.85141L9.42922 11.9139C9.32367 12.0194 9.18052 12.0787 9.03125 12.0787C8.88198 12.0787 8.73883 12.0194 8.63328 11.9139C8.52773 11.8083 8.46844 11.6652 8.46844 11.5159C8.46844 11.3666 8.52773 11.2235 8.63328 11.1179L12.736 7.01594H1.71875C1.56957 7.01594 1.42649 6.95667 1.321 6.85118C1.21551 6.7457 1.15625 6.60262 1.15625 6.45344C1.15625 6.30425 1.21551 6.16118 1.321 6.05569C1.42649 5.9502 1.56957 5.89094 1.71875 5.89094H12.736L8.63328 1.78891C8.52773 1.68336 8.46844 1.5402 8.46844 1.39094C8.46844 1.24167 8.52773 1.09852 8.63328 0.992969C8.73883 0.887421 8.88198 0.828125 9.03125 0.828125C9.18052 0.828125 9.32367 0.887421 9.42922 0.992969L14.4917 6.05547C14.5441 6.10771 14.5855 6.16975 14.6138 6.23803C14.6421 6.30632 14.6566 6.37952 14.6566 6.45344C14.6566 6.52736 14.6421 6.60055 14.6138 6.66884C14.5855 6.73713 14.5441 6.79916 14.4917 6.85141Z\" fill=\"white\"></path>\n  </g>\n  <defs>\n    <clippath id=\"clip0_446_5963\">\n      <rect width=\"14\" height=\"12\" fill=\"white\" transform=\"translate(0.90625 0.453125)\"></rect>\n    </clippath>\n  </defs>\n</svg>",
+        "left_box_button_link": "",
+        "right_box_kicker": "",
+        "right_box_title": "",
+        "right_box_text": "",
+        "right_box_button_html": "",
+        "right_box_button_link": "",
+        "mobile_kicker": "",
+        "mobile_title": "",
+        "mobile_text": "",
+        "mobile_button_html": "",
+        "mobile_button_link": "",
+        "left_box_justify": "flex-start",
+        "left_box_align": "flex-end",
+        "left_box_text_align": "left",
+        "right_box_justify": "center",
+        "right_box_align": "center",
+        "right_box_text_align": "center",
+        "mobile_box_vertical_align": "center",
+        "mobile_box_text_align": "center"
       }
     },
-    "section_columns_PNUBaq": {
-      "type": "section-columns",
-      "blocks": {
-        "text_block_Lqreek": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_789.png",
-            "shape_class": "",
-            "title": "Sticker Anatomy",
-            "text": "<ol><li>Model number</li><li>Serial number</li><li>Date of manufacture</li></ol>",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_HAiyte": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_788.png",
-            "shape_class": "",
-            "title": "Car Seat",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_43WHAX": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_786.png",
-            "shape_class": "",
-            "title": "Base",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        }
-      },
-      "block_order": [
-        "text_block_Lqreek",
-        "text_block_HAiyte",
-        "text_block_43WHAX"
-      ],
-      "custom_css": [
-        "img {object-fit: contain;}",
-        ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
-        ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}",
-        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
-      ],
+    "flexbox_image_content_PqTF8w": {
+      "type": "flexbox-image-content",
       "settings": {
-        "title": "Locate Traceability Sticker",
-        "bg": "palette--light bg--neutral",
-        "align_text": "text-center",
-        "scale_image": true,
-        "wh_ratio": 1.5,
-        "grid_large": 3,
-        "grid_medium": 3,
-        "grid_mobile": 1,
-        "progress_bar_mobile": false,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "desktop_image": "shopify://shop_images/image_9c340b05-e67a-471c-a01b-19fb6785b0e4.png",
+        "section_height": "100vh",
+        "desktop_padding_top": 40,
+        "desktop_padding_bottom": 40,
+        "desktop_side_padding": 40,
+        "mobile_padding_top": 20,
+        "mobile_padding_bottom": 20,
+        "mobile_side_padding": 20,
+        "left_box_text_color": "#ffffff",
+        "right_box_text_color": "#000000",
+        "mobile_text_color": "#000000",
+        "left_box_kicker": "Explore all specs",
+        "left_box_title": "Shop Premium",
+        "left_box_text": "",
+        "left_box_button_html": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"15\" height=\"13\" viewbox=\"0 0 15 13\" fill=\"none\">\n  <g clip-path=\"url(#clip0_446_5963)\">\n    <path d=\"M14.4917 6.85141L9.42922 11.9139C9.32367 12.0194 9.18052 12.0787 9.03125 12.0787C8.88198 12.0787 8.73883 12.0194 8.63328 11.9139C8.52773 11.8083 8.46844 11.6652 8.46844 11.5159C8.46844 11.3666 8.52773 11.2235 8.63328 11.1179L12.736 7.01594H1.71875C1.56957 7.01594 1.42649 6.95667 1.321 6.85118C1.21551 6.7457 1.15625 6.60262 1.15625 6.45344C1.15625 6.30425 1.21551 6.16118 1.321 6.05569C1.42649 5.9502 1.56957 5.89094 1.71875 5.89094H12.736L8.63328 1.78891C8.52773 1.68336 8.46844 1.5402 8.46844 1.39094C8.46844 1.24167 8.52773 1.09852 8.63328 0.992969C8.73883 0.887421 8.88198 0.828125 9.03125 0.828125C9.18052 0.828125 9.32367 0.887421 9.42922 0.992969L14.4917 6.05547C14.5441 6.10771 14.5855 6.16975 14.6138 6.23803C14.6421 6.30632 14.6566 6.37952 14.6566 6.45344C14.6566 6.52736 14.6421 6.60055 14.6138 6.66884C14.5855 6.73713 14.5441 6.79916 14.4917 6.85141Z\" fill=\"white\"></path>\n  </g>\n  <defs>\n    <clippath id=\"clip0_446_5963\">\n      <rect width=\"14\" height=\"12\" fill=\"white\" transform=\"translate(0.90625 0.453125)\"></rect>\n    </clippath>\n  </defs>\n</svg>",
+        "left_box_button_link": "",
+        "right_box_kicker": "",
+        "right_box_title": "",
+        "right_box_text": "",
+        "right_box_button_html": "",
+        "right_box_button_link": "",
+        "mobile_kicker": "",
+        "mobile_title": "",
+        "mobile_text": "",
+        "mobile_button_html": "",
+        "mobile_button_link": "",
+        "left_box_justify": "flex-start",
+        "left_box_align": "flex-end",
+        "left_box_text_align": "left",
+        "right_box_justify": "center",
+        "right_box_align": "center",
+        "right_box_text_align": "center",
+        "mobile_box_vertical_align": "center",
+        "mobile_box_text_align": "center"
       }
     }
   },
   "order": [
     "main",
-    "section_richtext_tCdKie",
-    "1737642332f8ed41e1",
-    "section_columns_PNUBaq"
+    "section_slideshow_VrgPDy",
+    "flexbox_image_content_MnpxaF",
+    "flexbox_image_content_PqTF8w"
   ]
 }
