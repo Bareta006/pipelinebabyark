@@ -29,13 +29,32 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "image_TdcxGD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Picture_clothes-spr21-51_97fa03cf-5481-420d-abb6-3e85014d47aa_jpg.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "The World’s Most Premium Car Seat",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "image_heCqCd"
+        "image_heCqCd",
+        "image_TdcxGD"
       ],
       "custom_css": [
-        ".hero__content{width:640px; max-width:100%;}"
+        ".hero__content {width: 640px; max-width: 100%;}"
       ],
       "settings": {
         "autoplay": false,
