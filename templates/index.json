@@ -314,7 +314,7 @@
       ],
       "custom_css": [
         "{border: 15px solid #fff;}",
-        ".icon-slider-container{border-radius:40px;}"
+        ".icon-slider-container {border-radius: 40px;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
@@ -324,52 +324,40 @@
         "text_alignment_mobile": "center"
       }
     },
-    "section_hero_Vfa6xC": {
-      "type": "section-hero",
+    "section_slideshow_MmaWTa": {
+      "type": "section-slideshow",
       "blocks": {
-        "heading_wegLAr": {
-          "type": "heading",
+        "image_BrhxGx": {
+          "type": "image",
           "settings": {
+            "image": "shopify://shop_images/image_360.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
             "title": "Classic or Premium. The choice is yours",
-            "text_size": 10
-          }
-        },
-        "button_U3BqCq": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP BABYARK",
-            "link_2": "",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         }
       },
       "block_order": [
-        "heading_wegLAr",
-        "button_U3BqCq"
+        "image_BrhxGx"
+      ],
+      "custom_css": [
+        ".hero__content {width: 580px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_9.png",
+        "autoplay": false,
+        "autoplay_speed": 4,
+        "preload_first_image": false,
         "height": "use_screen_full",
-        "overlay_opacity": 15,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 700,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
+        "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
@@ -382,6 +370,6 @@
     "flexbox_image_content_qzggwp",
     "section_slideshow_jHRLYV",
     "icon_slider_text_nzkdyr",
-    "section_hero_Vfa6xC"
+    "section_slideshow_MmaWTa"
   ]
 }
