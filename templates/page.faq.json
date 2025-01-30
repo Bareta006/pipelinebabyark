@@ -202,36 +202,85 @@
         "accordion_block_2_0": {
           "type": "text",
           "settings": {
-            "title": "How long does it take to get my products?",
-            "content": "<p>Domestic shipping can take up to 5 business days.<br/><br/>Foreign shipping could take up to 14 business days.<br/><br/>Due to global supply chain challenges, shipping times could be longer than usual.</p>"
+            "title": "Can I use the app in an area without cellular coverage?",
+            "content": "<p>The babyark app uses BLE communication which allows it to work offline or in places with no cellular reception. If you're using the app for the first time, you will need an internet connection to register and pair your babyark seat with the app.</p>"
           }
         },
         "accordion_block_2_1": {
           "type": "text",
           "settings": {
-            "title": "How much does it cost?",
-            "content": "<p>Shipping rates can vary depending on your region and are calculated at checkout.<br/><br/>Here are the full details of our <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">Shipping Policy</a>.</p>"
+            "title": "Can I charge the SmartBase while driving and using the seat?",
+            "content": "<p>Charging the base is approved during use and while driving. Note that the charging cable should be safely routed to not interfere with any objects or children. When not in use, store the cable safely away. Charging the base when the vehicle is not powered depends on the vehicle’s model and settings – please refer to your vehicle owner's manual.</p>"
           }
         },
         "accordion_block_2_2": {
           "type": "text",
           "settings": {
-            "title": "Is there free shipping?",
-            "content": "<p>Yes, we offer free shipping for large domestic orders.  Check the cart to see the current deal on free shipping..</p>"
+            "title": "How often do I need to charge the SmartBase? Do I need to replace batteries?",
+            "content": "<p>The ACTV8 smart base uses a rechargeable battery to power its sensors and light indicators. Before using the base for the first time, we recommend charging the base for about 2 hours. The base will need to be charged periodically once it is in use. The battery LED indicator will flash green when charging and flash red when the battery is critically low.</p>"
           }
         },
         "accordion_block_2_3": {
           "type": "text",
           "settings": {
-            "title": "Do you ship internationally?",
-            "content": "<p>Yes, we ship our products all over the globe.<br/><br/>Please note that free shipping is not applicable for international orders and that shipping rates could vary depending on your region.</p>"
+            "title": "How long does the battery last?",
+            "content": "<p>When fully charged, the battery can last 3-4 weeks. When the battery is critically low, the battery LED indicator in the front of the base will flash red.</p>"
           }
         },
         "accordion_block_2_4": {
           "type": "text",
           "settings": {
-            "title": "Do you ship to my area?",
-            "content": "<p>A full list of all of our shipping areas can be found <a href=\"/policies/shipping-policy\" title=\"Shipping Policy\">here</a>.<br/><br/>If your country or region is not mentioned, please feel free to reach out to see if we can work out the details.</p>"
+            "title": "Does the babyark app have a forgotten child alert?",
+            "content": "<p>Yes. The sensors in the car seat that are connected to the mobile app identify if your baby is still in the seat and will notify you immediately. When using the infant insert cushions, the forgotten child alert will only be activated once the child is buckled.</p>"
+          }
+        },
+        "text_7UnGaL": {
+          "type": "text",
+          "settings": {
+            "title": "How does the forgotten child alert work?",
+            "content": "<p>babyark's integrated sensors work with the app to send a push notification to your phone if your child has been left in the vehicle.<br/>Please note that when using the infant insert cushion, the alert will only work if the child is buckled into the car seat.</p>"
+          }
+        },
+        "text_WfaQRP": {
+          "type": "text",
+          "settings": {
+            "title": "Will the babyark app alert me if my child is not buckled?",
+            "content": "<p>Yes. The babyark sensors will alert you if the crotch buckle has not been buckled or if the child has unbuckled the crotch buckle during the ride. You will receive an alert in the app, the light on the SmartBase will turn red, and it will make a sound.<br/>The app cannot tell you if your child has been properly harnessed. Be sure to read your manual and follow all the steps for securely harnessing your child in the babyark car seat.</p>"
+          }
+        },
+        "text_itt7zg": {
+          "type": "text",
+          "settings": {
+            "title": "How does the babyark sensor system enhance the seat’s safety?",
+            "content": "<p>Paired with the babyark mobile app, the sensor system helps assure the caregiver that they are properly installing the seat for each and every ride</p>"
+          }
+        },
+        "text_PYmA8r": {
+          "type": "text",
+          "settings": {
+            "title": "Can the babyark app also prevent me from forgetting my child?",
+            "content": "<p>Yes. The sensors in the car seat that are connected to the mobile app identity if your baby is still in the seat and will notify you immediately. The forgotten child feature does not work with an infant insert at this stage.</p>"
+          }
+        },
+        "text_za8D7h": {
+          "type": "text",
+          "settings": {
+            "title": "How does liquid spillage affect the seat and sensors? How can I clean in case of spillage?",
+            "content": "<p>The electronics are located in the bottom of the smart base and not the seat, keeping the electronics farther away from potentially harmful liquids. Important to emphasize that the base is not sealed, and care should be taken to avoid excessive spillage.The seat's fabric covers are easy to replace and reinstall - refer to the how-to video to change the covers.</p>"
+          }
+        },
+        "text_wdMcyj": {
+          "type": "text",
+          "settings": {
+            "title": "Whats should I do if I spill liquid on my babyark car seat or base? Will it affect the sensors and electronics?",
+            "content": "<p>There are no electronics in the car seat itself. If liquid is spilled in the car seat, soak up as much of the liquid as possible with a towel, zip off the fabric and allow to drip dry.<br/>If you need to wash the fabric cover, refer to the cleaning instructions in the manual and on the fabric care tags.<br/>The smart base contains electronics and is not waterproof. While a small spill is not enough to harm the electronics or cause the base to malfunction, take care to avoid large spills or submerging the base in water or other liquids.</p>"
+          }
+        },
+        "text_EQCMdm": {
+          "type": "text",
+          "settings": {
+            "title": "How do I use the mobile app to safely install the babyark car seat?",
+            "content": "<p>First, download the babyark app to your mobile device. After you pair your babyark to the app, easy to follow on-screen instructions will guide you through each step of the installation.</p>"
           }
         }
       },
@@ -240,14 +289,21 @@
         "accordion_block_2_1",
         "accordion_block_2_2",
         "accordion_block_2_3",
-        "accordion_block_2_4"
+        "accordion_block_2_4",
+        "text_7UnGaL",
+        "text_WfaQRP",
+        "text_itt7zg",
+        "text_PYmA8r",
+        "text_za8D7h",
+        "text_wdMcyj",
+        "text_EQCMdm"
       ],
       "settings": {
-        "title": "Shipping & Delivery",
+        "title": "Smart Seat",
         "title_align": "text-left",
-        "title_size": 4,
+        "title_size": 6,
         "heading_size": 5,
-        "text_size": 5,
+        "text_size": 4,
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
@@ -261,36 +317,92 @@
         "accordion_block_3_0": {
           "type": "text",
           "settings": {
-            "title": "Do you offer warranty for your products?",
-            "content": "<p>All our products are subject to quality control.<br/><br/>Our warranty provides a guarantee against manufacturer defects.<br/><br/>The guarantee covers any manufacturing, design, or material defect. Please notify us within 2 months of noticing any defects.<br/><br/>It does not cover blows, improper use, or other issues that are not attributable to a manufacturer defects.</p>"
+            "title": "How do I know if I’ve installed the car seat properly?",
+            "content": "<p>Using your car seat correctly for every ride is an important part of keeping your child safe, which is why we've made the babyark car seat easy to install.<br/>The babyark mobile app will walk you through each step of installation and the LED lights located on the smart base provide visual confirmation that the seat has been properly installed.</p>"
           }
         },
         "accordion_block_3_1": {
           "type": "text",
           "settings": {
-            "title": "Do you offer extended warranty?",
-            "content": "<p>An extended warranty can be added to your products for an additional cost.<br/><br/>Please get in touch for more information about extended warranties.</p>"
+            "title": "Can I use both rigid lower anchors (LATCH) and the vehicle seat belt to install the babyark car seat?",
+            "content": "<p>Yes, the babyark car seat is designed and tested to be installed using both the vehicle seat belt and the rigid lower anchors (LATCH) simultaneously.</p><p>Check that your vehicle owner's manual <strong>doesn't prohibit </strong>the following:</p><p>-Installation using both LATCH lower anchors and vehicle seat belt at the same time</p><p>-Placing a support leg on the vehicle floor</p>"
           }
         },
         "accordion_block_3_2": {
           "type": "text",
           "settings": {
-            "title": "How much does extended warranty cost?",
-            "content": "<p>The extended warranty could come at a different cost depending on the type of product and extended period.<br/><br/>Please get in touch for more information.</p>"
+            "title": "Can I install the babyark car seat with only the vehicle seat belt?",
+            "content": "<p>Yes. The babyark car seat can be installed safely using only the vehicle seat belt. However, it will not be able to utilize the SafeCoil™ energy absorbing system and the app step-by-step instructions.<br/>When using a different installation method, please follow all the instructions in the manual to ensure you are installing the car seat correctly.</p>"
+          }
+        },
+        "text_GqjHfN": {
+          "type": "text",
+          "settings": {
+            "title": "Why does babyark allow the use of both rigid lower anchors and the vehicle seat belt to install?",
+            "content": "<p>The babyark seat can be installed multiple ways:</p><p>• Seat belt only (Rear-facing)</p><p>• Seat belt only with top tether (Forward-facing)</p><p>• Rigid Lower Anchors only (Rear-facing children up to 15 lbs)</p><p>• babyark’s recommended installation method: Rigid LATCH, vehicle seat belt, and support leg (Both rear-facing and forward-facing).</p><p>When properly installed in any of these ways, the babyark car seat provides excellent protection for your child in a crash.</p><p>The rigid LATCH and support leg are additional safety features that can further improve crash outcomes and we recommend their use when possible.</p><p>Check that your vehicle owner's manual <strong>doesn't prohibit </strong>the following:</p><p>-Installation using both LATCH lower anchors and vehicle seat belt at the same time.</p><p>-Placing a support leg on the vehicle floor</p>"
+          }
+        },
+        "text_aXCfYy": {
+          "type": "text",
+          "settings": {
+            "title": "Can I use babyark in an airplane?",
+            "content": "<p>The original babyark model, the Premium car seat, is certified for use in an aircraft with the base (please refer to the manual for instructions on how to install the car seat in an airplane).<br/>The babyark Classic and Smart car seat are <strong>NOT</strong> certified for use in an aircraft. Their safety features are intended for use in the car, and they are not aircraft compatible, with or without base.</p>"
+          }
+        },
+        "text_jDBQKm": {
+          "type": "text",
+          "settings": {
+            "title": "Will you provide a locking clip if I need one to properly install my babyark car seat?",
+            "content": "<p>Yes. The vehicle seat belt must be locked when installing your babyark car seat. If your vehicle seat belt does not lock, please contact babyark and we will send you a locking clip and instructions for use, free of charge.<br/>Please refer to your vehicle owner's manual to confirm how your vehicle seat belts lock.</p>"
+          }
+        },
+        "text_8MWfzL": {
+          "type": "text",
+          "settings": {
+            "title": "Are the babyark seats 3-across friendly?",
+            "content": "<p>The recommended installation for the babyark car seat uses the support leg, vehicle seat belt, and rigid lower anchors. Most vehicles only have two sets of lower anchors in the rear seating positions - one set behind the driver and one set behind the passenger.<br/>If your vehicle doesn't have a dedicated set of lower anchors in the rear center seating position, it isn't possible to install three babyark car seats across using the recommended installation.<br/>When installing a babyark car seat on each outboard seat (behind the driver and behind the passenger), there may be enough space in the rear center seat for a high back or backless booster.<br/>Please check your vehicle user manual and rear seat dimensions before purchasing more than two babyark car seats.</p>"
+          }
+        },
+        "text_FqaWwV": {
+          "type": "text",
+          "settings": {
+            "title": "Is it normal for the seat to feel a bit wobbly even if the app is showing that the seat has been correctly installed?",
+            "content": "<p>Yes, Like an infant seat that docks into a base, the babyark car seat also has a certain amount of movement even when it is docked securely onto its base.<br/>We recommend checking that the seat is properly connected to the base by making sure the black safety bar behind the rear cushion is down.<br/>Then, place your hand in the curve of the seat near the side impact wing and try to move the car seat from front to back and side to side. If the seat moves less than an inch in any direction, it is securely installed.<br/>If the car seat moves more than an inch, try a different seat in your vehicle.<br/>If you are concerned about the movement of your car seat, please contact babyark and one of our experts will work with you to make sure your car seat is installed correctly.</p>"
+          }
+        },
+        "text_LGbrWb": {
+          "type": "text",
+          "settings": {
+            "title": "Can the babyark car seat touch the vehicle seat in front of it when rear-facing?",
+            "content": "<p>While the clearance gaps between the babyark seat and the vehicle seat are recommended, it's okay for a rear facing babyark to lightly touch the vehicle seat behind it.</p>"
+          }
+        },
+        "text_HgMbwT": {
+          "type": "text",
+          "settings": {
+            "title": "What should I check if my vehicle seat belt has a webbing loop?",
+            "content": "<p>Webbing loops (also called convenience loops) on some vehicle seat belts may affect the proper installation of the babyark car seat, depending on their position within the base’s belt path. To determine if your webbing loop is interfering with the tensioner on your babyark base, check out our <a href=\"https://babyark.com/pages/webbing-loop\" target=\"_blank\" title=\"https://babyark.com/pages/webbing-loop\">troubleshooting page</a>, or <a href=\"https://babyark.com/pages/get-in-touch\" target=\"_blank\" title=\"Contact Us\"><strong>contact us</strong></a> for assistance.</p>"
           }
         }
       },
       "block_order": [
         "accordion_block_3_0",
         "accordion_block_3_1",
-        "accordion_block_3_2"
+        "accordion_block_3_2",
+        "text_GqjHfN",
+        "text_aXCfYy",
+        "text_jDBQKm",
+        "text_8MWfzL",
+        "text_FqaWwV",
+        "text_LGbrWb",
+        "text_HgMbwT"
       ],
       "settings": {
-        "title": "Warranty & Repair",
+        "title": "Installation",
         "title_align": "text-left",
-        "title_size": 4,
+        "title_size": 6,
         "heading_size": 5,
-        "text_size": 5,
+        "text_size": 4,
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
