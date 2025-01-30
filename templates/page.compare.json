@@ -35,7 +35,7 @@
           "settings": {
             "image": "shopify://shop_images/image_10_2e73fbe8-a874-4f51-90b7-8bc79adc25c8.png",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "360° protection - 13 safety patents",
             "title": "Same standard of safety. Different type of experience.",
@@ -149,7 +149,7 @@
           "settings": {
             "icon_name": "icon-basket-return",
             "icon_alt": "shopify://shop_images/Group_34860.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>Crash tested - FMVSS 213</p>",
             "link_text": "",
@@ -160,20 +160,46 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_color": "#AAAAAA",
-            "title": "Worldwide shipping",
-            "text": "<p>Ship anywhere, rates available at checkout.</p>",
+            "icon_alt": "shopify://shop_images/Group_34864.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>Crash tested - FMVSS 213</p>",
             "link_text": "",
             "link_url": ""
           }
         },
-        "icon_block_DXmqrr": {
+        "icon_block_3qG6WX": {
           "type": "icon_block",
           "settings": {
-            "icon_name": "icon-phone",
-            "icon_color": "#AAAAAA",
-            "title": "24/7 support",
-            "text": "<p>Call us anytime at 1(800) 555-1234.</p>",
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_34862.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>Crash tested - FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_JPyAWQ": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_34862.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>Crash tested - FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_pkbVGJ": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_34863.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>Crash tested - FMVSS 213</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -182,18 +208,23 @@
       "block_order": [
         "icon_block_TYAXh9",
         "icon_block_j4nqcR",
-        "icon_block_DXmqrr"
+        "icon_block_3qG6WX",
+        "icon_block_JPyAWQ",
+        "icon_block_pkbVGJ"
+      ],
+      "custom_css": [
+        "> div {background-color: #d5d5d5;}"
       ],
       "settings": {
-        "title": "",
+        "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
-        "icons_size": 80,
+        "icons_size": 120,
         "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
+        "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 180,
+        "padding_bottom": 70
       }
     }
   },
