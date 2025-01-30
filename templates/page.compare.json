@@ -214,7 +214,8 @@
       ],
       "custom_css": [
         "> div {background-color: #d5d5d5;}",
-        "@media (min-width:960px){.grid__item {width: 20%;}.clearfix {display: none;}}"
+        ".kicker-flourished:after{display:none;}",
+        "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
