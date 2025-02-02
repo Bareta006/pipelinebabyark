@@ -201,7 +201,7 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
+        "padding_top": 30,
         "padding_bottom": 64
       }
     },
@@ -316,8 +316,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "accordion-section-3": {
@@ -418,8 +418,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 64
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "accordion-section-4": {
@@ -477,8 +477,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 128
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "section_faq_ePgVYN": {
@@ -539,8 +539,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 128
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "section_faq_wczD9V": {
@@ -614,8 +614,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 128
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "section_faq_QdTxQH": {
@@ -681,7 +681,7 @@
         "text_kwHcHt"
       ],
       "custom_css": [
-        ".section-faq{background-color:#EFEFEF;}"
+        ".section-faq {background-color: #efefef;}"
       ],
       "settings": {
         "title": "Affirm FAQs",
@@ -692,8 +692,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--narrow",
-        "padding_top": 64,
-        "padding_bottom": 128
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "icons": {
