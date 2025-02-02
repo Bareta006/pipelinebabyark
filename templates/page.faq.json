@@ -307,6 +307,9 @@
         "text_wdMcyj",
         "text_EQCMdm"
       ],
+      "custom_css": [
+        ".section-faq {background-color: #FAFAFA;}"
+      ],
       "settings": {
         "title": "Smart Seat",
         "title_align": "text-left",
@@ -468,6 +471,9 @@
         "accordion_block_4_3",
         "text_9HaBA8"
       ],
+      "custom_css": [
+        ".section-faq {background-color: #fafafa;}"
+      ],
       "settings": {
         "title": "Classic vs Smart",
         "title_align": "text-left",
@@ -604,6 +610,9 @@
         "text_dETwVV",
         "text_VMfiCi",
         "text_fHRgFX"
+      ],
+      "custom_css": [
+        ".section-faq {background-color: #fafafa;}"
       ],
       "settings": {
         "title": "Shipping & Returns",
