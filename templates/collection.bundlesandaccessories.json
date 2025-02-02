@@ -240,6 +240,13 @@
             "text_size": 10
           }
         },
+        "text_AfVzPF": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>✔ babyark Premium seat<br/>✔ Extra Smart base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
+            "text_size": 6
+          }
+        },
         "button_pd6FPh": {
           "type": "button",
           "settings": {
@@ -264,6 +271,7 @@
       "block_order": [
         "kicker_Mb6XNg",
         "heading_g7D3Jz",
+        "text_AfVzPF",
         "button_pd6FPh"
       ],
       "custom_css": [
