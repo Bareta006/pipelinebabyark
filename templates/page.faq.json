@@ -14,33 +14,36 @@
       "blocks": {
         "kicker-block": {
           "type": "kicker",
-          "disabled": true,
           "settings": {
-            "kicker": "<p>Introducing</p>",
+            "kicker": "FAQ",
             "enable_line": false,
             "text_size": 3
           }
         },
-        "heading-block": {
+        "heading_9qdpy8": {
           "type": "heading",
           "settings": {
-            "title": "<p>FAQ</p>",
+            "title": "Have a question? We have answers.",
             "text_size": 10
           }
         }
       },
       "block_order": [
         "kicker-block",
-        "heading-block"
+        "heading_9qdpy8"
+      ],
+      "custom_css": [
+        ".hero__content{width:600px; }"
       ],
       "settings": {
-        "height": "use_screen_one_fifth",
-        "overlay_opacity": 50,
+        "image": "shopify://shop_images/Picture_clothes-spr21-51_jpg_c703d4be-b64b-43a7-9600-989724651f36.png",
+        "height": "use_screen_two_thirds",
+        "overlay_opacity": 0,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": true,
         "content_width": 2000,
-        "text_align": "align--middle-center",
+        "text_align": "align--bottom-left",
         "text_color": "text--white",
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",

@@ -136,7 +136,7 @@
         "transparent_collection": true,
         "transparent_blog": false,
         "transparent_article": false,
-        "transparent_page": false,
+        "transparent_page": true,
         "transparent_text_color": "#ffffff",
         "transparent_logo": "shopify://shop_images/Link.png",
         "show_collection_images": true,
