@@ -696,6 +696,73 @@
         "padding_bottom": 120
       }
     },
+    "section_richtext_e88YCi": {
+      "type": "section-richtext",
+      "blocks": {
+        "kicker_n4thYq": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "Introducing",
+            "enable_line": true,
+            "text_size": 4
+          }
+        },
+        "heading_Awm9AA": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rich text",
+            "text_size": 8
+          }
+        },
+        "text_tTCgwf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "button_7WfCmG": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Shop all",
+            "link_1": "shopify://collections/all",
+            "button_size_1": "btn--medium",
+            "button_style_1": "btn-text-thick-line",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "kicker_n4thYq",
+        "heading_Awm9AA",
+        "text_tTCgwf",
+        "button_7WfCmG"
+      ],
+      "custom_css": [
+        "> div {background-color: #efefef; }",
+        " {z-index: 5;}"
+      ],
+      "settings": {
+        "align_text": "text-left",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper--narrow",
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
+    },
     "icons": {
       "type": "section-icons",
       "blocks": {
@@ -770,6 +837,7 @@
     "section_faq_ePgVYN",
     "section_faq_wczD9V",
     "section_faq_QdTxQH",
+    "section_richtext_e88YCi",
     "icons",
     "section_liquid_bCgRkM"
   ]
