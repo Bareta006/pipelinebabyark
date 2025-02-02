@@ -726,61 +726,54 @@
         "padding_bottom": 30
       }
     },
-    "icons": {
-      "type": "section-icons",
+    "section_richtext_m8ECXa": {
+      "type": "section-richtext",
       "blocks": {
-        "icons-0": {
-          "type": "icon_block",
+        "text_EX8Mib": {
+          "type": "text",
           "settings": {
-            "icon_name": "icon-basket-return",
-            "icon_color": "#aaaaaa",
-            "title": "Free returns",
-            "text": "<p>Returns within 30 days receive a full refund.</p>",
-            "link_text": "",
-            "link_url": ""
+            "text": "<p>Didn’t find what you<br/>are looking for?</p>",
+            "text_size": 8,
+            "text_columns": 1
           }
         },
-        "icons-1": {
-          "type": "icon_block",
+        "button_Xp9MeF": {
+          "type": "button",
           "settings": {
-            "icon_name": "icon-shipment-world",
-            "icon_color": "#aaaaaa",
-            "title": "Worldwide shipping",
-            "text": "<p>Ship anywhere, rates available at checkout.</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icons-2": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_color": "#aaaaaa",
-            "title": "24/7 support",
-            "text": "<p>Call us anytime at 1(800) 555-1234.</p>",
-            "link_text": "",
-            "link_url": ""
+            "link_text_1": "CONTACT US",
+            "link_1": "",
+            "button_size_1": "btn--medium",
+            "button_style_1": "btn--outline",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
           }
         }
       },
       "block_order": [
-        "icons-0",
-        "icons-1",
-        "icons-2"
+        "text_EX8Mib",
+        "button_Xp9MeF"
       ],
       "custom_css": [
-        "{z-index: 5;}"
+        "{z-index: 5;}",
+        ".text--neutral {background-color: #fbfafa;}"
       ],
       "settings": {
-        "title": "",
-        "bg": "palette--light bg--accent",
-        "icons_size": 40,
-        "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
-        "align_text": "text-left",
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 180,
+        "padding_bottom": 180
       }
     },
     "section_liquid_bCgRkM": {
@@ -801,7 +794,7 @@
     "section_faq_wczD9V",
     "section_faq_QdTxQH",
     "section_richtext_e88YCi",
-    "icons",
+    "section_richtext_m8ECXa",
     "section_liquid_bCgRkM"
   ]
 }
