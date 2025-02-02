@@ -33,6 +33,7 @@
         "heading_9qdpy8"
       ],
       "custom_css": [
+        "@media (min-width: 1024px) {.hero__content__wrapper {max-width: 55%; margin-left: calc(100vw - 91%); }}",
         ".hero__content {width: 600px; max-width: 100%;}",
         " {z-index: 5;}"
       ],
@@ -726,7 +727,7 @@
         "icons-2"
       ],
       "custom_css": [
-        "{z-index:5;}"
+        "{z-index: 5;}"
       ],
       "settings": {
         "title": "",
