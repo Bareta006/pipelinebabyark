@@ -52,6 +52,9 @@
       "block_order": [
         "image_VMgjhY"
       ],
+      "custom_css": [
+        ".slideshow__slide:first-child .hero__title {}"
+      ],
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
@@ -339,7 +342,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/SVG_3.svg",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "Payment in 3x",
             "text": "<p>Take advantage of a payment in 3x without fees from $100 of purchase</p>",
             "link_text": "",
