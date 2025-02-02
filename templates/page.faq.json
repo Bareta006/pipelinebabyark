@@ -725,6 +725,9 @@
         "icons-1",
         "icons-2"
       ],
+      "custom_css": [
+        "{z-index:5;}"
+      ],
       "settings": {
         "title": "",
         "bg": "palette--light bg--accent",
