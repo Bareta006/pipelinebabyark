@@ -131,7 +131,7 @@
             <p>{{ section.settings.left_box_text }}</p>
           </div>
         {% endif %}
-        {% if section.settings.left_box_button_html %}
+        {% if section.settings.left_box_button_html != blank %}
           <a href="{{ section.settings.left_box_button_link }}" class="standard__cta hero__btn btn--outline btn--white btn--long aos-init aos-animate">
             {{ section.settings.left_box_button_html }}
           </a>
@@ -157,7 +157,7 @@
             <p>{{ section.settings.right_box_text }}</p>
           </div>
         {% endif %}
-        {% if section.settings.right_box_button_html %}
+        {% if section.settings.right_box_button_html != blank %}
           <a href="{{ section.settings.right_box_button_link }}" class="standard__cta hero__btn btn--outline btn--white btn--long aos-init aos-animate">
             {{ section.settings.right_box_button_html }}
           </a>
