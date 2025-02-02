@@ -23,7 +23,7 @@
         "bg_position": "center-center",
         "image_height": "use_screen_one_third",
         "overlay_opacity": 20,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "text_color": "text--white",
         "width": "wrapper--none",
@@ -47,7 +47,7 @@
         "bg_position": "center-center",
         "wh_ratio": 1.7,
         "overlay_opacity": 20,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "grid_mobile": 1.2,
         "width": "wrapper",
         "padding_top": 20,
@@ -139,7 +139,7 @@
         "image": "shopify://shop_images/image_340.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 2000,
@@ -169,6 +169,13 @@
             "text_size": 10
           }
         },
+        "text_Fzzxqe": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>✔ babyark CLASSIC seat<br/>✔ Extra CLASSIC base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
+            "text_size": 6
+          }
+        },
         "button_JaYLCj": {
           "type": "button",
           "settings": {
@@ -193,6 +200,7 @@
       "block_order": [
         "kicker_adPJtB",
         "heading_N3r96m",
+        "text_Fzzxqe",
         "button_JaYLCj"
       ],
       "custom_css": [
@@ -202,7 +210,7 @@
         "image": "shopify://shop_images/image_365.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 2000,
@@ -265,7 +273,7 @@
         "image": "shopify://shop_images/image_12.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 2000,
@@ -328,7 +336,7 @@
         "image": "shopify://shop_images/image_364.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 2000,
