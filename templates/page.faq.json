@@ -189,6 +189,9 @@
         "text_kQQL4N",
         "text_LDBfJf"
       ],
+      "custom_css": [
+        ".section-faq {background-color: #efefef;}"
+      ],
       "settings": {
         "title": "Product & Safety",
         "title_align": "text-left",
@@ -403,6 +406,9 @@
         "text_LGbrWb",
         "text_HgMbwT"
       ],
+      "custom_css": [
+        ".section-faq {background-color: #efefef;}"
+      ],
       "settings": {
         "title": "Installation",
         "title_align": "text-left",
@@ -520,6 +526,9 @@
         "text_cKzGj4",
         "text_HMTNrd",
         "text_9NMb3M"
+      ],
+      "custom_css": [
+        ".section-faq {background-color: #efefef;}"
       ],
       "settings": {
         "title": "Warranty",
@@ -670,6 +679,9 @@
         "text_mJArLY",
         "text_qY7dar",
         "text_kwHcHt"
+      ],
+      "custom_css": [
+        ".section-faq{background-color:#EFEFEF;}"
       ],
       "settings": {
         "title": "Affirm FAQs",
