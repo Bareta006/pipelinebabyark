@@ -173,7 +173,7 @@
           "type": "text",
           "settings": {
             "richtext": "<p>✔ babyark CLASSIC seat<br/>✔ Extra CLASSIC base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
-            "text_size": 6
+            "text_size": 4
           }
         },
         "button_JaYLCj": {
@@ -244,7 +244,7 @@
           "type": "text",
           "settings": {
             "richtext": "<p>✔ babyark Premium seat<br/>✔ Extra Smart base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
-            "text_size": 6
+            "text_size": 4
           }
         },
         "button_pd6FPh": {
@@ -311,6 +311,13 @@
             "text_size": 10
           }
         },
+        "text_UxFMRK": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>✔ 2 babyark Premium seats</p><p>Full Retail Price: $1,980.00<br/>Bundle Price: $1,700.00</p>",
+            "text_size": 4
+          }
+        },
         "button_TrQwtP": {
           "type": "button",
           "settings": {
@@ -335,6 +342,7 @@
       "block_order": [
         "kicker_LqVJXn",
         "heading_ipErdh",
+        "text_UxFMRK",
         "button_TrQwtP"
       ],
       "custom_css": [
