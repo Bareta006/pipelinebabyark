@@ -34,7 +34,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image.png",
-            "overlay_opacity": 15,
+            "overlay_opacity": 0,
             "overlay_color": "#000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
@@ -47,28 +47,10 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
-        },
-        "image_X4wRbC": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "image_nqrGEA",
-        "image_X4wRbC"
+        "image_nqrGEA"
       ],
       "custom_css": [
         ".hero__content {width: 497px; max-width: 100%;}"
@@ -77,7 +59,161 @@
         "autoplay": false,
         "autoplay_speed": 8,
         "preload_first_image": false,
-        "height": "use_screen_two_thirds",
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_slideshow_aTWgVr": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_yCxBRE": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_13.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Safety first. Always.",
+            "richtext": "<p>Safety built from the ground up, for your most preciouse jewel</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        }
+      },
+      "block_order": [
+        "image_yCxBRE"
+      ],
+      "custom_css": [
+        ".hero__content {width: 477px; max-width: 100%;}"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_slideshow_fqUypB": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_cELwri": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 100,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Hassle free installation",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        }
+      },
+      "block_order": [
+        "image_cELwri"
+      ],
+      "custom_css": [
+        ".hero__content {width: 477px; max-width: 100%;}"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_slideshow_a6tmiQ": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_ViHb7A": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_14.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Smart and connected.",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        }
+      },
+      "block_order": [
+        "image_ViHb7A"
+      ],
+      "custom_css": [
+        ".hero__content {width: 477px; max-width: 100%;}"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_slideshow_XEiRPG": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_gLXBQN": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 100,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Ease Of Use, Convenience & Comfort",
+            "richtext": "<p>App that lets you is designed to give you peice of mind at all times 14 sensors moniting your childs safety at all timas</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        }
+      },
+      "block_order": [
+        "image_gLXBQN"
+      ],
+      "custom_css": [
+        ".hero__content {width: 600px; max-width: 100%;}"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
@@ -87,6 +223,10 @@
   },
   "order": [
     "main",
-    "section_slideshow_PyKDCG"
+    "section_slideshow_PyKDCG",
+    "section_slideshow_aTWgVr",
+    "section_slideshow_fqUypB",
+    "section_slideshow_a6tmiQ",
+    "section_slideshow_XEiRPG"
   ]
 }
