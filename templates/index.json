@@ -275,6 +275,9 @@
         "image_PBpaXQ",
         "image_QD4aEH"
       ],
+      "custom_css": [
+        ".hero__title {width: 510px; max-width: 100%;}"
+      ],
       "settings": {
         "autoplay": false,
         "autoplay_speed": 4,
