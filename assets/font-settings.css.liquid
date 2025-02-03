@@ -57,31 +57,60 @@
   endif
 -%}
 
-{{ heading_font | font_face: font_display: 'swap' }}
-{{ body_font | font_face: font_display: 'swap' }}
-{{ accent_font | font_face: font_display: 'swap' }}
+{% comment %} {{ heading_font | font_face: font_display: 'swap' }} {% endcomment %}
+{% comment %} {{ body_font | font_face: font_display: 'swap' }} {% endcomment %}
+ {{ accent_font | font_face: font_display: 'swap' }}
 
-{% if heading_font_bold %}
+{% comment %} {% if heading_font_bold %}
   {{ heading_font_bold | font_face: font_display: 'swap' }}
-{% endif %}
+{% endif %} {% endcomment %}
 
 {% if accent_font_bold %}
   {{ accent_font_bold | font_face: font_display: 'swap' }}
 {% endif %}
 
-{% if body_font_bold %}
+{% comment %} {% if body_font_bold %}
   {{ body_font_bold | font_face: font_display: 'swap' }}
-{% endif %}
+{% endif %} {% endcomment %}
 
 {% comment %}
   Below differs from css-variables.liquid
   because these are not needed in vars
 {% endcomment %}
-{% assign body_font_italic = body_font | font_modify: 'style', 'italic' %}
+{% comment %}{% assign body_font_italic = body_font | font_modify: 'style', 'italic' %}
 {% assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic' %}
 {% if body_font_italic %}
   {{ body_font_italic | font_face: font_display: 'swap' }}
 {% endif %}
 {% if body_font_bold_italic %}
   {{ body_font_bold_italic | font_face: font_display: 'swap' }}
-{% endif %}
+{% endif %} {% endcomment %}
+@font-face {
+  font-family: "centrano2";
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("{{ 'CentraNo2-Light.eot' | asset_url }}") format("eot");
+  src: url("{{ 'CentraNo2-Light.woff' | asset_url }}") format("woff");
+  src: url("{{ 'CentraNo2-Light.woff2' | asset_url }}") format("woff2");
+}
+
+@font-face {
+  font-family: "centrano2";
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url("{{ 'CentraNo2-Book.eot' | asset_url }}") format("eot");
+  src: url("{{ 'CentraNo2-Book.woff' | asset_url }}") format("woff");
+  src: url("{{ 'CentraNo2-Book.woff2' | asset_url }}") format("woff2");
+}
+
+@font-face {
+  font-family: "centrano2";
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url("{{ 'CentraNo2-Medium.eot' | asset_url }}") format("eot");
+  src: url("{{ 'CentraNo2-Medium.woff' | asset_url }}") format("woff");
+  src: url("{{ 'CentraNo2-Medium.woff2' | asset_url }}") format("woff2");
+}
