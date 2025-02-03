@@ -35,7 +35,7 @@
           "settings": {
             "image": "shopify://shop_images/image.png",
             "overlay_opacity": 0,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Features to give you a piece of mind",
@@ -53,7 +53,7 @@
         "image_nqrGEA"
       ],
       "custom_css": [
-        ".hero__content {width: 497px; max-width: 100%;}"
+        ".hero__content {width: 510px; max-width: 100%;}"
       ],
       "settings": {
         "autoplay": false,
@@ -74,7 +74,7 @@
           "settings": {
             "image": "shopify://shop_images/image_13.png",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Safety first. Always.",
@@ -112,7 +112,7 @@
           "type": "image",
           "settings": {
             "overlay_opacity": 100,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Hassle free installation",
@@ -151,7 +151,7 @@
           "settings": {
             "image": "shopify://shop_images/image_14.png",
             "overlay_opacity": 0,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Smart and connected.",
@@ -189,7 +189,7 @@
           "type": "image",
           "settings": {
             "overlay_opacity": 100,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Ease Of Use, Convenience & Comfort",
