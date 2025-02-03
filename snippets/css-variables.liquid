@@ -413,10 +413,10 @@
 
 /* ================ Typography ================ */
 
---FONT-STACK-BODY: {{ body_font.family }}, {{ body_font.fallback_families }};
---FONT-STYLE-BODY: {{ body_font.style }};
---FONT-WEIGHT-BODY: {{ body_font.weight | default: 400 }};
---FONT-WEIGHT-BODY-BOLD: {{ body_font_bold.weight | default: 700 }};
+--FONT-STACK-BODY: "centrano2", sans-serif;
+--FONT-STYLE-BODY: normal;
+--FONT-WEIGHT-BODY: 400;
+--FONT-WEIGHT-BODY-BOLD: 500;
 --FONT-ADJUST-BODY: {{ settings.font_body_size | divided_by: 100.0 }};
 {% if settings.font_body_uppercase %}
   --FONT-BODY-TRANSFORM: uppercase;
@@ -426,10 +426,10 @@
   --FONT-BODY-LETTER-SPACING: normal;
 {% endif %}
 
---FONT-STACK-HEADING: {{ heading_font.family }}, {{ heading_font.fallback_families }};
---FONT-STYLE-HEADING: {{ heading_font.style }};
---FONT-WEIGHT-HEADING: {{ heading_font.weight | default: 400 }};
---FONT-WEIGHT-HEADING-BOLD: {{ heading_font_bold.weight | default: 700 }};
+--FONT-STACK-HEADING: "centrano2", sans-serif;
+--FONT-STYLE-HEADING: normal;
+--FONT-WEIGHT-HEADING: 400;
+--FONT-WEIGHT-HEADING-BOLD: 500;
 --FONT-ADJUST-HEADING: {{ settings.font_heading_size | divided_by: 100.0 }};
 {% if settings.font_heading_uppercase %}
   --FONT-HEADING-TRANSFORM: uppercase;
