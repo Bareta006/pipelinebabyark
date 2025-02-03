@@ -53,7 +53,7 @@
         "image_VMgjhY"
       ],
       "custom_css": [
-        ".slideshow__slide:first-child .hero__title {width: 660px; max-width:100%; margin: 10px auto;}"
+        ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 10px auto;}"
       ],
       "settings": {
         "autoplay": false,
@@ -293,7 +293,7 @@
       "settings": {
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "width": "wrapper",
+        "width": "wrapper--full",
         "padding_top": 36,
         "padding_bottom": 36
       }
