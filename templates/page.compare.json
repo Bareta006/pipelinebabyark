@@ -406,6 +406,64 @@
         "padding_top": 70,
         "padding_bottom": 36
       }
+    },
+    "section_video_T4RwKD": {
+      "type": "section-video",
+      "blocks": {
+        "heading_UkbDBN": {
+          "type": "heading",
+          "settings": {
+            "title": "Featured video",
+            "text_size": 10
+          }
+        },
+        "text_JwDJRp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This area is used to describe your video’s details.</p>",
+            "text_size": 6
+          }
+        },
+        "button_KTNhEk": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "View products",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "Learn more",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UkbDBN",
+        "text_JwDJRp",
+        "button_KTNhEk"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "object_position": "center-center",
+        "preload_image": false,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -418,6 +476,7 @@
     "17382369213956607f",
     "section_icons_W8cw7D",
     "173824262189ac1f13",
-    "section_newsletter_mVpNcT"
+    "section_newsletter_mVpNcT",
+    "section_video_T4RwKD"
   ]
 }
