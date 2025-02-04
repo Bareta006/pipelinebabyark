@@ -239,9 +239,9 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image.png",
-            "overlay_opacity": 0,
+            "overlay_opacity": 90,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "",
             "title": "Features to give you peace of mind",
             "richtext": "<p>babyark’s seat delivers superb safety with side-impact protection and a five-point harness. Its ergonomic design and plush padding ensure a snug, soothing ride.</p>",

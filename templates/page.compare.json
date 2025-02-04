@@ -464,6 +464,61 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_double_8zM3eL": {
+      "type": "section-double",
+      "blocks": {
+        "video_JhzNrF": {
+          "type": "video",
+          "settings": {
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "Introducing",
+            "title": "Featured video",
+            "richtext": "<p>This area is used to describe your video’s details.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_i4ynVN": {
+          "type": "text",
+          "settings": {
+            "kicker": "Image with text",
+            "title": "",
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_JhzNrF",
+        "text_i4ynVN"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -477,6 +532,7 @@
     "section_icons_W8cw7D",
     "173824262189ac1f13",
     "section_newsletter_mVpNcT",
-    "section_video_T4RwKD"
+    "section_video_T4RwKD",
+    "section_double_8zM3eL"
   ]
 }
