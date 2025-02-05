@@ -544,6 +544,7 @@
     },
     "related": {
       "type": "related",
+      "disabled": true,
       "settings": {
         "heading": "You might also like",
         "bg": "palette--light bg--neutral",
@@ -562,56 +563,20 @@
         "padding_bottom": 36
       }
     },
-    "section_double_J8irQG": {
-      "type": "section-double",
+    "1738783691b78546c1": {
+      "type": "apps",
       "blocks": {
-        "video_iTMWTG": {
-          "type": "video",
-          "settings": {
-            "object_position": "center-center",
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "popup_text": "",
-            "kicker": "Introducing",
-            "title": "Featured video",
-            "richtext": "<p>This area is used to describe your video’s details.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text_ayVTpR": {
-          "type": "text",
-          "settings": {
-            "kicker": "Image with text",
-            "title": "",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": ""
-          }
+        "judge_me_reviews_review_widget_wqVpnF": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         }
       },
       "block_order": [
-        "video_iTMWTG",
-        "text_ayVTpR"
+        "judge_me_reviews_review_widget_wqVpnF"
       ],
       "settings": {
-        "height": "use_screen_one_half",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
@@ -626,6 +591,6 @@
     "section_double_wMxLWV",
     "section_double_LJxgJN",
     "related",
-    "section_double_J8irQG"
+    "1738783691b78546c1"
   ]
 }
