@@ -11746,8 +11746,8 @@ svg.placeholder-svg {
   align-items: center;
 }
 [data-parallax-wrapper] .image__hero__scale {
-  min-height: 110%;
-  max-height: 120%;
+  min-height: 100%;
+  max-height: 100%;
 }
 .reposition-background-mobile {
   --focal-point: var(--OBJECT-POSITION-DESKTOP);
