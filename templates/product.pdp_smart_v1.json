@@ -345,7 +345,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#f6f2ef"
           }
         }
       },
@@ -373,9 +373,9 @@
         "text": {
           "type": "text",
           "settings": {
-            "kicker": "Image with text",
-            "title": "",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "kicker": "",
+            "title": "Critical alerts",
+            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -384,7 +384,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#f6f2ef"
           }
         },
         "image": {
