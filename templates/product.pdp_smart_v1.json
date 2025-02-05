@@ -295,7 +295,7 @@
         "@media (min-width: 960px) {.grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
       ],
       "settings": {
-        "title": "",
+        "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
         "icons_size": 104,
         "icon_alignment": "icon--top",
