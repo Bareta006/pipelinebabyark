@@ -205,6 +205,107 @@
         "padding_bottom": 36
       }
     },
+    "section_icons_3jALpN": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_JgA8Ld": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/SVG.png",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Crash tested according to FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_FJUg4Q": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/SVG-1.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>California Proposition 65 & 12 more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_rFkqfj": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-2.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_Ex3y7e": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-3.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>FCC & EMC Compliance</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_wXBGEj": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-4.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_YYJKUF": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-5.png",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>General child safety tests</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_JgA8Ld",
+        "icon_block_FJUg4Q",
+        "icon_block_rFkqfj",
+        "icon_block_Ex3y7e",
+        "icon_block_wXBGEj",
+        "icon_block_YYJKUF"
+      ],
+      "custom_css": [
+        "> div {background-color: #d5d5d5;}",
+        ".kicker-flourished:after {display: none;}",
+        "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; }}"
+      ],
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 104,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "image-with-text": {
       "type": "section-double",
       "blocks": {
@@ -330,114 +431,13 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "section_icons_3jALpN": {
-      "type": "section-icons",
-      "blocks": {
-        "icon_block_JgA8Ld": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/SVG.png",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>Crash tested according to FMVSS 213</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_FJUg4Q": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/SVG-1.png",
-            "icon_color": "#AAAAAA",
-            "title": "",
-            "text": "<p>California Proposition 65 & 12 more</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_rFkqfj": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-2.png",
-            "icon_color": "#AAAAAA",
-            "title": "",
-            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_Ex3y7e": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-3.png",
-            "icon_color": "#AAAAAA",
-            "title": "",
-            "text": "<p>FCC & EMC Compliance</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_wXBGEj": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-4.png",
-            "icon_color": "#AAAAAA",
-            "title": "",
-            "text": "<p>In accordance with ISO 16750 and more</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_YYJKUF": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-5.png",
-            "icon_color": "#AAAAAA",
-            "title": "",
-            "text": "<p>General child safety tests</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_block_JgA8Ld",
-        "icon_block_FJUg4Q",
-        "icon_block_rFkqfj",
-        "icon_block_Ex3y7e",
-        "icon_block_wXBGEj",
-        "icon_block_YYJKUF"
-      ],
-      "custom_css": [
-        "> div {background-color: #d5d5d5;}",
-        ".kicker-flourished:after {display: none;}",
-        "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; }}"
-      ],
-      "settings": {
-        "title": "",
-        "bg": "palette--light bg--neutral",
-        "icons_size": 104,
-        "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
-        "align_text": "text-center",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "main",
+    "section_icons_3jALpN",
     "image-with-text",
     "image-with-text-2",
-    "related",
-    "section_icons_3jALpN"
+    "related"
   ]
 }
