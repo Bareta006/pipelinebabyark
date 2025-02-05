@@ -33,7 +33,7 @@
         "image_VMgjhY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_10_2e73fbe8-a874-4f51-90b7-8bc79adc25c8.png",
+            "image": "shopify://shop_images/image_15.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -53,7 +53,8 @@
         "image_VMgjhY"
       ],
       "custom_css": [
-        ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 10px auto;}"
+        ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 10px auto;}",
+        ".image__hero__scale {min-height: 100%; max-height: 100%;}"
       ],
       "settings": {
         "autoplay": false,
@@ -406,6 +407,119 @@
         "padding_top": 70,
         "padding_bottom": 36
       }
+    },
+    "section_video_T4RwKD": {
+      "type": "section-video",
+      "blocks": {
+        "heading_UkbDBN": {
+          "type": "heading",
+          "settings": {
+            "title": "Featured video",
+            "text_size": 10
+          }
+        },
+        "text_JwDJRp": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This area is used to describe your video’s details.</p>",
+            "text_size": 6
+          }
+        },
+        "button_KTNhEk": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "View products",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "Learn more",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_UkbDBN",
+        "text_JwDJRp",
+        "button_KTNhEk"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "object_position": "center-center",
+        "preload_image": false,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "overlay_opacity": 15,
+        "overlay_color": "#000000",
+        "enable_overlay_text": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_8zM3eL": {
+      "type": "section-double",
+      "blocks": {
+        "video_JhzNrF": {
+          "type": "video",
+          "settings": {
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "Introducing",
+            "title": "Featured video",
+            "richtext": "<p>This area is used to describe your video’s details.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_i4ynVN": {
+          "type": "text",
+          "settings": {
+            "kicker": "Image with text",
+            "title": "",
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_JhzNrF",
+        "text_i4ynVN"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -418,6 +532,8 @@
     "17382369213956607f",
     "section_icons_W8cw7D",
     "173824262189ac1f13",
-    "section_newsletter_mVpNcT"
+    "section_newsletter_mVpNcT",
+    "section_video_T4RwKD",
+    "section_double_8zM3eL"
   ]
 }
