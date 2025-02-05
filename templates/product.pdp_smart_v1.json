@@ -15,7 +15,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "text_size": 9,
+            "text_size": 8,
             "product_show_cutline": true,
             "show_rating": true,
             "show_rating_count": false,
@@ -25,7 +25,7 @@
         "price": {
           "type": "price",
           "settings": {
-            "price_size": 5,
+            "price_size": 7,
             "padding_bottom": 40
           }
         },
