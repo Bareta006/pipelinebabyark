@@ -33,7 +33,7 @@
         "image_VMgjhY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_10_2e73fbe8-a874-4f51-90b7-8bc79adc25c8.png",
+            "image": "shopify://shop_images/image_15.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -458,7 +458,7 @@
         "text_align": "align--bottom-left",
         "text_color": "text--white",
         "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "width": "wrapper--none",
         "padding_top": 0,
@@ -480,7 +480,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
