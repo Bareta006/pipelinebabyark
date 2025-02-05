@@ -355,7 +355,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "height": "use_image",
+        "height": "use_pixels_800",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
