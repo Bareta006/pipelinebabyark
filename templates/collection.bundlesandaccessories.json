@@ -209,9 +209,9 @@
       "settings": {
         "image": "shopify://shop_images/image_16.png",
         "height": "use_screen_full",
-        "overlay_opacity": 0,
+        "overlay_opacity": 15,
         "overlay_color": "#000000",
-        "enable_overlay_text": false,
+        "enable_overlay_text": true,
         "preload_image": false,
         "content_width": 2000,
         "text_align": "align--bottom-left",
