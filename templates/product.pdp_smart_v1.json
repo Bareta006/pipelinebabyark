@@ -17,10 +17,14 @@
           "settings": {
             "text_size": 8,
             "product_show_cutline": true,
-            "show_rating": true,
+            "show_rating": false,
             "show_rating_count": false,
             "padding_bottom": 20
           }
+        },
+        "judge_me_reviews_preview_badge_VYMFNW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
         },
         "price": {
           "type": "price",
@@ -48,26 +52,15 @@
         "quantity": {
           "type": "quantity",
           "settings": {
-            "show_quantity": true,
+            "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "sizes-remaining": {
-          "type": "size-remaining",
-          "settings": {
-            "info_page": "",
-            "title": "",
-            "show_remaining": true,
-            "show_remaining_style": "low",
-            "countdown": 10,
-            "padding_bottom": 0
           }
         },
         "buttons": {
           "type": "add-buttons",
           "settings": {
             "enable_payment_button": true,
-            "enable_gift_card_recipient": true,
+            "enable_gift_card_recipient": false,
             "padding_bottom": 20
           }
         },
@@ -128,11 +121,11 @@
       },
       "block_order": [
         "title",
+        "judge_me_reviews_preview_badge_VYMFNW",
         "price",
         "variants",
         "subscriptions",
         "quantity",
-        "sizes-remaining",
         "buttons",
         "description",
         "upsell",
