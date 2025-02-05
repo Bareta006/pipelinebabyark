@@ -292,7 +292,7 @@
       "custom_css": [
         "> div {background-color: #d5d5d5;}",
         ".kicker-flourished:after {display: none;}",
-        "@media (min-width: 960px) {h2 {font-size: 42px; font-family: \"Montserrat\"; font-weight: 400; text-transform:none } .grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
+        "@media (min-width: 960px) {h2 {font-size: 42px; font-family: \"Montserrat\"; font-weight: 400; text-transform: none; } .grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
@@ -303,7 +303,7 @@
         "align_text": "text-center",
         "width": "wrapper",
         "padding_top": 100,
-        "padding_bottom": 36
+        "padding_bottom": 100
       }
     },
     "image-with-text": {
