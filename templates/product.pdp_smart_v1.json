@@ -353,7 +353,9 @@
         "video_8UFBFR",
         "text"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last_child {width: 43%; }}"
+      ],
       "settings": {
         "height": "use_pixels_800",
         "brick_gutter": 0,
