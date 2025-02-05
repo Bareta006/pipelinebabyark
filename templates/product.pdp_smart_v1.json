@@ -292,7 +292,7 @@
       "custom_css": [
         "> div {background-color: #304545;}",
         ".kicker-flourished:after {display: none;}",
-        "@media (min-width: 960px) {h2 {color: #fff; text-align: center; font-family: Montserrat; font-size: 45px; font-style: normal; font-weight: 400; text-transform: none; line-height: 40px; /* 88.889% */ letter-spacing: -2.25px; } .grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
+        "@media (min-width: 960px) {h2 {color: #fff; font-size: 45px; font-weight: 400; text-transform: none; line-height: 40px; letter-spacing: -2.25px; } .icon__column__text p {color: #fff; font-size: 14px; line-height:14px; } .grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
