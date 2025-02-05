@@ -53,8 +53,7 @@
         "image_VMgjhY"
       ],
       "custom_css": [
-        ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 10px auto;}",
-        ".image__hero__scale img{object-fit:contain}"
+        ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 10px auto;}"
       ],
       "settings": {
         "autoplay": false,
