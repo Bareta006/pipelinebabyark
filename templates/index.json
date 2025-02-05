@@ -16,9 +16,9 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Website_main_image_1.png",
-            "overlay_opacity": 0,
+            "overlay_opacity": 15,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "Safe, Smart and Beautiful",
             "title": "The World’s Most Premium Car Seat",
             "richtext": "",
