@@ -292,14 +292,14 @@
       "custom_css": [
         "> div {background-color: #d5d5d5;}",
         ".kicker-flourished:after {display: none;}",
-        "@media (min-width: 960px) {.grid__item {width: 16%; clear:none } .clearfix {display: none; }}"
+        "@media (min-width: 960px) {.grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
       ],
       "settings": {
         "title": "",
         "bg": "palette--light bg--neutral",
         "icons_size": 104,
         "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
+        "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
         "padding_top": 36,
