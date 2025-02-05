@@ -409,13 +409,16 @@
         "text",
         "image"
       ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block:last-child {width: 51%; }}"
+      ],
       "settings": {
         "height": "use_screen_one_half",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
         "preload_image": false,
-        "width": "wrapper",
+        "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 36
       }
