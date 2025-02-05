@@ -470,7 +470,66 @@
         "text_RLUN7h"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width:100%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_LJxgJN": {
+      "type": "section-double",
+      "blocks": {
+        "text_hTMywk": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "SafeCoil™ shock absorbing system",
+            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "video_7g3amg": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_hTMywk",
+        "video_7g3amg"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 51%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -565,6 +624,7 @@
     "image-with-text",
     "image-with-text-2",
     "section_double_wMxLWV",
+    "section_double_LJxgJN",
     "related",
     "section_double_J8irQG"
   ]
