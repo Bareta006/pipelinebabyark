@@ -81,7 +81,7 @@
             "icon_name": "icon-truck",
             "image": "shopify://shop_images/Group_29613095.svg",
             "icon_size": 20,
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "text": "<p><strong>ESTIMATED DELIVERY BETWEEN </strong>{{ product.metafields.delivery.delivery_time.value }} {{ product.metafields.delivery.estimated_date.value }}</p>",
             "padding_bottom": 20
           }
@@ -92,7 +92,7 @@
             "icon_name": "icon-truck",
             "image": "shopify://shop_images/Group_29613100.png",
             "icon_size": 26,
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "text": "<p><strong>100 Day free trial</strong></p>",
             "padding_bottom": 20
           }
@@ -103,7 +103,7 @@
             "icon_name": "icon-truck",
             "image": "shopify://shop_images/Group_29613097_2.png",
             "icon_size": 50,
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "text": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
             "padding_bottom": 20
           }
@@ -225,7 +225,7 @@
           "settings": {
             "icon_name": "icon-shipment-world",
             "icon_alt": "shopify://shop_images/SVG-1.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>California Proposition 65 & 12 more</p>",
             "link_text": "",
@@ -237,7 +237,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/SVG-2.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
             "link_text": "",
@@ -249,7 +249,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/SVG-3.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>FCC & EMC Compliance</p>",
             "link_text": "",
@@ -261,7 +261,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/SVG-4.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>In accordance with ISO 16750 and more</p>",
             "link_text": "",
@@ -324,7 +324,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -390,8 +390,9 @@
         "image": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/image_19.png",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "",
@@ -413,14 +414,14 @@
         "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block:last-child {width: 51%; }}"
       ],
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_screen_full",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
         "preload_image": false,
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     },
     "related": {
@@ -458,7 +459,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
