@@ -207,7 +207,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_365.png",
+        "image": "shopify://shop_images/image_16.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
@@ -278,7 +278,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_12.png",
+        "image": "shopify://shop_images/image_17.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
@@ -349,7 +349,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_364.png",
+        "image": "shopify://shop_images/image_18.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
