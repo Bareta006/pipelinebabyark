@@ -14,50 +14,116 @@
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {}
+          "settings": {
+            "text_size": 9,
+            "product_show_cutline": true,
+            "show_rating": true,
+            "show_rating_count": false,
+            "padding_bottom": 20
+          }
         },
         "price": {
           "type": "price",
-          "settings": {}
+          "settings": {
+            "price_size": 5,
+            "padding_bottom": 40
+          }
         },
         "variants": {
           "type": "variant-selectors",
-          "settings": {}
+          "settings": {
+            "option_size_swatch": 34,
+            "option_size_radio": 50,
+            "option_space": 30,
+            "padding_bottom": 30
+          }
         },
         "subscriptions": {
           "type": "subscription",
-          "settings": {}
+          "settings": {
+            "subscriptions_enable_selectors": true,
+            "padding_bottom": 20
+          }
         },
         "quantity": {
           "type": "quantity",
-          "settings": {}
+          "settings": {
+            "show_quantity": true,
+            "padding_bottom": 20
+          }
         },
         "sizes-remaining": {
           "type": "size-remaining",
-          "settings": {}
+          "settings": {
+            "info_page": "",
+            "title": "",
+            "show_remaining": true,
+            "show_remaining_style": "low",
+            "countdown": 10,
+            "padding_bottom": 0
+          }
         },
         "buttons": {
           "type": "add-buttons",
-          "settings": {}
+          "settings": {
+            "enable_payment_button": true,
+            "enable_gift_card_recipient": true,
+            "padding_bottom": 20
+          }
         },
         "description": {
           "type": "description",
-          "settings": {}
+          "settings": {
+            "style": "accordions",
+            "enable_description": true,
+            "read_more": true,
+            "icon_description": "",
+            "description_expanded": true,
+            "title_1": "Information",
+            "icon_name_1": "",
+            "raw_content_1": "<p>This content type will accept <strong>rich text</strong> to help with adding styles and links to additional pages or content. Use this to add supplementary information to help your buyers.</p>",
+            "title_2": "Details",
+            "icon_name_2": "",
+            "raw_content_2": "<p>You can use product metafields to assign content to this tab that is unique to an individual product.  Use tabs to highlight unique features, sizing information, or other sales information.</p>",
+            "title_3": "",
+            "icon_name_3": "",
+            "raw_content_3": "",
+            "title_4": "",
+            "icon_name_4": "",
+            "raw_content_4": "",
+            "title_5": "",
+            "icon_name_5": "",
+            "raw_content_5": "",
+            "padding_bottom": 20
+          }
         },
         "upsell": {
           "type": "upsell",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "title": "Buy it with",
+            "upsell_type": "product_single",
+            "product": "",
+            "upsell_product_list": [],
+            "upsell_list_limit": 1,
+            "padding_bottom": 20
+          }
         },
         "pickup": {
           "type": "pickup",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "padding_bottom": 20
+          }
         },
         "sharing": {
           "type": "sharing",
           "disabled": true,
-          "settings": {}
+          "settings": {
+            "share_label": "Share",
+            "target_device": "",
+            "padding_bottom": 20
+          }
         }
       },
       "block_order": [
@@ -73,21 +139,59 @@
         "pickup",
         "sharing"
       ],
-      "settings": {}
+      "settings": {
+        "layout": "none@columns",
+        "image_width": "wide",
+        "image_spacing": 10,
+        "align": "left",
+        "bg": "palette--light bg--neutral",
+        "mobile_layout": "carousel",
+        "enable_video_looping": true,
+        "zoom_enable": true,
+        "alt_text_enable": false,
+        "alt_text_icon": "icon-basket-like",
+        "product_breadcrumbs_enable": false,
+        "product_breadcrumbs_list": [],
+        "width": "wrapper",
+        "padding_top": 24,
+        "padding_bottom": 36
+      }
     },
     "image-with-text": {
       "type": "section-double",
       "blocks": {
-        "text": {
-          "type": "text",
-          "settings": {
-            "button_text": ""
-          }
-        },
         "image": {
           "type": "image",
           "settings": {
-            "link_text": ""
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "Image with text",
+            "title": "",
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
           }
         }
       },
@@ -96,23 +200,51 @@
         "text"
       ],
       "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
         "width": "wrapper",
+        "padding_top": 36,
         "padding_bottom": 0
       }
     },
     "image-with-text-2": {
       "type": "section-double",
       "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "link_text": ""
-          }
-        },
         "text": {
           "type": "text",
           "settings": {
-            "button_text": ""
+            "kicker": "Image with text",
+            "title": "",
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         }
       },
@@ -121,13 +253,35 @@
         "image"
       ],
       "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
         "width": "wrapper",
-        "padding_top": 0
+        "padding_top": 0,
+        "padding_bottom": 36
       }
     },
     "related": {
       "type": "related",
-      "settings": {}
+      "settings": {
+        "heading": "You might also like",
+        "bg": "palette--light bg--neutral",
+        "grid_large": 4,
+        "grid_medium": 3,
+        "grid_small": 1.2,
+        "related_products_enable": true,
+        "limit": 6,
+        "product_recommendations_heading": "Related products",
+        "show_recently_viewed": true,
+        "product_recently_limit": 6,
+        "product_recently_minimum": 4,
+        "product_recently_heading": "Recently viewed",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
