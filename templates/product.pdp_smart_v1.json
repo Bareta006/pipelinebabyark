@@ -641,7 +641,7 @@
         "animated_graphs_HypByM"
       ],
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_screen_full",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
