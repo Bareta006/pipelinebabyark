@@ -148,10 +148,9 @@
             </div>
             <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }} w-573">
       {% for block in section.blocks %}
-                <div class="brick__graph" data-overflow-frame {{ block.shopify_attributes }}>
+                <div class="brick__block">
                   <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
                       <div class="hero__content__wrapper {{ block.settings.text_align }}">
-
                         <div class="hero__content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %} data-overflow-content>
                             <div class="graphs">
                                 <div class="graph mb-8">
@@ -169,11 +168,11 @@
                                 </div>
                               </div>
                         </div>
-                  </div>
-                </div>
+                    </div>
+                    </div>
                 </div>
       {% endfor %}
-      </div>
+            </div>
     </div>
     {% if section.blocks.size == 0 %}
       <div class="text-center">{{ 'home_page.onboarding.no_content' | t }}</div>
