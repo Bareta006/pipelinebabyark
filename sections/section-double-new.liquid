@@ -90,7 +90,7 @@
                 assign transparent_spacing_class = "brick__block__text--transparent"
               endif
             -%}
-            <div class="brick__block" data-prevent-transparent-header {{ section.shopify_attributes }}>
+            <div class="brick__block w-427" data-prevent-transparent-header {{ section.shopify_attributes }}>
               <div class="brick__block__text {{ transparent_spacing_class }} {{ section.settings.text_color }}" data-overflow-frame style="--bg: {{ bg_color }};">
                 <div class="brick__block__text__inner">
 
@@ -146,7 +146,7 @@
                 </div>
               </div>
             </div>
-            <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }}">
+            <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }} w-573">
       {% for block in section.blocks %}
                 <div class="brick__block" data-overflow-frame {{ block.shopify_attributes }}>
                   <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
@@ -433,9 +433,16 @@
     right: 50%;
     transform: translateX(-50%);
 }
+#shopify-section-{{section.id}} .w-427{
+    width: 42.7%;
+}
+#shopify-section-{{section.id}} .w-573{
+    width: 57.3%;
+}
     @media (max-width:480px){
       #shopify-section-{{section.id}} .textLeft{
         margin-right:auto;
+
       }
       #shopify-section-{{section.id}} span.textRight-after:after,
       #shopify-section-{{section.id}} span.textRight-after,
