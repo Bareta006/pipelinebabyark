@@ -11768,9 +11768,9 @@ label[data-swatch="Charcoal Grey / Glacier Ice"]{
   background: rgba(147, 153, 148, 0.82)!important;
   background: linear-gradient(180deg, rgba(147, 153, 148, 1) 0%, rgba(147, 153, 148, 1) 50%, rgba(65, 69, 75, 1) 50%)!important;
 }
-label[data-swatch="Eggshell White / Moonlight"]{
+label[data-swatch="Eggshell White / Glacier Ice"]{
   background: rgb(176, 163, 146)!important;
-  background: linear-gradient(180deg, rgb(176, 163, 146) 0%, rgb(176, 163, 146) 50%, rgba(237, 237, 230, 1) 50%)!important;
+  background: linear-gradient(180deg, rgb(147, 153, 148) 0%, rgb(147, 153, 148) 50%, rgba(237, 237, 230, 1) 50%)!important;
 }
 
 @media only screen and (max-width: 767px) {
