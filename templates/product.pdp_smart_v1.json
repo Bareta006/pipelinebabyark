@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "section_liquid_3BhB6X": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover {\n  background-color: #000000;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n</style>"
+      }
+    },
     "main": {
       "type": "product",
       "blocks": {
@@ -391,7 +397,7 @@
         "image": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_19.png",
+            "image": "shopify://shop_images/Group_29613102.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -665,12 +671,6 @@
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
-      }
-    },
-    "section_liquid_3BhB6X": {
-      "type": "section-liquid",
-      "settings": {
-        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover {\n  background-color: #000000;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n</style>"
       }
     }
   },
