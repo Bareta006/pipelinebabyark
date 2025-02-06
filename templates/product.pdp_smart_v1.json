@@ -670,7 +670,7 @@
     "section_liquid_3BhB6X": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\n}\n#shopify-installments-content {\n  display: none;\n}\n</style>"
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\n}\n.shop-pay-terms {\n  display: none;\n}\n</style>"
       }
     }
   },
