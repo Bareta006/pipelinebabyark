@@ -1,6 +1,779 @@
+<!-- /sections/section-double.liquid -->
+
+{% liquid
+  assign blockList = ''
+  for block in section.blocks
+    assign blockList = blockList | append: block.type | append: ','
+    assign blockList = blockList | replace: 'video', 'image'
+  endfor
+  assign blockArray = blockList | split: ","
+
+  assign swaparoo_class = ''
+  if blockArray[0] != 'image' and blockArray[1] == 'image'
+    assign swaparoo_class = 'brick__section--reverse'
+  endif
+
+  assign border_class = ''
+  if section.settings.borders
+    assign border_class = 'brick--border'
+  endif
+
+  assign margin_class = ''
+  if section.settings.brick_gutter > 0
+    assign margin_class = 'brick--margin'
+  endif
+
+  assign transparent_header = false
+  assign non_image_block_types = 'text, newsletter, reviews, product, collection' | split: ','
+  unless non_image_block_types contains section.blocks[0].type and non_image_block_types contains section.blocks[1].type
+    assign transparent_header = true
+  endunless
+
+  assign animation_anchor = "[data-section-id='" | append: section.id | append: "']"
+
+  if section.settings.preload_image
+    assign preload = true
+    assign loading = 'eager'
+    assign fetchpriority = 'high'
+  else
+    assign preload = false
+    assign loading = 'lazy'
+  endif
+%}
+
+{%- capture image_block_sizes -%}
+  {%- render 'image-grid-sizes',
+    columns_desktop: section.blocks.size,
+    columns_tablet: section.blocks.size,
+    columns_mobile: 1.0,
+    section_width: section.settings.width
+  %}
+{%- endcapture -%}
+
+{%- capture video_block_sizes -%}
+  {%- render 'image-grid-sizes',
+    columns_desktop: 2,
+    columns_tablet: 2,
+    columns_mobile: 1.0,
+    section_width: section.settings.width
+  %}
+{%- endcapture -%}
+
+<section data-section-id="{{ section.id }}"
+  data-section-type="custom-content"
+  {% if transparent_header and section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %}data-overlay-header{% endif %}
+  style="--PT: {{ section.settings.padding_top }}px;
+         --PB: {{ section.settings.padding_bottom }}px;
+         --BRICK-GUTTER: {{ section.settings.brick_gutter }}px;
+         {% if section.settings.bg_color != blank %}background-color: {{ section.settings.bg_color }};{% endif %}">
+  <div class="section-padding {{ section.settings.width }}" data-wrapper>
+    <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }}"
+      data-overflow-wrapper>
+      {%- liquid
+              assign kicker_line_class = ''
+              if section.settings.title == blank
+                assign kicker_line_class = 'kicker__line'
+              endif
+
+
+              assign characters = section.settings.text | size
+              assign justify_class = ''
+              if characters > 400 and section.settings.align_text == 'text-center' and section.settings.text_columns > 1
+                assign justify_class = 'text-justify'
+
+              endif
+
+              assign bg_color = section.settings.bg_color
+              assign transparent_spacing_class = ""
+              if bg_color == 'rgba(0,0,0,0)' or bg_color == blank
+
+                assign transparent_spacing_class = "brick__block__text--transparent"
+              endif
+            -%}
+            <div class="brick__block" data-prevent-transparent-header {{ section.shopify_attributes }}>
+              <div class="brick__block__text {{ transparent_spacing_class }} {{ section.settings.text_color }}" data-overflow-frame style="--bg: {{ bg_color }};">
+                <div class="brick__block__text__inner">
+
+                  <div class="text__standard {{ section.settings.align_text }}" data-overflow-content>
+                    {% assign text_size_class = section.settings.font_size | prepend: 'body-size-' %}
+
+
+                    {% if section.settings.kicker != blank %}
+                      <p class="standard__kicker {{ kicker_line_class }}"
+                        data-aos="hero"
+                        data-aos-anchor="{{ animation_anchor }}"
+                        data-aos-order="1">
+                        {{ section.settings.kicker }}
+
+                      </p>
+                    {% endif %}
+
+                    {% if section.settings.title != blank %}
+                      <h2 class="standard__heading heading-size-9"
+                        data-aos="hero"
+                        data-aos-anchor="{{ animation_anchor }}"
+                        data-aos-order="2">
+                        {{ section.settings.title }}
+
+                      </h2>
+                    {% endif %}
+
+
+                    {% if section.settings.text != blank %}
+                      {% assign text_columns_class = section.settings.text_columns | prepend: 'columns--' %}
+                      <div class="rte {{ text_size_class }} {{ text_columns_class }} {{ justify_class }}"
+                        data-aos="hero"
+
+                        data-aos-anchor="{{ animation_anchor }}"
+                        data-aos-order="3">
+                        {{ section.settings.text }}
+                      </div>
+                    {% endif %}
+
+
+                    {% if section.settings.button_text != blank %}
+                      <a href="{{ section.settings.button_url }}"
+                        class="standard__cta {{ section.settings.button_style }} {{ section.settings.button_color }}"
+                        data-aos="hero"
+                        data-aos-anchor="{{ animation_anchor }}"
+                        data-aos-order="4">
+                        {{ section.settings.button_text }}
+
+                      </a>
+                    {% endif %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+      {% for block in section.blocks %}
+                <div class="brick__block" data-overflow-frame {{ block.shopify_attributes }}>
+                  <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
+                      <div class="hero__content__wrapper {{ block.settings.text_align }}">
+                        <div class="hero__content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %} data-overflow-content>
+                            
+                          
+                        </div>
+    
+                        {%- if block.settings.link != blank and block.settings.link_text == blank -%}
+                          <a href="{{ block.settings.link }}" class="link-over-image" aria-label="{{ block.settings.link.object.title | default: block.settings.image.alt | strip_html | escape }}"></a>
+                        {%- endif -%}
+                      </div>
+
+    
+                    {% unless block.settings.enable_overlay_text %}
+                      <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
+                    {% endunless %}
+    
+                    {%- capture srcset -%}
+                      {%- render 'image-grid-srcset',
+                        image: block.settings.image,
+                        columns_desktop: section.blocks.size,
+                        columns_tablet: section.blocks.size,
+                        columns_mobile: 1.0,
+                        section_width: section.settings.width
+                      %}
+                    {%- endcapture -%}
+    
+                    {%- render 'image-parallax', img_object: block.settings.image, frame_height_class: section.settings.height, srcset: srcset, sizes: image_block_sizes, preload: preload, loading: loading, fetchpriority: fetchpriority -%}
+                  </div>
+                </div>
+
+      {% endfor %}
+    </div>
+    {% if section.blocks.size == 0 %}
+      <div class="text-center">{{ 'home_page.onboarding.no_content' | t }}</div>
+    {% endif %}
+  </div>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const observerCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.graphs').forEach(graph => {
+                    const innerContainer = graph.querySelector('.innerContainer');
+                    const textNumber = graph.querySelector('.textNumber');
+                    const textRight = graph.querySelector('.textRight');
+                    const competitorNumber = graph.querySelector('.competitorNumber');
+
+                    // Retrieve the data attributes
+                    const dataNumber = innerContainer.getAttribute('data-number');
+                    const dataTextRight = innerContainer.getAttribute('data-text_right');
+                    // Ensure the calculation logic here is as intended
+                    const translateValue = (dataNumber / dataTextRight) * 100;
+
+                    // Apply styles to .textNumber
+                    if (textNumber) {
+                        textNumber.style.left = `${translateValue}%`;
+                        textNumber.style.transform = `translateX(-${translateValue}%)`;
+                    }
+
+                    // Delay setting opacity for .textRight and .competitorNumber by 2 seconds
+                    setTimeout(() => {
+                        if (textRight) {
+                            textRight.style.opacity = '1';
+                        }
+                        if (competitorNumber) {
+                            competitorNumber.style.opacity = '1';
+                        }
+                    }, 2000); // 2000 milliseconds = 2 seconds
+                });
+
+                // Unobserve to avoid repeating the animation
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+        threshold: 0.4 // Adjusts when 40% of the section is visible
+    });
+
+    const animatedGraphsSection = document.querySelector('.AnimatedGraphs-section');
+    if (animatedGraphsSection) {
+        observer.observe(animatedGraphsSection);
+    }
+});
+
+
+    </script>
+    <style>
+      #shopify-section-{{section.id}} .textSide{
+        background-color: {{section.settings.text_background_color}};
+        align-items:center;
+      }
+      #shopify-section-{{section.id}} .section-title{
+        color:{{ section.settings.title_color }};
+        font-size:42px;
+        font-weight:400;
+      }
+      #shopify-section-{{section.id}} .section-description{
+        color:{{ section.settings.description_color }};
+        font-size:18px;
+      }
+      #shopify-section-{{section.id}} .block-title{
+        color:{{ section.settings.block_color }};
+        width:90%;
+        margin-right:0;
+        margin-left:auto;
+      }
+      #shopify-section-{{section.id}} .innerContainer {
+        background: hsla(65, 31%, 45%, 1);
+        background: linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+        background: -moz-linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+        background: -webkit-linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+        filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#90964F", endColorstr="#72943A", GradientType=1 );
+        width: 100%;
+        position: relative;
+        padding: 7px;
+        border-radius: 50px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+    }
+    #shopify-section-{{section.id}} h2{
+      font-size:36px;
+      font-weight: 500;
+    }
+    #shopify-section-{{section.id}} .textNumber {
+        height: 49px;
+        background: #FAF7F5;
+        border-radius: 50px;
+        width: 93px;
+        text-align: right;
+        display: flex;
+        padding-right: 16px;
+        font-size: 25px;
+        transition: 2.5s;
+        color:{{section.settings.pill_text_color}};
+        left: calc( 100% - 103px);
+    }
+    #shopify-section-{{section.id}} .textNumber:after {
+  
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: 48px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+    #shopify-section-{{section.id}} .textNumber .stats{
+      display: flex;
+    justify-content: end;
+    gap: 7px;
+    align-items: center;
+    width: 100%;
+    }
+
+    #shopify-section-{{section.id}} .textNumber .brandName{
+      top: 70px;
+    color: #FAF7F5;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    }
+    #shopify-section-{{section.id}} .competitorNumber{
+      height: 49px;
+    border-radius: 50px;
+    width: 93px;
+    text-align: right;
+    display: flex;
+    font-size: 25px;
+    transition: 1.5s;
+    color: #FAF7F5;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    }
+    #shopify-section-{{section.id}} .competitorNumber:after{
+      content: '.';
+    width: 2px;
+    height: 12px;
+    color:transparent;
+    background: #fff;
+    top: 48px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    }
+    #shopify-section-{{section.id}} .competitorName{
+      top: 62px;
+    color: #fff;
+    font-size: 14px;
+    width:250px;
+    display: block;
+    white-space: pre-wrap;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1.2;
+    }
+    #shopify-section-{{section.id}} .textLeft {
+        text-align: center;
+        margin-right: 20px;
+        font-size: 18px;
+        line-height: 1.4;
+        color:{{section.settings.left_color}};
+        min-width: 120px;
+    }
+    #shopify-section-{{section.id}} .textRight {
+        width: 100%;
+        text-align: right;
+        display: flex;
+        justify-content: end;
+        padding-right: 20px;
+        font-size:25px;
+        opacity: 0;
+        transition: 1.5s;
+        color:{{section.settings.right_color}};
+    }
+    #shopify-section-{{section.id}} .textRight h3 {
+        max-width: 80px;
+        text-align: left;
+        font-size: 28px;
+        line-height: 1;
+    }
+    #shopify-section-{{section.id}} .graphSide{
+      background: {{section.settings.graphSide_background_color}};
+    }
+    #shopify-section-{{section.id}} .textSide h2, #shopify-section-{{section.id}} .textSide .rte {
+    max-width: 100%;
+    width: 430px;
+    padding: 0 15px;
+}
+#shopify-section-{{section.id}} .section-button {
+    max-width: 100%;
+    width: 430px;
+    padding: 0 15px;
+}
+#shopify-section-{{section.id}} .section-button a.button {
+  color: {{ section.settings.button_text_color }};
+  background-color: {{ section.settings.button_background_color }};
+  width: 216px;
+    display: block;
+}
+#shopify-section-{{section.id}} .section-button a.button:hover {
+  color: #FAF7F5;
+  background-color: #7f7f7f;
+}
+#shopify-section-{{section.id}} span.textRight-after:after {
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: -20px;
+    position: absolute;
+    right: 25px;
+    transform: translateX(-50%);
+    content: '.';
+}
+#shopify-section-{{section.id}} span.textRight-after {
+    position: absolute;
+    bottom: -30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #7f7f7f;
+}
+#shopify-section-{{section.id}} span.brandName_after {
+    position: absolute;
+    bottom: -30px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #7f7f7f;
+    width: 110px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+#shopify-section-{{section.id}} span.brandName_after:after {
+  content: '.';
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: -13px;
+    position: absolute;
+    right: 50%;
+    transform: translateX(-50%);
+}
+    @media (max-width:480px){
+      #shopify-section-{{section.id}} .textLeft{
+        margin-right:auto;
+      }
+      #shopify-section-{{section.id}} span.textRight-after:after,
+      #shopify-section-{{section.id}} span.textRight-after,
+      #shopify-section-{{section.id}} span.brandName_after:after,
+      #shopify-section-{{section.id}} span.brandName_after
+      {
+        display: none;
+      }
+    #shopify-section-{{section.id}} .section-title{
+        font-size:28px;
+        color:{{section.settings.left_color}};
+      }
+      #shopify-section-{{section.id}} .section-description{
+        font-size:16px;
+        color:{{section.settings.left_color}};
+      }
+      #shopify-section-{{section.id}} .textSide{
+        background: {{section.settings.graphSide_background_color}};
+      }
+      #shopify-section-{{section.id}} h2{
+      font-size:28px;
+      font-weight: 500;
+    }
+    #shopify-section-{{section.id}} .innerContainer{
+      height: 42px;
+      width: 100%;
+    }
+    #shopify-section-{{section.id}} .block-title{
+      width: calc(100% - 62px);
+    }
+    #shopify-section-{{section.id}} .textNumber{
+      height: 34px;
+      width: 60px;
+      font-size: 16px;
+      padding-right: 10px;
+
+    }
+    #shopify-section-{{section.id}} .textNumber .stats svg{
+      width:10px;
+    }
+    #shopify-section-{{section.id}} span.textLeft{
+      font-size: 22px;
+      min-width: 52px;
+      margin-right: 10px;
+    }
+    #shopify-section-{{section.id}} span.textRight{
+      padding-right: 0px;
+    }
+    #shopify-section-{{section.id}} span.textRight span{
+      font-size: 16px;
+    }
+    #shopify-section-{{section.id}} .competitorName{
+      top: 55px;
+      white-space: pre-wrap;
+    }
+    #shopify-section-{{section.id}} .competitorNumber:after{
+      height: 12px;
+      top:40px;
+    }
+    #shopify-section-{{section.id}} .textNumber:after {
+    height: 12px;
+    top: 33px;
+
+}
+    #shopify-section-{{section.id}} .competitorNumber{
+      font-size: 16px;
+    }
+    #shopify-section-{{section.id}} .section-button a.button{
+      width:100%;
+      
+    }
+    }
+</style>
+
 {% schema %}
+{
+  "name": "Image with text newer",
+  "max_blocks": 2,
+  "settings": [
   {
-    "name": "Section name",
-    "settings": []
+
+    "type": "select",
+    "id": "height",
+    "label": "Section height",
+    "default": "use_screen_one_half",
+    "options": [
+      { "value": "use_screen_full", "label": "Full screen height"},
+      { "value": "use_screen_three_quarters", "label": "Three quarters of screen height"},
+      { "value": "use_screen_two_thirds", "label": "Two thirds of screen height"},
+      { "value": "use_screen_one_half", "label": "One half of screen height"},
+      { "value": "use_screen_one_third", "label": "One third of screen height"},
+      { "value": "use_screen_one_fifth", "label": "One fifth of screen height"},
+      { "value": "use_pixels_800", "label": "800px" },
+      { "value": "use_pixels_650", "label": "650px" },
+      { "value": "use_pixels_500", "label": "500px" },
+      { "value": "use_image", "label": "Image height" }
+    ]
+  },
+  {
+    "type": "range",
+    "id": "brick_gutter",
+    "min": 0,
+    "max": 50,
+    "step": 2,
+    "unit": "px",
+    "label": "Block spacing",
+    "default": 0
+  },
+  {
+    "type": "checkbox",
+    "id": "borders",
+    "label": "Add borders",
+    "default": false
+  },
+  {
+    "type": "color",
+    "id": "bg_color",
+    "label": "Background"
+  },
+  {
+    "type": "checkbox",
+    "id": "preload_image",
+    "label": "Prioritize image load",
+    "default": false,
+    "info": "Prioritize loading this image before other images. Helpful when this section is first on a page, harmful when this section is below other image sections."
+  },
+  {
+    "type": "header",
+    "content": "Section spacing"
+  },
+  {
+    "type": "select",
+    "id": "width",
+    "label": "Width",
+    "default": "wrapper",
+    "options": [
+      { "value": "wrapper--none", "label": "Full width" },
+      { "value": "wrapper--full", "label": "Full width padded" },
+      { "value": "wrapper", "label": "Page width" },
+      { "value": "wrapper--narrow", "label": "Page width narrow" },
+      { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+    ]
+  },
+  {
+    "type": "range",
+    "id": "padding_top",
+    "min": 0,
+    "max": 180,
+    "step": 2,
+    "unit": "px",
+    "label": "Padding top",
+    "default": 36
+  },
+  {
+    "type": "range",
+    "id": "padding_bottom",
+    "min": 0,
+    "max": 180,
+    "step": 2,
+    "unit": "px",
+    "label": "Padding bottom",
+    "default": 36
+  },
+  {
+        "type": "text",
+        "id": "kicker",
+        "label": "Kicker",
+        "default": "Image with text"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      },
+      {
+        "type": "richtext",
+        "id": "text",
+        "label": "Text",
+        "default": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>"
+      },
+      {
+        "type":  "range",
+        "id":    "font_size",
+        "label": "Text size",
+        "min":    1,
+        "max":    10,
+        "step":   1,
+        "default":5
+      },
+      {
+        "type":  "range",
+        "id":    "text_columns",
+        "label": "Columns",
+        "min":    1,
+        "max":    3,
+        "step":   1,
+        "default":1,
+        "info": "Desktop only"
+      },
+      {
+        "type": "select",
+        "id": "align_text",
+        "label": "Text alignment",
+        "default": "text-left",
+        "options": [
+          { "value": "text-left","label": "Left" },
+          { "value": "text-center","label": "Centered" },
+          { "value": "text-right","label": "Right" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Button"
+      },
+      {
+        "type":"text",
+        "id":"button_text",
+        "label":"Text"
+      },
+      {
+        "type":"url",
+        "id":"button_url",
+        "label":"Link"
+      },
+      {
+        "type": "select",
+        "id": "button_color",
+        "label": "Color",
+        "default": "btn--neutral",
+        "options": [
+          { "value": "btn--primary", "label": "Bright accent" },
+          { "value": "btn--secondary", "label": "Secondary accent" },
+          { "value": "btn--neutral", "label": "Text color" },
+          { "value": "btn--black", "label": "Black" },
+          { "value": "btn--white", "label": "White" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button style",
+        "default": "btn-text-thick-line",
+        "options": [
+          { "value": "btn-text-thick-line", "label": "Capitalized text" },
+          { "value": "btn btn--long", "label": "Solid button" },
+          { "value": "btn--soft btn--long", "label": "Soft button" },
+          { "value": "btn--outline btn--long", "label": "Outlined button" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Style"
+      },
+      {
+        "type": "select",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "text--neutral",
+        "options": [
+          { "value": "text--neutral", "label": "Normal text"},
+          { "value": "text--white", "label": "White"},
+          { "value": "text--primary", "label": "Primary accent"},
+          { "value": "text--secondary", "label": "Secondary accent"},
+          { "value": "text--black", "label": "Black"},
+          { "value": "text--invert--primary", "label": "Primary dark accent"},
+          { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+          { "value": "text--invert", "label": "Inverted text color"},
+          { "value": "text--bright--primary", "label": "Primary bright accent"},
+          { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+        ]
+      },
+      {
+        "type": "color",
+        "id": "bg_color_text",
+        "label": "Background text"
+      }
+],
+"blocks": [
+    {
+        "type": "AnimatedGraphs",
+        "name": "Graph Block",
+        "settings": [
+          {
+            "type": "text",
+            "id": "block_title",
+            "label": "Block Title"
+          },
+          {
+            "type": "text",
+            "id": "text_left",
+            "label": "Text on Left"
+          },
+          {
+            "type": "number",
+            "id": "text_right",
+            "label": "Text on Right"
+          },
+          {
+            "type": "text",
+            "id": "text_right_after",
+            "label": "Text after right text"
+          },
+          {
+            "type": "number",
+            "id": "number_field",
+            "label": "Number Field"
+          },
+          {
+            "type": "number",
+            "id": "competitor_number",
+            "label": "competitor number"
+          },
+          {
+            "type": "text",
+            "id": "competitor",
+            "label": "competitor name"
+          }
+        ]
+      }
+],
+  "presets": [
+    {
+      "name": "Image with text newer",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "AnimatedGraphs"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
   }
+}
 {% endschema %}
