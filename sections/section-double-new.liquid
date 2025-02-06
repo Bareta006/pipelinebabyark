@@ -150,8 +150,6 @@
       {% for block in section.blocks %}
                 <div class="brick__block">
                   <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
-                      <div class="hero__content__wrapper {{ block.settings.text_align }}">
-                        <div class="hero__content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %} data-overflow-content>
                             <div class="graphs">
                                 <div class="graph mb-8">
                                   <div class="flex flex-wrap flex-col-reverse md:flex-row  gap-2 md:gap-4 justify-between items-start graphsContainer">
@@ -167,8 +165,6 @@
                                   </div>
                                 </div>
                               </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
       {% endfor %}
