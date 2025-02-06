@@ -483,7 +483,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block__text__inner {width: 420px;}.brick__block__text {justify-content: center;}}"
+        "@media (min-width: 960px) {.brick__block__text__inner {width: 420px; } .brick__block__text {justify-content: center; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -494,9 +494,9 @@
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0,
-        "kicker": "Image with text",
-        "title": "",
-        "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "kicker": "",
+        "title": "The lowest risk of head injury",
+        "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
         "font_size": 5,
         "text_columns": 1,
         "align_text": "text-left",
