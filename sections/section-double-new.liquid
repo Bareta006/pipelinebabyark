@@ -79,7 +79,7 @@
                                   <div class="flex flex-wrap flex-col-reverse md:flex-row  gap-2 md:gap-4 justify-between items-start graphsContainer">
                                     <div class="textLeft flex">
                                       {% if block.settings.text_left != blank %}<div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>{% endif %}
-                                      {% if block.settings.block_title != blank %}<div class="blockTitle text-center">{{ block.settings.block_title }}</div>{% endif %}
+                                      {% if block.settings.block_title != blank %}<div class="blockTitle text-center"><strong>{{ block.settings.block_title }}</strong></div>{% endif %}
                                     </div>
                                     <div class="innerContainer" {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}{% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
                                       {% if block.settings.text_right != blank %}<span class="textRight"><span>{{ block.settings.text_right }}</span>{% if block.settings.text_right_after != blank %}<span class="textRight-after">{{block.settings.text_right_after}}</span>{% endif %}</span>{% endif %}
@@ -350,9 +350,11 @@
         line-height: 1.4;
         color:{{section.settings.left_color}};
         min-width: 120px;
+        gap:20px;
     }
     #shopify-section-{{section.id}} .textRight {
         width: 100%;
+
         text-align: right;
         display: flex;
         justify-content: end;
