@@ -482,6 +482,9 @@
         "animated_graphs_Gb4AtA",
         "animated_graphs_HypByM"
       ],
+      "custom_css": [
+        ".brick__block__text__inner {width: 420px; }"
+      ],
       "settings": {
         "height": "use_screen_full",
         "brick_gutter": 0,
