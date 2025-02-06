@@ -488,7 +488,7 @@
         "borders": false,
         "bg_color": "#e4e4e4",
         "preload_image": false,
-        "width": "wrapper",
+        "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "Image with text",
