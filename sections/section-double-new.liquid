@@ -70,7 +70,30 @@
   <div class="section-padding {{ section.settings.width }}" data-wrapper>
     <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }}"
       data-overflow-wrapper>
-      {%- liquid
+            <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }} w-573">
+      {% for block in section.blocks %}
+                <div class="brick__block">
+                  <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
+                            <div class="graphs">
+                                <div class="graph mb-8">
+                                  <div class="flex flex-wrap flex-col-reverse md:flex-row  gap-2 md:gap-4 justify-between items-start graphsContainer">
+                                    <div class="textLeft flex gap-2 mx-auto md:ml-0">
+                                      {% if block.settings.text_left != blank %}<div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>{% endif %}
+                                      {% if block.settings.block_title != blank %}<div class="blockTitle text-center">{{ block.settings.block_title }}</div>{% endif %}
+                                    </div>
+                                    <div class="innerContainer" {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}{% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
+                                      {% if block.settings.text_right != blank %}<span class="textRight"><span>{{ block.settings.text_right }}</span>{% if block.settings.text_right_after != blank %}<span class="textRight-after">{{block.settings.text_right_after}}</span>{% endif %}</span>{% endif %}
+                                      {% if block.settings.number_field != blank %}<div class="textNumber absolute"><div class="stats">{{ babyarkLogo }}{{ block.settings.number_field }}</div>{%if forloop.first %}<span class="brandName_after">babyark`s HIC</span>{% endif %}</div>{% endif %}
+                                      {% if block.settings.competitor_number != blank and block.settings.competitor_number != 0 %}<div class="competitorNumber absolute" style="    left: calc(({{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%);transform: translateX(calc((-{{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%));"><div class="competitorStats">{{ block.settings.competitor_number }}</div><div class="competitorName absolute">{{ block.settings.competitor }}</div></div>{%endif%}
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                    </div>
+                </div>
+      {% endfor %}
+            </div>
+            {%- liquid
               assign kicker_line_class = ''
               if section.settings.title == blank
                 assign kicker_line_class = 'kicker__line'
@@ -146,29 +169,6 @@
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }} w-573">
-      {% for block in section.blocks %}
-                <div class="brick__block">
-                  <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
-                            <div class="graphs">
-                                <div class="graph mb-8">
-                                  <div class="flex flex-wrap flex-col-reverse md:flex-row  gap-2 md:gap-4 justify-between items-start graphsContainer">
-                                    <div class="textLeft flex gap-2 mx-auto md:ml-0">
-                                      {% if block.settings.text_left != blank %}<div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>{% endif %}
-                                      {% if block.settings.block_title != blank %}<div class="blockTitle text-center">{{ block.settings.block_title }}</div>{% endif %}
-                                    </div>
-                                    <div class="innerContainer" {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}{% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
-                                      {% if block.settings.text_right != blank %}<span class="textRight"><span>{{ block.settings.text_right }}</span>{% if block.settings.text_right_after != blank %}<span class="textRight-after">{{block.settings.text_right_after}}</span>{% endif %}</span>{% endif %}
-                                      {% if block.settings.number_field != blank %}<div class="textNumber absolute"><div class="stats">{{ babyarkLogo }}{{ block.settings.number_field }}</div>{%if forloop.first %}<span class="brandName_after">babyark`s HIC</span>{% endif %}</div>{% endif %}
-                                      {% if block.settings.competitor_number != blank and block.settings.competitor_number != 0 %}<div class="competitorNumber absolute" style="    left: calc(({{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%);transform: translateX(calc((-{{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%));"><div class="competitorStats">{{ block.settings.competitor_number }}</div><div class="competitorName absolute">{{ block.settings.competitor }}</div></div>{%endif%}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                    </div>
-                </div>
-      {% endfor %}
             </div>
     </div>
     {% if section.blocks.size == 0 %}
