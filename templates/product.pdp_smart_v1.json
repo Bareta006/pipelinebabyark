@@ -70,7 +70,7 @@
         "buttons": {
           "type": "add-buttons",
           "settings": {
-            "enable_payment_button": true,
+            "enable_payment_button": false,
             "enable_gift_card_recipient": false,
             "padding_bottom": 20
           }
