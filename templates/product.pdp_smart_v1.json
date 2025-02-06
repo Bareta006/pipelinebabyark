@@ -1,0 +1,596 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": 8,
+            "product_show_cutline": true,
+            "show_rating": false,
+            "show_rating_count": false,
+            "padding_bottom": 20
+          }
+        },
+        "judge_me_reviews_preview_badge_VYMFNW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": 7,
+            "padding_bottom": 40
+          }
+        },
+        "variants": {
+          "type": "variant-selectors",
+          "settings": {
+            "option_size_swatch": 34,
+            "option_size_radio": 50,
+            "option_space": 30,
+            "padding_bottom": 30
+          }
+        },
+        "subscriptions": {
+          "type": "subscription",
+          "settings": {
+            "subscriptions_enable_selectors": true,
+            "padding_bottom": 20
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+            "show_quantity": false,
+            "padding_bottom": 20
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "buttons": {
+          "type": "add-buttons",
+          "settings": {
+            "enable_payment_button": true,
+            "enable_gift_card_recipient": false,
+            "padding_bottom": 20
+          }
+        },
+        "icon_Yedxbi": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613095.svg",
+            "icon_size": 20,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>ESTIMATED DELIVERY BETWEEN </strong>{{ product.metafields.delivery.delivery_time.value }} {{ product.metafields.delivery.estimated_date.value }}</p>",
+            "padding_bottom": 20
+          }
+        },
+        "icon_EC9RhA": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613100.png",
+            "icon_size": 26,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>100 Day free trial</strong></p>",
+            "padding_bottom": 20
+          }
+        },
+        "icon_Eafi8h": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613097_2.png",
+            "icon_size": 50,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
+            "padding_bottom": 20
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "style": "accordions",
+            "enable_description": true,
+            "read_more": false,
+            "icon_description": "",
+            "description_expanded": false,
+            "title_1": "Information",
+            "icon_name_1": "",
+            "raw_content_1": "",
+            "title_2": "FEATURES",
+            "icon_name_2": "",
+            "raw_content_2": "<p>You can use product metafields to assign content to this tab that is unique to an individual product.  Use tabs to highlight unique features, sizing information, or other sales information.</p>",
+            "title_3": "SPECIFICATIONS",
+            "icon_name_3": "",
+            "raw_content_3": "<p>asdf</p>",
+            "title_4": "",
+            "icon_name_4": "",
+            "raw_content_4": "",
+            "title_5": "",
+            "icon_name_5": "",
+            "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
+          "type": "shopify://apps/tolstoy-shoppable-video-ugc/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "h7xj8mqpubub9"
+          }
+        },
+        "upsell": {
+          "type": "upsell",
+          "disabled": true,
+          "settings": {
+            "title": "Buy it with",
+            "upsell_type": "product_single",
+            "product": "",
+            "upsell_product_list": [],
+            "upsell_list_limit": 1,
+            "padding_bottom": 20
+          }
+        },
+        "pickup": {
+          "type": "pickup",
+          "disabled": true,
+          "settings": {
+            "padding_bottom": 20
+          }
+        },
+        "sharing": {
+          "type": "sharing",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share",
+            "target_device": "",
+            "padding_bottom": 20
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_VYMFNW",
+        "price",
+        "variants",
+        "subscriptions",
+        "quantity",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "buttons",
+        "icon_Yedxbi",
+        "icon_EC9RhA",
+        "icon_Eafi8h",
+        "description",
+        "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
+        "upsell",
+        "pickup",
+        "sharing"
+      ],
+      "settings": {
+        "layout": "none@columns",
+        "image_width": "wide",
+        "image_spacing": 10,
+        "align": "left",
+        "bg": "palette--light bg--neutral",
+        "mobile_layout": "carousel",
+        "enable_video_looping": true,
+        "zoom_enable": true,
+        "alt_text_enable": false,
+        "alt_text_icon": "icon-basket-like",
+        "product_breadcrumbs_enable": false,
+        "product_breadcrumbs_list": [],
+        "width": "wrapper",
+        "padding_top": 24,
+        "padding_bottom": 36
+      }
+    },
+    "section_icons_3jALpN": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_JgA8Ld": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/SVG.png",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Crash tested according to FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_FJUg4Q": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/SVG-1.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>California Proposition 65 & 12 more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_rFkqfj": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-2.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_Ex3y7e": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-3.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>FCC & EMC Compliance</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_wXBGEj": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-4.png",
+            "icon_color": "#aaaaaa",
+            "title": "",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_YYJKUF": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG-5.png",
+            "icon_color": "#ffffff",
+            "title": "",
+            "text": "<p>General child safety tests</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_JgA8Ld",
+        "icon_block_FJUg4Q",
+        "icon_block_rFkqfj",
+        "icon_block_Ex3y7e",
+        "icon_block_wXBGEj",
+        "icon_block_YYJKUF"
+      ],
+      "custom_css": [
+        "> div {background-color: #304545;}",
+        ".kicker-flourished:after {display: none;}",
+        "h2 {color: #fff; font-size: 45px; font-weight: 400; text-transform: none; line-height: 40px; letter-spacing: -2.25px;}",
+        ".icon__column__text p {color: #fff; font-size: 14px; line-height: 14px;}",
+        "@media (min-width: 960px) {.grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
+      ],
+      "settings": {
+        "title": "Complies with the strictest standards",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 104,
+        "icon_alignment": "icon--top",
+        "layout": "grid--slider",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "image-with-text": {
+      "type": "section-double",
+      "blocks": {
+        "video_8UFBFR": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Anchored in safety",
+            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilising support leg and the anti-rebound bar.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        }
+      },
+      "block_order": [
+        "video_8UFBFR",
+        "text"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image-with-text-2": {
+      "type": "section-double",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical alerts",
+            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_19.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "image"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 51%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_wMxLWV": {
+      "type": "section-double",
+      "blocks": {
+        "video_d96caf": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/side impact.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_RLUN7h": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "BioArk™ side-impact protection system",
+            "text": "<p>babyark’s innovative side-impact protection system is designed with an energy absorbing element that mitigates the impact, diverting forces to the structure of the seat and away from the child’s head.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        }
+      },
+      "block_order": [
+        "video_d96caf",
+        "text_RLUN7h"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_LJxgJN": {
+      "type": "section-double",
+      "blocks": {
+        "text_hTMywk": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "SafeCoil™ shock absorbing system",
+            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "video_7g3amg": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_hTMywk",
+        "video_7g3amg"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 51%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "related": {
+      "type": "related",
+      "disabled": true,
+      "settings": {
+        "heading": "You might also like",
+        "bg": "palette--light bg--neutral",
+        "grid_large": 4,
+        "grid_medium": 3,
+        "grid_small": 1.2,
+        "related_products_enable": true,
+        "limit": 6,
+        "product_recommendations_heading": "Related products",
+        "show_recently_viewed": true,
+        "product_recently_limit": 6,
+        "product_recently_minimum": 4,
+        "product_recently_heading": "Recently viewed",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1738783691b78546c1": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_wqVpnF": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_wqVpnF"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_icons_3jALpN",
+    "image-with-text",
+    "image-with-text-2",
+    "section_double_wMxLWV",
+    "section_double_LJxgJN",
+    "related",
+    "1738783691b78546c1"
+  ]
+}
