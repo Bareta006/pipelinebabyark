@@ -649,7 +649,7 @@
       "custom_css": [
         "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
         ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
-        "> div{background-color: #f6f2ef;}",
+        "> div {background-color: #f6f2ef;}",
         "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
       ],
       "settings": {
@@ -671,9 +671,12 @@
       "block_order": [
         "judge_me_reviews_review_widget_wqVpnF"
       ],
+      "custom_css": [
+        "> div {background-color: #f6f2ef;}"
+      ],
       "settings": {
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
