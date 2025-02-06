@@ -42,9 +42,9 @@
         "variants": {
           "type": "variant-selectors",
           "settings": {
-            "option_size_swatch": 34,
+            "option_size_swatch": 40,
             "option_size_radio": 50,
-            "option_space": 30,
+            "option_space": 50,
             "padding_bottom": 30
           }
         },
