@@ -483,7 +483,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        ".brick__block__text__inner {width: 420px; }"
+        "@media (min-width: 960px) {.brick__block__text__inner {width: 420px;}.brick__block__text {justify-content: center;}}"
       ],
       "settings": {
         "height": "use_screen_full",
