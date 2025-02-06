@@ -588,9 +588,12 @@
         "animated_graphs_gpw4q3": {
           "type": "AnimatedGraphs",
           "settings": {
-            "block_title": "",
-            "text_left": "",
-            "text_right_after": "",
+            "block_title": "Rear-Facing",
+            "text_left": "1-yr old",
+            "text_right": 1000,
+            "text_right_after": "Federal maximum limit",
+            "number_field": 247,
+            "competitor_number": 0,
             "competitor": ""
           }
         }
