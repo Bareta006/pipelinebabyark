@@ -167,33 +167,10 @@
                                   </div>
                                 </div>
                               </div>
-                          
                         </div>
-    
-                        {%- if block.settings.link != blank and block.settings.link_text == blank -%}
-                          <a href="{{ block.settings.link }}" class="link-over-image" aria-label="{{ block.settings.link.object.title | default: block.settings.image.alt | strip_html | escape }}"></a>
-                        {%- endif -%}
-                      </div>
-
-    
-                    {% unless block.settings.enable_overlay_text %}
-                      <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
-                    {% endunless %}
-    
-                    {%- capture srcset -%}
-                      {%- render 'image-grid-srcset',
-                        image: block.settings.image,
-                        columns_desktop: section.blocks.size,
-                        columns_tablet: section.blocks.size,
-                        columns_mobile: 1.0,
-                        section_width: section.settings.width
-                      %}
-                    {%- endcapture -%}
-    
-                    {%- render 'image-parallax', img_object: block.settings.image, frame_height_class: section.settings.height, srcset: srcset, sizes: image_block_sizes, preload: preload, loading: loading, fetchpriority: fetchpriority -%}
                   </div>
                 </div>
-
+                </div>
       {% endfor %}
       </div>
     </div>
