@@ -11752,6 +11752,11 @@ svg.placeholder-svg {
 .reposition-background-mobile {
   --focal-point: var(--OBJECT-POSITION-DESKTOP);
 }
+label[data-swatch="Eggshell White / Moonlight"]{
+  background: rgb(176, 163, 146) !important;
+  background: linear-gradient(180deg, rgb(176, 163, 146) 0%, rgb(176, 163, 146) 50%, rgba(237, 237, 230, 1) 50%) !important;
+}
+
 @media only screen and (max-width: 767px) {
   .reposition-background-mobile {
     --focal-point: var(--OBJECT-POSITION-MOBILE);
