@@ -596,10 +596,23 @@
             "competitor_number": 0,
             "competitor": ""
           }
+        },
+        "animated_graphs_jEirzM": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "Rear-Facing",
+            "text_left": "3-yr old",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 236,
+            "competitor_number": 0,
+            "competitor": ""
+          }
         }
       },
       "block_order": [
-        "animated_graphs_gpw4q3"
+        "animated_graphs_gpw4q3",
+        "animated_graphs_jEirzM"
       ],
       "settings": {
         "height": "use_screen_one_half",
