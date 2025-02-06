@@ -424,6 +424,87 @@
         "padding_bottom": 0
       }
     },
+    "section_double_new_U8Re4G": {
+      "type": "section-double-new",
+      "blocks": {
+        "animated_graphs_gpw4q3": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "Rear-Facing",
+            "text_left": "1-yr old",
+            "text_right": 1000,
+            "text_right_after": "Federal maximum limit",
+            "number_field": 247,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_jEirzM": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "Rear-Facing",
+            "text_left": "3-yr old",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 236,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_Gb4AtA": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "Forward-Facing",
+            "text_left": "3-yr old",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 279,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_HypByM": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "Forward-Facing",
+            "text_left": "6-yr old",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 321,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        }
+      },
+      "block_order": [
+        "animated_graphs_gpw4q3",
+        "animated_graphs_jEirzM",
+        "animated_graphs_Gb4AtA",
+        "animated_graphs_HypByM"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "#e4e4e4",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "kicker": "Image with text",
+        "title": "",
+        "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+        "font_size": 5,
+        "text_columns": 1,
+        "align_text": "text-left",
+        "button_text": "",
+        "button_url": "",
+        "button_color": "btn--neutral",
+        "button_style": "btn-text-thick-line",
+        "text_color": "text--neutral",
+        "bg_color_text": "#c39898"
+      }
+    },
     "section_double_wMxLWV": {
       "type": "section-double",
       "blocks": {
@@ -581,87 +662,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "section_double_new_U8Re4G": {
-      "type": "section-double-new",
-      "blocks": {
-        "animated_graphs_gpw4q3": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Rear-Facing",
-            "text_left": "1-yr old",
-            "text_right": 1000,
-            "text_right_after": "Federal maximum limit",
-            "number_field": 247,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_jEirzM": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Rear-Facing",
-            "text_left": "3-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 236,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_Gb4AtA": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Forward-Facing",
-            "text_left": "3-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 279,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_HypByM": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Forward-Facing",
-            "text_left": "6-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 321,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        }
-      },
-      "block_order": [
-        "animated_graphs_gpw4q3",
-        "animated_graphs_jEirzM",
-        "animated_graphs_Gb4AtA",
-        "animated_graphs_HypByM"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 0,
-        "padding_bottom": 36,
-        "kicker": "Image with text",
-        "title": "",
-        "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
-        "font_size": 5,
-        "text_columns": 1,
-        "align_text": "text-left",
-        "button_text": "",
-        "button_url": "",
-        "button_color": "btn--neutral",
-        "button_style": "btn-text-thick-line",
-        "text_color": "text--neutral",
-        "bg_color_text": ""
-      }
     }
   },
   "order": [
@@ -669,10 +669,10 @@
     "section_icons_3jALpN",
     "image-with-text",
     "image-with-text-2",
+    "section_double_new_U8Re4G",
     "section_double_wMxLWV",
     "section_double_LJxgJN",
     "related",
-    "1738783691b78546c1",
-    "section_double_new_U8Re4G"
+    "1738783691b78546c1"
   ]
 }
