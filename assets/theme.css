@@ -11930,7 +11930,67 @@ label[data-swatch="Eggshell White / Glacier Ice"]{
 .video-autoplay-wrapper--desktop {
   display: block;
 }
+/* Comparison table styles */
+.comparison-table,
+.comparison-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.product-column {
+  flex: 1;
+  text-align: center;
+}
+
+.features-column {
+  flex: 1;
+  text-align: center;
+  margin: 0 20px;
+}
+
+.cell {
+  padding: 10px;
+}
+
+.featureName {
+  text-align: center;
+  font-weight: 500;
+}
+
+.featureValue {
+  text-align: center;
+  min-width: 120px;
+}
+
+.comparison-row {
+  margin: 5px 0;
+}
+
+.comparison-row .featureName {
+  flex: 1;
+}
+
+.comparison-row .featureValue {
+  flex: 1;
+}
+
+@media screen and (max-width: 767px) {
+  .comparison-table,
+  .comparison-row {
+    flex-direction: column;
+  }
+  
+  .features-column {
+    margin: 20px 0;
+  }
+  
+  .featureValue {
+    width: 100%;
+    min-width: unset;
+  }
+}
 @media screen and (max-width: 767px) {
   .video-autoplay-wrapper--mobile {
     display: block;
