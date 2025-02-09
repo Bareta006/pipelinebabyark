@@ -450,7 +450,26 @@
         "video_slide_mB6tUk": {
           "type": "video_slide",
           "settings": {
-            "video_bg": "shopify://files/videos/side impact.mp4",
+            "video_bg": "shopify://files/videos/Rigid latch_new.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "video_slide_jT4WaR": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/Short How to_No Emma.mp4",
             "object_position": "center-center",
             "overlay_opacity": 15,
             "overlay_color": "#000",
@@ -468,7 +487,8 @@
         }
       },
       "block_order": [
-        "video_slide_mB6tUk"
+        "video_slide_mB6tUk",
+        "video_slide_jT4WaR"
       ],
       "settings": {
         "autoplay": false,
