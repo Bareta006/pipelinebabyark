@@ -78,7 +78,7 @@
                     </div>
                   {% endif %}
                   {% if block.settings.video_bg != blank %}
-                    <div class="video-autoplay-wrapper--desktop {% if section.settings.height == 'use_screen_full' %} {{ use_screen_full }} {% endif %}">
+                    <div class="video-autoplay-wrapper--desktop" {% if section.settings.height == 'use_screen_full' %}  use_screen_full  {% endif %}">
                       {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
                     </div>
                   {% endif %}
