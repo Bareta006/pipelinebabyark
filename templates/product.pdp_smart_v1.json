@@ -515,6 +515,65 @@
         "bg_color_text": "#f6f2ef"
       }
     },
+    "section_double_kUy7cV": {
+      "type": "section-double",
+      "blocks": {
+        "text_7hmDhz": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The fabric",
+            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "video_P9J8Vf": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/cover removal AND magnetic straps.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_7hmDhz",
+        "video_P9J8Vf"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 49%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 51%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_double_wMxLWV": {
       "type": "section-double",
       "blocks": {
@@ -633,6 +692,55 @@
         "padding_bottom": 0
       }
     },
+    "17388565930c97fe0d": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_GFtgXd": {
+          "type": "shopify://apps/tolstoy-shoppable-video-ugc/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "xv6zpinlwpm0j"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_GFtgXd"
+      ],
+      "custom_css": [
+        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
+        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
+        "> div {background-color: #f6f2ef;}",
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1738783691b78546c1": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_wqVpnF": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_wqVpnF"
+      ],
+      "custom_css": [
+        "> div {background-color: #f6f2ef;}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "related": {
       "type": "related",
       "disabled": true,
@@ -653,25 +761,6 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
-    },
-    "1738783691b78546c1": {
-      "type": "apps",
-      "blocks": {
-        "judge_me_reviews_review_widget_wqVpnF": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
-        }
-      },
-      "block_order": [
-        "judge_me_reviews_review_widget_wqVpnF"
-      ],
-      "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
@@ -681,9 +770,11 @@
     "image-with-text",
     "image-with-text-2",
     "section_double_new_U8Re4G",
+    "section_double_kUy7cV",
     "section_double_wMxLWV",
     "section_double_LJxgJN",
-    "related",
-    "1738783691b78546c1"
+    "17388565930c97fe0d",
+    "1738783691b78546c1",
+    "related"
   ]
 }
