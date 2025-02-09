@@ -563,7 +563,7 @@
         "text_RLUN7h"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
