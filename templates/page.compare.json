@@ -262,7 +262,7 @@
         ".image__hero__scale img {object-position: top center !important;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_3f0fd369-b084-43b8-8257-2cc8d77708e5.png",
+        "image": "shopify://shop_images/image_360.png",
         "height": "use_screen_full",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
