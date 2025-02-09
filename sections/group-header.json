@@ -122,7 +122,7 @@
         "logo_max_limit": 130,
         "logo_padding": 15,
         "logo_text_size": 5,
-        "main_menu_linklist": "main-menu-n",
+        "main_menu_linklist": "new-website-head-nav",
         "mobile_menu_linklist": "",
         "full_width": true,
         "underline_current": false,
