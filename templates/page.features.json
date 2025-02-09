@@ -203,28 +203,10 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
-        },
-        "image_cELwri": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 100,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "Safe, Smart and Beautiful",
-            "title": "Hassle free installation",
-            "richtext": "",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "SHOP BABYARK",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn--outline"
-          }
         }
       },
       "block_order": [
-        "video_slide_BkNktt",
-        "image_cELwri"
+        "video_slide_BkNktt"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}"
