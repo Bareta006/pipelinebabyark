@@ -65,20 +65,22 @@
                 </div>
               </div>
 
-              <div class="image__hero__frame {{ section.settings.height }}">
-                <div class="image__hero__pane">
-                  <div class="video-autoplay-wrapper">
-                    {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
-                    {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
-                      <div class="video-autoplay-wrapper--mobile">
-                        {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
-                      </div>
-                    {% endif %}
-                    {% if block.settings.video_bg != blank %}
-                      <div class="video-autoplay-wrapper--desktop">
-                        {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
-                      </div>
-                    {% endif %}
+              <div class="image__hero__frame {{ section.settings.height }}" style="height: 100%;">
+                <div class="image__hero__pane" style="height: 100%;">
+                  <div class="image__hero__scale">
+                    <div class="video-autoplay-wrapper">
+                      {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
+                      {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
+                        <div class="video-autoplay-wrapper--mobile">
+                          {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                        </div>
+                      {% endif %}
+                      {% if block.settings.video_bg != blank %}
+                        <div class="video-autoplay-wrapper--desktop">
+                          {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                        </div>
+                      {% endif %}
+                    </div>
                   </div>
                 </div>
               </div>
