@@ -22,81 +22,155 @@
       data-slideshow-slides="{{ section.blocks.size }}"
       data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
-        <div class="slideshow__slide section--image {{ block.settings.text_color }}"
-        {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
-          id="aos-{{ block.id }}"
-          data-slideshow-index="{{ forloop.index0 }}"
-          {{ block.shopify_attributes }}>
-          <div class="hero__content__wrapper {{ block.settings.text_align }}">
-            <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
-              {% unless block.settings.kicker == '' %}
-                <p class="hero__kicker"
-                  data-aos="hero"
-                  data-aos-order="1">
-                  {{ block.settings.kicker | escape }}
-                </p>
-              {% endunless %}
-              {% unless block.settings.title == '' %}
-                <h1 class="hero__title heading-size-9"
-                  data-aos="hero"
-                  data-aos-order="2">
-                  {{ block.settings.title | escape }}
-                </h1>
-              {% endunless %}
-              {% unless block.settings.richtext == '' %}
-                <div class="hero__description rte body-size-6"
-                  data-aos="hero"
-                  data-aos-order="3">
-                  {{ block.settings.richtext }}
+        {% case block.type %}
+          {% when 'video_slide' %}
+            <div class="slideshow__slide section--image {{ block.settings.text_color }}"
+              {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
+              id="aos-{{ block.id }}"
+              data-slideshow-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}>
+              <div class="hero__content__wrapper {{ block.settings.text_align }}">
+                <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
+                  {% unless block.settings.kicker == '' %}
+                    <p class="hero__kicker"
+                      data-aos="hero"
+                      data-aos-order="1">
+                      {{ block.settings.kicker | escape }}
+                    </p>
+                  {% endunless %}
+                  {% unless block.settings.title == '' %}
+                    <h1 class="hero__title heading-size-9"
+                      data-aos="hero"
+                      data-aos-order="2">
+                      {{ block.settings.title | escape }}
+                    </h1>
+                  {% endunless %}
+                  {% unless block.settings.richtext == '' %}
+                    <div class="hero__description rte body-size-6"
+                      data-aos="hero"
+                      data-aos-order="3">
+                      {{ block.settings.richtext }}
+                    </div>
+                  {% endunless %}
+                  {% unless block.settings.link_text == '' %}
+                    <div class="hero__cta__wrapper">
+                      <a class="{{ block.settings.button_color }} {{ block.settings.button_style }} hero__btn btn--long"
+                        href="{{ block.settings.link }}"
+                        data-aos="hero"
+                        data-aos-order="4">
+                        {{ block.settings.link_text | escape }}
+                      </a>
+                    </div>
+                  {% endunless %}
                 </div>
+              </div>
+
+              {% unless block.settings.enable_overlay_text %}
+                <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
               {% endunless %}
-              {% unless block.settings.link_text == '' %}
-                <div class="hero__cta__wrapper">
-                  <a class="{{ block.settings.button_color }} {{ block.settings.button_style }} hero__btn btn--long"
-                    href="{{ block.settings.link }}"
-                    data-aos="hero"
-                    data-aos-order="4">
-                    {{ block.settings.link_text | escape }}
-                  </a>
+
+              <div class="video-autoplay-wrapper">
+                {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
+                {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
+                  <div class="video-autoplay-wrapper--mobile">
+                    {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                  </div>
+                {% endif %}
+                {% if block.settings.video_bg != blank %}
+                  <div class="video-autoplay-wrapper--desktop">
+                    {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                  </div>
+                {% elsif block.settings.fallback_image %}
+                  {% render 'image-parallax', img_object: block.settings.fallback_image, frame_height_class: section.settings.height, alt: block.settings.title %}
+                {% endif %}
+              </div>
+
+              {% if block.settings.link_text == '' and block.settings.link %}
+                <a class="link-over-image" href="{{ block.settings.link }}" aria-label="{{ block.settings.link.object.title | default: block.settings.title | strip_html | escape }}"></a>
+              {% endif %}
+
+              {% if section.settings.height == 'use_screen_full' %}
+                <div class="scroll_icon_wrap">
+                  <button data-scroll-down class="scroll_link bloop" aria-label="{{ 'general.accessibility.scroll' | t }}">
+                    <span class="scroll_icon">{% render 'icon-core-chevron-down' %}</span>
+                  </button>
                 </div>
+              {% endif %}
+            </div>
+          {% when 'image' %}
+            <div class="slideshow__slide section--image {{ block.settings.text_color }}"
+              {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
+              id="aos-{{ block.id }}"
+              data-slideshow-index="{{ forloop.index0 }}"
+              {{ block.shopify_attributes }}>
+              <div class="hero__content__wrapper {{ block.settings.text_align }}">
+                <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
+                  {% unless block.settings.kicker == '' %}
+                    <p class="hero__kicker"
+                      data-aos="hero"
+                      data-aos-order="1">
+                      {{ block.settings.kicker | escape }}
+                    </p>
+                  {% endunless %}
+                  {% unless block.settings.title == '' %}
+                    <h1 class="hero__title heading-size-9"
+                      data-aos="hero"
+                      data-aos-order="2">
+                      {{ block.settings.title | escape }}
+                    </h1>
+                  {% endunless %}
+                  {% unless block.settings.richtext == '' %}
+                    <div class="hero__description rte body-size-6"
+                      data-aos="hero"
+                      data-aos-order="3">
+                      {{ block.settings.richtext }}
+                    </div>
+                  {% endunless %}
+                  {% unless block.settings.link_text == '' %}
+                    <div class="hero__cta__wrapper">
+                      <a class="{{ block.settings.button_color }} {{ block.settings.button_style }} hero__btn btn--long"
+                        href="{{ block.settings.link }}"
+                        data-aos="hero"
+                        data-aos-order="4">
+                        {{ block.settings.link_text | escape }}
+                      </a>
+                    </div>
+                  {% endunless %}
+                </div>
+                <div data-slide-custom-prev class="custom-prev-next-button previous"></div>
+                <div data-slide-custom-next class="custom-prev-next-button next"></div>
+              </div>
+
+              {% unless block.settings.enable_overlay_text %}
+                <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
               {% endunless %}
+
+              {% if section.settings.preload_first_image and forloop.first %}
+                {%- assign preload = true -%}
+                {%- assign loading = 'eager' -%}
+                {%- assign fetchpriority = 'high' -%}
+              {% else %}
+                {%- assign preload = false -%}
+                {%- assign loading = 'lazy' -%}
+              {% endif %}
+
+              {%- assign alt_default = "Slideshow Image " | append: forloop.index -%}
+              {%- assign alt = block.settings.image.alt | default: alt_default -%}
+              {% render 'image-parallax', img_object: block.settings.image, img_object_mobile: block.settings.mobile_image, frame_height_class: section.settings.height, alt: alt, preload: preload, loading: loading, fetchpriority: fetchpriority %}
+
+              {% if block.settings.link_text == '' and block.settings.link %}
+                <a class="link-over-image" href="{{ block.settings.link }}" aria-label="{{ block.settings.link.object.title | default: block.settings.title | strip_html | escape }}"></a>
+              {% endif %}
+
+              {% if section.settings.height == 'use_screen_full' %}
+                <div class="scroll_icon_wrap">
+                  <button data-scroll-down class="scroll_link bloop" aria-label="{{ 'general.accessibility.scroll' | t }}">
+                    <span class="scroll_icon">{% render 'icon-core-chevron-down' %}</span>
+                  </button>
+                </div>
+              {% endif %}
             </div>
-            <div data-slide-custom-prev class="custom-prev-next-button previous"></div>
-            <div data-slide-custom-next class="custom-prev-next-button next"></div>
-          </div>
-
-          {% unless block.settings.enable_overlay_text %}
-            <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
-          {% endunless %}
-
-
-          {% if section.settings.preload_first_image and forloop.first %}
-            {%- assign preload = true -%}
-            {%- assign loading = 'eager' -%}
-            {%- assign fetchpriority = 'high' -%}
-          {% else %}
-            {%- assign preload = false -%}
-            {%- assign loading = 'lazy' -%}
-          {% endif %}
-
-
-          {%- assign alt_default = "Slideshow Image " | append: forloop.index -%}
-          {%- assign alt = block.settings.image.alt | default: alt_default -%}
-          {% render 'image-parallax', img_object: block.settings.image, img_object_mobile: block.settings.mobile_image, frame_height_class: section.settings.height, alt: alt, preload: preload, loading: loading, fetchpriority: fetchpriority %}
-
-
-          {% if block.settings.link_text == '' and block.settings.link %}
-            <a class="link-over-image" href="{{ block.settings.link }}" aria-label="{{ block.settings.link.object.title | default: block.settings.title | strip_html | escape }}"></a>
-          {% endif %}
-
-          {% if section.settings.height == 'use_screen_full' %}
-            <div class="scroll_icon_wrap">
-              <button data-scroll-down class="scroll_link bloop" aria-label="{{ 'general.accessibility.scroll' | t }}">
-                <span class="scroll_icon">{% render 'icon-core-chevron-down' %}</span>
-              </button>
-            </div>
-          {% endif %}
-        </div>
+        {% endcase %}
       {% endfor %}
       </div>
     </div>
@@ -208,6 +282,160 @@
     }
   ],
   "blocks": [
+    {
+      "type": "video_slide",
+      "name": "Video Slide",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video_bg",
+          "label": "Desktop video"
+        },
+        {
+          "type": "video",
+          "id": "mobile_video_bg",
+          "label": "Mobile video"
+        },
+        {
+          "type": "select",
+          "id": "object_position",
+          "label": "Video position",
+          "default": "center-center",
+          "options": [
+            { "label": "Top", "value": "center-top" },
+            { "label": "Right", "value": "right-center" },
+            { "label": "Center", "value": "center-center" },
+            { "label": "Left", "value": "left-center" },
+            { "label": "Bottom", "value": "center-bottom" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "fallback_image",
+          "label": "Fallback image",
+          "info": "This image will be shown while the video loads or if video cannot be played"
+        },
+        {
+          "type":    "range",
+          "id":      "overlay_opacity",
+          "min":     0,
+          "max":     100,
+          "step":    5,
+          "label":   "Image overlay opacity",
+          "info":    "Increase contrast for legible text.",
+          "default": 15
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay color",
+          "default": "#000"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_overlay_text",
+          "label": "Overlay behind text only",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker",
+          "default": "Introducing"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Video slide"
+        },
+        {
+          "type": "richtext",
+          "id": "richtext",
+          "label": "Text",
+          "default": "<p>Tell your brand's story through video.</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Alignment",
+          "default": "align--middle-center",
+          "options": [
+            { "value": "align--top-left", "label": "Top left"},
+            { "value": "align--top-center", "label": "Top center"},
+            { "value": "align--top-right", "label": "Top right"},
+            { "value": "align--middle-left", "label": "Middle left"},
+            { "value": "align--middle-center", "label": "Absolute center"},
+            { "value": "align--middle-right", "label": "Middle right"},
+            { "value": "align--bottom-left", "label": "Bottom left"},
+            { "value": "align--bottom-center", "label": "Bottom center"},
+            { "value": "align--bottom-right", "label": "Bottom right"}
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "text--white",
+          "options": [
+            { "value": "text--neutral", "label": "Normal text"},
+            { "value": "text--white", "label": "White"},
+            { "value": "text--primary", "label": "Primary accent"},
+            { "value": "text--secondary", "label": "Secondary accent"},
+            { "value": "text--black", "label": "Black"},
+            { "value": "text--invert--primary", "label": "Primary dark accent"},
+            { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+            { "value": "text--invert", "label": "Inverted text color"},
+            { "value": "text--bright--primary", "label": "Primary bright accent"},
+            { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Text",
+          "default": "View products",
+          "info": "Leave blank to link entire slide"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "button_color",
+          "label": "Color",
+          "default": "btn--white",
+          "options": [
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
+        }
+      ]
+    },
     {
       "type": "image",
       "name": "Slide",
