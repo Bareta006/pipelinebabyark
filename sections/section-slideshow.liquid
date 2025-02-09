@@ -22,6 +22,7 @@
       data-slideshow-slides="{{ section.blocks.size }}"
       data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
+        {% if block.type == 'image' %}
         <div class="slideshow__slide section--image {{ block.settings.text_color }}"
         {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
           id="aos-{{ block.id }}"
@@ -97,6 +98,48 @@
             </div>
           {% endif %}
         </div>
+        {% endif %}
+        {% if block.type == 'video' %}
+          <div class="slideshow__slide section--video {{ block.settings.text_color }}"
+          {{ block.shopify_attributes }}>
+            {% render 'video-background', video: block.settings.video, mobile_video: block.settings.mobile_video, overlay_opacity: block.settings.video_overlay_opacity, overlay_color: block.settings.video_overlay_color, enable_overlay_text: block.settings.enable_video_overlay_text %}
+            <div class="hero__content__wrapper {{ block.settings.text_align }}">
+              {% unless block.settings.video_kicker == '' %}
+                <p class="hero__kicker"
+                  data-aos="hero"
+                  data-aos-order="1">
+                  {{ block.settings.video_kicker | escape }}
+                </p>
+              {% endunless %}
+              {% unless block.settings.video_title == '' %}
+                <h1 class="hero__title heading-size-9"
+                  data-aos="hero"
+                  data-aos-order="2">
+                  {{ block.settings.video_title | escape }}
+                </h1>
+              {% endunless %}
+              {% unless block.settings.video_richtext == '' %}
+                <div class="hero__description rte body-size-6"
+                  data-aos="hero"
+                  data-aos-order="3">
+                  {{ block.settings.video_richtext }}
+                </div>
+              {% endunless %}
+              {% unless block.settings.video_link_text == '' %}
+                <div class="hero__cta__wrapper">
+                  <a class="{{ block.settings.video_button_color }} {{ block.settings.video_button_style }} hero__btn btn--long"
+                    href="{{ block.settings.video_link }}"
+                    data-aos="hero"
+                    data-aos-order="4">
+                    {{ block.settings.video_link_text | escape }}
+                  </a>
+
+                </div>
+              {% endunless %}
+            </div>
+            </div>
+          </div>
+        {% endif %}
       {% endfor %}
       </div>
     </div>
@@ -343,6 +386,142 @@
           ]
         }
       ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_video",
+          "label": "Mobile video"
+        },
+        {
+          "type":    "range",
+          "id":      "video_overlay_opacity",
+          "min":     0,
+          "max":     100,
+          "step":    5,
+          "label":   "Video overlay opacity",
+          "info":    "Increase contrast for legible text.",
+          "default": 15
+        },
+        {
+          "type": "color",
+          "id": "video_overlay_color",
+          "label": "Video overlay color",
+          "default": "#000"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_video_overlay_text",
+          "label": "Enable video overlay text",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "text",
+          "id": "video_kicker",
+          "label": "Kicker",
+          "default": "Introducing"
+        },
+        {
+          "type": "text",
+          "id": "video_title",
+          "label": "Title",
+          "default": "Video slideshow"
+        },
+        {
+          "type": "richtext",
+          "id": "video_richtext",
+          "label": "Text",
+          "default": "<p>Tell your brand's story through images.</p>"
+        },
+        {
+          "type": "select",
+          "id": "video_text_align",
+          "label": "Alignment",
+          "default": "align--middle-center",
+          "options": [
+            { "value": "align--top-left", "label": "Top left"},
+            { "value": "align--top-center", "label": "Top center"},
+            { "value": "align--top-right", "label": "Top right"},
+            { "value": "align--middle-left", "label": "Middle left"},
+            { "value": "align--middle-center", "label": "Absolute center"},
+            { "value": "align--middle-right", "label": "Middle right"},
+            { "value": "align--bottom-left", "label": "Bottom left"},
+            { "value": "align--bottom-center", "label": "Bottom center"},
+            { "value": "align--bottom-right", "label": "Bottom right"}
+          ]
+        },
+        {
+          "type": "select",
+          "id": "video_text_color",
+          "label": "Text color",
+          "default": "text--white",
+          "options": [
+            { "value": "text--neutral", "label": "Normal text"},
+            { "value": "text--white", "label": "White"},
+            { "value": "text--primary", "label": "Primary accent"},
+            { "value": "text--secondary", "label": "Secondary accent"},
+            { "value": "text--black", "label": "Black"},
+            { "value": "text--invert--primary", "label": "Primary dark accent"},
+            { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+            { "value": "text--invert", "label": "Inverted text color"},
+            { "value": "text--bright--primary", "label": "Primary bright accent"},
+            { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "video_link_text",
+          "label": "Text",
+          "default": "View products",
+          "info": "Leave blank to link entire image"
+        },
+        {
+          "type": "url",
+          "id": "video_link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "video_button_color",
+          "label": "Color",
+          "default": "btn--white",
+          "options": [
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "video_button_style",
+          "label": "Button style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
+        }
+      ]
+        
     }
   ],
   "presets": [
@@ -358,6 +537,9 @@
         },
         {
           "type": "image"
+        },
+        {
+          "type": "video"
         }
       ]
     }
