@@ -69,19 +69,20 @@
     "section_slideshow_aTWgVr": {
       "type": "section-slideshow",
       "blocks": {
-        "image_yCxBRE": {
-          "type": "image",
+        "video_slide_xbETPk": {
+          "type": "video_slide",
           "settings": {
-            "image": "shopify://shop_images/image_13.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "Safe, Smart and Beautiful",
-            "title": "Safety first. Always.",
-            "richtext": "<p>Safety built from the ground up, for your most preciouse jewel</p>",
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 20,
+            "overlay_color": "#000",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "Injury prevention",
+            "richtext": "<p>SafeCoil Patented Technology</p>",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
-            "link_text": "SHOP BABYARK",
+            "link_text": "Shop Babyark",
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn--outline"
@@ -89,7 +90,7 @@
         }
       },
       "block_order": [
-        "image_yCxBRE"
+        "video_slide_xbETPk"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}"
