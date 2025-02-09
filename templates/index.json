@@ -443,63 +443,6 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
-    },
-    "section_slideshow_KD949B": {
-      "type": "section-slideshow",
-      "blocks": {
-        "video_slide_mB6tUk": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 30,
-            "overlay_color": "#000",
-            "enable_overlay_text": true,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "video_slide_jT4WaR": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/Short How to_No Emma.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "video_slide_mB6tUk",
-        "video_slide_jT4WaR"
-      ],
-      "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "preload_first_image": false,
-        "height": "use_screen_full",
-        "color_bg": "palette--light bg--neutral",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
@@ -509,7 +452,6 @@
     "section_slideshow_jHRLYV",
     "icon_slider_text_nzkdyr",
     "section_slideshow_MmaWTa",
-    "icon_slider_text_P9qKWM",
-    "section_slideshow_KD949B"
+    "icon_slider_text_P9qKWM"
   ]
 }
