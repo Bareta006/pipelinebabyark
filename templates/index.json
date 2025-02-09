@@ -451,8 +451,9 @@
           "type": "video",
           "settings": {
             "video": "shopify://files/videos/Short How to_No Emma.mp4",
+            "object_position": "center-center",
             "video_overlay_opacity": 15,
-            "video_overlay_color": "#000",
+            "video_overlay_color": "#000000",
             "enable_video_overlay_text": false,
             "video_kicker": "Introducing",
             "video_title": "Video slideshow",
@@ -468,6 +469,9 @@
       },
       "block_order": [
         "video_DDK8HH"
+      ],
+      "custom_css": [
+        "{min-height:100vh;}"
       ],
       "settings": {
         "autoplay": false,
