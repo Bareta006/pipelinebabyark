@@ -102,7 +102,10 @@
         {% if block.type == 'video' %}
           <div class="slideshow__slide section--video {{ block.settings.text_color }}"
           {{ block.shopify_attributes }}>
-            {% render 'video-background', video: block.settings.video, mobile_video: block.settings.mobile_video, overlay_opacity: block.settings.video_overlay_opacity, overlay_color: block.settings.video_overlay_color, enable_overlay_text: block.settings.enable_video_overlay_text %}
+          <div class="video-autoplay-wrapper">
+            {%- assign video_styles = section.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
+            {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+          </div>
             <div class="hero__content__wrapper {{ block.settings.text_align }}">
               {% unless block.settings.video_kicker == '' %}
                 <p class="hero__kicker"
