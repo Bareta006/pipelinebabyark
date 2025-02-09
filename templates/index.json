@@ -271,16 +271,55 @@
             "button_style": "btn"
           }
         },
-        "image_eUtrMy": {
-          "type": "image",
+        "video_slide_aEAgE6": {
+          "type": "video_slide",
           "settings": {
-            "image": "shopify://shop_images/HomePage_0.png",
+            "video_bg": "shopify://files/videos/Coils_new.mp4",
+            "object_position": "center-center",
             "overlay_opacity": 15,
-            "overlay_color": "#000000",
+            "overlay_color": "#000",
             "enable_overlay_text": false,
             "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "video_slide_FCfiLe": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/side impact.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "video_slide_kNABBQ": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/Top page short-.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "View products",
@@ -312,7 +351,9 @@
         "image_PBpaXQ",
         "image_QD4aEH",
         "image_D9gQaP",
-        "image_eUtrMy",
+        "video_slide_aEAgE6",
+        "video_slide_FCfiLe",
+        "video_slide_kNABBQ",
         "image_WJiE3q"
       ],
       "custom_css": [
@@ -443,63 +484,6 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
-    },
-    "section_slideshow_KD949B": {
-      "type": "section-slideshow",
-      "blocks": {
-        "video_slide_mB6tUk": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "video_slide_jT4WaR": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/Short How to_No Emma.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "video_slide_mB6tUk",
-        "video_slide_jT4WaR"
-      ],
-      "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "preload_first_image": false,
-        "height": "use_screen_full",
-        "color_bg": "palette--light bg--neutral",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
@@ -509,7 +493,6 @@
     "section_slideshow_jHRLYV",
     "icon_slider_text_nzkdyr",
     "section_slideshow_MmaWTa",
-    "icon_slider_text_P9qKWM",
-    "section_slideshow_KD949B"
+    "icon_slider_text_P9qKWM"
   ]
 }
