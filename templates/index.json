@@ -443,46 +443,6 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
-    },
-    "section_slideshow_ENdpBQ": {
-      "type": "section-slideshow",
-      "blocks": {
-        "video_DDK8HH": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/Short How to_No Emma.mp4",
-            "object_position": "center-center",
-            "video_overlay_opacity": 15,
-            "video_overlay_color": "#000000",
-            "enable_video_overlay_text": false,
-            "video_kicker": "Introducing",
-            "video_title": "Video slideshow",
-            "video_richtext": "<p>Tell your brand's story through images.</p>",
-            "video_text_align": "align--middle-center",
-            "video_text_color": "text--white",
-            "video_link_text": "View products",
-            "video_link": "",
-            "video_button_color": "btn--white",
-            "video_button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "video_DDK8HH"
-      ],
-      "custom_css": [
-        ".slideshow__wrapper {min-height: 100vh;}"
-      ],
-      "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "preload_first_image": false,
-        "height": "use_screen_full",
-        "color_bg": "palette--light bg--neutral",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
@@ -492,7 +452,6 @@
     "section_slideshow_jHRLYV",
     "icon_slider_text_nzkdyr",
     "section_slideshow_MmaWTa",
-    "icon_slider_text_P9qKWM",
-    "section_slideshow_ENdpBQ"
+    "icon_slider_text_P9qKWM"
   ]
 }
