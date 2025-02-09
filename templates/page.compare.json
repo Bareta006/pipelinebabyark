@@ -234,105 +234,6 @@
         "padding_bottom": 120
       }
     },
-    "17382369213956607f": {
-      "type": "apps",
-      "blocks": {
-        "tolstoy_shoppable_video_ugc_carousel_block_4kzCFt": {
-          "type": "shopify://apps/tolstoy-shoppable-video-ugc/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
-          "settings": {
-            "publishId": "xv6zpinlwpm0j"
-          }
-        }
-      },
-      "block_order": [
-        "tolstoy_shoppable_video_ugc_carousel_block_4kzCFt"
-      ],
-      "custom_css": [
-        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
-        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
-        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
-      ],
-      "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--accent",
-        "width": "wrapper--full",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "section_icons_W8cw7D": {
-      "type": "section-icons",
-      "blocks": {
-        "icon_block_jaQkDV": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-shipment",
-            "icon_alt": "shopify://shop_images/SVG.svg",
-            "icon_color": "#ffffff",
-            "title": "Express delivery",
-            "text": "<p>DHL express delivery worldwide</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_gmMNq9": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/SVG_1.svg",
-            "icon_color": "#ffffff",
-            "title": "Free returns",
-            "text": "<p>Free return for 30 days for any order delivered in France</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_9K9QVB": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG_2.svg",
-            "icon_color": "#ffffff",
-            "title": "Available customer service",
-            "text": "<p>Available via Whatsapp on +33123456789</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_89pL6d": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG_3.svg",
-            "icon_color": "#aaaaaa",
-            "title": "Payment in 3x",
-            "text": "<p>Take advantage of a payment in 3x without fees from $100 of purchase</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_block_jaQkDV",
-        "icon_block_gmMNq9",
-        "icon_block_9K9QVB",
-        "icon_block_89pL6d"
-      ],
-      "custom_css": [
-        "p {color: #fff;}"
-      ],
-      "settings": {
-        "title": "",
-        "bg": "palette--dark bg--invert--accent",
-        "icons_size": 24,
-        "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
-        "align_text": "text-center",
-        "width": "wrapper",
-        "padding_top": 50,
-        "padding_bottom": 50
-      }
-    },
     "section_compare_tJGMpG": {
       "type": "section-compare",
       "blocks": {
@@ -374,6 +275,105 @@
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "17382369213956607f": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_4kzCFt": {
+          "type": "shopify://apps/tolstoy-shoppable-video-ugc/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "xv6zpinlwpm0j"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_4kzCFt"
+      ],
+      "custom_css": [
+        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
+        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_icons_W8cw7D": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_jaQkDV": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment",
+            "icon_alt": "shopify://shop_images/Group_29613100_2.png",
+            "icon_color": "#ffffff",
+            "title": "100 DAY FREE TRIAL",
+            "text": "<p>Experience it for yourself</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_gmMNq9": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_29613095.png",
+            "icon_color": "#ffffff",
+            "title": "FREE SHIPPING",
+            "text": "<p>Hassle-free purchasing</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_9K9QVB": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG_63cf0cc0-962d-418d-8a41-34a4a3f8e758.png",
+            "icon_color": "#ffffff",
+            "title": "ASK OUR EXPERTS",
+            "text": "<p>Available via phone, email, text or chat for any question, big or small</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_89pL6d": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/SVG_1.png",
+            "icon_color": "#aaaaaa",
+            "title": "PayFLEXIBLE PAYMENTS",
+            "text": "<p>Select Affirm at checkout to pay over time</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_jaQkDV",
+        "icon_block_gmMNq9",
+        "icon_block_9K9QVB",
+        "icon_block_89pL6d"
+      ],
+      "custom_css": [
+        "p {color: #fff;}"
+      ],
+      "settings": {
+        "title": "",
+        "bg": "palette--dark bg--invert--accent",
+        "icons_size": 48,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     },
     "173824262189ac1f13": {
@@ -532,9 +532,9 @@
     "flexbox_image_content_MnpxaF",
     "flexbox_image_content_PqTF8w",
     "section_icons_rJb3FF",
+    "section_compare_tJGMpG",
     "17382369213956607f",
     "section_icons_W8cw7D",
-    "section_compare_tJGMpG",
     "173824262189ac1f13",
     "section_newsletter_mVpNcT",
     "section_video_T4RwKD",
