@@ -290,39 +290,20 @@
             "button_style": "btn"
           }
         },
-        "video_slide_FCfiLe": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/side impact.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "video_slide_kNABBQ": {
           "type": "video_slide",
           "settings": {
             "video_bg": "shopify://files/videos/Top page short-.mp4",
             "object_position": "center-center",
-            "overlay_opacity": 15,
+            "overlay_opacity": 20,
             "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Video slide",
-            "richtext": "<p>Tell your brand's story through video.</p>",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "Ease of Use",
+            "richtext": "<p>Fast, and easy inter changeable covers for those life moments</p>",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
-            "link_text": "View products",
+            "link_text": "",
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn"
@@ -352,7 +333,6 @@
         "image_QD4aEH",
         "image_D9gQaP",
         "video_slide_aEAgE6",
-        "video_slide_FCfiLe",
         "video_slide_kNABBQ",
         "image_WJiE3q"
       ],
