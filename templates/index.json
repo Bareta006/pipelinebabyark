@@ -288,13 +288,32 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "image_WJiE3q": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_22.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
         "image_PBpaXQ",
         "image_QD4aEH",
         "image_D9gQaP",
-        "image_eUtrMy"
+        "image_eUtrMy",
+        "image_WJiE3q"
       ],
       "custom_css": [
         ".hero__title {width: 510px; max-width: 100%;}"
