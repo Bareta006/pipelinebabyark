@@ -461,23 +461,6 @@
     "section_double_LJxgJN": {
       "type": "section-double",
       "blocks": {
-        "text_hTMywk": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "SafeCoil™ shock absorbing system",
-            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
         "video_7g3amg": {
           "type": "video",
           "settings": {
@@ -497,11 +480,28 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "text_hTMywk": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "SafeCoil™ shock absorbing system",
+            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
         }
       },
       "block_order": [
-        "text_hTMywk",
-        "video_7g3amg"
+        "video_7g3amg",
+        "text_hTMywk"
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
