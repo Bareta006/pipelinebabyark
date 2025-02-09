@@ -42,7 +42,7 @@
     <div class="md:w-2/3 promotion w-full flex flex-col items-center tableSide md:pt-16 md:pb-8 pb-8 pt-8">
     <div class="header flex">
       <div class="cell font-bold p-4 featureName"></div>
-      {% for block in section.blocks %}
+      
         {% assign selected_product = all_products[block.settings.product_id] %}
         {% if selected_product %}
           {% assign product_color = selected_product.metafields.comparison.color %}
@@ -59,7 +59,7 @@
           {% endif %}
           </div>
         {% endif %}
-      {% endfor %}
+      
     </div>
     
     <!-- Comparison rows -->
