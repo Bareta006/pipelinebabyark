@@ -54,18 +54,9 @@
                   </div>
                 {% endif %}
 
-                <!-- Middle feature names column -->
+                <!-- Middle column - now just empty for header -->
                 <div class="features-column">
-                  {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity and real life notifications" | split: ',' %}
-                  {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
-                  
-                  {% for i in (0..feature_names.size) %}
-                    {% assign feature_name = feature_names[i] %}
-                    {% assign metafield_key = metafield_keys[i] %}
-                    {% if feature_name != blank and metafield_key != blank %}
-                      <div class="cell p-4 featureName"><span>{{ feature_name }}</span></div>
-                    {% endif %}
-                  {% endfor %}
+                  <div class="cell p-4 featureName"></div>
                 </div>
 
                 <!-- Right product column -->
