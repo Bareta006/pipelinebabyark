@@ -219,7 +219,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/SVG.png",
+            "icon_alt": "shopify://shop_images/Group_34860_1_8da5dbeb-fe6e-4afb-8e2d-7ee2f1fb1d4a.png",
             "icon_color": "#000000",
             "title": "",
             "text": "<p>Crash tested according to FMVSS 213</p>",
@@ -231,10 +231,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/SVG-1.png",
+            "icon_alt": "shopify://shop_images/Group_34864_1.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>California Proposition 65 & 12 more</p>",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -243,10 +243,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-2.png",
+            "icon_alt": "shopify://shop_images/Group_34862_1_94f636a3-1885-40e7-84ad-bd55adaad9a5.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
+            "text": "<p>California Proposition 65 & 12</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -255,7 +255,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-3.png",
+            "icon_alt": "shopify://shop_images/Vector_4_955799f7-443f-4063-9e4f-7068ef18c15c.png",
             "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>FCC & EMC Compliance</p>",
@@ -267,22 +267,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-4.png",
+            "icon_alt": "shopify://shop_images/Vector_5_796acac1-c70a-45f4-b994-3322231fb2ac.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>In accordance with ISO 16750 and more</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_YYJKUF": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/SVG-5.png",
-            "icon_color": "#ffffff",
-            "title": "",
-            "text": "<p>General child safety tests</p>",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -293,15 +281,13 @@
         "icon_block_FJUg4Q",
         "icon_block_rFkqfj",
         "icon_block_Ex3y7e",
-        "icon_block_wXBGEj",
-        "icon_block_YYJKUF"
+        "icon_block_wXBGEj"
       ],
       "custom_css": [
-        "> div {background-color: #304545;}",
+        "> div {background-color: #d5d5d5;}",
         ".kicker-flourished:after {display: none;}",
-        "h2 {color: #fff; font-size: 45px; font-weight: 400; text-transform: none; line-height: 40px; letter-spacing: -2.25px;}",
-        ".icon__column__text p {color: #fff; font-size: 14px; line-height: 14px;}",
-        "@media (min-width: 960px) {.grid__item {width: 16%; clear: none; } .clearfix {display: none; }}"
+        "h2 {font-family: \"centrano2\", sans-serif; color: #848484; font-size: 45px; font-weight: 400; text-transform: none; letter-spacing: -1.35px;}",
+        "@media (min-width: 960px) {.grid__item {width: 20%; clear: none; } .clearfix {display: none; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
