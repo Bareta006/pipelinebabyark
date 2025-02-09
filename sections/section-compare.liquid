@@ -136,7 +136,7 @@
                  --product-2-color: {{ second_product.metafields.comparison.color }};
                ">
             <div class="md:w-2/3 promotion w-full flex flex-col items-center tableSide md:pt-16 md:pb-8 pb-8 pt-8">
-              {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity & Notifications" | split: ',' %}
+              {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity & Notifications" | split: ',' %} 
               {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
 
               <div class="comparison-table flex">
