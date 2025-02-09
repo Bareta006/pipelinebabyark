@@ -369,7 +369,7 @@
       "settings": {
         "collection": "accessories",
         "product_limit": 12,
-        "title": "You may be interested",
+        "title": "Accessories",
         "align_text": "title-left",
         "progress_bar": "hidden",
         "grid_large": 4,
