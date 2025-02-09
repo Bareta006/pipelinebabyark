@@ -354,11 +354,49 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
+        },
+        "image_jYRxHG": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_28.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-left",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        },
+        "image_hnwkjk": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_29.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "Detachable Base",
+            "richtext": "<p>The Smart</p>",
+            "text_align": "align--middle-left",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
         }
       },
       "block_order": [
         "image_gLXBQN",
-        "image_GEhEhD"
+        "image_GEhEhD",
+        "image_jYRxHG",
+        "image_hnwkjk"
       ],
       "custom_css": [
         ".hero__content {width: 600px; max-width: 100%;}"
