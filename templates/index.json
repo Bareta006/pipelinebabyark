@@ -443,6 +443,43 @@
         "text_alignment_desktop": "center",
         "text_alignment_mobile": "center"
       }
+    },
+    "section_slideshow_KD949B": {
+      "type": "section-slideshow",
+      "blocks": {
+        "video_slide_mB6tUk": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/side impact.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "video_slide_mB6tUk"
+      ],
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_two_thirds",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -452,6 +489,7 @@
     "section_slideshow_jHRLYV",
     "icon_slider_text_nzkdyr",
     "section_slideshow_MmaWTa",
-    "icon_slider_text_P9qKWM"
+    "icon_slider_text_P9qKWM",
+    "section_slideshow_KD949B"
   ]
 }
