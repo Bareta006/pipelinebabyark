@@ -520,6 +520,23 @@
     "section_double_wMxLWV": {
       "type": "section-double",
       "blocks": {
+        "text_RLUN7h": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "BioArk™ side-impact protection system",
+            "text": "<p>babyark’s innovative side-impact protection system is designed with an energy absorbing element that mitigates the impact, diverting forces to the structure of the seat and away from the child’s head.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
         "video_d96caf": {
           "type": "video",
           "settings": {
@@ -539,28 +556,11 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
-        },
-        "text_RLUN7h": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "BioArk™ side-impact protection system",
-            "text": "<p>babyark’s innovative side-impact protection system is designed with an energy absorbing element that mitigates the impact, diverting forces to the structure of the seat and away from the child’s head.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
         }
       },
       "block_order": [
-        "video_d96caf",
-        "text_RLUN7h"
+        "text_RLUN7h",
+        "video_d96caf"
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
@@ -579,23 +579,6 @@
     "image-with-text-2": {
       "type": "section-double",
       "blocks": {
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
         "image": {
           "type": "image",
           "settings": {
@@ -613,11 +596,28 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical alerts",
+            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
         }
       },
       "block_order": [
-        "text",
-        "image"
+        "image",
+        "text"
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
