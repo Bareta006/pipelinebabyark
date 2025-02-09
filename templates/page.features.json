@@ -123,12 +123,31 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
+        },
+        "image_k8BUpJ": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Advanced_Materials.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "The Smart",
+            "title": "Explore all features",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "buy now",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
         }
       },
       "block_order": [
         "video_slide_xbETPk",
         "image_KVVGeA",
-        "image_yhFDNa"
+        "image_yhFDNa",
+        "image_k8BUpJ"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}"
