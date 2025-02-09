@@ -246,6 +246,7 @@
         "video_slide_HnzVTf": {
           "type": "video_slide",
           "settings": {
+            "video_bg": "shopify://files/videos/babyark_how-to_install_rear_facing (1080p)_2.mp4",
             "object_position": "center-center",
             "overlay_opacity": 15,
             "overlay_color": "#000",
