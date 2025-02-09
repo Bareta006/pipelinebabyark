@@ -105,11 +105,30 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "image_yhFDNa": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Front_Load_Leg_Anti-Rebound_Bar.jpg",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Explore all specs",
+            "title": "Shop Smart",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "buy now",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
         }
       },
       "block_order": [
         "video_slide_xbETPk",
-        "image_KVVGeA"
+        "image_KVVGeA",
+        "image_yhFDNa"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}"
