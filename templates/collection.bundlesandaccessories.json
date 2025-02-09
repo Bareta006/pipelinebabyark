@@ -154,25 +154,17 @@
     "section_hero_acdjLN": {
       "type": "section-hero",
       "blocks": {
-        "kicker_adPJtB": {
-          "type": "kicker",
-          "settings": {
-            "kicker": "Safe, Smart and Beautiful",
-            "enable_line": false,
-            "text_size": 4
-          }
-        },
         "heading_N3r96m": {
           "type": "heading",
           "settings": {
-            "title": "The foodie premium Bundle",
+            "title": "The Foodie Bundle",
             "text_size": 10
           }
         },
         "text_Fzzxqe": {
           "type": "text",
           "settings": {
-            "richtext": "<p>✔ babyark CLASSIC seat<br/>✔ Extra CLASSIC base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
+            "richtext": "<p>✔ Smart seat<br/>✔ Cup holder</p><p>✔ Extra car seat cover<br/></p><p>Full Retail Price: $1,168<br/>Bundle Price: $1,050</p>",
             "text_size": 4
           }
         },
@@ -198,7 +190,6 @@
         }
       },
       "block_order": [
-        "kicker_adPJtB",
         "heading_N3r96m",
         "text_Fzzxqe",
         "button_JaYLCj"
@@ -225,25 +216,17 @@
     "section_hero_rQHDeJ": {
       "type": "section-hero",
       "blocks": {
-        "kicker_Mb6XNg": {
-          "type": "kicker",
-          "settings": {
-            "kicker": "Safe, Smart and Beautiful",
-            "enable_line": false,
-            "text_size": 4
-          }
-        },
         "heading_g7D3Jz": {
           "type": "heading",
           "settings": {
-            "title": "The premium bases Bundle",
+            "title": "The Bases Bundle",
             "text_size": 10
           }
         },
         "text_AfVzPF": {
           "type": "text",
           "settings": {
-            "richtext": "<p>✔ babyark Premium seat<br/>✔ Extra Smart base</p><p>Full Retail Price: $1,480.00<br/>Bundle Price: $1,300.00</p>",
+            "richtext": "<p>✔ Smart seat<br/>✔ Extra Smart base</p><p>Full Retail Price: $1,480<br/>Bundle Price: $1,350</p>",
             "text_size": 4
           }
         },
@@ -269,7 +252,6 @@
         }
       },
       "block_order": [
-        "kicker_Mb6XNg",
         "heading_g7D3Jz",
         "text_AfVzPF",
         "button_pd6FPh"
@@ -296,25 +278,17 @@
     "section_hero_Urjg43": {
       "type": "section-hero",
       "blocks": {
-        "kicker_LqVJXn": {
-          "type": "kicker",
-          "settings": {
-            "kicker": "Safe, Smart and Beautiful",
-            "enable_line": false,
-            "text_size": 4
-          }
-        },
         "heading_ipErdh": {
           "type": "heading",
           "settings": {
-            "title": "The premium family Bundle",
+            "title": "The Family Bundle",
             "text_size": 10
           }
         },
         "text_UxFMRK": {
           "type": "text",
           "settings": {
-            "richtext": "<p>✔ 2 babyark Premium seats</p><p>Full Retail Price: $1,980.00<br/>Bundle Price: $1,700.00</p>",
+            "richtext": "<p>✔ 2 Smart seats</p><p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>",
             "text_size": 4
           }
         },
@@ -340,7 +314,6 @@
         }
       },
       "block_order": [
-        "kicker_LqVJXn",
         "heading_ipErdh",
         "text_UxFMRK",
         "button_TrQwtP"
