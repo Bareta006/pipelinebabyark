@@ -127,45 +127,6 @@
 <div class="hero__cta__wrapper" {{ block.shopify_attributes }}>
   {{ buttons_markup }}
 </div>
-                {% when 'image' %}
-                  {%- assign elements_counter = elements_counter | plus: 1 -%}
-                  <div class="standard__image"
-                    style="width: {{ block.settings.image_max_limit | append: 'px' }}; max-width: 100%;"
-                    data-aos="hero"
-                    data-aos-anchor="{{ animation_anchor }}"
-                    data-aos-order="{{ elements_counter }}"
-                    {{ block.shopify_attributes }}>
-                    {%- if block.settings.image_link != blank -%}<a href="{{ block.settings.image_link }}">{%- endif -%}
-
-                    {%- assign wh_ratio = block.settings.image.aspect_ratio | default: 1 -%}
-
-                    {%- capture sizes -%}
-                      min({{ block.settings.image_max_limit }}px, 100vw)
-                    {%- endcapture -%}
-
-                    {% render 'image', img_object: block.settings.image, sizes: sizes, wh_ratio: wh_ratio, placeholder: 'logo', preload: preload, loading: loading %}
-
-                    {%- if block.settings.image_link != blank -%}</a>{%- endif -%}
-                  </div>
-                {% when 'countdown' %}
-                  {%- render 'countdown-timer',
-                    end_date: block.settings.end_date,
-                    end_time: block.settings.end_time,
-                    period: block.settings.period,
-                    digit_size: block.settings.digit_size,
-                    digit_size_mobile: block.settings.digit_size_mobile,
-                    end_message: block.settings.end_message,
-                    hide_on_complete: block.settings.hide_on_complete,
-                    animation_order: elements_counter,
-                    animation_anchor: animation_anchor
-                  -%}
-                {% when 'spacer' %}
-                  <div class="hero__spacer{% if block.settings.show_line %} hero__spacer--line{% endif %}"
-                    data-aos="hero"
-                    data-aos-anchor="{{ animation_anchor }}"
-                    data-aos-order="{{ elements_counter }}"
-                    style="--padding: {{ block.settings.spacer_padding | divided_by: 2 }}px;"
-                    {{ block.shopify_attributes }}></div>
               {% endcase %}
             {% endfor %}
           </div>
