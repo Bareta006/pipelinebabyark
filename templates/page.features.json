@@ -243,12 +243,12 @@
             "button_style": "btn--outline"
           }
         },
-        "image_kQTazf": {
-          "type": "image",
+        "video_slide_HnzVTf": {
+          "type": "video_slide",
           "settings": {
-            "image": "shopify://shop_images/Guided_Installation.png",
-            "overlay_opacity": 0,
-            "overlay_color": "#000000",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "Guided installation",
@@ -282,7 +282,7 @@
       },
       "block_order": [
         "image_ViHb7A",
-        "image_kQTazf",
+        "video_slide_HnzVTf",
         "image_abCnpW"
       ],
       "custom_css": [
