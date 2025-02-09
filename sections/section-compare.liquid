@@ -47,7 +47,11 @@
   .linktopage {
     cursor: pointer;
   }
-
+  .tableSide {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
   @media screen and (max-width: 767px) {
     .comparison-table,
     .comparison-row {
@@ -167,7 +171,7 @@
                   <div class="comparison-row flex">
                     <!-- Left product value -->
                     {% if first_product %}
-                      <div class="cell p-4 featureValue" style="background-color: {{ first_product.metafields.comparison.color }}">
+                      <div class="cell p-4 featureValue product-1">
                         {% if first_product.metafields.comparison[metafield_key] == 'true' or first_product.metafields.comparison[metafield_key] == true %}
                           {{ section.settings.yes_icon | raw }}
                         {% else %}
@@ -181,7 +185,7 @@
 
                     <!-- Right product value -->
                     {% if second_product %}
-                      <div class="cell p-4 featureValue" style="background-color: {{ second_product.metafields.comparison.color }}">
+                      <div class="cell p-4 featureValue product-2">
                         {% if second_product.metafields.comparison[metafield_key] == 'true' or second_product.metafields.comparison[metafield_key] == true %}
                           {{ section.settings.yes_icon | raw }}
                         {% else %}
