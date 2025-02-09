@@ -65,25 +65,27 @@
                 </div>
               </div>
 
+              <div class="image__hero__frame {{ section.settings.height }}">
+                <div class="image__hero__pane">
+                  <div class="video-autoplay-wrapper">
+                    {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
+                    {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
+                      <div class="video-autoplay-wrapper--mobile">
+                        {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                      </div>
+                    {% endif %}
+                    {% if block.settings.video_bg != blank %}
+                      <div class="video-autoplay-wrapper--desktop">
+                        {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+
               {% unless block.settings.enable_overlay_text %}
                 <div class="image-overlay" style="--bg:{{ block.settings.overlay_color }}; opacity:{{ block.settings.overlay_opacity | times: 0.01 }};"></div>
               {% endunless %}
-
-              <div class="video-autoplay-wrapper">
-                {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
-                {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
-                  <div class="video-autoplay-wrapper--mobile">
-                    {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
-                  </div>
-                {% endif %}
-                {% if block.settings.video_bg != blank %}
-                  <div class="video-autoplay-wrapper--desktop">
-                    {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
-                  </div>
-                {% elsif block.settings.fallback_image %}
-                  {% render 'image-parallax', img_object: block.settings.fallback_image, frame_height_class: section.settings.height, alt: block.settings.title %}
-                {% endif %}
-              </div>
 
               {% if block.settings.link_text == '' and block.settings.link %}
                 <a class="link-over-image" href="{{ block.settings.link }}" aria-label="{{ block.settings.link.object.title | default: block.settings.title | strip_html | escape }}"></a>
