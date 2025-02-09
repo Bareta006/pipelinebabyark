@@ -372,7 +372,7 @@
         "layout": "grid--stacked",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 50,
+        "padding_top": 70,
         "padding_bottom": 50
       }
     },
