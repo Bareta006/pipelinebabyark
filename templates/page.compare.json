@@ -348,6 +348,9 @@
       "block_order": [
         "compare_aaxyxq"
       ],
+      "custom_css": [
+        "img{object-position: top center !important; }"
+      ],
       "settings": {
         "image": "shopify://shop_images/image_360.png",
         "height": "use_screen_full",
