@@ -374,63 +374,6 @@
         "padding_bottom": 0
       }
     },
-    "image-with-text-2": {
-      "type": "section-double",
-      "blocks": {
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Group_29613102_1.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "text",
-        "image"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_double_new_U8Re4G": {
       "type": "section-double-new",
       "blocks": {
@@ -513,6 +456,63 @@
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
         "bg_color_text": "#f6f2ef"
+      }
+    },
+    "image-with-text-2": {
+      "type": "section-double",
+      "blocks": {
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical alerts",
+            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613102_1.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text",
+        "image"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "section_double_kUy7cV": {
@@ -768,11 +768,11 @@
     "main",
     "section_icons_3jALpN",
     "image-with-text",
-    "image-with-text-2",
     "section_double_new_U8Re4G",
-    "section_double_kUy7cV",
-    "section_double_wMxLWV",
     "section_double_LJxgJN",
+    "section_double_wMxLWV",
+    "image-with-text-2",
+    "section_double_kUy7cV",
     "17388565930c97fe0d",
     "1738783691b78546c1",
     "related"
