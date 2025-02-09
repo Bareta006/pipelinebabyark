@@ -504,7 +504,7 @@
         "text_hTMywk"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
