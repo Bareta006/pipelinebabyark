@@ -11906,6 +11906,40 @@ label[data-swatch="Eggshell White / Glacier Ice"]{
   padding: var(--outer);
   color: var(--text);
 }
+/* Video slideshow styles */
+.video-autoplay-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.video-autoplay-wrapper video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Mobile/Desktop video switching */
+.video-autoplay-wrapper--mobile {
+  display: none;
+}
+
+.video-autoplay-wrapper--desktop {
+  display: block;
+}
+
+@media screen and (max-width: 767px) {
+  .video-autoplay-wrapper--mobile {
+    display: block;
+  }
+  
+  .video-autoplay-wrapper--desktop {
+    display: none;
+  }
+}
 @media only screen and (max-width: 1099px) {
   .hero__content {
     --default-max-width: 66%;
