@@ -370,44 +370,6 @@
         "padding_bottom": 0
       }
     },
-    "icon_slider_text_nzkdyr": {
-      "type": "icon-slider-text",
-      "blocks": {
-        "icon_slider_block_UQinBd": {
-          "type": "icon_slider_block",
-          "settings": {
-            "image": "shopify://shop_images/image_292.png",
-            "title": "\"A babyark combines natural forms with high-tech materials, including lightweight plastics and carbon fiber.\"",
-            "description": "",
-            "link": ""
-          }
-        },
-        "icon_slider_block_3L4kH4": {
-          "type": "icon_slider_block",
-          "settings": {
-            "image": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
-            "title": "title",
-            "description": "description",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_slider_block_UQinBd",
-        "icon_slider_block_3L4kH4"
-      ],
-      "custom_css": [
-        "{border: 15px solid #fff;}",
-        ".icon-slider-container {border-radius: 40px;}"
-      ],
-      "settings": {
-        "bg": "palette--dark bg--invert--accent",
-        "padding_top": 60,
-        "padding_bottom": 60,
-        "text_alignment_desktop": "center",
-        "text_alignment_mobile": "center"
-      }
-    },
     "section_slideshow_MmaWTa": {
       "type": "section-slideshow",
       "blocks": {
@@ -491,7 +453,6 @@
     "section_logos_xgKGpE",
     "flexbox_image_content_qzggwp",
     "section_slideshow_jHRLYV",
-    "icon_slider_text_nzkdyr",
     "section_slideshow_MmaWTa",
     "icon_slider_text_P9qKWM"
   ]
