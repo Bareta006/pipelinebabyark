@@ -323,9 +323,10 @@
         "image_gLXBQN": {
           "type": "image",
           "settings": {
-            "overlay_opacity": 100,
+            "image": "shopify://shop_images/Resize_1.png",
+            "overlay_opacity": 15,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "Safe, Smart and Beautiful",
             "title": "Ease Of Use, Convenience & Comfort",
             "richtext": "<p>App that lets you is designed to give you peice of mind at all times 14 sensors moniting your childs safety at all timas</p>",
