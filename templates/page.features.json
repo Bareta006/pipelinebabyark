@@ -260,10 +260,48 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
+        },
+        "image_kQTazf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Guided_Installation.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Smart and connected.",
+            "richtext": "",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
+        },
+        "image_abCnpW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Forgotten_Child_Buckle_Alerts_1.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "kicker": "Safe, Smart and Beautiful",
+            "title": "Installation guidance",
+            "richtext": "",
+            "text_align": "align--middle-right",
+            "text_color": "text--white",
+            "link_text": "SHOP BABYARK",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
         }
       },
       "block_order": [
-        "image_ViHb7A"
+        "image_ViHb7A",
+        "image_kQTazf",
+        "image_abCnpW"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}"
