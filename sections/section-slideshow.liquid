@@ -104,46 +104,55 @@
           {{ block.shopify_attributes }}>
           <div class="video-autoplay-wrapper">
             {%- assign video_styles = section.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
-            {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+            {% if block.settings.mobile_video != blank and request.device_type == 'mobile' %}
+              {{ block.settings.mobile_video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+            {% else %}
+              {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+            {% endif %}
           </div>
-            <div class="hero__content__wrapper {{ block.settings.text_align }}">
-              {% unless block.settings.video_kicker == '' %}
-                <p class="hero__kicker"
-                  data-aos="hero"
-                  data-aos-order="1">
-                  {{ block.settings.video_kicker | escape }}
-                </p>
-              {% endunless %}
-              {% unless block.settings.video_title == '' %}
-                <h1 class="hero__title heading-size-9"
-                  data-aos="hero"
-                  data-aos-order="2">
-                  {{ block.settings.video_title | escape }}
-                </h1>
-              {% endunless %}
-              {% unless block.settings.video_richtext == '' %}
-                <div class="hero__description rte body-size-6"
-                  data-aos="hero"
-                  data-aos-order="3">
-                  {{ block.settings.video_richtext }}
-                </div>
-              {% endunless %}
-              {% unless block.settings.video_link_text == '' %}
-                <div class="hero__cta__wrapper">
-                  <a class="{{ block.settings.video_button_color }} {{ block.settings.video_button_style }} hero__btn btn--long"
-                    href="{{ block.settings.video_link }}"
-                    data-aos="hero"
-                    data-aos-order="4">
-                    {{ block.settings.video_link_text | escape }}
-                  </a>
 
-                </div>
-              {% endunless %}
-            </div>
-            </div>
+          {% unless block.settings.enable_video_overlay_text %}
+            <div class="image-overlay" style="--bg:{{ block.settings.video_overlay_color }}; opacity:{{ block.settings.video_overlay_opacity | times: 0.01 }};"></div>
+          {% endunless %}
+
+          <div class="hero__content__wrapper {{ block.settings.video_text_align }}">
+            {% unless block.settings.video_kicker == '' %}
+              <p class="hero__kicker"
+                data-aos="hero"
+                data-aos-order="1">
+                {{ block.settings.video_kicker | escape }}
+              </p>
+            {% endunless %}
+            {% unless block.settings.video_title == '' %}
+              <h1 class="hero__title heading-size-9"
+                data-aos="hero"
+                data-aos-order="2">
+                {{ block.settings.video_title | escape }}
+              </h1>
+            {% endunless %}
+            {% unless block.settings.video_richtext == '' %}
+              <div class="hero__description rte body-size-6"
+                data-aos="hero"
+                data-aos-order="3">
+                {{ block.settings.video_richtext }}
+              </div>
+            {% endunless %}
+            {% unless block.settings.video_link_text == '' %}
+              <div class="hero__cta__wrapper">
+                <a class="{{ block.settings.video_button_color }} {{ block.settings.video_button_style }} hero__btn btn--long"
+                  href="{{ block.settings.video_link }}"
+                  data-aos="hero"
+                  data-aos-order="4">
+                  {{ block.settings.video_link_text | escape }}
+                </a>
+
+              </div>
+            {% endunless %}
+          </div>
           </div>
         {% endif %}
       {% endfor %}
+      </div>
       </div>
     </div>
   {% endif %}
@@ -397,12 +406,25 @@
         {
           "type": "video",
           "id": "video",
-          "label": "Video"
+          "label": "Video background"
         },
         {
-          "type": "image_picker",
+          "type": "video",
           "id": "mobile_video",
-          "label": "Mobile video"
+          "label": "Mobile video background"
+        },
+        {
+          "type": "select",
+          "id": "object_position",
+          "label": "Background video position",
+          "default": "center-center",
+          "options": [
+            { "label": "Top", "value": "center-top" },
+            { "label": "Right", "value": "right-center" },
+            { "label": "Center", "value": "center-center" },
+            { "label": "Left", "value": "left-center" },
+            { "label": "Bottom", "value": "center-bottom" }
+          ]
         },
         {
           "type":    "range",
