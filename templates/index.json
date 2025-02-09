@@ -471,7 +471,7 @@
         "video_DDK8HH"
       ],
       "custom_css": [
-        "{min-height:100vh;}"
+        ".slideshow__wrapper {min-height: 100vh;}"
       ],
       "settings": {
         "autoplay": false,
