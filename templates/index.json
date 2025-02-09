@@ -36,7 +36,7 @@
       ],
       "custom_css": [
         ".hero__content {width: 640px; max-width: 100%;}",
-        ".image__hero__scale {min-height: 100%; max-height: 100%; }"
+        ".image__hero__scale {min-height: 100%; max-height: 100%;}"
       ],
       "settings": {
         "autoplay": false,
@@ -238,13 +238,50 @@
         "image_QD4aEH": {
           "type": "image",
           "settings": {
+            "image": "shopify://shop_images/image_20.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "Introducing",
             "title": "Image slideshow",
             "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "image_D9gQaP": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/HomePage_1_1.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "image_eUtrMy": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/HomePage_0.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "View products",
             "link": "",
@@ -255,7 +292,9 @@
       },
       "block_order": [
         "image_PBpaXQ",
-        "image_QD4aEH"
+        "image_QD4aEH",
+        "image_D9gQaP",
+        "image_eUtrMy"
       ],
       "custom_css": [
         ".hero__title {width: 510px; max-width: 100%;}"
