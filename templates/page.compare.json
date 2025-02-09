@@ -230,8 +230,8 @@
         "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 180,
-        "padding_bottom": 70
+        "padding_top": 120,
+        "padding_bottom": 180
       }
     },
     "17382369213956607f": {
