@@ -447,10 +447,10 @@
     "section_slideshow_ENdpBQ": {
       "type": "section-slideshow",
       "blocks": {
-        "video_m96Y46": {
+        "video_DDK8HH": {
           "type": "video",
           "settings": {
-            "video": "shopify://files/videos/side impact.mp4",
+            "video": "shopify://files/videos/Short How to_No Emma.mp4",
             "video_overlay_opacity": 15,
             "video_overlay_color": "#000",
             "enable_video_overlay_text": false,
@@ -467,13 +467,13 @@
         }
       },
       "block_order": [
-        "video_m96Y46"
+        "video_DDK8HH"
       ],
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
         "preload_first_image": false,
-        "height": "use_screen_two_thirds",
+        "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
