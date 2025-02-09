@@ -153,10 +153,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/Group_34860.png",
+            "icon_alt": "shopify://shop_images/Group_34860_1.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Crash tested - FMVSS 213</p>",
+            "text": "<p>Crash tested according to FMVSS 213</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -168,7 +168,7 @@
             "icon_alt": "shopify://shop_images/Group_34864.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Crash tested - FMVSS 213</p>",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -177,10 +177,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/Group_34862.png",
+            "icon_alt": "shopify://shop_images/Group_34862_1.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Crash tested - FMVSS 213</p>",
+            "text": "<p>California Proposition 65 & 12</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -189,10 +189,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/Group_34862.png",
+            "icon_alt": "shopify://shop_images/Vector_4.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Crash tested - FMVSS 213</p>",
+            "text": "<p>FCC & EMC Compliance</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -201,10 +201,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/Group_34863.png",
+            "icon_alt": "shopify://shop_images/Vector_5.png",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>Crash tested - FMVSS 213</p>",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
             "link_text": "",
             "link_url": ""
           }
