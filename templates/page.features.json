@@ -336,10 +336,29 @@
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
+        },
+        "image_GEhEhD": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_27.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "Magentic harness",
+            "richtext": "",
+            "text_align": "align--middle-left",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn--outline"
+          }
         }
       },
       "block_order": [
-        "image_gLXBQN"
+        "image_gLXBQN",
+        "image_GEhEhD"
       ],
       "custom_css": [
         ".hero__content {width: 600px; max-width: 100%;}"
