@@ -1,4 +1,7 @@
 <style>
+    .comparison-table {
+        flex-direction: column;
+    }
   .comparison-table,
   .comparison-row {
     width: 100%;
@@ -127,7 +130,9 @@
               {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
 
               <div class="comparison-table flex">
+                <div class="comparison-row flex">
                 <!-- Left product column -->
+
                 {% assign first_product = all_products[section.blocks[0].settings.product_id] %}
                 {% if first_product %}
                   <div class="product-column">
@@ -165,7 +170,7 @@
                     </div>
                   </div>
                 {% endif %}
-              
+              </div>
 
               <!-- Feature comparison rows -->
               {% for i in (0..feature_names.size) %}
