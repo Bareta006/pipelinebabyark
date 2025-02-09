@@ -178,9 +178,14 @@
                     {% if first_product %}
                       <div class="cell p-4 featureValue product-1">
                         {% if first_product.metafields.comparison[metafield_key] == 'true' or first_product.metafields.comparison[metafield_key] == true %}
-                          {{ section.settings.yes_icon | raw }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
+                            <path d="M9.91464 1.48047L4.02484 7.47736L1.34766 4.7515" stroke="black" stroke-width="2.5771" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
                         {% else %}
-                          {{ section.settings.no_icon | raw }}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="30" viewBox="0 0 13 30" fill="none">
+                        <path d="M10.916 27.8594H1.9044" stroke="black" stroke-width="2.5771" stroke-linecap="round"/>
+                        <path d="M10.916 1.32031L1.9044 1.32031" stroke="black" stroke-width="2.5771" stroke-linecap="round"/>
+                      </svg>
                         {% endif %}
                       </div>
                     {% endif %}
