@@ -636,23 +636,6 @@
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "text_7hmDhz": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "The fabric",
-            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
         "video_P9J8Vf": {
           "type": "video",
           "settings": {
@@ -672,14 +655,31 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "text_7hmDhz": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The fabric",
+            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
         }
       },
       "block_order": [
-        "text_7hmDhz",
-        "video_P9J8Vf"
+        "video_P9J8Vf",
+        "text_7hmDhz"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 52%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 48%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
