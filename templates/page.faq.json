@@ -711,7 +711,7 @@
         "text_tTCgwf": {
           "type": "text",
           "settings": {
-            "text": "<p><a href=\"https://babyark.com/a/store-locator/list\" title=\"https://babyark.com/a/store-locator/list\"><strong>Store Locator</strong></a></p><p><strong>Register Your Product</strong></p><p><strong>Affiliate Program</strong></p>",
+            "text": "<p><a href=\"https://babyark.com/a/store-locator/list\" title=\"https://babyark.com/a/store-locator/list\"><strong>Store Locator</strong></a></p><p><a href=\"/pages/product-registration\" title=\"/pages/product-registration\"><strong>Register Your Product</strong></a></p><p><strong>Affiliate Program</strong></p>",
             "text_size": 6,
             "text_columns": 1
           }
@@ -723,7 +723,7 @@
       "custom_css": [
         ".text--neutral {background-color: #efefef;}",
         " {z-index: 5;}",
-        "a{text-decoration:none;}",
+        "a {text-decoration: none;}",
         "@media (min-width: 1024px) {.wrapper--narrow {max-width: 55%; margin-left: calc(100vw - 90%); }}"
       ],
       "settings": {
