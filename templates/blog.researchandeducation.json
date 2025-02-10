@@ -193,12 +193,72 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_hero_nKYNmr": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_JJHTG7": {
+          "type": "heading",
+          "settings": {
+            "title": "Testing",
+            "text_size": 10
+          }
+        },
+        "text_pXKYkQ": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>Data-driven safety. It’s that simple. We test everything. Then test it again. Then test some more. And we’ll happily tell you all about it.</p>",
+            "text_size": 5
+          }
+        },
+        "button_4gYiac": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Explore",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn--outline",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_JJHTG7",
+        "text_pXKYkQ",
+        "button_4gYiac"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/image_37.png",
+        "height": "use_screen_full",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 750,
+        "text_align": "align--middle-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "section_richtext_BcXdJi",
     "main-blog",
     "section_hero_wkTeea",
-    "section_hero_fUkT3Q"
+    "section_hero_fUkT3Q",
+    "section_hero_nKYNmr"
   ]
 }
