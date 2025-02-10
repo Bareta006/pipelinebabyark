@@ -161,11 +161,16 @@
             "text_size": 10
           }
         },
-        "text_Fzzxqe": {
-          "type": "text",
+        "floating_text1_GYqMPU": {
+          "type": "floating_text1",
           "settings": {
-            "richtext": "<p>✔ Smart seat<br/>✔ Cup holder</p><p>✔ Extra car seat cover<br/></p><p>Full Retail Price: $1,168<br/>Bundle Price: $1,050</p>",
-            "text_size": 4
+            "floating_text1": "<p>✔ Smart seat<br/>✔ Cup holder<br/>✔ Extra car seat cover</p>"
+          }
+        },
+        "floating_text2_T6rDRE": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $1,168<br/>Bundle Price: $1,050</p>"
           }
         },
         "button_JaYLCj": {
@@ -191,7 +196,8 @@
       },
       "block_order": [
         "heading_N3r96m",
-        "text_Fzzxqe",
+        "floating_text1_GYqMPU",
+        "floating_text2_T6rDRE",
         "button_JaYLCj"
       ],
       "custom_css": [
