@@ -27,7 +27,11 @@
             "link_text": "SHOP BABYARK",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "View productsf",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
@@ -232,7 +236,11 @@
             "link_text": "EXPLORE ALL FEATURES",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "View products",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_QD4aEH": {
@@ -250,7 +258,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "View products",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_D9gQaP": {
@@ -268,7 +280,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "View products",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "video_slide_aEAgE6": {
@@ -324,7 +340,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "View products",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
@@ -368,7 +388,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "View products",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
