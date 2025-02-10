@@ -136,7 +136,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_340.png",
+        "image": "shopify://shop_images/Bundles_Accessories.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
