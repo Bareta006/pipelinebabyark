@@ -297,17 +297,22 @@
             "text_size": 10
           }
         },
-        "text_UxFMRK": {
-          "type": "text",
+        "floating_text1_wV4Lzz": {
+          "type": "floating_text1",
           "settings": {
-            "richtext": "<p>✔ 2 Smart seats</p><p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>",
-            "text_size": 4
+            "floating_text1": "<p>✔ 2 Smart seats</p>"
+          }
+        },
+        "floating_text2_Ngim3L": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>"
           }
         },
         "button_TrQwtP": {
           "type": "button",
           "settings": {
-            "link_text_1": "SEE IT IN ACTION",
+            "link_text_1": "",
             "link_1": "",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
@@ -327,7 +332,8 @@
       },
       "block_order": [
         "heading_ipErdh",
-        "text_UxFMRK",
+        "floating_text1_wV4Lzz",
+        "floating_text2_Ngim3L",
         "button_TrQwtP"
       ],
       "custom_css": [
