@@ -32,6 +32,9 @@
         "heading_gKkcpT",
         "text_cMRJN9"
       ],
+      "custom_css": [
+        ">section{background-color:#22282D;}"
+      ],
       "settings": {
         "align_text": "text-center",
         "text_color": "text--white",
