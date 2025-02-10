@@ -109,12 +109,12 @@
         "button_tRbMmK": {
           "type": "button",
           "settings": {
-            "link_text_1": "SEE IT IN ACTION",
+            "link_text_1": "",
             "link_1": "",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
             "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
+            "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--long",
             "button_style_2": "btn--outline",
@@ -229,17 +229,22 @@
             "text_size": 10
           }
         },
-        "text_AfVzPF": {
-          "type": "text",
+        "floating_text1_7NiPVd": {
+          "type": "floating_text1",
           "settings": {
-            "richtext": "<p>✔ Smart seat<br/>✔ Extra Smart base</p><p>Full Retail Price: $1,480<br/>Bundle Price: $1,350</p>",
-            "text_size": 4
+            "floating_text1": "<p>✔ Smart seat<br/>✔ Extra Smart base</p>"
+          }
+        },
+        "floating_text2_Ua3yfX": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $1,480<br/>Bundle Price: $1,350</p>"
           }
         },
         "button_pd6FPh": {
           "type": "button",
           "settings": {
-            "link_text_1": "SEE IT IN ACTION",
+            "link_text_1": "",
             "link_1": "",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
@@ -259,7 +264,8 @@
       },
       "block_order": [
         "heading_g7D3Jz",
-        "text_AfVzPF",
+        "floating_text1_7NiPVd",
+        "floating_text2_Ua3yfX",
         "button_pd6FPh"
       ],
       "custom_css": [
@@ -291,17 +297,22 @@
             "text_size": 10
           }
         },
-        "text_UxFMRK": {
-          "type": "text",
+        "floating_text1_wV4Lzz": {
+          "type": "floating_text1",
           "settings": {
-            "richtext": "<p>✔ 2 Smart seats</p><p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>",
-            "text_size": 4
+            "floating_text1": "<p>✔ 2 Smart seats</p>"
+          }
+        },
+        "floating_text2_Ngim3L": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>"
           }
         },
         "button_TrQwtP": {
           "type": "button",
           "settings": {
-            "link_text_1": "SEE IT IN ACTION",
+            "link_text_1": "",
             "link_1": "",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
@@ -321,7 +332,8 @@
       },
       "block_order": [
         "heading_ipErdh",
-        "text_UxFMRK",
+        "floating_text1_wV4Lzz",
+        "floating_text2_Ngim3L",
         "button_TrQwtP"
       ],
       "custom_css": [
