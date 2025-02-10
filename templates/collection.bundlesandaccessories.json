@@ -136,12 +136,12 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/Bundles_Accessories.png",
+        "image": "shopify://shop_images/Bundles_Accessories_1.png",
         "height": "use_screen_full",
-        "overlay_opacity": 0,
+        "overlay_opacity": 35,
         "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
+        "enable_overlay_text": true,
+        "preload_image": true,
         "content_width": 2000,
         "text_align": "align--bottom-left",
         "text_color": "text--white",
