@@ -396,8 +396,8 @@
           "type": "icon_slider_block",
           "settings": {
             "image": "shopify://shop_images/PS.png",
-            "title": "\"Where babyark really stands out is in its safety features. It uses a shock-absorption system called SafeCoil to reduce the force and forward momentum the seat will experience if the car stops suddenly.\" ",
-            "description": "",
+            "title": "",
+            "description": "\"Where babyark really stands out is in its safety features. It uses a shock-absorption system called SafeCoil to reduce the force and forward momentum the seat will experience if the car stops suddenly.\" ",
             "link": ""
           }
         },
