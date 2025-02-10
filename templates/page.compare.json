@@ -36,7 +36,7 @@
             "image": "shopify://shop_images/Group_29613109_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "360° protection - 13 safety patents",
             "title": "Same standard of safety. Different type of experience.",
             "richtext": "",
