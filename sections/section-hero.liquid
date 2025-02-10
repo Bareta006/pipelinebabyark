@@ -157,7 +157,7 @@
                     style="--padding: {{ block.settings.spacer_padding | divided_by: 2 }}px;"
                     {{ block.shopify_attributes }}></div>
                 {% when 'floating_text1' %}
-                  <div class="floating-text1"
+                  <div class="floating-text1 floater"
                     data-aos="hero"
                     data-aos-anchor="{{ animation_anchor }}"
                     data-aos-order="{{ elements_counter }}"
@@ -165,7 +165,7 @@
                     {{ block.settings.floating_text1 }}
                   </div>
                 {% when 'floating_text2' %}
-                  <div class="floating-text2"
+                  <div class="floating-text2 floater"
                     data-aos="hero"
                     data-aos-anchor="{{ animation_anchor }}"
                     data-aos-order="{{ elements_counter }}"
