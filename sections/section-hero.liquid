@@ -23,8 +23,6 @@
     position: absolute;
     width: auto;
     color: #fff;
-    --bg: #000000;
-    --opacity: 0.15;
   }
   #shopify-section-{{ section.id }} .floating-text1 {
     width: 200px;
@@ -64,7 +62,7 @@
         {% for block in section.blocks %}
           {% case block.type %}
           {% when 'floating_text1' %}
-            <div class="floating-text1 floater"
+            <div class="floating-text1 floater" style="   --bg: #000000;--opacity: 0.15;"
               data-aos="hero"
               data-aos-anchor="{{ animation_anchor }}"
               data-aos-order="{{ elements_counter }}"
@@ -72,7 +70,7 @@
               {{ block.settings.floating_text1 }}
             </div>
           {% when 'floating_text2' %}
-            <div class="floating-text2 floater"
+            <div class="floating-text2 floater" style="   --bg: #000000;--opacity: 0.15;"
               data-aos="hero"
               data-aos-anchor="{{ animation_anchor }}"
               data-aos-order="{{ elements_counter }}"
