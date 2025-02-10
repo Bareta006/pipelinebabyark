@@ -130,11 +130,71 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_hero_fUkT3Q": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_nHUyGk": {
+          "type": "heading",
+          "settings": {
+            "title": "Holistic Approach to Safety",
+            "text_size": 10
+          }
+        },
+        "text_3HPQAH": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>Our multi-layer approach to safety combines the strength of five pillars to redefine safety standards. Your children’s security, and your peace of mind, are always paramount.</p>",
+            "text_size": 6
+          }
+        },
+        "button_TYm7nT": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Explore",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn--outline",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_nHUyGk",
+        "text_3HPQAH",
+        "button_TYm7nT"
+      ],
+      "settings": {
+        "image": "shopify://shop_images/220907-Babyark-20333_1_1_1.png",
+        "height": "use_screen_full",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--middle-right",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "section_richtext_BcXdJi",
     "main-blog",
-    "section_hero_wkTeea"
+    "section_hero_wkTeea",
+    "section_hero_fUkT3Q"
   ]
 }
