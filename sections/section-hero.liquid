@@ -45,6 +45,26 @@
   <div class="{{ section.settings.width }} section-padding">
     <div class="section__inner">
       <div class="hero__content__wrapper {{ section.settings.text_align }}">
+        {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'floating_text1' %}
+            <div class="floating-text1 floater"
+              data-aos="hero"
+              data-aos-anchor="{{ animation_anchor }}"
+              data-aos-order="{{ elements_counter }}"
+              {{ block.shopify_attributes }}>
+              {{ block.settings.floating_text1 }}
+            </div>
+          {% when 'floating_text2' %}
+            <div class="floating-text2 floater"
+              data-aos="hero"
+              data-aos-anchor="{{ animation_anchor }}"
+              data-aos-order="{{ elements_counter }}"
+              {{ block.shopify_attributes }}>
+              {{ block.settings.floating_text2 }}
+            </div>
+        {% endcase %}
+      {% endfor %}
         <div class="{{ hero_content_class }} {{ section.settings.color_bg }} js-overflow-content">
           {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
           {%- assign elements_counter = 0 -%}
@@ -171,22 +191,7 @@
                     data-aos-order="{{ elements_counter }}"
                     style="--padding: {{ block.settings.spacer_padding | divided_by: 2 }}px;"
                     {{ block.shopify_attributes }}></div>
-                {% when 'floating_text1' %}
-                  <div class="floating-text1 floater"
-                    data-aos="hero"
-                    data-aos-anchor="{{ animation_anchor }}"
-                    data-aos-order="{{ elements_counter }}"
-                    {{ block.shopify_attributes }}>
-                    {{ block.settings.floating_text1 }}
-                  </div>
-                {% when 'floating_text2' %}
-                  <div class="floating-text2 floater"
-                    data-aos="hero"
-                    data-aos-anchor="{{ animation_anchor }}"
-                    data-aos-order="{{ elements_counter }}"
-                    {{ block.shopify_attributes }}>
-                    {{ block.settings.floating_text2 }}
-                  </div>
+
               {% endcase %}
             {% endfor %}
           </div>
