@@ -34,9 +34,9 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image.png",
-            "overlay_opacity": 0,
+            "overlay_opacity": 30,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "",
             "title": "Features to give you a piece of mind",
             "richtext": "",
