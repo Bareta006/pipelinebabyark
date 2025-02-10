@@ -711,7 +711,7 @@
         "text_tTCgwf": {
           "type": "text",
           "settings": {
-            "text": "<p><strong>Store Locator</strong></p><p><strong>Register Your Product</strong></p><p><strong>Affiliate Program</strong></p>",
+            "text": "<p><a href=\"https://babyark.com/a/store-locator/list\" title=\"https://babyark.com/a/store-locator/list\"><strong>Store Locator</strong></a></p><p><strong>Register Your Product</strong></p><p><strong>Affiliate Program</strong></p>",
             "text_size": 6,
             "text_columns": 1
           }
