@@ -33,6 +33,19 @@
     bottom: 50px;
     right: 25vw;
   }
+  #shopify-section-{{ section.id }} .floater.backdrop--hero:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, var(--bg) 0%, rgba(255, 255, 255, 0) 50%);
+    opacity: var(--opacity);
+    transform: translate(-50%, -50%);
+}
+    
 </style>
 <div class="section--image fade-in-child js-overflow-container {{ scroll_class }}"
   data-section-id="{{ section.id }}"
