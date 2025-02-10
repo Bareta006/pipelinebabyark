@@ -11772,6 +11772,21 @@ label[data-swatch="Eggshell White / Glacier Ice"]{
   background: rgb(176, 163, 146)!important;
   background: linear-gradient(180deg, rgb(147, 153, 148) 0%, rgb(147, 153, 148) 50%, rgba(237, 237, 230, 1) 50%)!important;
 }
+.swatch__label[data-swatch="Charcoal Grey"]{
+  background-color: rgb(147, 153, 148)!important;
+}
+.swatch__label[data-swatch="Eggshell white"]{
+  background-color: rgb(237, 237, 230)!important;
+}
+.swatch__label[data-swatch="Moonlight"]{
+  background-color: rgb(176, 163, 146)!important;
+}
+.swatch__label[data-swatch="Midnight Blue"]{
+  background-color: rgb(31, 38, 43) !important;
+}
+.swatch__label[data-swatch="Glacier Ice"]{
+  background-color: rgba(147, 153, 148, 0.82) !important;
+}
 
 @media only screen and (max-width: 767px) {
   .reposition-background-mobile {
