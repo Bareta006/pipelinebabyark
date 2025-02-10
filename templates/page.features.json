@@ -211,7 +211,7 @@
           "settings": {
             "video_bg": "shopify://files/videos/Top page short-_d5ad08d6-196a-40f6-9e5e-1e8e5d607d1e.mp4",
             "object_position": "center-center",
-            "overlay_opacity": 25,
+            "overlay_opacity": 35,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "kicker": "",
@@ -219,8 +219,8 @@
             "richtext": "<p>The seat's base, paired via Bluetooth with the app, guides you with simple, step-by-step instructions and visual confirmation all along the way.</p>",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
-            "link_text": "buy babyark",
-            "link": "",
+            "link_text": "shop babyark",
+            "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
