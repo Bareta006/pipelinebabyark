@@ -427,7 +427,8 @@
       "custom_css": [
         "{border: 15px solid #fff;}",
         ".icon-slider-container {border-radius: 40px;}",
-        "img{height:60px; object-fit:contain;}"
+        "img {height: 60px; object-fit: contain;}",
+        ".icon-slider-block p {font-size: 18px; width: 960px; margin: 20px auto;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
