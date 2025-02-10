@@ -39,62 +39,6 @@
         "padding_bottom": 0
       }
     },
-    "custom-content-feature": {
-      "type": "section-custom-content",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "article": {
-          "type": "article",
-          "settings": {
-            "article": "",
-            "show_tag": true,
-            "show_date": true,
-            "font_size": 4,
-            "show_excerpt": true,
-            "align_text": "text-left",
-            "placement_text": "middle",
-            "show_author_name": true,
-            "show_author_image": true,
-            "button_text": "Read more",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f7f7f7"
-          }
-        }
-      },
-      "block_order": [
-        "image",
-        "article"
-      ],
-      "disabled": true,
-      "settings": {
-        "height": "use_screen_one_half",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "main-blog": {
       "type": "blog",
       "settings": {
@@ -106,8 +50,8 @@
         "post_grid": 3,
         "rows": 3,
         "wh_ratio": 1.7,
-        "show_author": true,
-        "show_tags": true,
+        "show_author": false,
+        "show_tags": false,
         "show_date": true,
         "show_preview": true,
         "show_link": true,
@@ -124,7 +68,6 @@
   },
   "order": [
     "section_hero_X77pNn",
-    "custom-content-feature",
     "main-blog"
   ]
 }
