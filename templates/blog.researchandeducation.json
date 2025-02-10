@@ -108,26 +108,12 @@
             "button_style_3": "btn-text-thick-line",
             "button_color_3": "btn--white"
           }
-        },
-        "floating_text1_xiapqt": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>Floating Text</p>"
-          }
-        },
-        "floating_text2_twgDqR": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Floating Text</p>"
-          }
         }
       },
       "block_order": [
         "heading_QHLcBE",
         "text_pTVjQ8",
-        "button_6RJGbW",
-        "floating_text1_xiapqt",
-        "floating_text2_twgDqR"
+        "button_6RJGbW"
       ],
       "settings": {
         "image": "shopify://shop_images/220907-Babyark-20333_1_1_1.png",
