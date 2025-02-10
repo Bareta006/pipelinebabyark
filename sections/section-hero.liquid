@@ -156,6 +156,22 @@
                     data-aos-order="{{ elements_counter }}"
                     style="--padding: {{ block.settings.spacer_padding | divided_by: 2 }}px;"
                     {{ block.shopify_attributes }}></div>
+                {% when 'floating_text1' %}
+                  <div class="floating-text1"
+                    data-aos="hero"
+                    data-aos-anchor="{{ animation_anchor }}"
+                    data-aos-order="{{ elements_counter }}"
+                    {{ block.shopify_attributes }}>
+                    {{ block.settings.floating_text1 }}
+                  </div>
+                {% when 'floating_text2' %}
+                  <div class="floating-text2"
+                    data-aos="hero"
+                    data-aos-anchor="{{ animation_anchor }}"
+                    data-aos-order="{{ elements_counter }}"
+                    {{ block.shopify_attributes }}>
+                    {{ block.settings.floating_text2 }}
+                  </div>
               {% endcase %}
             {% endfor %}
           </div>
@@ -785,6 +801,32 @@
           "id": "show_line",
           "label": "Show line",
           "default": false
+        }
+      ]
+    },
+    {
+      "type": "floating_text1",
+      "name": "Floating Text 1",
+      "class": "floating-text1",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "floating_text1",
+          "label": "Text",
+          "default": "<p></p>Floating Text</p>"
+        }
+      ]
+    },
+    {
+      "type": "floating_text2",
+      "name": "Floating Text 2",
+      "class": "floating-text2",
+      "settings": [ 
+        {
+          "type": "richtext",
+          "id": "floating_text2",
+          "label": "Text",
+          "default": "<p></p>Floating Text</p>"
         }
       ]
     }
