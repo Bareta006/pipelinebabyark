@@ -426,7 +426,8 @@
       ],
       "custom_css": [
         "{border: 15px solid #fff;}",
-        ".icon-slider-container {border-radius: 40px;}"
+        ".icon-slider-container {border-radius: 40px;}",
+        "img{height:60px; object-fit:contain;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
