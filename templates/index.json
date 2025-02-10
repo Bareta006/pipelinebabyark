@@ -237,7 +237,7 @@
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn--outline",
-            "link_text_2": "View products",
+            "link_text_2": "",
             "link_2": "",
             "button_color_2": "btn--white",
             "button_style_2": "btn"
@@ -259,7 +259,7 @@
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn",
-            "link_text_2": "View products",
+            "link_text_2": "",
             "link_2": "",
             "button_color_2": "btn--white",
             "button_style_2": "btn"
@@ -281,7 +281,7 @@
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn",
-            "link_text_2": "View products",
+            "link_text_2": "",
             "link_2": "",
             "button_color_2": "btn--white",
             "button_style_2": "btn"
@@ -341,7 +341,7 @@
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn",
-            "link_text_2": "View products",
+            "link_text_2": "",
             "link_2": "",
             "button_color_2": "btn--white",
             "button_style_2": "btn"
