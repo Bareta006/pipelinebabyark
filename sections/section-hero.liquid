@@ -18,7 +18,22 @@
 {% if section.settings.width == 'wrapper--tiny' or section.settings.width == 'wrapper--narrow' %}
   {% assign hero_content_class = 'hero__content hero__content--large' %}
 {% endif %}
-
+<style>
+  #shopify-section-{{ section.id }} .floater {
+    position: absolute;
+    width: auto;
+  }
+  #shopify-section-{{ section.id }} .floating-text1 {
+    width: 200px;
+    bottom: 50px;
+    right: 15vw;
+  }
+  #shopify-section-{{ section.id }} .floating-text2 {
+    width: 200px;
+    bottom: 50px;
+    right: 25vw;
+  }
+</style>
 <div class="section--image fade-in-child js-overflow-container {{ scroll_class }}"
   data-section-id="{{ section.id }}"
   data-section-type="hero"
