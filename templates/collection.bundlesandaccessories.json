@@ -171,13 +171,13 @@
         "button_JaYLCj": {
           "type": "button",
           "settings": {
-            "link_text_1": "SEE IT IN ACTION",
+            "link_text_1": "",
             "link_1": "",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
             "button_color_1": "btn--white",
             "link_text_2": "SHOP NOW",
-            "link_2": "",
+            "link_2": "/products/the-foodie-bundle?view=pdp_smart_v1",
             "button_size_2": "btn--long",
             "button_style_2": "btn--outline",
             "button_color_2": "btn--white",
