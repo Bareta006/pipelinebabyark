@@ -43,9 +43,13 @@
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "SHOP BABYARK",
-            "link": "",
+            "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
@@ -84,7 +88,11 @@
             "link_text": "shop babyark",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "video_slide_xbETPk": {
@@ -121,7 +129,11 @@
             "link_text": "View products",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn"
+            "button_style": "btn",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_yhFDNa": {
@@ -139,7 +151,11 @@
             "link_text": "buy now",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_k8BUpJ": {
@@ -157,7 +173,11 @@
             "link_text": "buy now",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
@@ -240,7 +260,11 @@
             "link_text": "SHOP BABYARK",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "video_slide_HnzVTf": {
@@ -249,7 +273,7 @@
             "video_bg": "shopify://files/videos/babyark_how-to_install_rear_facing (1080p)_2.mp4",
             "object_position": "center-center",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "Guided installation",
@@ -277,7 +301,11 @@
             "link_text": "SHOP BABYARK",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
@@ -318,7 +346,11 @@
             "link_text": "SHOP BABYARK",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_GEhEhD": {
@@ -336,7 +368,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_jYRxHG": {
@@ -354,7 +390,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         },
         "image_hnwkjk": {
@@ -372,7 +412,11 @@
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
           }
         }
       },
