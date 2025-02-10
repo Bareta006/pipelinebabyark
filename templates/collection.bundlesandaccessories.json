@@ -136,7 +136,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/image_340.png",
+        "image": "shopify://shop_images/Bundles_Accessories.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
@@ -250,7 +250,7 @@
             "button_style_1": "btn",
             "button_color_1": "btn--white",
             "link_text_2": "SHOP NOW",
-            "link_2": "",
+            "link_2": "/collections/bundles/products/the-bases-bundle-1?variant=41167513419847?view=pdp_smart_v1",
             "button_size_2": "btn--long",
             "button_style_2": "btn--outline",
             "button_color_2": "btn--white",
@@ -318,7 +318,7 @@
             "button_style_1": "btn",
             "button_color_1": "btn--white",
             "link_text_2": "SHOP NOW",
-            "link_2": "",
+            "link_2": "/collections/bundles/products/the-family-bundle?variant=41167529934919&view=pdp_smart_v1",
             "button_size_2": "btn--long",
             "button_style_2": "btn--outline",
             "button_color_2": "btn--white",
