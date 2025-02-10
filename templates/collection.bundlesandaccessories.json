@@ -138,7 +138,7 @@
       "settings": {
         "image": "shopify://shop_images/Bundles_Accessories_1.png",
         "height": "use_screen_full",
-        "overlay_opacity": 75,
+        "overlay_opacity": 35,
         "overlay_color": "#000000",
         "enable_overlay_text": true,
         "preload_image": true,
