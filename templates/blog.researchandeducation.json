@@ -175,7 +175,8 @@
         "button_TYm7nT"
       ],
       "custom_css": [
-        ".text__standard {text-align: left;}"
+        ".text__standard {text-align: left;}",
+        ".hero__cta__wrapper{\\justify-content:start;}"
       ],
       "settings": {
         "image": "shopify://shop_images/220907-Babyark-20333_1_1_1.png",
