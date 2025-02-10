@@ -47,7 +47,7 @@
       "settings": {
         "autoplay": false,
         "autoplay_speed": 4,
-        "preload_first_image": false,
+        "preload_first_image": true,
         "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
@@ -362,9 +362,9 @@
         ".hero__title {width: 510px; max-width: 100%;}"
       ],
       "settings": {
-        "autoplay": false,
+        "autoplay": true,
         "autoplay_speed": 4,
-        "preload_first_image": false,
+        "preload_first_image": true,
         "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
@@ -404,7 +404,7 @@
       "custom_css": [
         ".hero__content {width: 580px; max-width: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
-        ".custom-prev-next-button{display:none;}"
+        ".custom-prev-next-button {display: none;}"
       ],
       "settings": {
         "autoplay": false,
