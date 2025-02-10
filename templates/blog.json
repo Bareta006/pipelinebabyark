@@ -9,41 +9,39 @@
  */
 {
   "sections": {
-    "blog-section-featured-article": {
-      "type": "section-featured-article",
+    "section_hero_X77pNn": {
+      "type": "section-hero",
       "blocks": {
-        "blog-section-featured-article-block-1": {
+        "heading_aVcK3h": {
           "type": "heading",
           "settings": {
             "title": "{{ blog.title }}",
-            "text_size": 8
+            "text_size": 10
           }
         },
-        "blog-section-featured-article-block-2": {
+        "text_GHfCdc": {
           "type": "text",
           "settings": {
-            "richtext": "<p>The Babyark blog</p>",
-            "text_size": 5
+            "richtext": "<p>The Babyark Blog</p>",
+            "text_size": 6
           }
         }
       },
       "block_order": [
-        "blog-section-featured-article-block-1",
-        "blog-section-featured-article-block-2"
+        "heading_aVcK3h",
+        "text_GHfCdc"
       ],
       "settings": {
-        "article": "",
         "image": "shopify://shop_images/image_373.png",
-        "image_full_width": true,
         "height": "use_screen_two_thirds",
         "overlay_opacity": 15,
         "overlay_color": "#000",
         "enable_overlay_text": false,
-        "color_bg": "",
-        "text_align": "align--bottom-center",
-        "text_alignment": "text-center",
-        "text_color": "text--neutral",
-        "text_color_bg": "palette--light bg--accent",
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
@@ -133,7 +131,7 @@
     }
   },
   "order": [
-    "blog-section-featured-article",
+    "section_hero_X77pNn",
     "custom-content-feature",
     "main-blog"
   ]
