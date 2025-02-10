@@ -711,7 +711,7 @@
         "text_tTCgwf": {
           "type": "text",
           "settings": {
-            "text": "<p><a href=\"https://babyark.com/a/store-locator/list\" title=\"https://babyark.com/a/store-locator/list\"><strong>Store Locator</strong></a></p><p><a href=\"/pages/product-registration\" title=\"/pages/product-registration\"><strong>Register Your Product</strong></a></p><p><strong>Affiliate Program</strong></p>",
+            "text": "<p><a href=\"https://babyark.com/a/store-locator/list\" title=\"https://babyark.com/a/store-locator/list\"><strong>Store Locator</strong></a></p><p><a href=\"/pages/product-registration\" title=\"/pages/product-registration\"><strong>Register Your Product</strong></a></p><p><a href=\"https://ui.awin.com/merchant-profile/80030\" title=\"https://ui.awin.com/merchant-profile/80030\"><strong>Affiliate Program</strong></a></p>",
             "text_size": 6,
             "text_columns": 1
           }
