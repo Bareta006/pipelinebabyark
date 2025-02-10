@@ -79,14 +79,14 @@
                   <span data-add-to-cart-text>
                     {{ button_text }}
                   </span>
-                  <span class="cta__dot">•</span>
+                  {% comment %} <span class="cta__dot">•</span>
                   <span data-button-price>
                     {%- if settings.currency_code_enable -%}
                       {{ current_variant.price | money_with_currency }}
                     {%- else -%}
                       {{ current_variant.price | money }}
                     {%- endif -%}
-                  </span>
+                  </span>{% endcomment %} 
                 </span>
 
                 <span class="btn-state-loading">
