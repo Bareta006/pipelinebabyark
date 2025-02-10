@@ -14,9 +14,9 @@
       <span class="product__price {{ price_size_class }}">
         <span data-product-price {% if current_variant.compare_at_price > current_variant.price %} class="product__price--sale"{% endif %}>
           {%- if settings.currency_code_enable -%}
-            {{ current_variant.price | money_with_currency }}
+            {{ current_variant.price | money_with_currency | remove: '.00' }}
           {%- else -%}
-            {{ current_variant.price | money }}
+            {{ current_variant.price | money | remove: '.00' }}
           {%- endif -%}
         </span>
       </span>

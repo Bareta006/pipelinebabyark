@@ -19634,7 +19634,7 @@ a.product__form__link:after {
 .product__price {
   font-family: var(--FONT-STACK-ACCENT);
   font-style: var(--FONT-STYLE-ACCENT);
-  font-weight: var(--FONT-WEIGHT-ACCENT);
+  font-weight: 800;
   text-transform: var(--FONT-ACCENT-TRANSFORM);
   letter-spacing: var(--FONT-ACCENT-LETTER-SPACING);
   color: var(--text);
