@@ -428,7 +428,8 @@
         "{border: 15px solid #fff;}",
         ".icon-slider-container {border-radius: 40px;}",
         "img {height: 60px; object-fit: contain;}",
-        ".icon-slider-block p {font-size: 18px; width: 960px; margin: 20px auto;}"
+        ".icon-slider-block p {font-size: 18px; width: 960px; margin: 20px auto;}",
+        ".icon-slider-container .icon-slider-block {display: flex; flex-direction: column; justify-content: end;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
