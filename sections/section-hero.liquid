@@ -23,6 +23,8 @@
     position: absolute;
     width: auto;
     color: #fff;
+    --bg: #000000;
+    --opacity: 0.15;
   }
   #shopify-section-{{ section.id }} .floating-text1 {
     width: 200px;
@@ -42,7 +44,7 @@
     z-index: -1;
     width: 200%;
     height: 200%;
-    background: radial-gradient(ellipse at center, #000 0%, rgba(255, 255, 255, 0) 50%);
+    background: radial-gradient(ellipse at center,var(--bg) 0%,rgba(255,255,255,0) 50%)
     opacity: var(--opacity);
     transform: translate(-50%, -50%);
 }
