@@ -176,10 +176,10 @@
       ],
       "custom_css": [
         ".text__standard {text-align: left;}",
-        ".hero__cta__wrapper{\\justify-content:start;}"
+        ".hero__cta__wrapper {\\justify-content: start;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/220907-Babyark-20333_1_1_1.png",
+        "image": "shopify://shop_images/Frame_10.png",
         "height": "use_screen_full",
         "overlay_opacity": 15,
         "overlay_color": "#000",
