@@ -230,7 +230,8 @@
         "video_slide_BkNktt"
       ],
       "custom_css": [
-        ".hero__content {width: 477px; max-width: 100%;}"
+        ".hero__content {width: 477px; max-width: 100%;}",
+        ".slideshow__wrapper > div:last-child {opacity: 0;}"
       ],
       "settings": {
         "autoplay": false,
@@ -259,7 +260,7 @@
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "SHOP BABYARK",
-            "link": "",
+            "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
             "button_style": "btn--outline",
             "link_text_2": "",
@@ -282,7 +283,7 @@
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "SHOP BABYARK",
-            "link": "",
+            "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
             "button_style": "btn--outline"
           }
@@ -291,7 +292,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Forgotten_Child_Buckle_Alerts_1.png",
-            "overlay_opacity": 15,
+            "overlay_opacity": 25,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "kicker": "",
@@ -300,7 +301,7 @@
             "text_align": "align--middle-right",
             "text_color": "text--white",
             "link_text": "SHOP BABYARK",
-            "link": "",
+            "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
             "button_style": "btn--outline",
             "link_text_2": "",
