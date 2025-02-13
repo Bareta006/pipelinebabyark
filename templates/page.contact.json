@@ -108,30 +108,30 @@
         "padding_bottom": 36
       }
     },
-    "contact_form_new_8q8pte": {
+    "contact_form_new_4NFQV7": {
       "type": "contact-form-new",
       "blocks": {
-        "name_fADHda": {
+        "name_46jDRy": {
           "type": "name",
           "settings": {
             "heading": "Name",
             "mark_as_required": false
           }
         },
-        "email_xzM7pd": {
+        "email_TWhcmY": {
           "type": "email",
           "settings": {
             "heading": "Email"
           }
         },
-        "phone_zVF6JH": {
+        "phone_dkekqA": {
           "type": "phone",
           "settings": {
             "heading": "Phone number",
             "mark_as_required": false
           }
         },
-        "message_ypY79Y": {
+        "message_MCp3QV": {
           "type": "message",
           "settings": {
             "heading": "Message",
@@ -140,10 +140,10 @@
         }
       },
       "block_order": [
-        "name_fADHda",
-        "email_xzM7pd",
-        "phone_zVF6JH",
-        "message_ypY79Y"
+        "name_46jDRy",
+        "email_TWhcmY",
+        "phone_dkekqA",
+        "message_MCp3QV"
       ],
       "settings": {
         "heading": "Get in touch",
@@ -179,6 +179,6 @@
     "hero",
     "main",
     "section_icons_3WwBAY",
-    "contact_form_new_8q8pte"
+    "contact_form_new_4NFQV7"
   ]
 }
