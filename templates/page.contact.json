@@ -113,12 +113,34 @@
       "settings": {
         "custom_liquid": "<style>\n.globo-formbuilder{\ndisplay:none;\n}\n</style>\n<div class=\"w-full mx-auto text-center\">\n<select id=\"assistYou\" class=\"mx-auto pl-5 pr-5 lg:pl-6 lg:pr-6 pt- pb-1 md:pt-2 md:pb-2 border focus:outline-none focus:border-current input bg-transparent placeholder:opacity-0\" required=\"\" data-gtm-form-interact-field-id=\"0\">\n                                <option selected=\"\" disabled=\"\" value=\"\">Select a subject</option>\n                                <option value=\"28494\">Return Items</option>\n                                <option value=\"29264\">Exchange Items</option>\n                                <option value=\"29265\">Billing and Payments</option>\n                                <option value=\"29266\">Warranty and Repairs</option>\n                                <option value=\"29267\">Order Status</option>\n                                <option value=\"29268\">Product Questions</option>\n                                <option value=\"29269\">Other</option>\n                            </select>\n</div>\n<script>\ndocument.addEventListener('DOMContentLoaded', function() {\n    var selectElement = document.getElementById('assistYou');\n\n    selectElement.addEventListener('change', function() {\n        // Hide all .globo-formbuilder elements first\n        var formBuilders = document.querySelectorAll('.globo-formbuilder');\n        formBuilders.forEach(function(formBuilder) {\n            formBuilder.style.display = 'none';\n        });\n\n        // Get the selected option value\n        var selectedValue = this.value;\n\n        // Find the .globo-formbuilder element with the matching data-id and show it\n        var matchingFormBuilder = document.querySelector('.globo-formbuilder[data-id=\"' + selectedValue + '\"]');\n        if(matchingFormBuilder) {\n            matchingFormBuilder.style.display = 'block';\n        }\n    });\n});\n</script>"
       }
+    },
+    "17394604858cf8ed5d": {
+      "type": "apps",
+      "blocks": {
+        "powerful_form_builder_app_block_w8YQGy": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "settings": {
+            "shortcode": "<div id=\"formsContaier\">\n\n<div id=\"returnItems\" class=\"globo-formbuilder hidden\" data-id=\"Mjg0OTQ=\"></div>\n\n<div id=\"exchangeItems\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjQ=\"></div>\n\n<div id=\"billingAndPayments\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjU=\"></div>\n\n<div id=\"warrantyAndRepairs\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjY=\"></div>\n\n<div id=\"orderStatus\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjc=\"></div>\n\n<div id=\"productQuestions\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjg=\"></div>\n\n<div id=\"supportOther\" class=\"globo-formbuilder hidden\" data-id=\"MjkyNjk=\"></div>\n\n</div>"
+          }
+        }
+      },
+      "block_order": [
+        "powerful_form_builder_app_block_w8YQGy"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "hero",
     "main",
     "section_icons_3WwBAY",
-    "section_liquid_aecLiX"
+    "section_liquid_aecLiX",
+    "17394604858cf8ed5d"
   ]
 }
