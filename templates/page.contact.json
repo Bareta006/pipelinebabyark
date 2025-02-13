@@ -108,6 +108,31 @@
         "padding_bottom": 36
       }
     },
+    "section_richtext_xnA6AV": {
+      "type": "section-richtext",
+      "blocks": {
+        "text_Le6DyF": {
+          "type": "text",
+          "settings": {
+            "text": "<p>To ensure a faster response time please choose one of the categories below so we can direct your inquiry to the right department.</p><p></p><p></p><p>By submitting your contact information to us, you hereby confirm that you have read and agreed to our <a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\">Privacy Policy</a></p><h2>How can we help ?</h2>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "text_Le6DyF"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_liquid_aecLiX": {
       "type": "section-liquid",
       "settings": {
@@ -140,6 +165,7 @@
     "hero",
     "main",
     "section_icons_3WwBAY",
+    "section_richtext_xnA6AV",
     "section_liquid_aecLiX",
     "17394604858cf8ed5d"
   ]
