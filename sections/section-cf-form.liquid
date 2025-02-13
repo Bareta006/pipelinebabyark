@@ -30,7 +30,7 @@
                                 <option value="other">Other</option>
                             </select>
                             <a class="icon-hevron-down">
-                                {% render 'icon-alls', icon: 'icon-hevron-down' %}
+                                Hevron
                             </a>
                             </div>
                             
@@ -105,12 +105,7 @@
                         <!-- Additional form sections as needed -->
                         <div class="submitSection text-right mt-3.5 md:mt-5 hidden">
                         <button type="submit" class="button button-solid leading-normal pl-8 pr-8 lg:pl-11 lg:pr-11 pt-2.5 pb-2.5 lg:pt-3 lg:pb-3 cursor-pointer empty:hidden pointer-events-auto">
-                            {%- if section.settings.button_label != blank -%}
-                            {% assign button_label = section.settings.button_label %}
-                            {%- else -%}
-                            {% assign button_label = 'templates.contact.form.send' | t %}
-                            {%- endif -%}
-                            {% render 'button-label', button_label: button_label %}
+                            
                         </button>
                         </div>
                     </div>
