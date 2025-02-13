@@ -24,7 +24,7 @@
         "contact-block-heading": {
           "type": "heading",
           "settings": {
-            "title": "<p>Contact us</p>",
+            "title": "Get in touch",
             "text_size": 10
           }
         }
