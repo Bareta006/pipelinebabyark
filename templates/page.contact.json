@@ -108,70 +108,14 @@
         "padding_bottom": 36
       }
     },
-    "contact_form_new_4NFQV7": {
-      "type": "contact-form-new",
-      "blocks": {
-        "name_46jDRy": {
-          "type": "name",
-          "settings": {
-            "heading": "Name",
-            "mark_as_required": false
-          }
-        },
-        "email_TWhcmY": {
-          "type": "email",
-          "settings": {
-            "heading": "Email"
-          }
-        },
-        "phone_dkekqA": {
-          "type": "phone",
-          "settings": {
-            "heading": "Phone number",
-            "mark_as_required": false
-          }
-        },
-        "message_MCp3QV": {
-          "type": "message",
-          "settings": {
-            "heading": "Message",
-            "mark_as_required": false
-          }
-        }
-      },
-      "block_order": [
-        "name_46jDRy",
-        "email_TWhcmY",
-        "phone_dkekqA",
-        "message_MCp3QV"
-      ],
+    "section_cf_form_n8JgAn": {
+      "type": "section-cf-form",
       "settings": {
-        "heading": "Get in touch",
-        "heading_size": 100,
-        "heading_alignment": "center",
-        "text": "",
-        "background_color_light": "rgba(0,0,0,0)",
-        "background_color_dark": "rgba(0,0,0,0)",
-        "button_label": "Send",
-        "button_alignment": "center",
-        "success_message": "Thanks for contacting us. We'll get back to you as soon as possible.",
-        "show_content": "none",
-        "form_alignment": "left",
-        "desktop_height": "550px",
-        "mobile_height": "400px",
-        "contact_heading": "Contact information",
-        "infomation": "",
-        "address": "75 9th Ave, New York, NY 10011-7006",
-        "phone_nummber": "+1234567890",
-        "email_address": "info@yourstore.com",
-        "contact_text": "<p>Opening hours</p></br><p>Mon - Fri, 8:30am - 10:30pm,</br>Saturday, 8:30am - 10:30pm,</br>Sunday, 8:30am - 10:30pm</p>",
-        "full_width": false,
-        "show_section_divider": false,
-        "padding_top": 28,
-        "padding_bottom": 28,
-        "full_width_mobile": false,
-        "show_section_divider_mobile": false,
-        "padding_top_mobile": 28
+        "heading": "Contact Form",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "content_width": 1100
       }
     }
   },
@@ -179,6 +123,6 @@
     "hero",
     "main",
     "section_icons_3WwBAY",
-    "contact_form_new_4NFQV7"
+    "section_cf_form_n8JgAn"
   ]
 }
