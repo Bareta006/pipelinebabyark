@@ -103,7 +103,7 @@
         "icon_alignment": "icon--top",
         "layout": "grid--stacked",
         "align_text": "text-center",
-        "width": "wrapper",
+        "width": "wrapper--narrow",
         "padding_top": 36,
         "padding_bottom": 36
       }
