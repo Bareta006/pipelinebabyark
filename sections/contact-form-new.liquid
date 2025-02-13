@@ -433,7 +433,7 @@
   {
     "name": "Contact Form",
     "tag": "section",
-    "class": "section section-contact-form-new x-section",
+    "class": "section section-contact-form",
     "disabled_on": {
       "groups": [
         "header",
@@ -442,6 +442,55 @@
       ]
     },
     "settings": [
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "select",
+        "id": "width",
+        "label": "Width",
+        "default": "wrapper",
+        "options": [
+          { "value": "wrapper--none", "label": "Full width" },
+          { "value": "wrapper--full", "label": "Full width padded" },
+          { "value": "wrapper", "label": "Page width" },
+          { "value": "wrapper--narrow", "label": "Page width narrow" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "text_align",
+        "label": "Content alignment",
+        "default": "align--middle-center",
+        "options": [
+          { "value": "align--top-left", "label": "Top left"},
+          { "value": "align--top-center", "label": "Top center"},
+          { "value": "align--top-right", "label": "Top right"},
+          { "value": "align--middle-left", "label": "Middle left"},
+          { "value": "align--middle-center", "label": "Absolute center"},
+          { "value": "align--middle-right", "label": "Middle right"},
+          { "value": "align--bottom-left", "label": "Bottom left"},
+          { "value": "align--bottom-center", "label": "Bottom center"},
+          { "value": "align--bottom-right", "label": "Bottom right"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "color_bg",
+        "label": "Background color",
+        "default": "palette--light bg--neutral",
+        "options": [
+          { "value": "palette--light bg--neutral", "label": "White"},
+          { "value": "palette--light bg--accent", "label": "Light"},
+          { "value": "palette--dark bg--invert", "label": "Dark"},
+          { "value": "palette--dark bg--invert--accent", "label": "Dark accent"}
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Content"
+      },
       {
         "type": "text",
         "id": "heading",
@@ -862,6 +911,7 @@
     "presets": [
       {
         "name": "Contact Form new",
+        "category": "Forms",
         "blocks": [
           {
             "type": "name"
