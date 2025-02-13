@@ -1,0 +1,253 @@
+<div class="section--image fade-in-child js-overflow-container {{ scroll_class }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="cf-form"
+  {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
+  style="
+  --PT: {{ section.settings.padding_top }}px;
+  --PB: {{ section.settings.padding_bottom }}px;
+  --CONTENT-WIDTH: {{ section.settings.content_width }}px;">
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="section__inner" style="max-width: {{ section.settings.content_width }}px;">
+        iv class="contact__fields">
+                    {% assign input_class = "w-full pl-0 pr-0 lg:pl-0 lg:pr-0 pt-5 pb-1 md:pt-5 md:pb-2 border focus:outline-none focus:border-current input bg-transparent placeholder:opacity-0" %}
+                    {% assign select_class = "w-full pl-5 pr-5 lg:pl-6 lg:pr-6 pt- pb-1 md:pt-2 md:pb-2 border focus:outline-none focus:border-current input bg-transparent placeholder:opacity-0" %}
+                    {% assign label_class = "duration-150 leading-tight absolute top-1/2 left-5 lg:left-0 -translate-y-1/2 input_focus:text-xs input_focus:top-3 input_not_empty:top-3 input_not_empty:text-xs" %}
+                    {% assign section_wrapper = "mb-3 lg:mb-4 flex-1 relative" %}
+                    {% assign textarea_wrapper = "mb-2 md:mb-3 relative" %}
+                    
+                        <!-- Dropdown to Select Assistance Type -->
+                        <div id="Subject" class="assistYouSection">
+                        
+                            <div class="{{ section_wrapper }}">
+                            <select name="contact[assistYou]" id="assistYou" class="{{ select_class }}" required>
+                                <option selected disabled value="">Select a subject</option>
+                                <option value="return-items">Return Items</option>
+                                <option value="exchange-items">Exchange Items</option>
+                                <option value="billing-and-payments">Billing and Payments</option>
+                                <option value="warranty-and-repairs">Warranty and Repairs</option>
+                                <option value="order-status">Order Status</option>
+                                <option value="product-questions">Product Questions</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <a class="icon-hevron-down">
+                                {% render 'icon-alls', icon: 'icon-hevron-down' %}
+                            </a>
+                            </div>
+                            
+                        </div>
+                    <div class="dynamicSections">
+                        <!-- Contact Information Section -->
+                        <div id="contactInformation" class="form-section">
+                          <h4>Contact Information</h4>
+                          <div class="{{ section_wrapper }}">
+                            <input type="text" id="ContactFormName" name="contact[name]" class="{{ input_class }}" placeholder="Full Name" required>
+                            <label class="{{ label_class }}" for="ContactFormName">Full Name</label>
+                          </div>
+                          <div class="{{ section_wrapper }}">
+                            <input type="email" id="ContactFormEmail" name="contact[email]" class="{{ input_class }}" placeholder="Email" required>
+                            <label class="{{ label_class }}" for="ContactFormEmail">Email</label>
+                          </div>
+                        </div>
+                    
+                        <!-- Order Information Section -->
+                        <div id="orderInformation" class="form-section">
+                          <h4>Order Information</h4>
+                          <div class="{{ section_wrapper }}">
+                            <input type="text" id="orderNumber" name="contact[orderNumber]" class="{{ input_class }}" placeholder="Order Number" required>
+                            <label class="{{ label_class }}" for="orderNumber">Order Number</label>
+                          </div>
+                          <div class="{{ section_wrapper }}">
+                            <input type="text" id="items" name="contact[items]" class="{{ input_class }}" placeholder="Item(s)" required>
+                            <label class="{{ label_class }}" for="items">Item(s)</label>
+                          </div>
+                          <div class="{{ section_wrapper }}">
+                            <input type="text" id="additionalInformation" name="contact[additionalInformation]" class="{{ input_class }}" placeholder="Additional Information">
+                            <label class="{{ label_class }}" for="additionalInformation">Additional Information</label>
+                          </div>
+                        </div>
+                                            
+                        <!-- Billing Address Section -->
+                        <div id="billingAddress" class="form-section">
+                            <h4>Billing Address</h4>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="streetAddress" name="contact[streetAddress]" class="{{ input_class }}" placeholder="Street Address" required>
+                            <label class="{{ label_class }}" for="streetAddress">Street Address</label>
+                            </div>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="buildingAddress" name="contact[buildingAddress]" class="{{ input_class }}" placeholder="Apt/Floor/Suite" required>
+                            <label class="{{ label_class }}" for="buildingAddress">Apt/Floor/Suite</label>
+                            </div>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="city" name="contact[city]" class="{{ input_class }}" placeholder="City" required>
+                            <label class="{{ label_class }}" for="city">City</label>
+                            </div>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="state" name="contact[state]" class="{{ input_class }}" placeholder="State" required>
+                            <label class="{{ label_class }}" for="state">State</label>
+                            </div>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="zipCode" name="contact[zipCode]" class="{{ input_class }}" placeholder="Zipcode" required>
+                            <label class="{{ label_class }}" for="zipCode">Zipcode</label>
+                            </div>
+                            <div class="{{ section_wrapper }}">
+                            <input type="text" id="phoneNumber" name="contact[phoneNumber]" class="{{ input_class }}" placeholder="Phone Number">
+                            <label class="{{ label_class }}" for="phoneNumber">Phone Number</label>
+                            </div>
+                        </div>
+                        <!-- Explanation Section -->
+                        <div id="explanation" class="form-section">
+                          <div class="{{ textarea_wrapper }}">
+                            <textarea id="explainIssueQuestion" name="contact[explainIssueQuestion]" class="{{ input_class }}" rows="4" placeholder="Please explain your issue or question"></textarea>
+                            <label class="{{ label_class }}" for="explainIssueQuestion">Please explain your issue or question</label>
+                          </div>
+                        </div>
+                    </div>
+                        <!-- Additional form sections as needed -->
+                        <div class="submitSection text-right mt-3.5 md:mt-5 hidden">
+                        <button type="submit" class="button button-solid leading-normal pl-8 pr-8 lg:pl-11 lg:pr-11 pt-2.5 pb-2.5 lg:pt-3 lg:pb-3 cursor-pointer empty:hidden pointer-events-auto">
+                            {%- if section.settings.button_label != blank -%}
+                            {% assign button_label = section.settings.button_label %}
+                            {%- else -%}
+                            {% assign button_label = 'templates.contact.form.send' | t %}
+                            {%- endif -%}
+                            {% render 'button-label', button_label: button_label %}
+                        </button>
+                        </div>
+                    </div>
+        </div>
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const assistYouSelect = document.getElementById('assistYou');
+    const tempStore = document.querySelector('.tempStore');
+    const dynamicSections = document.querySelector('.dynamicSections');
+    const submitButtonSection = document.querySelector('.submitSection');
+    const userInput = {};
+
+    // Store original sections and add input event listeners
+    Array.from(dynamicSections.children).forEach(section => {
+        section.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', () => {
+                userInput[input.name] = input.value;
+            });
+            // Initialize user input store
+            userInput[input.name] = input.value;
+        });
+        tempStore.appendChild(section);
+    });
+
+    // Mapping of sections to show based on dropdown selection
+    const sectionsToShow = {
+        'return-items': ['contactInformation', 'orderInformation'],
+        'exchange-items': ['contactInformation', 'orderInformation', 'billingAddress'],
+        'billing-and-payments': ['contactInformation', 'orderInformation'],
+        'warranty-and-repairs': ['contactInformation', 'orderInformation', 'billingAddress'],
+        'order-status': ['contactInformation', 'orderInformation', 'explanation'],
+        'product-questions': ['contactInformation', 'explanation'],
+        'other': ['contactInformation', 'orderInformation', 'explanation']
+    };
+
+    // Function to update form sections and refill inputs if needed
+    function updateFormSections(selectedValue) {
+        // Move all sections to tempStore
+        while (dynamicSections.firstChild) {
+            tempStore.appendChild(dynamicSections.firstChild);
+        }
+
+        // Get sections to show, move them to dynamicSections, and refill inputs
+        const requiredSections = sectionsToShow[selectedValue] || [];
+        requiredSections.forEach(sectionId => {
+            const section = tempStore.querySelector('#' + sectionId);
+            if (section) {
+                dynamicSections.appendChild(section);
+                section.querySelectorAll('input, textarea').forEach(input => {
+                    input.value = userInput[input.name] || '';
+                });
+            }
+        });
+
+        // Show submit button section if any sections are displayed
+        if (requiredSections.length > 0) {
+            submitButtonSection.classList.remove('hidden');
+        } else {
+            submitButtonSection.classList.add('hidden');
+        }
+    }
+
+    // Event listener for dropdown changes
+    assistYouSelect.addEventListener('change', function() {
+        updateFormSections(assistYouSelect.value);
+    });
+
+    // Initialize with only the dropdown visible
+    updateFormSections(assistYouSelect.value);
+});
+
+
+      </script>
+</div>
+{% schema %}
+{
+  "name": "Contact Form new",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Contact Form"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select", 
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 0
+    },
+    {
+      "type": "range", 
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width limit",
+      "unit": "px",
+      "min": 100,
+      "max": 2000,
+      "step": 50,
+      "default": 1100
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Form new"
+    }
+  ]
+}
+{% endschema %}
+ 
