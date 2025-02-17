@@ -12,19 +12,10 @@
     "hero": {
       "type": "section-hero",
       "blocks": {
-        "contact-block-kicker": {
-          "type": "kicker",
-          "disabled": true,
-          "settings": {
-            "kicker": "<p>Introducing</p>",
-            "enable_line": false,
-            "text_size": 3
-          }
-        },
         "contact-block-heading": {
           "type": "heading",
           "settings": {
-            "title": "Get in touch",
+            "title": "Contact us",
             "text_size": 10
           }
         },
@@ -37,7 +28,6 @@
         }
       },
       "block_order": [
-        "contact-block-kicker",
         "contact-block-heading",
         "text_CnjCwT"
       ],
