@@ -113,36 +113,16 @@
             "icon_heading_6": "",
             "icon_text_6": ""
           }
-        },
-        "button_zwHrGe": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "Shop all",
-            "link_1": "shopify://collections/all",
-            "button_size_1": "btn--medium",
-            "button_style_1": "btn-text-thick-line",
-            "button_color_1": "btn--neutral",
-            "link_text_2": "",
-            "link_2": "",
-            "button_size_2": "btn--medium",
-            "button_style_2": "btn-text-thick-line",
-            "button_color_2": "btn--neutral",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
-          }
         }
       },
       "block_order": [
         "heading_JjktiV",
-        "icon_text_e8exrk",
-        "button_zwHrGe"
+        "icon_text_e8exrk"
       ],
       "custom_css": [
         ".standard__heading p {font-weight: 400;}",
-        ".standard__icon{display: flex; gap:10px;}"
+        ".standard__icon {display: flex; gap: 10px;}",
+        ".standard__rte {width: 690px; max-width: 100%;}"
       ],
       "settings": {
         "align_text": "text-left",
