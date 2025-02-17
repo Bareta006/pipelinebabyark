@@ -53,7 +53,7 @@
       "settings": {
         "align_text": "text-center",
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "content_width": 2000,
         "width": "wrapper",
         "padding_top": 80,
@@ -86,7 +86,7 @@
       "settings": {
         "align_text": "text-left",
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "content_width": 2000,
         "width": "wrapper",
         "padding_top": 80,
