@@ -50,7 +50,7 @@
         "text_yrP6fF"
       ],
       "custom_css": [
-        "@media (max-width:480px){.hero__content {text-align:center; }}"
+        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__title {font-size:30px; }}"
       ],
       "settings": {
         "image": "shopify://shop_images/Picture_clothes-spr21-51_jpg_ceb4bda5-460c-4b67-8af4-c3ba3158df39.png",
