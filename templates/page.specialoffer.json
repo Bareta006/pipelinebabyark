@@ -67,10 +67,11 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/Group_1803_9aaba8ea-6c84-436e-97d9-6786c763694c.png",
             "icon_color": "#AAAAAA",
-            "title": "Free returns",
-            "text": "<p>Returns within 30 days receive a full refund.</p>",
-            "link_text": "",
+            "title": "CPST’s",
+            "text": "<p>As the gatekeepers to car seat safety and proper usage, we are thrilled to offer CPST’s a 10% early bird discount and an opportunity to become among the first babyark experts in the U.S.</p>",
+            "link_text": "Join Now",
             "link_url": ""
           }
         },
@@ -78,10 +79,11 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/image_4_1.png",
             "icon_color": "#AAAAAA",
-            "title": "Worldwide shipping",
-            "text": "<p>Ship anywhere, rates available at checkout.</p>",
-            "link_text": "",
+            "title": "First Responders",
+            "text": "<p>As the first line of defence in saving lives and with invaluable experience in car accidents, we are thrilled to partner with GovX and offer law enforcement, fire, and EMS First Responders with a 10% discount.</p>",
+            "link_text": "Join Now",
             "link_url": ""
           }
         }
@@ -93,13 +95,13 @@
       "settings": {
         "title": "",
         "bg": "palette--light bg--neutral",
-        "icons_size": 40,
+        "icons_size": 80,
         "icon_alignment": "icon--top",
         "layout": "grid--stacked",
         "align_text": "text-center",
-        "width": "wrapper--full",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "width": "wrapper",
+        "padding_top": 70,
+        "padding_bottom": 70
       }
     }
   },
