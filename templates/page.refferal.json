@@ -49,6 +49,9 @@
         "heading_VLk8Py",
         "text_yrP6fF"
       ],
+      "custom_css": [
+        "@media (max-width:480px){.hero__content {text-align:center; }}"
+      ],
       "settings": {
         "image": "shopify://shop_images/Picture_clothes-spr21-51_jpg_ceb4bda5-460c-4b67-8af4-c3ba3158df39.png",
         "mobile_image": "shopify://shop_images/Copy_of_220624-babyark-01197_2_fb193e4d-5a1e-4402-8eb4-d2673a27d30a.png",
@@ -121,7 +124,7 @@
       ],
       "custom_css": [
         "@media (min-width: 992px) {.standard__heading p {font-weight: 400; } .standard__icon {display: flex; gap: 10px; } .standard__rte {width: 690px; max-width: 100%; }}",
-        "@media (max-width: 480px) {.standard__heading p {text-align:center; } .standard__icon {flex: 0 0 100%; text-align: center !important; justify-content: center; align-items: center; display: flex; flex-direction: column; } .standard__icon__holder img {object-fit: contain; } .standard__icon__holder {width: 20%; }}"
+        "@media (max-width: 480px) {.standard__heading p {text-align: center; } .standard__icon {flex: 0 0 100%; text-align: center !important; justify-content: center; align-items: center; display: flex; flex-direction: column; } .standard__icon__holder img {object-fit: contain; } .standard__icon__holder {width: 20%; }}"
       ],
       "settings": {
         "align_text": "text-left",
