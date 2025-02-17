@@ -130,9 +130,9 @@
         "icon_block_4AUMdV"
       ],
       "custom_css": [
-        ".icon__column {display: flex; align-items: center; justify-content: center; border: 1px solid; width: 200px; margin: 30px auto; height: 200px;}",
+        ".icon__column {display: flex; align-items: center; justify-content: center; border: 1px solid; width: auto; margin: 30px auto; height: auto;}",
         ".icon__column__icon {display: none;}",
-        ".icon__column__text a {text-decoration: none !important; font-size: 24px;}",
+        ".icon__column__text a {text-decoration: none !important; font-size: 24px; width:200px; height:200px; display:flex; justify-content:center; align-items:center;}",
         ".text-link-bare:after {display: none;}"
       ],
       "settings": {
