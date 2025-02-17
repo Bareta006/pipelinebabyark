@@ -48,7 +48,7 @@
             "icon_color": "#AAAAAA",
             "title": "",
             "text": "",
-            "link_text": "user manualls",
+            "link_text": "User Manualls",
             "link_url": ""
           }
         },
@@ -59,7 +59,7 @@
             "icon_color": "#AAAAAA",
             "title": "",
             "text": "",
-            "link_text": "contact us",
+            "link_text": "Contact us",
             "link_url": ""
           }
         },
@@ -81,7 +81,7 @@
             "icon_color": "#AAAAAA",
             "title": "",
             "text": "",
-            "link_text": "warranty",
+            "link_text": "Warranty",
             "link_url": ""
           }
         },
@@ -109,7 +109,7 @@
         ".icon__column {display: flex; align-items: center; justify-content: center; border: 1px solid; width: 200px; margin: 30px auto; height: 200px;}",
         ".icon__column__icon {display: none;}",
         ".icon__column__text a {text-decoration: none !important; font-size: 24px;}",
-        ".text-link-bare:after{display:none;}"
+        ".text-link-bare:after {display: none;}"
       ],
       "settings": {
         "title": "",
