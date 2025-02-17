@@ -27,11 +27,19 @@
             "title": "Get in touch",
             "text_size": 10
           }
+        },
+        "text_CnjCwT": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>Questions? Comments? Let your customers get in touch with you by filling out the email form below. Reassure them that someone will  get back to them within a certain timeframe</p>",
+            "text_size": 5
+          }
         }
       },
       "block_order": [
         "contact-block-kicker",
-        "contact-block-heading"
+        "contact-block-heading",
+        "text_CnjCwT"
       ],
       "settings": {
         "image": "shopify://shop_images/Contact_us.png",
