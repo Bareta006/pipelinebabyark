@@ -35,7 +35,7 @@
       ],
       "settings": {
         "image": "shopify://shop_images/Contact_us.png",
-        "height": "use_screen_one_fifth",
+        "height": "use_screen_one_third",
         "overlay_opacity": 20,
         "overlay_color": "#000000",
         "enable_overlay_text": true,
