@@ -50,7 +50,7 @@
         "text_yrP6fF"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__title {font-size:30px; }}"
+        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__title {font-size: 30px; }}"
       ],
       "settings": {
         "image": "shopify://shop_images/Picture_clothes-spr21-51_jpg_ceb4bda5-460c-4b67-8af4-c3ba3158df39.png",
@@ -123,6 +123,7 @@
         "icon_text_e8exrk"
       ],
       "custom_css": [
+        "{background-color: #efefef;}",
         "@media (min-width: 992px) {.standard__heading p {font-weight: 400; } .standard__icon {display: flex; gap: 10px; } .standard__rte {width: 690px; max-width: 100%; }}",
         "@media (max-width: 480px) {.standard__heading p {text-align: center; } .standard__icon {flex: 0 0 100%; text-align: center !important; justify-content: center; align-items: center; display: flex; flex-direction: column; } .standard__icon__holder img {object-fit: contain; } .standard__icon__holder {width: 20%; }}"
       ],
@@ -135,11 +136,39 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_richtext_NmA88V": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_eTcGBf": {
+          "type": "heading",
+          "settings": {
+            "heading": "Enter early, enter often. May the odds be in your favor!",
+            "text_size": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_eTcGBf"
+      ],
+      "custom_css": [
+        "{background-color:#FBFBFB; }"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "section_hero_cJYQx8",
-    "section_richtext_rC7yDf"
+    "section_richtext_rC7yDf",
+    "section_richtext_NmA88V"
   ]
 }
