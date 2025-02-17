@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -26,20 +27,28 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_tCdKie": {
+    "section_richtext_7pXDxh": {
       "type": "section-richtext",
       "blocks": {
-        "text_XGVLFP": {
+        "heading_BUGHfk": {
+          "type": "heading",
+          "settings": {
+            "heading": "The babyark warranty",
+            "text_size": 10
+          }
+        },
+        "text_hJKwx3": {
           "type": "text",
           "settings": {
-            "text": "<p>For your child's continued safety. Although child restraint systems undergo testing and evaluation, it is possible that a child restraint could be recalled.<br/><br/>In case of a recall, we can reach you only if we have your name and address, so please fill in the registration form to be on our recall list.<br/><br/>In order to properly register your child restraint system, you will need to provide the model number, serial number and date of manufacture. This information is printed on the registration card and can also be found on a white label located on the back of the child restraint system.<br/><br/>For help on where to locate the information about your product, see the image below.</p><p><em>By clicking the \"Register\" button below I agree to the processing of my personal information as described in the </em><a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\"><span style=\"text-decoration:underline\"><em>Privacy Policy</em></span></a></p>",
-            "text_size": 4,
+            "text": "<p>This warranty reflects our absolute commitment to safety and relates to the unique<br/>properties of the babyark car seat.</p>",
+            "text_size": 5,
             "text_columns": 1
           }
         }
       },
       "block_order": [
-        "text_XGVLFP"
+        "heading_BUGHfk",
+        "text_hJKwx3"
       ],
       "settings": {
         "align_text": "text-center",
@@ -47,118 +56,47 @@
         "bg": "palette--light bg--neutral",
         "content_width": 2000,
         "width": "wrapper",
-        "padding_top": 36,
+        "padding_top": 80,
         "padding_bottom": 36
       }
     },
-    "1737642332f8ed41e1": {
-      "type": "apps",
+    "section_richtext_niAGaR": {
+      "type": "section-richtext",
       "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+        "heading_m3qP7e": {
+          "type": "heading",
           "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MzE0NTU=\"></div>"
+            "heading": "Committed to Safety",
+            "text_size": 8
+          }
+        },
+        "text_9Y9qde": {
+          "type": "text",
+          "settings": {
+            "text": "<p>True to our vision of creating the world’s safest car seat, we haven’t compromised on anything. Using only the best and most durable materials available, such as non-degradable carbon fiber and steel, as well as performing over 200 safety tests, we have designed a state-of-the-art car seat built to last. That is also why the babyark seat has no expiry date.</p><p>We truly believe you will never need to use this warranty.<br/>That is our sincere hope and conviction.</p><p>But with that said, our legal team insisted we still need to create one.</p><h4><strong>Warranty coverage</strong></h4><p>The warranty provides 36 months of coverage for all mechanical parts, and 12 months of coverage for all soft goods and electronic parts (from the date of purchase).<br/><br/>This includes all possible defects in the following:</p><p>Material or usability</p><p>All sensors and electronic components of the smart base</p><p>All mechanical elements of the convertible seat.<br/><br/>What is not covered?<br/>- any improper use of the product other than that stipulated in the user manual.<br/>- damage caused by water spillage and/or other liquids.</p><h4><strong>General Terms & Conditions</strong></h4><p>The warranty is non-transferable.<br/>babyark will not ship replacement or repair parts outside the original country of purchase.<br/><br/>Claims:<br/>In the rare instance that you have a problem with your babyark and need to make a claim, we have ensured a simple, hassle-free process.<br/>You can either contact us through the mobile app directly or at www.babyark.com/contact-us.<br/>Once you connect the app to your new babyark upon purchase, you will have automatically registered your product. But, in case you didn’t you will need to provide us with proof of purchase, model number, and manufacture date when making the claim. That’s it.<br/>As we stated earlier, we are hopeful and confident you won’t need to use this warranty.<br/>But if you do, we will do everything in our power to have you covered.</p>",
+            "text_size": 5,
+            "text_columns": 1
           }
         }
       },
       "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
+        "heading_m3qP7e",
+        "text_9Y9qde"
       ],
       "settings": {
+        "align_text": "text-left",
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
+        "content_width": 2000,
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "section_columns_PNUBaq": {
-      "type": "section-columns",
-      "blocks": {
-        "text_block_Lqreek": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_789.png",
-            "shape_class": "",
-            "title": "Sticker Anatomy",
-            "text": "<ol><li>Model number</li><li>Serial number</li><li>Date of manufacture</li></ol>",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_HAiyte": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_788.png",
-            "shape_class": "",
-            "title": "Car Seat",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_43WHAX": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_786.png",
-            "shape_class": "",
-            "title": "Base",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        }
-      },
-      "block_order": [
-        "text_block_Lqreek",
-        "text_block_HAiyte",
-        "text_block_43WHAX"
-      ],
-      "custom_css": [
-        "img {object-fit: contain;}",
-        ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
-        ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}",
-        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
-      ],
-      "settings": {
-        "title": "Locate Traceability Sticker",
-        "bg": "palette--light bg--neutral",
-        "align_text": "text-center",
-        "scale_image": true,
-        "wh_ratio": 1.5,
-        "grid_large": 3,
-        "grid_medium": 3,
-        "grid_mobile": 1,
-        "progress_bar_mobile": false,
-        "width": "wrapper",
-        "padding_top": 36,
+        "padding_top": 80,
         "padding_bottom": 36
       }
     }
   },
   "order": [
     "main",
-    "section_richtext_tCdKie",
-    "1737642332f8ed41e1",
-    "section_columns_PNUBaq"
+    "section_richtext_7pXDxh",
+    "section_richtext_niAGaR"
   ]
 }
