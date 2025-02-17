@@ -73,7 +73,7 @@
           "type": "heading",
           "settings": {
             "heading": "Here’s how it works",
-            "text_size": 6
+            "text_size": 8
           }
         },
         "icon_text_e8exrk": {
@@ -139,6 +139,10 @@
         "heading_JjktiV",
         "icon_text_e8exrk",
         "button_zwHrGe"
+      ],
+      "custom_css": [
+        ".standard__heading p {font-weight: 400;}",
+        ".standard__icons{display:flex;}"
       ],
       "settings": {
         "align_text": "text-left",
