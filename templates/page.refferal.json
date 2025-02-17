@@ -122,7 +122,8 @@
       "custom_css": [
         ".standard__heading p {font-weight: 400;}",
         ".standard__icon {display: flex; gap: 10px;}",
-        ".standard__rte {width: 690px; max-width: 100%;}"
+        ".standard__rte {width: 690px; max-width: 100%;}",
+        "@media (max-width: 480px) {.standard__icon {flex: 0 0 100%; } .standard__icon__holder {width: 20%; } }"
       ],
       "settings": {
         "align_text": "text-left",
