@@ -142,7 +142,7 @@
       ],
       "custom_css": [
         ".standard__heading p {font-weight: 400;}",
-        ".standard__icons{display:flex;}"
+        ".standard__icon{display: flex; gap:10px;}"
       ],
       "settings": {
         "align_text": "text-left",
