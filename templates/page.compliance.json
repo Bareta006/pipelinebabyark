@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -26,130 +27,109 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_tCdKie": {
+    "section_richtext_bXX8Pd": {
       "type": "section-richtext",
       "blocks": {
-        "text_XGVLFP": {
-          "type": "text",
+        "heading_g3brHU": {
+          "type": "heading",
           "settings": {
-            "text": "<p>For your child's continued safety. Although child restraint systems undergo testing and evaluation, it is possible that a child restraint could be recalled.<br/><br/>In case of a recall, we can reach you only if we have your name and address, so please fill in the registration form to be on our recall list.<br/><br/>In order to properly register your child restraint system, you will need to provide the model number, serial number and date of manufacture. This information is printed on the registration card and can also be found on a white label located on the back of the child restraint system.<br/><br/>For help on where to locate the information about your product, see the image below.</p><p><em>By clicking the \"Register\" button below I agree to the processing of my personal information as described in the </em><a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\"><span style=\"text-decoration:underline\"><em>Privacy Policy</em></span></a></p>",
-            "text_size": 4,
-            "text_columns": 1
+            "heading": "Compliance Standards",
+            "text_size": 10
           }
         }
       },
       "block_order": [
-        "text_XGVLFP"
+        "heading_g3brHU"
       ],
       "settings": {
         "align_text": "text-center",
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "content_width": 2000,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "1737642332f8ed41e1": {
-      "type": "apps",
+    "section_faq_b7dT3j": {
+      "type": "section-faq",
       "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+        "text_zdAKaa": {
+          "type": "text",
           "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MzE0NTU=\"></div>"
+            "title": "General Tests",
+            "content": "<p>CPC: Small parts 16 CFR 1501<br/><br/>16 CFR § 1500.48 (Sharp point)<br/><br/>16 CFR § 1500.49 (Sharp edge)<br/><br/>16 CFR § 1501 (Small part)</p>"
+          }
+        },
+        "text_UMg6Pj": {
+          "type": "text",
+          "settings": {
+            "title": "Environmental Tests",
+            "content": "<p>Temperature Steps - In accordance with ISO 16750-4: 2010(E) 5.2<br/><br/>High Temperature - In accordance with ISO 16750-4: 2010 5.1.2.1 & 5.1.2.2, IEC 60068-2-2<br/><br/>Low Temperature - In accordance with ISO 16750-4: 2010 5.1.1.1 & 5.1.1.2, IEC 60068-2-1<br/><br/>Temperature Cycles - In accordance with 5.3.1 ISO 16750-4:2010(E), IEC 60068-2-14 Test Nb<br/><br/>Humidity Heat Cycles - In accordance with ISO 16750-4:2006 5.6.2.2 Test 1: Damp Heat Cyclic<br/><br/>Salt Spray - Corrosion - In accordance with ISO 16750-4:2006(E) 5.5.1 - Severity 3<br/><br/>Spraying Water IP43 - In accordance with IEC 60529 IPX3<br/><br/>Protection Against Objects IP43 - In accordance with IEC 60529 IP4X<br/><br/>Sinusoidal Vibration - In accordance with ISO 16750-3:2003 Para. 4.1.3.1.4.2 Test III, IEC 60068-2-6<br/><br/>Random Vibration - In accordance with ISO 16750-3:2003 Para. 4.1.3.1.5.2 Text IV<br/><br/>Mechanical Shock - In accordance with ISO 16750-3:2002 Para. 4.2.2.2, IEC 60068-2-27</p>"
+          }
+        },
+        "text_rWgrwy": {
+          "type": "text",
+          "settings": {
+            "title": "Flammability",
+            "content": "<p>FMVSS 302 Flammability<br/><br/>California Proposition 65-Flame Retardant(s)</p>"
+          }
+        },
+        "text_BmWfgN": {
+          "type": "text",
+          "settings": {
+            "title": "Toxicity",
+            "content": "<p>ASTM F963-17 (Clause 4.3.5)-Total Lead and Soluble Elements<br/><br/>California Proposition 65-Lead (Pb)<br/><br/>Consumer Product Safety Commission-16 CFR Part 1307,Final Rule, Amending CPSIA section 108<br/><br/>Canada Consumer Product Safety Act (S.C.2010,c.21), Phthalates Regulations (SOR/2016-188)-Phthalates<br/><br/>CPSIA section 101(a)(2)-Lead in accessible substrate materials (including Children's Metal Jewelry)<br/><br/>CPSIA section 101(f)-Lead in paint/similar surface coating material<br/><br/>CPC: 15 USC 1278a: Total Lead Content<br/><br/>CPC: 16 CFR Part 1303, Lead Paint<br/><br/>CPC: 16 CFR Part 1307, Prohibition of Children's Toys and Child Care Articles Containing Specified Phthalates<br/><br/>American Society for Testing and Materials -ASTM F963-17-total Lead in paint and similar surface-coating materials<br/><br/>American Society for Testing and Materials -ASTM F963-17-total Lead in Substrate Materials<br/><br/>Maryland State Chapter 555 (Engrossed SB447,2020)-TCEP&TDCPP<br/><br/>New York State (Assembly Bill A4741),\"TRIS-free children and babies act\"-TCPP&TDCPP</p>"
+          }
+        },
+        "text_98atrt": {
+          "type": "text",
+          "settings": {
+            "title": "Privacy",
+            "content": "<p>GDPR (General Data Protection Regulation)<br/><br/>CPRA (California Privacy Rights Act)</p>"
+          }
+        },
+        "text_c8Bcqq": {
+          "type": "text",
+          "settings": {
+            "title": "Electronics",
+            "content": "<p>FCC Compliance (Radio frequency and Communication)<br/><br/>EMC (Electromagnetic Compatibility)</p>"
+          }
+        },
+        "text_qDyajM": {
+          "type": "text",
+          "settings": {
+            "title": "Fabric",
+            "content": "<p>FR free fabrics</p><p>Naturally flame resistant Free of any added Flame Retardants</p><p>PFOA-Free/ PFOS-Free/ PFC-Free/ PFAS-free</p><p>Fluorine-Free</p><p><a href=\"https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Law_label_1.pdf?v=1728309589\" target=\"_blank\" title=\"https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Law_label_1.pdf?v=1728309589\">babyark seat law label</a></p>"
+          }
+        },
+        "text_TXkXx4": {
+          "type": "text",
+          "settings": {
+            "title": "Crash Tests",
+            "content": "<p>FMVSS 213<br/><br/>Additional crash test for various age groups and pulses:</p>"
           }
         }
       },
       "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
+        "text_zdAKaa",
+        "text_UMg6Pj",
+        "text_rWgrwy",
+        "text_BmWfgN",
+        "text_98atrt",
+        "text_c8Bcqq",
+        "text_qDyajM",
+        "text_TXkXx4"
       ],
       "settings": {
+        "title": "",
+        "title_align": "text-center",
+        "title_size": 10,
+        "heading_size": 5,
+        "text_size": 5,
         "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "section_columns_PNUBaq": {
-      "type": "section-columns",
-      "blocks": {
-        "text_block_Lqreek": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_789.png",
-            "shape_class": "",
-            "title": "Sticker Anatomy",
-            "text": "<ol><li>Model number</li><li>Serial number</li><li>Date of manufacture</li></ol>",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_HAiyte": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_788.png",
-            "shape_class": "",
-            "title": "Car Seat",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_43WHAX": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_786.png",
-            "shape_class": "",
-            "title": "Base",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        }
-      },
-      "block_order": [
-        "text_block_Lqreek",
-        "text_block_HAiyte",
-        "text_block_43WHAX"
-      ],
-      "custom_css": [
-        "img {object-fit: contain;}",
-        ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
-        ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}",
-        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
-      ],
-      "settings": {
-        "title": "Locate Traceability Sticker",
-        "bg": "palette--light bg--neutral",
-        "align_text": "text-center",
-        "scale_image": true,
-        "wh_ratio": 1.5,
-        "grid_large": 3,
-        "grid_medium": 3,
-        "grid_mobile": 1,
-        "progress_bar_mobile": false,
-        "width": "wrapper",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper--narrow",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -157,8 +137,7 @@
   },
   "order": [
     "main",
-    "section_richtext_tCdKie",
-    "1737642332f8ed41e1",
-    "section_columns_PNUBaq"
+    "section_richtext_bXX8Pd",
+    "section_faq_b7dT3j"
   ]
 }
