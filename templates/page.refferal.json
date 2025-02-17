@@ -143,22 +143,52 @@
         "heading_eTcGBf": {
           "type": "heading",
           "settings": {
-            "heading": "Enter early, enter often. May the odds be in your favor!",
+            "heading": "Enter early, enter often.May the odds be in your favor!",
             "text_size": 8
+          }
+        },
+        "button_Cb9weF": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Start referring",
+            "link_1": "",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--black",
+            "link_text_2": "Sign Up",
+            "link_2": "",
+            "button_size_2": "btn--large",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--black",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        },
+        "text_FXjzx9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>  </p><p>  </p><p></p><p><a href=\"/pages/terms-of-use\" target=\"_blank\" title=\"Terms of Use\">* Subject to babyark's </a><a href=\"/pages/terms-of-use\" title=\"Terms of Use\">Terms & Conditions</a></p>",
+            "text_size": 4,
+            "text_columns": 1
           }
         }
       },
       "block_order": [
-        "heading_eTcGBf"
+        "heading_eTcGBf",
+        "button_Cb9weF",
+        "text_FXjzx9"
       ],
       "custom_css": [
-        "{background-color:#FBFBFB; }"
+        "{background-color: #fbfbfb;}"
       ],
       "settings": {
         "align_text": "text-center",
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "content_width": 2000,
+        "content_width": 600,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
