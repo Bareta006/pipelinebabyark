@@ -92,6 +92,7 @@
     #section-{{ section.id }}.mobile {
       display: flex;
       height: {{ section.settings.section_height }};
+      align-items: {{ section.settings.mobile_box_vertical_align }};
     }
 
     #section-{{ section.id }} .flex-container {
@@ -106,6 +107,9 @@
       display: flex;
       justify-content: {{ section.settings.mobile_box_vertical_align }};
       text-align: {{ section.settings.mobile_box_text_align }};
+    }
+    #section-{{ section.id }} .flex-container {
+      display: none;
     }
   }
 </style>
