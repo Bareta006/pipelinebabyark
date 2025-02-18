@@ -185,6 +185,9 @@
     },
     "flexbox_image_content_qzggwp": {
       "type": "flexbox-image-content",
+      "custom_css": [
+        ".mobile-content-box{background-color:transparent;}"
+      ],
       "settings": {
         "desktop_image": "shopify://shop_images/Container_b7adf802-f99b-4bfe-a485-70dc6e5428f9.png",
         "mobile_image": "shopify://shop_images/image_39.png",
