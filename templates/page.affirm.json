@@ -323,6 +323,9 @@
         "text_wqHdrt",
         "text_KR6hLb"
       ],
+      "custom_css": [
+        "h2 {font-family: \"centrano2\"; text-transform: none; font-size: 45px; font-weight: 400; letter-spacing: 0;}"
+      ],
       "settings": {
         "title": "FAQs",
         "title_align": "text-center",
