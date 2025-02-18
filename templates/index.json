@@ -17,7 +17,7 @@
           "settings": {
             "image": "shopify://shop_images/Website_main_image_1.png",
             "mobile_image": "shopify://shop_images/image_38.png",
-            "overlay_opacity": 35,
+            "overlay_opacity": 50,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "kicker": "Safe, Smart and Beautiful",
@@ -44,7 +44,7 @@
         ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
-        "@media (max-width: 480px) {.hero__cta__wrapper {flex-direction: row; }.hero__cta__wrapper a {padding: 15px 10px; min-width: 35%; font-size:14px;}}"
+        "@media (max-width: 480px) {.hero__cta__wrapper {flex-direction: row; } .hero__cta__wrapper a {padding: 15px 10px; min-width: 35%; font-size: 14px; }}"
       ],
       "settings": {
         "autoplay": false,
