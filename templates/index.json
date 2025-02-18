@@ -16,7 +16,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Website_main_image_1.png",
-            "mobile_image": "shopify://shop_images/image_301.png",
+            "mobile_image": "shopify://shop_images/image_38.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -49,7 +49,7 @@
         "autoplay": false,
         "autoplay_speed": 4,
         "preload_first_image": true,
-        "height": "use_image",
+        "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
