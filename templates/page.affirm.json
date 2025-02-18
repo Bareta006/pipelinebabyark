@@ -186,12 +186,163 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double_mQRYjX": {
+      "type": "section-double",
+      "blocks": {
+        "text_bYVc3x": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Say yes with confidence",
+            "text": "<p>With Affirm, you always know exactly what you'll owe and when you'll be done paying.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "text_4qbGAX": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "",
+            "text": "<h3>Transparent</h3><p>Affirm tells you up front the total amount you’ll pay. That number will never go up.</p><p></p><h3>Flexible</h3><p>You choose the payment schedule that works for you.</p><h3></h3><h3>Fair</h3><p>Affirm won’t charge you late fees or penalties of any kind, ever.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_bYVc3x",
+        "text_4qbGAX"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {background-color: #e4e4e4; } .brick__block:last-child {background-color: #f6f2ef; }}"
+      ],
+      "settings": {
+        "height": "use_screen_two_thirds",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "#f6f2ef",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_richtext_XLCM6N": {
+      "type": "section-richtext",
+      "blocks": {
+        "text_ygrAhU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Rates from &lcub;0% APR or 10-36% APR&rcub; &lcub;10-36% APR&rcub;. Payment options through Affirm are subject to an eligibility check and are provided by these lending partners: <a href=\"https://www.affirm.com/lenders\" target=\"_blank\" title=\"https://www.affirm.com/lenders\">affirm.com/lenders</a>. Options depend on your purchase amount, and a down payment may be required. See <a href=\"https://www.affirm.com/licenses\" target=\"_blank\" title=\"https://www.affirm.com/licenses\">affirm.com/licenses</a> for important info on state licenses and notifications.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "text_ygrAhU"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_faq_tLd3yx": {
+      "type": "section-faq",
+      "blocks": {
+        "text_cVKmdM": {
+          "type": "text",
+          "settings": {
+            "title": "Can I pay off my purchase early?",
+            "content": "<p>Yes! There’s no penalty for paying early.</p>"
+          }
+        },
+        "text_WfAUJY": {
+          "type": "text",
+          "settings": {
+            "title": "How do I make my payments?",
+            "content": "<p>You can make or schedule payments at affirm.com or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p>"
+          }
+        },
+        "text_wF7W9y": {
+          "type": "text",
+          "settings": {
+            "title": "Can I return an item I bought with Affirm?",
+            "content": "<p>Yes—you can return an item you bought with Affirm by initiating the return process with the store.</p>"
+          }
+        },
+        "text_twRJwD": {
+          "type": "text",
+          "settings": {
+            "title": "Does checking my eligibility affect my credit score?",
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
+          }
+        },
+        "text_wqHdrt": {
+          "type": "text",
+          "settings": {
+            "title": "Do I need a mobile number to use Affirm?",
+            "content": "<p>Yes, you’ll need a mobile phone number from the U.S. or U.S. territories. This helps Affirm verify it’s really you who is creating your account and signing in.</p>"
+          }
+        },
+        "text_KR6hLb": {
+          "type": "text",
+          "settings": {
+            "title": "Where can I learn more about Affirm?",
+            "content": "<p>You can visit their website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com</a>.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_cVKmdM",
+        "text_WfAUJY",
+        "text_wF7W9y",
+        "text_twRJwD",
+        "text_wqHdrt",
+        "text_KR6hLb"
+      ],
+      "settings": {
+        "title": "FAQs",
+        "title_align": "text-center",
+        "title_size": 8,
+        "heading_size": 5,
+        "text_size": 5,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper--narrow",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
     }
   },
   "order": [
     "main",
     "section_double_rzaBVq",
     "section_columns_htGUHQ",
-    "section_richtext_XijfYA"
+    "section_richtext_XijfYA",
+    "section_double_mQRYjX",
+    "section_richtext_XLCM6N",
+    "section_faq_tLd3yx"
   ]
 }
