@@ -281,6 +281,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/HomePage_1_1.png",
+            "mobile_image": "shopify://shop_images/image_388_1.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -304,6 +305,7 @@
           "settings": {
             "video_bg": "shopify://files/videos/Coils_new.mp4",
             "object_position": "center-center",
+            "fallback_image": "shopify://shop_images/image_389.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
