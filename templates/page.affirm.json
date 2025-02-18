@@ -145,10 +145,11 @@
         "text_block_tcaL9U"
       ],
       "custom_css": [
-        ".column__image img {object-fit: contain;}"
+        ".column__image img {object-fit: contain;}",
+        "h2.kicker-flourished {font-family: \"centrano2\"; text-transform: none; font-size: 45px; font-weight: 400; letter-spacing: 0;}"
       ],
       "settings": {
-        "title": "Text columns with images",
+        "title": "Buying with Affirm is simple",
         "bg": "palette--light bg--accent",
         "align_text": "text-center",
         "scale_image": true,
@@ -158,7 +159,7 @@
         "grid_mobile": 1.2,
         "progress_bar_mobile": true,
         "width": "wrapper",
-        "padding_top": 36,
+        "padding_top": 80,
         "padding_bottom": 36
       }
     },
