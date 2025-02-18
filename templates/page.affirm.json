@@ -145,18 +145,18 @@
         "text_block_tcaL9U"
       ],
       "custom_css": [
-        ".column__image img{object-fit:contain;}"
+        ".column__image img {object-fit: contain;}"
       ],
       "settings": {
         "title": "Text columns with images",
         "bg": "palette--light bg--accent",
         "align_text": "text-center",
         "scale_image": true,
-        "wh_ratio": 1,
+        "wh_ratio": 0.8,
         "grid_large": 3,
         "grid_medium": 3,
         "grid_mobile": 1.2,
-        "progress_bar_mobile": false,
+        "progress_bar_mobile": true,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
