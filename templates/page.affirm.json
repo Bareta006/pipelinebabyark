@@ -83,10 +83,112 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_columns_htGUHQ": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_ebH6kK": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/image_29_a27edf88-367b-4f07-a5dc-c56e031692e6.jpg",
+            "shape_class": "",
+            "title": "1. Fill your cart",
+            "text": "<p>Select Affirm at checkout, then enter a few pieces of info for a real-time decision.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_DGnwRh": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/image_27_94f2dcb6-4527-40a3-ba8a-628eabab6bf3.jpg",
+            "shape_class": "",
+            "title": "2. Choose how you pay",
+            "text": "<p>Pick the monthly payment plan you like best. You’ll never pay more than you agree to up front.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_tcaL9U": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Pay_over_time__Affirm-20240407-130631.png",
+            "shape_class": "",
+            "title": "3. Pay over time",
+            "text": "<p>Make payments at <a href=\"https://affirm.com/\" target=\"_blank\" title=\"https://affirm.com\">affirm.com</a> or in the Affirm app. You’ll get email and text reminders.</p><p></p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_ebH6kK",
+        "text_block_DGnwRh",
+        "text_block_tcaL9U"
+      ],
+      "settings": {
+        "title": "Text columns with images",
+        "bg": "palette--light bg--accent",
+        "align_text": "text-center",
+        "scale_image": true,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.2,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_XijfYA": {
+      "type": "section-richtext",
+      "blocks": {
+        "image_t4kCbT": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1783.png",
+            "image_max_limit": 300,
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_t4kCbT"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
-    "section_double_rzaBVq"
+    "section_double_rzaBVq",
+    "section_columns_htGUHQ",
+    "section_richtext_XijfYA"
   ]
 }
