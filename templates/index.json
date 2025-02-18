@@ -43,7 +43,8 @@
         ".hero__content {width: 640px; max-width: 100%;}",
         ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
-        ".custom-prev-next-button {display: none;}"
+        ".custom-prev-next-button {display: none;}",
+        "@media (max-width: 480px) {.hero__cta__wrapper {flex-direction: row; }.hero__cta__wrapper a {padding: 15px 10px; min-width: 35%; font-size:14px;}}"
       ],
       "settings": {
         "autoplay": false,
