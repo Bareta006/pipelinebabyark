@@ -144,6 +144,9 @@
         "text_block_DGnwRh",
         "text_block_tcaL9U"
       ],
+      "custom_css": [
+        ".column__image img{object-fit:contain;}"
+      ],
       "settings": {
         "title": "Text columns with images",
         "bg": "palette--light bg--accent",
