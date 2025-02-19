@@ -372,8 +372,7 @@
         "image_WJiE3q"
       ],
       "custom_css": [
-        ".hero__title {width: 510px; max-width: 100%;}",
-        ".flickity-viewport {min-height: 100vh;}"
+        ".hero__title {width: 510px; max-width: 100%;}"
       ],
       "settings": {
         "autoplay": true,
