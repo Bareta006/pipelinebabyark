@@ -317,7 +317,10 @@
             "link_text": "EXPLORE ALL FEATURES",
             "link": "/pages/safety/?view=features",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "text_background_color": "#d2815f",
+            "text_background_opacity": 0,
+            "text_background_style": "none"
           }
         },
         "video_slide_kNABBQ": {
@@ -336,7 +339,10 @@
             "link_text": "EXPLORE ALL FEATURES",
             "link": "/pages/safety/?view=features",
             "button_color": "btn--white",
-            "button_style": "btn--outline"
+            "button_style": "btn--outline",
+            "text_background_color": "rgba(0,0,0,0)",
+            "text_background_opacity": 0,
+            "text_background_style": "none"
           }
         },
         "image_WJiE3q": {
