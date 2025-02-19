@@ -2,7 +2,7 @@
   if section.settings.desktop_image != blank
     assign desktop_image_height = section.settings.desktop_image.height
     assign desktop_image_width = section.settings.desktop_image.width
-    assign desktop_aspect_ratio = desktop_image_height | divided_by: desktop_image_width | times: 100
+    assign desktop_aspect_ratio = desktop_image_height | times: 100 | divided_by: desktop_image_width
     assign desktop_viewport_height = desktop_aspect_ratio | append: 'vw'
   else 
     assign desktop_viewport_height = '66vh'
@@ -11,7 +11,7 @@
   if section.settings.mobile_image != blank
     assign mobile_image_height = section.settings.mobile_image.height
     assign mobile_image_width = section.settings.mobile_image.width
-    assign mobile_aspect_ratio = mobile_image_height | divided_by: mobile_image_width | times: 100
+    assign mobile_aspect_ratio = mobile_image_height | times: 100 | divided_by: mobile_image_width
     assign mobile_viewport_height = mobile_aspect_ratio | append: 'vw'
   else
     assign mobile_viewport_height = desktop_viewport_height
