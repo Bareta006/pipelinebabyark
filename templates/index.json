@@ -394,7 +394,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Bundles_Accessories_Homepage_4.png",
-            "mobile_image": "shopify://shop_images/image_41.png",
+            "mobile_image": "shopify://shop_images/image_42.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
