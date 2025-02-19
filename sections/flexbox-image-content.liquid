@@ -24,6 +24,7 @@
   }
   /* Desktop Section */
   #section-{{ section.id }}.desktop {
+    display: block;
     height: {{ section.settings.section_height }};
     background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
     padding-top: {{ section.settings.desktop_padding_top }}px;
