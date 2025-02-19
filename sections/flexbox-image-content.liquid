@@ -1,3 +1,23 @@
+{%- liquid
+  if section.settings.desktop_image
+    assign desktop_image_height = section.settings.desktop_image.height
+    assign desktop_image_width = section.settings.desktop_image.width
+    assign desktop_aspect_ratio = desktop_image_height | divided_by: desktop_image_width
+    assign desktop_viewport_height = desktop_aspect_ratio | times: 100 | append: 'vw'
+  else 
+    assign desktop_viewport_height = '66vh'
+  endif
+
+  if section.settings.mobile_image
+    assign mobile_image_height = section.settings.mobile_image.height
+    assign mobile_image_width = section.settings.mobile_image.width
+    assign mobile_aspect_ratio = mobile_image_height | divided_by: mobile_image_width
+    assign mobile_viewport_height = mobile_aspect_ratio | times: 100 | append: 'vw'
+  else
+    assign mobile_viewport_height = desktop_viewport_height
+  endif
+-%}
+
 <style>
   /* General Section Styling */
   #section-{{ section.id }} {
@@ -59,8 +79,8 @@
   #section-{{ section.id }}.use_pixels_500 {
     height: 500px;
   }
-  #section-{{ section.id }}.use_image {
-    height: auto;
+  #section-{{ section.id }}.desktop.use_image {
+    height: {{ desktop_viewport_height }};
   }
 
   /* Flex Container for Desktop */
@@ -120,11 +140,42 @@
 
     #section-{{ section.id }}.mobile {
       display: flex;
-      height: {{ section.settings.section_height }};
       justify-content: {{ section.settings.mobile_box_vertical_align }};
       {%if section.settings.mobile_image != blank%}
         background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
       {%endif%}
+    }
+
+    #section-{{ section.id }}.mobile.use_image {
+      height: {{ mobile_viewport_height }};
+    }
+
+    #section-{{ section.id }}.mobile.use_screen_full {
+      height: 100vh;
+    }
+    #section-{{ section.id }}.mobile.use_screen_three_quarters {
+      height: 75vh;
+    }
+    #section-{{ section.id }}.mobile.use_screen_two_thirds {
+      height: 66vh;
+    }
+    #section-{{ section.id }}.mobile.use_screen_one_half {
+      height: 50vh;
+    }
+    #section-{{ section.id }}.mobile.use_screen_one_third {
+      height: 33vh;
+    }
+    #section-{{ section.id }}.mobile.use_screen_one_fifth {
+      height: 20vh;
+    }
+    #section-{{ section.id }}.mobile.use_pixels_800 {
+      height: 800px;
+    }
+    #section-{{ section.id }}.mobile.use_pixels_650 {
+      height: 650px;
+    }
+    #section-{{ section.id }}.mobile.use_pixels_500 {
+      height: 500px;
     }
 
     #section-{{ section.id }} .flex-container {
