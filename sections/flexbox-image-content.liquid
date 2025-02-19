@@ -93,6 +93,9 @@
       display: flex;
       height: {{ section.settings.section_height }};
       justify-content: {{ section.settings.mobile_box_vertical_align }};
+      {%if section.settings.mobile_image != blank%}
+        background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
+      {%endif%}
     }
 
     #section-{{ section.id }} .flex-container {
