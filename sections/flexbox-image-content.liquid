@@ -175,27 +175,27 @@
 
   <!-- Mobile Content Box -->
   <div class="mobile-content-box">
-    {% if section.settings.mobile_kicker %}
+    {% if section.settings.mobile_kicker != blank %}
       <div class="hero__kicker accent-size-3 aos-init aos-animate">
         <p>{{ section.settings.mobile_kicker }}</p>
       </div>
     {% endif %}
-    {% if section.settings.mobile_title %}
+    {% if section.settings.mobile_title != blank %}
       <div class="hero__title heading-size-10 aos-init aos-animate">
         <p>{{ section.settings.mobile_title }}</p>
       </div>
     {% endif %}
-    {% if section.settings.mobile_text %}
+    {% if section.settings.mobile_text != blank %}
       <div class="hero__description rte body-size-6 aos-init aos-animate">
         <p>{{ section.settings.mobile_text }}</p>
       </div>
     {% endif %}
-    {% if section.settings.mobile_button_html %}
+    {% if section.settings.mobile_button_html != blank %}
       <a href="{{ section.settings.mobile_button_link }}" class="btn standard__cta hero__btn btn--black btn--long aos-init aos-animate">
         {{ section.settings.mobile_button_html }}
       </a>
     {% endif %}
-    {% if section.settings.mobile_button_html_2 %}
+    {% if section.settings.mobile_button_html_2 != blank %}
       <a href="{{ section.settings.mobile_button_link_2 }}" class="standard__cta hero__btn btn--outline btn--black btn--long aos-init aos-animate">
         {{ section.settings.mobile_button_html_2 }}
       </a>
