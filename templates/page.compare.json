@@ -81,7 +81,7 @@
       "settings": {
         "desktop_image": "shopify://shop_images/image_9c340b05-e67a-471c-a01b-19fb6785b0e4.png",
         "mobile_image": "shopify://shop_images/image_44.png",
-        "section_height": "100vh",
+        "height": "use_image",
         "desktop_padding_top": 40,
         "desktop_padding_bottom": 40,
         "desktop_side_padding": 40,
@@ -122,7 +122,7 @@
       "type": "flexbox-image-content",
       "settings": {
         "desktop_image": "shopify://shop_images/image_3a906b70-a9f2-4fb5-bf13-5f071f8ac416.png",
-        "section_height": "100vh",
+        "height": "use_screen_two_thirds",
         "desktop_padding_top": 40,
         "desktop_padding_bottom": 40,
         "desktop_side_padding": 40,
