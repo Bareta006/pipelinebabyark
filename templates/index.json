@@ -439,6 +439,8 @@
         "icon_slider_block_yBVNLK": {
           "type": "icon_slider_block",
           "settings": {
+            "use_text_instead": false,
+            "text_instead": "",
             "image": "shopify://shop_images/PS.png",
             "title": "",
             "description": "\"Where babyark really stands out is in its safety features. It uses a shock-absorption system called SafeCoil to reduce the force and forward momentum the seat will experience if the car stops suddenly.\" ",
@@ -448,6 +450,8 @@
         "icon_slider_block_VPLbhF": {
           "type": "icon_slider_block",
           "settings": {
+            "use_text_instead": true,
+            "text_instead": "image",
             "title": "",
             "description": "\"The babyark looks like it’s from the future and has features parents will love, like app integration, hidden magnets for the straps, and more.\"",
             "link": ""
@@ -456,6 +460,8 @@
         "icon_slider_block_xFam6i": {
           "type": "icon_slider_block",
           "settings": {
+            "use_text_instead": false,
+            "text_instead": "",
             "image": "shopify://shop_images/62f17d3c5d793f4d7defe95f_logo_primary_dark_navbar.png",
             "title": "",
             "description": "\"I love the ease of cleaning. All of the padding comes off with a simple zipper and is able to be tossed into the washing machine.\"",
@@ -472,15 +478,16 @@
         "{border: 15px solid #fff;}",
         ".icon-slider-container {border-radius: 40px;}",
         "img {height: 60px; object-fit: contain;}",
-        ".icon-slider-block p {font-size: 26px; width: 960px; margin: 20px auto; line-height: 1.2;}",
-        ".icon-slider-container .icon-slider-block {display: flex; flex-direction: column; justify-content: end;}"
+        ".icon-slider-block p {width: 960px; max-width: 100%; margin: 20px auto; line-height: 1.2;}",
+        ".icon-slider-container .icon-slider-block {display: flex; flex-direction: column; justify-content: space-between;}"
       ],
       "settings": {
         "bg": "palette--dark bg--invert--accent",
+        "autoplay": true,
+        "autoplay_speed": 5,
         "padding_top": 60,
         "padding_bottom": 60,
-        "text_alignment_desktop": "center",
-        "text_alignment_mobile": "center"
+        "width": "wrapper"
       }
     }
   },
