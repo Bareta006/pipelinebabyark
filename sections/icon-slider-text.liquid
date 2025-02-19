@@ -7,7 +7,12 @@
 }
 
 .flickity-carousel {
-  min-height: 300px; /* Base height */
+  opacity: 0; /* Hide initially until heights are calculated */
+  transition: opacity 0.3s ease;
+}
+
+.flickity-carousel.is-ready {
+  opacity: 1;
 }
 
 .icon-slider-block {
@@ -17,8 +22,12 @@
   justify-content: flex-start;
   text-align: center;
   padding: 30px 15px;
-  height: 100%;
   width: 100%;
+  opacity: 0;
+}
+
+.icon-slider-block.is-visible {
+  opacity: 1;
 }
 
 .icon-slider-block img {
@@ -87,10 +96,6 @@
     padding: 0 15px;
   }
   
-  .flickity-carousel {
-    min-height: 250px; /* Smaller base height for mobile */
-  }
-  
   .icon-slider-block {
     padding: 20px 10px;
   }
@@ -156,7 +161,12 @@ document.addEventListener('DOMContentLoaded', () => {
   carousels.forEach((carousel) => {
     const autoplay = carousel.dataset.slideshowAutoplay === 'true';
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
+    
+    // Hide all slides initially
+    const slides = carousel.querySelectorAll('.icon-slider-block');
+    slides.forEach(slide => slide.style.opacity = '0');
 
+    // Initialize Flickity
     const flkty = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
@@ -166,28 +176,73 @@ document.addEventListener('DOMContentLoaded', () => {
       pageDots: true,
       draggable: true,
       fade: true,
-      adaptiveHeight: true,
+      adaptiveHeight: false,
       selectedAttraction: 0.2,
       friction: 0.8
     });
 
-    // Fix height after all images are loaded
-    carousel.querySelectorAll('img').forEach(img => {
-      img.onload = () => {
-        flkty.resize();
-      };
-    });
+    // Function to calculate and set heights
+    const calculateHeights = () => {
+      let maxHeight = 0;
+      slides.forEach(slide => {
+        // Reset any previously set height
+        slide.style.height = '';
+        // Get the natural height
+        const height = slide.offsetHeight;
+        maxHeight = Math.max(maxHeight, height);
+      });
 
-    // Set initial height based on tallest slide
-    let maxHeight = 0;
-    const slides = carousel.querySelectorAll('.icon-slider-block');
-    slides.forEach(slide => {
-      const height = slide.offsetHeight;
-      maxHeight = Math.max(maxHeight, height);
-    });
-    if (maxHeight > 0) {
-      carousel.style.height = `${maxHeight}px`;
+      // Set the height on all slides and the carousel
+      if (maxHeight > 0) {
+        slides.forEach(slide => {
+          slide.style.height = `${maxHeight}px`;
+        });
+        carousel.style.height = `${maxHeight}px`;
+      }
+
+      // Show the carousel and slides
+      carousel.classList.add('is-ready');
+      slides.forEach(slide => {
+        slide.style.opacity = '1';
+        slide.classList.add('is-visible');
+      });
+
+      // Update Flickity
+      flkty.resize();
+    };
+
+    // Wait for images to load
+    const images = carousel.querySelectorAll('img');
+    let loadedImages = 0;
+    const totalImages = images.length;
+
+    if (totalImages > 0) {
+      images.forEach(img => {
+        if (img.complete) {
+          loadedImages++;
+          if (loadedImages === totalImages) {
+            calculateHeights();
+          }
+        } else {
+          img.onload = () => {
+            loadedImages++;
+            if (loadedImages === totalImages) {
+              calculateHeights();
+            }
+          };
+        }
+      });
+    } else {
+      // If no images, calculate heights immediately
+      calculateHeights();
     }
+
+    // Recalculate on window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(calculateHeights, 250);
+    });
   });
 });
 {% endjavascript %}
