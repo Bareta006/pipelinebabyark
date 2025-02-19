@@ -102,10 +102,10 @@
          data-slideshow-autoplay="{{ section.settings.autoplay }}"
          data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
-        {% assign has_link = block.settings.link != blank %}
-        <div class="icon-slider-block{% if has_link %} clickable{% endif %}" 
+        {%- assign has_link = block.settings.link -%}
+        <div class="icon-slider-block{% if has_link != '' %} clickable{% endif %}" 
              data-carousel-slide
-             {% if has_link %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
+             {% if has_link != '' %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
           {% if block.settings.image %}
             <img src="{{ block.settings.image | img_url: '300x300' }}" 
                  alt="{{ block.settings.title | escape }}"
