@@ -1,40 +1,97 @@
 <!-- sections/icon-slider-text.liquid -->
 
-
 <style>
-/* Background color styles */
-.bg--neutral { background-color: #f0f0f0; }
-.bg--light { background-color: #ffffff; }
-.bg--dark { background-color: #333333; }
- 
-/* Responsive text alignment */
-#shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block img{
-    display: inline-block;
+.icon-slider-container {
+  padding: 0 50px;
+  position: relative;
 }
-#shopify-section-{{ section.id }} .icon-slider-container{
-    padding: 0 50px;
-}
-#shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
-  text-align: {{ section.settings.text_alignment_desktop }};
+
+.icon-slider-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  padding: 30px 15px;
+  height: 100%;
   width: 100%;
-  min-height: 160px;
 }
-#shopify-section-{{ section.id }} .icon-slider-container h3{
-  width: 1000px;
-    min-height: 80px;
-    max-width: 100%;
-    margin: 0 auto;
+
+.icon-slider-block img {
+  width: auto;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+.icon-slider-block h3 {
+  font-size: var(--font-3);
+  margin: 0 0 15px;
+  width: 100%;
+  max-width: 800px;
+}
+
+.icon-slider-block p {
+  font-size: var(--font-2);
+  line-height: 1.4;
+  margin: 0;
+  width: 100%;
+  max-width: 600px;
+}
+
+.icon-slider-block.clickable {
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.icon-slider-block.clickable:hover {
+  opacity: 0.8;
+}
+
+.flickity-page-dots {
+  bottom: 20px;
+}
+
+.flickity-page-dots .dot {
+  width: 10px;
+  height: 10px;
+  margin: 0 6px;
+  background-color: var(--text);
+  opacity: 0.4;
+}
+
+.flickity-page-dots .dot.is-selected {
+  opacity: 1;
+  width: 20px;
+  border-radius: 10px;
+  transition: width 0.3s ease;
 }
 
 @media (max-width: 768px) {
-  #shopify-section-{{ section.id }} .icon-slider-container .icon-slider-block{
-    text-align: {{ section.settings.text_alignment_mobile }};
-}
-#shopify-section-{{ section.id }} .icon-slider-container{
+  .icon-slider-container {
     padding: 0 15px;
-}
+  }
+  
+  .icon-slider-block {
+    padding: 20px 10px;
+  }
+  
+  .icon-slider-block img {
+    height: 60px;
+    margin-bottom: 15px;
+  }
+  
+  .icon-slider-block h3 {
+    font-size: var(--font-2);
+    margin-bottom: 10px;
+  }
+  
+  .icon-slider-block p {
+    font-size: var(--font-1);
+  }
 }
 </style>
+
 <section class="icon-slider-container {{ section.settings.bg }}" 
          data-section-id="{{ section.id }}" 
          data-section-type="icon-slider-text" 
@@ -45,15 +102,14 @@
          data-slideshow-autoplay="{{ section.settings.autoplay }}"
          data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
-        <div class="icon-slider-block" data-carousel-slide>
-          {% if block.settings.link != blank %}
-            <a href="{{ block.settings.link }}">
-          {% endif %}
-          
+        {% assign has_link = block.settings.link != blank %}
+        <div class="icon-slider-block{% if has_link %} clickable{% endif %}" 
+             data-carousel-slide
+             {% if has_link %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
           {% if block.settings.image %}
-            <img src="{{ block.settings.image | img_url: '300x300' }}" alt="{{ block.settings.title | escape }}">
-          {% elsif block.settings.svg_icon != blank %}
-            <div class="svg-icon" dangerouslySetInnerHTML={{ block.settings.svg_icon | json }}></div>
+            <img src="{{ block.settings.image | img_url: '300x300' }}" 
+                 alt="{{ block.settings.title | escape }}"
+                 loading="lazy">
           {% endif %}
           
           {% if block.settings.title != blank %}
@@ -63,19 +119,13 @@
           {% if block.settings.description != blank %}
             <p>{{ block.settings.description }}</p>
           {% endif %}
-          
-          {% if block.settings.link != blank %}
-            </a>
-          {% endif %}
         </div>
       {% endfor %}
     </div>
   </div>
 </section>
 
-
-    {% javascript %}
-
+{% javascript %}
 document.addEventListener('DOMContentLoaded', () => {
   const carousels = document.querySelectorAll('[data-carousel]');
 
@@ -88,35 +138,52 @@ document.addEventListener('DOMContentLoaded', () => {
       contain: true,
       wrapAround: true,
       autoPlay: autoplay ? speed : false,
-      prevNextButtons: false,
+      prevNextButtons: true,
       pageDots: true,
-      groupCells: 1,
-      adaptiveHeight: true
+      draggable: true,
+      fade: true,
+      adaptiveHeight: false,
+      selectedAttraction: 0.2,
+      friction: 0.8
     });
   });
 });
+{% endjavascript %}
 
-    {% endjavascript %}
-
-    
 {% schema %}
 {
   "name": "Icon Slider Text",
   "settings": [
     {
-        "type": "select",
-        "id": "bg",
-        "label": "Background color",
-        "default": "palette--light bg--neutral",
-        "options": [
-          { "value": "palette--light bg--neutral", "label": "Default"},
-          { "value": "palette--light bg--accent", "label": "Light"},
-          { "value": "palette--dark bg--invert", "label": "Dark"},
-          { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
-          { "value": "palette--bright bg--bright", "label": "Bright"},
-          { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
-        ]
-      },
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default"},
+        { "value": "palette--light bg--accent", "label": "Light"},
+        { "value": "palette--dark bg--invert", "label": "Dark"},
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+        { "value": "palette--bright bg--bright", "label": "Bright"},
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate slides",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "sec",
+      "label": "Change slides every",
+      "default": 5
+    },
     {
       "type": "range",
       "id": "padding_top",
@@ -139,24 +206,14 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       "type": "select",
-      "id": "text_alignment_desktop",
-      "label": "Text Alignment",
-      "default": "left",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "text_alignment_mobile",
-      "label": "Text Alignment (Mobile)",
-      "default": "center",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" }
       ]
     }
   ],
@@ -168,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image or SVG"
+          "label": "Image"
         },
         {
           "type": "text",
@@ -183,19 +240,23 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           "type": "url",
           "id": "link",
-          "label": "Link URL"
+          "label": "Link URL",
+          "info": "Optional - entire slide will be clickable"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Default Icon Slider Text",
-      "category": "Custom",
+      "name": "Icon Slider Text",
+      "category": "Slider",
       "settings": {
-        "bg": "bg--neutral",
-        "padding_top": 20,
-        "padding_bottom": 20
+        "bg": "palette--light bg--neutral",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "width": "wrapper"
       },
       "blocks": [
         {
