@@ -28,6 +28,9 @@
               {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
               id="aos-{{ block.id }}"
               data-slideshow-index="{{ forloop.index0 }}"
+              data-text-bg-color="{{ block.settings.text_background_color }}"
+              data-text-bg-opacity="{{ block.settings.text_background_opacity }}"
+              data-text-bg-style="{{ block.settings.text_background_style }}"
               {{ block.shopify_attributes }}>
               <div class="hero__content__wrapper {{ block.settings.text_align }} video-wrapper">
                 <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
