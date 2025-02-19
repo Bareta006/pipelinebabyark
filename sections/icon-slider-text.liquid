@@ -147,13 +147,26 @@
 
 {% javascript %}
 document.addEventListener('DOMContentLoaded', () => {
+  console.log('DOM Content Loaded');
   const carousels = document.querySelectorAll('[data-carousel]');
+  console.log('Found carousels:', carousels.length);
 
-  carousels.forEach((carousel) => {
+  carousels.forEach((carousel, index) => {
+    console.log(`Initializing carousel ${index}`);
+    const slides = carousel.querySelectorAll('.icon-slider-block');
+    console.log(`Found ${slides.length} slides`);
+    
+    // Log initial state
+    slides.forEach((slide, i) => {
+      console.log(`Slide ${i} initial opacity:`, getComputedStyle(slide).opacity);
+      console.log(`Slide ${i} visibility:`, getComputedStyle(slide).visibility);
+      console.log(`Slide ${i} display:`, getComputedStyle(slide).display);
+    });
+
     const autoplay = carousel.dataset.slideshowAutoplay === 'true';
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
     
-    // Initialize Flickity
+    console.log('Initializing Flickity');
     const flkty = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
@@ -162,44 +175,69 @@ document.addEventListener('DOMContentLoaded', () => {
       prevNextButtons: true,
       pageDots: true,
       draggable: true,
-      fade: true,
+      fade: false, // Disabled fade to test if it's causing issues
       adaptiveHeight: false,
       selectedAttraction: 0.2,
-      friction: 0.8
+      friction: 0.8,
+      on: {
+        ready: function() {
+          console.log('Flickity ready event fired');
+          // Log state after Flickity initialization
+          slides.forEach((slide, i) => {
+            console.log(`Slide ${i} post-init opacity:`, getComputedStyle(slide).opacity);
+            console.log(`Slide ${i} post-init visibility:`, getComputedStyle(slide).visibility);
+            console.log(`Slide ${i} post-init display:`, getComputedStyle(slide).display);
+          });
+        }
+      }
     });
 
     // Function to calculate and set heights
     const calculateHeights = () => {
+      console.log('Calculating heights');
       let maxHeight = 0;
-      const slides = carousel.querySelectorAll('.icon-slider-block');
-      slides.forEach(slide => {
-        // Reset any previously set height
+      slides.forEach((slide, i) => {
         slide.style.height = '';
-        // Get the natural height
         const height = slide.offsetHeight;
+        console.log(`Slide ${i} natural height:`, height);
         maxHeight = Math.max(maxHeight, height);
       });
 
-      // Set the height on all slides and the carousel
+      console.log('Max height found:', maxHeight);
       if (maxHeight > 0) {
-        slides.forEach(slide => {
+        slides.forEach((slide, i) => {
           slide.style.height = `${maxHeight}px`;
+          console.log(`Set slide ${i} height to ${maxHeight}px`);
         });
         carousel.style.height = `${maxHeight}px`;
+        
+        // Force slides to be visible
+        slides.forEach((slide, i) => {
+          slide.style.opacity = '1';
+          slide.style.visibility = 'visible';
+          console.log(`Forced slide ${i} to be visible`);
+        });
       }
 
-      // Update Flickity
       flkty.resize();
+      console.log('Flickity resize called');
     };
 
-    // Calculate heights immediately and after images load
+    // Calculate heights immediately
     calculateHeights();
 
     // Wait for images to load
     const images = carousel.querySelectorAll('img');
-    images.forEach(img => {
+    console.log(`Found ${images.length} images`);
+    images.forEach((img, i) => {
       if (!img.complete) {
-        img.onload = calculateHeights;
+        console.log(`Image ${i} not yet loaded`);
+        img.onload = () => {
+          console.log(`Image ${i} loaded`);
+          calculateHeights();
+        };
+      } else {
+        console.log(`Image ${i} already loaded`);
       }
     });
 
@@ -207,7 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(calculateHeights, 250);
+      resizeTimer = setTimeout(() => {
+        console.log('Window resized, recalculating heights');
+        calculateHeights();
+      }, 250);
     });
   });
 });
