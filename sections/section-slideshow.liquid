@@ -28,6 +28,8 @@
               {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
               id="aos-{{ block.id }}"
               data-slideshow-index="{{ forloop.index0 }}"
+              data-mobile-bg-color="{{ block.settings.mobile_background_color }}"
+              data-mobile-bg-opacity="{{ block.settings.mobile_background_opacity }}"
               {{ block.shopify_attributes }}>
               <div class="hero__content__wrapper {{ block.settings.text_align }} video-wrapper">
                 <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
@@ -229,7 +231,7 @@
       position: relative;
       height: auto !important;
       min-height: unset !important;
-      background-color: var(--text-bg-color, transparent);
+      background-color: var(--mobile-bg-color, transparent);
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
@@ -579,17 +581,17 @@
         },
         {
           "type": "header",
-          "content": "Mobile Background"
+          "content": "Mobile Layout"
         },
         {
           "type": "color",
-          "id": "text_background_color",
+          "id": "mobile_background_color",
           "label": "Mobile Background Color",
           "default": "#ffffff"
         },
         {
           "type": "range",
-          "id": "text_background_opacity",
+          "id": "mobile_background_opacity",
           "min": 0,
           "max": 100,
           "step": 1,
@@ -802,12 +804,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   const videoSlides = document.querySelectorAll('.slideshow__slide.section--video');
   videoSlides.forEach(slide => {
-    const bgColor = slide.getAttribute('data-text-bg-color');
-    const bgOpacity = slide.getAttribute('data-text-bg-opacity');
+    const bgColor = slide.getAttribute('data-mobile-bg-color');
+    const bgOpacity = slide.getAttribute('data-mobile-bg-opacity');
     
     if (bgColor) {
       const color = bgColor.replace(')', `, ${bgOpacity/100})`).replace('rgb', 'rgba');
-      slide.style.setProperty('--text-bg-color', color);
+      slide.style.setProperty('--mobile-bg-color', color);
     }
   });
 });
