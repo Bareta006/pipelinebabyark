@@ -2,7 +2,7 @@
   if section.settings.desktop_image != blank
     assign desktop_image_height = section.settings.desktop_image.height
     assign desktop_image_width = section.settings.desktop_image.width
-    assign desktop_aspect_ratio = desktop_image_height | divided_by: desktop_image_width
+    assign desktop_aspect_ratio = desktop_image_height | divided_by: desktop_image_width 
     assign desktop_viewport_height = desktop_aspect_ratio | times: 100 | append: 'vw'
   else 
     assign desktop_viewport_height = '66vh'
@@ -80,7 +80,7 @@
     height: 500px;
   }
   #section-{{ section.id }}.desktop.use_image {
-    height: {{ desktop_image_height }}px;
+    height: {{ desktop_viewport_height }};
   }
 
   /* Flex Container for Desktop */
@@ -147,7 +147,7 @@
     }
  
     #section-{{ section.id }}.mobile.use_image {
-      height: {{ mobile_image_height }}px;
+      height: {{ mobile_viewport_height }};
     }
 
     #section-{{ section.id }}.mobile.use_screen_full {
