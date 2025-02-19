@@ -80,7 +80,7 @@
     height: 500px;
   }
   #section-{{ section.id }}.desktop.use_image {
-    height: {{ desktop_viewport_height }};
+    height: {{ desktop_image_height }};
   }
 
   /* Flex Container for Desktop */
@@ -145,7 +145,7 @@
         background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
       {% endif %}
     }
-
+ 
     #section-{{ section.id }}.mobile.use_image {
       height: {{ mobile_image_height }}px;
     }
