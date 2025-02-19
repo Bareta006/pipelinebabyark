@@ -7,12 +7,7 @@
 }
 
 #shopify-section-{{ section.id }} .flickity-carousel {
-  opacity: 0; /* Hide initially until heights are calculated */
-  transition: opacity 0.3s ease;
-}
-
-#shopify-section-{{ section.id }} .flickity-carousel.is-ready {
-  opacity: 1;
+  opacity: 1; /* Show carousel from start */
 }
 
 #shopify-section-{{ section.id }} .icon-slider-block {
@@ -23,11 +18,7 @@
   text-align: center;
   padding: 30px 15px;
   width: 100%;
-  opacity: 0;
-}
-
-#shopify-section-{{ section.id }} .icon-slider-block.is-visible {
-  opacity: 1;
+  opacity: 1; /* Show all slides from start */
 }
 
 #shopify-section-{{ section.id }} .icon-slider-block img {
@@ -130,9 +121,9 @@
          data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
         {%- assign has_link = block.settings.link -%}
-        <div class="icon-slider-block{% if has_link != '' %} clickable{% endif %}" 
+        <div class="icon-slider-block{% if has_link != blank %} clickable{% endif %}" 
              data-carousel-slide
-             {% if has_link != '' %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
+             {% if has_link != blank %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
           {% if block.settings.use_text_instead %}
             <div class="text-instead">{{ block.settings.text_instead }}</div>
           {% elsif block.settings.image %}
@@ -162,15 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const autoplay = carousel.dataset.slideshowAutoplay === 'true';
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
     
-    // Hide all slides initially except the first one
-    const slides = carousel.querySelectorAll('.icon-slider-block');
-    slides.forEach((slide, index) => {
-      slide.style.opacity = index === 0 ? '1' : '0';
-      if (index === 0) {
-        slide.classList.add('is-visible');
-      }
-    });
-
     // Initialize Flickity
     const flkty = new Flickity(carousel, {
       cellAlign: 'center',
@@ -189,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to calculate and set heights
     const calculateHeights = () => {
       let maxHeight = 0;
+      const slides = carousel.querySelectorAll('.icon-slider-block');
       slides.forEach(slide => {
         // Reset any previously set height
         slide.style.height = '';
@@ -205,42 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
         carousel.style.height = `${maxHeight}px`;
       }
 
-      // Show the carousel and slides
-      carousel.classList.add('is-ready');
-      slides.forEach(slide => {
-        slide.style.opacity = '1';
-        slide.classList.add('is-visible');
-      });
-
       // Update Flickity
       flkty.resize();
     };
 
+    // Calculate heights immediately and after images load
+    calculateHeights();
+
     // Wait for images to load
     const images = carousel.querySelectorAll('img');
-    let loadedImages = 0;
-    const totalImages = images.length;
-
-    if (totalImages > 0) {
-      images.forEach(img => {
-        if (img.complete) {
-          loadedImages++;
-          if (loadedImages === totalImages) {
-            calculateHeights();
-          }
-        } else {
-          img.onload = () => {
-            loadedImages++;
-            if (loadedImages === totalImages) {
-              calculateHeights();
-            }
-          };
-        }
-      });
-    } else {
-      // If no images, calculate heights immediately
-      calculateHeights();
-    }
+    images.forEach(img => {
+      if (!img.complete) {
+        img.onload = calculateHeights;
+      }
+    });
 
     // Recalculate on window resize
     let resizeTimer;
