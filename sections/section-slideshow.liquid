@@ -24,12 +24,12 @@
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'video_slide' %}
-            <div class="slideshow__slide section--image {{ block.settings.text_color }}"
+            <div class="slideshow__slide section--image section--video {{ block.settings.text_color }}"
               {% if section.settings.width == "wrapper--none" and section.settings.padding_top == 0 %} data-overlay-header {% endif %}
               id="aos-{{ block.id }}"
               data-slideshow-index="{{ forloop.index0 }}"
               {{ block.shopify_attributes }}>
-              <div class="hero__content__wrapper {{ block.settings.text_align }}">
+              <div class="hero__content__wrapper {{ block.settings.text_align }} video-wrapper">
                 <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
                   {% unless block.settings.kicker == '' %}
                     <p class="hero__kicker"
@@ -207,7 +207,17 @@
       <div class="image-overlay" style="--bg: #000; opacity:0.15;"></div>
     </div>
   {% endif %}
-
+<style>
+  #shopify-section-{{ section.id }} .video-wrapper {
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .section--video{
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .slideshow__slide.section--video  {
+    height: 100%;
+  }
+</style>
 </div>
 
 {% schema %}
