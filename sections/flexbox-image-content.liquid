@@ -141,9 +141,9 @@
     #section-{{ section.id }}.mobile {
       display: flex;
       justify-content: {{ section.settings.mobile_box_vertical_align }};
-      {%if section.settings.mobile_image != blank%}
+      {% if section.settings.mobile_image != blank %}
         background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
-      {%endif%}
+      {% endif %}
     }
 
     #section-{{ section.id }}.mobile.use_image {
