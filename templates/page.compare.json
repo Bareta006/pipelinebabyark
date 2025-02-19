@@ -120,6 +120,9 @@
     },
     "flexbox_image_content_PqTF8w": {
       "type": "flexbox-image-content",
+      "custom_css": [
+        ".mobile-content-box{background-color:extra-cond}"
+      ],
       "settings": {
         "desktop_image": "shopify://shop_images/image_3a906b70-a9f2-4fb5-bf13-5f071f8ac416.png",
         "mobile_image": "shopify://shop_images/image_45.png",
