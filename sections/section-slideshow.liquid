@@ -232,6 +232,7 @@
       position: relative;
       height: auto !important;
       min-height: unset !important;
+      background-color: var(--text-bg-color, transparent);
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
@@ -239,7 +240,7 @@
       width: 100%;
       padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
       position: relative;
-      margin-bottom: 30px;
+      margin-bottom: 0px;
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .video-autoplay-wrapper {
@@ -265,7 +266,6 @@
       width: 100%;
       padding: 30px 20px;
       height: auto !important;
-      background-color: var(--text-bg-color, transparent);
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .hero__content {
@@ -579,6 +579,26 @@
             { "value": "solid", "label": "Solid" },
             { "value": "blur", "label": "Blur Effect" }
           ]
+        },
+        {
+          "type": "header",
+          "content": "Mobile Background"
+        },
+        {
+          "type": "color",
+          "id": "text_background_color",
+          "label": "Mobile Background Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "range",
+          "id": "text_background_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Mobile Background Opacity",
+          "default": 100
         }
       ]
     },
@@ -785,18 +805,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   const videoSlides = document.querySelectorAll('.slideshow__slide.section--video');
   videoSlides.forEach(slide => {
-    const textBgColor = slide.getAttribute('data-text-bg-color');
-    const textBgOpacity = slide.getAttribute('data-text-bg-opacity');
-    const textBgStyle = slide.getAttribute('data-text-bg-style');
+    const bgColor = slide.getAttribute('data-text-bg-color');
+    const bgOpacity = slide.getAttribute('data-text-bg-opacity');
     
-    const contentWrapper = slide.querySelector('.hero__content__wrapper');
-    if (contentWrapper && textBgColor && textBgStyle !== 'none') {
-      const color = textBgColor.replace(')', `, ${textBgOpacity/100})`).replace('rgb', 'rgba');
-      contentWrapper.style.setProperty('--text-bg-color', color);
-      
-      if (textBgStyle === 'blur') {
-        contentWrapper.style.backdropFilter = 'blur(10px)';
-      }
+    if (bgColor) {
+      const color = bgColor.replace(')', `, ${bgOpacity/100})`).replace('rgb', 'rgba');
+      slide.style.setProperty('--text-bg-color', color);
     }
   });
 });
