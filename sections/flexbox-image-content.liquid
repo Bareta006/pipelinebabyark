@@ -1,5 +1,5 @@
 {%- liquid
-  if section.settings.desktop_image
+  if section.settings.desktop_image != blank
     assign desktop_image_height = section.settings.desktop_image.height
     assign desktop_image_width = section.settings.desktop_image.width
     assign desktop_aspect_ratio = desktop_image_height | divided_by: desktop_image_width
@@ -8,7 +8,7 @@
     assign desktop_viewport_height = '66vh'
   endif
 
-  if section.settings.mobile_image
+  if section.settings.mobile_image != blank
     assign mobile_image_height = section.settings.mobile_image.height
     assign mobile_image_width = section.settings.mobile_image.width
     assign mobile_aspect_ratio = mobile_image_height | divided_by: mobile_image_width
@@ -147,7 +147,7 @@
     }
 
     #section-{{ section.id }}.mobile.use_image {
-      height: {{ mobile_viewport_height }};
+      height: {{ mobile_image_height }};
     }
 
     #section-{{ section.id }}.mobile.use_screen_full {
