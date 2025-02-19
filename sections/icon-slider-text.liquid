@@ -6,6 +6,10 @@
   position: relative;
 }
 
+.flickity-carousel {
+  min-height: 300px; /* Base height */
+}
+
 .icon-slider-block {
   display: flex;
   flex-direction: column;
@@ -22,6 +26,17 @@
   height: 80px;
   object-fit: contain;
   margin-bottom: 20px;
+}
+
+.icon-slider-block .text-instead {
+  font-size: var(--font-4);
+  font-weight: bold;
+  margin-bottom: 20px;
+  line-height: 1.2;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-slider-block h3 {
@@ -72,13 +87,20 @@
     padding: 0 15px;
   }
   
+  .flickity-carousel {
+    min-height: 250px; /* Smaller base height for mobile */
+  }
+  
   .icon-slider-block {
     padding: 20px 10px;
   }
   
-  .icon-slider-block img {
+  .icon-slider-block img,
+  .icon-slider-block .text-instead {
     height: 60px;
+    min-height: 60px;
     margin-bottom: 15px;
+    font-size: var(--font-3);
   }
   
   .icon-slider-block h3 {
@@ -106,7 +128,9 @@
         <div class="icon-slider-block{% if has_link != '' %} clickable{% endif %}" 
              data-carousel-slide
              {% if has_link != '' %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
-          {% if block.settings.image %}
+          {% if block.settings.use_text_instead %}
+            <div class="text-instead">{{ block.settings.text_instead }}</div>
+          {% elsif block.settings.image %}
             <img src="{{ block.settings.image | img_url: '300x300' }}" 
                  alt="{{ block.settings.title | escape }}"
                  loading="lazy">
@@ -133,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const autoplay = carousel.dataset.slideshowAutoplay === 'true';
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
 
-    new Flickity(carousel, {
+    const flkty = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
       wrapAround: true,
@@ -142,10 +166,28 @@ document.addEventListener('DOMContentLoaded', () => {
       pageDots: true,
       draggable: true,
       fade: true,
-      adaptiveHeight: false,
+      adaptiveHeight: true,
       selectedAttraction: 0.2,
       friction: 0.8
     });
+
+    // Fix height after all images are loaded
+    carousel.querySelectorAll('img').forEach(img => {
+      img.onload = () => {
+        flkty.resize();
+      };
+    });
+
+    // Set initial height based on tallest slide
+    let maxHeight = 0;
+    const slides = carousel.querySelectorAll('.icon-slider-block');
+    slides.forEach(slide => {
+      const height = slide.offsetHeight;
+      maxHeight = Math.max(maxHeight, height);
+    });
+    if (maxHeight > 0) {
+      carousel.style.height = `${maxHeight}px`;
+    }
   });
 });
 {% endjavascript %}
@@ -223,9 +265,22 @@ document.addEventListener('DOMContentLoaded', () => {
       "name": "Icon Slider Block",
       "settings": [
         {
+          "type": "checkbox",
+          "id": "use_text_instead",
+          "label": "Use text instead of image",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "text_instead",
+          "label": "Text to display instead of image",
+          "info": "Only used if 'Use text instead of image' is checked"
+        },
+        {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image",
+          "info": "Only used if 'Use text instead of image' is not checked"
         },
         {
           "type": "text",
