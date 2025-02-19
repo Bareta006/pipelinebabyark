@@ -15,7 +15,6 @@
   /* Mobile Section */
   #section-{{ section.id }}.mobile {
     display: none;
-    height: auto;
     background-image: url({{ section.settings.mobile_image | img_url: 'master' }});
     padding-top: {{ section.settings.mobile_padding_top }}px;
     padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
@@ -25,7 +24,6 @@
   /* Desktop Section */
   #section-{{ section.id }}.desktop {
     display: block;
-    height: {{ section.settings.section_height }};
     background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
     padding-top: {{ section.settings.desktop_padding_top }}px;
     padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
@@ -33,6 +31,37 @@
     padding-right: {{ section.settings.desktop_side_padding }}px;
   }
 
+  /* Height Classes */
+  #section-{{ section.id }}.use_screen_full {
+    height: 100vh;
+  }
+  #section-{{ section.id }}.use_screen_three_quarters {
+    height: 75vh;
+  }
+  #section-{{ section.id }}.use_screen_two_thirds {
+    height: 66vh;
+  }
+  #section-{{ section.id }}.use_screen_one_half {
+    height: 50vh;
+  }
+  #section-{{ section.id }}.use_screen_one_third {
+    height: 33vh;
+  }
+  #section-{{ section.id }}.use_screen_one_fifth {
+    height: 20vh;
+  }
+  #section-{{ section.id }}.use_pixels_800 {
+    height: 800px;
+  }
+  #section-{{ section.id }}.use_pixels_650 {
+    height: 650px;
+  }
+  #section-{{ section.id }}.use_pixels_500 {
+    height: 500px;
+  }
+  #section-{{ section.id }}.use_image {
+    height: auto;
+  }
 
   /* Flex Container for Desktop */
   #section-{{ section.id }} .flex-container {
@@ -118,7 +147,7 @@
 </style>
 
 <section id="section-{{ section.id }}" 
-         class="desktop {{ section.settings.background_position }}mobile">
+         class="desktop {{ section.settings.height }} {{ section.settings.background_position }} mobile">
   <div class="flex-container">
     <!-- Left Column -->
     <div class="flex-column" style="align-items: {{ section.settings.left_box_justify }}; justify-content: {{ section.settings.left_box_align }}; color: {{ section.settings.left_box_text_color }};text-align: {{ section.settings.left_box_text_align }};">
@@ -219,15 +248,21 @@
     },
     {
       "type": "select",
-      "id": "section_height",
-      "label": "Section Height",
+      "id": "height",
+      "label": "Section height",
+      "default": "use_screen_two_thirds",
       "options": [
-        { "value": "500px", "label": "500px" },
-        { "value": "650px", "label": "650px" },
-        { "value": "750px", "label": "750px" },
-        { "value": "100vh", "label": "Full Screen (100vh)" }
-      ],
-      "default": "750px"
+        { "value": "use_screen_full", "label": "Full screen height"},
+        { "value": "use_screen_three_quarters", "label": "Three quarters of screen height"},
+        { "value": "use_screen_two_thirds", "label": "Two thirds of screen height"},
+        { "value": "use_screen_one_half", "label": "One half of screen height"},
+        { "value": "use_screen_one_third", "label": "One third of screen height"},
+        { "value": "use_screen_one_fifth", "label": "One fifth of screen height"},
+        { "value": "use_pixels_800", "label": "800px" },
+        { "value": "use_pixels_650", "label": "650px" },
+        { "value": "use_pixels_500", "label": "500px" },
+        { "value": "use_image", "label": "Image height"}
+      ]
     },
     {
       "type": "range",
