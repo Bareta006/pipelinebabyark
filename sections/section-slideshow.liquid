@@ -231,7 +231,7 @@
       position: relative;
       height: auto !important;
       min-height: unset !important;
-      background-color: var(--mobile-bg-color, transparent);
+      background-color: {{ block.settings.mobile_background_color }};
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
@@ -550,38 +550,7 @@
         },
         {
           "type": "header",
-          "content": "Text Background"
-        },
-        {
-          "type": "color",
-          "id": "text_background_color",
-          "label": "Text Background Color",
-          "default": "rgba(0,0,0,0)"
-        },
-        {
-          "type": "range",
-          "id": "text_background_opacity",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "label": "Text Background Opacity",
-          "default": 0
-        },
-        {
-          "type": "select",
-          "id": "text_background_style",
-          "label": "Text Background Style",
-          "default": "none",
-          "options": [
-            { "value": "none", "label": "None" },
-            { "value": "solid", "label": "Solid" },
-            { "value": "blur", "label": "Blur Effect" }
-          ]
-        },
-        {
-          "type": "header",
-          "content": "Mobile Layout"
+          "content": "Mobile background color"
         },
         {
           "type": "color",
