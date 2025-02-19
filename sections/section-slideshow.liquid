@@ -224,12 +224,15 @@
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video {
+      display: flex;
+      flex-direction: column;
       position: relative;
       height: auto !important;
       min-height: unset !important;
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
+      order: 1;
       width: 100%;
       padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
       position: relative;
@@ -251,6 +254,7 @@
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .hero__content__wrapper {
+      order: 2;
       position: relative !important;
       top: auto !important;
       left: auto !important;
@@ -258,6 +262,7 @@
       width: 100%;
       padding: 30px 20px;
       height: auto !important;
+      background-color: var(--text-bg-color, transparent);
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .hero__content {
@@ -540,6 +545,37 @@
             { "value": "btn--soft", "label": "Soft button"},
             { "value": "btn--outline", "label": "Outlined button"}
           ]
+        },
+        {
+          "type": "header",
+          "content": "Text Background"
+        },
+        {
+          "type": "color",
+          "id": "text_background_color",
+          "label": "Text Background Color",
+          "default": "rgba(0,0,0,0)"
+        },
+        {
+          "type": "range",
+          "id": "text_background_opacity",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "%",
+          "label": "Text Background Opacity",
+          "default": 0
+        },
+        {
+          "type": "select",
+          "id": "text_background_style",
+          "label": "Text Background Style",
+          "default": "none",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "solid", "label": "Solid" },
+            { "value": "blur", "label": "Blur Effect" }
+          ]
         }
       ]
     },
@@ -741,4 +777,25 @@
   }
 }
 {% endschema %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const videoSlides = document.querySelectorAll('.slideshow__slide.section--video');
+  videoSlides.forEach(slide => {
+    const textBgColor = slide.getAttribute('data-text-bg-color');
+    const textBgOpacity = slide.getAttribute('data-text-bg-opacity');
+    const textBgStyle = slide.getAttribute('data-text-bg-style');
+    
+    const contentWrapper = slide.querySelector('.hero__content__wrapper');
+    if (contentWrapper && textBgColor && textBgStyle !== 'none') {
+      const color = textBgColor.replace(')', `, ${textBgOpacity/100})`).replace('rgb', 'rgba');
+      contentWrapper.style.setProperty('--text-bg-color', color);
+      
+      if (textBgStyle === 'blur') {
+        contentWrapper.style.backdropFilter = 'blur(10px)';
+      }
+    }
+  });
+});
+</script>
 
