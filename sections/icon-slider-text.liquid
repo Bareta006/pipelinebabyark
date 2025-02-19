@@ -147,26 +147,26 @@
 
 {% javascript %}
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded');
+  //console.log('DOM Content Loaded');
   const carousels = document.querySelectorAll('[data-carousel]');
-  console.log('Found carousels:', carousels.length);
+  //console.log('Found carousels:', carousels.length);
 
   carousels.forEach((carousel, index) => {
-    console.log(`Initializing carousel ${index}`);
+    //console.log(`Initializing carousel ${index}`);
     const slides = carousel.querySelectorAll('.icon-slider-block');
-    console.log(`Found ${slides.length} slides`);
+    //console.log(`Found ${slides.length} slides`);
     
     // Log initial state
     slides.forEach((slide, i) => {
-      console.log(`Slide ${i} initial opacity:`, getComputedStyle(slide).opacity);
-      console.log(`Slide ${i} visibility:`, getComputedStyle(slide).visibility);
-      console.log(`Slide ${i} display:`, getComputedStyle(slide).display);
+      //console.log(`Slide ${i} initial opacity:`, getComputedStyle(slide).opacity);
+      //console.log(`Slide ${i} visibility:`, getComputedStyle(slide).visibility);
+      //console.log(`Slide ${i} display:`, getComputedStyle(slide).display);
     });
 
     const autoplay = carousel.dataset.slideshowAutoplay === 'true';
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
     
-    console.log('Initializing Flickity');
+    //console.log('Initializing Flickity');
     const flkty = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
@@ -181,12 +181,12 @@ document.addEventListener('DOMContentLoaded', () => {
       friction: 0.8,
       on: {
         ready: function() {
-          console.log('Flickity ready event fired');
+          //console.log('Flickity ready event fired');
           // Log state after Flickity initialization
           slides.forEach((slide, i) => {
-            console.log(`Slide ${i} post-init opacity:`, getComputedStyle(slide).opacity);
-            console.log(`Slide ${i} post-init visibility:`, getComputedStyle(slide).visibility);
-            console.log(`Slide ${i} post-init display:`, getComputedStyle(slide).display);
+            //console.log(`Slide ${i} post-init opacity:`, getComputedStyle(slide).opacity);
+            //console.log(`Slide ${i} post-init visibility:`, getComputedStyle(slide).visibility);
+            //console.log(`Slide ${i} post-init display:`, getComputedStyle(slide).display);
           });
         }
       }
@@ -194,20 +194,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Function to calculate and set heights
     const calculateHeights = () => {
-      console.log('Calculating heights');
+      //console.log('Calculating heights');
       let maxHeight = 0;
       slides.forEach((slide, i) => {
         slide.style.height = '';
         const height = slide.offsetHeight;
-        console.log(`Slide ${i} natural height:`, height);
+        //console.log(`Slide ${i} natural height:`, height);
         maxHeight = Math.max(maxHeight, height);
       });
 
-      console.log('Max height found:', maxHeight);
+      //console.log('Max height found:', maxHeight);
       if (maxHeight > 0) {
         slides.forEach((slide, i) => {
           slide.style.height = `${maxHeight}px`;
-          console.log(`Set slide ${i} height to ${maxHeight}px`);
+          //console.log(`Set slide ${i} height to ${maxHeight}px`);
         });
         carousel.style.height = `${maxHeight}px`;
         
@@ -215,12 +215,12 @@ document.addEventListener('DOMContentLoaded', () => {
         slides.forEach((slide, i) => {
           slide.style.opacity = '1';
           slide.style.visibility = 'visible';
-          console.log(`Forced slide ${i} to be visible`);
+          //console.log(`Forced slide ${i} to be visible`);
         });
       }
 
       flkty.resize();
-      console.log('Flickity resize called');
+      //console.log('Flickity resize called');
     };
 
     // Calculate heights immediately
@@ -228,16 +228,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Wait for images to load
     const images = carousel.querySelectorAll('img');
-    console.log(`Found ${images.length} images`);
+    //console.log(`Found ${images.length} images`);
     images.forEach((img, i) => {
       if (!img.complete) {
-        console.log(`Image ${i} not yet loaded`);
+        //console.log(`Image ${i} not yet loaded`);
         img.onload = () => {
-          console.log(`Image ${i} loaded`);
+          //console.log(`Image ${i} loaded`);
           calculateHeights();
         };
       } else {
-        console.log(`Image ${i} already loaded`);
+        //console.log(`Image ${i} already loaded`);
       }
     });
 
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        console.log('Window resized, recalculating heights');
+        //console.log('Window resized, recalculating heights');
         calculateHeights();
       }, 250);
     });
