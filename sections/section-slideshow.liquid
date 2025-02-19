@@ -30,7 +30,7 @@
               data-slideshow-index="{{ forloop.index0 }}"
               data-mobile-bg-color="{{ block.settings.mobile_background_color }}"
               data-mobile-bg-opacity="{{ block.settings.mobile_background_opacity }}"
-              {{ block.shopify_attributes }}>
+              {{ block.shopify_attributes }} style="background-color: {{ block.settings.mobile_background_color }};">
               <div class="hero__content__wrapper {{ block.settings.text_align }} video-wrapper">
                 <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
                   {% unless block.settings.kicker == '' %}
@@ -231,7 +231,6 @@
       position: relative;
       height: auto !important;
       min-height: unset !important;
-      background-color: {{ block.settings.mobile_background_color }};
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
@@ -557,16 +556,6 @@
           "id": "mobile_background_color",
           "label": "Mobile Background Color",
           "default": "#ffffff"
-        },
-        {
-          "type": "range",
-          "id": "mobile_background_opacity",
-          "min": 0,
-          "max": 100,
-          "step": 1,
-          "unit": "%",
-          "label": "Mobile Background Opacity",
-          "default": 100
         }
       ]
     },
