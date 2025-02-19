@@ -207,7 +207,14 @@
       <div class="image-overlay" style="--bg: #000; opacity:0.15;"></div>
     </div>
   {% endif %}
-
+<style>
+  #section-{{ section.id }} .hero__content__wrapper {
+    height: 100%;
+  }
+  #section-{{ section.id }} .section--image {
+    height: 100%;
+  }
+</style>
 </div>
 
 {% schema %}
