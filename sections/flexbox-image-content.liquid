@@ -12,17 +12,6 @@
     width: 100%;
     overflow: hidden;
   }
-
-  /* Desktop Section */
-  #section-{{ section.id }}.desktop {
-    height: {{ section.settings.section_height }};
-    background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
-    padding-top: {{ section.settings.desktop_padding_top }}px;
-    padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
-    padding-left: {{ section.settings.desktop_side_padding }}px;
-    padding-right: {{ section.settings.desktop_side_padding }}px;
-  }
-
   /* Mobile Section */
   #section-{{ section.id }}.mobile {
     display: none;
@@ -33,6 +22,16 @@
     padding-left: {{ section.settings.mobile_side_padding }}px;
     padding-right: {{ section.settings.mobile_side_padding }}px;
   }
+  /* Desktop Section */
+  #section-{{ section.id }}.desktop {
+    height: {{ section.settings.section_height }};
+    background-image: url({{ section.settings.desktop_image | img_url: 'master' }});
+    padding-top: {{ section.settings.desktop_padding_top }}px;
+    padding-bottom: {{ section.settings.desktop_padding_bottom }}px;
+    padding-left: {{ section.settings.desktop_side_padding }}px;
+    padding-right: {{ section.settings.desktop_side_padding }}px;
+  }
+
 
   /* Flex Container for Desktop */
   #section-{{ section.id }} .flex-container {
