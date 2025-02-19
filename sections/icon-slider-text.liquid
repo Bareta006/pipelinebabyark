@@ -173,26 +173,21 @@ document.addEventListener('DOMContentLoaded', () => {
       cellAlign: 'center',
       contain: true,
       wrapAround: true,
-      autoPlay: autoplay ? speed : false,
+      autoPlay: speed,
       prevNextButtons: true,
       pageDots: true,
       draggable: true,
-      fade: false, // Disabled fade to test if it's causing issues
+      fade: false,
       adaptiveHeight: false,
       selectedAttraction: 0.2,
       friction: 0.8,
-      on: {
-        ready: function() {
-          //console.log('Flickity ready event fired');
-          // Log state after Flickity initialization
-          slides.forEach((slide, i) => {
-            //console.log(`Slide ${i} post-init opacity:`, getComputedStyle(slide).opacity);
-            //console.log(`Slide ${i} post-init visibility:`, getComputedStyle(slide).visibility);
-            //console.log(`Slide ${i} post-init display:`, getComputedStyle(slide).display);
-          });
-        }
-      }
+      pauseAutoPlayOnHover: true
     });
+
+    // Enable/disable autoplay based on setting
+    if (!autoplay) {
+      flkty.stopPlayer();
+    }
 
     // Function to calculate and set heights
     const calculateHeights = () => {
