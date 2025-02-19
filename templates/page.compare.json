@@ -63,7 +63,7 @@
         "img {object-position: bottom center !important;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
-        "@media (max-width:480px){}"
+        "@media (max-width: 480px) {.hero__content {color:#000; }}"
       ],
       "settings": {
         "autoplay": false,
