@@ -274,6 +274,16 @@
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .backdrop--hero:before {
       display: none;
     }
+    #shopify-section-{{ section.id }} .section-slideshow .flickity-page-dots {
+      right: 50%;
+      transform: translateX(50%);
+      bottom: 5px;
+    }
+    #shopify-section-{{ section.id }} .flickity-badge-dots .flickity-page-dots .flickity-page-dot.is-selected{
+      width: 20px;
+    border-radius: 10px;
+    transition: 0.3s;
+    }
   }
 
   /* Handle video resizing for all screen sizes */
