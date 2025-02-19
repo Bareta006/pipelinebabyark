@@ -34,6 +34,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Group_29613109_1.png",
+            "mobile_image": "shopify://shop_images/image_43.png",
             "overlay_opacity": 30,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -61,13 +62,14 @@
         ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         "img {object-position: bottom center !important;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
-        ".custom-prev-next-button {display: none;}"
+        ".custom-prev-next-button {display: none;}",
+        "@media (max-width:480px){}"
       ],
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
         "preload_first_image": true,
-        "height": "use_screen_full",
+        "height": "use_image",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
@@ -103,6 +105,8 @@
         "mobile_text": "",
         "mobile_button_html": "",
         "mobile_button_link": "",
+        "mobile_button_html_2": "",
+        "mobile_button_link_2": "",
         "left_box_justify": "flex-start",
         "left_box_align": "flex-end",
         "left_box_text_align": "left",
@@ -142,6 +146,8 @@
         "mobile_text": "",
         "mobile_button_html": "",
         "mobile_button_link": "",
+        "mobile_button_html_2": "",
+        "mobile_button_link_2": "",
         "left_box_justify": "flex-start",
         "left_box_align": "flex-end",
         "left_box_text_align": "left",
@@ -287,7 +293,7 @@
       "type": "apps",
       "blocks": {
         "tolstoy_shoppable_video_ugc_carousel_block_4kzCFt": {
-          "type": "shopify://apps/tolstoy-shoppable-video-ugc/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
             "publishId": "xv6zpinlwpm0j"
           }
