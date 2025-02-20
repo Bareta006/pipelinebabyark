@@ -121,7 +121,7 @@
     "flexbox_image_content_PqTF8w": {
       "type": "flexbox-image-content",
       "custom_css": [
-        ".mobile-content-box{background-color:extra-cond}"
+        ".mobile-content-box {background-color: extra-cond;}"
       ],
       "settings": {
         "desktop_image": "shopify://shop_images/image_3a906b70-a9f2-4fb5-bf13-5f071f8ac416.png",
@@ -280,6 +280,7 @@
       ],
       "settings": {
         "image": "shopify://shop_images/Bundles_Accessories_Homepage_4.png",
+        "mobile_image": "shopify://shop_images/image_46.png",
         "height": "use_screen_full",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
