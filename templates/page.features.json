@@ -59,7 +59,6 @@
       ],
       "custom_css": [
         ".hero__content {width: 510px; max-width: 100%;}",
-        ".flickity-viewport {height: 100vh !important;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}"
       ],
@@ -104,7 +103,8 @@
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
-        ".custom-prev-next-button {display: none;}"
+        ".custom-prev-next-button {display: none;}",
+        ".flickity-viewport {height: 100vh !important;}"
       ],
       "settings": {
         "autoplay": true,
