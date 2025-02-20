@@ -47,7 +47,7 @@
   --CONTENT-WIDTH: {{ section.settings.content_width }}px;">
   <div class="{{ section.settings.width }} section-padding">
     <div class="section__inner">
-      <div class="hero__content__wrapper {{ section.settings.text_align }}">
+      <div class="hero__content__wrapper {{ section.settings.text_align }} {% if section.settings.special_arrange == true %}specialArrange{% endif %}">
         {% for block in section.blocks %}
           {% case block.type %}
           {% when 'floating_text1' %}
@@ -405,6 +405,12 @@
       "unit": "px",
       "label": "Padding bottom",
       "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "special_arrange",
+      "label": "Special arrange",
+      "default": false
     }
   ],
   "blocks": [
