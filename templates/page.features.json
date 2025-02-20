@@ -104,7 +104,8 @@
         ".hero__content {width: 477px; max-width: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
-        ".flickity-viewport {height: 100vh !important;}"
+        ".flickity-viewport {height: 100vh !important;}",
+        "@media (max-width:480px){.flickity-viewport {height: inherit !important;}}"
       ],
       "settings": {
         "autoplay": true,
