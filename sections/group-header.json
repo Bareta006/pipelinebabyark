@@ -116,6 +116,9 @@
         "header-block-image-2",
         "header-block-image-3"
       ],
+      "custom_css": [
+        "@media (max-width:480px){.logo__img{width:100%; }}"
+      ],
       "settings": {
         "header_style": "menu_center",
         "logo": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
