@@ -191,7 +191,7 @@
       "settings": {
         "desktop_image": "shopify://shop_images/Container_b7adf802-f99b-4bfe-a485-70dc6e5428f9.png",
         "mobile_image": "shopify://shop_images/image_39.png",
-        "section_height": "100vh",
+        "height": "use_image",
         "desktop_padding_top": 0,
         "desktop_padding_bottom": 79,
         "desktop_side_padding": 71,
