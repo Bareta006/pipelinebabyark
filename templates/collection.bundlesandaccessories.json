@@ -206,7 +206,8 @@
       ],
       "settings": {
         "image": "shopify://shop_images/image_16.png",
-        "height": "use_screen_full",
+        "mobile_image": "shopify://shop_images/image_48.png",
+        "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": true,
