@@ -115,7 +115,7 @@
             "link": "/pages/safety/?view=compare",
             "button_color": "btn--white",
             "button_style": "btn--outline",
-            "mobile_background_color": "#ffffff"
+            "mobile_background_color": "#1d1d1d"
           }
         },
         "image_KVVGeA": {
@@ -199,7 +199,7 @@
         "autoplay": true,
         "autoplay_speed": 4,
         "preload_first_image": true,
-        "height": "use_screen_full",
+        "height": "use_image",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
