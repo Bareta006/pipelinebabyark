@@ -149,7 +149,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_hero_acdjLN": {
@@ -218,7 +219,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": true
       }
     },
     "section_hero_rQHDeJ": {
@@ -286,7 +288,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_hero_Urjg43": {
@@ -354,7 +357,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_collection_slider_ecwqWf": {
