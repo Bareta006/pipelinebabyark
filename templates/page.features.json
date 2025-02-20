@@ -73,50 +73,6 @@
         "padding_bottom": 0
       }
     },
-    "section_slideshow_fqUypB": {
-      "type": "section-slideshow",
-      "blocks": {
-        "video_slide_BkNktt": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/Top page short-_d5ad08d6-196a-40f6-9e5e-1e8e5d607d1e.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 35,
-            "overlay_color": "#000000",
-            "enable_overlay_text": true,
-            "kicker": "",
-            "title": "Hassle free installation",
-            "richtext": "<p>The seat's base, paired via Bluetooth with the app, guides you with simple, step-by-step instructions and visual confirmation all along the way.</p>",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "shop babyark",
-            "link": "/pages/safety/?view=compare",
-            "button_color": "btn--white",
-            "button_style": "btn--outline",
-            "mobile_background_color": "#1d1d1d"
-          }
-        }
-      },
-      "block_order": [
-        "video_slide_BkNktt"
-      ],
-      "custom_css": [
-        ".hero__content {width: 477px; max-width: 100%;}",
-        ".slideshow__wrapper > div:last-child {opacity: 0;}",
-        ".custom-prev-next-button {display: none;}",
-        "@media (min-width:992px){.flickity-viewport {height: 100vh !important;}}"
-      ],
-      "settings": {
-        "autoplay": true,
-        "autoplay_speed": 8,
-        "preload_first_image": true,
-        "height": "use_image",
-        "color_bg": "palette--light bg--accent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_slideshow_aTWgVr": {
       "type": "section-slideshow",
       "blocks": {
@@ -245,6 +201,50 @@
         "preload_first_image": true,
         "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_slideshow_fqUypB": {
+      "type": "section-slideshow",
+      "blocks": {
+        "video_slide_BkNktt": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/Top page short-_d5ad08d6-196a-40f6-9e5e-1e8e5d607d1e.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 35,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "kicker": "",
+            "title": "Hassle free installation",
+            "richtext": "<p>The seat's base, paired via Bluetooth with the app, guides you with simple, step-by-step instructions and visual confirmation all along the way.</p>",
+            "text_align": "align--bottom-left",
+            "text_color": "text--white",
+            "link_text": "shop babyark",
+            "link": "/pages/safety/?view=compare",
+            "button_color": "btn--white",
+            "button_style": "btn--outline",
+            "mobile_background_color": "#1d1d1d"
+          }
+        }
+      },
+      "block_order": [
+        "video_slide_BkNktt"
+      ],
+      "custom_css": [
+        ".hero__content {width: 477px; max-width: 100%;}",
+        ".slideshow__wrapper > div:last-child {opacity: 0;}",
+        ".custom-prev-next-button {display: none;}",
+        "@media (min-width: 992px) {.flickity-viewport {height: 100vh !important; }}"
+      ],
+      "settings": {
+        "autoplay": true,
+        "autoplay_speed": 8,
+        "preload_first_image": true,
+        "height": "use_image",
+        "color_bg": "palette--light bg--accent",
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
@@ -453,8 +453,8 @@
   "order": [
     "main",
     "section_slideshow_PyKDCG",
-    "section_slideshow_fqUypB",
     "section_slideshow_aTWgVr",
+    "section_slideshow_fqUypB",
     "section_slideshow_a6tmiQ",
     "section_slideshow_XEiRPG"
   ]
