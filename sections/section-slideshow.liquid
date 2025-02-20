@@ -220,9 +220,21 @@
     height: 100%;
   }
 
-  /* Fix for single video slide height */
+  /* Fix for Flickity viewport height */
   #shopify-section-{{ section.id }} .slideshow__wrapper {
     min-height: 400px; /* Fallback minimum height */
+  }
+  
+  #shopify-section-{{ section.id }} .slideshow__wrapper .flickity-viewport {
+    height: 100% !important; /* Force viewport height */
+  }
+
+  #shopify-section-{{ section.id }} .slideshow__wrapper.is-draggable {
+    min-height: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .slideshow__wrapper .flickity-viewport > .flickity-slider {
+    height: 100%;
   }
 
   #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_full {
@@ -256,7 +268,10 @@
   @media only screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .slideshow__wrapper {
       height: auto !important;
-      min-height: unset;
+    }
+
+    #shopify-section-{{ section.id }} .slideshow__wrapper .flickity-viewport {
+      height: auto !important;
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video {
@@ -815,6 +830,14 @@ document.addEventListener('DOMContentLoaded', function() {
   if (slideshowWrapper) {
     const heightClass = '{{ section.settings.height }}';
     slideshowWrapper.classList.add(heightClass);
+    
+    // Force Flickity to recalculate heights
+    setTimeout(() => {
+      const flkty = Flickity.data(slideshowWrapper);
+      if (flkty) {
+        flkty.resize();
+      }
+    }, 100);
   }
   
   videoSlides.forEach(slide => {
