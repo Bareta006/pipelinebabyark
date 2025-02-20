@@ -34,26 +34,6 @@
         "padding_bottom_text": 0
       }
     },
-    "subcollections": {
-      "type": "collection-sub",
-      "disabled": true,
-      "settings": {
-        "subcollections": [],
-        "limit": 6,
-        "color_bg": "palette--light bg--neutral",
-        "text_color": "text--white",
-        "text_align": "align--middle-center",
-        "select_image": "collection",
-        "bg_position": "center-center",
-        "wh_ratio": 1.7,
-        "overlay_opacity": 20,
-        "overlay_color": "#000000",
-        "grid_mobile": 1.2,
-        "width": "wrapper",
-        "padding_top": 20,
-        "padding_bottom": 0
-      }
-    },
     "main": {
       "type": "collection",
       "blocks": {
@@ -377,16 +357,36 @@
         "padding_top": 70,
         "padding_bottom": 70
       }
+    },
+    "subcollections": {
+      "type": "collection-sub",
+      "disabled": true,
+      "settings": {
+        "subcollections": [],
+        "limit": 6,
+        "color_bg": "palette--light bg--neutral",
+        "text_color": "text--white",
+        "text_align": "align--middle-center",
+        "select_image": "collection",
+        "bg_position": "center-center",
+        "wh_ratio": 1.7,
+        "overlay_opacity": 20,
+        "overlay_color": "#000000",
+        "grid_mobile": 1.2,
+        "width": "wrapper",
+        "padding_top": 20,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
-    "hero",
-    "subcollections",
-    "main",
     "section_hero_77iTgn",
     "section_hero_acdjLN",
     "section_hero_rQHDeJ",
     "section_hero_Urjg43",
-    "section_collection_slider_ecwqWf"
+    "section_collection_slider_ecwqWf",
+    "subcollections",
+    "hero",
+    "main"
   ]
 }
