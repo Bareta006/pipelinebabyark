@@ -110,7 +110,7 @@
         "autoplay_speed": 8,
         "preload_first_image": false,
         "height": "use_image",
-        "color_bg": "palette--light bg--neutral",
+        "color_bg": "palette--light bg--accent",
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
