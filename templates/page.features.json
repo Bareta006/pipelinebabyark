@@ -95,10 +95,30 @@
             "button_style": "btn--outline",
             "mobile_background_color": "#1d1d1d"
           }
+        },
+        "video_slide_M4zPJy": {
+          "type": "video_slide",
+          "settings": {
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Video slide",
+            "richtext": "<p>Tell your brand's story through video.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn",
+            "mobile_background_color": "#ffffff"
+          }
         }
       },
       "block_order": [
-        "video_slide_BkNktt"
+        "video_slide_BkNktt",
+        "video_slide_M4zPJy"
       ],
       "custom_css": [
         ".hero__content {width: 477px; max-width: 100%;}",
