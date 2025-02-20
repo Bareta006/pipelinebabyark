@@ -220,43 +220,9 @@
     height: 100%;
   }
 
-  /* Fix for single video slide height */
-  #shopify-section-{{ section.id }} .slideshow__wrapper {
-    min-height: 400px; /* Fallback minimum height */
-  }
-
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_full {
-    min-height: 100vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_three_quarters {
-    min-height: 75vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_two_thirds {
-    min-height: 66.66vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_one_half {
-    min-height: 50vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_one_third {
-    min-height: 33.33vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_screen_one_fifth {
-    min-height: 20vh;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_pixels_800 {
-    min-height: 800px;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_pixels_650 {
-    min-height: 650px;
-  }
-  #shopify-section-{{ section.id }} .slideshow__wrapper.use_pixels_500 {
-    min-height: 500px;
-  }
-
   @media only screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .slideshow__wrapper {
       height: auto !important;
-      min-height: unset;
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video {
@@ -265,7 +231,6 @@
       position: relative;
       height: auto !important;
       min-height: unset !important;
-      background-color: var(--mobile-bg-color, transparent);
     }
 
     #shopify-section-{{ section.id }} .slideshow__slide.section--video .section--video {
@@ -316,8 +281,8 @@
     }
     #shopify-section-{{ section.id }} .flickity-badge-dots .flickity-page-dots .flickity-page-dot.is-selected{
       width: 20px;
-      border-radius: 10px;
-      transition: 0.3s;
+    border-radius: 10px;
+    transition: 0.3s;
     }
   }
 
@@ -809,18 +774,13 @@
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const videoSlides = document.querySelectorAll('.slideshow__slide.section--video');
-  const slideshowWrapper = document.querySelector('.slideshow__wrapper');
-  
-  // Apply height class from section settings to wrapper
-  if (slideshowWrapper) {
-    const heightClass = '{{ section.settings.height }}';
-    slideshowWrapper.classList.add(heightClass);
-  }
-  
   videoSlides.forEach(slide => {
     const bgColor = slide.getAttribute('data-mobile-bg-color');
+    const bgOpacity = slide.getAttribute('data-mobile-bg-opacity');
+    
     if (bgColor) {
-      slide.style.setProperty('--mobile-bg-color', bgColor);
+      const color = bgColor.replace(')', `, ${bgOpacity/100})`).replace('rgb', 'rgba');
+      slide.style.setProperty('--mobile-bg-color', color);
     }
   });
 });
