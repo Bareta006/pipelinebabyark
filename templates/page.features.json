@@ -109,7 +109,7 @@
         "autoplay": false,
         "autoplay_speed": 8,
         "preload_first_image": false,
-        "height": "use_screen_full",
+        "height": "use_image",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
