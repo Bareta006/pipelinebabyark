@@ -54,7 +54,8 @@
         "button_tRbMmK"
       ],
       "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
+        "@media (min-width:992px){.text__standard {width: 480px; max-width: 100%;}}",
+        "@media (max-width:480px){.text__standard {text-align:center;}}"
       ],
       "settings": {
         "image": "shopify://shop_images/Bundles_Accessories_1.png",
