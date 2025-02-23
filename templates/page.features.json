@@ -462,7 +462,7 @@
     "section_liquid_4EXM8z": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n@media (max-width:480px){\n.hero__content__wrapper{\n    align-items: flex-end;\n    justify-content: flex-start;\n    text-align: left;\n}\n.hero__content \n .hero__cta__wrapper{\nalign-items:start;\n}\n}\n</style>"
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.hero__content__wrapper{\n    align-items: flex-end;\n    justify-content: flex-start;\n    text-align: left;\n}\n.hero__content \n .hero__cta__wrapper{\nalign-items:start;\n}\n.hero__description p{\nfont-size:16px;\nline-height:1.2;}\n}\n</style>"
       }
     }
   },
