@@ -202,7 +202,7 @@
       "settings": {
         "mobile_special_arrange": true,
         "image": "shopify://shop_images/image_17.png",
-        "height": "use_screen_full",
+        "height": "use_image",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
@@ -272,7 +272,7 @@
       "settings": {
         "mobile_special_arrange": true,
         "image": "shopify://shop_images/image_23.png",
-        "height": "use_screen_full",
+        "height": "use_image",
         "overlay_opacity": 0,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
