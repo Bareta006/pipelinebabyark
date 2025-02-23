@@ -79,6 +79,14 @@
     "section_hero_acdjLN": {
       "type": "section-hero",
       "blocks": {
+        "kicker_nAhkV3": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "",
+            "enable_line": false,
+            "text_size": 4
+          }
+        },
         "heading_N3r96m": {
           "type": "heading",
           "settings": {
@@ -120,6 +128,7 @@
         }
       },
       "block_order": [
+        "kicker_nAhkV3",
         "heading_N3r96m",
         "floating_text1_GYqMPU",
         "floating_text2_T6rDRE",
