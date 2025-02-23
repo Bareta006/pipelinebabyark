@@ -80,6 +80,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_26.png",
+            "mobile_image": "shopify://shop_images/Safety_first._Always..png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -122,6 +123,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_25.png",
+            "mobile_image": "shopify://shop_images/Side_impact_protection.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -144,6 +146,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Front_Load_Leg_Anti-Rebound_Bar.jpg",
+            "mobile_image": "shopify://shop_images/Your_safety_favorites.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -258,9 +261,10 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_36.png",
-            "overlay_opacity": 0,
+            "mobile_image": "shopify://shop_images/Smart_and_Connected.png",
+            "overlay_opacity": 25,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "enable_overlay_text": true,
             "kicker": "",
             "title": "Smart and connected",
             "richtext": "",
