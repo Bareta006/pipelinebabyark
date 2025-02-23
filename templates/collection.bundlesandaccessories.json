@@ -58,6 +58,7 @@
         "@media (max-width: 480px) {.text__standard {text-align: center; }}"
       ],
       "settings": {
+        "mobile_special_arrange": false,
         "image": "shopify://shop_images/Bundles_Accessories_1.png",
         "mobile_image": "shopify://shop_images/image_47.png",
         "height": "use_image",
@@ -128,6 +129,7 @@
         "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}"
       ],
       "settings": {
+        "mobile_special_arrange": true,
         "image": "shopify://shop_images/image_16.png",
         "mobile_image": "shopify://shop_images/image_48.png",
         "height": "use_image",
@@ -198,6 +200,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
+        "mobile_special_arrange": true,
         "image": "shopify://shop_images/image_17.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
@@ -267,6 +270,7 @@
         ".text__standard {width: 480px; max-width: 100%;}"
       ],
       "settings": {
+        "mobile_special_arrange": true,
         "image": "shopify://shop_images/image_23.png",
         "height": "use_screen_full",
         "overlay_opacity": 0,
