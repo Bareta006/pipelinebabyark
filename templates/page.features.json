@@ -373,6 +373,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_27.png",
+            "mobile_image": "shopify://shop_images/Magnetic_Harness_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -395,6 +396,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_28.png",
+            "mobile_image": "shopify://shop_images/Changeable_covers.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -417,6 +419,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/image_29.png",
+            "mobile_image": "shopify://shop_images/Detachable_base.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
