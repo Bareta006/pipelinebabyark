@@ -350,6 +350,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Resize_1.png",
+            "mobile_image": "shopify://shop_images/Con_and_comfort.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
