@@ -54,8 +54,8 @@
         "button_tRbMmK"
       ],
       "custom_css": [
-        "@media (min-width:992px){.text__standard {width: 480px; max-width: 100%;}}",
-        "@media (max-width:480px){.text__standard {text-align:center;}}"
+        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}",
+        "@media (max-width: 480px) {.text__standard {text-align: center; }}"
       ],
       "settings": {
         "image": "shopify://shop_images/Bundles_Accessories_1.png",
@@ -125,7 +125,8 @@
         "button_JaYLCj"
       ],
       "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
+        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}",
+        "@media (max-width: 480px) {.hero__content {text-align: center; height: 100%; } .text__standard {height: 100%; width: 100%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }}"
       ],
       "settings": {
         "image": "shopify://shop_images/image_16.png",
