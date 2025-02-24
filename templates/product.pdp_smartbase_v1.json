@@ -521,7 +521,7 @@
       "settings": {
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "width": "wrapper",
+        "width": "wrapper--none",
         "padding_top": 36,
         "padding_bottom": 36
       }
