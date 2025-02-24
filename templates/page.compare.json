@@ -79,7 +79,7 @@
     "flexbox_image_content_MnpxaF": {
       "type": "flexbox-image-content",
       "custom_css": [
-        "@media (max-width: 480px) {section {padding-bottom: 0 !important; }}"
+        "@media (max-width: 480px) {section {padding-bottom: 0 !important; } .mobile-content-box{background-color:transparent }}"
       ],
       "settings": {
         "desktop_image": "shopify://shop_images/image_9c340b05-e67a-471c-a01b-19fb6785b0e4.png",
@@ -124,7 +124,7 @@
     "flexbox_image_content_PqTF8w": {
       "type": "flexbox-image-content",
       "custom_css": [
-        "@media (max-width:480px){section{padding-bottom:0 !important; } }"
+        "@media (max-width: 480px) {section {padding-bottom: 0 !important; } .mobile-content-box {background-color: transparent; }}"
       ],
       "settings": {
         "desktop_image": "shopify://shop_images/image_3a906b70-a9f2-4fb5-bf13-5f071f8ac416.png",
