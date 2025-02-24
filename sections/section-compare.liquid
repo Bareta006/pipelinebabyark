@@ -77,7 +77,7 @@
   padding: 10px 0;
 }
 .comparison-row .featureName{
-  font-size: 15px;
+  font-size: 14px;
 }
     .features-column {
       margin: 20px 0;
@@ -251,7 +251,7 @@
                     {% if section.blocks[0].settings.product_atc %}
                       <a style="cursor:pointer;" onClick="productPageAtc();" class="linktopage atc">Add To Cart</a>
                     {% else %}
-                      <a href="{{ first_product.url }}?view=pdp_smart_v1" class="btn--outline linktopage">Shop</a>
+                      <a href="{{ first_product.url }}?view=pdp_smart_v1" class="btn--outline linktopage">Buy</a>
                     {% endif %}
                   </div>
                 {% endif %}
@@ -261,7 +261,7 @@
                     {% if section.blocks[1].settings.product_atc %}
                       <a style="cursor:pointer;" onClick="productPageAtc();" class="linktopage atc">Add To Cart</a>
                     {% else %}
-                      <a href="{{ second_product.url }}?view=pdp_smart_v1" class="linktopage btn--outline ">Shop</a>
+                      <a href="{{ second_product.url }}?view=pdp_smart_v1" class="linktopage btn--outline ">Buy</a>
                     {% endif %}
                   </div>
                 {% endif %}
