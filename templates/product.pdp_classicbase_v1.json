@@ -141,12 +141,12 @@
             "title_1": "Information",
             "icon_name_1": "",
             "raw_content_1": "",
-            "title_2": "FEATURES",
+            "title_2": "The Perfect Fit",
             "icon_name_2": "",
-            "raw_content_2": "<ul><li>Premium, natural flame-resistant, no chemicals added</li><li>Zippers for easy replacement</li><li>Machine washable</li><li>Magnetic straps for easy placement of the child</li></ul>",
-            "title_3": "WARRANTY",
+            "raw_content_2": "<p>The Classic Base is the perfect solution for parents who have already purchased a babyark and either have a second car or are expecting an additional child. It saves you both the cost of getting another car seat, and saves you the hassle of having to install it</p>",
+            "title_3": "Features & Benefits",
             "icon_name_3": "",
-            "raw_content_3": "<p>The warranty provides 12 months of coverage.<strong> </strong></p>",
+            "raw_content_3": "<p>SafeCoil impact-activated shock-absorbing technologyThe only convertible car seat with all three:</p><ol><li>Rigid Latch</li><li>Anti-Rebound Bar to prevent rebound rotation</li><li>Front Supporting Leg to prevent forward rotation.</li></ol><p>Same installation for both front and rear facing positions</p><p>No expiry date</p><p>Inside the box: Classic base, Lower Anchors Funnels (Guides</p>",
             "title_4": "User Manual",
             "icon_name_4": "",
             "raw_content_4": "<p><a href=\"https://cdn.shopify.com/s/files/1/0552/2135/4567/files/User-Manual-babyark.pdf\" title=\"https://cdn.shopify.com/s/files/1/0552/2135/4567/files/User-Manual-babyark.pdf\">Download our user manual </a>(See section on fabric cover replacement)</p><p>To change the cover just follow the instructions that appear in the user manual.</p>",
@@ -264,7 +264,7 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.Two bases.",
+            "title": "One seat.<br>Two bases.",
             "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
             "font_size": 5,
             "text_columns": 1,
@@ -290,7 +290,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -332,7 +332,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -343,8 +343,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.Two bases.",
-            "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
+            "title": "SafeCoil ™ impact-activated shock-absorbing technology",
+            "text": "<p>Twin steel coils, calibrated to the baby’s weight, extend from their compressed mode upon impact, breaking the forward momentum to provide optimal head and body protection</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -408,7 +408,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -422,65 +422,6 @@
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_double_PPYQqN": {
-      "type": "section-double",
-      "blocks": {
-        "video_VW3Mda": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text_EtTRkE": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "ACTV8™ Smart Base",
-            "text": "<p>Equipped with 14 sensors, the system provides parents with simple, step-by-step instructions for foolproof installation as well as real-time alerts and notifications.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        }
-      },
-      "block_order": [
-        "video_VW3Mda",
-        "text_EtTRkE"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -535,7 +476,6 @@
     "section_double_7zHKFb",
     "section_double_jyKnAh",
     "section_double_wxmfB6",
-    "section_double_PPYQqN",
     "section_liquid_BVfpcw",
     "1740406995b34af773"
   ]
