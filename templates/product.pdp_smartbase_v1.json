@@ -309,7 +309,7 @@
         "height": "use_screen_full",
         "brick_gutter": 0,
         "borders": false,
-        "bg_color": "",
+        "bg_color": "#f7f5f4",
         "preload_image": false,
         "width": "wrapper--none",
         "padding_top": 0,
@@ -374,6 +374,71 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_double_wxmfB6": {
+      "type": "section-double",
+      "blocks": {
+        "text_inNXph": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The ANKR™ rigid no-flex system",
+            "text": "<p>The system secures and anchors the seat upon impact through its 3 complementary components; the stabilizing support leg, the anti-rebound bar and the lower LATCH. </p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "video_QA9HYh": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_inNXph",
+        "video_QA9HYh"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_liquid_BVfpcw": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
+      }
     }
   },
   "order": [
@@ -382,6 +447,8 @@
     "related",
     "section_liquid_jFhBqR",
     "section_double_7zHKFb",
-    "section_double_jyKnAh"
+    "section_double_jyKnAh",
+    "section_double_wxmfB6",
+    "section_liquid_BVfpcw"
   ]
 }
