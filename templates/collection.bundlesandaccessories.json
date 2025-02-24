@@ -309,7 +309,7 @@
         "grid_large": 4,
         "grid_medium": 3,
         "grid_mobile": 1.2,
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "width": "wrapper",
         "padding_top": 70,
         "padding_bottom": 70
