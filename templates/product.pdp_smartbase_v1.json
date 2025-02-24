@@ -256,12 +256,72 @@
       "settings": {
         "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
       }
+    },
+    "section_double_7zHKFb": {
+      "type": "section-double",
+      "blocks": {
+        "text_pWzDd9": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "One seat.<br>Two bases.",
+            "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "video_Gkbx6R": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
+            "object_position": "center-center",
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_pWzDd9",
+        "video_Gkbx6R"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "section_liquid_3BhB6X",
     "main",
     "related",
-    "section_liquid_jFhBqR"
+    "section_liquid_jFhBqR",
+    "section_double_7zHKFb"
   ]
 }
