@@ -60,6 +60,7 @@
     "color_badge_text": "#424242",
     "product_grid_show_rating": false,
     "product_grid_show_rating_count": false,
+    "badge_sale_type": "dollar",
     "cart_style": "drawer",
     "social_facebook_link": "https://www.facebook.com/babyarkusa",
     "social_instagram_link": "https://www.instagram.com/getbabyark/",
