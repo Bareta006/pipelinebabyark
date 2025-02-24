@@ -80,13 +80,6 @@
             "price_selector": ""
           }
         },
-        "text_mGRjzf": {
-          "type": "text",
-          "settings": {
-            "title": "<p><strong>Note: This base is compatible with both the Smart and Classic car seats</strong></p>",
-            "padding_bottom": 10
-          }
-        },
         "buttons": {
           "type": "add-buttons",
           "settings": {
@@ -200,7 +193,6 @@
         "subscriptions",
         "quantity",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
-        "text_mGRjzf",
         "buttons",
         "icon_Yedxbi",
         "icon_EC9RhA",
