@@ -562,83 +562,9 @@
         "padding_bottom": 0
       }
     },
-    "image-with-text-2": {
-      "type": "section-double",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Group_29613102_1.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        }
-      },
-      "block_order": [
-        "image",
-        "text"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
-      ],
-      "settings": {
-        "height": "use_image",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "text_7hmDhz": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "The fabric",
-            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
         "video_P9J8Vf": {
           "type": "video",
           "settings": {
@@ -658,14 +584,31 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "text_7hmDhz": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The fabric",
+            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
         }
       },
       "block_order": [
-        "text_7hmDhz",
-        "video_P9J8Vf"
+        "video_P9J8Vf",
+        "text_7hmDhz"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -763,7 +706,6 @@
     "section_double_new_U8Re4G",
     "section_double_LJxgJN",
     "section_double_wMxLWV",
-    "image-with-text-2",
     "section_double_kUy7cV",
     "17388565930c97fe0d",
     "1738783691b78546c1",
