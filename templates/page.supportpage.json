@@ -58,7 +58,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-basket-return",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
             "link_text": "FAQ",
@@ -69,10 +69,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
-            "link_text": "User Manualls",
+            "link_text": "User Manuals",
             "link_url": ""
           }
         },
@@ -80,10 +80,10 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-phone",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
-            "link_text": "Contact us",
+            "link_text": "Contact Us",
             "link_url": ""
           }
         },
@@ -91,7 +91,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-leaf",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
             "link_text": "Compliance",
@@ -102,7 +102,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-leaf",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
             "link_text": "Warranty",
@@ -113,7 +113,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-leaf",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "",
             "link_text": "Product Registration",
@@ -133,7 +133,7 @@
         ".icon__column {display: flex; align-items: center; justify-content: center; width: auto; margin: 30px auto; height: auto;}",
         ".icon__column__icon {display: none;}",
         ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; border: 1px solid;}",
-        ".icon__column__text a:hover{background-color:#efefef;}",
+        ".icon__column__text a:hover {background-color: #efefef;}",
         ".text-link-bare:after {display: none;}"
       ],
       "settings": {
