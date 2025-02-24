@@ -31,7 +31,7 @@
         "text_H9zhjy": {
           "type": "text",
           "settings": {
-            "title": "<p>Just like your sofa, it’s always good to have a plan B when it comes to your seat cover. Whether the first one is in the wash or you simply want a fresh look for your little one. </p>",
+            "title": "<p>Featuring 14 safety sensors and the innovative SafeCoil ™ shock-absorbing technology</p>",
             "padding_bottom": 20
           }
         },
@@ -78,6 +78,13 @@
             "logo_type": "logo",
             "public_api_key": "",
             "price_selector": ""
+          }
+        },
+        "text_mGRjzf": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Note: This base is compatible with both the Smart and Classic car seats</strong></p>",
+            "padding_bottom": 10
           }
         },
         "buttons": {
@@ -193,6 +200,7 @@
         "subscriptions",
         "quantity",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "text_mGRjzf",
         "buttons",
         "icon_Yedxbi",
         "icon_EC9RhA",
