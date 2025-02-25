@@ -80,11 +80,10 @@
             "price_selector": ""
           }
         },
-        "text_mGRjzf": {
-          "type": "text",
+        "liquid_WkJHEM": {
+          "type": "liquid",
           "settings": {
-            "title": "<p><strong>Note: This base is compatible with both the Smart and Classic car seats</strong></p>",
-            "padding_bottom": 10
+            "custom_liquid": "<div id=\"specialMsg\"><b class=\"flex gap-0\"></b></div>\n\n\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n    const seatRadios = document.querySelectorAll('input[name=\"babyark Convertible Car Seat - Premium (Color)\"]');\n    const cupHolderRadios = document.querySelectorAll('input[name=\"The babyark Cup Holder (Color)\"]');\n    const specialMsg = document.querySelector('#specialMsg b');\n\n    function checkBaseColor() {\n        // Get the selected seat option\n        const selectedSeat = document.querySelector('input[name=\"babyark Convertible Car Seat - Premium (Color)\"]:checked').value;\n        // Extract the base color from the seat option (first part before ' / ') and make it lowercase\n        const seatBaseColor = selectedSeat.split(' / ')[0].toLowerCase();\n\n        // Get the selected cup holder option and make it lowercase\n        const selectedCupHolder = document.querySelector('input[name=\"The babyark Cup Holder (Color)\"]:checked').value.toLowerCase();\n\n        // Compare the base color and the cup holder color (case-insensitive)\n        if (seatBaseColor !== selectedCupHolder) {\n            // If different, show the message with the icon\n            specialMsg.innerHTML = `\n                <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                    <path d=\"M10.0003 18.3332C14.6027 18.3332 18.3337 14.6022 18.3337 9.99984C18.3337 5.39746 14.6027 1.6665 10.0003 1.6665C5.39795 1.6665 1.66699 5.39746 1.66699 9.99984C1.66699 14.6022 5.39795 18.3332 10.0003 18.3332Z\" fill=\"#E7B264\"/>\n                    <path d=\"M10 6.6665V9.99984\" stroke=\"#304545\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    <path d=\"M10 13.3335H10.0083\" stroke=\"#304545\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                </svg>\n                <span>Note: Cup holder and seat color do not match.</span>\n            `;\n        } else {\n            // If the same, clear the message\n            specialMsg.innerHTML = '';\n        }\n    }\n\n    // Attach event listeners to both sets of radio buttons\n    seatRadios.forEach(radio => radio.addEventListener('change', checkBaseColor));\n    cupHolderRadios.forEach(radio => radio.addEventListener('change', checkBaseColor));\n\n    // Initial check in case of pre-selected values\n    checkBaseColor();\n});\n</script>\n\n<style>\n#specialMsg svg{\nwidth:40px;}\n@media (min-width:1140px){\n.image-with-text-new .iwt-image{\nmin-height:90vh;\n}\n.image-with-text-new .iwt-image> .relative{\npadding-bottom:90vh;\n}\n.image-with-text-new .iwt-image> .relative > div{\nmin-height:90vh}\n}\n@media (max-width:480px){\n\n.image-with-text-new .iwt-image{\nmin-height:100vw;\n}\n.image-with-text-new .iwt-image> .relative{\npadding-bottom:100vw;\n}\n.image-with-text-new .iwt-image> .relative > div{\nmin-height:100vw}\n}\n}\n</style>"
           }
         },
         "buttons": {
@@ -200,7 +199,7 @@
         "subscriptions",
         "quantity",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
-        "text_mGRjzf",
+        "liquid_WkJHEM",
         "buttons",
         "icon_Yedxbi",
         "icon_EC9RhA",
