@@ -256,65 +256,6 @@
         "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
       }
     },
-    "section_double_7zHKFb": {
-      "type": "section-double",
-      "blocks": {
-        "text_pWzDd9": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "One seat.Two bases.",
-            "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        },
-        "video_Gkbx6R": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "text_pWzDd9",
-        "video_Gkbx6R"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "#f7f5f4",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_double_jyKnAh": {
       "type": "section-double",
       "blocks": {
@@ -342,8 +283,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.Two bases.",
-            "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
+            "title": "SafeCoil™Impact-Activated Shock Absorption",
+            "text": "<p>Twin steel coils, calibrated to the baby’s weight, extend from their compressed mode upon impact, breaking the forward momentum to provide optimal head and body protection</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -381,8 +322,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "The ANKR™ rigid no-flex system",
-            "text": "<p>The system secures and anchors the seat upon impact through its 3 complementary components; the stabilizing support leg, the anti-rebound bar and the lower LATCH. </p>",
+            "title": "The Car Seat Cover",
+            "text": "<ul><li>Premium, naturally flame-resistant, no chemicals added</li><li>Magnetic straps for easy placement of the child</li><li>Zippers for easy replacement</li><li>Machine washable</li></ul>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -397,7 +338,7 @@
         "video_QA9HYh": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "video_bg": "shopify://files/videos/cover removal AND magnetic straps_New_44bcca07-a30c-4019-91fa-c5ce88abcde0.mp4",
             "object_position": "center-center",
             "video_link": "",
             "popup_text": "",
@@ -421,65 +362,6 @@
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_double_PPYQqN": {
-      "type": "section-double",
-      "blocks": {
-        "video_VW3Mda": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text_EtTRkE": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "ACTV8™ Smart Base",
-            "text": "<p>Equipped with 14 sensors, the system provides parents with simple, step-by-step instructions for foolproof installation as well as real-time alerts and notifications.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
-          }
-        }
-      },
-      "block_order": [
-        "video_VW3Mda",
-        "text_EtTRkE"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -537,10 +419,8 @@
     "main",
     "related",
     "section_liquid_jFhBqR",
-    "section_double_7zHKFb",
     "section_double_jyKnAh",
     "section_double_wxmfB6",
-    "section_double_PPYQqN",
     "section_liquid_BVfpcw",
     "section_liquid_KWtGT3",
     "1740406995b34af773"
