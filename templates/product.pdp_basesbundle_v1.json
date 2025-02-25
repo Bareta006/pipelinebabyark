@@ -262,7 +262,7 @@
         "video_qAzq7k": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
+            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
             "object_position": "center-center",
             "video_link": "",
             "popup_text": "",
@@ -283,8 +283,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "Smart Base",
-            "text": "<p>Equipped with 14 sensors, the system provides parents with simple, step-by-step instructions for foolproof installation as well as real-time alerts and notifications.</p>",
+            "title": "One seat. Two bases.",
+            "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks’. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -322,8 +322,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "The Car Seat Cover",
-            "text": "<ul><li>Premium, naturally flame-resistant, no chemicals added</li><li>Magnetic straps for easy placement of the child</li><li>Zippers for easy replacement</li><li>Machine washable</li></ul>",
+            "title": "Smart Base",
+            "text": "<p>Equipped with 14 sensors, the system provides parents with simple, step-by-step instructions for foolproof installation as well as real-time alerts and notifications.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -338,7 +338,7 @@
         "video_QA9HYh": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/cover removal AND magnetic straps_New_44bcca07-a30c-4019-91fa-c5ce88abcde0.mp4",
+            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
             "object_position": "center-center",
             "video_link": "",
             "popup_text": "",
