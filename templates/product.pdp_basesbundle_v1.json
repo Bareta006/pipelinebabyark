@@ -1,0 +1,428 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_liquid_3BhB6X": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n@media (min-width:960px){\n.product__media:nth-child(3){\nwidth:100%;}\n}\n</style>"
+      }
+    },
+    "main": {
+      "type": "product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": 8,
+            "product_show_cutline": true,
+            "show_rating": false,
+            "show_rating_count": false,
+            "padding_bottom": 20
+          }
+        },
+        "text_H9zhjy": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>- </strong>babyark Premium Seat<br/><strong>- </strong>Cupholder<br/><strong>- </strong>Car Seat Cover</p>",
+            "padding_bottom": 10
+          }
+        },
+        "judge_me_reviews_preview_badge_VYMFNW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": 7,
+            "padding_bottom": 20
+          }
+        },
+        "variants": {
+          "type": "variant-selectors",
+          "settings": {
+            "option_size_swatch": 40,
+            "option_size_radio": 50,
+            "option_space": 50,
+            "padding_bottom": 30
+          }
+        },
+        "subscriptions": {
+          "type": "subscription",
+          "settings": {
+            "subscriptions_enable_selectors": true,
+            "padding_bottom": 20
+          }
+        },
+        "quantity": {
+          "type": "quantity",
+          "settings": {
+            "show_quantity": false,
+            "padding_bottom": 20
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "liquid_WkJHEM": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"specialMsg\"><b class=\"flex gap-0\"></b></div>"
+          }
+        },
+        "buttons": {
+          "type": "add-buttons",
+          "settings": {
+            "enable_payment_button": false,
+            "enable_gift_card_recipient": false,
+            "padding_bottom": 20
+          }
+        },
+        "icon_Yedxbi": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613095.svg",
+            "icon_size": 20,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>ESTIMATED DELIVERY BETWEEN </strong>{{ product.metafields.delivery.delivery_time.value }} {{ product.metafields.delivery.estimated_date.value }}</p>",
+            "padding_bottom": 20
+          }
+        },
+        "icon_EC9RhA": {
+          "type": "icon",
+          "disabled": true,
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613100.png",
+            "icon_size": 26,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>100 Day free trial</strong></p>",
+            "padding_bottom": 20
+          }
+        },
+        "icon_Eafi8h": {
+          "type": "icon",
+          "disabled": true,
+          "settings": {
+            "icon_name": "icon-truck",
+            "image": "shopify://shop_images/Group_29613097_2.png",
+            "icon_size": 50,
+            "icon_color": "#4b4b4b",
+            "text": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
+            "padding_bottom": 20
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "style": "accordions",
+            "enable_description": false,
+            "read_more": false,
+            "icon_description": "",
+            "description_expanded": false,
+            "title_1": "babyark Premium seat",
+            "icon_name_1": "",
+            "raw_content_1": "<p>The babyark has redefined car seat safety through performance engineering, protective design, smart connectivity and the highest-grade materials. The advanced safety system provides unparalleled protection, ease of use and the highest level of comfort for your child. The Premium seat allows for a rear-facing limit of up to 55 lbs. and a forward-facing limit of up to 65 lbs.</p>",
+            "title_2": "Cupholder",
+            "icon_name_2": "",
+            "raw_content_2": "<p>The babyark cup holder was designed to fit on either side of the seat, and features a user-friendly snap-on lock for easy installation, usability and safety. The cup holder is extremely convenient and flexible, can accommodate various container sizes, and can be easily removed by simply rotating and pulling it away.</p>",
+            "title_3": "Car Seat Cover",
+            "icon_name_3": "",
+            "raw_content_3": "<p>The babyark car seat cover is made of a premium fabric that is incredibly soft to touch, naturally flame-resistant and has no added chemicals. We’ve made it extra easy to attach and remove, and just like the original, it’s machine washable.</p>",
+            "title_4": "",
+            "icon_name_4": "",
+            "raw_content_4": "",
+            "title_5": "",
+            "icon_name_5": "",
+            "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "h7xj8mqpubub9"
+          }
+        },
+        "upsell": {
+          "type": "upsell",
+          "disabled": true,
+          "settings": {
+            "title": "Buy it with",
+            "upsell_type": "product_single",
+            "product": "",
+            "upsell_product_list": [],
+            "upsell_list_limit": 1,
+            "padding_bottom": 20
+          }
+        },
+        "pickup": {
+          "type": "pickup",
+          "disabled": true,
+          "settings": {
+            "padding_bottom": 20
+          }
+        },
+        "sharing": {
+          "type": "sharing",
+          "disabled": true,
+          "settings": {
+            "share_label": "Share",
+            "target_device": "",
+            "padding_bottom": 20
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "text_H9zhjy",
+        "judge_me_reviews_preview_badge_VYMFNW",
+        "price",
+        "variants",
+        "subscriptions",
+        "quantity",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_WkJHEM",
+        "buttons",
+        "icon_Yedxbi",
+        "icon_EC9RhA",
+        "icon_Eafi8h",
+        "description",
+        "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
+        "upsell",
+        "pickup",
+        "sharing"
+      ],
+      "custom_css": [],
+      "settings": {
+        "layout": "thumbnails-below@slides",
+        "image_width": "wide",
+        "image_spacing": 10,
+        "align": "left",
+        "bg": "palette--light bg--neutral",
+        "mobile_layout": "carousel",
+        "enable_video_looping": true,
+        "zoom_enable": false,
+        "alt_text_enable": false,
+        "alt_text_icon": "icon-basket-like",
+        "product_breadcrumbs_enable": false,
+        "product_breadcrumbs_list": [],
+        "width": "wrapper",
+        "padding_top": 24,
+        "padding_bottom": 36
+      }
+    },
+    "related": {
+      "type": "related",
+      "disabled": true,
+      "settings": {
+        "heading": "You might also like",
+        "bg": "palette--light bg--neutral",
+        "grid_large": 4,
+        "grid_medium": 3,
+        "grid_small": 1.2,
+        "related_products_enable": true,
+        "limit": 6,
+        "product_recommendations_heading": "Related products",
+        "show_recently_viewed": true,
+        "product_recently_limit": 6,
+        "product_recently_minimum": 4,
+        "product_recently_heading": "Recently viewed",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_liquid_jFhBqR": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
+      }
+    },
+    "section_double_jyKnAh": {
+      "type": "section-double",
+      "blocks": {
+        "video_qAzq7k": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_3wc4Bw": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "SafeCoil™Impact-Activated Shock Absorption",
+            "text": "<p>Twin steel coils, calibrated to the baby’s weight, extend from their compressed mode upon impact, breaking the forward momentum to provide optimal head and body protection</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        }
+      },
+      "block_order": [
+        "video_qAzq7k",
+        "text_3wc4Bw"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_wxmfB6": {
+      "type": "section-double",
+      "blocks": {
+        "text_inNXph": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The Car Seat Cover",
+            "text": "<ul><li>Premium, naturally flame-resistant, no chemicals added</li><li>Magnetic straps for easy placement of the child</li><li>Zippers for easy replacement</li><li>Machine washable</li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#f6f2ef"
+          }
+        },
+        "video_QA9HYh": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/cover removal AND magnetic straps_New_44bcca07-a30c-4019-91fa-c5ce88abcde0.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_inNXph",
+        "video_QA9HYh"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_liquid_BVfpcw": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
+      }
+    },
+    "section_liquid_KWtGT3": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n    //console.log('DOMContentLoaded event fired');\n    \n    const seatRadios = document.querySelectorAll('input[name=\"options[babyark Convertible Car Seat - Premium (Color)]\"]');\n    //console.log('Seat radios found:', seatRadios.length);\n    \n    const cupHolderRadios = document.querySelectorAll('input[name=\"options[The babyark Cup Holder (Color)]\"]');\n    //console.log('Cup holder radios found:', cupHolderRadios.length);\n    \n    const specialMsg = document.querySelector('#specialMsg b');\n    //console.log('Special message element found:', !!specialMsg);\n\n    function checkBaseColor() {\n        //console.log('checkBaseColor function called');\n        try {\n            // Get the selected seat option\n            const selectedSeatElement = document.querySelector('input[name=\"options[babyark Convertible Car Seat - Premium (Color)]\"]:checked');\n            //console.log('Selected seat element:', selectedSeatElement);\n            \n            if (!selectedSeatElement) {\n                //console.log('No seat option selected');\n                return;\n            }\n            \n            const selectedSeat = selectedSeatElement.value;\n            //console.log('Selected seat value:', selectedSeat);\n            \n            // Extract the base color from the seat option\n            const seatBaseColor = selectedSeat.split(' / ')[0].toLowerCase();\n            //console.log('Seat base color:', seatBaseColor);\n\n            // Get the selected cup holder option\n            const selectedCupHolderElement = document.querySelector('input[name=\"options[The babyark Cup Holder (Color)]\"]:checked');\n            //console.log('Selected cup holder element:', selectedCupHolderElement);\n            \n            if (!selectedCupHolderElement) {\n                //console.log('No cup holder option selected');\n                return;\n            }\n            \n            const selectedCupHolder = selectedCupHolderElement.value.toLowerCase();\n            //console.log('Selected cup holder color:', selectedCupHolder);\n\n            // Compare the colors\n            //console.log('Colors match?', seatBaseColor === selectedCupHolder);\n\n            if (seatBaseColor !== selectedCupHolder) {\n                //console.log('Showing mismatch message');\n                specialMsg.innerHTML = `\n                    <svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n                        <path d=\"M10.0003 18.3332C14.6027 18.3332 18.3337 14.6022 18.3337 9.99984C18.3337 5.39746 14.6027 1.6665 10.0003 1.6665C5.39795 1.6665 1.66699 5.39746 1.66699 9.99984C1.66699 14.6022 5.39795 18.3332 10.0003 18.3332Z\" fill=\"#E7B264\"/>\n                        <path d=\"M10 6.6665V9.99984\" stroke=\"#304545\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                        <path d=\"M10 13.3335H10.0083\" stroke=\"#304545\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n                    </svg>\n                    <span>Note: Cup holder and seat color do not match.</span>\n                `;\n            } else {\n                //console.log('Clearing mismatch message');\n                specialMsg.innerHTML = '';\n            }\n        } catch (error) {\n            console.error('Error in checkBaseColor:', error);\n        }\n    }\n\n    // Attach event listeners\n    seatRadios.forEach(radio => {\n        radio.addEventListener('change', () => {\n            //console.log('Seat radio changed:', radio.value);\n            checkBaseColor();\n        });\n    });\n    \n    cupHolderRadios.forEach(radio => {\n        radio.addEventListener('change', () => {\n            //console.log('Cup holder radio changed:', radio.value);\n            checkBaseColor();\n        });\n    });\n\n    // Initial check\n    //console.log('Performing initial check');\n    checkBaseColor();\n});\n</script>\n\n<style>\n#specialMsg svg{\nwidth:40px;}\n@media (min-width:1140px){\n.image-with-text-new .iwt-image{\nmin-height:90vh;\n}\n.image-with-text-new .iwt-image> .relative{\npadding-bottom:90vh;\n}\n.image-with-text-new .iwt-image> .relative > div{\nmin-height:90vh}\n}\n@media (max-width:480px){\n\n.image-with-text-new .iwt-image{\nmin-height:100vw;\n} \n.image-with-text-new .iwt-image> .relative{\npadding-bottom:100vw;\n}\n.image-with-text-new .iwt-image> .relative > div{\nmin-height:100vw}\n}\n}\n</style>"
+      }
+    },
+    "1740406995b34af773": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_quiz_carousel_block_zadQAi": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "xv6zpinlwpm0j"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_quiz_carousel_block_zadQAi"
+      ],
+      "custom_css": [
+        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
+        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
+        "> div {background-color: #f6f2ef;}",
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "section_liquid_3BhB6X",
+    "main",
+    "related",
+    "section_liquid_jFhBqR",
+    "section_double_jyKnAh",
+    "section_double_wxmfB6",
+    "section_liquid_BVfpcw",
+    "section_liquid_KWtGT3",
+    "1740406995b34af773"
+  ]
+}
