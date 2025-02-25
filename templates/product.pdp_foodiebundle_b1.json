@@ -213,7 +213,7 @@
       ],
       "custom_css": [],
       "settings": {
-        "layout": "none@columns",
+        "layout": "thumbnails-below@slides",
         "image_width": "wide",
         "image_spacing": 10,
         "align": "left",
