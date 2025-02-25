@@ -21,13 +21,16 @@
         </span>
       </span>
 
-      <span data-price-off class="product__price--off hide">
+      {% comment %} <span data-price-off class="product__price--off hide">
         <span data-price-off-type>{{ 'products.product.sale' | t }}</span>
         <em>•</em>
         {{ 'products.product.save' | t }}
         <span data-price-off-amount></span>
-      </span>
-
+      </span> {% endcomment %}
+      {% comment %} if there is show compare at price in <del></del> {% endcomment %}
+      {% if current_variant.compare_at_price > current_variant.price %}
+        <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
+      {% endif %}
       {% liquid
         assign units = product.variants | map: 'unit_price' | compact
         if units[0]
