@@ -29,7 +29,9 @@
       </span> {% endcomment %}
       {% comment %} if there is show compare at price in <del></del> {% endcomment %}
       {% if current_variant.compare_at_price > current_variant.price %}
-        <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
+        <span class="product__price accent-size-4">
+          <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
+        </span>
       {% endif %}
       {% liquid
         assign units = product.variants | map: 'unit_price' | compact
