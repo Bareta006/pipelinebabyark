@@ -11781,7 +11781,10 @@ label[data-swatch="Moonlight"]{
 label[data-swatch="Glacier Ice"]{
   background: rgba(147, 153, 148, 0.82)!important;
 }
-.swatch__label[data-swatch="Charcoal Grey"]{
+label[data-swatch="Eggshell white"]{
+  background: rgb(237, 237, 230)!important;
+}
+label[data-swatch="Charcoal Grey"]{
   background-color: rgb(147, 153, 148)!important;
 }
 .swatch__label[data-swatch="Eggshell white"]{
