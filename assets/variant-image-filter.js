@@ -201,33 +201,23 @@
           flkty.destroy();
         }
         
-        // Create a new container for only the visible slides
-        const tempContainer = document.createElement('div');
-        tempContainer.className = slideshowContainer.className;
-        tempContainer.setAttribute('data-product-slideshow', '');
-        
-        // Copy all attributes from the original container
-        for (let i = 0; i < slideshowContainer.attributes.length; i++) {
-          const attr = slideshowContainer.attributes[i];
-          if (attr.name !== 'class') { // Skip class as we already set it
-            tempContainer.setAttribute(attr.name, attr.value);
-          }
+        // Instead of replacing the container, we'll modify its contents
+        // First, clear the container
+        while (slideshowContainer.firstChild) {
+          slideshowContainer.removeChild(slideshowContainer.firstChild);
         }
         
-        // Clone only the visible slides into the temp container
+        // Add only the visible slides back to the container
         visibleSlides.forEach(slide => {
           const clonedSlide = slide.cloneNode(true);
-          tempContainer.appendChild(clonedSlide);
+          // Make sure the slide is visible
+          clonedSlide.style.display = '';
+          clonedSlide.classList.remove('hide');
+          slideshowContainer.appendChild(clonedSlide);
         });
         
-        // Replace the original container with the temp container
-        slideshowContainer.parentNode.replaceChild(tempContainer, slideshowContainer);
-        
-        // Update the reference to the new container
-        const newSlideshowContainer = tempContainer;
-        
         // Create mobile slider with appropriate options
-        const mobileStyle = newSlideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
+        const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
         
         const mobileOptions = {
           autoPlay: false,
@@ -243,14 +233,18 @@
           fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow'
         };
         
-        // Initialize Flickity on the new container with only visible slides
-        new Flickity(newSlideshowContainer, mobileOptions);
-        
-        // Prevent any scrolling that might happen
-        const originalScrollPos = window.scrollY;
-        setTimeout(() => {
-          window.scrollTo(0, originalScrollPos);
-        }, 10);
+        // Initialize Flickity on the original container with only visible slides
+        try {
+          new Flickity(slideshowContainer, mobileOptions);
+          
+          // Prevent any scrolling that might happen
+          const originalScrollPos = window.scrollY;
+          setTimeout(() => {
+            window.scrollTo(0, originalScrollPos);
+          }, 10);
+        } catch (e) {
+          console.error('Error initializing Flickity:', e);
+        }
       }
     } else if (!isMobile && slideshowContainer && hasVisibleSlides) {
       // Check if we need to rebuild the desktop slideshow
