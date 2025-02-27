@@ -213,6 +213,8 @@
           // Make sure the slide is visible
           clonedSlide.style.display = '';
           clonedSlide.classList.remove('hide');
+          // Reset any transform that might be applied
+          clonedSlide.style.transform = '';
           slideshowContainer.appendChild(clonedSlide);
         });
         
@@ -230,21 +232,39 @@
           rightToLeft: window.isRTL,
           dragThreshold: mobileStyle === 'carousel' ? 10 : 80,
           contain: mobileStyle !== 'carousel',
-          fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow'
+          fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow',
+          initialIndex: 0 // Force first slide to be selected
         };
         
         // Initialize Flickity on the original container with only visible slides
-        try {
-          new Flickity(slideshowContainer, mobileOptions);
-          
-          // Prevent any scrolling that might happen
-          const originalScrollPos = window.scrollY;
-          setTimeout(() => {
-            window.scrollTo(0, originalScrollPos);
-          }, 10);
-        } catch (e) {
-          console.error('Error initializing Flickity:', e);
-        }
+        // Use a small delay to ensure DOM is ready
+        setTimeout(() => {
+          try {
+            // Reset any existing Flickity-related classes and styles
+            slideshowContainer.classList.remove('flickity-enabled');
+            slideshowContainer.style.height = '';
+            
+            // Initialize Flickity
+            const newFlkty = new Flickity(slideshowContainer, mobileOptions);
+            
+            // Force Flickity to recalculate positions
+            newFlkty.resize();
+            
+            // Select the first cell to ensure proper positioning
+            newFlkty.select(0, false, true);
+            
+            // Trigger a resize event to help Flickity recalculate positions
+            window.dispatchEvent(new Event('resize'));
+            
+            // Prevent any scrolling that might happen
+            const originalScrollPos = window.scrollY;
+            setTimeout(() => {
+              window.scrollTo(0, originalScrollPos);
+            }, 10);
+          } catch (e) {
+            console.error('Error initializing Flickity:', e);
+          }
+        }, 50);
       }
     } else if (!isMobile && slideshowContainer && hasVisibleSlides) {
       // Check if we need to rebuild the desktop slideshow
@@ -259,6 +279,10 @@
             // Destroy and recreate the carousel to avoid blank slides
             flkty.destroy();
             
+            // Reset any existing Flickity-related classes and styles
+            slideshowContainer.classList.remove('flickity-enabled');
+            slideshowContainer.style.height = '';
+            
             // Create desktop slider with appropriate options
             const desktopOptions = {
               autoPlay: false,
@@ -271,31 +295,40 @@
               rightToLeft: window.isRTL,
               dragThreshold: 80,
               contain: true,
-              fade: true
+              fade: true,
+              initialIndex: 0 // Force first slide to be selected
             };
             
-            // Recreate the slider
-            new Flickity(slideshowContainer, desktopOptions);
-            
-            // If we have a first visible slide, select it
-            if (firstVisibleSlide) {
-              const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-              if (mediaId) {
-                // Prevent the default scrolling behavior that might happen when changing images
-                const originalScrollPos = window.scrollY;
-                
-                slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-                  detail: {
-                    id: mediaId
-                  }
-                }));
-                
-                // Restore scroll position after image change
-                setTimeout(() => {
-                  window.scrollTo(0, originalScrollPos);
-                }, 10);
+            // Recreate the slider with a small delay
+            setTimeout(() => {
+              const newFlkty = new Flickity(slideshowContainer, desktopOptions);
+              
+              // Force Flickity to recalculate positions
+              newFlkty.resize();
+              
+              // Select the first cell to ensure proper positioning
+              newFlkty.select(0, false, true);
+              
+              // If we have a first visible slide, select it
+              if (firstVisibleSlide) {
+                const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+                if (mediaId) {
+                  // Prevent the default scrolling behavior that might happen when changing images
+                  const originalScrollPos = window.scrollY;
+                  
+                  slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+                    detail: {
+                      id: mediaId
+                    }
+                  }));
+                  
+                  // Restore scroll position after image change
+                  setTimeout(() => {
+                    window.scrollTo(0, originalScrollPos);
+                  }, 10);
+                }
               }
-            }
+            }, 50);
           }
         }
       } else {
