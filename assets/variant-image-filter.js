@@ -9,6 +9,18 @@
 (function() {
   console.log('🔍 Variant Image Filter script loaded');
   
+  // Initialize on page load to filter images for the initially selected variant
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log('🔍 Page loaded, filtering images for initial variant');
+    initializeWithSelectedVariant();
+  });
+  
+  // Fallback in case DOMContentLoaded has already fired
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    console.log('🔍 Document already loaded, filtering images for initial variant');
+    setTimeout(initializeWithSelectedVariant, 100);
+  }
+  
   // Listen for the theme's variant change event
   document.addEventListener('theme:variant:change', function(event) {
     console.log('🔍 Variant change event detected');
@@ -48,6 +60,43 @@
       }
     }
   });
+  
+  // Function to initialize filtering with the initially selected variant
+  function initializeWithSelectedVariant() {
+    const productJsonScript = document.querySelector('[data-product-json]');
+    if (!productJsonScript) {
+      console.log('🔍 No product JSON found on page load');
+      return;
+    }
+    
+    try {
+      const productData = JSON.parse(productJsonScript.textContent);
+      console.log('🔍 Product data found on page load:', productData.title);
+      
+      // Get the initially selected variant
+      const selectedVariantId = document.querySelector('[name="id"]')?.value;
+      console.log('🔍 Initially selected variant ID:', selectedVariantId);
+      
+      if (selectedVariantId) {
+        const selectedVariant = productData.variants.find(v => v.id.toString() === selectedVariantId.toString());
+        
+        if (selectedVariant) {
+          console.log('🔍 Initially selected variant:', selectedVariant.title);
+          filterImagesByVariantColor(selectedVariant, productData);
+        } else {
+          console.log('🔍 Selected variant not found in product data');
+        }
+      } else {
+        // If no variant is explicitly selected, use the first available variant
+        console.log('🔍 No variant explicitly selected, using first available variant');
+        if (productData.variants && productData.variants.length > 0) {
+          filterImagesByVariantColor(productData.variants[0], productData);
+        }
+      }
+    } catch (e) {
+      console.error('Error parsing product JSON on page load:', e);
+    }
+  }
 
   function filterImagesByVariantColor(variant, productData) {
     console.log('🔍 Filtering images by variant color');
