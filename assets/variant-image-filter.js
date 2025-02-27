@@ -71,17 +71,8 @@
         const selectedVariant = productData.variants.find(v => v.id.toString() === selectedVariantId.toString());
         
         if (selectedVariant) {
-          // Filter images first
+          // Filter images without forcing scroll position
           filterImagesByVariantColor(selectedVariant, productData);
-          
-          // After filtering, ensure we're at the top of the page
-          // Use a small delay to let the browser finish rendering
-          setTimeout(() => {
-            window.scrollTo({
-              top: 0,
-              behavior: 'auto' // Use 'auto' instead of 'smooth' to avoid animation
-            });
-          }, 50);
         }
       } else {
         // If no variant is explicitly selected, use the first available variant
@@ -236,11 +227,19 @@
           if (firstVisibleSlide) {
             const mediaId = firstVisibleSlide.getAttribute('data-media-id');
             if (mediaId) {
+              // Prevent the default scrolling behavior that might happen when changing images
+              const originalScrollPos = window.scrollY;
+              
               slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
                 detail: {
                   id: mediaId
                 }
               }));
+              
+              // Restore scroll position after image change
+              setTimeout(() => {
+                window.scrollTo(0, originalScrollPos);
+              }, 10);
             }
           }
         }
@@ -280,13 +279,43 @@
             if (firstVisibleSlide) {
               const mediaId = firstVisibleSlide.getAttribute('data-media-id');
               if (mediaId) {
+                // Prevent the default scrolling behavior that might happen when changing images
+                const originalScrollPos = window.scrollY;
+                
                 slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
                   detail: {
                     id: mediaId
                   }
                 }));
+                
+                // Restore scroll position after image change
+                setTimeout(() => {
+                  window.scrollTo(0, originalScrollPos);
+                }, 10);
               }
             }
+          }
+        }
+      } else {
+        // For grid or other non-slideshow modes, we still need to select the first visible slide
+        // but we'll prevent any scrolling
+        if (firstVisibleSlide) {
+          const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+          if (mediaId) {
+            // Store current scroll position
+            const originalScrollPos = window.scrollY;
+            
+            // Dispatch the event to change the image
+            slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+              detail: {
+                id: mediaId
+              }
+            }));
+            
+            // Immediately restore the scroll position
+            setTimeout(() => {
+              window.scrollTo(0, originalScrollPos);
+            }, 10);
           }
         }
       }
