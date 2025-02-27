@@ -3031,6 +3031,3039 @@
         isVisible: 'drawer--visible',
         displayNone: 'display-none'
     };
+
+/*
+* @license
+* Pipeline Theme (c) Groupthought Themes
+*
+* This file is included for advanced development by
+* Shopify Agencies.  Modified versions of the theme
+* code are not supported by Shopify or Groupthought.
+*
+*/
+
+(function (AOS, FlickityFade, scrollLock, Flickity, Sqrl, MicroModal, Rellax, themeCurrency, axios, FlickitySync, themeAddresses) {
+    'use strict';
+
+    function _interopNamespaceDefault(e) {
+        var n = Object.create(null);
+        if (e) {
+            Object.keys(e).forEach(function (k) {
+                if (k !== 'default') {
+                    var d = Object.getOwnPropertyDescriptor(e, k);
+                    Object.defineProperty(n, k, d.get ? d : {
+                        enumerable: true,
+                        get: function () { return e[k]; }
+                    });
+                }
+            });
+        }
+        n.default = e;
+        return Object.freeze(n);
+    }
+
+    var Sqrl__namespace = /*#__PURE__*/_interopNamespaceDefault(Sqrl);
+
+    (function() {
+        const env = {"NODE_ENV":"production"};
+        try {
+            if (process) {
+                process.env = Object.assign({}, process.env);
+                Object.assign(process.env, env);
+                return;
+            }
+        } catch (e) {} // avoid ReferenceError: process is not defined
+        globalThis.process = { env:env };
+    })();
+
+    // From https://developer.chrome.com/blog/using-requestidlecallback/#checking-for-requestidlecallback
+    window.requestIdleCallback = window.requestIdleCallback || function(cb) {
+        var start = Date.now();
+        return setTimeout(function() {
+            cb({
+                didTimeout: false,
+                timeRemaining: function() {
+                    return Math.max(0, 50 - (Date.now() - start));
+                }
+            });
+        }, 1);
+    };
+    window.cancelIdleCallback = window.cancelIdleCallback || function(id) {
+        clearTimeout(id);
+    };
+
+    function moveModals(container) {
+        const modals = container.querySelectorAll('[data-modal]');
+        const modalBin = document.querySelector('[data-modal-container]');
+        modals.forEach((element)=>{
+            const alreadyAdded = modalBin.querySelector(`[id="${element.id}"]`);
+            if (!alreadyAdded) {
+                modalBin.appendChild(element);
+            }
+        });
+    }
+
+    function floatLabels(container) {
+        const floats = container.querySelectorAll('.float__wrapper');
+        floats.forEach((element)=>{
+            const label = element.querySelector('label');
+            const input = element.querySelector('input, textarea');
+            if (label) {
+                input.addEventListener('keyup', (event)=>{
+                    if (event.target.value !== '') {
+                        label.classList.add('label--float');
+                    } else {
+                        label.classList.remove('label--float');
+                    }
+                });
+            }
+            if (input && input.value && input.value.length) {
+                label.classList.add('label--float');
+            }
+        });
+    }
+    function errorTabIndex(container) {
+        const errata = container.querySelectorAll('.errors');
+        errata.forEach((element)=>{
+            element.setAttribute('tabindex', '0');
+            element.setAttribute('aria-live', 'assertive');
+            element.setAttribute('role', 'alert');
+        });
+    }
+
+    // Remove loading class from all already loaded images
+    function removeLoadingClassFromLoadedImages(container) {
+        container.querySelectorAll('img').forEach((el)=>{
+            if (el.complete) {
+                el.parentNode.classList.remove('loading-shimmer');
+            }
+        });
+    }
+    // Remove loading class from image on `load` event
+    function handleImageLoaded(el) {
+        if (el.tagName == 'IMG' && el.parentNode.classList.contains('loading-shimmer')) {
+            el.parentNode.classList.remove('loading-shimmer');
+        }
+    }
+
+    function readHeights() {
+        const h = {};
+        h.windowHeight = window.innerHeight;
+        h.announcementHeight = getHeight('[data-announcement-bar]');
+        h.toolbarHeight = getHeight('[data-toolbar-height]');
+        h.footerHeight = getHeight('[data-section-type*="footer"]');
+        h.menuHeight = getHeight('[data-header-height]');
+        h.headerHeight = h.menuHeight + h.announcementHeight;
+        h.logoHeight = getFooterLogoWithPadding();
+        h.stickyHeader = document.querySelector('[data-header-sticky="sticky"]') ? h.menuHeight : 0;
+        h.backfillHeight = getHeight('[data-header-backfill]');
+        return h;
+    }
+    function setVarsOnResize() {
+        document.addEventListener('theme:resize', resizeVars);
+        setVars();
+    }
+    function setVars() {
+        const { windowHeight , announcementHeight , toolbarHeight , headerHeight , logoHeight , menuHeight , footerHeight , stickyHeader , backfillHeight  } = readHeights();
+        document.documentElement.style.setProperty('--scrollbar-width', `${getScrollbarWidth()}px`);
+        document.documentElement.style.setProperty('--footer-logo', `${logoHeight}px`);
+        document.documentElement.style.setProperty('--full-screen', `${windowHeight}px`);
+        document.documentElement.style.setProperty('--three-quarters', `${windowHeight * 0.75}px`);
+        document.documentElement.style.setProperty('--two-thirds', `${windowHeight * 0.66}px`);
+        document.documentElement.style.setProperty('--one-half', `${windowHeight * 0.5}px`);
+        document.documentElement.style.setProperty('--one-third', `${windowHeight * 0.33}px`);
+        document.documentElement.style.setProperty('--one-fifth', `${windowHeight * 0.2}px`);
+        document.documentElement.style.setProperty('--menu-height', `${menuHeight}px`);
+        document.documentElement.style.setProperty('--announcement-height', `${announcementHeight}px`);
+        document.documentElement.style.setProperty('--toolbar-height', `${toolbarHeight}px`);
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+        document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
+        document.documentElement.style.setProperty('--content-full', `${windowHeight - headerHeight - logoHeight / 2}px`);
+        document.documentElement.style.setProperty('--menu-height-sticky', `${stickyHeader}px`);
+        // if backfill estimation is within 1px rounded, don't force a layout shift
+        let newBackfill = Math.abs(backfillHeight - menuHeight) > 1 ? `${menuHeight}px` : 'auto';
+        document.documentElement.style.setProperty('--menu-backfill-height', newBackfill);
+    }
+    function resizeVars() {
+        // restrict the heights that are changed on resize to avoid iOS jump when URL bar is shown and hidden
+        const { windowHeight , announcementHeight , toolbarHeight , headerHeight , logoHeight , menuHeight , footerHeight , stickyHeader , backfillHeight  } = readHeights();
+        document.documentElement.style.setProperty('--scrollbar-width', `${getScrollbarWidth()}px`);
+        document.documentElement.style.setProperty('--full-screen', `${windowHeight}px`);
+        document.documentElement.style.setProperty('--menu-height', `${menuHeight}px`);
+        document.documentElement.style.setProperty('--announcement-height', `${announcementHeight}px`);
+        document.documentElement.style.setProperty('--toolbar-height', `${toolbarHeight}px`);
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+        document.documentElement.style.setProperty('--footer-height', `${footerHeight}px`);
+        document.documentElement.style.setProperty('--content-full', `${windowHeight - headerHeight - logoHeight / 2}px`);
+        document.documentElement.style.setProperty('--menu-height-sticky', `${stickyHeader}px`);
+        // if backfill estimation is within 1px rounded, don't force a layout shift
+        let newBackfill = Math.abs(backfillHeight - menuHeight) > 1 ? `${menuHeight}px` : 'auto';
+        document.documentElement.style.setProperty('--menu-backfill-height', newBackfill);
+    }
+    function getHeight(selector) {
+        const el = document.querySelector(selector);
+        if (el) {
+            return el.clientHeight;
+        } else {
+            return 0;
+        }
+    }
+    function getFooterLogoWithPadding() {
+        const height = getHeight('[data-footer-logo]');
+        if (height > 0) {
+            return height + 20;
+        } else {
+            return 0;
+        }
+    }
+    function getScrollbarWidth() {
+        // Creating invisible container
+        const outer = document.createElement('div');
+        outer.style.visibility = 'hidden';
+        outer.style.overflow = 'scroll'; // forcing scrollbar to appear
+        outer.style.msOverflowStyle = 'scrollbar'; // needed for WinJS apps
+        document.body.appendChild(outer);
+        // Creating inner element and placing it in the container
+        const inner = document.createElement('div');
+        outer.appendChild(inner);
+        // Calculating difference between container's full width and the child width
+        const scrollbarWidth = outer.offsetWidth - inner.offsetWidth;
+        // Removing temporary elements from the DOM
+        outer.parentNode.removeChild(outer);
+        return scrollbarWidth;
+    }
+
+    function singles(frame, wrappers) {
+        // sets the height of any frame passed in with the
+        // tallest js-overflow-content as well as any image in that frame
+        let padding = 64;
+        let tallest = 0;
+        wrappers.forEach((wrap)=>{
+            if (wrap.offsetHeight > tallest) {
+                const getMarginTop = parseInt(window.getComputedStyle(wrap).marginTop);
+                const getMarginBottom = parseInt(window.getComputedStyle(wrap).marginBottom);
+                const getMargin = getMarginTop + getMarginBottom;
+                if (getMargin > padding) {
+                    padding = getMargin;
+                }
+                tallest = wrap.offsetHeight;
+            }
+        });
+        const images = frame.querySelectorAll('[data-overflow-background]');
+        const frames = [
+            frame,
+            ...images
+        ];
+        frames.forEach((el)=>{
+            el.style.setProperty('min-height', `calc(${tallest + padding}px + var(--menu-height))`);
+        });
+    }
+    function doubles(section) {
+        let footerLogoH = document.querySelector('[data-footer-logo]') ? document.querySelector('[data-footer-logo]').clientHeight + 20 : 0;
+        const lastSection = document.querySelector('#MainContent .shopify-section:last-child [data-section-id]');
+        const lastSectionAttrID = lastSection ? lastSection.getAttribute('data-section-id') : null;
+        if (lastSectionAttrID !== null && section.getAttribute('data-section-id') !== lastSectionAttrID || !lastSection) {
+            footerLogoH = 0;
+        }
+        if (window.innerWidth < window.theme.sizes.medium) {
+            // if we are below the small breakpoint, the double section acts like two independent
+            // single frames
+            let singleFrames = section.querySelectorAll('[data-overflow-frame]');
+            singleFrames.forEach((singleframe)=>{
+                const wrappers = singleframe.querySelectorAll('[data-overflow-content]');
+                singles(singleframe, wrappers);
+            });
+            return;
+        }
+        // Javascript can't execute calc() (from `--outer` variable) - create a new div with width property instead `getPropertyValue('--outer')`
+        const htmlObject = document.createElement('div');
+        section.prepend(htmlObject);
+        htmlObject.style.display = 'none';
+        htmlObject.style.width = getComputedStyle(section).getPropertyValue('--outer');
+        const padding = parseInt(getComputedStyle(htmlObject).getPropertyValue('width')) * 2;
+        section.firstChild.remove();
+        let tallest = 0;
+        const frames = section.querySelectorAll('[data-overflow-frame]');
+        const contentWrappers = section.querySelectorAll('[data-overflow-content]');
+        contentWrappers.forEach((content)=>{
+            if (content.offsetHeight > tallest) {
+                tallest = content.offsetHeight;
+            }
+        });
+        const images = section.querySelectorAll('[data-overflow-background]');
+        let applySizes = [
+            ...frames,
+            ...images
+        ];
+        applySizes.forEach((el)=>{
+            el.style.setProperty('min-height', `${tallest + padding}px`);
+        });
+        section.style.setProperty('min-height', `${tallest + padding + 2 + footerLogoH}px`);
+    }
+    function preventOverflow(container) {
+        const singleFrames = container.querySelectorAll('.js-overflow-container');
+        if (singleFrames) {
+            singleFrames.forEach((frame)=>{
+                const wrappers = frame.querySelectorAll('.js-overflow-content');
+                singles(frame, wrappers);
+                document.addEventListener('theme:resize', ()=>{
+                    singles(frame, wrappers);
+                });
+            });
+            // Reload slides if container has slideshow
+            const slideshows = container.querySelectorAll('[data-slideshow-wrapper]');
+            if (slideshows.length) {
+                slideshows.forEach((slideshow)=>{
+                    const slideshowInstance = FlickityFade.data(slideshow);
+                    if (typeof slideshowInstance !== 'undefined') {
+                        slideshowInstance.reloadCells();
+                    }
+                });
+            }
+        }
+        const doubleSections = container.querySelectorAll('[data-overflow-wrapper]');
+        if (doubleSections) {
+            doubleSections.forEach((section)=>{
+                doubles(section);
+                document.addEventListener('theme:resize', ()=>{
+                    doubles(section);
+                });
+            });
+        }
+    }
+
+    // Adapted from https://github.com/component/debounce/blob/master/index.js
+    /**
+     * Returns a function, that, as long as it continues to be invoked, will not
+     * be triggered. The function will be called after it stops being called for
+     * N milliseconds. If `immediate` is passed, trigger the function on the
+     * leading edge, instead of the trailing. The function also has a property 'clear'
+     * that is a function which will clear the timer to prevent previously scheduled executions.
+     *
+     * @source underscore.js
+     * @see http://unscriptable.com/2009/03/20/debouncing-javascript-methods/
+     * @param {Function} function to wrap
+     * @param {Number} timeout in ms (`100`)
+     * @param {Boolean} whether to execute at the beginning (`false`)
+     * @api public
+     */ function debounce$1(func, wait = 500, immediate = false) {
+        var timeout, args, context, timestamp, result;
+        if (wait == null) wait = 100;
+        function later() {
+            var last = Date.now() - timestamp;
+            if (last < wait && last >= 0) {
+                timeout = setTimeout(later, wait - last);
+            } else {
+                timeout = null;
+                if (!immediate) {
+                    result = func.apply(context, args);
+                    context = args = null;
+                }
+            }
+        }
+        var debounced = function() {
+            context = this;
+            args = arguments;
+            timestamp = Date.now();
+            var callNow = immediate && !timeout;
+            if (!timeout) timeout = setTimeout(later, wait);
+            if (callNow) {
+                result = func.apply(context, args);
+                context = args = null;
+            }
+            return result;
+        };
+        debounced.clear = function() {
+            if (timeout) {
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        };
+        debounced.flush = function() {
+            if (timeout) {
+                result = func.apply(context, args);
+                context = args = null;
+                clearTimeout(timeout);
+                timeout = null;
+            }
+        };
+        return debounced;
+    }
+
+    let lastWindowWidth = window.innerWidth;
+    let lastWindowHeight = window.innerHeight;
+    function dispatch$2() {
+        document.dispatchEvent(new CustomEvent('theme:resize', {
+            bubbles: true
+        }));
+        if (lastWindowWidth !== window.innerWidth) {
+            document.dispatchEvent(new CustomEvent('theme:resize:width', {
+                bubbles: true
+            }));
+            lastWindowWidth = window.innerWidth;
+        }
+        if (lastWindowHeight !== window.innerHeight) {
+            document.dispatchEvent(new CustomEvent('theme:resize:height', {
+                bubbles: true
+            }));
+            lastWindowHeight = window.innerHeight;
+        }
+    }
+    let raf;
+    function resizeListener() {
+        window.addEventListener('resize', ()=>{
+            if (raf) {
+                window.cancelAnimationFrame(raf);
+            }
+            raf = window.requestAnimationFrame(debounce$1(dispatch$2, 50));
+        });
+    }
+
+    let prev = window.pageYOffset;
+    let up = null;
+    let down = null;
+    let wasUp = null;
+    let wasDown = null;
+    let scrollLockTimer = 0;
+    function dispatch$1() {
+        const position = window.pageYOffset;
+        if (position > prev) {
+            down = true;
+            up = false;
+        } else if (position < prev) {
+            down = false;
+            up = true;
+        } else {
+            up = null;
+            down = null;
+        }
+        prev = position;
+        document.dispatchEvent(new CustomEvent('theme:scroll', {
+            detail: {
+                up,
+                down,
+                position
+            },
+            bubbles: false
+        }));
+        if (up && !wasUp) {
+            document.dispatchEvent(new CustomEvent('theme:scroll:up', {
+                detail: {
+                    position
+                },
+                bubbles: false
+            }));
+        }
+        if (down && !wasDown) {
+            document.dispatchEvent(new CustomEvent('theme:scroll:down', {
+                detail: {
+                    position
+                },
+                bubbles: false
+            }));
+        }
+        wasDown = down;
+        wasUp = up;
+    }
+    function lock(e) {
+        // Prevent body scroll lock race conditions
+        setTimeout(()=>{
+            if (scrollLockTimer) {
+                clearTimeout(scrollLockTimer);
+            }
+            scrollLock.disablePageScroll(e.detail, {
+                allowTouchMove: (el)=>el.tagName === 'TEXTAREA'
+            });
+            document.documentElement.setAttribute('data-scroll-locked', '');
+        });
+    }
+    function unlock(e) {
+        const timeout = e.detail;
+        if (timeout) {
+            scrollLockTimer = setTimeout(removeScrollLock, timeout);
+        } else {
+            removeScrollLock();
+        }
+    }
+    function removeScrollLock() {
+        scrollLock.clearQueueScrollLocks();
+        scrollLock.enablePageScroll();
+        document.documentElement.removeAttribute('data-scroll-locked');
+    }
+    function scrollListener() {
+        let raf;
+        window.addEventListener('scroll', function() {
+            if (raf) {
+                window.cancelAnimationFrame(raf);
+            }
+            raf = window.requestAnimationFrame(dispatch$1);
+        }, {
+            passive: true
+        });
+        window.addEventListener('theme:scroll:lock', lock);
+        window.addEventListener('theme:scroll:unlock', unlock);
+    }
+
+    const selectors$17 = {
+        time: 'time',
+        days: '[data-days]',
+        hours: '[data-hours]',
+        minutes: '[data-minutes]',
+        seconds: '[data-seconds]',
+        shopifySection: '.shopify-section'
+    };
+    const attributes$2 = {
+        expirationBehavior: 'data-expiration-behavior'
+    };
+    const classes$I = {
+        showMessage: 'show-message',
+        hideCountdown: 'hidden'
+    };
+    const settings = {
+        hideSection: 'hide-section',
+        showMessage: 'show-message'
+    };
+    let CountdownTimer = class CountdownTimer extends HTMLElement {
+        connectedCallback() {
+            if (isNaN(this.endDate)) {
+                this.onComplete();
+                return;
+            }
+            if (this.endDate <= Date.now()) {
+                this.onComplete();
+                return;
+            }
+            // Update the countdown every second
+            this.interval = setInterval(this.update, 1000);
+        }
+        disconnectedCallback() {
+            this.stopTimer();
+        }
+        convertTime(timeInMs) {
+            const days = this.formatDigits(parseInt(timeInMs / this.daysInMs, 10));
+            timeInMs -= days * this.daysInMs;
+            const hours = this.formatDigits(parseInt(timeInMs / this.hoursInMs, 10));
+            timeInMs -= hours * this.hoursInMs;
+            const minutes = this.formatDigits(parseInt(timeInMs / this.minutesInMs, 10));
+            timeInMs -= minutes * this.minutesInMs;
+            const seconds = this.formatDigits(parseInt(timeInMs / this.secondsInMs, 10));
+            return {
+                days: days,
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds
+            };
+        }
+        // Make numbers less than 10 to appear with a leading zero like 01, 02, 03
+        formatDigits(number) {
+            if (number < 10) number = '0' + number;
+            return number;
+        }
+        render(timer) {
+            this.days.textContent = timer.days;
+            this.hours.textContent = timer.hours;
+            this.minutes.textContent = timer.minutes;
+            this.seconds.textContent = timer.seconds;
+        }
+        stopTimer() {
+            clearInterval(this.interval);
+        }
+        onComplete() {
+            this.render({
+                days: 0,
+                hours: 0,
+                minutes: 0,
+                seconds: 0
+            });
+            if (this.shouldHideOnComplete) {
+                this.shopifySection.classList.add(classes$I.hideCountdown);
+            }
+            if (this.shouldShowMessage) {
+                this.classList.add(classes$I.showMessage);
+            }
+        }
+        // Function to update the countdown
+        update() {
+            const timeNow = new Date().getTime();
+            const timeDiff = this.endDate - timeNow;
+            if (timeDiff <= 0) {
+                this.stopTimer();
+                this.onComplete();
+            }
+            const timeRemaining = this.convertTime(timeDiff);
+            this.render(timeRemaining);
+        }
+        constructor(){
+            super();
+            this.shopifySection = this.closest(selectors$17.shopifySection);
+            this.expirationBehavior = this.getAttribute(attributes$2.expirationBehavior);
+            this.time = this.querySelector(selectors$17.time);
+            this.days = this.querySelector(selectors$17.days);
+            this.hours = this.querySelector(selectors$17.hours);
+            this.minutes = this.querySelector(selectors$17.minutes);
+            this.seconds = this.querySelector(selectors$17.seconds);
+            // Get the current and expiration dates in Unix timestamp format (milliseconds)
+            this.endDate = Date.parse(this.time.dateTime);
+            this.daysInMs = 1000 * 60 * 60 * 24;
+            this.hoursInMs = this.daysInMs / 24;
+            this.minutesInMs = this.hoursInMs / 60;
+            this.secondsInMs = this.minutesInMs / 60;
+            this.shouldHideOnComplete = this.expirationBehavior === settings.hideSection;
+            this.shouldShowMessage = this.expirationBehavior === settings.showMessage;
+            this.update = this.update.bind(this);
+        }
+    };
+
+    resizeListener();
+    scrollListener();
+    // Remove "loading-shimmer" class from cached and very fast images
+    removeLoadingClassFromLoadedImages(document);
+    // Watch for any load events that bubble up from child elements
+    document.addEventListener('load', (e)=>{
+        const el = e.target;
+        // Capture load events from img tags and then remove their `loading-shimmer` class
+        handleImageLoaded(el);
+    }, true);
+    // Tasks to run when the DOM elements are available
+    window.addEventListener('DOMContentLoaded', ()=>{
+        setVarsOnResize();
+        floatLabels(document);
+        errorTabIndex(document);
+        moveModals(document);
+        if (window.theme.settings.animate_scroll) {
+            AOS.refresh();
+        }
+    });
+    // Tasks to run when entire page has finished loading including images, stylesheets, async scripts, etc
+    window.addEventListener('load', ()=>{
+        // Fix any text overflow in position:absolute elements
+        preventOverflow(document);
+        // Catch any images that loaded before our load event listener above and remove "loading-shimmer" class
+        removeLoadingClassFromLoadedImages(document);
+    });
+    document.addEventListener('shopify:section:load', (e)=>{
+        const container = e.target;
+        floatLabels(container);
+        errorTabIndex(container);
+        moveModals(container);
+        preventOverflow(container);
+        if (window.theme.settings.animate_scroll) {
+            AOS.refresh();
+        }
+    });
+    document.addEventListener('shopify:section:reorder', ()=>{
+        document.dispatchEvent(new CustomEvent('theme:header:check', {
+            bubbles: false
+        }));
+    });
+    if (!customElements.get('countdown-timer')) {
+        customElements.define('countdown-timer', CountdownTimer);
+    }
+
+    const showElement = (elem, removeProp = false, prop = 'block')=>{
+        if (elem) {
+            if (removeProp) {
+                elem.style.removeProperty('display');
+            } else {
+                elem.style.display = prop;
+            }
+        }
+    };
+
+    function FetchError(object) {
+        this.status = object.status || null;
+        this.headers = object.headers || null;
+        this.json = object.json || null;
+        this.body = object.body || null;
+    }
+    FetchError.prototype = Error.prototype;
+
+    const selectors$16 = {
+        scrollbar: 'data-scrollbar-slider',
+        scrollbarArrowPrev: '[data-scrollbar-arrow-prev]',
+        scrollbarArrowNext: '[data-scrollbar-arrow-next]'
+    };
+    const classes$H = {
+        hidden: 'is-hidden'
+    };
+    const times$1 = {
+        delay: 200
+    };
+    let NativeScrollbar = class NativeScrollbar {
+        init() {
+            if (this.arrowNext && this.arrowPrev) {
+                if (window.isRTL) {
+                    this.togglePrevArrow();
+                } else {
+                    this.toggleNextArrow();
+                }
+                this.events();
+            }
+        }
+        resize() {
+            document.addEventListener('theme:resize', ()=>{
+                if (window.isRTL) {
+                    this.togglePrevArrow();
+                } else {
+                    this.toggleNextArrow();
+                }
+            });
+        }
+        events() {
+            this.arrowNext.addEventListener('click', (event)=>{
+                event.preventDefault();
+                this.goToNext();
+            });
+            this.arrowPrev.addEventListener('click', (event)=>{
+                event.preventDefault();
+                this.goToPrev();
+            });
+            this.scrollbar.addEventListener('scroll', ()=>{
+                this.togglePrevArrow();
+                this.toggleNextArrow();
+            });
+        }
+        goToNext() {
+            const position = this.scrollbar.getBoundingClientRect().width / 2 + this.scrollbar.scrollLeft;
+            this.move(position);
+            this.arrowPrev.classList.remove(classes$H.hidden);
+            this.toggleNextArrow();
+        }
+        goToPrev() {
+            const position = this.scrollbar.scrollLeft - this.scrollbar.getBoundingClientRect().width / 2;
+            this.move(position);
+            this.arrowNext.classList.remove(classes$H.hidden);
+            this.togglePrevArrow();
+        }
+        toggleNextArrow() {
+            setTimeout(()=>{
+                if (window.isRTL) {
+                    this.arrowNext.classList.toggle(classes$H.hidden, this.scrollbar.scrollLeft === 0);
+                } else {
+                    this.arrowNext.classList.toggle(classes$H.hidden, Math.round(this.scrollbar.scrollLeft + this.scrollbar.getBoundingClientRect().width + 1) >= this.scrollbar.scrollWidth);
+                }
+            }, times$1.delay);
+        }
+        togglePrevArrow() {
+            setTimeout(()=>{
+                if (window.isRTL) {
+                    this.arrowPrev.classList.toggle(classes$H.hidden, Math.abs(this.scrollbar.scrollLeft) + this.scrollbar.getBoundingClientRect().width + 1 >= this.scrollbar.scrollWidth);
+                } else {
+                    this.arrowPrev.classList.toggle(classes$H.hidden, this.scrollbar.scrollLeft <= 0);
+                }
+            }, times$1.delay);
+        }
+        scrollToVisibleElement() {
+            [].forEach.call(this.scrollbar.children, (element)=>{
+                element.addEventListener('click', (event)=>{
+                    if (event.target.tagName.toLowerCase() === 'a' || event.currentTarget && event.currentTarget.tagName.toLowerCase() === 'a' || event.currentTarget && event.currentTarget.querySelector('a')) {
+                        event.preventDefault();
+                    }
+                    this.move(element.offsetLeft - element.clientWidth);
+                });
+            });
+        }
+        move(offsetLeft) {
+            this.scrollbar.scrollTo({
+                top: 0,
+                left: offsetLeft,
+                behavior: 'smooth'
+            });
+        }
+        constructor(scrollbar){
+            this.scrollbar = scrollbar;
+            this.arrowNext = this.scrollbar.parentNode.querySelector(selectors$16.scrollbarArrowNext);
+            this.arrowPrev = this.scrollbar.parentNode.querySelector(selectors$16.scrollbarArrowPrev);
+            this.init();
+            this.resize();
+            if (this.scrollbar.hasAttribute(selectors$16.scrollbar)) {
+                this.scrollToVisibleElement();
+            }
+        }
+    };
+
+    const selectors$15 = {
+        siblingsInnerHolder: '[data-sibling-inner]'
+    };
+    let Siblings = class Siblings {
+        init() {
+            this.siblings.forEach((sibling)=>{
+                new NativeScrollbar(sibling);
+            });
+        }
+        constructor(holder){
+            this.siblings = holder.querySelectorAll(selectors$15.siblingsInnerHolder);
+            this.init();
+        }
+    };
+    const siblings = {
+        onLoad () {
+            new Siblings(this.container);
+        }
+    };
+
+    const cookieDefaultValues = {
+        expires: 7,
+        path: '/',
+        domain: window.location.hostname
+    };
+    let Cookies = class Cookies {
+        /**
+       * Write cookie
+       * @param value - String
+       */ write(value) {
+            document.cookie = `${this.options.name}=${value}; expires=${this.options.expires}; path=${this.options.path}; domain=${this.options.domain}`;
+        }
+        /**
+       * Read cookies and returns an array of values
+       * @returns Array
+       */ read() {
+            let cookieValuesArr = [];
+            const hasCookieWithThisName = document.cookie.split('; ').find((row)=>row.startsWith(this.options.name)
+            );
+            if (document.cookie.indexOf('; ') !== -1 && hasCookieWithThisName) {
+                const cookieValue = document.cookie.split('; ').find((row)=>row.startsWith(this.options.name)
+                ).split('=')[1];
+                if (cookieValue !== null) {
+                    cookieValuesArr = cookieValue.split(',');
+                }
+            }
+            return cookieValuesArr;
+        }
+        destroy() {
+            document.cookie = `${this.options.name}=null; expires=${this.options.expires}; path=${this.options.path}; domain=${this.options.domain}`;
+        }
+        remove(removedValue) {
+            const cookieValue = this.read();
+            const position = cookieValue.indexOf(removedValue);
+            if (position !== -1) {
+                cookieValue.splice(position, 1);
+                this.write(cookieValue);
+            }
+        }
+        constructor(options = {}){
+            this.options = {
+                ...cookieDefaultValues,
+                ...options
+            };
+        }
+    };
+
+    const config = {
+        howManyToShow: 4,
+        howManyToStoreInMemory: 10,
+        wrapper: '[data-recently-viewed-products]',
+        limit: 'data-limit',
+        recentTabLink: '[data-recent-link-tab]',
+        recentWrapper: '[data-recent-wrapper]',
+        recentViewedTab: '[data-recently-viewed-tab]',
+        tabsHolderScroll: '[data-tabs-holder-scroll]',
+        apiContent: '[data-api-content]',
+        dataMinimum: 'data-minimum',
+        dataItemId: 'data-item-id'
+    };
+    const classes$G = {
+        hide: 'hide',
+        containerWithoutTabsNav: 'section-without-title--skip'
+    };
+    const cookieConfig = {
+        expires: 90,
+        name: 'shopify_recently_viewed'
+    };
+    const sections$p = [];
+    const excludedHandles = [];
+    let RecentProducts = class RecentProducts {
+        renderProducts() {
+            const recentlyViewedHandlesArray = this.cookie.read();
+            const arrayURLs = [];
+            let counter = 0;
+            if (recentlyViewedHandlesArray.length > 0) {
+                for(let index = 0; index < recentlyViewedHandlesArray.length; index++){
+                    const handle = recentlyViewedHandlesArray[index];
+                    if (excludedHandles.includes(handle)) {
+                        continue;
+                    }
+                    const url = `${window.theme.routes.root_url}products/${handle}?section_id=api-product-grid-item`;
+                    arrayURLs.push(url);
+                    counter++;
+                    if (counter === this.howManyToShow || counter === recentlyViewedHandlesArray.length - 1) {
+                        break;
+                    }
+                }
+                if (arrayURLs.length > 0 && arrayURLs.length >= this.minimum) {
+                    this.container.classList.remove(classes$G.hide);
+                    if (this.recentViewedLink && this.recentViewedLink.previousElementSibling) {
+                        this.tabsHolderScroll.classList.remove(classes$G.hide);
+                        this.container.classList.add(classes$G.containerWithoutTabsNav);
+                    }
+                    const fecthRequests = arrayURLs.map((url)=>fetch(url, {
+                            mode: 'no-cors'
+                        }).then(this.handleErrors)
+                    );
+                    const productMarkups = [];
+                    Promise.allSettled(fecthRequests).then((responses)=>{
+                        return Promise.all(responses.map(async (response)=>{
+                            if (response.status === 'fulfilled') {
+                                productMarkups.push(await response.value.text());
+                            }
+                        }));
+                    }).then(()=>{
+                        productMarkups.forEach((markup)=>{
+                            const buffer = document.createElement('div');
+                            const slide = document.createElement('div');
+                            buffer.innerHTML = markup;
+                            const item = buffer.querySelector(`[${config.dataItemId}]`);
+                            const isEmptyProduct = item.getAttribute(config.dataItemId) === '';
+                            if (isEmptyProduct) {
+                                return;
+                            }
+                            slide.classList.add('product-grid-slide');
+                            slide.setAttribute('data-carousel-slide', null);
+                            slide.setAttribute('data-item', null);
+                            slide.innerHTML = buffer.querySelector(config.apiContent).innerHTML;
+                            this.wrapper.appendChild(slide);
+                        });
+                        new Siblings(this.container);
+                    }).then(()=>{
+                        showElement(this.wrapper, true);
+                        this.container.dispatchEvent(new CustomEvent('theme:recent-products:added', {
+                            bubbles: true
+                        }));
+                    });
+                } else if (this.recentViewedTab) {
+                    const hasSiblingTabs = Array.prototype.filter.call(this.recentViewedTab.parentNode.children, (child)=>{
+                        return child !== this.recentViewedTab;
+                    }).length > 1;
+                    if (this.recentViewedLink && this.recentViewedLink.previousElementSibling) {
+                        this.tabsHolderScroll.classList.add(classes$G.hide);
+                        this.container.classList.remove(classes$G.containerWithoutTabsNav);
+                    }
+                    if (!hasSiblingTabs) {
+                        this.container.classList.add(classes$G.hide);
+                    }
+                } else {
+                    this.container.classList.add(classes$G.hide);
+                }
+            }
+        }
+        handleErrors(response) {
+            if (!response.ok) {
+                return response.text().then(function(text) {
+                    const e = new FetchError({
+                        status: response.statusText,
+                        headers: response.headers,
+                        text: text
+                    });
+                    throw e;
+                });
+            }
+            return response;
+        }
+        constructor(section){
+            this.container = section.container;
+            this.cookie = new Cookies(cookieConfig);
+            this.wrapper = this.container.querySelector(config.wrapper);
+            if (this.wrapper === null) {
+                return;
+            }
+            this.howManyToShow = parseInt(this.container.querySelector(config.recentWrapper).getAttribute(config.limit)) || config.howManyToShow;
+            this.minimum = parseInt(this.container.querySelector(config.recentWrapper).getAttribute(config.dataMinimum));
+            this.recentViewedTab = this.container.querySelector(config.recentViewedTab);
+            this.recentViewedLink = this.container.querySelector(config.recentTabLink);
+            this.tabsHolderScroll = this.container.querySelector(config.tabsHolderScroll);
+            this.renderProducts();
+        }
+    };
+    let RecordRecentlyViewed = class RecordRecentlyViewed {
+        updateCookie() {
+            let recentlyViewed = this.cookie.read();
+            // In what position is that product in memory.
+            const position = recentlyViewed.indexOf(this.handle);
+            // If not in memory.
+            if (position === -1) {
+                // Add product at the start of the list.
+                recentlyViewed.unshift(this.handle);
+                // Only keep what we need.
+                recentlyViewed = recentlyViewed.splice(0, config.howManyToStoreInMemory);
+            } else {
+                // Remove the product and place it at start of list.
+                recentlyViewed.splice(position, 1);
+                recentlyViewed.unshift(this.handle);
+            }
+            // Update cookie.
+            const recentlyViewedString = recentlyViewed.join(',');
+            this.cookie.write(recentlyViewedString);
+        }
+        constructor(handle){
+            this.handle = encodeURIComponent(handle);
+            this.cookie = new Cookies(cookieConfig);
+            if (typeof this.handle === 'undefined') {
+                return;
+            }
+            excludedHandles.push(this.handle);
+            this.updateCookie();
+        }
+    };
+    const recentProducts = {
+        onLoad () {
+            sections$p[this.id] = new RecentProducts(this);
+        }
+    };
+
+    /**
+     * Checks the device resolution/touch
+     * -----------------------------------------------------------------------------
+     *
+     * Ensures that we always know if we are using a Touch, Mobile, Tablet, or Desktop device.
+     *
+     * if (resolution.isMobile) {}
+     *
+     * It refreshes dynamically. We can also check when that happens by using the onChange method:
+     *
+     * resolution.onChange(() => {
+     *  // only triggers once when we hop between different media screen sizes
+     *  // for example, from Mobile(<= 768px) to Tablet(>= 769px and <=1100px)
+     *  // or from Tablet(>= 769px and <=1100px) to Desktop(>=1101px)
+     *
+     *  if (resolution.isMobile() || resolution.isTouch()) {}
+     * });
+     *
+     */ function resolution$1() {
+        const touchQuery = `(any-pointer: coarse)`;
+        const mobileQuery = `(max-width: ${window.theme.sizes.medium}px)`;
+        const tabletQuery = `(min-width: ${window.theme.sizes.medium + 1}px) and (max-width: ${window.theme.sizes.large}px)`;
+        const desktopQuery = `(min-width: ${window.theme.sizes.large + 1}px)`;
+        resolution$1.isTouch = ()=>{
+            const touchMatches = window.matchMedia(touchQuery).matches;
+            document.documentElement.classList.toggle('supports-touch', touchMatches);
+            return touchMatches;
+        };
+        resolution$1.isMobile = ()=>window.matchMedia(mobileQuery).matches
+        ;
+        resolution$1.isTablet = ()=>window.matchMedia(tabletQuery).matches
+        ;
+        resolution$1.isDesktop = ()=>window.matchMedia(desktopQuery).matches
+        ;
+        const queries = [
+            [
+                touchQuery,
+                resolution$1.isTouch
+            ],
+            [
+                mobileQuery,
+                resolution$1.isMobile
+            ],
+            [
+                tabletQuery,
+                resolution$1.isTablet
+            ],
+            [
+                desktopQuery,
+                resolution$1.isDesktop
+            ], 
+        ];
+        resolution$1.onChange = (callback)=>{
+            queries.forEach((query)=>{
+                window.matchMedia(query[0]).addEventListener('change', ()=>{
+                    if (query[1]() && callback) callback();
+                });
+            });
+        };
+    }resolution$1();
+
+    function Listeners() {
+        this.entries = [];
+    }Listeners.prototype.add = function(element, event, fn) {
+        this.entries.push({
+            element: element,
+            event: event,
+            fn: fn
+        });
+        element.addEventListener(event, fn);
+    };
+    Listeners.prototype.removeAll = function() {
+        this.entries = this.entries.filter(function(listener) {
+            listener.element.removeEventListener(listener.event, listener.fn);
+            return false;
+        });
+    };
+
+    /**
+     * Convert the Object (with 'name' and 'value' keys) into an Array of values, then find a match & return the variant (as an Object)
+     * @param {Object} product Product JSON object
+     * @param {Object} collection Object with 'name' and 'value' keys (e.g. [{ name: "Size", value: "36" }, { name: "Color", value: "Black" }])
+     * @returns {Object || null} The variant object once a match has been successful. Otherwise null will be returned
+     */ function getVariantFromSerializedArray(product, collection) {
+        _validateProductStructure(product);
+        // If value is an array of options
+        var optionArray = _createOptionArrayFromOptionCollection(product, collection);
+        return getVariantFromOptionArray(product, optionArray);
+    }
+    /**
+     * Find a match in the project JSON (using Array with option values) and return the variant (as an Object)
+     * @param {Object} product Product JSON object
+     * @param {Array} options List of submitted values (e.g. ['36', 'Black'])
+     * @returns {Object || null} The variant object once a match has been successful. Otherwise null will be returned
+     */ function getVariantFromOptionArray(product, options) {
+        _validateProductStructure(product);
+        _validateOptionsArray(options);
+        var result = product.variants.filter(function(variant) {
+            return options.every(function(option, index) {
+                return variant.options[index] === option;
+            });
+        });
+        return result[0] || null;
+    }
+    /**
+     * Creates an array of selected options from the object
+     * Loops through the project.options and check if the "option name" exist (product.options.name) and matches the target
+     * @param {Object} product Product JSON object
+     * @param {Array} collection Array of object (e.g. [{ name: "Size", value: "36" }, { name: "Color", value: "Black" }])
+     * @returns {Array} The result of the matched values. (e.g. ['36', 'Black'])
+     */ function _createOptionArrayFromOptionCollection(product, collection) {
+        _validateProductStructure(product);
+        _validateSerializedArray(collection);
+        var optionArray = [];
+        collection.forEach(function(option) {
+            for(var i = 0; i < product.options.length; i++){
+                var name = product.options[i].name || product.options[i];
+                if (name.toLowerCase() === option.name.toLowerCase()) {
+                    optionArray[i] = option.value;
+                    break;
+                }
+            }
+        });
+        return optionArray;
+    }
+    /**
+     * Check if the product data is a valid JS object
+     * Error will be thrown if type is invalid
+     * @param {object} product Product JSON object
+     */ function _validateProductStructure(product) {
+        if (typeof product !== 'object') {
+            throw new TypeError(product + ' is not an object.');
+        }
+        if (Object.keys(product).length === 0 && product.constructor === Object) {
+            throw new Error(product + ' is empty.');
+        }
+    }
+    /**
+     * Validate the structure of the array
+     * It must be formatted like jQuery's serializeArray()
+     * @param {Array} collection Array of object [{ name: "Size", value: "36" }, { name: "Color", value: "Black" }]
+     */ function _validateSerializedArray(collection) {
+        if (!Array.isArray(collection)) {
+            throw new TypeError(collection + ' is not an array.');
+        }
+        if (collection.length === 0) {
+            throw new Error(collection + ' is empty.');
+        }
+        if (collection[0].hasOwnProperty('name')) {
+            if (typeof collection[0].name !== 'string') {
+                throw new TypeError('Invalid value type passed for name of option ' + collection[0].name + '. Value should be string.');
+            }
+        } else {
+            throw new Error(collection[0] + 'does not contain name key.');
+        }
+    }
+    /**
+     * Validate the structure of the array
+     * It must be formatted as list of values
+     * @param {Array} collection Array of object (e.g. ['36', 'Black'])
+     */ function _validateOptionsArray(options) {
+        if (Array.isArray(options) && typeof options[0] === 'object') {
+            throw new Error(options + 'is not a valid array of options.');
+        }
+    }
+
+    var selectors$14 = {
+        idInput: '[name="id"]',
+        planInput: '[name="selling_plan"]',
+        optionInput: '[name^="options"]',
+        quantityInput: '[name="quantity"]',
+        propertyInput: '[name^="properties"]'
+    };
+    /**
+     * Constructor class that creates a new instance of a product form controller.
+     *
+     * @param {Element} element - the outer wrapper containing the product form and all related input elements
+     * @param {Object} form - DOM element which is equal to the <form> node to submit the product form inputs
+     * @param {Object} product - A product object
+     * @param {Object} options - Optional options object
+     * @param {Function} options.onOptionChange - Callback for whenever an option input changes
+     * @param {Function} options.onPlanChange - Callback for changes to name=selling_plan
+     * @param {Function} options.onQuantityChange - Callback for whenever an quantity input changes
+     * @param {Function} options.onPropertyChange - Callback for whenever a property input changes
+     * @param {Function} options.onFormSubmit - Callback for whenever the product form is submitted
+     */ let ProductFormReader = class ProductFormReader {
+        /**
+       * Cleans up all event handlers that were assigned when the Product Form was constructed.
+       * Useful for use when a section needs to be reloaded in the theme editor.
+       */ destroy() {
+            this._listeners.removeAll();
+        }
+        /**
+       * Getter method which returns the array of currently selected option values
+       *
+       * @returns {Array} An array of option values
+       */ options() {
+            return this._serializeInputValues(this.optionInputs, function(item) {
+                var regex = /(?:^(options\[))(.*?)(?:\])/;
+                item.name = regex.exec(item.name)[2]; // Use just the value between 'options[' and ']'
+                return item;
+            });
+        }
+        /**
+       * Getter method which returns the currently selected variant, or `null` if variant
+       * doesn't exist.
+       *
+       * @returns {Object|null} Variant object
+       */ variant() {
+            const opts = this.options();
+            if (opts.length) {
+                return getVariantFromSerializedArray(this.product, opts);
+            } else {
+                return this.product.variants[0];
+            }
+        }
+        /**
+       * Getter method which returns the current selling plan, or `null` if plan
+       * doesn't exist.
+       *
+       * @returns {Object|null} Variant object
+       */ plan(variant) {
+            let plan = {
+                allocation: null,
+                group: null,
+                detail: null
+            };
+            const formData = new FormData(this.form);
+            const id = formData.get('selling_plan');
+            if (variant && variant.selling_plan_allocations && variant.selling_plan_allocations.length > 0) {
+                const uniqueVariantSellingPlanGroupIDs = [
+                    ...new Set(variant.selling_plan_allocations.map((sellingPlan)=>sellingPlan.selling_plan_group_id
+                    ))
+                ];
+                const productSubsGroup = this.element.querySelectorAll('[data-subscription-group]');
+                if (!productSubsGroup.length) {
+                    return;
+                }
+                productSubsGroup.forEach((group)=>group.style.display = "none"
+                );
+                uniqueVariantSellingPlanGroupIDs.forEach((groupId)=>{
+                    this.element.querySelector(`[data-selling-plan-group="${groupId}"]`).style.display = "block";
+                });
+            }
+            if (id && variant) {
+                plan.allocation = variant.selling_plan_allocations.find(function(item) {
+                    return item.selling_plan_id.toString() === id.toString();
+                });
+            }
+            if (plan.allocation) {
+                plan.group = this.product.selling_plan_groups.find(function(item) {
+                    return item.id.toString() === plan.allocation.selling_plan_group_id.toString();
+                });
+            }
+            if (plan.group) {
+                plan.detail = plan.group.selling_plans.find(function(item) {
+                    return item.id.toString() === id.toString();
+                });
+            }
+            if (plan && plan.allocation && plan.detail && plan.allocation) {
+                return plan;
+            } else return null;
+        }
+        /**
+       * Getter method which returns a collection of objects containing name and values
+       * of property inputs
+       *
+       * @returns {Array} Collection of objects with name and value keys
+       */ properties() {
+            return this._serializeInputValues(this.propertyInputs, function(item) {
+                var regex = /(?:^(properties\[))(.*?)(?:\])/;
+                item.name = regex.exec(item.name)[2]; // Use just the value between 'properties[' and ']'
+                return item;
+            });
+        }
+        /**
+       * Getter method which returns the current quantity or 1 if no quantity input is
+       * included in the form
+       *
+       * @returns {Array} Collection of objects with name and value keys
+       */ quantity() {
+            return this.quantityInputs[0] ? Number.parseInt(this.quantityInputs[0].value, 10) : 1;
+        }
+        getFormState() {
+            const variant = this.variant();
+            return {
+                options: this.options(),
+                variant: variant,
+                properties: this.properties(),
+                quantity: this.quantity(),
+                plan: this.plan(variant)
+            };
+        }
+        // Private Methods
+        // -----------------------------------------------------------------------------
+        _setIdInputValue(variant) {
+            if (variant && variant.id) {
+                this.variantElement.value = variant.id.toString();
+            } else {
+                this.variantElement.value = '';
+            }
+            this.variantElement.dispatchEvent(new Event('change'));
+        }
+        _onSubmit(options, event) {
+            event.dataset = this.getFormState();
+            if (options.onFormSubmit) {
+                options.onFormSubmit(event);
+            }
+        }
+        _onOptionChange(event) {
+            this._setIdInputValue(event.dataset.variant);
+        }
+        _onFormEvent(cb) {
+            if (typeof cb === 'undefined') {
+                return Function.prototype;
+            }
+            return (function(event) {
+                event.dataset = this.getFormState();
+                this._setIdInputValue(event.dataset.variant);
+                cb(event);
+            }).bind(this);
+        }
+        _initInputs(selector, cb) {
+            var elements = Array.prototype.slice.call(this.element.querySelectorAll(selector));
+            return elements.map((function(element) {
+                this._listeners.add(element, 'change', this._onFormEvent(cb));
+                return element;
+            }).bind(this));
+        }
+        _serializeInputValues(inputs, transform) {
+            return inputs.reduce(function(options, input) {
+                if (input.checked || input.type !== 'radio' && input.type !== 'checkbox' // Or if its any other type of input
+                ) {
+                    options.push(transform({
+                        name: input.name,
+                        value: input.value
+                    }));
+                }
+                return options;
+            }, []);
+        }
+        _validateProductObject(product) {
+            if (typeof product !== 'object') {
+                throw new TypeError(product + ' is not an object.');
+            }
+            if (typeof product.variants[0].options === 'undefined') {
+                throw new TypeError('Product object is invalid. Make sure you use the product object that is output from {{ product | json }} or from the http://[your-product-url].js route');
+            }
+            return product;
+        }
+        constructor(element, form, product, options){
+            this.element = element;
+            this.form = form.tagName == 'FORM' ? form : form.querySelector('form');
+            this.product = this._validateProductObject(product);
+            this.variantElement = this.form.querySelector(selectors$14.idInput);
+            options = options || {};
+            this.clickedElement = null;
+            this._listeners = new Listeners();
+            this._listeners.add(this.element, 'submit', this._onSubmit.bind(this, options));
+            this.optionInputs = this._initInputs(selectors$14.optionInput, options.onOptionChange);
+            this.planInputs = this._initInputs(selectors$14.planInput, options.onPlanChange);
+            this.quantityInputs = this._initInputs(selectors$14.quantityInput, options.onQuantityChange);
+            this.propertyInputs = this._initInputs(selectors$14.propertyInput, options.onPropertyChange);
+        }
+    };
+
+    function getProductJson(handle) {
+        const requestRoute = `${window.theme.routes.root_url}products/${handle}.js`;
+        return window.fetch(requestRoute).then((response)=>{
+            return response.json();
+        }).catch((e)=>{
+            console.error(e);
+        });
+    }
+
+    function getScript(url, callback, callbackError) {
+        let head = document.getElementsByTagName('head')[0];
+        let done = false;
+        let script = document.createElement('script');
+        script.src = url;
+        // Attach handlers for all browsers
+        script.onload = script.onreadystatechange = function() {
+            if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
+                done = true;
+                callback();
+            } else {
+                callbackError();
+            }
+        };
+        head.appendChild(script);
+    }
+
+    const loaders = {};
+    function loadScript(options = {}) {
+        if (!options.type) {
+            options.type = 'json';
+        }
+        if (options.url) {
+            if (loaders[options.url]) {
+                return loaders[options.url];
+            } else {
+                return getScriptWithPromise(options.url, options.type);
+            }
+        } else if (options.json) {
+            if (loaders[options.json]) {
+                return Promise.resolve(loaders[options.json]);
+            } else {
+                const request = window.fetch(options.json).then((response)=>{
+                    return response.json();
+                }).then((response)=>{
+                    loaders[options.json] = response;
+                    return response;
+                }).catch((error)=>{
+                    loaders[options.json] = null;
+                });
+                loaders[options.json] = request;
+                return request;
+            }
+        } else if (options.name) {
+            const key = ''.concat(options.name, options.version);
+            if (loaders[key]) {
+                return loaders[key];
+            } else {
+                return loadShopifyWithPromise(options);
+            }
+        } else {
+            return Promise.reject();
+        }
+    }function getScriptWithPromise(url, type) {
+        const loader = new Promise((resolve, reject)=>{
+            if (type === 'text') {
+                fetch(url).then((response)=>response.text()
+                ).then((data)=>{
+                    resolve(data);
+                }).catch((error)=>{
+                    reject(error);
+                });
+            } else {
+                getScript(url, function() {
+                    resolve();
+                }, function() {
+                    reject();
+                });
+            }
+        });
+        loaders[url] = loader;
+        return loader;
+    }
+    function loadShopifyWithPromise(options) {
+        const key = ''.concat(options.name, options.version);
+        const loader = new Promise((resolve, reject)=>{
+            try {
+                window.Shopify.loadFeatures([
+                    {
+                        name: options.name,
+                        version: options.version,
+                        onLoad: (err)=>{
+                            onLoadFromShopify(resolve, reject, err);
+                        }
+                    }, 
+                ]);
+            } catch (err) {
+                reject(err);
+            }
+        });
+        loaders[key] = loader;
+        return loader;
+    }
+    function onLoadFromShopify(resolve, reject, err) {
+        if (err) {
+            return reject(err);
+        } else {
+            return resolve();
+        }
+    }
+
+    const selectors$13 = {
+        wrapper: '[data-swapper-wrapper]',
+        target: '[data-swapper-target]',
+        hover: 'data-swapper-hover'
+    };
+    let sections$o = {};
+    let Swapper = class Swapper {
+        init() {
+            this.hovers.forEach((hover)=>{
+                hover.addEventListener('mouseenter', (function() {
+                    const newContent = hover.getAttribute(selectors$13.hover);
+                    this.target.innerHTML = `${newContent}`;
+                }).bind(this));
+            });
+            this.hovers.forEach((hover)=>{
+                hover.addEventListener('mouseleave', (function() {
+                    this.target.innerHTML = this.deafaultContent;
+                }).bind(this));
+            });
+            this.hovers.forEach((hover)=>{
+                hover.addEventListener('click', (function() {
+                    const clickedContent = hover.getAttribute(selectors$13.hover);
+                    this.deafaultContent = `${clickedContent}`;
+                }).bind(this));
+            });
+        }
+        constructor(el){
+            this.container = el;
+            this.target = this.container.querySelector(selectors$13.target);
+            this.hovers = this.container.querySelectorAll(`[${selectors$13.hover}]`);
+            if (this.target && this.hovers.length) {
+                this.deafaultContent = this.target.innerHTML;
+                this.init();
+            }
+        }
+    };
+    function makeSwappers(container) {
+        sections$o[container.id] = [];
+        const els = container.querySelectorAll(selectors$13.wrapper);
+        els.forEach((el)=>{
+            sections$o[container.id].push(new Swapper(el));
+        });
+    }
+    const swapperSection = {
+        onLoad () {
+            makeSwappers(this.container);
+        }
+    };
+
+    const defaults$2 = {
+        color: 'ash'
+    };
+    const selectors$12 = {
+        swatch: 'data-swatch',
+        outerGrid: '[data-grid-item]',
+        imageSlide: '[data-grid-image]',
+        dataGridImageDefault: 'data-grid-image-default',
+        dataGridImageTarget: 'data-grid-image-target',
+        image: 'data-swatch-image',
+        imageId: 'data-swatch-image-id',
+        variant: 'data-swatch-variant',
+        link: '[data-grid-link]',
+        wrapper: '[data-grid-swatches]',
+        template: '[data-swatch-template]',
+        handle: 'data-swatch-handle',
+        label: 'data-swatch-label',
+        index: 'data-swatch-index',
+        dataMediaId: 'data-media-id',
+        dataMediaSrcPlaceholder: 'data-media-src-placeholder',
+        dataFetchedImage: 'data-fetched-image',
+        dataFetchedImageIndex: 'data-fetched-image-index'
+    };
+    const classes$F = {
+        fade: 'is-fade'
+    };
+    let ColorMatch = class ColorMatch {
+        getColor() {
+            return this.match;
+        }
+        init() {
+            const getColors = loadScript({
+                json: window.theme.assets.swatches
+            });
+            return getColors.then((colors)=>{
+                return this.matchColors(colors, this.settings.color);
+            }).catch((e)=>{
+                console.log('failed to load swatch colors script');
+                console.log(e);
+            });
+        }
+        matchColors(colors, name) {
+            let bg = '#E5E5E5';
+            let img = null;
+            const path = window.theme.assets.base || '/';
+            const comparisonName = name.toLowerCase().replace(/\s/g, '');
+            const array = colors.colors;
+            if (array) {
+                const variantNameMatch = (nameObject)=>{
+                    const indexName = Object.keys(nameObject).toString();
+                    const neatName = indexName.toLowerCase().replace(/\s/g, '');
+                    return neatName === comparisonName;
+                };
+                const position = array.findIndex(variantNameMatch);
+                if (position > -1) {
+                    const value = Object.values(array[position])[0];
+                    const valueLowerCase = value.toLowerCase();
+                    if (valueLowerCase.includes('.jpg') || valueLowerCase.includes('.jpeg') || valueLowerCase.includes('.png') || valueLowerCase.includes('.svg')) {
+                        img = `${path}${encodeURIComponent(value)}`;
+                        bg = '#888888';
+                    } else {
+                        bg = value;
+                    }
+                }
+            }
+            return {
+                color: this.settings.color,
+                path: img,
+                hex: bg
+            };
+        }
+        constructor(options = {}){
+            this.settings = {
+                ...defaults$2,
+                ...options
+            };
+            this.match = this.init();
+        }
+    };
+    let RadioSwatch = class RadioSwatch extends HTMLElement {
+        init() {
+            this.setStyles();
+            // Change PGI slider image
+            if (this.variant && this.outer) {
+                // Get images on quickview load
+                this.outer.addEventListener('theme:quickview:media', (e)=>{
+                    if (e && e.detail && e.detail.media) {
+                        this.media = e.detail.media;
+                    }
+                });
+            }
+        }
+        setStyles() {
+            if (this.colorMatch.hex) {
+                this.element.style.setProperty('--swatch', `${this.colorMatch.hex}`);
+            }
+            if (this.colorMatch.path) {
+                this.element.style.setProperty('background-image', `url(${this.colorMatch.path})`);
+                this.element.style.setProperty('background-size', 'cover');
+            }
+        }
+        replaceImage() {
+            // Add new loaded image in PGI slider
+            if (this.imageReplace && this.imageSlide && this.imageId) {
+                if (this.imageSlide.hasAttribute(selectors$12.dataGridImageTarget) && this.imageSlide.getAttribute(selectors$12.dataGridImageTarget) !== this.imageId) {
+                    this.imageSlide.classList.add(classes$F.fade);
+                    const timeoutDelay = parseFloat(window.getComputedStyle(this.imageSlide).getPropertyValue('animation-duration')) * 1000;
+                    setTimeout(()=>{
+                        this.imageSlide.classList.remove(classes$F.fade);
+                    }, timeoutDelay);
+                }
+                this.imageSlide.setAttribute(selectors$12.dataGridImageTarget, this.imageId);
+                this.imageSlide.style.setProperty('background-color', '#fff');
+                if (!this.imageSlide.hasAttribute(selectors$12.dataGridImageDefault)) {
+                    this.imageSlide.setAttribute(selectors$12.dataGridImageDefault, window.getComputedStyle(this.imageSlide).backgroundImage);
+                }
+                this.imageSlide.style.setProperty('background-image', this.imageReplace);
+            }
+        }
+        constructor(){
+            super();
+            this.element = this.querySelector(`[${selectors$12.swatch}]`);
+            this.colorString = this.element.getAttribute(selectors$12.swatch);
+            this.image = this.element.getAttribute(selectors$12.image);
+            this.imageId = this.element.getAttribute(selectors$12.imageId);
+            this.variant = this.element.getAttribute(selectors$12.variant);
+            this.outer = this.element.closest(selectors$12.outerGrid);
+            this.media = null;
+            this.imageSlide = null;
+            this.imageDefault = null;
+            this.stopSlideAnimation = false;
+            const matcher = new ColorMatch({
+                color: this.colorString
+            });
+            matcher.getColor().then((result)=>{
+                this.colorMatch = result;
+                this.init();
+            });
+        }
+    };
+    let GridSwatch = class GridSwatch {
+        init() {
+            this.wrap.innerHTML = '';
+            this.swatches.forEach((swatch, index)=>{
+                let variant1 = this.product.variants.find((variant)=>{
+                    return variant.options.includes(swatch);
+                });
+                const image = variant1.featured_media ? variant1.featured_media.preview_image.src : '';
+                const imageId = variant1.featured_media ? variant1.featured_media.id : '';
+                const rand = Math.floor(Math.random() * 9999);
+                this.wrap.innerHTML += Sqrl__namespace.render(this.template, {
+                    color: swatch,
+                    uniq: `${this.product.id}-${variant1.id}-${rand}`,
+                    variant: variant1.id,
+                    product_id: this.product.id,
+                    image_id: imageId,
+                    image,
+                    index
+                });
+            });
+            new NativeScrollbar(this.wrap);
+        }
+        constructor(wrap){
+            this.template = document.querySelector(selectors$12.template).innerHTML;
+            this.wrap = wrap;
+            this.handle = wrap.getAttribute(selectors$12.handle);
+            const label = wrap.getAttribute(selectors$12.label).trim().toLowerCase();
+            getProductJson(this.handle).then((product)=>{
+                this.product = product;
+                this.colorOption = product.options.find(function(element) {
+                    return element.name.toLowerCase() === label || null;
+                });
+                if (this.colorOption) {
+                    this.swatches = this.colorOption.values;
+                    this.init();
+                }
+            });
+        }
+    };
+    function makeGridSwatches(container) {
+        const gridSwatchWrappers = container.querySelectorAll(selectors$12.wrapper);
+        gridSwatchWrappers.forEach((wrap)=>{
+            new GridSwatch(wrap);
+        });
+    }
+    const swatchGridSection = {
+        onLoad () {
+            makeGridSwatches(this.container);
+            makeSwappers(this.container);
+        }
+    };
+
+    const selectors$11 = {
+        holderItems: '[data-custom-scrollbar-items]',
+        scrollbar: '[data-custom-scrollbar]',
+        scrollbarTrack: '[data-custom-scrollbar-track]'
+    };
+    const classes$E = {
+        hide: 'hide'
+    };
+    const sections$n = {};
+    let CustomScrollbar = class CustomScrollbar {
+        events() {
+            this.holderItems.addEventListener('scroll', this.calculatePosition.bind(this));
+            this.holderItems.addEventListener('theme:carousel:scroll', this.calculatePosition.bind(this));
+            document.addEventListener('theme:resize:width', this.calculateTrackWidth.bind(this));
+            document.addEventListener('theme:resize:width', this.calculatePosition.bind(this));
+        }
+        calculateTrackWidth() {
+            // Javascript can't execute calc() (from `--outer` variable) - create a new div with width property instead `getPropertyValue('--outer')` to can get the width of `after` on the holder
+            const htmlObject = document.createElement('div');
+            this.holderItems.prepend(htmlObject);
+            htmlObject.style.display = 'none';
+            htmlObject.style.width = getComputedStyle(this.holderItems).getPropertyValue('--outer');
+            const widthAfter = parseInt(getComputedStyle(htmlObject).getPropertyValue('width'));
+            this.holderItems.firstChild.remove();
+            this.scrollbarWidth = this.scrollbar.clientWidth === 0 ? this.scrollbar.parentNode.getBoundingClientRect().width : this.scrollbar.clientWidth;
+            setTimeout(()=>{
+                const childWidth = this.children[0].clientWidth;
+                const childMarginRight = Number(getComputedStyle(this.children[0]).marginRight.replace('px', ''));
+                const childMarginLeft = Number(getComputedStyle(this.children[0]).marginLeft.replace('px', ''));
+                // Minus `childMarginRight` is added to the end with minus because the last child doesn't have margin-right
+                this.scrollWidth = this.children.length * (childWidth + childMarginRight + childMarginLeft) + widthAfter - childMarginRight;
+                this.trackWidth = (this.scrollbarWidth + widthAfter) / this.scrollWidth * 100;
+                this.trackWidth = this.trackWidth < 5 ? 5 : this.trackWidth;
+                this.scrollbar.style.setProperty('--track-width', `${this.trackWidth}%`);
+                const hideScrollbar = Math.ceil(this.trackWidth) >= 100;
+                this.scrollbar.classList.toggle(classes$E.hide, hideScrollbar);
+            }, 100);
+        }
+        calculatePosition() {
+            let position = this.holderItems.scrollLeft / (this.holderItems.scrollWidth - this.holderItems.clientWidth);
+            position *= this.scrollbar.clientWidth - this.scrollbarTrack.clientWidth;
+            position = position < 0 ? 0 : position;
+            position = isNaN(position) ? 0 : position;
+            this.scrollbar.style.setProperty('--position', `${Math.round(position)}px`);
+            document.dispatchEvent(new CustomEvent('theme:scrollbar:scroll', {
+                bubbles: true,
+                detail: {
+                    holder: this.holderItems
+                }
+            }));
+        }
+        constructor(holder, children = null){
+            this.holderItems = holder.querySelector(selectors$11.holderItems);
+            this.scrollbar = holder.querySelector(selectors$11.scrollbar);
+            this.scrollbarTrack = holder.querySelector(selectors$11.scrollbarTrack);
+            this.trackWidth = 0;
+            this.scrollWidth = 0;
+            if (this.scrollbar && this.holderItems) {
+                this.children = children || this.holderItems.children;
+                this.events();
+                this.calculateTrackWidth();
+            }
+        }
+    };
+    const customScrollbar = {
+        onLoad () {
+            sections$n[this.id] = new CustomScrollbar(this.container);
+        }
+    };
+
+    const selectors$10 = {
+        carousel: '[data-carousel]',
+        carouselWithProgress: 'data-carousel-progress',
+        carouselSlide: '[data-carousel-slide]',
+        carouselFirstSlidePhoto: '[data-grid-slide]',
+        pgiFirstSlidePhoto: 'product-grid-item-variant:not([hidden]) [data-grid-slide]',
+        wrapper: '[data-wrapper]',
+        carouselTrack: '[data-carousel-track]',
+        slider: '.flickity-slider',
+        carouselOptions: 'data-options',
+        carouselCustomScrollbar: 'data-custom-scrollbar-items',
+        carouselPrev: '.flickity-button.previous',
+        carouselNext: '.flickity-button.next',
+        recentlyViewHolder: 'data-recently-viewed-products',
+        relatedHolder: 'data-related-products',
+        sectionHolder: '[data-section-id]'
+    };
+    const classes$D = {
+        wrapper: 'wrapper',
+        arrowsForceTop: 'flickity-force-arrows-top',
+        arrowsOnSide: 'not-moved-arrows',
+        hide: 'hide',
+        flickityEnabled: 'flickity-enabled',
+        hiddenArrows: 'hidden-arrows',
+        flickityStatic: 'flickity-static'
+    };
+    const offsets$1 = {
+        additionalOffsetWrapper: 112
+    };
+    let Carousel = class Carousel extends HTMLElement {
+        connectedCallback() {
+            this.carousel = this.container.querySelector(selectors$10.carousel);
+            this.carouselTrack = this.container.querySelector(selectors$10.carouselTrack);
+            this.wrapper = this.container.closest(selectors$10.wrapper);
+            this.section = this.container.closest(selectors$10.sectionHolder);
+            this.slidesVisible = null;
+            this.carouselInstance = null;
+            this.carouselPrev = null;
+            this.carouselNext = null;
+            this.customOptions = {};
+            this.toggleWrapperModifierEvent = ()=>this.toggleWrapperModifier()
+            ;
+            if (this.carousel && this.carousel.hasAttribute(selectors$10.recentlyViewHolder)) {
+                // Check carousel in recently viewed products
+                this.section.addEventListener('theme:recent-products:added', ()=>{
+                    this.init();
+                });
+            } else if (this.carousel && this.carousel.hasAttribute(selectors$10.relatedHolder)) {
+                // Check carousel in recommendation products but without overwrite option
+                this.section.addEventListener('theme:related-products:added', ()=>{
+                    this.init();
+                });
+            } else {
+                this.init();
+            }
+        }
+        init() {
+            if (!this.carousel) {
+                return;
+            }
+            this.slidesTotal = this.carousel.querySelectorAll(selectors$10.carouselSlide).length;
+            this.getGridLayout();
+            this.trackVisibleSlides();
+            if (this.carousel.hasAttribute(selectors$10.carouselOptions)) {
+                this.customOptions = JSON.parse(decodeURIComponent(this.carousel.getAttribute(selectors$10.carouselOptions)));
+            }
+            this.initCarousel();
+            this.calculatedArrowsTopPosition();
+            this.toggleWrapperModifier();
+            document.addEventListener('theme:resize:width', this.toggleWrapperModifierEvent);
+            if (this.carousel.hasAttribute(selectors$10.carouselWithProgress)) {
+                this.progressBarCalculate();
+            }
+            if (this.carousel.hasAttribute(selectors$10.carouselCustomScrollbar)) {
+                new CustomScrollbar(this.container);
+            }
+        }
+        initCarousel() {
+            this.options = {
+                accessibility: true,
+                contain: true,
+                freeScroll: true,
+                prevNextButtons: true,
+                wrapArround: false,
+                groupCells: false,
+                autoPlay: false,
+                pageDots: false,
+                cellAlign: window.isRTL ? 'right' : 'left',
+                rightToLeft: window.isRTL,
+                dragThreshold: 10,
+                arrowShape: {
+                    x0: 10,
+                    x1: 60,
+                    y1: 50,
+                    x2: 67.5,
+                    y2: 42.5,
+                    x3: 25
+                },
+                on: {
+                    ready: ()=>{
+                        this.removeIncorrectAria();
+                    },
+                    resize: ()=>{
+                        this.toggleArrows();
+                        this.calculatedArrowsTopPosition();
+                        setTimeout(()=>{
+                            this.visibleSlides();
+                        }, 100);
+                    }
+                },
+                ...this.customOptions
+            };
+            this.carouselInstance = new Flickity(this.carousel, this.options);
+            this.carouselPrev = this.carousel.querySelector(selectors$10.carouselPrev);
+            this.carouselNext = this.carousel.querySelector(selectors$10.carouselNext);
+            this.container.addEventListener('theme:tab:change', ()=>{
+                this.carouselInstance.resize();
+                this.carouselPrev = this.carousel.querySelector(selectors$10.carouselPrev);
+                this.carouselNext = this.carousel.querySelector(selectors$10.carouselNext);
+            });
+            this.carouselInstance.on('dragStart', ()=>{
+                this.carouselInstance.slider.style.pointerEvents = 'none';
+                if (!resolution$1.isMobile) this.containDrag();
+            });
+            this.carouselInstance.on('dragEnd', ()=>{
+                this.carouselInstance.slider.style.pointerEvents = 'auto';
+                if (!resolution$1.isMobile) this.containDrag();
+            });
+            this.carouselInstance.on('change', (index)=>this.lockArrows(index)
+            );
+            setTimeout(()=>{
+                this.visibleSlides();
+            }, 100);
+            if (Shopify.designMode) {
+                setTimeout(()=>{
+                    if (this.carouselInstance.options.watchCSS && !this.carousel.classList.contains(classes$D.flickityEnabled)) {
+                        this.carouselInstance.destroy();
+                        this.carouselInstance = new Flickity(this.carousel, this.options);
+                        this.carouselInstance.resize();
+                        this.carouselPrev = this.carousel.querySelector(selectors$10.carouselPrev);
+                        this.carouselNext = this.carousel.querySelector(selectors$10.carouselNext);
+                    } else {
+                        this.carouselInstance.resize();
+                    }
+                }, 10);
+            }
+            this.carousel.classList.toggle(classes$D.flickityStatic, this.smallItems === this.carousel.querySelectorAll(selectors$10.carouselSlide).length);
+            makeGridSwatches(this.container);
+            new Siblings(this.container);
+        }
+        calculatedArrowsTopPosition() {
+            const carouselFirstSlidePhoto = this.container.querySelector(selectors$10.carouselFirstSlidePhoto);
+            const pgiFirstSlidePhoto = this.container.querySelector(selectors$10.pgiFirstSlidePhoto);
+            if (pgiFirstSlidePhoto) {
+                const buttonOffset = pgiFirstSlidePhoto.offsetHeight / 2;
+                this.carousel.style.setProperty('--buttons-top', `${buttonOffset}px`);
+            } else if (carouselFirstSlidePhoto) {
+                const buttonOffset = carouselFirstSlidePhoto.offsetHeight / 2;
+                this.carousel.style.setProperty('--buttons-top', `${buttonOffset}px`);
+            }
+        }
+        toggleWrapperModifier() {
+            if (!this.wrapper) {
+                return;
+            }
+            const scrollbarWidth = Number(getComputedStyle(document.documentElement).getPropertyValue('--scrollbar-width').replace('px', ''));
+            const wrapperWidth = this.wrapper.clientWidth;
+            this.wrapperWidthWithGutter = wrapperWidth + offsets$1.additionalOffsetWrapper + scrollbarWidth;
+            if (window.innerWidth >= this.wrapperWidthWithGutter) {
+                // the screen is wide, have the arrows beside the carousel
+                this.wrapper.classList.remove(classes$D.arrowsForceTop);
+                this.section.classList.add(classes$D.arrowsOnSide);
+            }
+            if (window.innerWidth < this.wrapperWidthWithGutter) {
+                // the screen is too narrow for arrows beside the carousel
+                // add the wrapper--full class to trick the layout
+                this.wrapper.classList.add(classes$D.arrowsForceTop);
+                this.section.classList.remove(classes$D.arrowsOnSide);
+            }
+        }
+        progressBarCalculate() {
+            if (this.carouselInstance !== null && this.carouselTrack) {
+                this.carouselInstance.on('scroll', (progress)=>{
+                    progress = Math.max(0, Math.min(1, progress)) * 100 + '%';
+                    this.carouselTrack.style.width = progress;
+                });
+            }
+        }
+        getGridLayout() {
+            this.largeItems = Number(getComputedStyle(this.carousel).getPropertyValue('--grid-large-items')) || 3;
+            this.mediumItems = Number(getComputedStyle(this.carousel).getPropertyValue('--grid-medium-items')) || this.largeItems;
+            this.smallItems = Number(getComputedStyle(this.carousel).getPropertyValue('--grid-small-items')) || this.mediumItems || this.largeItems;
+        }
+        visibleSlides() {
+            if (!this.carousel) {
+                return;
+            }
+            this.getGridLayout();
+            const carouselWidth = this.carousel.clientWidth || this.carouselInstance.size.width;
+            const slideWidth = this.carouselInstance !== null && this.carouselInstance.selectedElement ? this.carouselInstance.selectedElement.clientWidth : this.carousel.querySelector(selectors$10.carouselSlide).clientWidth;
+            const countSlides = this.carouselInstance !== null && this.carouselInstance.slides ? this.carouselInstance.slides.length : this.carousel.querySelectorAll(selectors$10.carouselSlide).length;
+            const numberOfVisibleSlides = Math.floor(carouselWidth / slideWidth);
+            this.section.classList.remove(classes$D.hiddenArrows);
+            if (this.carouselPrev && this.carouselNext) {
+                this.carouselPrev.classList.remove(classes$D.hide);
+                this.carouselNext.classList.remove(classes$D.hide);
+            }
+            // Desktop
+            if (window.innerWidth > window.theme.sizes.large && !this.options.groupCells) {
+                if (numberOfVisibleSlides <= this.largeItems && countSlides <= this.largeItems && this.carouselPrev && this.carouselNext) {
+                    this.hideArrows();
+                }
+            }
+            // Tablet
+            if (window.innerWidth >= window.theme.sizes.medium && window.innerWidth <= window.theme.sizes.large && !this.options.groupCells) {
+                if (numberOfVisibleSlides <= this.mediumItems && countSlides <= this.mediumItems && this.carouselPrev && this.carouselNext) {
+                    this.hideArrows();
+                }
+            }
+            // Mobile
+            if (window.innerWidth < window.theme.sizes.medium && !this.options.groupCells) {
+                if (numberOfVisibleSlides <= this.smallItems && countSlides <= this.smallItems && this.carouselPrev && this.carouselNext) {
+                    this.hideArrows();
+                }
+            }
+        }
+        trackVisibleSlides() {
+            const isSmallDown = window.matchMedia(`(max-width: ${window.theme.sizes.medium - 1}px)`);
+            const isTablet = window.matchMedia(`(min-width: ${window.theme.sizes.medium}px) and (max-width: ${window.theme.sizes.large - 1}px)`);
+            const isDesktop = window.matchMedia(`(min-width: ${window.theme.sizes.large}px)`);
+            isSmallDown.addEventListener('change', (event)=>{
+                event.matches ? this.slidesVisible = this.smallItems : true;
+            });
+            isSmallDown.matches ? this.slidesVisible = this.smallItems : true;
+            isTablet.addEventListener('change', (event)=>{
+                event.matches ? this.slidesVisible = this.mediumItems : true;
+            });
+            isTablet.matches ? this.slidesVisible = this.mediumItems : true;
+            isDesktop.addEventListener('change', (event)=>{
+                event.matches ? this.slidesVisible = this.largeItems : true;
+            });
+            isDesktop.matches ? this.slidesVisible = this.largeItems : true;
+        }
+        containDrag() {
+            // Dragging agressively in flickity will select the last cell in the list
+            // instead of the first cell of the last slide (slide is a set of cells).
+            // We detect drag events, and move the selection back to the first cell
+            // of the last slide -- the lastSelectableCell.
+            const lastSelectableCell = this.slidesTotal - this.slidesVisible;
+            if (this.carouselInstance.selectedIndex >= lastSelectableCell) {
+                this.carouselInstance.select(lastSelectableCell);
+                this.lockArrows(this.carouselInstance.selectedIndex);
+            }
+        }
+        lockArrows(index) {
+            if (this.options.wrapAround || this.options.groupCells) {
+                return;
+            }
+            const nextIndex = parseInt(index);
+            const lastSelectableCell = this.slidesTotal - this.slidesVisible;
+            this.carouselNext.disabled = nextIndex >= lastSelectableCell;
+        }
+        showArrows() {
+            this.carouselPrev.classList.remove(classes$D.hide);
+            this.carouselNext.classList.remove(classes$D.hide);
+            this.section.classList.remove(classes$D.hiddenArrows);
+        }
+        hideArrows() {
+            this.carouselPrev.classList.add(classes$D.hide);
+            this.carouselNext.classList.add(classes$D.hide);
+            this.section.classList.add(classes$D.hiddenArrows);
+        }
+        toggleArrows() {
+            if (this.carouselPrev && this.carouselNext) {
+                if (this.carouselPrev.disabled && this.carouselNext.disabled) {
+                    this.hideArrows();
+                } else {
+                    this.showArrows();
+                }
+            }
+        }
+        // Flickity VERY annoyingly adds aria-hidden="true" to all slides except the current one which causes lighthouse accessibility failure
+        // see https://github.com/metafizzy/flickity/issues/1228
+        removeIncorrectAria() {
+            const slidesHidden = this.carousel.querySelectorAll('[aria-hidden="true"]');
+            slidesHidden.forEach((el)=>el.removeAttribute('aria-hidden')
+            );
+        }
+        constructor(){
+            super();
+            this.container = this;
+        }
+    };
+    if (!customElements.get('flickity-carousel')) {
+        customElements.define('flickity-carousel', Carousel);
+    }
+
+    const selectors$$ = {
+        templateAddresses: '[data-address-wrapper]',
+        addressNewForm: '[data-new-address-form]',
+        addressNewFormInner: '[new-address-form-inner]',
+        btnNew: '.address-new-toggle',
+        btnEdit: '.address-edit-toggle',
+        btnDelete: '.address-delete',
+        classHide: 'hide',
+        dataFormId: 'data-form-id',
+        dataConfirmMessage: 'data-confirm-message',
+        defaultConfirmMessage: 'Are you sure you wish to delete this address?',
+        editAddress: '#EditAddress',
+        addressCountryNew: 'AddressCountryNew',
+        addressProvinceNew: 'AddressProvinceNew',
+        addressProvinceContainerNew: 'AddressProvinceContainerNew',
+        addressCountryOption: '.address-country-option',
+        addressCountry: 'AddressCountry',
+        addressProvince: 'AddressProvince',
+        addressProvinceContainer: 'AddressProvinceContainer'
+    };
+    let Addresses = class Addresses {
+        init() {
+            if (this.addressNewForm) {
+                const section = this.section;
+                const newAddressFormInner = this.addressNewForm.querySelector(selectors$$.addressNewFormInner);
+                this.customerAddresses();
+                const newButtons = section.querySelectorAll(selectors$$.btnNew);
+                if (newButtons.length) {
+                    newButtons.forEach((element)=>{
+                        element.addEventListener('click', function() {
+                            newAddressFormInner.classList.toggle(selectors$$.classHide);
+                        });
+                    });
+                }
+                const editButtons = section.querySelectorAll(selectors$$.btnEdit);
+                if (editButtons.length) {
+                    editButtons.forEach((element)=>{
+                        element.addEventListener('click', function() {
+                            const formId = this.getAttribute(selectors$$.dataFormId);
+                            section.querySelector(`${selectors$$.editAddress}_${formId}`).classList.toggle(selectors$$.classHide);
+                        });
+                    });
+                }
+                const deleteButtons = section.querySelectorAll(selectors$$.btnDelete);
+                if (deleteButtons.length) {
+                    deleteButtons.forEach((element)=>{
+                        element.addEventListener('click', function() {
+                            const formId = this.getAttribute(selectors$$.dataFormId);
+                            const confirmMessage = this.getAttribute(selectors$$.dataConfirmMessage);
+                            if (confirm(confirmMessage || selectors$$.defaultConfirmMessage)) {
+                                Shopify.postLink(window.theme.routes.account_addresses_url + '/' + formId, {
+                                    parameters: {
+                                        _method: 'delete'
+                                    }
+                                });
+                            }
+                        });
+                    });
+                }
+            }
+        }
+        customerAddresses() {
+            // Initialize observers on address selectors, defined in shopify_common.js
+            if (Shopify.CountryProvinceSelector) {
+                new Shopify.CountryProvinceSelector(selectors$$.addressCountryNew, selectors$$.addressProvinceNew, {
+                    hideElement: selectors$$.addressProvinceContainerNew
+                });
+            }
+            // Initialize each edit form's country/province selector
+            const countryOptions = this.section.querySelectorAll(selectors$$.addressCountryOption);
+            countryOptions.forEach((element)=>{
+                const formId = element.getAttribute(selectors$$.dataFormId);
+                const countrySelector = `${selectors$$.addressCountry}_${formId}`;
+                const provinceSelector = `${selectors$$.addressProvince}_${formId}`;
+                const containerSelector = `${selectors$$.addressProvinceContainer}_${formId}`;
+                new Shopify.CountryProvinceSelector(countrySelector, provinceSelector, {
+                    hideElement: containerSelector
+                });
+            });
+        }
+        constructor(section){
+            this.section = section;
+            this.addressNewForm = this.section.querySelector(selectors$$.addressNewForm);
+            this.init();
+        }
+    };
+    const template = document.querySelector(selectors$$.templateAddresses);
+    if (template) {
+        new Addresses(template);
+    }
+
+    /**
+     * Password Template Script
+     * ------------------------------------------------------------------------------
+     * A file that contains code for the Password template.
+     *
+     * @namespace password
+     */ (function() {
+        var recoverPasswordForm = document.querySelector('#RecoverPassword');
+        if (recoverPasswordForm) {
+            customerLogin();
+        }
+        function customerLogin() {
+            var config = {
+                recoverPasswordForm: '#RecoverPassword',
+                hideRecoverPasswordLink: '#HideRecoverPasswordLink'
+            };
+            checkUrlHash();
+            resetPasswordSuccess();
+            document.querySelector(config.recoverPasswordForm).addEventListener('click', onShowHidePasswordForm);
+            document.querySelector(config.hideRecoverPasswordLink).addEventListener('click', onShowHidePasswordForm);
+            function onShowHidePasswordForm(evt) {
+                evt.preventDefault();
+                toggleRecoverPasswordForm();
+            }
+            function checkUrlHash() {
+                var hash = window.location.hash;
+                // Allow deep linking to recover password form
+                if (hash === '#recover') {
+                    toggleRecoverPasswordForm();
+                }
+            }
+            /**
+         *  Show/Hide recover password form
+         */ function toggleRecoverPasswordForm() {
+                var emailValue = document.querySelector('#CustomerEmail').value;
+                document.querySelector('#RecoverEmail').value = emailValue;
+                document.querySelector('#RecoverPasswordForm').classList.toggle('display-none');
+                document.querySelector('#CustomerLoginForm').classList.toggle('display-none');
+            }
+            /**
+         *  Show reset password success message
+         */ function resetPasswordSuccess() {
+                var formSuccess = document.querySelector('.reset-password-success');
+                // check if reset password form was successfully submited.
+                if (formSuccess) {
+                    document.querySelector('#ResetSuccess').classList.remove('display-none');
+                }
+            }
+        }
+    })();
+
+    window.Shopify = window.Shopify || {};
+    window.Shopify.theme = window.Shopify.theme || {};
+    window.Shopify.theme.sections = window.Shopify.theme.sections || {};
+    window.Shopify.theme.sections.registered = window.Shopify.theme.sections.registered || {};
+    window.Shopify.theme.sections.instances = window.Shopify.theme.sections.instances || [];
+    const registered = window.Shopify.theme.sections.registered;
+    const instances = window.Shopify.theme.sections.instances;
+    const selectors$_ = {
+        id: 'data-section-id',
+        type: 'data-section-type'
+    };
+    let Registration = class Registration {
+        getStack() {
+            return this.callStack;
+        }
+        constructor(type = null, components = []){
+            this.type = type;
+            this.components = validateComponentsArray(components);
+            this.callStack = {
+                onLoad: [],
+                onUnload: [],
+                onSelect: [],
+                onDeselect: [],
+                onBlockSelect: [],
+                onBlockDeselect: [],
+                onReorder: []
+            };
+            components.forEach((comp)=>{
+                for (const [key, value] of Object.entries(comp)){
+                    const arr = this.callStack[key];
+                    if (Array.isArray(arr) && typeof value === 'function') {
+                        arr.push(value);
+                    } else {
+                        console.warn(`Unregisted function: '${key}' in component: '${this.type}'`);
+                        console.warn(value);
+                    }
+                }
+            });
+        }
+    };
+    let Section = class Section {
+        callFunctions(key, e = null) {
+            this.callStack[key].forEach((func)=>{
+                const props = {
+                    id: this.id,
+                    type: this.type,
+                    container: this.container
+                };
+                if (e) {
+                    func.call(props, e);
+                } else {
+                    func.call(props);
+                }
+            });
+        }
+        onLoad() {
+            this.callFunctions('onLoad');
+        }
+        onUnload() {
+            this.callFunctions('onUnload');
+        }
+        onSelect(e) {
+            this.callFunctions('onSelect', e);
+        }
+        onDeselect(e) {
+            this.callFunctions('onDeselect', e);
+        }
+        onBlockSelect(e) {
+            this.callFunctions('onBlockSelect', e);
+        }
+        onBlockDeselect(e) {
+            this.callFunctions('onBlockDeselect', e);
+        }
+        onReorder(e) {
+            this.callFunctions('onReorder', e);
+        }
+        constructor(container, registration){
+            this.container = validateContainerElement(container);
+            this.id = container.getAttribute(selectors$_.id);
+            this.type = registration.type;
+            this.callStack = registration.getStack();
+            try {
+                this.onLoad();
+            } catch (e) {
+                // We catch all errors throw in sections in order to prevent minor errors in apps from breaking everything else
+                console.warn(`Error in section: ${this.id}`);
+                console.warn(this);
+                console.error(e);
+            }
+        }
+    };
+    function validateContainerElement(container) {
+        if (!(container instanceof Element)) {
+            throw new TypeError('Theme Sections: Attempted to load section. The section container provided is not a DOM element.');
+        }
+        if (container.getAttribute(selectors$_.id) === null) {
+            throw new Error('Theme Sections: The section container provided does not have an id assigned to the ' + selectors$_.id + ' attribute.');
+        }
+        return container;
+    }
+    function validateComponentsArray(value) {
+        if (typeof value !== 'undefined' && typeof value !== 'object' || value === null) {
+            throw new TypeError('Theme Sections: The components object provided is not a valid');
+        }
+        return value;
+    }
+    /*
+     * @shopify/theme-sections
+     * -----------------------------------------------------------------------------
+     *
+     * A framework to provide structure to your Shopify sections and a load and unload
+     * lifecycle. The lifecycle is automatically connected to theme editor events so
+     * that your sections load and unload as the editor changes the content and
+     * settings of your sections.
+     */ function register(type, components) {
+        if (typeof type !== 'string') {
+            throw new TypeError('Theme Sections: The first argument for .register must be a string that specifies the type of the section being registered');
+        }
+        if (typeof registered[type] !== 'undefined') {
+            throw new Error('Theme Sections: A section of type "' + type + '" has already been registered. You cannot register the same section type twice');
+        }
+        if (!Array.isArray(components)) {
+            components = [
+                components
+            ];
+        }
+        const section = new Registration(type, components);
+        registered[type] = section;
+        return registered;
+    }
+    function load(types, containers) {
+        types = normalizeType(types);
+        if (typeof containers === 'undefined') {
+            containers = document.querySelectorAll('[' + selectors$_.type + ']');
+        }
+        containers = normalizeContainers(containers);
+        types.forEach(function(type) {
+            const registration = registered[type];
+            if (typeof registration === 'undefined') {
+                return;
+            }
+            containers = containers.filter(function(container) {
+                // Filter from list of containers because container already has an instance loaded
+                if (isInstance(container)) {
+                    return false;
+                }
+                // Filter from list of containers because container doesn't have data-section-type attribute
+                if (container.getAttribute(selectors$_.type) === null) {
+                    return false;
+                }
+                // Keep in list of containers because current type doesn't match
+                if (container.getAttribute(selectors$_.type) !== type) {
+                    return true;
+                }
+                instances.push(new Section(container, registration));
+                // Filter from list of containers because container now has an instance loaded
+                return false;
+            });
+        });
+    }
+    function unload(selector) {
+        var instancesToUnload = getInstances(selector);
+        instancesToUnload.forEach(function(instance) {
+            var index = instances.map(function(e) {
+                return e.id;
+            }).indexOf(instance.id);
+            instances.splice(index, 1);
+            instance.onUnload();
+        });
+    }
+    function reorder(selector) {
+        var instancesToReorder = getInstances(selector);
+        instancesToReorder.forEach(function(instance) {
+            instance.onReorder();
+        });
+    }
+    function getInstances(selector) {
+        var filteredInstances = [];
+        // Fetch first element if its an array
+        if (NodeList.prototype.isPrototypeOf(selector) || Array.isArray(selector)) {
+            var firstElement = selector[0];
+        }
+        // If selector element is DOM element
+        if (selector instanceof Element || firstElement instanceof Element) {
+            var containers = normalizeContainers(selector);
+            containers.forEach(function(container) {
+                filteredInstances = filteredInstances.concat(instances.filter(function(instance) {
+                    return instance.container === container;
+                }));
+            });
+        // If select is type string
+        } else if (typeof selector === 'string' || typeof firstElement === 'string') {
+            var types = normalizeType(selector);
+            types.forEach(function(type) {
+                filteredInstances = filteredInstances.concat(instances.filter(function(instance) {
+                    return instance.type === type;
+                }));
+            });
+        }
+        return filteredInstances;
+    }
+    function getInstanceById(id) {
+        var instance;
+        for(var i = 0; i < instances.length; i++){
+            if (instances[i].id === id) {
+                instance = instances[i];
+                break;
+            }
+        }
+        return instance;
+    }
+    function isInstance(selector) {
+        return getInstances(selector).length > 0;
+    }
+    function normalizeType(types) {
+        // If '*' then fetch all registered section types
+        if (types === '*') {
+            types = Object.keys(registered);
+        // If a single section type string is passed, put it in an array
+        } else if (typeof types === 'string') {
+            types = [
+                types
+            ];
+        // If single section constructor is passed, transform to array with section
+        // type string
+        } else if (types.constructor === Section) {
+            types = [
+                types.prototype.type
+            ];
+        // If array of typed section constructors is passed, transform the array to
+        // type strings
+        } else if (Array.isArray(types) && types[0].constructor === Section) {
+            types = types.map(function(Section1) {
+                return Section1.type;
+            });
+        }
+        types = types.map(function(type) {
+            return type.toLowerCase();
+        });
+        return types;
+    }
+    function normalizeContainers(containers) {
+        // Nodelist with entries
+        if (NodeList.prototype.isPrototypeOf(containers) && containers.length > 0) {
+            containers = Array.prototype.slice.call(containers);
+        // Empty Nodelist
+        } else if (NodeList.prototype.isPrototypeOf(containers) && containers.length === 0) {
+            containers = [];
+        // Handle null (document.querySelector() returns null with no match)
+        } else if (containers === null) {
+            containers = [];
+        // Single DOM element
+        } else if (!Array.isArray(containers) && containers instanceof Element) {
+            containers = [
+                containers
+            ];
+        }
+        return containers;
+    }
+    if (window.Shopify.designMode) {
+        document.addEventListener('shopify:section:load', function(event) {
+            var id = event.detail.sectionId;
+            var container = event.target.querySelector('[' + selectors$_.id + '="' + id + '"]');
+            if (container !== null) {
+                load(container.getAttribute(selectors$_.type), container);
+            }
+        });
+        document.addEventListener('shopify:section:reorder', function(event) {
+            var id = event.detail.sectionId;
+            var container = event.target.querySelector('[' + selectors$_.id + '="' + id + '"]');
+            var instance = getInstances(container)[0];
+            if (typeof instance === 'object') {
+                reorder(container);
+            }
+        });
+        document.addEventListener('shopify:section:unload', function(event) {
+            var id = event.detail.sectionId;
+            var container = event.target.querySelector('[' + selectors$_.id + '="' + id + '"]');
+            var instance = getInstances(container)[0];
+            if (typeof instance === 'object') {
+                unload(container);
+            }
+        });
+        document.addEventListener('shopify:section:select', function(event) {
+            var instance = getInstanceById(event.detail.sectionId);
+            if (typeof instance === 'object') {
+                instance.onSelect(event);
+            }
+        });
+        document.addEventListener('shopify:section:deselect', function(event) {
+            var instance = getInstanceById(event.detail.sectionId);
+            if (typeof instance === 'object') {
+                instance.onDeselect(event);
+            }
+        });
+        document.addEventListener('shopify:block:select', function(event) {
+            var instance = getInstanceById(event.detail.sectionId);
+            if (typeof instance === 'object') {
+                instance.onBlockSelect(event);
+            }
+        });
+        document.addEventListener('shopify:block:deselect', function(event) {
+            var instance = getInstanceById(event.detail.sectionId);
+            if (typeof instance === 'object') {
+                instance.onBlockDeselect(event);
+            }
+        });
+    }
+
+    /**
+     * A11y Helpers
+     * -----------------------------------------------------------------------------
+     * A collection of useful functions that help make your theme more accessible
+     */ /**
+     * Moves focus to an HTML element
+     * eg for In-page links, after scroll, focus shifts to content area so that
+     * next `tab` is where user expects. Used in bindInPageLinks()
+     * eg move focus to a modal that is opened. Used in trapFocus()
+     *
+     * @param {Element} container - Container DOM element to trap focus inside of
+     * @param {Object} options - Settings unique to your theme
+     * @param {string} options.className - Class name to apply to element on focus.
+     */ function forceFocus(element, options) {
+        options = options || {};
+        element.focus();
+        if (typeof options.className !== 'undefined') {
+            element.classList.add(options.className);
+        }
+        element.addEventListener('blur', callback);
+        function callback(event) {
+            event.target.removeEventListener(event.type, callback);
+            if (typeof options.className !== 'undefined') {
+                element.classList.remove(options.className);
+            }
+        }
+    }
+    /**
+     * If there's a hash in the url, focus the appropriate element
+     * This compensates for older browsers that do not move keyboard focus to anchor links.
+     * Recommendation: To be called once the page in loaded.
+     *
+     * @param {Object} options - Settings unique to your theme
+     * @param {string} options.className - Class name to apply to element on focus.
+     * @param {string} options.ignore - Selector for elements to not include.
+     */ function focusHash(options) {
+        options = options || {};
+        var hash = window.location.hash;
+        var element = document.getElementById(hash.slice(1));
+        // if we are to ignore this element, early return
+        if (element && options.ignore && element.matches(options.ignore)) {
+            return false;
+        }
+        if (hash && element) {
+            forceFocus(element, options);
+        }
+    }
+    /**
+     * When an in-page (url w/hash) link is clicked, focus the appropriate element
+     * This compensates for older browsers that do not move keyboard focus to anchor links.
+     * Recommendation: To be called once the page in loaded.
+     *
+     * @param {Object} options - Settings unique to your theme
+     * @param {string} options.className - Class name to apply to element on focus.
+     * @param {string} options.ignore - CSS selector for elements to not include.
+     */ function bindInPageLinks(options) {
+        options = options || {};
+        var links = Array.prototype.slice.call(document.querySelectorAll('a[href^="#"]'));
+        function queryCheck(selector) {
+            return document.getElementById(selector) !== null;
+        }
+        return links.filter(function(link) {
+            if (link.hash === '#' || link.hash === '') {
+                return false;
+            }
+            if (options.ignore && link.matches(options.ignore)) {
+                return false;
+            }
+            if (!queryCheck(link.hash.substr(1))) {
+                return false;
+            }
+            var element = document.querySelector(link.hash);
+            if (!element) {
+                return false;
+            }
+            link.addEventListener('click', function() {
+                forceFocus(element, options);
+            });
+            return true;
+        });
+    }
+    function focusable$1(container) {
+        var elements = Array.prototype.slice.call(container.querySelectorAll('[tabindex],' + '[draggable],' + 'a[href],' + 'area,' + 'button:enabled,' + 'input:not([type=hidden]):enabled,' + 'object,' + 'select:enabled,' + 'textarea:enabled' + '[data-focus-element]'));
+        // Filter out elements that are not visible.
+        // Copied from jQuery https://github.com/jquery/jquery/blob/2d4f53416e5f74fa98e0c1d66b6f3c285a12f0ce/src/css/hiddenVisibleSelectors.js
+        return elements.filter(function(element) {
+            return Boolean(element.offsetWidth || element.offsetHeight || element.getClientRects().length);
+        });
+    }
+    /**
+     * Traps the focus in a particular container
+     *
+     * @param {Element} container - Container DOM element to trap focus inside of
+     * @param {Element} elementToFocus - Element to be focused on first
+     * @param {Object} options - Settings unique to your theme
+     * @param {string} options.className - Class name to apply to element on focus.
+     */ var trapFocusHandlers = {};
+    function trapFocus(container, options) {
+        options = options || {};
+        var elements = focusable$1(container);
+        var elementToFocus = options.elementToFocus || container;
+        var first = elements[0];
+        var last = elements[elements.length - 1];
+        removeTrapFocus();
+        trapFocusHandlers.focusin = function(event) {
+            if (container !== event.target && !container.contains(event.target) && first && first === event.target) {
+                first.focus();
+            }
+            if (event.target !== container && event.target !== last && event.target !== first) return;
+            document.addEventListener('keydown', trapFocusHandlers.keydown);
+        };
+        trapFocusHandlers.focusout = function() {
+            document.removeEventListener('keydown', trapFocusHandlers.keydown);
+        };
+        trapFocusHandlers.keydown = function(event) {
+            if (event.code !== 'Tab') return; // If not TAB key
+            // On the last focusable element and tab forward, focus the first element.
+            if (event.target === last && !event.shiftKey) {
+                event.preventDefault();
+                first.focus();
+            }
+            //  On the first focusable element and tab backward, focus the last element.
+            if ((event.target === container || event.target === first) && event.shiftKey) {
+                event.preventDefault();
+                last.focus();
+            }
+        };
+        document.addEventListener('focusout', trapFocusHandlers.focusout);
+        document.addEventListener('focusin', trapFocusHandlers.focusin);
+        forceFocus(elementToFocus, options);
+    }
+    /**
+     * Removes the trap of focus from the page
+     */ function removeTrapFocus() {
+        document.removeEventListener('focusin', trapFocusHandlers.focusin);
+        document.removeEventListener('focusout', trapFocusHandlers.focusout);
+        document.removeEventListener('keydown', trapFocusHandlers.keydown);
+    }
+    /**
+     * Add a preventive message to external links and links that open to a new window.
+     * @param {string} elements - Specific elements to be targeted
+     * @param {object} options.messages - Custom messages to overwrite with keys: newWindow, external, newWindowExternal
+     * @param {string} options.messages.newWindow - When the link opens in a new window (e.g. target="_blank")
+     * @param {string} options.messages.external - When the link is to a different host domain.
+     * @param {string} options.messages.newWindowExternal - When the link is to a different host domain and opens in a new window.
+     * @param {object} options.prefix - Prefix to namespace "id" of the messages
+     */ function accessibleLinks(elements, options) {
+        if (typeof elements !== 'string') {
+            throw new TypeError(elements + ' is not a String.');
+        }
+        elements = document.querySelectorAll(elements);
+        if (elements.length === 0) {
+            return;
+        }
+        options = options || {};
+        options.messages = options.messages || {};
+        var messages1 = {
+            newWindow: options.messages.newWindow || 'Opens in a new window.',
+            external: options.messages.external || 'Opens external website.',
+            newWindowExternal: options.messages.newWindowExternal || 'Opens external website in a new window.'
+        };
+        var prefix = options.prefix || 'a11y';
+        var messageSelectors = {
+            newWindow: prefix + '-new-window-message',
+            external: prefix + '-external-message',
+            newWindowExternal: prefix + '-new-window-external-message'
+        };
+        function generateHTML(messages) {
+            var container = document.createElement('ul');
+            var htmlMessages = Object.keys(messages).reduce(function(html, key) {
+                return html += '<li id=' + messageSelectors[key] + '>' + messages[key] + '</li>';
+            }, '');
+            container.setAttribute('hidden', true);
+            container.innerHTML = htmlMessages;
+            document.body.appendChild(container);
+        }
+        function externalSite(link) {
+            return link.hostname !== window.location.hostname;
+        }
+        elements.forEach(function(link) {
+            var target = link.getAttribute('target');
+            var rel = link.getAttribute('rel');
+            var isExternal = externalSite(link);
+            var isTargetBlank = target === '_blank';
+            var missingRelNoopener = rel === null || rel.indexOf('noopener') === -1;
+            if (isTargetBlank && missingRelNoopener) {
+                var relValue = rel === null ? 'noopener' : rel + ' noopener';
+                link.setAttribute('rel', relValue);
+            }
+            if (isExternal && isTargetBlank) {
+                link.setAttribute('aria-describedby', messageSelectors.newWindowExternal);
+            } else if (isExternal) {
+                link.setAttribute('aria-describedby', messageSelectors.external);
+            } else if (isTargetBlank) {
+                link.setAttribute('aria-describedby', messageSelectors.newWindow);
+            }
+        });
+        generateHTML(messages1);
+    }
+
+    var a11y = /*#__PURE__*/Object.freeze({
+        __proto__: null,
+        accessibleLinks: accessibleLinks,
+        bindInPageLinks: bindInPageLinks,
+        focusHash: focusHash,
+        focusable: focusable$1,
+        forceFocus: forceFocus,
+        removeTrapFocus: removeTrapFocus,
+        trapFocus: trapFocus
+    });
+
+    const selectors$Z = {
+        focusable: 'button, [href], select, textarea, [tabindex]:not([tabindex="-1"])'
+    };
+    function modal(unique) {
+        const uniqueID = `data-popup-${unique}`;
+        MicroModal.init({
+            openTrigger: uniqueID,
+            disableScroll: true,
+            onShow: (modal1, el, event)=>{
+                event.preventDefault();
+                const firstFocus = modal1.querySelector(selectors$Z.focusable);
+                trapFocus(modal1, {
+                    elementToFocus: firstFocus
+                });
+            },
+            onClose: (modal, el, event)=>{
+                event.preventDefault();
+                removeTrapFocus();
+                el.focus();
+            }
+        });
+    }
+
+    const selectors$Y = {
+        trigger: '[data-toggle-password-modal]',
+        errors: '.storefront-password-form .errors'
+    };
+    const sections$m = {};
+    let PasswordPage = class PasswordPage {
+        init() {
+            modal('password');
+            if (this.errors) {
+                this.trigger.click();
+            }
+        }
+        constructor(section){
+            this.container = section.container;
+            this.trigger = this.container.querySelector(selectors$Y.trigger);
+            this.errors = this.container.querySelector(selectors$Y.errors);
+            this.init();
+        }
+    };
+    const passwordSection = {
+        onLoad () {
+            sections$m[this.id] = new PasswordPage(this);
+        }
+    };
+    register('password', passwordSection);
+
+    /**
+     * Gift Card Template Script
+     * ------------------------------------------------------------------------------
+     * A file that contains scripts highly couple code to the Gift Card template.
+     */ (function() {
+        var config = {
+            qrCode: '#QrCode',
+            giftCardCode: '.giftcard__code'
+        };
+        // init QR code
+        const qrCode = document.querySelector(config.qrCode);
+        if (qrCode) {
+            function loadGiftCard() {
+                const qrCodeText = qrCode.getAttribute('data-identifier');
+                new QRCode(qrCode, {
+                    text: qrCodeText,
+                    width: 120,
+                    height: 120
+                });
+            }
+            window.addEventListener('load', loadGiftCard);
+        }
+        const giftCardCode = document.querySelector(config.giftCardCode);
+        if (giftCardCode) {
+            // Auto-select gift card code on click, based on ID passed to the function
+            function selectText() {
+                var text = document.querySelector('#GiftCardDigits');
+                var range = '';
+                if (document.body.createTextRange) {
+                    range = document.body.createTextRange();
+                    range.moveToElementText(text);
+                    range.select();
+                } else if (window.getSelection) {
+                    var selection = window.getSelection();
+                    range = document.createRange();
+                    range.selectNodeContents(text);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            }
+            giftCardCode.addEventListener('click', selectText());
+        }
+    })();
+
+    const selectors$X = {
+        parallaxWrapper: '[data-parallax-wrapper]',
+        parallaxImg: '[data-parallax-img]'
+    };
+    let sections$l = {};
+    const parallaxImage = {
+        onLoad () {
+            sections$l[this.id] = [];
+            const frames = this.container.querySelectorAll(selectors$X.parallaxWrapper);
+            frames.forEach((frame)=>{
+                const inner = frame.querySelector(selectors$X.parallaxImg);
+                sections$l[this.id].push(new Rellax(inner, {
+                    center: true,
+                    round: true,
+                    frame: frame
+                }));
+            });
+        },
+        onUnload: function() {
+            sections$l[this.id].forEach((image)=>{
+                if (typeof image.destroy === 'function') {
+                    image.destroy();
+                }
+            });
+        }
+    };
+
+    register('article', parallaxImage);
+
+    const selectors$W = {
+        frame: '[data-ticker-frame]',
+        scale: '[data-ticker-scale]',
+        text: '[data-ticker-text]'
+    };
+    const attributes$1 = {
+        clone: 'data-clone',
+        ariaHidden: 'aria-hidden'
+    };
+    const classes$C = {
+        animationClass: 'ticker--animated',
+        unloadedClass: 'ticker--unloaded',
+        comparitorClass: 'ticker__comparitor'
+    };
+    const sections$k = {};
+    let Ticker = class Ticker {
+        init() {
+            this.addComparitor();
+            this.resizeEvent = debounce$1(()=>this.checkWidth()
+            , 300);
+            this.listen();
+        }
+        addComparitor() {
+            this.comparitor = this.text.cloneNode(true);
+            this.comparitor.classList.add(classes$C.comparitorClass);
+            this.frame.appendChild(this.comparitor);
+            this.scale.classList.remove(classes$C.unloadedClass);
+        }
+        unload() {
+            document.removeEventListener('theme:resize', this.resizeEvent);
+        }
+        listen() {
+            document.addEventListener('theme:resize', this.resizeEvent);
+            this.checkWidth();
+        }
+        checkWidth() {
+            const padding = window.getComputedStyle(this.frame).paddingLeft.replace('px', '') * 2;
+            // Animate all the items - cloned too
+            Array.from(this.text.parentNode.children).forEach((child)=>{
+                child.classList.add(classes$C.animationClass);
+            });
+            if (this.frame.clientWidth - padding < this.comparitor.clientWidth || this.stopClone) {
+                if (this.scale.childElementCount === 1) {
+                    this.clone = this.text.cloneNode(true);
+                    this.clone.setAttribute(attributes$1.ariaHidden, true);
+                    this.clone.setAttribute(attributes$1.clone, '');
+                    this.scale.appendChild(this.clone);
+                    if (this.stopClone) {
+                        for(let index = 0; index < 10; index++){
+                            const cloneSecond = this.text.cloneNode(true);
+                            cloneSecond.setAttribute(attributes$1.ariaHidden, true);
+                            cloneSecond.setAttribute(attributes$1.clone, '');
+                            this.scale.appendChild(cloneSecond);
+                        }
+                    }
+                }
+                const animationTimeFrame = this.text.clientWidth / this.space * this.timeIndex;
+                this.scale.style.setProperty('--animation-time', `${animationTimeFrame}s`);
+            } else {
+                let clone = this.scale.querySelector(`[${attributes$1.clone}]`);
+                if (clone) {
+                    this.scale.removeChild(clone);
+                }
+                this.text.classList.remove(classes$C.animationClass);
+            }
+        }
+        constructor(el, stopClone = false){
+            this.frame = el;
+            this.stopClone = stopClone;
+            this.scale = this.frame.querySelector(selectors$W.scale);
+            this.text = this.frame.querySelector(selectors$W.text);
+            this.space = 100; // 100px
+            this.timeIndex = 1.63; // 100px going to move for 1.63s
+            this.init();
+        }
+    };
+    const ticker = {
+        onLoad () {
+            sections$k[this.id] = [];
+            const el1 = this.container.querySelectorAll(selectors$W.frame);
+            el1.forEach((el)=>{
+                sections$k[this.id].push(new Ticker(el));
+            });
+        },
+        onUnload () {
+            sections$k[this.id].forEach((el)=>{
+                if (typeof el.unload === 'function') {
+                    el.unload();
+                }
+            });
+        }
+    };
+
+    const selectors$V = {
+        frame: '[data-ticker-frame]',
+        slideValue: 'data-slide',
+        tickerScale: '[data-ticker-scale]',
+        tickerText: '[data-ticker-text]'
+    };
+    const classes$B = {
+        trickerAnimated: 'ticker--animated'
+    };
+    const sections$j = {};
+    let Bar = class Bar {
+        init() {
+            this.initTickers(true);
+        }
+        /**
+       * Init tickers in sliders
+       */ initTickers(stopClone = false) {
+            const frame = this.container.querySelector(selectors$V.frame);
+            if (frame) {
+                new Ticker(frame, stopClone);
+            }
+        }
+        toggleTicker(e, isStopped) {
+            const tickerScale = this.container.querySelector(selectors$V.tickerScale);
+            const element = this.container.querySelector(`[${selectors$V.slideValue}="${e.detail.blockId}"]`);
+            if (!element || !tickerScale) return;
+            if (isStopped) {
+                const gutter = Number(getComputedStyle(element).getPropertyValue('--gutter').replace('px', ''));
+                const leftPosition = -(element.offsetLeft - gutter);
+                tickerScale.setAttribute('data-stop', '');
+                tickerScale.querySelectorAll(selectors$V.tickerText).forEach((textHolder)=>{
+                    textHolder.classList.remove(classes$B.trickerAnimated);
+                    textHolder.style.transform = `translate3d(${leftPosition}px, 0, 0)`;
+                });
+            }
+            if (!isStopped) {
+                tickerScale.querySelectorAll(selectors$V.tickerText).forEach((textHolder)=>{
+                    textHolder.classList.add(classes$B.trickerAnimated);
+                    textHolder.removeAttribute('style');
+                });
+                tickerScale.removeAttribute('data-stop');
+            }
+        }
+        onBlockSelect(e) {
+            this.toggleTicker(e, true);
+        }
+        onBlockDeselect(e) {
+            this.toggleTicker(e, false);
+        }
+        constructor(section){
+            this.container = section.container;
+            this.init();
+        }
+    };
+    const logos = {
+        onLoad () {
+            sections$j[this.id] = [];
+            sections$j[this.id].push(new Bar(this));
+        },
+        onBlockSelect (e) {
+            sections$j[this.id].forEach((el)=>{
+                if (typeof el.onBlockSelect === 'function') {
+                    el.onBlockSelect(e);
+                }
+            });
+        },
+        onBlockDeselect (e) {
+            sections$j[this.id].forEach((el)=>{
+                if (typeof el.onBlockSelect === 'function') {
+                    el.onBlockDeselect(e);
+                }
+            });
+        }
+    };
+    register('logos', logos);
+
+    register('blog', parallaxImage);
+
+    var selectors$U = {
+        drawerWrappper: '[data-drawer]',
+        drawerScrolls: '[data-drawer-scrolls]',
+        input: '[data-predictive-search-input]',
+        underlay: '[data-drawer-underlay]',
+        stagger: '[data-stagger-animation]',
+        drawerToggle: 'data-drawer-toggle',
+        firstFocus: 'data-first-focus',
+        children: ':scope > * > [data-animates]',
+        focusable: 'button, [href], select, textarea, [tabindex]:not([tabindex="-1"])'
+    };
+    var classes$A = {
+        isVisible: 'drawer--visible',
+        displayNone: 'display-none'
+    };
     var sections$i = {};
     let Drawer = class Drawer {
         unload() {
@@ -8731,7 +11764,179 @@
             this.listen();
         }
     };
+    // New class for filtering images by color variant
+const selectors$colorFilter = {
+    slider: '[data-product-slideshow]',
+    thumbSlider: '[data-product-thumbs]',
+    thumbs: '[data-slideshow-thumbnail]',
+    slides: '[data-media-slide]',
+    variantColorOption: '[data-option-position="1"]', // Assuming color is the first option
+    colorSwatches: '[data-swatch]'
+};
 
+const classes$colorFilter = {
+    hide: 'hide',
+    flickityEnable: 'flickity-enabled'
+};
+
+let ColorVariantImageFilter = class ColorVariantImageFilter {
+    listen() {
+        // Listen for variant changes
+        this.container.addEventListener('theme:variant:change', (event) => {
+            if (event.detail.variant) {
+                this.currentVariant = event.detail.variant;
+                this.filterImagesByVariantColor();
+            }
+        });
+
+        // Also listen for color swatch clicks directly
+        const colorSwatches = this.container.querySelectorAll(selectors$colorFilter.colorSwatches);
+        if (colorSwatches.length) {
+            colorSwatches.forEach((swatch) => {
+                swatch.addEventListener('click', (e) => {
+                    const colorName = e.currentTarget.getAttribute('data-swatch');
+                    if (colorName) {
+                        this.filterImagesByColorName(colorName);
+                    }
+                });
+            });
+        }
+    }
+
+    filterImagesByVariantColor() {
+        if (!this.currentVariant) return;
+        
+        // Find the color option
+        const colorOption = this.container.querySelector(selectors$colorFilter.variantColorOption);
+        if (!colorOption) return;
+        
+        const colorName = this.currentVariant.options[parseInt(colorOption.getAttribute('data-option-position')) - 1];
+        this.filterImagesByColorName(colorName);
+    }
+
+    filterImagesByColorName(colorName) {
+        if (!colorName) return;
+        
+        // Store the color name for reference
+        this.currentColorName = colorName;
+        
+        // Filter thumbs and slides
+        let hasVisibleImages = false;
+        
+        // First pass to check if we have any matching images
+        this.slides.forEach((slide) => {
+            const altText = slide.getAttribute('aria-label') || '';
+            if (altText.includes(colorName)) {
+                hasVisibleImages = true;
+            }
+        });
+        
+        // If no matching images, show all images
+        if (!hasVisibleImages) {
+            this.resetImages();
+            return;
+        }
+        
+        // Filter thumbs
+        this.thumbs.forEach((thumb) => {
+            const altText = thumb.getAttribute('aria-label') || '';
+            if (altText.includes(colorName)) {
+                thumb.classList.remove(classes$colorFilter.hide);
+            } else {
+                thumb.classList.add(classes$colorFilter.hide);
+            }
+        });
+        
+        // Filter slides
+        this.slides.forEach((slide) => {
+            const altText = slide.getAttribute('aria-label') || '';
+            if (altText.includes(colorName)) {
+                slide.classList.remove(classes$colorFilter.hide);
+            } else {
+                slide.classList.add(classes$colorFilter.hide);
+            }
+        });
+        
+        // Rebuild sliders
+        this.rebuildSliders();
+    }
+
+    resetImages() {
+        this.thumbs.forEach((thumb) => thumb.classList.remove(classes$colorFilter.hide));
+        this.slides.forEach((slide) => slide.classList.remove(classes$colorFilter.hide));
+    }
+
+    rebuildSliders() {
+        // Handle desktop slider (grid or slideshow)
+        if (this.slider) {
+            if (this.slider.classList.contains(classes$colorFilter.flickityEnable)) {
+                const slider = FlickityFade.data(this.slider);
+                if (typeof slider !== 'undefined') {
+                    // Reload cells to update the slider with visible images
+                    slider.reloadCells();
+                    slider.resize();
+                    
+                    // Select the first visible cell
+                    const visibleCells = slider.cells.filter(cell => 
+                        !cell.element.classList.contains(classes$colorFilter.hide)
+                    );
+                    
+                    if (visibleCells.length > 0) {
+                        slider.select(slider.cells.indexOf(visibleCells[0]), false, true);
+                    }
+                }
+            }
+        }
+        
+        // Handle thumbnail slider
+        if (this.thumbSlider) {
+            if (this.thumbSlider.classList.contains(classes$colorFilter.flickityEnable)) {
+                const thumbSlider = FlickitySync.data(this.thumbSlider);
+                if (typeof thumbSlider !== 'undefined') {
+                    thumbSlider.reloadCells();
+                    thumbSlider.resize();
+                    
+                    // Select the first visible thumbnail
+                    const visibleThumbs = Array.from(this.thumbs).filter(thumb => 
+                        !thumb.classList.contains(classes$colorFilter.hide)
+                    );
+                    
+                    if (visibleThumbs.length > 0) {
+                        const firstVisibleThumb = visibleThumbs[0];
+                        const thumbIndex = Array.from(this.thumbs).indexOf(firstVisibleThumb);
+                        if (thumbIndex >= 0) {
+                            thumbSlider.select(thumbIndex, false, true);
+                        }
+                    }
+                }
+            }
+        }
+        
+        // For mobile carousel, we need to ensure we don't have blank cards
+        const isMobile = window.innerWidth < 768;
+        if (isMobile && this.slider) {
+            // Force Flickity to recalculate sizes and positions
+            const slider = FlickityFade.data(this.slider);
+            if (typeof slider !== 'undefined') {
+                setTimeout(() => {
+                    slider.resize();
+                }, 100);
+            }
+        }
+    }
+
+    constructor(section) {
+        this.section = section;
+        this.container = section.container;
+        this.slider = this.container.querySelector(selectors$colorFilter.slider);
+        this.thumbSlider = this.container.querySelector(selectors$colorFilter.thumbSlider);
+        this.thumbs = this.container.querySelectorAll(selectors$colorFilter.thumbs);
+        this.slides = this.container.querySelectorAll(selectors$colorFilter.slides);
+        this.currentVariant = null;
+        this.currentColorName = '';
+        this.listen();
+    }
+};
     const selectors$h = {
         sizeButton: '[data-size-button]',
         mediaHolder: '[data-media-slide]'
@@ -8849,6 +12054,7 @@
             modal(this.id);
             this.media = new Media(section);
             new GroupVariantImages(section);
+            new ColorVariantImageFilter(section); // Add this line
             const productJSON = this.container.querySelector(selectors$g.productJson);
             if (productJSON && productJSON.innerHTML !== '') {
                 this.product = JSON.parse(productJSON.innerHTML);
