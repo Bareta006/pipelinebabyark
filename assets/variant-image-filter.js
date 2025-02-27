@@ -317,19 +317,25 @@
             const originalScrollPos = window.scrollY;
             console.log('[Variant Filter] Current scroll position before image change:', originalScrollPos);
             
-            // THIS IS LIKELY CAUSING THE SCROLL - Dispatch the event to change the image
+            // THIS IS CAUSING THE SCROLL - Dispatch the event to change the image
             // Only do this if not initial load
-            slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-              detail: {
-                id: mediaId
-              }
-            }));
-            
-            // Immediately restore the scroll position
-            setTimeout(() => {
-              console.log('[Variant Filter] Restoring scroll position to:', originalScrollPos);
-              window.scrollTo(0, originalScrollPos);
-            }, 10);
+            // COMMENTING OUT THIS EVENT DISPATCH DURING INITIAL LOAD
+            if (!isInitialLoad) {
+              slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+                detail: {
+                  id: mediaId,
+                  preventScroll: true // Add this flag to prevent scrolling
+                }
+              }));
+              
+              // Immediately restore the scroll position
+              setTimeout(() => {
+                console.log('[Variant Filter] Restoring scroll position to:', originalScrollPos);
+                window.scrollTo(0, originalScrollPos);
+              }, 10);
+            } else {
+              console.log('[Variant Filter] Skipping image change event during initial load to prevent scroll');
+            }
           }
         } else {
           console.log('[Variant Filter] Not changing image - isInitialLoad:', isInitialLoad);
