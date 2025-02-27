@@ -181,17 +181,43 @@
     
     if (isMobile) {
       // MOBILE HANDLING
-      // Let the theme know that we've updated the slides
+      // For mobile, we need to properly handle the Flickity carousel
       if (typeof Flickity !== 'undefined') {
         const flkty = Flickity.data(slideshowContainer);
         if (flkty) {
-          // Tell Flickity to update its layout
+          // First, destroy the existing Flickity instance
+          flkty.destroy();
+          
+          // Get the mobile style
+          const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
+          
+          // Create new Flickity options
+          const mobileOptions = {
+            autoPlay: false,
+            prevNextButtons: false,
+            pageDots: mobileStyle === 'slideshow',
+            adaptiveHeight: true,
+            accessibility: true,
+            watchCSS: false,
+            wrapAround: true,
+            initialIndex: 0,
+            cellAlign: 'left',
+            contain: true
+          };
+          
+          // Wait a moment for the DOM to update
           setTimeout(() => {
-            flkty.resize();
+            // Initialize a new Flickity instance
+            const newFlkty = new Flickity(slideshowContainer, mobileOptions);
             
-            // Always select the first slide (index 0) for mobile
-            // This ensures we start at the beginning after filtering
-            flkty.select(0);
+            // Make sure the first cell is positioned correctly
+            newFlkty.resize();
+            
+            // Explicitly go to the first slide
+            newFlkty.select(0, false, true);
+            
+            // Trigger a resize event to help Flickity position correctly
+            window.dispatchEvent(new Event('resize'));
           }, 100);
         }
       }
