@@ -171,31 +171,107 @@
     const isMobile = window.innerWidth < 768;
     
     if (isMobile) {
-      // MOBILE HANDLING - Simple approach
-      // Just show/hide slides and let the theme handle the carousel
+      // MOBILE HANDLING - Completely rebuild the carousel
       
-      // For mobile, we need to rearrange the DOM to show visible slides first
-      // Remove all slides from the DOM
-      mediaSlides.forEach(slide => {
-        slide.remove();
-      });
+      // Get the mobile style from the slideshow container
+      const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
       
-      // Add visible slides back first, then hidden slides
-      visibleSlides.forEach(slide => {
-        slideshowContainer.appendChild(slide);
-      });
-      
-      hiddenSlides.forEach(slide => {
-        slideshowContainer.appendChild(slide);
-      });
-      
-      // Let the theme know we've updated the slides
+      // First, destroy the existing Flickity instance if it exists
       if (typeof Flickity !== 'undefined') {
         const flkty = Flickity.data(slideshowContainer);
         if (flkty) {
-          // Just resize the carousel without trying to select slides
+          // Save the current position
+          const currentIndex = flkty.selectedIndex;
+          
+          // Destroy the existing Flickity instance
+          flkty.destroy();
+          
+          // Remove all slides from the DOM
+          mediaSlides.forEach(slide => {
+            slide.remove();
+          });
+          
+          // Add only visible slides back to the DOM
+          visibleSlides.forEach(slide => {
+            slideshowContainer.appendChild(slide);
+          });
+          
+          // Create new Flickity instance with mobile options
           setTimeout(() => {
-            flkty.resize();
+            const mobileOptions = {
+              autoPlay: false,
+              prevNextButtons: true,
+              pageDots: true,
+              adaptiveHeight: true,
+              accessibility: true,
+              watchCSS: false,
+              wrapAround: true,
+              rightToLeft: window.isRTL,
+              dragThreshold: 10,
+              contain: false,
+              fade: false
+            };
+            
+            // Adjust options based on mobile style
+            if (mobileStyle === 'slideshow') {
+              mobileOptions.pageDots = true;
+              mobileOptions.fade = false;
+              mobileOptions.dragThreshold = 10;
+            }
+            
+            // Initialize new Flickity instance
+            const newFlkty = new Flickity(slideshowContainer, mobileOptions);
+            
+            // Select the first slide or maintain the previous index if possible
+            if (currentIndex < visibleSlides.length) {
+              newFlkty.select(currentIndex);
+            } else if (visibleSlides.length > 0) {
+              newFlkty.select(0);
+            }
+            
+            // Resize to ensure proper layout
+            newFlkty.resize();
+          }, 100);
+        } else {
+          // No existing Flickity instance, just rearrange the DOM
+          // Remove all slides from the DOM
+          mediaSlides.forEach(slide => {
+            slide.remove();
+          });
+          
+          // Add only visible slides back to the DOM
+          visibleSlides.forEach(slide => {
+            slideshowContainer.appendChild(slide);
+          });
+          
+          // Create new Flickity instance with mobile options
+          setTimeout(() => {
+            const mobileOptions = {
+              autoPlay: false,
+              prevNextButtons: true,
+              pageDots: true,
+              adaptiveHeight: true,
+              accessibility: true,
+              watchCSS: false,
+              wrapAround: true,
+              rightToLeft: window.isRTL,
+              dragThreshold: 10,
+              contain: false,
+              fade: false
+            };
+            
+            // Adjust options based on mobile style
+            if (mobileStyle === 'slideshow') {
+              mobileOptions.pageDots = true;
+              mobileOptions.fade = false;
+              mobileOptions.dragThreshold = 10;
+            }
+            
+            // Initialize new Flickity instance
+            const newFlkty = new Flickity(slideshowContainer, mobileOptions);
+            
+            // Resize to ensure proper layout
+            newFlkty.resize();
           }, 100);
         }
       }
