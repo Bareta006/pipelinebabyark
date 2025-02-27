@@ -9,243 +9,92 @@
 (function() {
   console.log('🔍 Variant Image Filter script loaded');
   
-  // Initialize when DOM is fully loaded
-  document.addEventListener('DOMContentLoaded', function() {
-    console.log('🔍 DOM loaded, initializing variant image filter');
-    initVariantImageFilter();
-  });
-
-  // Also initialize when the page content is updated (for quick view or ajax loaded content)
-  document.addEventListener('theme:section:load', function() {
-    console.log('🔍 Section loaded, initializing variant image filter');
-    initVariantImageFilter();
-  });
-
   // Listen for the theme's variant change event
   document.addEventListener('theme:variant:change', function(event) {
-    console.log('🔍 Variant change event detected:', event.detail);
+    console.log('🔍 Variant change event detected');
     if (event.detail && event.detail.variant) {
       const productJsonScript = document.querySelector('[data-product-json]');
       if (productJsonScript) {
         try {
           const productData = JSON.parse(productJsonScript.textContent);
-          console.log('🔍 Product data from variant change event:', productData.title);
           filterImagesByVariantColor(event.detail.variant, productData);
         } catch (e) {
-          console.error('🔍 Error parsing product JSON from variant change event:', e);
+          console.error('Error parsing product JSON:', e);
         }
       }
     }
   });
 
-  function initVariantImageFilter() {
-    // Try different selectors for the product form
-    const productForms = document.querySelectorAll('[data-product-form]');
-    console.log('🔍 Found product forms with [data-product-form]:', productForms.length);
-    
-    if (productForms.length === 0) {
-      // Try alternative selectors
-      const formHolders = document.querySelectorAll('[data-form-holder]');
-      console.log('🔍 Found form holders with [data-form-holder]:', formHolders.length);
-      
-      if (formHolders.length > 0) {
-        formHolders.forEach((holder, index) => {
-          console.log(`🔍 Processing form holder #${index + 1}`);
-          const forms = holder.querySelectorAll('form');
-          console.log(`🔍 Form holder #${index + 1} - Forms found:`, forms.length);
-          
-          forms.forEach((form, formIndex) => {
-            setupFormListeners(form, formIndex);
-          });
-        });
-      }
-    }
-    
-    productForms.forEach((form, index) => {
-      setupFormListeners(form, index);
-    });
-  }
-  
-  function setupFormListeners(form, index) {
-    console.log(`🔍 Setting up listeners for form #${index + 1}`, form);
-    
-    // Find variant selectors (radio buttons, select dropdowns, etc.)
-    const variantSelectors = form.querySelectorAll('[name^="options"]');
-    const variantIdInput = form.querySelector('[name="id"]');
-    
-    console.log(`🔍 Form #${index + 1} - Variant selectors:`, variantSelectors.length);
-    console.log(`🔍 Form #${index + 1} - Variant ID input:`, variantIdInput ? 'Found' : 'Not found');
-    
-    if (!variantSelectors.length || !variantIdInput) {
-      console.log(`🔍 Form #${index + 1} - Missing variant selectors or ID input, skipping`);
-      return;
-    }
-    
-    // Add change event listeners to variant selectors
-    variantSelectors.forEach((selector, selectorIndex) => {
-      console.log(`🔍 Form #${index + 1} - Adding change listener to selector #${selectorIndex + 1}`, selector);
-      
-      selector.addEventListener('change', function() {
-        console.log(`🔍 Variant selector changed - Form #${index + 1}, Selector #${selectorIndex + 1}`);
-        
-        // Get the selected variant ID
-        const variantId = variantIdInput.value;
-        console.log(`🔍 Selected variant ID:`, variantId);
-        
-        if (!variantId) {
-          console.log('🔍 No variant ID found, skipping');
-          return;
-        }
-        
-        // Find the product JSON data
-        const productJsonScript = document.querySelector('[data-product-json]');
-        console.log(`🔍 Product JSON script:`, productJsonScript ? 'Found' : 'Not found');
-        
-        if (!productJsonScript) {
-          console.log('🔍 No product JSON found, trying to find alternative data source');
-          return;
-        }
-        
-        try {
-          const productData = JSON.parse(productJsonScript.textContent);
-          console.log('🔍 Product data parsed:', productData.title);
-          console.log('🔍 Available variants:', productData.variants.length);
-          
-          const selectedVariant = productData.variants.find(v => v.id.toString() === variantId.toString());
-          console.log('🔍 Selected variant:', selectedVariant ? selectedVariant.title : 'Not found');
-          
-          if (selectedVariant) {
-            filterImagesByVariantColor(selectedVariant, productData);
-          } else {
-            console.log('🔍 Selected variant not found in product data');
-          }
-        } catch (e) {
-          console.error('🔍 Error parsing product JSON:', e);
-        }
-      });
-    });
-    
-    // Also listen for variant ID changes directly (for programmatic changes)
-    console.log(`🔍 Form #${index + 1} - Adding change listener to variant ID input`);
-    variantIdInput.addEventListener('change', function() {
-      console.log('🔍 Variant ID input changed directly');
-      
-      const variantId = this.value;
-      console.log(`🔍 New variant ID:`, variantId);
-      
-      if (!variantId) {
-        console.log('🔍 No variant ID found, skipping');
-        return;
-      }
-      
-      const productJsonScript = document.querySelector('[data-product-json]');
-      console.log(`🔍 Product JSON script:`, productJsonScript ? 'Found' : 'Not found');
-      
-      if (!productJsonScript) {
-        console.log('🔍 No product JSON found, trying to find alternative data source');
-        return;
-      }
-      
-      try {
-        const productData = JSON.parse(productJsonScript.textContent);
-        console.log('🔍 Product data parsed:', productData.title);
-        
-        const selectedVariant = productData.variants.find(v => v.id.toString() === variantId.toString());
-        console.log('🔍 Selected variant:', selectedVariant ? selectedVariant.title : 'Not found');
-        
-        if (selectedVariant) {
-          filterImagesByVariantColor(selectedVariant, productData);
-        } else {
-          console.log('🔍 Selected variant not found in product data');
-        }
-      } catch (e) {
-        console.error('🔍 Error parsing product JSON:', e);
-      }
-    });
-  }
-
   function filterImagesByVariantColor(variant, productData) {
     console.log('🔍 Filtering images by variant color');
-    console.log('🔍 Variant:', variant);
     
-    if (!variant || !productData) {
-      console.log('🔍 Missing variant or product data, aborting');
-      return;
-    }
+    if (!variant || !productData) return;
 
     // Find the color option index
-    console.log('🔍 Product options:', productData.options);
     const colorOptionIndex = productData.options.findIndex(option => 
       option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
     
-    console.log('🔍 Color option index:', colorOptionIndex);
-    
-    if (colorOptionIndex === -1) {
-      console.log('🔍 No color option found, aborting');
-      return;
-    }
+    if (colorOptionIndex === -1) return; // No color option found
     
     const selectedColor = variant.options[colorOptionIndex];
     console.log('🔍 Selected color:', selectedColor);
     
-    if (!selectedColor) {
-      console.log('🔍 No color value found, aborting');
-      return;
-    }
+    if (!selectedColor) return;
 
     // Get all media slides and thumbs
     const mediaSlides = document.querySelectorAll('[data-media-slide]');
     const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
     
     console.log('🔍 Media slides found:', mediaSlides.length);
-    console.log('🔍 Thumbnails found:', thumbs.length);
     
-    if (!mediaSlides.length) {
-      console.log('🔍 No media slides found, aborting');
-      return;
-    }
+    if (!mediaSlides.length) return;
 
     let hasVisibleSlides = false;
     let firstVisibleSlide = null;
     let visibleSlideCount = 0;
 
-    // Filter media slides based on alt text
-    console.log('🔍 Filtering media slides...');
+    // Filter media slides based on EXACT alt text match only
+    console.log('🔍 Filtering slides - looking for EXACT match with:', selectedColor);
+    
+    // Check if the 'hide' class is properly defined in CSS
+    const testStyle = document.createElement('style');
+    testStyle.textContent = '.hide-test { display: none !important; }';
+    document.head.appendChild(testStyle);
+    
+    const testElement = document.createElement('div');
+    testElement.classList.add('hide-test');
+    document.body.appendChild(testElement);
+    
+    const computedStyle = window.getComputedStyle(testElement);
+    console.log('🔍 Test element with hide-test class has display:', computedStyle.display);
+    
+    // Check what the 'hide' class does in the theme
+    const existingHideRule = Array.from(document.styleSheets)
+      .flatMap(sheet => {
+        try {
+          return Array.from(sheet.cssRules);
+        } catch (e) {
+          return [];
+        }
+      })
+      .find(rule => rule.selectorText === '.hide');
+    
+    console.log('🔍 Existing .hide CSS rule:', existingHideRule ? existingHideRule.cssText : 'Not found');
+    
+    // Clean up test elements
+    testElement.remove();
+    testStyle.remove();
+    
     mediaSlides.forEach((slide, index) => {
       const altText = slide.getAttribute('aria-label') || '';
-      const imageFilter = slide.getAttribute('data-image-filter') || '';
+      const exactMatch = altText === selectedColor;
       
-      console.log(`🔍 Slide #${index + 1} - Alt text:`, altText);
-      console.log(`🔍 Slide #${index + 1} - Image filter:`, imageFilter);
+      console.log(`🔍 Slide #${index + 1} - Alt text: "${altText}" - Exact match: ${exactMatch}`);
       
-      // Check for exact match or substring match
-      // First try exact match with the color name
-      const exactMatch = altText === selectedColor || imageFilter === selectedColor;
-      
-      // Then try to see if the color name is contained in the alt text
-      const containsMatch = altText.includes(selectedColor) || imageFilter.includes(selectedColor);
-      
-      // For complex color names like "Eggshell White / Moonlight", split and check each part
-      let complexMatch = false;
-      if (!exactMatch && !containsMatch && (selectedColor.includes('/') || selectedColor.includes(' '))) {
-        const colorParts = selectedColor.split(/[\s\/]+/).filter(part => part.trim().length > 0);
-        console.log(`🔍 Slide #${index + 1} - Complex color parts:`, colorParts);
-        
-        // Check if any part of the color name matches
-        complexMatch = colorParts.some(part => {
-          const partMatch = altText.includes(part) || imageFilter.includes(part);
-          if (partMatch) {
-            console.log(`🔍 Slide #${index + 1} - Matched on color part:`, part);
-          }
-          return partMatch;
-        });
-      }
-      
-      const shouldShow = exactMatch || containsMatch || complexMatch;
-      console.log(`🔍 Slide #${index + 1} - Should show:`, shouldShow, '(Exact match:', exactMatch, ', Contains match:', containsMatch, ', Complex match:', complexMatch, ')');
-      
-      if (shouldShow) {
-        slide.classList.remove('hide');
+      if (exactMatch) {
+        // Show matching slides
+        slide.style.display = '';
+        slide.classList.remove('hide'); // Also remove hide class just in case
         hasVisibleSlides = true;
         visibleSlideCount++;
         if (!firstVisibleSlide) {
@@ -253,17 +102,29 @@
           console.log(`🔍 First visible slide set to #${index + 1}`);
         }
       } else {
-        slide.classList.add('hide');
+        // Hide non-matching slides
+        slide.style.display = 'none';
+        slide.classList.add('hide'); // Also add hide class for compatibility
         console.log(`🔍 Hiding slide #${index + 1}`);
+        // Verify the slide is hidden
+        console.log(`🔍 Slide #${index + 1} display style:`, slide.style.display);
       }
     });
 
-    console.log('🔍 Visible slide count:', visibleSlideCount);
+    console.log('🔍 Visible slide count after filtering:', visibleSlideCount);
+    
+    // Log the display style of all slides after filtering
+    console.log('🔍 Final slide visibility status:');
+    mediaSlides.forEach((slide, index) => {
+      const altText = slide.getAttribute('aria-label') || '';
+      console.log(`🔍 Slide #${index + 1} - Alt text: "${altText}" - Display: ${slide.style.display || 'default'}`);
+    });
     
     // If no slides match the color, show all slides (fallback)
     if (visibleSlideCount === 0) {
       console.log('🔍 No matching slides found, showing all slides as fallback');
       mediaSlides.forEach(slide => {
+        slide.style.display = '';
         slide.classList.remove('hide');
       });
       
@@ -277,43 +138,14 @@
 
     // Filter thumbnails to match
     if (thumbs.length) {
-      console.log('🔍 Filtering thumbnails...');
-      thumbs.forEach((thumb, index) => {
+      thumbs.forEach(thumb => {
         const altText = thumb.getAttribute('aria-label') || '';
-        const imageFilter = thumb.getAttribute('data-image-filter') || '';
+        const exactMatch = altText === selectedColor;
         
-        console.log(`🔍 Thumb #${index + 1} - Alt text:`, altText);
-        console.log(`🔍 Thumb #${index + 1} - Image filter:`, imageFilter);
-        
-        // Check for exact match or substring match
-        const exactMatch = altText === selectedColor || imageFilter === selectedColor;
-        const containsMatch = altText.includes(selectedColor) || imageFilter.includes(selectedColor);
-        
-        // For complex color names like "Eggshell White / Moonlight", split and check each part
-        let complexMatch = false;
-        if (!exactMatch && !containsMatch && (selectedColor.includes('/') || selectedColor.includes(' '))) {
-          const colorParts = selectedColor.split(/[\s\/]+/).filter(part => part.trim().length > 0);
-          console.log(`🔍 Thumb #${index + 1} - Complex color parts:`, colorParts);
-          
-          // Check if any part of the color name matches
-          complexMatch = colorParts.some(part => {
-            const partMatch = altText.includes(part) || imageFilter.includes(part);
-            if (partMatch) {
-              console.log(`🔍 Thumb #${index + 1} - Matched on color part:`, part);
-            }
-            return partMatch;
-          });
-        }
-        
-        const shouldShow = exactMatch || containsMatch || complexMatch;
-        console.log(`🔍 Thumb #${index + 1} - Should show:`, shouldShow, '(Exact match:', exactMatch, ', Contains match:', containsMatch, ', Complex match:', complexMatch, ')');
-        
-        if (shouldShow) {
+        if (exactMatch) {
           thumb.style.display = '';
-          console.log(`🔍 Showing thumb #${index + 1}`);
         } else {
           thumb.style.display = 'none';
-          console.log(`🔍 Hiding thumb #${index + 1}`);
         }
       });
     }
@@ -322,28 +154,17 @@
     const isMobile = window.innerWidth < 768;
     const slideshow = document.querySelector('[data-product-slideshow]');
     
-    console.log('🔍 Is mobile:', isMobile);
-    console.log('🔍 Slideshow element:', slideshow ? 'Found' : 'Not found');
-    console.log('🔍 Has visible slides:', hasVisibleSlides);
-    
     if (isMobile && slideshow && hasVisibleSlides) {
-      console.log('🔍 Attempting to rebuild mobile carousel');
-      
       // Find the Flickity instance
-      console.log('🔍 Flickity available:', typeof Flickity !== 'undefined');
-      
       if (typeof Flickity !== 'undefined') {
         const flkty = Flickity.data(slideshow);
-        console.log('🔍 Flickity instance:', flkty ? 'Found' : 'Not found');
         
         if (flkty) {
           // Destroy and recreate the carousel to avoid blank slides
-          console.log('🔍 Destroying existing Flickity instance');
           flkty.destroy();
           
           // Create mobile slider with appropriate options
           const mobileStyle = slideshow.getAttribute('data-slideshow-mobile-style') || 'carousel';
-          console.log('🔍 Mobile style:', mobileStyle);
           
           const mobileOptions = {
             autoPlay: false,
@@ -360,16 +181,12 @@
           };
           
           // Recreate the slider
-          console.log('🔍 Creating new Flickity instance with options:', mobileOptions);
           new Flickity(slideshow, mobileOptions);
           
           // If we have a first visible slide, select it
           if (firstVisibleSlide) {
             const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-            console.log('🔍 First visible slide media ID:', mediaId);
-            
             if (mediaId) {
-              console.log('🔍 Dispatching theme:image:change event with media ID:', mediaId);
               slideshow.dispatchEvent(new CustomEvent('theme:image:change', {
                 detail: {
                   id: mediaId
