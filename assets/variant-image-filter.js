@@ -58,8 +58,6 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
-    // Remove all scroll prevention code - let the page behave naturally on load
-    
     const productJsonScript = document.querySelector('[data-product-json]');
     if (!productJsonScript) return;
     
@@ -73,7 +71,17 @@
         const selectedVariant = productData.variants.find(v => v.id.toString() === selectedVariantId.toString());
         
         if (selectedVariant) {
+          // Filter images first
           filterImagesByVariantColor(selectedVariant, productData);
+          
+          // After filtering, ensure we're at the top of the page
+          // Use a small delay to let the browser finish rendering
+          setTimeout(() => {
+            window.scrollTo({
+              top: 0,
+              behavior: 'auto' // Use 'auto' instead of 'smooth' to avoid animation
+            });
+          }, 50);
         }
       } else {
         // If no variant is explicitly selected, use the first available variant
