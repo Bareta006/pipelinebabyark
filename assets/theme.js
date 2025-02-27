@@ -7201,7 +7201,7 @@
             ;
             this.storeThumbClick = (e)=>this.doThumbClick(e)
             ;
-            //this.storeThumbContainerScroll = (e)=>this.doThumbContainerScroll(e)
+            this.storeThumbContainerScroll = (e)=>this.doThumbContainerScroll(e)
             ;
         }
         addEventListeners() {
@@ -8236,7 +8236,7 @@
                         }
                     }));
                     // Scroll viewport so image is in view
-                    this.scrollImageViewport(variant);
+                    //this.scrollImageViewport(variant);
                 }
             }
         }
