@@ -7201,7 +7201,7 @@
             ;
             this.storeThumbClick = (e)=>this.doThumbClick(e)
             ;
-            this.storeThumbContainerScroll = (e)=>this.doThumbContainerScroll(e)
+            //this.storeThumbContainerScroll = (e)=>this.doThumbContainerScroll(e)
             ;
         }
         addEventListeners() {
