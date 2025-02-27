@@ -189,13 +189,9 @@
           setTimeout(() => {
             flkty.resize();
             
-            // If we have a visible slide, select it
-            if (firstVisibleSlide && hasVisibleSlides) {
-              const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
-              if (slideIndex >= 0) {
-                flkty.select(slideIndex);
-              }
-            }
+            // Always select the first slide (index 0) for mobile
+            // This ensures we start at the beginning after filtering
+            flkty.select(0);
           }, 100);
         }
       }
