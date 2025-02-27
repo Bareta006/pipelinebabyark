@@ -7,14 +7,29 @@
  */
 
 (function() {
+  // Capture the initial scroll position as soon as the script loads
+  const initialPageLoadScrollPos = window.scrollY;
+  
   // Initialize on page load to filter images for the initially selected variant
   document.addEventListener('DOMContentLoaded', function() {
     initializeWithSelectedVariant();
+    
+    // Force the page back to its initial scroll position
+    setTimeout(() => {
+      window.scrollTo(0, initialPageLoadScrollPos);
+    }, 100);
   });
   
   // Fallback in case DOMContentLoaded has already fired
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(initializeWithSelectedVariant, 100);
+    setTimeout(() => {
+      initializeWithSelectedVariant();
+      
+      // Force the page back to its initial scroll position
+      setTimeout(() => {
+        window.scrollTo(0, initialPageLoadScrollPos);
+      }, 100);
+    }, 100);
   }
   
   // Listen for the theme's variant change event
