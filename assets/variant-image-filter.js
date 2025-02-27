@@ -9,61 +9,14 @@
 (function() {
   console.log('[Variant Filter] Script initialized');
   
-  // Save the original body styles
-  const originalBodyStyles = {
-    overflow: document.body.style.overflow,
-    position: document.body.style.position,
-    top: document.body.style.top,
-    width: document.body.style.width
-  };
-  
   // Track initial scroll position
   const initialScrollY = window.scrollY;
   console.log('[Variant Filter] Initial scroll position:', initialScrollY);
-  
-  // More aggressive scroll prevention
-  function disableScroll() {
-    console.log('[Variant Filter] Disabling scroll at position:', window.scrollY);
-    
-    // Save the current scroll position
-    const scrollY = window.scrollY;
-    
-    // Set body to fixed position to prevent scrolling
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-    document.body.style.width = '100%';
-    
-    return scrollY;
-  }
-  
-  // Re-enable scrolling
-  function enableScroll(scrollY) {
-    console.log('[Variant Filter] Enabling scroll, restoring to:', scrollY);
-    
-    // Restore original body styles
-    document.body.style.overflow = originalBodyStyles.overflow;
-    document.body.style.position = originalBodyStyles.position;
-    document.body.style.top = originalBodyStyles.top;
-    document.body.style.width = originalBodyStyles.width;
-    
-    // Restore scroll position
-    window.scrollTo(0, scrollY);
-  }
-  
-  // Disable scrolling immediately
-  const savedScrollPosition = disableScroll();
   
   // Initialize on page load to filter images for the initially selected variant
   document.addEventListener('DOMContentLoaded', function() {
     console.log('[Variant Filter] DOMContentLoaded fired');
     initializeWithSelectedVariant();
-    
-    // Re-enable scrolling after a short delay
-    setTimeout(() => {
-      enableScroll(savedScrollPosition);
-      console.log('[Variant Filter] Scroll enabled after DOMContentLoaded');
-    }, 500);
   });
   
   // Fallback in case DOMContentLoaded has already fired
@@ -71,12 +24,6 @@
     console.log('[Variant Filter] Document already loaded, state:', document.readyState);
     setTimeout(() => {
       initializeWithSelectedVariant();
-      
-      // Re-enable scrolling after a short delay
-      setTimeout(() => {
-        enableScroll(savedScrollPosition);
-        console.log('[Variant Filter] Scroll enabled after fallback initialization');
-      }, 500);
     }, 100);
   }
   
@@ -90,33 +37,21 @@
         event.preventDefault();
       }
       
-      // Also try to prevent any scrolling that might happen after the variant change
-      setTimeout(() => {
-        // Store current scroll position
-        const currentScrollPos = window.scrollY;
-        console.log('[Variant Filter] Current scroll position before variant change:', currentScrollPos);
-        
-        // Set up a scroll event listener to maintain the scroll position
-        const preventScroll = () => {
-          console.log('[Variant Filter] Preventing scroll, maintaining position:', currentScrollPos);
-          window.scrollTo(0, currentScrollPos);
-        };
-        
-        // Add the listener
-        window.addEventListener('scroll', preventScroll, { once: true });
-        
-        // Remove it after a short delay
-        setTimeout(() => {
-          window.removeEventListener('scroll', preventScroll);
-          console.log('[Variant Filter] Scroll prevention removed after variant change');
-        }, 500);
-      }, 10);
+      // Store current scroll position
+      const currentScrollPos = window.scrollY;
+      console.log('[Variant Filter] Current scroll position before variant change:', currentScrollPos);
       
       const productJsonScript = document.querySelector('[data-product-json]');
       if (productJsonScript) {
         try {
           const productData = JSON.parse(productJsonScript.textContent);
           filterImagesByVariantColor(event.detail.variant, productData, false);
+          
+          // Restore scroll position after filtering
+          setTimeout(() => {
+            window.scrollTo(0, currentScrollPos);
+            console.log('[Variant Filter] Restored scroll position after variant change');
+          }, 100);
         } catch (e) {
           console.error('[Variant Filter] Error parsing product JSON:', e);
         }
@@ -382,7 +317,8 @@
             const originalScrollPos = window.scrollY;
             console.log('[Variant Filter] Current scroll position before image change:', originalScrollPos);
             
-            // Dispatch the event to change the image
+            // THIS IS LIKELY CAUSING THE SCROLL - Dispatch the event to change the image
+            // Only do this if not initial load
             slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
               detail: {
                 id: mediaId
