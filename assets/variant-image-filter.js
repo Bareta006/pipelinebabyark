@@ -113,12 +113,18 @@
     let firstVisibleSlide = null;
     let visibleSlideCount = 0;
 
+    // Create arrays to hold visible and hidden slides
+    const visibleSlides = [];
+    const hiddenSlides = [];
+
     // Filter media slides based on EXACT alt text match only
     mediaSlides.forEach((slide) => {
       const altText = slide.getAttribute('aria-label') || '';
       const exactMatch = altText === selectedColor;
       
       if (exactMatch) {
+        // Add to visible slides array
+        visibleSlides.push(slide);
         // Show matching slides
         slide.style.display = '';
         slide.classList.remove('hide');
@@ -128,6 +134,8 @@
           firstVisibleSlide = slide;
         }
       } else {
+        // Add to hidden slides array
+        hiddenSlides.push(slide);
         // Hide non-matching slides
         slide.style.display = 'none';
         slide.classList.add('hide');
@@ -136,7 +144,13 @@
     
     // If no slides match the color, show all slides (fallback)
     if (visibleSlideCount === 0) {
+      // Reset arrays
+      visibleSlides.length = 0;
+      hiddenSlides.length = 0;
+      
+      // Add all slides to visible array and show them
       mediaSlides.forEach(slide => {
+        visibleSlides.push(slide);
         slide.style.display = '';
         slide.classList.remove('hide');
       });
@@ -162,23 +176,94 @@
       }
     }
 
-    // Let the theme know that we've updated the slides
-    // This will trigger any necessary carousel updates
-    if (typeof Flickity !== 'undefined') {
-      const flkty = Flickity.data(slideshowContainer);
-      if (flkty) {
-        // Tell Flickity to update its layout
-        setTimeout(() => {
-          flkty.resize();
-          
-          // If we have a visible slide, select it
-          if (firstVisibleSlide && hasVisibleSlides) {
-            const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
-            if (slideIndex >= 0) {
-              flkty.select(slideIndex);
+    // Check if we're in mobile or desktop mode
+    const isMobile = window.innerWidth < 768;
+    
+    if (isMobile) {
+      // MOBILE HANDLING
+      // Let the theme know that we've updated the slides
+      if (typeof Flickity !== 'undefined') {
+        const flkty = Flickity.data(slideshowContainer);
+        if (flkty) {
+          // Tell Flickity to update its layout
+          setTimeout(() => {
+            flkty.resize();
+            
+            // If we have a visible slide, select it
+            if (firstVisibleSlide && hasVisibleSlides) {
+              const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
+              if (slideIndex >= 0) {
+                flkty.select(slideIndex);
+              }
             }
+          }, 100);
+        }
+      }
+    } else {
+      // DESKTOP HANDLING
+      // For desktop, we need to rearrange the DOM to show visible slides first
+      // This is important for grid layouts and other desktop-specific views
+      
+      // Check if we need to rebuild the desktop slideshow
+      const desktopStyle = slideshowContainer.getAttribute('data-slideshow-desktop-style');
+      
+      if (desktopStyle === 'slideshow') {
+        // For slideshow style, update the Flickity instance
+        if (typeof Flickity !== 'undefined') {
+          const flkty = Flickity.data(slideshowContainer);
+          if (flkty) {
+            // Just resize and select the first visible slide
+            setTimeout(() => {
+              flkty.resize();
+              
+              // If we have a visible slide, select it
+              if (firstVisibleSlide && hasVisibleSlides) {
+                const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
+                if (slideIndex >= 0) {
+                  flkty.select(slideIndex);
+                }
+              }
+            }, 100);
           }
-        }, 100);
+        }
+      } else {
+        // For grid or other non-slideshow modes, we need to rearrange the DOM
+        // to ensure visible slides appear first
+        
+        // Remove all slides from the DOM
+        mediaSlides.forEach(slide => {
+          slide.remove();
+        });
+        
+        // Add visible slides back first, then hidden slides
+        visibleSlides.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        hiddenSlides.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // If we have a first visible slide, select it
+        if (firstVisibleSlide) {
+          const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+          if (mediaId) {
+            // Store current scroll position
+            const originalScrollPos = window.scrollY;
+            
+            // Dispatch the event to change the image
+            slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+              detail: {
+                id: mediaId
+              }
+            }));
+            
+            // Immediately restore the scroll position
+            setTimeout(() => {
+              window.scrollTo(0, originalScrollPos);
+            }, 10);
+          }
+        }
       }
     }
 
