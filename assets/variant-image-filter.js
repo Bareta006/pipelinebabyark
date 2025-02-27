@@ -48,7 +48,7 @@
       if (productJsonScript) {
         try {
           const productData = JSON.parse(productJsonScript.textContent);
-          filterImagesByVariantColor(event.detail.variant, productData);
+          filterImagesByVariantColor(event.detail.variant, productData, false);
         } catch (e) {
           console.error('Error parsing product JSON:', e);
         }
@@ -181,20 +181,29 @@
     
     if (isMobile) {
       // MOBILE HANDLING
-      // For mobile, we use a simpler approach that works with the theme's carousel
+      // For mobile, we'll just rearrange the DOM and let the theme handle the carousel
+      
+      // Remove all slides from the DOM
+      mediaSlides.forEach(slide => {
+        slide.remove();
+      });
+      
+      // Add visible slides back first, then hidden slides
+      visibleSlides.forEach(slide => {
+        slideshowContainer.appendChild(slide);
+      });
+      
+      hiddenSlides.forEach(slide => {
+        slideshowContainer.appendChild(slide);
+      });
+      
+      // Let the theme know we've updated the slides
       if (typeof Flickity !== 'undefined') {
         const flkty = Flickity.data(slideshowContainer);
         if (flkty) {
-          // Wait a moment for the DOM to update
+          // Just resize the carousel without trying to select slides
           setTimeout(() => {
-            // Force a resize to update the carousel
             flkty.resize();
-            
-            // Always select the first slide (index 0) for mobile
-            flkty.select(0, false, true);
-            
-            // Trigger a resize event to help any responsive elements adjust
-            window.dispatchEvent(new Event('resize'));
           }, 100);
         }
       }
@@ -244,46 +253,26 @@
         });
         
         // If we have a first visible slide, select it
-        if (firstVisibleSlide) {
+        if (firstVisibleSlide && !isInitialLoad) {
           const mediaId = firstVisibleSlide.getAttribute('data-media-id');
           if (mediaId) {
-            // Only handle scroll position if this is not the initial page load
-            // This prevents the scroll jump on page load with a non-default variant
-            if (!isInitialLoad) {
-              // Store current scroll position
-              const originalScrollPos = window.scrollY;
-              
-              // Dispatch the event to change the image
-              slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-                detail: {
-                  id: mediaId
-                }
-              }));
-              
-              // Immediately restore the scroll position
-              setTimeout(() => {
-                window.scrollTo(0, originalScrollPos);
-              }, 10);
-            } else {
-              // On initial load, just change the image without scroll handling
-              slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-                detail: {
-                  id: mediaId
-                }
-              }));
-            }
+            // Store current scroll position
+            const originalScrollPos = window.scrollY;
+            
+            // Dispatch the event to change the image
+            slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+              detail: {
+                id: mediaId
+              }
+            }));
+            
+            // Immediately restore the scroll position
+            setTimeout(() => {
+              window.scrollTo(0, originalScrollPos);
+            }, 10);
           }
         }
       }
     }
-
-    // Dispatch an event to let the theme know we've updated the slides
-    slideshowContainer.dispatchEvent(new CustomEvent('variant:image:filter', {
-      bubbles: true,
-      detail: {
-        variant: variant,
-        visibleSlideCount: visibleSlideCount
-      }
-    }));
   }
 })(); 
