@@ -7,27 +7,16 @@
  */
 
 (function() {
-  // Prevent any scrolling during page load
-  let isPageLoading = true;
-  
-  // Override any scroll attempts during page load
-  function preventInitialScroll(e) {
-    if (isPageLoading) {
-      window.scrollTo(0, 0);
-    }
-  }
-  
-  // Add the scroll prevention
-  window.addEventListener('scroll', preventInitialScroll);
+  // Completely disable scrolling during page load
+  document.body.style.overflow = 'hidden';
   
   // Initialize on page load to filter images for the initially selected variant
   document.addEventListener('DOMContentLoaded', function() {
     initializeWithSelectedVariant();
     
-    // Remove scroll prevention after a short delay
+    // Re-enable scrolling after a short delay
     setTimeout(() => {
-      isPageLoading = false;
-      window.removeEventListener('scroll', preventInitialScroll);
+      document.body.style.overflow = '';
     }, 500);
   });
   
@@ -36,10 +25,9 @@
     setTimeout(() => {
       initializeWithSelectedVariant();
       
-      // Remove scroll prevention after a short delay
+      // Re-enable scrolling after a short delay
       setTimeout(() => {
-        isPageLoading = false;
-        window.removeEventListener('scroll', preventInitialScroll);
+        document.body.style.overflow = '';
       }, 500);
     }, 100);
   }
