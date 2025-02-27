@@ -113,38 +113,32 @@
     let firstVisibleSlide = null;
     let visibleSlideCount = 0;
 
-    // Create arrays to hold visible and hidden slides
-    const visibleSlides = [];
-    const hiddenSlides = [];
-
     // Filter media slides based on EXACT alt text match only
     mediaSlides.forEach((slide) => {
       const altText = slide.getAttribute('aria-label') || '';
       const exactMatch = altText === selectedColor;
       
       if (exactMatch) {
-        // Add to visible slides array
-        visibleSlides.push(slide);
+        // Show matching slides
+        slide.style.display = '';
+        slide.classList.remove('hide');
         hasVisibleSlides = true;
         visibleSlideCount++;
         if (!firstVisibleSlide) {
           firstVisibleSlide = slide;
         }
       } else {
-        // Add to hidden slides array
-        hiddenSlides.push(slide);
+        // Hide non-matching slides
+        slide.style.display = 'none';
+        slide.classList.add('hide');
       }
     });
     
     // If no slides match the color, show all slides (fallback)
     if (visibleSlideCount === 0) {
-      // Reset arrays
-      visibleSlides.length = 0;
-      hiddenSlides.length = 0;
-      
-      // Add all slides to visible array
       mediaSlides.forEach(slide => {
-        visibleSlides.push(slide);
+        slide.style.display = '';
+        slide.classList.remove('hide');
       });
       
       if (thumbs.length) {
@@ -167,193 +161,34 @@
         });
       }
     }
-    
-    // Remove all slides from the DOM
-    mediaSlides.forEach(slide => {
-      slide.remove();
-    });
-    
-    // Add visible slides back first, then hidden slides
-    visibleSlides.forEach(slide => {
-      // Make sure visible slides are actually visible
-      slide.style.display = '';
-      slide.classList.remove('hide');
-      slideshowContainer.appendChild(slide);
-    });
-    
-    hiddenSlides.forEach(slide => {
-      // Make sure hidden slides are actually hidden
-      slide.style.display = 'none';
-      slide.classList.add('hide');
-      slideshowContainer.appendChild(slide);
-    });
 
-    // If we're in mobile carousel mode, rebuild the carousel
-    const isMobile = window.innerWidth < 768;
-    
-    if (isMobile && slideshowContainer && hasVisibleSlides) {
-      // Find the Flickity instance
-      if (typeof Flickity !== 'undefined') {
-        const flkty = Flickity.data(slideshowContainer);
-        
-        if (flkty) {
-          // Destroy the existing carousel
-          flkty.destroy();
-        }
-        
-        // Instead of replacing the container, we'll modify its contents
-        // First, clear the container
-        while (slideshowContainer.firstChild) {
-          slideshowContainer.removeChild(slideshowContainer.firstChild);
-        }
-        
-        // Add only the visible slides back to the container
-        visibleSlides.forEach(slide => {
-          const clonedSlide = slide.cloneNode(true);
-          // Make sure the slide is visible
-          clonedSlide.style.display = '';
-          clonedSlide.classList.remove('hide');
-          // Reset any transform that might be applied
-          clonedSlide.style.transform = '';
-          slideshowContainer.appendChild(clonedSlide);
-        });
-        
-        // Create mobile slider with appropriate options
-        const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
-        
-        const mobileOptions = {
-          autoPlay: false,
-          prevNextButtons: false,
-          pageDots: mobileStyle === 'slideshow',
-          adaptiveHeight: true,
-          accessibility: true,
-          watchCSS: false,
-          wrapAround: true,
-          rightToLeft: window.isRTL,
-          dragThreshold: mobileStyle === 'carousel' ? 10 : 80,
-          contain: mobileStyle !== 'carousel',
-          fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow',
-          initialIndex: 0 // Force first slide to be selected
-        };
-        
-        // Initialize Flickity on the original container with only visible slides
-        // Use a small delay to ensure DOM is ready
+    // Let the theme know that we've updated the slides
+    // This will trigger any necessary carousel updates
+    if (typeof Flickity !== 'undefined') {
+      const flkty = Flickity.data(slideshowContainer);
+      if (flkty) {
+        // Tell Flickity to update its layout
         setTimeout(() => {
-          try {
-            // Reset any existing Flickity-related classes and styles
-            slideshowContainer.classList.remove('flickity-enabled');
-            slideshowContainer.style.height = '';
-            
-            // Initialize Flickity
-            const newFlkty = new Flickity(slideshowContainer, mobileOptions);
-            
-            // Force Flickity to recalculate positions
-            newFlkty.resize();
-            
-            // Select the first cell to ensure proper positioning
-            newFlkty.select(0, false, true);
-            
-            // Trigger a resize event to help Flickity recalculate positions
-            window.dispatchEvent(new Event('resize'));
-            
-            // Prevent any scrolling that might happen
-            const originalScrollPos = window.scrollY;
-            setTimeout(() => {
-              window.scrollTo(0, originalScrollPos);
-            }, 10);
-          } catch (e) {
-            console.error('Error initializing Flickity:', e);
-          }
-        }, 50);
-      }
-    } else if (!isMobile && slideshowContainer && hasVisibleSlides) {
-      // Check if we need to rebuild the desktop slideshow
-      const desktopStyle = slideshowContainer.getAttribute('data-slideshow-desktop-style');
-      
-      if (desktopStyle === 'slideshow') {
-        // Find the Flickity instance
-        if (typeof Flickity !== 'undefined') {
-          const flkty = Flickity.data(slideshowContainer);
+          flkty.resize();
           
-          if (flkty) {
-            // Destroy and recreate the carousel to avoid blank slides
-            flkty.destroy();
-            
-            // Reset any existing Flickity-related classes and styles
-            slideshowContainer.classList.remove('flickity-enabled');
-            slideshowContainer.style.height = '';
-            
-            // Create desktop slider with appropriate options
-            const desktopOptions = {
-              autoPlay: false,
-              prevNextButtons: false,
-              pageDots: false,
-              adaptiveHeight: true,
-              accessibility: true,
-              watchCSS: false,
-              wrapAround: true,
-              rightToLeft: window.isRTL,
-              dragThreshold: 80,
-              contain: true,
-              fade: true,
-              initialIndex: 0 // Force first slide to be selected
-            };
-            
-            // Recreate the slider with a small delay
-            setTimeout(() => {
-              const newFlkty = new Flickity(slideshowContainer, desktopOptions);
-              
-              // Force Flickity to recalculate positions
-              newFlkty.resize();
-              
-              // Select the first cell to ensure proper positioning
-              newFlkty.select(0, false, true);
-              
-              // If we have a first visible slide, select it
-              if (firstVisibleSlide) {
-                const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-                if (mediaId) {
-                  // Prevent the default scrolling behavior that might happen when changing images
-                  const originalScrollPos = window.scrollY;
-                  
-                  slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-                    detail: {
-                      id: mediaId
-                    }
-                  }));
-                  
-                  // Restore scroll position after image change
-                  setTimeout(() => {
-                    window.scrollTo(0, originalScrollPos);
-                  }, 10);
-                }
-              }
-            }, 50);
+          // If we have a visible slide, select it
+          if (firstVisibleSlide && hasVisibleSlides) {
+            const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
+            if (slideIndex >= 0) {
+              flkty.select(slideIndex);
+            }
           }
-        }
-      } else {
-        // For grid or other non-slideshow modes, we still need to select the first visible slide
-        // but we'll prevent any scrolling
-        if (firstVisibleSlide) {
-          const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-          if (mediaId) {
-            // Store current scroll position
-            const originalScrollPos = window.scrollY;
-            
-            // Dispatch the event to change the image
-            slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-              detail: {
-                id: mediaId
-              }
-            }));
-            
-            // Immediately restore the scroll position
-            setTimeout(() => {
-              window.scrollTo(0, originalScrollPos);
-            }, 10);
-          }
-        }
+        }, 100);
       }
     }
+
+    // Dispatch an event to let the theme know we've updated the slides
+    slideshowContainer.dispatchEvent(new CustomEvent('variant:image:filter', {
+      bubbles: true,
+      detail: {
+        variant: variant,
+        visibleSlideCount: visibleSlideCount
+      }
+    }));
   }
 })(); 
