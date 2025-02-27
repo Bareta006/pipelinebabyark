@@ -63,6 +63,28 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
+    // Prevent any automatic scrolling on page load
+    const preventInitialScroll = () => {
+      // Store the initial scroll position (should be 0 or wherever the user is)
+      const initialScrollPos = window.scrollY;
+      
+      // Force scroll position to stay the same
+      window.scrollTo(0, initialScrollPos);
+    };
+    
+    // Add scroll prevention
+    window.addEventListener('scroll', preventInitialScroll);
+    
+    // Also temporarily disable scrolling by adding overflow: hidden to the body
+    const originalBodyStyle = document.body.style.cssText;
+    document.body.style.overflow = 'hidden';
+    
+    // Remove scroll prevention and restore body style after a delay
+    setTimeout(() => {
+      window.removeEventListener('scroll', preventInitialScroll);
+      document.body.style.cssText = originalBodyStyle;
+    }, 1000);
+    
     const productJsonScript = document.querySelector('[data-product-json]');
     if (!productJsonScript) {
       console.log('🔍 No product JSON found on page load');
@@ -307,6 +329,51 @@
                   id: mediaId
                 }
               }));
+            }
+          }
+        }
+      }
+    } else if (!isMobile && slideshowContainer && hasVisibleSlides) {
+      // Check if we need to rebuild the desktop slideshow
+      const desktopStyle = slideshowContainer.getAttribute('data-slideshow-desktop-style');
+      
+      if (desktopStyle === 'slideshow') {
+        // Find the Flickity instance
+        if (typeof Flickity !== 'undefined') {
+          const flkty = Flickity.data(slideshowContainer);
+          
+          if (flkty) {
+            // Destroy and recreate the carousel to avoid blank slides
+            flkty.destroy();
+            
+            // Create desktop slider with appropriate options
+            const desktopOptions = {
+              autoPlay: false,
+              prevNextButtons: false,
+              pageDots: false,
+              adaptiveHeight: true,
+              accessibility: true,
+              watchCSS: false,
+              wrapAround: true,
+              rightToLeft: window.isRTL,
+              dragThreshold: 80,
+              contain: true,
+              fade: true
+            };
+            
+            // Recreate the slider
+            new Flickity(slideshowContainer, desktopOptions);
+            
+            // If we have a first visible slide, select it
+            if (firstVisibleSlide) {
+              const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+              if (mediaId) {
+                slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
+                  detail: {
+                    id: mediaId
+                  }
+                }));
+              }
             }
           }
         }
