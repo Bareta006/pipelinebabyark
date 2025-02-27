@@ -180,9 +180,10 @@
     const isMobile = window.innerWidth < 768;
     
     if (isMobile) {
-      // MOBILE HANDLING
-      // For mobile, we'll just rearrange the DOM and let the theme handle the carousel
+      // MOBILE HANDLING - Simple approach
+      // Just show/hide slides and let the theme handle the carousel
       
+      // For mobile, we need to rearrange the DOM to show visible slides first
       // Remove all slides from the DOM
       mediaSlides.forEach(slide => {
         slide.remove();
