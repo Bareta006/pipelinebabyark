@@ -58,24 +58,7 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
-    // Use a gentler approach to prevent scrolling on page load
-    const initialScrollPos = window.scrollY;
-    
-    // Create a one-time scroll handler that only prevents dramatic scroll changes
-    const preventDramaticScroll = (e) => {
-      // Only prevent scrolling if it's a large jump (likely automated)
-      if (Math.abs(window.scrollY - initialScrollPos) > 100) {
-        window.scrollTo(0, initialScrollPos);
-      }
-    };
-    
-    // Add the scroll listener
-    window.addEventListener('scroll', preventDramaticScroll);
-    
-    // Remove it after a short delay
-    setTimeout(() => {
-      window.removeEventListener('scroll', preventDramaticScroll);
-    }, 1000);
+    // Remove all scroll prevention code - let the page behave naturally on load
     
     const productJsonScript = document.querySelector('[data-product-json]');
     if (!productJsonScript) return;
