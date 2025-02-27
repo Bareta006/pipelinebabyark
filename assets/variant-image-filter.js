@@ -13,6 +13,30 @@
   document.addEventListener('theme:variant:change', function(event) {
     console.log('🔍 Variant change event detected');
     if (event.detail && event.detail.variant) {
+      // Prevent the default scrolling behavior
+      if (event.preventDefault) {
+        event.preventDefault();
+      }
+      
+      // Also try to prevent any scrolling that might happen after the variant change
+      setTimeout(() => {
+        // Store current scroll position
+        const currentScrollPos = window.scrollY;
+        
+        // Set up a scroll event listener to maintain the scroll position
+        const preventScroll = () => {
+          window.scrollTo(0, currentScrollPos);
+        };
+        
+        // Add the listener
+        window.addEventListener('scroll', preventScroll, { once: true });
+        
+        // Remove it after a short delay
+        setTimeout(() => {
+          window.removeEventListener('scroll', preventScroll);
+        }, 500);
+      }, 10);
+      
       const productJsonScript = document.querySelector('[data-product-json]');
       if (productJsonScript) {
         try {
@@ -40,6 +64,15 @@
     console.log('🔍 Selected color:', selectedColor);
     
     if (!selectedColor) return;
+
+    // Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    console.log('🔍 Slideshow container found:', slideshowContainer ? 'Yes' : 'No');
+    
+    if (!slideshowContainer) {
+      console.log('🔍 No slideshow container found, cannot filter images');
+      return;
+    }
 
     // Get all media slides and thumbs
     const mediaSlides = document.querySelectorAll('[data-media-slide]');
@@ -135,6 +168,40 @@
       }
       return;
     }
+    
+    // Rearrange slides so visible ones appear first
+    console.log('🔍 Rearranging slides so visible ones appear first');
+    
+    // Create arrays to hold visible and hidden slides
+    const visibleSlides = [];
+    const hiddenSlides = [];
+    
+    // Sort slides into visible and hidden arrays
+    mediaSlides.forEach(slide => {
+      if (slide.style.display === 'none') {
+        hiddenSlides.push(slide);
+      } else {
+        visibleSlides.push(slide);
+      }
+    });
+    
+    console.log(`🔍 Found ${visibleSlides.length} visible slides and ${hiddenSlides.length} hidden slides`);
+    
+    // Remove all slides from the DOM
+    mediaSlides.forEach(slide => {
+      slide.remove();
+    });
+    
+    // Add visible slides back first, then hidden slides
+    visibleSlides.forEach(slide => {
+      slideshowContainer.appendChild(slide);
+    });
+    
+    hiddenSlides.forEach(slide => {
+      slideshowContainer.appendChild(slide);
+    });
+    
+    console.log('🔍 Slides rearranged successfully');
 
     // Filter thumbnails to match
     if (thumbs.length) {
@@ -152,19 +219,18 @@
 
     // If we're in mobile carousel mode, rebuild the carousel
     const isMobile = window.innerWidth < 768;
-    const slideshow = document.querySelector('[data-product-slideshow]');
     
-    if (isMobile && slideshow && hasVisibleSlides) {
+    if (isMobile && slideshowContainer && hasVisibleSlides) {
       // Find the Flickity instance
       if (typeof Flickity !== 'undefined') {
-        const flkty = Flickity.data(slideshow);
+        const flkty = Flickity.data(slideshowContainer);
         
         if (flkty) {
           // Destroy and recreate the carousel to avoid blank slides
           flkty.destroy();
           
           // Create mobile slider with appropriate options
-          const mobileStyle = slideshow.getAttribute('data-slideshow-mobile-style') || 'carousel';
+          const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
           
           const mobileOptions = {
             autoPlay: false,
@@ -181,13 +247,13 @@
           };
           
           // Recreate the slider
-          new Flickity(slideshow, mobileOptions);
+          new Flickity(slideshowContainer, mobileOptions);
           
           // If we have a first visible slide, select it
           if (firstVisibleSlide) {
             const mediaId = firstVisibleSlide.getAttribute('data-media-id');
             if (mediaId) {
-              slideshow.dispatchEvent(new CustomEvent('theme:image:change', {
+              slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
                 detail: {
                   id: mediaId
                 }
