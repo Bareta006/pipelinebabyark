@@ -9,7 +9,7 @@
 *
 */
 
-(function (AOS, FlickityFade, scrollLock, Flickity, Sqrl, MicroModal, Rellax, themeCurrency, axios, FlickitySync, themeAddresses) {
+(function (AOS, FlickityFade, scrollLock, Flickity, Sqrl, MicroModal, Rellax, themeCurrency, axios, FlickitySync, themeAddresses, ColorVariantImageFilter) {
     'use strict';
 
     function _interopNamespaceDefault(e) {
