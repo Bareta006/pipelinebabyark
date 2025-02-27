@@ -226,7 +226,8 @@
               flkty.resize();
               
               // If we have a visible slide, select it
-              if (firstVisibleSlide && hasVisibleSlides) {
+              // But ONLY if this is not the initial page load
+              if (firstVisibleSlide && hasVisibleSlides && !isInitialLoad) {
                 const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
                 if (slideIndex >= 0) {
                   flkty.select(slideIndex);
@@ -254,6 +255,7 @@
         });
         
         // If we have a first visible slide, select it
+        // But ONLY if this is not the initial page load
         if (firstVisibleSlide && !isInitialLoad) {
           const mediaId = firstVisibleSlide.getAttribute('data-media-id');
           if (mediaId) {
