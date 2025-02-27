@@ -9,6 +9,46 @@
 (function() {
   console.log('[Variant Filter] Script initialized');
   
+  // PREVENT THEME'S AUTOMATIC SCROLLING BEHAVIOR
+  // Save original scroll methods
+  const originalScrollTo = window.scrollTo;
+  const originalElementScrollIntoView = Element.prototype.scrollIntoView;
+  const originalScrollIntoView = HTMLElement.prototype.scrollIntoView;
+  
+  // Override scroll methods to prevent automatic scrolling during page load
+  function preventScroll() {
+    console.log('[Variant Filter] Preventing automatic scrolling');
+    
+    // Override window.scrollTo
+    window.scrollTo = function() {
+      console.log('[Variant Filter] Blocked scrollTo call:', arguments);
+      return;
+    };
+    
+    // Override Element.scrollIntoView
+    Element.prototype.scrollIntoView = function() {
+      console.log('[Variant Filter] Blocked Element.scrollIntoView call:', this);
+      return;
+    };
+    
+    // Override HTMLElement.scrollIntoView
+    HTMLElement.prototype.scrollIntoView = function() {
+      console.log('[Variant Filter] Blocked HTMLElement.scrollIntoView call:', this);
+      return;
+    };
+  }
+  
+  // Restore original scroll methods
+  function restoreScroll() {
+    console.log('[Variant Filter] Restoring scroll methods');
+    window.scrollTo = originalScrollTo;
+    Element.prototype.scrollIntoView = originalElementScrollIntoView;
+    HTMLElement.prototype.scrollIntoView = originalScrollIntoView;
+  }
+  
+  // Prevent scrolling immediately
+  preventScroll();
+  
   // Track initial scroll position
   const initialScrollY = window.scrollY;
   console.log('[Variant Filter] Initial scroll position:', initialScrollY);
@@ -17,6 +57,12 @@
   document.addEventListener('DOMContentLoaded', function() {
     console.log('[Variant Filter] DOMContentLoaded fired');
     initializeWithSelectedVariant();
+    
+    // Restore scroll methods after a delay
+    setTimeout(() => {
+      restoreScroll();
+      console.log('[Variant Filter] Scroll methods restored after initialization');
+    }, 1000); // Longer delay to ensure all theme scripts have run
   });
   
   // Fallback in case DOMContentLoaded has already fired
@@ -24,6 +70,12 @@
     console.log('[Variant Filter] Document already loaded, state:', document.readyState);
     setTimeout(() => {
       initializeWithSelectedVariant();
+      
+      // Restore scroll methods after a delay
+      setTimeout(() => {
+        restoreScroll();
+        console.log('[Variant Filter] Scroll methods restored after initialization (fallback)');
+      }, 1000); // Longer delay to ensure all theme scripts have run
     }, 100);
   }
   
