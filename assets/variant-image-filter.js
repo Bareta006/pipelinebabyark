@@ -7,17 +7,28 @@
  */
 
 (function() {
-  // Capture the initial scroll position as soon as the script loads
-  const initialPageLoadScrollPos = window.scrollY;
+  // Prevent any scrolling during page load
+  let isPageLoading = true;
+  
+  // Override any scroll attempts during page load
+  function preventInitialScroll(e) {
+    if (isPageLoading) {
+      window.scrollTo(0, 0);
+    }
+  }
+  
+  // Add the scroll prevention
+  window.addEventListener('scroll', preventInitialScroll);
   
   // Initialize on page load to filter images for the initially selected variant
   document.addEventListener('DOMContentLoaded', function() {
     initializeWithSelectedVariant();
     
-    // Force the page back to its initial scroll position
+    // Remove scroll prevention after a short delay
     setTimeout(() => {
-      window.scrollTo(0, initialPageLoadScrollPos);
-    }, 100);
+      isPageLoading = false;
+      window.removeEventListener('scroll', preventInitialScroll);
+    }, 500);
   });
   
   // Fallback in case DOMContentLoaded has already fired
@@ -25,10 +36,11 @@
     setTimeout(() => {
       initializeWithSelectedVariant();
       
-      // Force the page back to its initial scroll position
+      // Remove scroll prevention after a short delay
       setTimeout(() => {
-        window.scrollTo(0, initialPageLoadScrollPos);
-      }, 100);
+        isPageLoading = false;
+        window.removeEventListener('scroll', preventInitialScroll);
+      }, 500);
     }, 100);
   }
   
