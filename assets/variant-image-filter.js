@@ -7,33 +7,83 @@
  */
 
 (function() {
-  // Completely disable scrolling during page load
-  document.body.style.overflow = 'hidden';
+  console.log('[Variant Filter] Script initialized');
+  
+  // Save the original body styles
+  const originalBodyStyles = {
+    overflow: document.body.style.overflow,
+    position: document.body.style.position,
+    top: document.body.style.top,
+    width: document.body.style.width
+  };
+  
+  // Track initial scroll position
+  const initialScrollY = window.scrollY;
+  console.log('[Variant Filter] Initial scroll position:', initialScrollY);
+  
+  // More aggressive scroll prevention
+  function disableScroll() {
+    console.log('[Variant Filter] Disabling scroll at position:', window.scrollY);
+    
+    // Save the current scroll position
+    const scrollY = window.scrollY;
+    
+    // Set body to fixed position to prevent scrolling
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    
+    return scrollY;
+  }
+  
+  // Re-enable scrolling
+  function enableScroll(scrollY) {
+    console.log('[Variant Filter] Enabling scroll, restoring to:', scrollY);
+    
+    // Restore original body styles
+    document.body.style.overflow = originalBodyStyles.overflow;
+    document.body.style.position = originalBodyStyles.position;
+    document.body.style.top = originalBodyStyles.top;
+    document.body.style.width = originalBodyStyles.width;
+    
+    // Restore scroll position
+    window.scrollTo(0, scrollY);
+  }
+  
+  // Disable scrolling immediately
+  const savedScrollPosition = disableScroll();
   
   // Initialize on page load to filter images for the initially selected variant
   document.addEventListener('DOMContentLoaded', function() {
+    console.log('[Variant Filter] DOMContentLoaded fired');
     initializeWithSelectedVariant();
     
     // Re-enable scrolling after a short delay
     setTimeout(() => {
-      document.body.style.overflow = '';
+      enableScroll(savedScrollPosition);
+      console.log('[Variant Filter] Scroll enabled after DOMContentLoaded');
     }, 500);
   });
   
   // Fallback in case DOMContentLoaded has already fired
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    console.log('[Variant Filter] Document already loaded, state:', document.readyState);
     setTimeout(() => {
       initializeWithSelectedVariant();
       
       // Re-enable scrolling after a short delay
       setTimeout(() => {
-        document.body.style.overflow = '';
+        enableScroll(savedScrollPosition);
+        console.log('[Variant Filter] Scroll enabled after fallback initialization');
       }, 500);
     }, 100);
   }
   
   // Listen for the theme's variant change event
   document.addEventListener('theme:variant:change', function(event) {
+    console.log('[Variant Filter] Variant change event detected');
+    
     if (event.detail && event.detail.variant) {
       // Prevent the default scrolling behavior
       if (event.preventDefault) {
@@ -44,9 +94,11 @@
       setTimeout(() => {
         // Store current scroll position
         const currentScrollPos = window.scrollY;
+        console.log('[Variant Filter] Current scroll position before variant change:', currentScrollPos);
         
         // Set up a scroll event listener to maintain the scroll position
         const preventScroll = () => {
+          console.log('[Variant Filter] Preventing scroll, maintaining position:', currentScrollPos);
           window.scrollTo(0, currentScrollPos);
         };
         
@@ -56,6 +108,7 @@
         // Remove it after a short delay
         setTimeout(() => {
           window.removeEventListener('scroll', preventScroll);
+          console.log('[Variant Filter] Scroll prevention removed after variant change');
         }, 500);
       }, 10);
       
@@ -65,7 +118,7 @@
           const productData = JSON.parse(productJsonScript.textContent);
           filterImagesByVariantColor(event.detail.variant, productData, false);
         } catch (e) {
-          console.error('Error parsing product JSON:', e);
+          console.error('[Variant Filter] Error parsing product JSON:', e);
         }
       }
     }
@@ -73,56 +126,88 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
+    console.log('[Variant Filter] Initializing with selected variant');
+    
     const productJsonScript = document.querySelector('[data-product-json]');
-    if (!productJsonScript) return;
+    if (!productJsonScript) {
+      console.log('[Variant Filter] No product JSON found');
+      return;
+    }
     
     try {
       const productData = JSON.parse(productJsonScript.textContent);
       
       // Get the initially selected variant
       const selectedVariantId = document.querySelector('[name="id"]')?.value;
+      console.log('[Variant Filter] Selected variant ID:', selectedVariantId);
       
       if (selectedVariantId) {
         const selectedVariant = productData.variants.find(v => v.id.toString() === selectedVariantId.toString());
         
         if (selectedVariant) {
+          console.log('[Variant Filter] Found selected variant:', selectedVariant.title);
           // Filter images without forcing scroll position
           filterImagesByVariantColor(selectedVariant, productData, true);
+        } else {
+          console.log('[Variant Filter] Selected variant not found in product data');
         }
       } else {
         // If no variant is explicitly selected, use the first available variant
         if (productData.variants && productData.variants.length > 0) {
+          console.log('[Variant Filter] No variant selected, using first available');
           filterImagesByVariantColor(productData.variants[0], productData, true);
+        } else {
+          console.log('[Variant Filter] No variants available');
         }
       }
     } catch (e) {
-      console.error('Error parsing product JSON on page load:', e);
+      console.error('[Variant Filter] Error parsing product JSON on page load:', e);
     }
   }
 
   function filterImagesByVariantColor(variant, productData, isInitialLoad = false) {
-    if (!variant || !productData) return;
+    console.log('[Variant Filter] Filtering images by variant color, isInitialLoad:', isInitialLoad);
+    
+    if (!variant || !productData) {
+      console.log('[Variant Filter] Missing variant or product data');
+      return;
+    }
 
     // Find the color option index
     const colorOptionIndex = productData.options.findIndex(option => 
       option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
     
-    if (colorOptionIndex === -1) return; // No color option found
+    if (colorOptionIndex === -1) {
+      console.log('[Variant Filter] No color option found in product options');
+      return; // No color option found
+    }
     
     const selectedColor = variant.options[colorOptionIndex];
+    console.log('[Variant Filter] Selected color:', selectedColor);
     
-    if (!selectedColor) return;
+    if (!selectedColor) {
+      console.log('[Variant Filter] No color selected');
+      return;
+    }
 
     // Get the slideshow container
     const slideshowContainer = document.querySelector('[data-product-slideshow]');
     
-    if (!slideshowContainer) return;
+    if (!slideshowContainer) {
+      console.log('[Variant Filter] No slideshow container found');
+      return;
+    }
 
     // Get all media slides and thumbs
     const mediaSlides = document.querySelectorAll('[data-media-slide]');
     const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
     
-    if (!mediaSlides.length) return;
+    console.log('[Variant Filter] Found', mediaSlides.length, 'media slides and', thumbs.length, 'thumbnails');
+    
+    if (!mediaSlides.length) {
+      console.log('[Variant Filter] No media slides found');
+      return;
+    }
 
     let hasVisibleSlides = false;
     let firstVisibleSlide = null;
@@ -133,9 +218,11 @@
     const hiddenSlides = [];
 
     // Filter media slides based on EXACT alt text match only
-    mediaSlides.forEach((slide) => {
+    mediaSlides.forEach((slide, index) => {
       const altText = slide.getAttribute('aria-label') || '';
       const exactMatch = altText === selectedColor;
+      
+      console.log(`[Variant Filter] Slide ${index}: alt text "${altText}", match: ${exactMatch}`);
       
       if (exactMatch) {
         // Add to visible slides array
@@ -147,6 +234,7 @@
         visibleSlideCount++;
         if (!firstVisibleSlide) {
           firstVisibleSlide = slide;
+          console.log('[Variant Filter] First visible slide found at index', index);
         }
       } else {
         // Add to hidden slides array
@@ -157,8 +245,11 @@
       }
     });
     
+    console.log('[Variant Filter] Visible slides:', visibleSlideCount, 'Hidden slides:', hiddenSlides.length);
+    
     // If no slides match the color, show all slides (fallback)
     if (visibleSlideCount === 0) {
+      console.log('[Variant Filter] No matching slides found, showing all slides as fallback');
       // Reset arrays
       visibleSlides.length = 0;
       hiddenSlides.length = 0;
@@ -178,6 +269,7 @@
     } else {
       // Filter thumbnails to match
       if (thumbs.length) {
+        console.log('[Variant Filter] Filtering thumbnails to match selected color');
         thumbs.forEach(thumb => {
           const altText = thumb.getAttribute('aria-label') || '';
           const exactMatch = altText === selectedColor;
@@ -193,8 +285,10 @@
 
     // Check if we're in mobile or desktop mode
     const isMobile = window.innerWidth < 768;
+    console.log('[Variant Filter] Current view mode:', isMobile ? 'mobile' : 'desktop');
     
     if (isMobile) {
+      console.log('[Variant Filter] Handling mobile view');
       // MOBILE HANDLING - Simple approach
       // Just show/hide slides and let the theme handle the carousel
       
@@ -217,6 +311,7 @@
       if (typeof Flickity !== 'undefined') {
         const flkty = Flickity.data(slideshowContainer);
         if (flkty) {
+          console.log('[Variant Filter] Resizing mobile Flickity carousel');
           // Just resize the carousel without trying to select slides
           setTimeout(() => {
             flkty.resize();
@@ -224,18 +319,22 @@
         }
       }
     } else {
+      console.log('[Variant Filter] Handling desktop view');
       // DESKTOP HANDLING
       // For desktop, we need to rearrange the DOM to show visible slides first
       // This is important for grid layouts and other desktop-specific views
       
       // Check if we need to rebuild the desktop slideshow
       const desktopStyle = slideshowContainer.getAttribute('data-slideshow-desktop-style');
+      console.log('[Variant Filter] Desktop slideshow style:', desktopStyle);
       
       if (desktopStyle === 'slideshow') {
+        console.log('[Variant Filter] Handling slideshow style');
         // For slideshow style, update the Flickity instance
         if (typeof Flickity !== 'undefined') {
           const flkty = Flickity.data(slideshowContainer);
           if (flkty) {
+            console.log('[Variant Filter] Found Flickity instance, resizing');
             // Just resize and select the first visible slide
             setTimeout(() => {
               flkty.resize();
@@ -245,13 +344,17 @@
               if (firstVisibleSlide && hasVisibleSlides && !isInitialLoad) {
                 const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
                 if (slideIndex >= 0) {
+                  console.log('[Variant Filter] Selecting slide at index', slideIndex);
                   flkty.select(slideIndex);
                 }
+              } else {
+                console.log('[Variant Filter] Not selecting slide - isInitialLoad:', isInitialLoad);
               }
             }, 100);
           }
         }
       } else {
+        console.log('[Variant Filter] Handling grid/other style');
         // For grid or other non-slideshow modes, we need to rearrange the DOM
         // to ensure visible slides appear first
         
@@ -274,8 +377,10 @@
         if (firstVisibleSlide && !isInitialLoad) {
           const mediaId = firstVisibleSlide.getAttribute('data-media-id');
           if (mediaId) {
+            console.log('[Variant Filter] Dispatching image change event for media ID:', mediaId);
             // Store current scroll position
             const originalScrollPos = window.scrollY;
+            console.log('[Variant Filter] Current scroll position before image change:', originalScrollPos);
             
             // Dispatch the event to change the image
             slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
@@ -286,11 +391,16 @@
             
             // Immediately restore the scroll position
             setTimeout(() => {
+              console.log('[Variant Filter] Restoring scroll position to:', originalScrollPos);
               window.scrollTo(0, originalScrollPos);
             }, 10);
           }
+        } else {
+          console.log('[Variant Filter] Not changing image - isInitialLoad:', isInitialLoad);
         }
       }
     }
+    
+    console.log('[Variant Filter] Filtering complete');
   }
 })(); 
