@@ -113,32 +113,38 @@
     let firstVisibleSlide = null;
     let visibleSlideCount = 0;
 
+    // Create arrays to hold visible and hidden slides
+    const visibleSlides = [];
+    const hiddenSlides = [];
+
     // Filter media slides based on EXACT alt text match only
     mediaSlides.forEach((slide) => {
       const altText = slide.getAttribute('aria-label') || '';
       const exactMatch = altText === selectedColor;
       
       if (exactMatch) {
-        // Show matching slides
-        slide.style.display = '';
-        slide.classList.remove('hide'); // Also remove hide class just in case
+        // Add to visible slides array
+        visibleSlides.push(slide);
         hasVisibleSlides = true;
         visibleSlideCount++;
         if (!firstVisibleSlide) {
           firstVisibleSlide = slide;
         }
       } else {
-        // Hide non-matching slides
-        slide.style.display = 'none';
-        slide.classList.add('hide'); // Also add hide class for compatibility
+        // Add to hidden slides array
+        hiddenSlides.push(slide);
       }
     });
     
     // If no slides match the color, show all slides (fallback)
     if (visibleSlideCount === 0) {
+      // Reset arrays
+      visibleSlides.length = 0;
+      hiddenSlides.length = 0;
+      
+      // Add all slides to visible array
       mediaSlides.forEach(slide => {
-        slide.style.display = '';
-        slide.classList.remove('hide');
+        visibleSlides.push(slide);
       });
       
       if (thumbs.length) {
@@ -146,22 +152,21 @@
           thumb.style.display = '';
         });
       }
-      return;
-    }
-    
-    // Rearrange slides so visible ones appear first
-    // Create arrays to hold visible and hidden slides
-    const visibleSlides = [];
-    const hiddenSlides = [];
-    
-    // Sort slides into visible and hidden arrays
-    mediaSlides.forEach(slide => {
-      if (slide.style.display === 'none') {
-        hiddenSlides.push(slide);
-      } else {
-        visibleSlides.push(slide);
+    } else {
+      // Filter thumbnails to match
+      if (thumbs.length) {
+        thumbs.forEach(thumb => {
+          const altText = thumb.getAttribute('aria-label') || '';
+          const exactMatch = altText === selectedColor;
+          
+          if (exactMatch) {
+            thumb.style.display = '';
+          } else {
+            thumb.style.display = 'none';
+          }
+        });
       }
-    });
+    }
     
     // Remove all slides from the DOM
     mediaSlides.forEach(slide => {
@@ -170,26 +175,18 @@
     
     // Add visible slides back first, then hidden slides
     visibleSlides.forEach(slide => {
+      // Make sure visible slides are actually visible
+      slide.style.display = '';
+      slide.classList.remove('hide');
       slideshowContainer.appendChild(slide);
     });
     
     hiddenSlides.forEach(slide => {
+      // Make sure hidden slides are actually hidden
+      slide.style.display = 'none';
+      slide.classList.add('hide');
       slideshowContainer.appendChild(slide);
     });
-
-    // Filter thumbnails to match
-    if (thumbs.length) {
-      thumbs.forEach(thumb => {
-        const altText = thumb.getAttribute('aria-label') || '';
-        const exactMatch = altText === selectedColor;
-        
-        if (exactMatch) {
-          thumb.style.display = '';
-        } else {
-          thumb.style.display = 'none';
-        }
-      });
-    }
 
     // If we're in mobile carousel mode, rebuild the carousel
     const isMobile = window.innerWidth < 768;
@@ -200,49 +197,60 @@
         const flkty = Flickity.data(slideshowContainer);
         
         if (flkty) {
-          // Destroy and recreate the carousel to avoid blank slides
+          // Destroy the existing carousel
           flkty.destroy();
-          
-          // Create mobile slider with appropriate options
-          const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
-          
-          const mobileOptions = {
-            autoPlay: false,
-            prevNextButtons: false,
-            pageDots: mobileStyle === 'slideshow',
-            adaptiveHeight: true,
-            accessibility: true,
-            watchCSS: false,
-            wrapAround: true,
-            rightToLeft: window.isRTL,
-            dragThreshold: mobileStyle === 'carousel' ? 10 : 80,
-            contain: mobileStyle !== 'carousel',
-            fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow'
-          };
-          
-          // Recreate the slider
-          new Flickity(slideshowContainer, mobileOptions);
-          
-          // If we have a first visible slide, select it
-          if (firstVisibleSlide) {
-            const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-            if (mediaId) {
-              // Prevent the default scrolling behavior that might happen when changing images
-              const originalScrollPos = window.scrollY;
-              
-              slideshowContainer.dispatchEvent(new CustomEvent('theme:image:change', {
-                detail: {
-                  id: mediaId
-                }
-              }));
-              
-              // Restore scroll position after image change
-              setTimeout(() => {
-                window.scrollTo(0, originalScrollPos);
-              }, 10);
-            }
+        }
+        
+        // Create a new container for only the visible slides
+        const tempContainer = document.createElement('div');
+        tempContainer.className = slideshowContainer.className;
+        tempContainer.setAttribute('data-product-slideshow', '');
+        
+        // Copy all attributes from the original container
+        for (let i = 0; i < slideshowContainer.attributes.length; i++) {
+          const attr = slideshowContainer.attributes[i];
+          if (attr.name !== 'class') { // Skip class as we already set it
+            tempContainer.setAttribute(attr.name, attr.value);
           }
         }
+        
+        // Clone only the visible slides into the temp container
+        visibleSlides.forEach(slide => {
+          const clonedSlide = slide.cloneNode(true);
+          tempContainer.appendChild(clonedSlide);
+        });
+        
+        // Replace the original container with the temp container
+        slideshowContainer.parentNode.replaceChild(tempContainer, slideshowContainer);
+        
+        // Update the reference to the new container
+        const newSlideshowContainer = tempContainer;
+        
+        // Create mobile slider with appropriate options
+        const mobileStyle = newSlideshowContainer.getAttribute('data-slideshow-mobile-style') || 'carousel';
+        
+        const mobileOptions = {
+          autoPlay: false,
+          prevNextButtons: false,
+          pageDots: mobileStyle === 'slideshow',
+          adaptiveHeight: true,
+          accessibility: true,
+          watchCSS: false,
+          wrapAround: true,
+          rightToLeft: window.isRTL,
+          dragThreshold: mobileStyle === 'carousel' ? 10 : 80,
+          contain: mobileStyle !== 'carousel',
+          fade: mobileStyle !== 'carousel' && mobileStyle !== 'slideshow'
+        };
+        
+        // Initialize Flickity on the new container with only visible slides
+        new Flickity(newSlideshowContainer, mobileOptions);
+        
+        // Prevent any scrolling that might happen
+        const originalScrollPos = window.scrollY;
+        setTimeout(() => {
+          window.scrollTo(0, originalScrollPos);
+        }, 10);
       }
     } else if (!isMobile && slideshowContainer && hasVisibleSlides) {
       // Check if we need to rebuild the desktop slideshow
