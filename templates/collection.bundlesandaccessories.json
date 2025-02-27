@@ -139,8 +139,8 @@
       ],
       "settings": {
         "mobile_special_arrange": true,
-        "image": "shopify://shop_images/image_16.png",
-        "mobile_image": "shopify://shop_images/image_48.png",
+        "image": "shopify://shop_images/The_Foodie_Bundle_Desktop.png",
+        "mobile_image": "shopify://shop_images/The_foodie_mobile.png",
         "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
