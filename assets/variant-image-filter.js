@@ -315,6 +315,7 @@
         // Create a new instance
         new Flickity(slideshowContainer, {
           cellAlign: 'center',
+          wrapAround: true,
           contain: true,
           draggable: true,
           prevNextButtons: false,
