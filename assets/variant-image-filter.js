@@ -141,9 +141,46 @@
     return null;
   }
 
+  // Function to check if a product is a bundle
+  function isProductBundle(productData) {
+    if (!productData || !productData.type) {
+      return false;
+    }
+    
+    // Check if product type contains "bundle" (case insensitive)
+    if (productData.type.toLowerCase().includes('bundle')) {
+      console.log('Product is a bundle, skipping image filtering');
+      return true;
+    }
+    
+    // Check if product template contains "bundle" (if available)
+    if (productData.template && productData.template.toLowerCase().includes('bundle')) {
+      console.log('Product has bundle template, skipping image filtering');
+      return true;
+    }
+    
+    // Check product tags if they exist
+    if (productData.tags && Array.isArray(productData.tags)) {
+      for (let i = 0; i < productData.tags.length; i++) {
+        if (typeof productData.tags[i] === 'string' && 
+            productData.tags[i].toLowerCase().includes('bundle')) {
+          console.log('Product has bundle tag, skipping image filtering');
+          return true;
+        }
+      }
+    }
+    
+    return false;
+  }
+
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
-    console.log('Mobile filtering started');
+    console.log('Filtering images for mobile');
+    
+    // Skip filtering for bundle products
+    if (isProductBundle(productData)) {
+      return;
+    }
     
     // Validate inputs
     if (!variant || !productData) {
@@ -358,6 +395,13 @@
 
   // Function specifically for desktop filtering
   function filterImagesForDesktop(variant, productData, isInitialLoad = false) {
+    console.log('Filtering images for desktop');
+    
+    // Skip filtering for bundle products
+    if (isProductBundle(productData)) {
+      return;
+    }
+
     if (!variant || !productData) return;
 
     // Find the color option index
