@@ -114,71 +114,94 @@
 
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
-    // Get all slides in the product grid
-    const productGrid = document.querySelector('[data-product-slideshow]');
-    if (!productGrid) return;
+    console.log('Mobile filtering started for variant:', variant);
     
-    // Get the mobile style
-    const mobileStyle = productGrid.getAttribute('data-slideshow-mobile-style');
-    if (!mobileStyle || mobileStyle !== 'carousel') return;
+    // 1. Find the color option index and value
+    const colorOptionIndex = productData.options.findIndex(option => 
+      option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
     
-    // Get the color option name and value
-    const colorOptionName = getColorOptionName(productData);
-    if (!colorOptionName) return;
-    
-    const variantColor = variant.options.find((option, index) => 
-      productData.options[index].toLowerCase() === colorOptionName.toLowerCase()
-    );
-    
-    if (!variantColor) return;
-    
-    // Get all slides
-    const allSlides = productGrid.querySelectorAll('.product__media');
-    if (!allSlides.length) return;
-    
-    // Find the Flickity instance
-    let flickityInstance = Flickity.data(productGrid);
-    
-    // If Flickity exists, destroy it first
-    if (flickityInstance) {
-      flickityInstance.destroy();
+    if (colorOptionIndex === -1) {
+      console.log('No color option found');
+      return; // No color option found
     }
     
-    // Remove all slides from the DOM temporarily
-    const slidesContainer = productGrid;
-    const slidesArray = Array.from(allSlides);
-    const slidesParent = allSlides[0].parentNode;
+    const selectedColor = variant.options[colorOptionIndex].toLowerCase();
+    console.log('Selected color:', selectedColor);
     
-    // Remove all slides from the DOM
+    if (!selectedColor) return;
+    
+    // 2. Get the slideshow container and check mobile style
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    if (!slideshowContainer) {
+      console.log('No slideshow container found');
+      return;
+    }
+    
+    const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
+    if (mobileStyle !== 'carousel') {
+      console.log('Not a carousel mobile style:', mobileStyle);
+      return;
+    }
+    
+    // 3. Get all slides
+    const allSlides = slideshowContainer.querySelectorAll('.product__media');
+    if (!allSlides.length) {
+      console.log('No slides found');
+      return;
+    }
+    console.log('Total slides found:', allSlides.length);
+    
+    // 4. Check if Flickity exists and destroy it
+    if (typeof Flickity !== 'undefined') {
+      const flkty = Flickity.data(slideshowContainer);
+      if (flkty) {
+        console.log('Destroying existing Flickity instance');
+        flkty.destroy();
+      }
+    }
+    
+    // 5. Remove all slides from the DOM
+    const slidesArray = Array.from(allSlides);
     slidesArray.forEach(slide => {
-      slidesParent.removeChild(slide);
+      slide.parentNode.removeChild(slide);
     });
     
-    // Filter slides that match the variant color
-    const visibleSlides = slidesArray.filter(slide => {
-      const slideImage = slide.querySelector('img');
-      if (!slideImage) return false;
+    // 6. Filter slides based on alt text containing the color name
+    const matchingSlides = slidesArray.filter(slide => {
+      const img = slide.querySelector('img');
+      if (!img) return false;
       
-      const altText = slideImage.getAttribute('alt') || '';
-      // Check if alt text contains the color option
+      const altText = (img.getAttribute('alt') || '').toLowerCase();
+      console.log('Checking slide alt text:', altText);
+      
+      // Check for #color format in alt text
       if (altText.includes('#')) {
-        const altParts = altText.split('#');
-        if (altParts.length > 1) {
-          const colorPart = altParts[1].split(' ')[0].toLowerCase();
-          return colorPart === variantColor.toLowerCase() || colorPart === 'all';
+        const parts = altText.split('#');
+        if (parts.length > 1) {
+          const colorPart = parts[1].split(' ')[0].toLowerCase();
+          console.log('Color part from alt:', colorPart, 'comparing with:', selectedColor);
+          return colorPart === selectedColor || colorPart === 'all';
         }
       }
-      return true; // If no alt text filter, show the slide
+      
+      // If no specific color format is found, include the slide
+      return true;
     });
     
-    // Add visible slides back to the DOM
-    visibleSlides.forEach(slide => {
-      slidesParent.appendChild(slide);
+    console.log('Matching slides found:', matchingSlides.length);
+    
+    // If no matching slides, show all slides
+    const slidesToShow = matchingSlides.length > 0 ? matchingSlides : slidesArray;
+    
+    // 7. Add filtered slides back to the DOM
+    slidesToShow.forEach(slide => {
+      slideshowContainer.appendChild(slide);
     });
     
-    // Initialize Flickity with mobile options
+    // 8. Reinitialize Flickity with mobile options
     setTimeout(() => {
-      // Create mobile options
+      console.log('Reinitializing Flickity');
+      
       const mobileOptions = {
         cellAlign: 'left',
         contain: false,
@@ -188,33 +211,22 @@
         adaptiveHeight: false,
         wrapAround: false,
         friction: 0.8,
-        selectedAttraction: 0.2,
-        autoPlay: false
+        selectedAttraction: 0.2
       };
       
-      // Initialize Flickity with the mobile options
-      new Flickity(productGrid, mobileOptions);
-      
-      // Select the first slide
-      const newFlickityInstance = Flickity.data(productGrid);
-      if (newFlickityInstance) {
-        newFlickityInstance.select(0, false, true);
+      try {
+        new Flickity(slideshowContainer, mobileOptions);
+        console.log('Flickity reinitialized successfully');
         
-        // Dispatch event to update the image
-        const firstVisibleSlide = productGrid.querySelector('.product__media');
-        if (firstVisibleSlide) {
-          const mediaId = firstVisibleSlide.getAttribute('data-media-id');
-          if (mediaId) {
-            const event = new CustomEvent('mediaVisible', {
-              detail: {
-                mediaId: mediaId
-              }
-            });
-            document.dispatchEvent(event);
-          }
+        // Select the first slide
+        const newFlkty = Flickity.data(slideshowContainer);
+        if (newFlkty) {
+          newFlkty.select(0, false, true);
         }
+      } catch (error) {
+        console.error('Error initializing Flickity:', error);
       }
-    }, 10);
+    }, 50);
   }
 
   // Function specifically for desktop filtering
