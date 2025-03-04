@@ -80,8 +80,8 @@
       {% if section.settings.show_filtertags %}
         {% assign all_filtertags = '' %}
         {% for article in blog.articles %}
-          {% if article.metafields.theme.filtertags.value %}
-            {% assign article_filtertags = article.metafields.theme.filtertags.value | split: ',' %}
+          {% if article.metafields.article.filtertags.value %}
+            {% assign article_filtertags = article.metafields.article.filtertags.value | split: ',' %}
             {% for tag in article_filtertags %}
               {% assign tag_trimmed = tag | strip %}
               {% unless all_filtertags contains tag_trimmed %}
