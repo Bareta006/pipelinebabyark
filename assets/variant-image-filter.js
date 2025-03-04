@@ -142,26 +142,15 @@
       return;
     }
     
-    // 4. Create or get our slide storage if it doesn't exist
-    let slideStorage = document.getElementById('variant-image-storage');
-    if (!slideStorage) {
-      // First time - we need to save all original slides
-      slideStorage = document.createElement('div');
-      slideStorage.id = 'variant-image-storage';
-      slideStorage.style.display = 'none';
-      document.body.appendChild(slideStorage);
-      
-      // Get all original slides and store copies in our storage
+    // 4. First time setup - store original slides if needed
+    if (!window.originalSlides) {
+      // Save all original slides
       const originalSlides = slideshowContainer.querySelectorAll('.product__media');
-      originalSlides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        slideStorage.appendChild(clone);
-      });
-      
-      console.log('Created slide storage with', slideStorage.children.length, 'slides');
+      window.originalSlides = Array.from(originalSlides).map(slide => slide.cloneNode(true));
+      console.log('Saved', window.originalSlides.length, 'original slides');
     }
     
-    // 5. Destroy the existing Flickity instance if it exists
+    // 5. Destroy existing Flickity instance
     if (typeof Flickity !== 'undefined') {
       const flkty = Flickity.data(slideshowContainer);
       if (flkty) {
@@ -170,17 +159,13 @@
       }
     }
     
-    // 6. Remove all current slides from the slideshow container
-    const currentSlides = slideshowContainer.querySelectorAll('.product__media');
-    currentSlides.forEach(slide => slide.remove());
+    // 6. Clear the container completely
+    slideshowContainer.innerHTML = '';
     
-    // 7. Get all stored slides that match the selected color
-    const storedSlides = slideStorage.querySelectorAll('.product__media');
-    const matchingSlides = [];
-    
-    storedSlides.forEach(slide => {
+    // 7. Filter slides based on the selected color
+    const matchingSlides = window.originalSlides.filter(slide => {
       const img = slide.querySelector('img');
-      if (!img) return;
+      if (!img) return false;
       
       const altText = (img.getAttribute('alt') || '').toLowerCase();
       
@@ -189,58 +174,59 @@
         const parts = altText.split('#');
         if (parts.length > 1) {
           const colorPart = parts[1].split(' ')[0].toLowerCase();
-          if (colorPart === selectedColor || colorPart === 'all') {
-            matchingSlides.push(slide);
-          }
+          return colorPart === selectedColor || colorPart === 'all';
         }
-      } else {
-        // If no color format, include it (default behavior)
-        matchingSlides.push(slide);
       }
+      
+      // If no specific color format is found, include the slide
+      return true;
     });
     
     console.log('Found', matchingSlides.length, 'matching slides for color:', selectedColor);
     
     // 8. If no matching slides, use all slides
-    const slidesToShow = matchingSlides.length > 0 ? matchingSlides : Array.from(storedSlides);
+    const slidesToShow = matchingSlides.length > 0 ? matchingSlides : window.originalSlides;
     
-    // 9. Add clones of the matching slides to the slideshow container
-    slidesToShow.forEach(slide => {
+    // 9. Create the proper Flickity DOM structure
+    const viewport = document.createElement('div');
+    viewport.className = 'flickity-viewport';
+    
+    const slider = document.createElement('div');
+    slider.className = 'flickity-slider';
+    
+    viewport.appendChild(slider);
+    slideshowContainer.appendChild(viewport);
+    
+    // 10. Add clones of the matching slides to the flickity-slider
+    slidesToShow.forEach((slide, index) => {
       const clone = slide.cloneNode(true);
-      slideshowContainer.appendChild(clone);
+      
+      // Set the position for each slide (important for Flickity)
+      clone.style.position = 'absolute';
+      clone.style.left = (index * 100) + '%';
+      
+      // Add the slide to the flickity-slider
+      slider.appendChild(clone);
     });
     
-    // 10. Let the theme reinitialize Flickity
-    setTimeout(() => {
-      console.log('Triggering resize to reinitialize Flickity');
-      window.dispatchEvent(new Event('resize'));
-      
-      // Check if Flickity was reinitialized
-      setTimeout(() => {
-        const newFlkty = Flickity.data(slideshowContainer);
-        if (!newFlkty) {
-          console.log('Flickity not reinitialized by theme, trying manual initialization');
-          
-          // Try to manually initialize Flickity
-          try {
-            new Flickity(slideshowContainer, {
-              cellAlign: 'left',
-              contain: false,
-              draggable: '>1',
-              prevNextButtons: true,
-              pageDots: true,
-              adaptiveHeight: false,
-              wrapAround: false
-            });
-            console.log('Manual Flickity initialization successful');
-          } catch (error) {
-            console.error('Error manually initializing Flickity:', error);
-          }
-        } else {
-          console.log('Flickity successfully reinitialized by theme');
-        }
-      }, 300);
-    }, 100);
+    // 11. Initialize Flickity with mobile options
+    console.log('Initializing Flickity with', slidesToShow.length, 'slides');
+    
+    try {
+      new Flickity(slideshowContainer, {
+        cellAlign: 'left',
+        contain: true,
+        draggable: true,
+        prevNextButtons: true,
+        pageDots: true,
+        adaptiveHeight: false,
+        wrapAround: false,
+        watchCSS: false
+      });
+      console.log('Flickity initialization successful');
+    } catch (error) {
+      console.error('Error initializing Flickity:', error);
+    }
   }
 
   // Function specifically for desktop filtering
