@@ -219,11 +219,11 @@
       if (!flkty) {
         console.log('Creating new Flickity instance');
         flkty = new Flickity(slideshowContainer, {
-          cellAlign: 'left',
+          cellAlign: 'center',
           contain: true,
           draggable: true,
-          prevNextButtons: true,
-          pageDots: true,
+          prevNextButtons: false,
+          pageDots: false,
           adaptiveHeight: false
         });
       } else {
