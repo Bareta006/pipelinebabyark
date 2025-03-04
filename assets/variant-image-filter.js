@@ -215,60 +215,45 @@
     try {
       flkty = Flickity.data(slideshowContainer);
       
-      // If Flickity exists, destroy it so we can recreate with new options
-      if (flkty) {
-        console.log('Destroying existing Flickity instance');
-        flkty.destroy();
-        flkty = null;
+      // If Flickity doesn't exist yet, initialize it
+      if (!flkty) {
+        console.log('Creating new Flickity instance');
+        flkty = new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+      } else {
+        console.log('Using existing Flickity instance');
       }
     } catch (error) {
-      console.error('Error handling existing Flickity:', error);
+      console.error('Error initializing Flickity:', error);
+      return;
     }
     
     // 6. Filter slides based on the selected color
     const visibleSlides = [];
     const hiddenSlides = [];
     
-    console.log('Filtering slides for color:', selectedColor);
-    
-    window.originalSlidesData.forEach((slideData, index) => {
+    window.originalSlidesData.forEach(slideData => {
       const altText = slideData.altText;
-      let isVisible = false; // Default to not visible
+      let isVisible = true;
       
-      console.log(`Slide ${index} alt text:`, altText);
-      
-      // Format the selected color for comparison (handle "Color / Variant" format)
-      const formattedSelectedColor = selectedColor.replace(/\s+/g, ' ').trim();
-      const altTextLower = altText.toLowerCase();
-      
-      // Check for exact color match in alt text (including "Color / Variant" format)
-      if (altTextLower === formattedSelectedColor || 
-          altTextLower.includes(formattedSelectedColor)) {
-        console.log(`Slide ${index}: Direct color match found`);
-        isVisible = true;
-      }
       // Check for #color format in alt text
-      else if (altText.includes('#')) {
+      if (altText.includes('#')) {
         const parts = altText.split('#');
         if (parts.length > 1) {
           const colorPart = parts[1].split(' ')[0].toLowerCase();
-          console.log(`Slide ${index}: Color part from alt:`, colorPart);
-          
-          // Check if the color part matches any part of the selected color
-          const selectedColorParts = formattedSelectedColor.split('/').map(part => part.trim().toLowerCase());
-          isVisible = colorPart === 'all' || selectedColorParts.some(part => colorPart.includes(part) || part.includes(colorPart));
-          
-          if (isVisible) {
-            console.log(`Slide ${index}: Color part match found with:`, colorPart);
-          }
+          isVisible = (colorPart === selectedColor || colorPart === 'all');
         }
       }
       
       if (isVisible) {
-        console.log(`Slide ${index}: Visible`);
         visibleSlides.push(slideData.element.cloneNode(true));
       } else {
-        console.log(`Slide ${index}: Hidden`);
         hiddenSlides.push(slideData.element.cloneNode(true));
       }
     });
@@ -279,70 +264,68 @@
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
     try {
-      // Clear the container
-      slideshowContainer.innerHTML = '';
-      
-      // Add the filtered slides to the container
-      slidesToShow.forEach(slide => {
-        slideshowContainer.appendChild(slide);
-      });
-      
-      // Create a new Flickity instance with the desired options
-      flkty = new Flickity(slideshowContainer, {
-        cellAlign: 'center',
-        contain: false,
-        draggable: true,
-        prevNextButtons: false, // No arrows
-        pageDots: false, // No dots
-        adaptiveHeight: false,
-        wrapAround: true,
-        freeScroll: false,
-        percentPosition: true,
-        resize: true,
-        watchCSS: false,
-        // Add peek to show part of next/prev slides
-        groupCells: false,
-        initialIndex: 0,
-        // Show part of next/prev slides
-        contain: true,
-        imagesLoaded: true,
-        // Add peek settings
-        wrapAround: false,
-        cellAlign: 'center',
-        contain: true,
-        // These settings control how much of the next/prev slides are visible
-        percentPosition: false,
-        setGallerySize: true
-      });
-      
-      console.log('Created new Flickity instance with', slidesToShow.length, 'slides');
-      
-      // After Flickity is initialized, adjust the peek
-      setTimeout(() => {
-        // Add CSS to create the peek effect
-        const viewportWidth = slideshowContainer.querySelector('.flickity-viewport').offsetWidth;
-        const slideWidth = Math.round(viewportWidth * 0.8); // 80% of viewport
-        const slideGap = 10; // Gap between slides
-        
-        const cells = flkty.getCellElements();
-        if (cells && cells.length > 0) {
-          cells.forEach(cell => {
-            cell.style.width = `${slideWidth}px`;
-            cell.style.marginRight = `${slideGap}px`;
-          });
-          
-          // Update Flickity after changing cell sizes
-          flkty.resize();
-          
-          console.log('Adjusted cell sizes for peek effect');
+      // 7. Remove all cells from Flickity
+      if (flkty.cells && flkty.cells.length > 0) {
+        const cellElements = flkty.getCellElements();
+        if (cellElements && cellElements.length > 0) {
+          flkty.remove(cellElements);
+          console.log('Removed all existing cells');
         }
-      }, 100);
+      }
       
+      // 8. Add the filtered slides to Flickity
+      if (slidesToShow.length > 0) {
+        slidesToShow.forEach(slide => {
+          flkty.append(slide);
+        });
+        console.log('Added', slidesToShow.length, 'slides to Flickity');
+      } else {
+        console.warn('No slides to show');
+      }
+      
+      // 9. Update Flickity to reflect changes
+      flkty.reloadCells();
+      flkty.resize();
+      flkty.updateDraggable();
+      
+      // 10. Go to first cell
+      if (flkty.cells && flkty.cells.length > 0) {
+        flkty.select(0, false, true);
+      }
+      
+      console.log('Flickity updated with filtered slides');
     } catch (error) {
-      console.error('Error creating Flickity:', error);
+      console.error('Error updating Flickity:', error);
       
-      // Fallback: Just display the slides without Flickity
-      console.log('Fallback: displaying slides without Flickity');
+      // Fallback: If Flickity operations fail, try to rebuild it from scratch
+      try {
+        // Destroy the existing instance
+        if (flkty) {
+          flkty.destroy();
+        }
+        
+        // Clear the container
+        slideshowContainer.innerHTML = '';
+        
+        // Add all slides back
+        slidesToShow.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // Create a new instance
+        new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+        
+        console.log('Rebuilt Flickity from scratch after error');
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     }
   }
 
