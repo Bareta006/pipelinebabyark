@@ -314,11 +314,11 @@
         
         // Create a new instance
         new Flickity(slideshowContainer, {
-          cellAlign: 'left',
+          cellAlign: 'center',
           contain: true,
           draggable: true,
-          prevNextButtons: true,
-          pageDots: true,
+          prevNextButtons: false,
+          pageDots: false,
           adaptiveHeight: false
         });
         
