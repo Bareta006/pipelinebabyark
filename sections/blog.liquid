@@ -74,22 +74,68 @@
         </div>
       {% endif %}
 
+      {% comment %}
+        Custom filter UI for article filtertags
+      {% endcomment %}
+      {% if section.settings.show_filtertags %}
+        {% assign all_filtertags = '' %}
+        {% for article in blog.articles %}
+          {% if article.metafields.theme.filtertags.value %}
+            {% assign article_filtertags = article.metafields.theme.filtertags.value | split: ',' %}
+            {% for tag in article_filtertags %}
+              {% assign tag_trimmed = tag | strip %}
+              {% unless all_filtertags contains tag_trimmed %}
+                {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
+              {% endunless %}
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        
+        {% if all_filtertags != '' %}
+          {% assign all_filtertags_array = all_filtertags | split: ',' %}
+          <div class="blog__filter-tags">
+            <div class="blog__filter-tags-wrapper">
+              <button class="blog__filter-tag blog__filter-tag--active" data-filter="all">All</button>
+              {% for tag in all_filtertags_array %}
+                {% if tag != '' %}
+                  <button class="blog__filter-tag" data-filter="{{ tag | handleize }}">{{ tag }}</button>
+                {% endif %}
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+
       <div class="float-grid">
         <div class="grid__item one whole">
           <div class="float-grid grid--uniform">
             {% for article in blog.articles %}
               <div class="grid__item {{ blog_grid }}">
-                {% render 'article-grid-item',
-                  article: article,
-                  wh_ratio: section.settings.wh_ratio,
-                  show_author: section.settings.show_author,
-                  show_preview: section.settings.show_preview,
-                  show_link: section.settings.show_link,
-                  show_tags: section.settings.show_tags,
-                  show_date: section.settings.show_date,
-                  section_columns: section.settings.post_grid,
-                  section_width: section.settings.width
-                %}
+                {% if section.settings.show_filtertags %}
+                  {% render 'article-grid-item-filter',
+                    article: article,
+                    wh_ratio: section.settings.wh_ratio,
+                    show_author: section.settings.show_author,
+                    show_preview: section.settings.show_preview,
+                    show_link: section.settings.show_link,
+                    show_tags: section.settings.show_tags,
+                    show_date: section.settings.show_date,
+                    section_columns: section.settings.post_grid,
+                    section_width: section.settings.width
+                  %}
+                {% else %}
+                  {% render 'article-grid-item',
+                    article: article,
+                    wh_ratio: section.settings.wh_ratio,
+                    show_author: section.settings.show_author,
+                    show_preview: section.settings.show_preview,
+                    show_link: section.settings.show_link,
+                    show_tags: section.settings.show_tags,
+                    show_date: section.settings.show_date,
+                    section_columns: section.settings.post_grid,
+                    section_width: section.settings.width
+                  %}
+                {% endif %}
               </div>
             {% endfor %}
           </div>
@@ -104,6 +150,74 @@
     </div>
   </div>
 </div>
+
+{% if section.settings.show_filtertags %}
+<style>
+  .blog__filter-tags {
+    margin-bottom: 30px;
+  }
+  
+  .blog__filter-tags-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .blog__filter-tag {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .blog__filter-tag--active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.blog__filter-tag');
+    const articles = document.querySelectorAll('.article__item');
+    
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('blog__filter-tag--active'));
+        this.classList.add('blog__filter-tag--active');
+        
+        // Filter articles
+        articles.forEach(article => {
+          if (filter === 'all') {
+            article.style.display = 'block';
+          } else {
+            const filtertags = article.getAttribute('data-filtertags');
+            if (filtertags) {
+              const tagsArray = filtertags.split(',').map(tag => tag.trim().toLowerCase());
+              if (tagsArray.includes(filter.toLowerCase())) {
+                article.style.display = 'block';
+              } else {
+                article.style.display = 'none';
+              }
+            } else {
+              article.style.display = 'none';
+            }
+          }
+        });
+      });
+    });
+  });
+</script>
+{% endif %}
+
 {% endpaginate %}
 
 
@@ -133,6 +247,12 @@
       "id": "tags",
       "default": false,
       "label": "Show tags"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filtertags",
+      "default": true,
+      "label": "Show filter tags"
     },
     {
       "type": "select",
