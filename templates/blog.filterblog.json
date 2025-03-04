@@ -71,7 +71,7 @@
         "wh_ratio": 1,
         "show_author": false,
         "show_tags": false,
-        "show_date": true,
+        "show_date": false,
         "show_preview": false,
         "show_link": true,
         "overlay_opacity": 30,
