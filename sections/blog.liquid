@@ -81,7 +81,17 @@
         {% assign all_filtertags = '' %}
         {% for article in blog.articles %}
           {% if article.metafields.article.filtertags.value %}
-            {% assign article_filtertags = article.metafields.article.filtertags.value | split: ',' %}
+            {% assign filtertags_raw = article.metafields.article.filtertags.value %}
+            {% assign article_filtertags = '' %}
+            
+            {% if filtertags_raw contains '[' and filtertags_raw contains ']' %}
+              {% comment %}Handle JSON array format{% endcomment %}
+              {% assign filtertags_json = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' %}
+              {% assign article_filtertags = filtertags_json | split: ',' %}
+            {% else %}
+              {% assign article_filtertags = filtertags_raw | split: ',' %}
+            {% endif %}
+            
             {% for tag in article_filtertags %}
               {% assign tag_trimmed = tag | strip %}
               {% unless all_filtertags contains tag_trimmed %}
@@ -98,7 +108,7 @@
               <button class="blog__filter-tag blog__filter-tag--active" data-filter="all">All</button>
               {% for tag in all_filtertags_array %}
                 {% if tag != '' %}
-                  <button class="blog__filter-tag" data-filter="{{ tag | strip | handleize }}">{{ tag | strip | handleize }}</button>
+                  <button class="blog__filter-tag" data-filter="{{ tag | strip | handleize }}">{{ tag | strip }}</button>
                 {% endif %}
               {% endfor %}
             </div>
@@ -201,7 +211,11 @@
           } else {
             const filtertags = article.getAttribute('data-filtertags');
             if (filtertags) {
-              const tagsArray = filtertags.split(',').map(tag => tag.trim().toLowerCase());
+              // Split by comma if it's a comma-separated list
+              const tagsArray = filtertags.includes(',') 
+                ? filtertags.split(',').map(tag => tag.trim().toLowerCase())
+                : [filtertags.trim().toLowerCase()];
+                
               if (tagsArray.includes(filter.toLowerCase())) {
                 article.style.display = 'block';
               } else {
