@@ -98,7 +98,7 @@
               <button class="blog__filter-tag blog__filter-tag--active" data-filter="all">All</button>
               {% for tag in all_filtertags_array %}
                 {% if tag != '' %}
-                  <button class="blog__filter-tag" data-filter="{{ tag | strip | handleize }}">{{ tag | strip }}</button>
+                  <button class="blog__filter-tag" data-filter="{{ tag | strip | handleize }}">{{ tag | strip | handleize }}</button>
                 {% endif %}
               {% endfor %}
             </div>
