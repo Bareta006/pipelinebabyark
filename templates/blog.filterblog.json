@@ -13,8 +13,10 @@
       "type": "blog-breadcrumbs",
       "settings": {
         "width": "wrapper",
-        "padding_top": 100,
-        "padding_bottom": 100,
+        "padding_top": 60,
+        "padding_bottom": 20,
+        "parent_page_text": "Research and Education",
+        "parent_page_link": "/blogs/research-and-education",
         "separator": "/",
         "link_color": "#333333",
         "link_hover_color": "#000000",
@@ -22,21 +24,54 @@
         "separator_color": "#999999"
       }
     },
+    "section_richtext_r8AXpH": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_UwTTyV": {
+          "type": "heading",
+          "settings": {
+            "heading": "{{ blog.title }}",
+            "text_size": 8
+          }
+        },
+        "text_aLPFUg": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.{{ blog.metafields.blogs.description | metafield_tag }}</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "heading_UwTTyV",
+        "text_aLPFUg"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 950,
+        "width": "wrapper",
+        "padding_top": 60,
+        "padding_bottom": 36
+      }
+    },
     "main-blog": {
       "type": "blog",
       "settings": {
         "heading": "",
-        "show_heading": true,
+        "show_heading": false,
         "tag_label": "",
         "tags": false,
-        "text_align": "text-left",
+        "text_align": "text-center",
         "post_grid": 3,
         "rows": 3,
         "wh_ratio": 1.7,
         "show_author": false,
         "show_tags": false,
         "show_date": true,
-        "show_preview": true,
+        "show_preview": false,
         "show_link": true,
         "overlay_opacity": 30,
         "overlay_color": "#000000",
@@ -51,6 +86,7 @@
   },
   "order": [
     "blog_breadcrumbs_Gabrz4",
+    "section_richtext_r8AXpH",
     "main-blog"
   ]
 }
