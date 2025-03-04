@@ -58,39 +58,65 @@
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
     const productJsonScript = document.querySelector('[data-product-json]');
-    if (!productJsonScript) return;
+    if (!productJsonScript) {
+      console.log('No product JSON script found');
+      return;
+    }
     
     try {
+      // Check if the script content is empty or invalid
+      if (!productJsonScript.textContent || productJsonScript.textContent.trim() === '') {
+        console.log('Product JSON script is empty');
+        return;
+      }
+      
       const productData = JSON.parse(productJsonScript.textContent);
       
+      // Validate product data structure
+      if (!productData) {
+        console.log('Invalid product data: null or undefined');
+        return;
+      }
+      
+      if (!productData.variants) {
+        console.log('Product data has no variants array');
+        return;
+      }
+      
+      if (!Array.isArray(productData.variants) || productData.variants.length === 0) {
+        console.log('Product variants is not an array or is empty');
+        return;
+      }
+      
       // Get the initially selected variant
-      const selectedVariantId = document.querySelector('[name="id"]')?.value;
+      const variantSelector = document.querySelector('[name="id"]');
+      const selectedVariantId = variantSelector?.value;
+      
+      let selectedVariant = null;
       
       if (selectedVariantId) {
-        const selectedVariant = productData.variants.find(v => v.id.toString() === selectedVariantId.toString());
-        
-        if (selectedVariant) {
-          // Check if we're in mobile or desktop mode
-          const isMobile = window.innerWidth < 768;
-          
-          if (isMobile) {
-            filterImagesForMobile(selectedVariant, productData);
-          } else {
-            filterImagesForDesktop(selectedVariant, productData, true);
-          }
-        }
+        selectedVariant = productData.variants.find(v => 
+          v && v.id && v.id.toString() === selectedVariantId.toString()
+        );
+      }
+      
+      // If no variant is explicitly selected or found, use the first available variant
+      if (!selectedVariant && productData.variants.length > 0) {
+        selectedVariant = productData.variants[0];
+      }
+      
+      if (!selectedVariant) {
+        console.log('No valid variant found');
+        return;
+      }
+      
+      // Check if we're in mobile or desktop mode
+      const isMobile = window.innerWidth < 768;
+      
+      if (isMobile) {
+        filterImagesForMobile(selectedVariant, productData);
       } else {
-        // If no variant is explicitly selected, use the first available variant
-        if (productData.variants && productData.variants.length > 0) {
-          // Check if we're in mobile or desktop mode
-          const isMobile = window.innerWidth < 768;
-          
-          if (isMobile) {
-            filterImagesForMobile(productData.variants[0], productData);
-          } else {
-            filterImagesForDesktop(productData.variants[0], productData, true);
-          }
-        }
+        filterImagesForDesktop(selectedVariant, productData, true);
       }
     } catch (e) {
       console.error('Error parsing product JSON on page load:', e);
@@ -99,11 +125,14 @@
 
   // Helper function to get the color option name from product data
   function getColorOptionName(productData) {
-    if (!productData || !productData.options) return null;
+    if (!productData) return null;
+    if (!productData.options || !Array.isArray(productData.options)) return null;
     
     // Look for option names containing 'color' or 'colour'
     const colorOptionIndex = productData.options.findIndex(option => 
-      option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
+      option && typeof option === 'string' && 
+      (option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'))
+    );
     
     if (colorOptionIndex !== -1) {
       return productData.options[colorOptionIndex];
@@ -116,13 +145,32 @@
   function filterImagesForMobile(variant, productData) {
     console.log('Mobile filtering started');
     
+    // Validate inputs
+    if (!variant || !productData) {
+      console.log('Invalid variant or product data');
+      return;
+    }
+    
     // 1. Find the color option index and value
+    if (!productData.options || !Array.isArray(productData.options)) {
+      console.log('Product options not found or not an array');
+      return;
+    }
+    
     const colorOptionIndex = productData.options.findIndex(option => 
-      option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
+      option && typeof option === 'string' && 
+      (option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'))
+    );
     
     if (colorOptionIndex === -1) {
       console.log('No color option found');
       return; // No color option found
+    }
+    
+    // Ensure variant has options array
+    if (!variant.options || !Array.isArray(variant.options) || colorOptionIndex >= variant.options.length) {
+      console.log('Variant options not found or invalid index');
+      return;
     }
     
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
@@ -156,19 +204,34 @@
     }
     
     // 5. Get existing Flickity instance or create a new one
-    let flkty = Flickity.data(slideshowContainer);
+    let flkty = null;
     
-    // If Flickity doesn't exist yet, initialize it
-    if (!flkty) {
-      flkty = new Flickity(slideshowContainer, {
-        cellAlign: 'left',
-        contain: true,
-        draggable: true,
-        prevNextButtons: true,
-        pageDots: true,
-        adaptiveHeight: false
-      });
-      console.log('Created new Flickity instance');
+    // Check if Flickity is defined
+    if (typeof Flickity === 'undefined') {
+      console.error('Flickity is not defined. Make sure the library is loaded.');
+      return;
+    }
+    
+    try {
+      flkty = Flickity.data(slideshowContainer);
+      
+      // If Flickity doesn't exist yet, initialize it
+      if (!flkty) {
+        console.log('Creating new Flickity instance');
+        flkty = new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+      } else {
+        console.log('Using existing Flickity instance');
+      }
+    } catch (error) {
+      console.error('Error initializing Flickity:', error);
+      return;
     }
     
     // 6. Filter slides based on the selected color
@@ -200,27 +263,70 @@
     // If no visible slides, show all slides
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
-    // 7. Remove all cells from Flickity
-    if (flkty.cells.length > 0) {
-      flkty.remove(flkty.getCellElements());
-      console.log('Removed all existing cells');
+    try {
+      // 7. Remove all cells from Flickity
+      if (flkty.cells && flkty.cells.length > 0) {
+        const cellElements = flkty.getCellElements();
+        if (cellElements && cellElements.length > 0) {
+          flkty.remove(cellElements);
+          console.log('Removed all existing cells');
+        }
+      }
+      
+      // 8. Add the filtered slides to Flickity
+      if (slidesToShow.length > 0) {
+        slidesToShow.forEach(slide => {
+          flkty.append(slide);
+        });
+        console.log('Added', slidesToShow.length, 'slides to Flickity');
+      } else {
+        console.warn('No slides to show');
+      }
+      
+      // 9. Update Flickity to reflect changes
+      flkty.reloadCells();
+      flkty.resize();
+      flkty.updateDraggable();
+      
+      // 10. Go to first cell
+      if (flkty.cells && flkty.cells.length > 0) {
+        flkty.select(0, false, true);
+      }
+      
+      console.log('Flickity updated with filtered slides');
+    } catch (error) {
+      console.error('Error updating Flickity:', error);
+      
+      // Fallback: If Flickity operations fail, try to rebuild it from scratch
+      try {
+        // Destroy the existing instance
+        if (flkty) {
+          flkty.destroy();
+        }
+        
+        // Clear the container
+        slideshowContainer.innerHTML = '';
+        
+        // Add all slides back
+        slidesToShow.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // Create a new instance
+        new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+        
+        console.log('Rebuilt Flickity from scratch after error');
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     }
-    
-    // 8. Add the filtered slides to Flickity
-    slidesToShow.forEach(slide => {
-      flkty.append(slide);
-      console.log('Added slide to Flickity');
-    });
-    
-    // 9. Update Flickity to reflect changes
-    flkty.reloadCells();
-    flkty.resize();
-    flkty.updateDraggable();
-    
-    // 10. Go to first cell
-    flkty.select(0, false, true);
-    
-    console.log('Flickity updated with filtered slides');
   }
 
   // Function specifically for desktop filtering
