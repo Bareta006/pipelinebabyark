@@ -209,8 +209,14 @@
           } else {
             const filtertags = article.getAttribute('data-filtertags');
             if (filtertags) {
-              if (filtertags.toLowerCase() === filter.toLowerCase() || 
-                  filter.toLowerCase() === filtertags.toLowerCase().replace(/\s+/g, '-')) {
+              // Split by comma if it contains commas
+              const tagsArray = filtertags.includes(',') 
+                ? filtertags.split(',').map(tag => tag.trim().toLowerCase())
+                : [filtertags.trim().toLowerCase()];
+              
+              // Check if any of the article's tags match the filter
+              if (tagsArray.includes(filter.toLowerCase()) || 
+                  tagsArray.some(tag => filter.toLowerCase() === tag.replace(/\s+/g, '-'))) {
                 article.style.display = 'block';
               } else {
                 article.style.display = 'none';
