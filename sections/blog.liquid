@@ -85,9 +85,9 @@
             {% assign article_filtertags = '' %}
             
             {% if filtertags_raw contains '[' and filtertags_raw contains ']' %}
-              {% comment %}Handle JSON array format{% endcomment %}
-              {% assign filtertags_json = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' %}
-              {% assign article_filtertags = filtertags_json | split: ',' %}
+              {% comment %}Handle JSON array format by completely removing all JSON formatting{% endcomment %}
+              {% assign filtertags_clean = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' | strip %}
+              {% assign article_filtertags = filtertags_clean | split: ',' %}
             {% else %}
               {% assign article_filtertags = filtertags_raw | split: ',' %}
             {% endif %}
@@ -211,7 +211,7 @@
           } else {
             const filtertags = article.getAttribute('data-filtertags');
             if (filtertags) {
-              // Split by comma if it's a comma-separated list
+              // Split by comma if it's a comma-separated list, ensuring all JSON formatting is removed
               const tagsArray = filtertags.includes(',') 
                 ? filtertags.split(',').map(tag => tag.trim().toLowerCase())
                 : [filtertags.trim().toLowerCase()];

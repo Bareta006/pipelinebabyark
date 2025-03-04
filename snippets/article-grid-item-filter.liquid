@@ -13,14 +13,13 @@
 {% assign filtertags = '' %}
 
 {% if filtertags_raw contains '[' and filtertags_raw contains ']' %}
-  {% comment %}Handle JSON array format{% endcomment %}
-  {% assign filtertags_json = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' %}
-  {% assign filtertags = filtertags_json %}
+  {% comment %}Handle JSON array format by completely removing all JSON formatting{% endcomment %}
+  {% assign filtertags = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' | strip %}
 {% else %}
-  {% assign filtertags = filtertags_raw %}
+  {% assign filtertags = filtertags_raw | strip %}
 {% endif %}
 
-<div class="article__item" data-filtertags="{{ filtertags | strip }}">
+<div class="article__item" data-filtertags="{{ filtertags }}">
   <div class="article__item-image" data-grid-slide>
     <a href="{{ article.url }}">
       {%- capture sizes -%}
