@@ -152,27 +152,32 @@
     console.log('Total slides found:', allSlides.length);
     
     // 4. Check if Flickity exists and destroy it
+    let flkty = null;
     if (typeof Flickity !== 'undefined') {
-      const flkty = Flickity.data(slideshowContainer);
+      flkty = Flickity.data(slideshowContainer);
       if (flkty) {
         console.log('Destroying existing Flickity instance');
         flkty.destroy();
       }
     }
     
-    // 5. Remove all slides from the DOM
+    // 5. Create a temporary container to hold slides we want to keep
+    const tempContainer = document.createElement('div');
+    tempContainer.style.display = 'none';
+    document.body.appendChild(tempContainer);
+    
+    // 6. Move all slides to the temporary container
     const slidesArray = Array.from(allSlides);
     slidesArray.forEach(slide => {
-      slide.parentNode.removeChild(slide);
+      tempContainer.appendChild(slide);
     });
     
-    // 6. Filter slides based on alt text containing the color name
+    // 7. Filter slides based on alt text containing the color name
     const matchingSlides = slidesArray.filter(slide => {
       const img = slide.querySelector('img');
       if (!img) return false;
       
       const altText = (img.getAttribute('alt') || '').toLowerCase();
-      console.log('Checking slide alt text:', altText);
       
       // Check for #color format in alt text
       if (altText.includes('#')) {
@@ -193,40 +198,24 @@
     // If no matching slides, show all slides
     const slidesToShow = matchingSlides.length > 0 ? matchingSlides : slidesArray;
     
-    // 7. Add filtered slides back to the DOM
+    // 8. Add filtered slides back to the slideshow container
     slidesToShow.forEach(slide => {
       slideshowContainer.appendChild(slide);
     });
     
-    // 8. Reinitialize Flickity with mobile options
+    // 9. Remove the temporary container
+    document.body.removeChild(tempContainer);
+    
+    // 10. Trigger a resize event to make the theme reinitialize the slider
     setTimeout(() => {
-      console.log('Reinitializing Flickity');
+      // Dispatch a resize event to force the theme to reinitialize Flickity
+      window.dispatchEvent(new Event('resize'));
       
-      const mobileOptions = {
-        cellAlign: 'left',
-        contain: false,
-        draggable: '>1',
-        prevNextButtons: true,
-        pageDots: true,
-        adaptiveHeight: false,
-        wrapAround: false,
-        friction: 0.8,
-        selectedAttraction: 0.2
-      };
+      // Also dispatch a custom event that the theme might be listening for
+      slideshowContainer.dispatchEvent(new CustomEvent('product:slider:reload'));
       
-      try {
-        new Flickity(slideshowContainer, mobileOptions);
-        console.log('Flickity reinitialized successfully');
-        
-        // Select the first slide
-        const newFlkty = Flickity.data(slideshowContainer);
-        if (newFlkty) {
-          newFlkty.select(0, false, true);
-        }
-      } catch (error) {
-        console.error('Error initializing Flickity:', error);
-      }
-    }, 50);
+      console.log('Events dispatched to reinitialize slider');
+    }, 100);
   }
 
   // Function specifically for desktop filtering
