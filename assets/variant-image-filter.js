@@ -237,8 +237,13 @@
       
       console.log(`Slide ${index} alt text:`, altText);
       
-      // Check for exact color match in alt text
-      if (altText.toLowerCase().includes(selectedColor)) {
+      // Format the selected color for comparison (handle "Color / Variant" format)
+      const formattedSelectedColor = selectedColor.replace(/\s+/g, ' ').trim();
+      const altTextLower = altText.toLowerCase();
+      
+      // Check for exact color match in alt text (including "Color / Variant" format)
+      if (altTextLower === formattedSelectedColor || 
+          altTextLower.includes(formattedSelectedColor)) {
         console.log(`Slide ${index}: Direct color match found`);
         isVisible = true;
       }
@@ -248,7 +253,14 @@
         if (parts.length > 1) {
           const colorPart = parts[1].split(' ')[0].toLowerCase();
           console.log(`Slide ${index}: Color part from alt:`, colorPart);
-          isVisible = (colorPart === selectedColor || colorPart === 'all');
+          
+          // Check if the color part matches any part of the selected color
+          const selectedColorParts = formattedSelectedColor.split('/').map(part => part.trim().toLowerCase());
+          isVisible = colorPart === 'all' || selectedColorParts.some(part => colorPart.includes(part) || part.includes(colorPart));
+          
+          if (isVisible) {
+            console.log(`Slide ${index}: Color part match found with:`, colorPart);
+          }
         }
       }
       
@@ -291,22 +303,38 @@
         // Add peek to show part of next/prev slides
         groupCells: false,
         initialIndex: 0,
-        freeScrollFriction: 0.075,
-        selectedAttraction: 0.025,
-        friction: 0.28,
         // Show part of next/prev slides
         contain: true,
-        imagesLoaded: true
+        imagesLoaded: true,
+        // Add peek settings
+        wrapAround: false,
+        cellAlign: 'center',
+        contain: true,
+        // These settings control how much of the next/prev slides are visible
+        percentPosition: false,
+        setGallerySize: true
       });
       
       console.log('Created new Flickity instance with', slidesToShow.length, 'slides');
       
       // After Flickity is initialized, adjust the peek
       setTimeout(() => {
-        // Manually adjust the cells to create the peek effect
+        // Add CSS to create the peek effect
+        const viewportWidth = slideshowContainer.querySelector('.flickity-viewport').offsetWidth;
+        const slideWidth = Math.round(viewportWidth * 0.8); // 80% of viewport
+        const slideGap = 10; // Gap between slides
+        
         const cells = flkty.getCellElements();
         if (cells && cells.length > 0) {
+          cells.forEach(cell => {
+            cell.style.width = `${slideWidth}px`;
+            cell.style.marginRight = `${slideGap}px`;
+          });
+          
+          // Update Flickity after changing cell sizes
           flkty.resize();
+          
+          console.log('Adjusted cell sizes for peek effect');
         }
       }, 100);
       
