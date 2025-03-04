@@ -195,12 +195,14 @@
       const allSlides = slideshowContainer.querySelectorAll('.product__media');
       window.originalSlidesData = Array.from(allSlides).map(slide => {
         const img = slide.querySelector('img');
+        const altText = img ? (img.getAttribute('alt') || '') : '';
+        console.log('Saved slide with alt text:', altText);
         return {
           element: slide.cloneNode(true),
-          altText: img ? (img.getAttribute('alt') || '').toLowerCase() : ''
+          altText: altText
         };
       });
-      console.log('Saved original slides data');
+      console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
     }
     
     // 5. Get existing Flickity instance or create a new one
@@ -238,17 +240,37 @@
     const visibleSlides = [];
     const hiddenSlides = [];
     
-    window.originalSlidesData.forEach(slideData => {
-      const altText = slideData.altText;
-      let isVisible = true;
+    // Normalize the selected color for comparison (trim whitespace, lowercase)
+    const normalizedSelectedColor = selectedColor.trim().toLowerCase();
+    console.log('Filtering slides for normalized color:', normalizedSelectedColor);
+    
+    // Debug all stored slides and their alt text
+    console.log('All stored slides:');
+    window.originalSlidesData.forEach((data, index) => {
+      console.log(`Slide ${index + 1} alt text:`, data.altText);
+    });
+    
+    window.originalSlidesData.forEach((slideData, index) => {
+      // Normalize the alt text for comparison
+      const normalizedAltText = slideData.altText.trim().toLowerCase();
+      let isVisible = false;
       
-      // Check for #color format in alt text
-      if (altText.includes('#')) {
-        const parts = altText.split('#');
-        if (parts.length > 1) {
-          const colorPart = parts[1].split(' ')[0].toLowerCase();
-          isVisible = (colorPart === selectedColor || colorPart === 'all');
-        }
+      console.log(`Comparing slide ${index + 1}:`, normalizedAltText, 'with selected color:', normalizedSelectedColor);
+      
+      // Check for exact match
+      if (normalizedAltText === normalizedSelectedColor) {
+        isVisible = true;
+        console.log('MATCH - Exact match');
+      } 
+      // Check if alt text contains the color
+      else if (normalizedAltText.includes(normalizedSelectedColor)) {
+        isVisible = true;
+        console.log('MATCH - Contains color');
+      }
+      // Check if color contains the alt text (reverse check)
+      else if (normalizedSelectedColor.includes(normalizedAltText)) {
+        isVisible = true;
+        console.log('MATCH - Color contains alt text');
       }
       
       if (isVisible) {
@@ -258,10 +280,14 @@
       }
     });
     
-    console.log('Filtered slides:', visibleSlides.length, 'visible,', hiddenSlides.length, 'hidden');
+    console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
     
     // If no visible slides, show all slides
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
+    
+    if (visibleSlides.length === 0) {
+      console.log('No matching slides found, showing all slides instead');
+    }
     
     try {
       // 7. Remove all cells from Flickity
