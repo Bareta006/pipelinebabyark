@@ -11,7 +11,7 @@
 
 {% assign filtertags = article.metafields.article.filtertags.value | default: '' %}
 
-<div class="article__item" data-filtertags="{{ filtertags }}">
+<div class="article__item" data-filtertags="{{ filtertags | strip }}">
   <div class="article__item-image" data-grid-slide>
     <a href="{{ article.url }}">
       {%- capture sizes -%}
