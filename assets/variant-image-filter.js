@@ -97,6 +97,21 @@
     }
   }
 
+  // Helper function to get the color option name from product data
+  function getColorOptionName(productData) {
+    if (!productData || !productData.options) return null;
+    
+    // Look for option names containing 'color' or 'colour'
+    const colorOptionIndex = productData.options.findIndex(option => 
+      option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
+    
+    if (colorOptionIndex !== -1) {
+      return productData.options[colorOptionIndex];
+    }
+    
+    return null;
+  }
+
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
     // Get all slides in the product grid
