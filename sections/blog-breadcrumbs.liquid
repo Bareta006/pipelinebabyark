@@ -1,0 +1,194 @@
+<!-- /sections/blog-breadcrumbs.liquid -->
+{% comment %}
+  Blog breadcrumbs section
+  Structure: Home > Blog Home > Blog Name > Article Name
+{% endcomment %}
+
+<div class="blog-breadcrumbs"
+  data-section-id="{{ section.id }}"
+  data-section-type="blog-breadcrumbs"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  <div class="{{ section.settings.width }}">
+    <nav class="breadcrumbs" aria-label="breadcrumbs">
+      <ol class="breadcrumbs__list">
+        <!-- Home link -->
+        <li class="breadcrumbs__item">
+          <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ 'general.breadcrumbs.home' | t }}</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">{{ section.settings.separator }}</span>
+        </li>
+        
+        <!-- Blog home link (customizable) -->
+        <li class="breadcrumbs__item">
+          <a href="{{ section.settings.blog_home_link }}" class="breadcrumbs__link">{{ section.settings.blog_home_text }}</a>
+          <span class="breadcrumbs__separator" aria-hidden="true">{{ section.settings.separator }}</span>
+        </li>
+        
+        {% if template contains 'blog' %}
+          <!-- Blog name (current page for blog template) -->
+          <li class="breadcrumbs__item breadcrumbs__item--current">
+            <span class="breadcrumbs__current">{{ blog.title }}</span>
+          </li>
+        {% elsif template contains 'article' %}
+          <!-- Blog name (link for article template) -->
+          <li class="breadcrumbs__item">
+            <a href="{{ blog.url }}" class="breadcrumbs__link">{{ blog.title }}</a>
+            <span class="breadcrumbs__separator" aria-hidden="true">{{ section.settings.separator }}</span>
+          </li>
+          
+          <!-- Article name (current page) -->
+          <li class="breadcrumbs__item breadcrumbs__item--current">
+            <span class="breadcrumbs__current">{{ article.title }}</span>
+          </li>
+        {% endif %}
+      </ol>
+    </nav>
+  </div>
+</div>
+
+<style>
+  .blog-breadcrumbs {
+    padding-top: var(--PT);
+    padding-bottom: var(--PB);
+  }
+  
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .breadcrumbs__item {
+    display: inline-flex;
+    align-items: center;
+    font-size: 14px;
+  }
+  
+  .breadcrumbs__link {
+    text-decoration: none;
+    color: {{ section.settings.link_color }};
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .breadcrumbs__link:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+  
+  .breadcrumbs__current {
+    color: {{ section.settings.current_color }};
+    font-weight: 500;
+  }
+  
+  .breadcrumbs__separator {
+    margin: 0 8px;
+    color: {{ section.settings.separator_color }};
+  }
+  
+  @media screen and (max-width: 749px) {
+    .breadcrumbs__item {
+      font-size: 12px;
+    }
+    
+    .breadcrumbs__separator {
+      margin: 0 5px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Blog Breadcrumbs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--full", "label": "Full width" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Narrow width" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Blog Home Settings"
+    },
+    {
+      "type": "text",
+      "id": "blog_home_text",
+      "label": "Blog home text",
+      "default": "Blog"
+    },
+    {
+      "type": "url",
+      "id": "blog_home_link",
+      "label": "Blog home link",
+      "info": "Link to your main blog page"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator",
+      "default": "/"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "current_color",
+      "label": "Current page color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator color",
+      "default": "#999999"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog Breadcrumbs",
+      "category": "Blog"
+    }
+  ]
+}
+{% endschema %} 

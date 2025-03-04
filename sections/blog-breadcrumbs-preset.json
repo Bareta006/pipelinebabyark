@@ -1,0 +1,16 @@
+{
+  "type": "blog-breadcrumbs",
+  "name": "Blog Breadcrumbs",
+  "settings": {
+    "width": "wrapper",
+    "padding_top": 20,
+    "padding_bottom": 20,
+    "blog_home_text": "Blog",
+    "blog_home_link": "/blogs/news",
+    "separator": "/",
+    "link_color": "#333333",
+    "link_hover_color": "#000000",
+    "current_color": "#666666",
+    "separator_color": "#999999"
+  }
+} 
