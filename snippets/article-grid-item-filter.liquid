@@ -9,14 +9,9 @@
   {% render 'article-grid-item-filter', article: article, wh_ratio: section.settings.wh_ratio, show_author: section.settings.show_author, show_preview: section.settings.show_preview, show_link: section.settings.show_link, show_tags: section.settings.show_tags, show_date: section.settings.show_date, section_columns: section.settings.post_grid, section_width: section.settings.width %}
 {% endcomment %}
 
-{% assign filtertags_raw = article.metafields.article.filtertags.value | default: '' %}
-{% assign filtertags = '' %}
-
-{% if filtertags_raw contains '[' and filtertags_raw contains ']' %}
-  {% comment %}Handle JSON array format by completely removing all JSON formatting{% endcomment %}
-  {% assign filtertags = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' | strip %}
-{% else %}
-  {% assign filtertags = filtertags_raw | strip %}
+{% assign filtertags = article.metafields.article.filtertags.value %}
+{% if filtertags.first %}
+  {% assign filtertags = filtertags.first %}
 {% endif %}
 
 <div class="article__item" data-filtertags="{{ filtertags }}">

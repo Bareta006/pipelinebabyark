@@ -81,23 +81,21 @@
         {% assign all_filtertags = '' %}
         {% for article in blog.articles %}
           {% if article.metafields.article.filtertags.value %}
-            {% assign filtertags_raw = article.metafields.article.filtertags.value %}
-            {% assign article_filtertags = '' %}
+            {% assign article_filtertags = article.metafields.article.filtertags.value %}
             
-            {% if filtertags_raw contains '[' and filtertags_raw contains ']' %}
-              {% comment %}Handle JSON array format by completely removing all JSON formatting{% endcomment %}
-              {% assign filtertags_clean = filtertags_raw | replace: '[', '' | replace: ']', '' | replace: '"', '' | replace: "'", '' | strip %}
-              {% assign article_filtertags = filtertags_clean | split: ',' %}
+            {% if article_filtertags.first %}
+              {% for tag in article_filtertags %}
+                {% assign tag_trimmed = tag %}
+                {% unless all_filtertags contains tag_trimmed %}
+                  {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
+                {% endunless %}
+              {% endfor %}
             {% else %}
-              {% assign article_filtertags = filtertags_raw | split: ',' %}
-            {% endif %}
-            
-            {% for tag in article_filtertags %}
-              {% assign tag_trimmed = tag | strip %}
+              {% assign tag_trimmed = article_filtertags %}
               {% unless all_filtertags contains tag_trimmed %}
                 {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
               {% endunless %}
-            {% endfor %}
+            {% endif %}
           {% endif %}
         {% endfor %}
         
@@ -108,7 +106,7 @@
               <button class="blog__filter-tag blog__filter-tag--active" data-filter="all">All</button>
               {% for tag in all_filtertags_array %}
                 {% if tag != '' %}
-                  <button class="blog__filter-tag" data-filter="{{ tag | strip | handleize }}">{{ tag | strip }}</button>
+                  <button class="blog__filter-tag" data-filter="{{ tag | handleize }}">{{ tag }}</button>
                 {% endif %}
               {% endfor %}
             </div>
@@ -211,12 +209,8 @@
           } else {
             const filtertags = article.getAttribute('data-filtertags');
             if (filtertags) {
-              // Split by comma if it's a comma-separated list, ensuring all JSON formatting is removed
-              const tagsArray = filtertags.includes(',') 
-                ? filtertags.split(',').map(tag => tag.trim().toLowerCase())
-                : [filtertags.trim().toLowerCase()];
-                
-              if (tagsArray.includes(filter.toLowerCase())) {
+              if (filtertags.toLowerCase() === filter.toLowerCase() || 
+                  filter.toLowerCase() === filtertags.toLowerCase().replace(/\s+/g, '-')) {
                 article.style.display = 'block';
               } else {
                 article.style.display = 'none';
