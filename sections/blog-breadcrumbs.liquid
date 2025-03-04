@@ -1,7 +1,7 @@
 <!-- /sections/blog-breadcrumbs.liquid -->
 {% comment %}
   Blog breadcrumbs section
-  Structure: Home > Blog Home > Blog Name > Article Name
+  Structure: Home / Research and Education / Blog / Article
 {% endcomment %}
 
 <div class="blog-breadcrumbs"
@@ -13,13 +13,13 @@
       <ol class="breadcrumbs__list">
         <!-- Home link -->
         <li class="breadcrumbs__item">
-          <a href="{{ routes.root_url }}" class="breadcrumbs__link">{{ 'general.breadcrumbs.home' | t }}</a>
+          <a href="{{ routes.root_url }}" class="breadcrumbs__link">Home</a>
           <span class="breadcrumbs__separator" aria-hidden="true">{{ section.settings.separator }}</span>
         </li>
         
-        <!-- Blog home link (customizable) -->
+        <!-- Research and Education link (customizable) -->
         <li class="breadcrumbs__item">
-          <a href="{{ section.settings.blog_home_link }}" class="breadcrumbs__link">{{ section.settings.blog_home_text }}</a>
+          <a href="{{ section.settings.parent_page_link }}" class="breadcrumbs__link">{{ section.settings.parent_page_text }}</a>
           <span class="breadcrumbs__separator" aria-hidden="true">{{ section.settings.separator }}</span>
         </li>
         
@@ -135,19 +135,19 @@
     },
     {
       "type": "header",
-      "content": "Blog Home Settings"
+      "content": "Parent Page Settings"
     },
     {
       "type": "text",
-      "id": "blog_home_text",
-      "label": "Blog home text",
-      "default": "Blog"
+      "id": "parent_page_text",
+      "label": "Parent page text",
+      "default": "Research and Education"
     },
     {
       "type": "url",
-      "id": "blog_home_link",
-      "label": "Blog home link",
-      "info": "Link to your main blog page"
+      "id": "parent_page_link",
+      "label": "Parent page link",
+      "info": "Link to your Research and Education page"
     },
     {
       "type": "header",
