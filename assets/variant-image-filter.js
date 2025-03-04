@@ -194,18 +194,13 @@
     if (!window.originalSlidesData) {
       const allSlides = slideshowContainer.querySelectorAll('.product__media');
       window.originalSlidesData = Array.from(allSlides).map(slide => {
-        // Find the image inside the slide structure
         const img = slide.querySelector('img');
-        const altText = img ? (img.getAttribute('alt') || '').toLowerCase() : '';
-        
-        console.log('Storing slide with alt text:', altText);
-        
         return {
           element: slide.cloneNode(true),
-          altText: altText
+          altText: img ? (img.getAttribute('alt') || '').toLowerCase() : ''
         };
       });
-      console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
+      console.log('Saved original slides data');
     }
     
     // 5. Get existing Flickity instance or create a new one
@@ -220,13 +215,23 @@
     try {
       flkty = Flickity.data(slideshowContainer);
       
-      // If Flickity exists, destroy it so we can rebuild with filtered slides
-      if (flkty) {
-        console.log('Destroying existing Flickity instance');
-        flkty.destroy();
+      // If Flickity doesn't exist yet, initialize it
+      if (!flkty) {
+        console.log('Creating new Flickity instance');
+        flkty = new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+      } else {
+        console.log('Using existing Flickity instance');
       }
     } catch (error) {
-      console.error('Error handling Flickity instance:', error);
+      console.error('Error initializing Flickity:', error);
+      return;
     }
     
     // 6. Filter slides based on the selected color
@@ -235,27 +240,15 @@
     
     window.originalSlidesData.forEach(slideData => {
       const altText = slideData.altText;
-      let isVisible = false; // Default to not visible
+      let isVisible = true;
       
-      console.log('Checking slide with alt text:', altText, 'against color:', selectedColor);
-      
-      // Check if the alt text contains the selected color
-      if (altText && altText.toLowerCase().includes(selectedColor)) {
-        isVisible = true;
-        console.log('Match found - direct color match');
-      } else if (altText.includes('/')) {
-        // Handle format like "Eggshell White / Moonlight"
-        const colorParts = altText.split('/').map(part => part.trim().toLowerCase());
-        if (colorParts.some(part => selectedColor.includes(part) || part.includes(selectedColor))) {
-          isVisible = true;
-          console.log('Match found - color part match');
+      // Check for #color format in alt text
+      if (altText.includes('#')) {
+        const parts = altText.split('#');
+        if (parts.length > 1) {
+          const colorPart = parts[1].split(' ')[0].toLowerCase();
+          isVisible = (colorPart === selectedColor || colorPart === 'all');
         }
-      }
-      
-      // Always include slides with "all" in alt text
-      if (altText.includes('all')) {
-        isVisible = true;
-        console.log('Match found - all');
       }
       
       if (isVisible) {
@@ -271,40 +264,68 @@
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
     try {
-      // 7. Clear the container
-      slideshowContainer.innerHTML = '';
+      // 7. Remove all cells from Flickity
+      if (flkty.cells && flkty.cells.length > 0) {
+        const cellElements = flkty.getCellElements();
+        if (cellElements && cellElements.length > 0) {
+          flkty.remove(cellElements);
+          console.log('Removed all existing cells');
+        }
+      }
       
-      // 8. Add the filtered slides to the container
-      slidesToShow.forEach(slide => {
-        slideshowContainer.appendChild(slide);
-      });
+      // 8. Add the filtered slides to Flickity
+      if (slidesToShow.length > 0) {
+        slidesToShow.forEach(slide => {
+          flkty.append(slide);
+        });
+        console.log('Added', slidesToShow.length, 'slides to Flickity');
+      } else {
+        console.warn('No slides to show');
+      }
       
-      // 9. Initialize Flickity with mobile-specific options
-      console.log('Initializing Flickity with', slidesToShow.length, 'slides');
+      // 9. Update Flickity to reflect changes
+      flkty.reloadCells();
+      flkty.resize();
+      flkty.updateDraggable();
       
-      // Mobile carousel options based on your requirements
-      const mobileOptions = {
-        cellAlign: 'center',     // Center alignment
-        contain: false,          // Allow peek of next/prev slides
-        draggable: true,
-        prevNextButtons: false,  // No arrows as requested
-        pageDots: false,         // No dots as requested
-        adaptiveHeight: false,
-        wrapAround: true,        // Infinite scrolling
-        freeScroll: false,
-        groupCells: false,
-        percentPosition: true,
-        watchCSS: false,
-        rightToLeft: window.isRTL,
-        dragThreshold: 10,
-        fade: false
-      };
+      // 10. Go to first cell
+      if (flkty.cells && flkty.cells.length > 0) {
+        flkty.select(0, false, true);
+      }
       
-      new Flickity(slideshowContainer, mobileOptions);
-      console.log('Flickity initialized with mobile options');
-      
+      console.log('Flickity updated with filtered slides');
     } catch (error) {
-      console.error('Error rebuilding carousel:', error);
+      console.error('Error updating Flickity:', error);
+      
+      // Fallback: If Flickity operations fail, try to rebuild it from scratch
+      try {
+        // Destroy the existing instance
+        if (flkty) {
+          flkty.destroy();
+        }
+        
+        // Clear the container
+        slideshowContainer.innerHTML = '';
+        
+        // Add all slides back
+        slidesToShow.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // Create a new instance
+        new Flickity(slideshowContainer, {
+          cellAlign: 'left',
+          contain: true,
+          draggable: true,
+          prevNextButtons: true,
+          pageDots: true,
+          adaptiveHeight: false
+        });
+        
+        console.log('Rebuilt Flickity from scratch after error');
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     }
   }
 
