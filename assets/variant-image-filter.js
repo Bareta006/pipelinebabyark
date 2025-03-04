@@ -35,6 +35,12 @@
         try {
           const productData = JSON.parse(productJsonScript.textContent);
           
+          // Check if this is a bundle product - if so, skip all filtering
+          if (isProductBundle(productData)) {
+            console.log('Bundle product detected, skipping all image filtering');
+            return;
+          }
+          
           // Check if we're in mobile or desktop mode
           const isMobile = window.innerWidth < 768;
           
@@ -58,68 +64,70 @@
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
     const productJsonScript = document.querySelector('[data-product-json]');
-    if (!productJsonScript) {
-      console.log('No product JSON script found');
-      return;
-    }
-    
-    try {
-      // Check if the script content is empty or invalid
-      if (!productJsonScript.textContent || productJsonScript.textContent.trim() === '') {
-        console.log('Product JSON script is empty');
-        return;
+    if (productJsonScript) {
+      try {
+        const productData = JSON.parse(productJsonScript.textContent);
+        
+        // Debug product data to see what's available
+        console.log('Product type:', productData.type);
+        console.log('Product tags:', productData.tags);
+        console.log('Product handle:', productData.handle);
+        
+        // Check if this is a bundle product - if so, skip all filtering
+        if (isProductBundle(productData)) {
+          console.log('Bundle product detected during initialization, skipping all image filtering');
+          return;
+        }
+        
+        // Validate product data structure
+        if (!productData) {
+          console.log('Invalid product data: null or undefined');
+          return;
+        }
+        
+        if (!productData.variants) {
+          console.log('Product data has no variants array');
+          return;
+        }
+        
+        if (!Array.isArray(productData.variants) || productData.variants.length === 0) {
+          console.log('Product variants is not an array or is empty');
+          return;
+        }
+        
+        // Get the initially selected variant
+        const variantSelector = document.querySelector('[name="id"]');
+        const selectedVariantId = variantSelector?.value;
+        
+        let selectedVariant = null;
+        
+        if (selectedVariantId) {
+          selectedVariant = productData.variants.find(v => 
+            v && v.id && v.id.toString() === selectedVariantId.toString()
+          );
+        }
+        
+        // If no variant is explicitly selected or found, use the first available variant
+        if (!selectedVariant && productData.variants.length > 0) {
+          selectedVariant = productData.variants[0];
+        }
+        
+        if (!selectedVariant) {
+          console.log('No valid variant found');
+          return;
+        }
+        
+        // Check if we're in mobile or desktop mode
+        const isMobile = window.innerWidth < 768;
+        
+        if (isMobile) {
+          filterImagesForMobile(selectedVariant, productData);
+        } else {
+          filterImagesForDesktop(selectedVariant, productData, true);
+        }
+      } catch (e) {
+        console.error('Error parsing product JSON:', e);
       }
-      
-      const productData = JSON.parse(productJsonScript.textContent);
-      
-      // Validate product data structure
-      if (!productData) {
-        console.log('Invalid product data: null or undefined');
-        return;
-      }
-      
-      if (!productData.variants) {
-        console.log('Product data has no variants array');
-        return;
-      }
-      
-      if (!Array.isArray(productData.variants) || productData.variants.length === 0) {
-        console.log('Product variants is not an array or is empty');
-        return;
-      }
-      
-      // Get the initially selected variant
-      const variantSelector = document.querySelector('[name="id"]');
-      const selectedVariantId = variantSelector?.value;
-      
-      let selectedVariant = null;
-      
-      if (selectedVariantId) {
-        selectedVariant = productData.variants.find(v => 
-          v && v.id && v.id.toString() === selectedVariantId.toString()
-        );
-      }
-      
-      // If no variant is explicitly selected or found, use the first available variant
-      if (!selectedVariant && productData.variants.length > 0) {
-        selectedVariant = productData.variants[0];
-      }
-      
-      if (!selectedVariant) {
-        console.log('No valid variant found');
-        return;
-      }
-      
-      // Check if we're in mobile or desktop mode
-      const isMobile = window.innerWidth < 768;
-      
-      if (isMobile) {
-        filterImagesForMobile(selectedVariant, productData);
-      } else {
-        filterImagesForDesktop(selectedVariant, productData, true);
-      }
-    } catch (e) {
-      console.error('Error parsing product JSON on page load:', e);
     }
   }
 
@@ -143,19 +151,35 @@
 
   // Function to check if a product is a bundle
   function isProductBundle(productData) {
-    if (!productData || !productData.type) {
+    if (!productData) {
+      console.log('No product data available for bundle check');
       return false;
     }
     
-    // Check if product type contains "bundle" (case insensitive)
-    if (productData.type.toLowerCase().includes('bundle')) {
-      console.log('Product is a bundle, skipping image filtering');
+    // Debug the product data to see what we're working with
+    console.log('Checking if product is a bundle:');
+    console.log('- Product type:', productData.type);
+    console.log('- Product handle:', productData.handle);
+    console.log('- Product tags:', productData.tags);
+    
+    // Check product handle (most reliable)
+    if (productData.handle && typeof productData.handle === 'string' && 
+        productData.handle.toLowerCase().includes('bundle')) {
+      console.log('Product handle contains "bundle", skipping image filtering');
       return true;
     }
     
-    // Check if product template contains "bundle" (if available)
-    if (productData.template && productData.template.toLowerCase().includes('bundle')) {
-      console.log('Product has bundle template, skipping image filtering');
+    // Check if product type contains "bundle" (case insensitive)
+    if (productData.type && typeof productData.type === 'string' && 
+        productData.type.toLowerCase().includes('bundle')) {
+      console.log('Product type contains "bundle", skipping image filtering');
+      return true;
+    }
+    
+    // Check product title
+    if (productData.title && typeof productData.title === 'string' && 
+        productData.title.toLowerCase().includes('bundle')) {
+      console.log('Product title contains "bundle", skipping image filtering');
       return true;
     }
     
@@ -170,6 +194,13 @@
       }
     }
     
+    // Check URL path as a fallback
+    if (window.location.pathname.toLowerCase().includes('bundle')) {
+      console.log('URL path contains "bundle", skipping image filtering');
+      return true;
+    }
+    
+    console.log('Product is not a bundle, proceeding with filtering');
     return false;
   }
 
