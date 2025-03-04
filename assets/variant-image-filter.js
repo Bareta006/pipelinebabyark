@@ -99,105 +99,107 @@
 
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
-    if (!variant || !productData) return;
-
-    // Find the color option index
-    const colorOptionIndex = productData.options.findIndex(option => 
-      option.toLowerCase().includes('color') || option.toLowerCase().includes('colour'));
+    // Get all slides in the product grid
+    const productGrid = document.querySelector('[data-product-slideshow]');
+    if (!productGrid) return;
     
-    if (colorOptionIndex === -1) return; // No color option found
+    // Get the mobile style
+    const mobileStyle = productGrid.getAttribute('data-slideshow-mobile-style');
+    if (!mobileStyle || mobileStyle !== 'carousel') return;
     
-    const selectedColor = variant.options[colorOptionIndex];
+    // Get the color option name and value
+    const colorOptionName = getColorOptionName(productData);
+    if (!colorOptionName) return;
     
-    if (!selectedColor) return;
-
-    // Get the slideshow container
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    const variantColor = variant.options.find((option, index) => 
+      productData.options[index].toLowerCase() === colorOptionName.toLowerCase()
+    );
     
-    if (!slideshowContainer) return;
-
-    // Get all media slides and thumbs
-    const mediaSlides = document.querySelectorAll('[data-media-slide]');
-    const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
+    if (!variantColor) return;
     
-    if (!mediaSlides.length) return;
-
-    let visibleSlideCount = 0;
-    let firstVisibleSlide = null;
-
-    // Filter media slides based on EXACT alt text match only
-    // But DO NOT remove them from the DOM - just hide them with CSS
-    mediaSlides.forEach((slide) => {
-      const altText = slide.getAttribute('aria-label') || '';
-      const exactMatch = altText === selectedColor;
-      
-      if (exactMatch) {
-        // Show matching slides
-        slide.style.opacity = '1';
-        slide.style.visibility = 'visible';
-        slide.style.position = 'relative';
-        slide.classList.remove('hide');
-        visibleSlideCount++;
-        
-        if (!firstVisibleSlide) {
-          firstVisibleSlide = slide;
-        }
-      } else {
-        // Hide non-matching slides
-        slide.style.opacity = '0';
-        slide.style.visibility = 'hidden';
-        slide.style.position = 'absolute';
-        slide.classList.add('hide');
-      }
+    // Get all slides
+    const allSlides = productGrid.querySelectorAll('.product__media');
+    if (!allSlides.length) return;
+    
+    // Find the Flickity instance
+    let flickityInstance = Flickity.data(productGrid);
+    
+    // If Flickity exists, destroy it first
+    if (flickityInstance) {
+      flickityInstance.destroy();
+    }
+    
+    // Remove all slides from the DOM temporarily
+    const slidesContainer = productGrid;
+    const slidesArray = Array.from(allSlides);
+    const slidesParent = allSlides[0].parentNode;
+    
+    // Remove all slides from the DOM
+    slidesArray.forEach(slide => {
+      slidesParent.removeChild(slide);
     });
     
-    // If no slides match the color, show all slides (fallback)
-    if (visibleSlideCount === 0) {
-      mediaSlides.forEach(slide => {
-        slide.style.opacity = '1';
-        slide.style.visibility = 'visible';
-        slide.style.position = 'relative';
-        slide.classList.remove('hide');
-      });
+    // Filter slides that match the variant color
+    const visibleSlides = slidesArray.filter(slide => {
+      const slideImage = slide.querySelector('img');
+      if (!slideImage) return false;
       
-      if (thumbs.length) {
-        thumbs.forEach(thumb => {
-          thumb.style.display = '';
-        });
+      const altText = slideImage.getAttribute('alt') || '';
+      // Check if alt text contains the color option
+      if (altText.includes('#')) {
+        const altParts = altText.split('#');
+        if (altParts.length > 1) {
+          const colorPart = altParts[1].split(' ')[0].toLowerCase();
+          return colorPart === variantColor.toLowerCase() || colorPart === 'all';
+        }
       }
-    } else {
-      // Filter thumbnails to match
-      if (thumbs.length) {
-        thumbs.forEach(thumb => {
-          const altText = thumb.getAttribute('aria-label') || '';
-          const exactMatch = altText === selectedColor;
-          
-          if (exactMatch) {
-            thumb.style.display = '';
-          } else {
-            thumb.style.display = 'none';
-          }
-        });
-      }
-    }
+      return true; // If no alt text filter, show the slide
+    });
     
-    // Resize the Flickity instance to account for the hidden slides
-    if (typeof Flickity !== 'undefined') {
-      const flkty = Flickity.data(slideshowContainer);
-      if (flkty) {
-        setTimeout(() => {
-          flkty.resize();
-          
-          // If we have a first visible slide, select it
-          if (firstVisibleSlide) {
-            const slideIndex = Array.from(slideshowContainer.children).indexOf(firstVisibleSlide);
-            if (slideIndex >= 0) {
-              flkty.select(slideIndex);
-            }
+    // Add visible slides back to the DOM
+    visibleSlides.forEach(slide => {
+      slidesParent.appendChild(slide);
+    });
+    
+    // Initialize Flickity with mobile options
+    setTimeout(() => {
+      // Create mobile options
+      const mobileOptions = {
+        cellAlign: 'left',
+        contain: false,
+        draggable: '>1',
+        prevNextButtons: true,
+        pageDots: true,
+        adaptiveHeight: false,
+        wrapAround: false,
+        friction: 0.8,
+        selectedAttraction: 0.2,
+        autoPlay: false
+      };
+      
+      // Initialize Flickity with the mobile options
+      new Flickity(productGrid, mobileOptions);
+      
+      // Select the first slide
+      const newFlickityInstance = Flickity.data(productGrid);
+      if (newFlickityInstance) {
+        newFlickityInstance.select(0, false, true);
+        
+        // Dispatch event to update the image
+        const firstVisibleSlide = productGrid.querySelector('.product__media');
+        if (firstVisibleSlide) {
+          const mediaId = firstVisibleSlide.getAttribute('data-media-id');
+          if (mediaId) {
+            const event = new CustomEvent('mediaVisible', {
+              detail: {
+                mediaId: mediaId
+              }
+            });
+            document.dispatchEvent(event);
           }
-        }, 100);
+        }
       }
-    }
+    }, 10);
   }
 
   // Function specifically for desktop filtering
@@ -268,6 +270,8 @@
       mediaSlides.forEach(slide => {
         visibleSlides.push(slide);
         slide.style.display = '';
+        slide.style.visibility = 'visible';
+        slide.style.position = 'relative';
         slide.classList.remove('hide');
       });
       
