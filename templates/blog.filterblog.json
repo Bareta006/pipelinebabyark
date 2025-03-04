@@ -15,6 +15,8 @@
         "width": "wrapper",
         "padding_top": 100,
         "padding_bottom": 100,
+        "parent_page_text": "Research and Education",
+        "parent_page_link": "/blogs/research-and-education",
         "separator": "/",
         "link_color": "#333333",
         "link_hover_color": "#000000",
