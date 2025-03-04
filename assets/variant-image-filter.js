@@ -37,7 +37,7 @@
           
           // Check if this is a bundle product - if so, skip all filtering
           if (isProductBundle(productData)) {
-            console.log('Bundle product detected, skipping all image filtering');
+            //console.log('Bundle product detected, skipping all image filtering');
             return;
           }
           
@@ -69,29 +69,29 @@
         const productData = JSON.parse(productJsonScript.textContent);
         
         // Debug product data to see what's available
-        console.log('Product type:', productData.type);
-        console.log('Product tags:', productData.tags);
-        console.log('Product handle:', productData.handle);
+        //console.log('Product type:', productData.type);
+        //console.log('Product tags:', productData.tags);
+        //console.log('Product handle:', productData.handle);
         
         // Check if this is a bundle product - if so, skip all filtering
         if (isProductBundle(productData)) {
-          console.log('Bundle product detected during initialization, skipping all image filtering');
+          //console.log('Bundle product detected during initialization, skipping all image filtering');
           return;
         }
         
         // Validate product data structure
         if (!productData) {
-          console.log('Invalid product data: null or undefined');
+          //console.log('Invalid product data: null or undefined');
           return;
         }
         
         if (!productData.variants) {
-          console.log('Product data has no variants array');
+          //console.log('Product data has no variants array');
           return;
         }
         
         if (!Array.isArray(productData.variants) || productData.variants.length === 0) {
-          console.log('Product variants is not an array or is empty');
+          //console.log('Product variants is not an array or is empty');
           return;
         }
         
@@ -113,7 +113,7 @@
         }
         
         if (!selectedVariant) {
-          console.log('No valid variant found');
+          //console.log('No valid variant found');
           return;
         }
         
@@ -152,34 +152,34 @@
   // Function to check if a product is a bundle
   function isProductBundle(productData) {
     if (!productData) {
-      console.log('No product data available for bundle check');
+      //console.log('No product data available for bundle check');
       return false;
     }
     
     // Debug the product data to see what we're working with
-    console.log('Checking if product is a bundle:');
-    console.log('- Product type:', productData.type);
-    console.log('- Product handle:', productData.handle);
-    console.log('- Product tags:', productData.tags);
+    //console.log('Checking if product is a bundle:');
+    //console.log('- Product type:', productData.type);
+    //console.log('- Product handle:', productData.handle);
+    //console.log('- Product tags:', productData.tags);
     
     // Check product handle (most reliable)
     if (productData.handle && typeof productData.handle === 'string' && 
         productData.handle.toLowerCase().includes('bundle')) {
-      console.log('Product handle contains "bundle", skipping image filtering');
+      //console.log('Product handle contains "bundle", skipping image filtering');
       return true;
     }
     
     // Check if product type contains "bundle" (case insensitive)
     if (productData.type && typeof productData.type === 'string' && 
         productData.type.toLowerCase().includes('bundle')) {
-      console.log('Product type contains "bundle", skipping image filtering');
+      //console.log('Product type contains "bundle", skipping image filtering');
       return true;
     }
     
     // Check product title
     if (productData.title && typeof productData.title === 'string' && 
         productData.title.toLowerCase().includes('bundle')) {
-      console.log('Product title contains "bundle", skipping image filtering');
+      //console.log('Product title contains "bundle", skipping image filtering');
       return true;
     }
     
@@ -188,7 +188,7 @@
       for (let i = 0; i < productData.tags.length; i++) {
         if (typeof productData.tags[i] === 'string' && 
             productData.tags[i].toLowerCase().includes('bundle')) {
-          console.log('Product has bundle tag, skipping image filtering');
+          //console.log('Product has bundle tag, skipping image filtering');
           return true;
         }
       }
@@ -196,17 +196,17 @@
     
     // Check URL path as a fallback
     if (window.location.pathname.toLowerCase().includes('bundle')) {
-      console.log('URL path contains "bundle", skipping image filtering');
+      //console.log('URL path contains "bundle", skipping image filtering');
       return true;
     }
     
-    console.log('Product is not a bundle, proceeding with filtering');
+    //console.log('Product is not a bundle, proceeding with filtering');
     return false;
   }
 
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
-    console.log('Filtering images for mobile');
+    //console.log('Filtering images for mobile');
     
     // Skip filtering for bundle products
     if (isProductBundle(productData)) {
@@ -215,13 +215,13 @@
     
     // Validate inputs
     if (!variant || !productData) {
-      console.log('Invalid variant or product data');
+      //console.log('Invalid variant or product data');
       return;
     }
     
     // 1. Find the color option index and value
     if (!productData.options || !Array.isArray(productData.options)) {
-      console.log('Product options not found or not an array');
+      //console.log('Product options not found or not an array');
       return;
     }
     
@@ -231,30 +231,30 @@
     );
     
     if (colorOptionIndex === -1) {
-      console.log('No color option found');
+      //console.log('No color option found');
       return; // No color option found
     }
     
     // Ensure variant has options array
     if (!variant.options || !Array.isArray(variant.options) || colorOptionIndex >= variant.options.length) {
-      console.log('Variant options not found or invalid index');
+      //console.log('Variant options not found or invalid index');
       return;
     }
     
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
-    console.log('Selected color:', selectedColor);
+    //console.log('Selected color:', selectedColor);
     
     // 2. Get the slideshow container
     const slideshowContainer = document.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
-      console.log('No slideshow container found');
+      //console.log('No slideshow container found');
       return;
     }
     
     // 3. Check if we're in mobile mode
     const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
     if (mobileStyle !== 'carousel') {
-      console.log('Not a carousel mobile style:', mobileStyle);
+      //console.log('Not a carousel mobile style:', mobileStyle);
       return;
     }
     
@@ -264,13 +264,13 @@
       window.originalSlidesData = Array.from(allSlides).map(slide => {
         const img = slide.querySelector('img');
         const altText = img ? (img.getAttribute('alt') || '') : '';
-        console.log('Saved slide with alt text:', altText);
+        //console.log('Saved slide with alt text:', altText);
         return {
           element: slide.cloneNode(true),
           altText: altText
         };
       });
-      console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
+      //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
     }
     
     // 5. Get existing Flickity instance or create a new one
@@ -287,7 +287,7 @@
       
       // If Flickity doesn't exist yet, initialize it
       if (!flkty) {
-        console.log('Creating new Flickity instance');
+        //console.log('Creating new Flickity instance');
         flkty = new Flickity(slideshowContainer, {
           cellAlign: 'center',
           contain: true,
@@ -297,7 +297,7 @@
           adaptiveHeight: false
         });
       } else {
-        console.log('Using existing Flickity instance');
+        //console.log('Using existing Flickity instance');
       }
     } catch (error) {
       console.error('Error initializing Flickity:', error);
@@ -310,12 +310,12 @@
     
     // Normalize the selected color for comparison (trim whitespace, lowercase)
     const normalizedSelectedColor = selectedColor.trim().toLowerCase();
-    console.log('Filtering slides for normalized color:', normalizedSelectedColor);
+    //console.log('Filtering slides for normalized color:', normalizedSelectedColor);
     
     // Debug all stored slides and their alt text
-    console.log('All stored slides:');
+    //console.log('All stored slides:');
     window.originalSlidesData.forEach((data, index) => {
-      console.log(`Slide ${index + 1} alt text:`, data.altText);
+      //console.log(`Slide ${index + 1} alt text:`, data.altText);
     });
     
     window.originalSlidesData.forEach((slideData, index) => {
@@ -323,22 +323,22 @@
       const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
       
-      console.log(`Comparing slide ${index + 1}:`, normalizedAltText, 'with selected color:', normalizedSelectedColor);
+      //console.log(`Comparing slide ${index + 1}:`, normalizedAltText, 'with selected color:', normalizedSelectedColor);
       
       // Check for exact match
       if (normalizedAltText === normalizedSelectedColor) {
         isVisible = true;
-        console.log('MATCH - Exact match');
+        //console.log('MATCH - Exact match');
       } 
       // Check if alt text contains the color
       else if (normalizedAltText.includes(normalizedSelectedColor)) {
         isVisible = true;
-        console.log('MATCH - Contains color');
+        //console.log('MATCH - Contains color');
       }
       // Check if color contains the alt text (reverse check)
       else if (normalizedSelectedColor.includes(normalizedAltText)) {
         isVisible = true;
-        console.log('MATCH - Color contains alt text');
+        //console.log('MATCH - Color contains alt text');
       }
       
       if (isVisible) {
@@ -348,13 +348,13 @@
       }
     });
     
-    console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
+    //console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
     
     // If no visible slides, show all slides
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
     if (visibleSlides.length === 0) {
-      console.log('No matching slides found, showing all slides instead');
+      //console.log('No matching slides found, showing all slides instead');
     }
     
     try {
@@ -363,7 +363,7 @@
         const cellElements = flkty.getCellElements();
         if (cellElements && cellElements.length > 0) {
           flkty.remove(cellElements);
-          console.log('Removed all existing cells');
+          //console.log('Removed all existing cells');
         }
       }
       
@@ -372,7 +372,7 @@
         slidesToShow.forEach(slide => {
           flkty.append(slide);
         });
-        console.log('Added', slidesToShow.length, 'slides to Flickity');
+        //console.log('Added', slidesToShow.length, 'slides to Flickity');
       } else {
         console.warn('No slides to show');
       }
@@ -387,7 +387,7 @@
         flkty.select(0, false, true);
       }
       
-      console.log('Flickity updated with filtered slides');
+      //console.log('Flickity updated with filtered slides');
     } catch (error) {
       console.error('Error updating Flickity:', error);
       
@@ -417,7 +417,7 @@
           adaptiveHeight: false
         });
         
-        console.log('Rebuilt Flickity from scratch after error');
+        //console.log('Rebuilt Flickity from scratch after error');
       } catch (fallbackError) {
         console.error('Fallback also failed:', fallbackError);
       }
@@ -426,7 +426,7 @@
 
   // Function specifically for desktop filtering
   function filterImagesForDesktop(variant, productData, isInitialLoad = false) {
-    console.log('Filtering images for desktop');
+    //console.log('Filtering images for desktop');
     
     // Skip filtering for bundle products
     if (isProductBundle(productData)) {
