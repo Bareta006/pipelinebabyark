@@ -9,40 +9,23 @@
  */
 {
   "sections": {
-    "section_hero_X77pNn": {
-      "type": "section-hero",
-      "blocks": {
-        "heading_aVcK3h": {
-          "type": "heading",
-          "settings": {
-            "title": "The Babyark Blog",
-            "text_size": 10
-          }
-        }
-      },
-      "block_order": [
-        "heading_aVcK3h"
-      ],
+    "blog_breadcrumbs_Gabrz4": {
+      "type": "blog-breadcrumbs",
       "settings": {
-        "image": "shopify://shop_images/image_373.png",
-        "height": "use_screen_two_thirds",
-        "overlay_opacity": 15,
-        "overlay_color": "#000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-center",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "width": "wrapper",
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "separator": "/",
+        "link_color": "#333333",
+        "link_hover_color": "#000000",
+        "current_color": "#666666",
+        "separator_color": "#999999"
       }
     },
     "main-blog": {
       "type": "blog",
       "settings": {
-        "heading": "News",
+        "heading": "",
         "show_heading": true,
         "tag_label": "",
         "tags": false,
@@ -56,18 +39,18 @@
         "show_preview": true,
         "show_link": true,
         "overlay_opacity": 30,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "image_height": "use_screen_one_third",
         "text_color": "text--white",
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     }
   },
   "order": [
-    "section_hero_X77pNn",
+    "blog_breadcrumbs_Gabrz4",
     "main-blog"
   ]
 }
