@@ -9,9 +9,34 @@
   {% render 'article-grid-item-filter', article: article, wh_ratio: section.settings.wh_ratio, show_author: section.settings.show_author, show_preview: section.settings.show_preview, show_link: section.settings.show_link, show_tags: section.settings.show_tags, show_date: section.settings.show_date, section_columns: section.settings.post_grid, section_width: section.settings.width %}
 {% endcomment %}
 
-{% assign filtertags = article.metafields.article.filtertags.value %}
-{% if filtertags.first %}
-  {% assign filtertags = filtertags.first %}
+{% assign filtertags_raw = article.metafields.article.filtertags.value | default: '' %}
+{% assign filtertags = '' %}
+
+{% if filtertags_raw.first %}
+  {% comment %}Handle array of tags{% endcomment %}
+  {% for tag in filtertags_raw %}
+    {% assign handleized_tag = tag | handleize %}
+    {% if forloop.first %}
+      {% assign filtertags = handleized_tag %}
+    {% else %}
+      {% assign filtertags = filtertags | append: ',' | append: handleized_tag %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% comment %}Handle single tag or comma-separated string{% endcomment %}
+  {% if filtertags_raw contains ',' %}
+    {% assign tags_array = filtertags_raw | split: ',' %}
+    {% for tag in tags_array %}
+      {% assign handleized_tag = tag | strip | handleize %}
+      {% if forloop.first %}
+        {% assign filtertags = handleized_tag %}
+      {% else %}
+        {% assign filtertags = filtertags | append: ',' | append: handleized_tag %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% assign filtertags = filtertags_raw | handleize %}
+  {% endif %}
 {% endif %}
 
 <div class="article__item" data-filtertags="{{ filtertags }}">

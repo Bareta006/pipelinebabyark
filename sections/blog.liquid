@@ -81,20 +81,32 @@
         {% assign all_filtertags = '' %}
         {% for article in blog.articles %}
           {% if article.metafields.article.filtertags.value %}
-            {% assign article_filtertags = article.metafields.article.filtertags.value %}
+            {% assign filtertags_raw = article.metafields.article.filtertags.value %}
             
-            {% if article_filtertags.first %}
-              {% for tag in article_filtertags %}
-                {% assign tag_trimmed = tag %}
+            {% if filtertags_raw.first %}
+              {% comment %}Handle array of tags{% endcomment %}
+              {% for tag in filtertags_raw %}
+                {% assign tag_trimmed = tag | strip %}
                 {% unless all_filtertags contains tag_trimmed %}
                   {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
                 {% endunless %}
               {% endfor %}
             {% else %}
-              {% assign tag_trimmed = article_filtertags %}
-              {% unless all_filtertags contains tag_trimmed %}
-                {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
-              {% endunless %}
+              {% comment %}Handle single tag or comma-separated string{% endcomment %}
+              {% if filtertags_raw contains ',' %}
+                {% assign tags_array = filtertags_raw | split: ',' %}
+                {% for tag in tags_array %}
+                  {% assign tag_trimmed = tag | strip %}
+                  {% unless all_filtertags contains tag_trimmed %}
+                    {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
+                  {% endunless %}
+                {% endfor %}
+              {% else %}
+                {% assign tag_trimmed = filtertags_raw | strip %}
+                {% unless all_filtertags contains tag_trimmed %}
+                  {% assign all_filtertags = all_filtertags | append: tag_trimmed | append: ',' %}
+                {% endunless %}
+              {% endif %}
             {% endif %}
           {% endif %}
         {% endfor %}
@@ -229,10 +241,8 @@
                 : [filtertags.trim()];
               
               // Check if any of the article's tags match the filter
-              // We need to handleize the tags to match the data-filter format
-              const handleizedTagsArray = tagsArray.map(tag => tag.toLowerCase().replace(/\s+/g, '-'));
-              
-              if (handleizedTagsArray.includes(filter.toLowerCase())) {
+              // Tags are already handleized in the HTML
+              if (tagsArray.includes(filter)) {
                 article.style.display = 'block';
               } else {
                 article.style.display = 'none';
