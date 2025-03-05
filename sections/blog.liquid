@@ -225,12 +225,14 @@
             if (filtertags) {
               // Split by comma if it contains commas
               const tagsArray = filtertags.includes(',') 
-                ? filtertags.split(',').map(tag => tag.trim().toLowerCase())
-                : [filtertags.trim().toLowerCase()];
+                ? filtertags.split(',').map(tag => tag.trim())
+                : [filtertags.trim()];
               
               // Check if any of the article's tags match the filter
-              if (tagsArray.includes(filter.toLowerCase()) || 
-                  tagsArray.some(tag => filter.toLowerCase() === tag.replace(/\s+/g, '-'))) {
+              // We need to handleize the tags to match the data-filter format
+              const handleizedTagsArray = tagsArray.map(tag => tag.toLowerCase().replace(/\s+/g, '-'));
+              
+              if (handleizedTagsArray.includes(filter.toLowerCase())) {
                 article.style.display = 'block';
               } else {
                 article.style.display = 'none';
