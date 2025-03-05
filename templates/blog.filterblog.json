@@ -37,7 +37,7 @@
         "text_aLPFUg": {
           "type": "text",
           "settings": {
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.{{ blog.metafields.blogs.description | metafield_tag }}</p>",
+            "text": "<p>{{ blog.metafields.blogs.description | metafield_tag }}</p>",
             "text_size": 5,
             "text_columns": 1
           }
@@ -51,7 +51,7 @@
         "align_text": "text-center",
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "content_width": 950,
+        "content_width": 750,
         "width": "wrapper",
         "padding_top": 60,
         "padding_bottom": 36
