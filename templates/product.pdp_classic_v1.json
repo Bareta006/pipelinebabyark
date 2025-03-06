@@ -338,7 +338,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         }
       },
@@ -441,7 +441,7 @@
         "button_color": "btn--neutral",
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
-        "bg_color_text": "#f6f2ef"
+        "bg_color_text": "#ffffff"
       }
     },
     "section_double_LJxgJN": {
@@ -481,7 +481,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         }
       },
@@ -520,7 +520,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         },
         "video_d96caf": {
@@ -599,7 +599,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         }
       },
@@ -637,7 +637,7 @@
       "custom_css": [
         "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
         ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
-        "> div {background-color: #f6f2ef;}",
+        "> div {background-color: #fff;}",
         "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
       ],
       "settings": {
@@ -660,7 +660,7 @@
         "judge_me_reviews_review_widget_wqVpnF"
       ],
       "custom_css": [
-        "> div {background-color: #f6f2ef;}"
+        "> div {background-color: #fff;}"
       ],
       "settings": {
         "text_color": "text--neutral",
