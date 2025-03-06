@@ -62,6 +62,7 @@
         ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
+        "@media (min-width:1024px){.hero__content__wrapper{padding-bottom:80px; }}",
         "@media (max-width: 480px) {.hero__content {color: #000; }}"
       ],
       "settings": {
