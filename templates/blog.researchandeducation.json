@@ -253,9 +253,10 @@
       ],
       "settings": {
         "mobile_special_arrange": false,
-        "image": "shopify://shop_images/Frame_38.png",
+        "image": "shopify://shop_images/Frame_38_1.png",
+        "mobile_image": "shopify://shop_images/Frame_46.png",
         "height": "use_image",
-        "overlay_opacity": 25,
+        "overlay_opacity": 35,
         "overlay_color": "#000000",
         "enable_overlay_text": true,
         "preload_image": false,
