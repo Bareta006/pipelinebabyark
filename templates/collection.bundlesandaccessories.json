@@ -135,7 +135,8 @@
         "button_JaYLCj"
       ],
       "custom_css": [
-        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}"
+        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}",
+        "@media (max-width:480px){img{max-height:680px;}}"
       ],
       "settings": {
         "mobile_special_arrange": true,
