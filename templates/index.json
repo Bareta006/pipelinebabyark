@@ -452,6 +452,7 @@
           "settings": {
             "use_text_instead": true,
             "text_instead": "image",
+            "image": "shopify://shop_images/Parents_Logo.svg",
             "title": "",
             "description": "\"The babyark looks like it’s from the future and has features parents will love, like app integration, hidden magnets for the straps, and more.\"",
             "link": ""
