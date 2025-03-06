@@ -280,12 +280,12 @@
       ],
       "custom_css": [
         ".image__hero__scale img {object-position: top center !important;}",
-        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; } .image__hero__frame {min-height: 830px !important; }}"
+        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; }}"
       ],
       "settings": {
-        "image": "shopify://shop_images/Bundles_Accessories_Homepage_4.png",
-        "mobile_image": "shopify://shop_images/image_46.png",
-        "height": "use_screen_full",
+        "image": "shopify://shop_images/Frame_15.png",
+        "mobile_image": "shopify://shop_images/Compare_-_Shop_Smart_Mobile_2.png",
+        "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
