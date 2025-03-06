@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -29,6 +30,13 @@
     "section_richtext_tCdKie": {
       "type": "section-richtext",
       "blocks": {
+        "heading_zVxybr": {
+          "type": "heading",
+          "settings": {
+            "heading": "Product Registration",
+            "text_size": 8
+          }
+        },
         "text_XGVLFP": {
           "type": "text",
           "settings": {
@@ -39,6 +47,7 @@
         }
       },
       "block_order": [
+        "heading_zVxybr",
         "text_XGVLFP"
       ],
       "settings": {
