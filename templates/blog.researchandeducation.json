@@ -116,6 +116,9 @@
         "text_pTVjQ8",
         "button_6RJGbW"
       ],
+      "custom_css": [
+        "@media (max-width: 480px) {.align--middle-left {align-items: end; }}"
+      ],
       "settings": {
         "mobile_special_arrange": false,
         "image": "shopify://shop_images/Frame_39.png",
@@ -180,7 +183,8 @@
       ],
       "custom_css": [
         ".text__standard {text-align: left;}",
-        ".hero__cta__wrapper {\\justify-content: start;}"
+        ".hero__cta__wrapper {\\justify-content: start;}",
+        "@media (max-width: 480px) {.align--middle-left {align-items: end; }}"
       ],
       "settings": {
         "mobile_special_arrange": false,
@@ -242,6 +246,9 @@
         "heading_JJHTG7",
         "text_pXKYkQ",
         "button_4gYiac"
+      ],
+      "custom_css": [
+        "@media (max-width:480px){.align--middle-left{align-items:end; }}"
       ],
       "settings": {
         "mobile_special_arrange": false,
