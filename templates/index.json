@@ -15,8 +15,8 @@
         "image_heCqCd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Website_main_image_1_1.png",
-            "mobile_image": "shopify://shop_images/image_38.png",
+            "image": "shopify://shop_images/Frame_43.png",
+            "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_8513d612-66e4-4b9d-bda0-69bbe728e610.png",
             "overlay_opacity": 70,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -189,8 +189,8 @@
         ".mobile-content-box {background-color: transparent;}"
       ],
       "settings": {
-        "desktop_image": "shopify://shop_images/Frame_1.png",
-        "mobile_image": "shopify://shop_images/Shop_Smart_Mobile.png",
+        "desktop_image": "shopify://shop_images/Classic_and_Smart_1.png",
+        "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_e8b01a3c-a529-4b9d-a183-63b038563464.png",
         "height": "use_image",
         "desktop_padding_top": 0,
         "desktop_padding_bottom": 79,
@@ -234,7 +234,7 @@
         "image_PBpaXQ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Frame_2.png",
+            "image": "shopify://shop_images/Frame_2_1.png",
             "mobile_image": "shopify://shop_images/image_40.png",
             "overlay_opacity": 90,
             "overlay_color": "#000000",
@@ -257,7 +257,7 @@
         "image_QD4aEH": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_20.png",
+            "image": "shopify://shop_images/Frame_5_2.png",
             "mobile_image": "shopify://shop_images/image_387.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -280,7 +280,7 @@
         "image_D9gQaP": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/HomePage_1_1.png",
+            "image": "shopify://shop_images/Frame_4.png",
             "mobile_image": "shopify://shop_images/image_388_1.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
@@ -344,8 +344,8 @@
         "image_WJiE3q": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_22.png",
-            "mobile_image": "shopify://shop_images/image_386.png",
+            "image": "shopify://shop_images/Frame_6.png",
+            "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_094da610-0745-4ae7-aa16-fbfa2f467c79.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -378,7 +378,7 @@
       ],
       "settings": {
         "autoplay": true,
-        "autoplay_speed": 4,
+        "autoplay_speed": 8,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",
@@ -393,7 +393,7 @@
         "image_BrhxGx": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Bundles_Accessories_Homepage_4.png",
+            "image": "shopify://shop_images/Frame_3.png",
             "mobile_image": "shopify://shop_images/image_42.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
@@ -452,6 +452,7 @@
           "settings": {
             "use_text_instead": true,
             "text_instead": "image",
+            "image": "shopify://shop_images/Parents_Logo.svg",
             "title": "",
             "description": "\"The babyark looks like it’s from the future and has features parents will love, like app integration, hidden magnets for the straps, and more.\"",
             "link": ""

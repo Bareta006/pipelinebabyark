@@ -59,7 +59,7 @@
       ],
       "settings": {
         "mobile_special_arrange": false,
-        "image": "shopify://shop_images/Bundles_Accessories_1.png",
+        "image": "shopify://shop_images/Frame_24.png",
         "mobile_image": "shopify://shop_images/image_47.png",
         "height": "use_image",
         "overlay_opacity": 35,
@@ -139,7 +139,7 @@
       ],
       "settings": {
         "mobile_special_arrange": true,
-        "image": "shopify://shop_images/The_Foodie_Bundle_Desktop_1.png",
+        "image": "shopify://shop_images/Frame_27.png",
         "mobile_image": "shopify://shop_images/image_49.png",
         "height": "use_image",
         "overlay_opacity": 15,
@@ -210,7 +210,7 @@
       ],
       "settings": {
         "mobile_special_arrange": true,
-        "image": "shopify://shop_images/image_17.png",
+        "image": "shopify://shop_images/Frame_26.png",
         "mobile_image": "shopify://shop_images/Group_29613125_701456b6-684c-44c4-937d-429aacd0aa8f.png",
         "height": "use_image",
         "overlay_opacity": 0,
@@ -281,7 +281,7 @@
       ],
       "settings": {
         "mobile_special_arrange": true,
-        "image": "shopify://shop_images/image_23.png",
+        "image": "shopify://shop_images/Frame_25.png",
         "mobile_image": "shopify://shop_images/Group_29613125_1.png",
         "height": "use_image",
         "overlay_opacity": 0,

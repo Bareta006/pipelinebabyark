@@ -33,7 +33,7 @@
         "image_nqrGEA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image.png",
+            "image": "shopify://shop_images/Frame_8.png",
             "mobile_image": "shopify://shop_images/image_40.png",
             "overlay_opacity": 30,
             "overlay_color": "#000000",
@@ -79,7 +79,7 @@
         "image_9ar4UW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_26.png",
+            "image": "shopify://shop_images/Frame_9.png",
             "mobile_image": "shopify://shop_images/Safety_first._Always..png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -122,7 +122,7 @@
         "image_KVVGeA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_25.png",
+            "image": "shopify://shop_images/Frame_16.png",
             "mobile_image": "shopify://shop_images/Side_impact_protection.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -145,8 +145,8 @@
         "image_yhFDNa": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Front_Load_Leg_Anti-Rebound_Bar.jpg",
-            "mobile_image": "shopify://shop_images/Your_safety_favorites.png",
+            "image": "shopify://shop_images/Frame_17.png",
+            "mobile_image": "shopify://shop_images/Your_safety_favorites_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -168,7 +168,7 @@
         "image_k8BUpJ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Advanced_Materials.png",
+            "image": "shopify://shop_images/Frame_18.png",
             "mobile_image": "shopify://shop_images/Group_29613158.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -260,7 +260,7 @@
         "image_ViHb7A": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_36.png",
+            "image": "shopify://shop_images/Frame_10_1.png",
             "mobile_image": "shopify://shop_images/Smart_and_Connected.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
@@ -303,7 +303,7 @@
         "image_abCnpW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Forgotten_Child_Buckle_Alerts_1.png",
+            "image": "shopify://shop_images/Frame_23.png",
             "mobile_image": "shopify://shop_images/Critical_Alerts.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
@@ -376,7 +376,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -408,7 +408,7 @@
         "image_gLXBQN": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Resize_1.png",
+            "image": "shopify://shop_images/Frame_11.png",
             "mobile_image": "shopify://shop_images/Con_and_comfort.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
@@ -431,7 +431,7 @@
         "image_GEhEhD": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_27.png",
+            "image": "shopify://shop_images/Frame_40.png",
             "mobile_image": "shopify://shop_images/Magnetic_Harness_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -454,7 +454,7 @@
         "image_jYRxHG": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_28.png",
+            "image": "shopify://shop_images/Frame_41.png",
             "mobile_image": "shopify://shop_images/Changeable_covers.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -477,7 +477,7 @@
         "image_hnwkjk": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_29.png",
+            "image": "shopify://shop_images/Frame_42.png",
             "mobile_image": "shopify://shop_images/Detachable_base.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
