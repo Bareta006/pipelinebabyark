@@ -464,6 +464,65 @@
       "settings": {
         "custom_liquid": "<style>\n@media (max-width:480px){\n.hero__content__wrapper{\n    align-items: flex-end;\n    justify-content: flex-start;\n    text-align: left;\n}\n.hero__content \n .hero__cta__wrapper{\nalign-items:start;\n}\n.hero__description p{\nfont-size:16px;\nline-height:1.2;}\n}\n</style>"
       }
+    },
+    "section_double_dReRzm": {
+      "type": "section-double",
+      "blocks": {
+        "text_8KHdBx": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Guided installation",
+            "text": "<p>The innovative smart base and app guides you through the process, confirm it has properly been installed. </p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "video_DWqaMk": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/babyark_how-to_install_rear_facing (1080p)_2.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_8KHdBx",
+        "video_DWqaMk"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
@@ -473,6 +532,7 @@
     "section_slideshow_fqUypB",
     "section_slideshow_a6tmiQ",
     "section_slideshow_XEiRPG",
-    "section_liquid_4EXM8z"
+    "section_liquid_4EXM8z",
+    "section_double_dReRzm"
   ]
 }
