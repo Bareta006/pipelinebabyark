@@ -189,8 +189,8 @@
         ".mobile-content-box {background-color: transparent;}"
       ],
       "settings": {
-        "desktop_image": "shopify://shop_images/Frame_1.png",
-        "mobile_image": "shopify://shop_images/Shop_Smart_Mobile.png",
+        "desktop_image": "shopify://shop_images/Classic_and_Smart_1.png",
+        "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_e8b01a3c-a529-4b9d-a183-63b038563464.png",
         "height": "use_image",
         "desktop_padding_top": 0,
         "desktop_padding_bottom": 79,
