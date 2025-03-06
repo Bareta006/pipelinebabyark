@@ -450,7 +450,7 @@
         "icon_slider_block_VPLbhF": {
           "type": "icon_slider_block",
           "settings": {
-            "use_text_instead": true,
+            "use_text_instead": false,
             "text_instead": "",
             "image": "shopify://shop_images/Parents_Logo.svg",
             "title": "",
