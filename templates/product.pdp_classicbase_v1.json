@@ -256,7 +256,7 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.<br>Two bases.",
+            "title": "One seat.Two bases.",
             "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
             "font_size": 5,
             "text_columns": 1,
@@ -266,7 +266,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         },
         "video_Gkbx6R": {
@@ -345,7 +345,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         }
       },
@@ -384,7 +384,7 @@
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": "#f6f2ef"
+            "bg_color": "#ffffff"
           }
         },
         "video_QA9HYh": {
@@ -448,7 +448,7 @@
       "custom_css": [
         "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
         ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
-        "> div {background-color: #f6f2ef;}",
+        "> div {background-color: #fff;}",
         "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
       ],
       "settings": {
