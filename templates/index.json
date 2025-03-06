@@ -15,8 +15,8 @@
         "image_heCqCd": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Website_main_image_1_1.png",
-            "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_08253b13-8d30-45b8-a9b3-6b7a9b2b9043.png",
+            "image": "shopify://shop_images/Frame_43.png",
+            "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_8513d612-66e4-4b9d-bda0-69bbe728e610.png",
             "overlay_opacity": 70,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
