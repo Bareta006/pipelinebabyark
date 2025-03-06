@@ -345,7 +345,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Frame_6.png",
-            "mobile_image": "shopify://shop_images/image_386.png",
+            "mobile_image": "shopify://shop_images/Shop_Smart_Mobile_094da610-0745-4ae7-aa16-fbfa2f467c79.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -378,7 +378,7 @@
       ],
       "settings": {
         "autoplay": true,
-        "autoplay_speed": 4,
+        "autoplay_speed": 8,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",
