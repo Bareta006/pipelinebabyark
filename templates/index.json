@@ -17,11 +17,11 @@
           "settings": {
             "image": "shopify://shop_images/Website_main_image_1_1.png",
             "mobile_image": "shopify://shop_images/image_38.png",
-            "overlay_opacity": 50,
+            "overlay_opacity": 70,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "kicker": "Safe. Smart. Beautiful.",
-            "title": "The World’s Most Premium Car Seat",
+            "title": "The World's Most Advanced Car Seat",
             "richtext": "",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
