@@ -280,7 +280,7 @@
       ],
       "custom_css": [
         ".image__hero__scale img {object-position: top center !important;}",
-        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; } .image__hero__frame {min-height: 830px; }}"
+        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; } .image__hero__frame {min-height: 830px !important; }}"
       ],
       "settings": {
         "image": "shopify://shop_images/Bundles_Accessories_Homepage_4.png",
