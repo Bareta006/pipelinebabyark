@@ -260,7 +260,7 @@
         "image_ViHb7A": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_36.png",
+            "image": "shopify://shop_images/Frame_10_1.png",
             "mobile_image": "shopify://shop_images/Smart_and_Connected.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
@@ -303,7 +303,7 @@
         "image_abCnpW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Forgotten_Child_Buckle_Alerts_1.png",
+            "image": "shopify://shop_images/Frame_23.png",
             "mobile_image": "shopify://shop_images/Critical_Alerts.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
