@@ -209,9 +209,15 @@
           </div>
         {% endif %}
         {% if section.settings.left_box_title %}
+          {% if section.settings.left_box_button_link != blank %}
+            <a href="{{ section.settings.left_box_button_link }}">
+          {% endif %}
           <div class="hero__title heading-size-10 aos-init aos-animate">
             <p>{{ section.settings.left_box_title }}</p>
           </div> 
+          {% if section.settings.left_box_button_link != blank %}
+            </a>
+          {% endif %}
         {% endif %}
         {% if section.settings.left_box_text %}
           <div class="hero__description rte body-size-6 aos-init aos-animate">
@@ -235,9 +241,15 @@
           </div>
         {% endif %}
         {% if section.settings.right_box_title %}
+          {% if section.settings.right_box_button_link != blank %}
+            <a href="{{ section.settings.right_box_button_link }}">
+          {% endif %}
           <div class="hero__title heading-size-10 aos-init aos-animate">
             <p>{{ section.settings.right_box_title }}</p>
           </div>
+          {% if section.settings.right_box_button_link != blank %}
+            </a>
+          {% endif %}
         {% endif %}
         {% if section.settings.right_box_text %}
           <div class="hero__description rte body-size-6 aos-init aos-animate">
