@@ -234,7 +234,7 @@
         "image_PBpaXQ": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image.png",
+            "image": "shopify://shop_images/Frame_2.png",
             "mobile_image": "shopify://shop_images/image_40.png",
             "overlay_opacity": 90,
             "overlay_color": "#000000",
