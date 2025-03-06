@@ -189,7 +189,7 @@
         ".mobile-content-box {background-color: transparent;}"
       ],
       "settings": {
-        "desktop_image": "shopify://shop_images/Shop_Smart_Desktop.png",
+        "desktop_image": "shopify://shop_images/Frame_1.png",
         "mobile_image": "shopify://shop_images/Shop_Smart_Mobile.png",
         "height": "use_image",
         "desktop_padding_top": 0,
