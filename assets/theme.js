@@ -5951,7 +5951,7 @@
                 wrapAround: this.slideCount !== 2,
                 prevNextButtons: false,
                 draggable: true,
-                dragThreshold: 50, // Higher threshold to prevent accidental swipes during vertical scrolling
+                dragThreshold: 80, // Higher threshold to prevent accidental swipes during vertical scrolling
                 fade: true,
                 rightToLeft: window.isRTL
             };
