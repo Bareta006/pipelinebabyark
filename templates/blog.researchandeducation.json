@@ -53,6 +53,7 @@
         "show_heading": true,
         "tag_label": "",
         "tags": false,
+        "show_filtertags": true,
         "text_align": "text-left",
         "post_grid": 3,
         "rows": 3,
@@ -116,8 +117,9 @@
         "button_6RJGbW"
       ],
       "settings": {
-        "image": "shopify://shop_images/220907-Babyark-20333_1_1_1.png",
-        "height": "use_screen_full",
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Frame_39.png",
+        "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
@@ -128,7 +130,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_hero_fUkT3Q": {
@@ -179,8 +182,9 @@
         ".hero__cta__wrapper {\\justify-content: start;}"
       ],
       "settings": {
-        "image": "shopify://shop_images/Frame_10.png",
-        "height": "use_screen_full",
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Frame_37.png",
+        "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
@@ -191,7 +195,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_hero_nKYNmr": {
@@ -238,8 +243,9 @@
         "button_4gYiac"
       ],
       "settings": {
-        "image": "shopify://shop_images/babyark_VIC_3286_1.png",
-        "height": "use_screen_full",
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Frame_38.png",
+        "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
@@ -250,7 +256,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     }
   },
