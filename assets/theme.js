@@ -1853,7 +1853,7 @@
                 pageDots: false,
                 cellAlign: window.isRTL ? 'right' : 'left',
                 rightToLeft: window.isRTL,
-                dragThreshold: 50,
+                dragThreshold: 10,
                 arrowShape: {
                     x0: 10,
                     x1: 60,
@@ -5951,10 +5951,15 @@
                 wrapAround: this.slideCount !== 2,
                 prevNextButtons: false,
                 draggable: true,
+                dragThreshold: 50, // Higher threshold to prevent accidental swipes during vertical scrolling
                 fade: true,
                 rightToLeft: window.isRTL
             };
             this.flkty = new FlickityFade(this.wrapper, settings);
+            // Set touch-action to allow vertical scrolling
+   if (this.flkty && this.flkty.slider) {
+       this.flkty.slider.style.touchAction = 'pan-y';
+   }
             if (this.prevButtons.length) {
                 this.prevButtons.forEach((e)=>{
                     e.onclick = ()=>{
