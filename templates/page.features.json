@@ -33,7 +33,7 @@
         "image_nqrGEA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image.png",
+            "image": "shopify://shop_images/Frame_8.png",
             "mobile_image": "shopify://shop_images/image_40.png",
             "overlay_opacity": 30,
             "overlay_color": "#000000",
@@ -79,7 +79,7 @@
         "image_9ar4UW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_26.png",
+            "image": "shopify://shop_images/Frame_9.png",
             "mobile_image": "shopify://shop_images/Safety_first._Always..png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -122,7 +122,7 @@
         "image_KVVGeA": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_25.png",
+            "image": "shopify://shop_images/Frame_16.png",
             "mobile_image": "shopify://shop_images/Side_impact_protection.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
@@ -145,8 +145,8 @@
         "image_yhFDNa": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Front_Load_Leg_Anti-Rebound_Bar.jpg",
-            "mobile_image": "shopify://shop_images/Your_safety_favorites.png",
+            "image": "shopify://shop_images/Frame_17.png",
+            "mobile_image": "shopify://shop_images/Your_safety_favorites_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -376,7 +376,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
