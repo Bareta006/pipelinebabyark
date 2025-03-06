@@ -783,6 +783,27 @@ document.addEventListener('DOMContentLoaded', function() {
       slide.style.setProperty('--mobile-bg-color', color);
     }
   });
+
+  // Fix for mobile scrolling issue
+  const slideshowWrappers = document.querySelectorAll('[data-slideshow-wrapper]');
+  slideshowWrappers.forEach(wrapper => {
+    // Wait for Flickity to initialize
+    setTimeout(() => {
+      const flickityInstance = Flickity.data(wrapper);
+      if (flickityInstance) {
+        // Increase drag threshold to prevent accidental swipes
+        flickityInstance.options.dragThreshold = 30;
+        
+        // Update the slider element to use proper touch action
+        if (flickityInstance.slider) {
+          flickityInstance.slider.style.touchAction = 'pan-y pinch-zoom';
+        }
+        
+        // Force Flickity to update its internal state
+        flickityInstance.resize();
+      }
+    }, 500);
+  });
 });
 </script>
 
