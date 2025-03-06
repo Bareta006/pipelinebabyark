@@ -136,7 +136,7 @@
       ],
       "custom_css": [
         "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}",
-        "@media (max-width: 480px) {.section--image {max-height: 680px; }}"
+        "@media (max-width: 480px) {.section--image {max-height: 680px !important; min-height: auto !important; }}"
       ],
       "settings": {
         "mobile_special_arrange": true,
