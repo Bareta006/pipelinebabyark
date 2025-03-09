@@ -9,24 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "page",
-      "disabled": true,
-      "settings": {
-        "kicker": "",
-        "kicker_size": 3,
-        "show_title": true,
-        "title_size": 8,
-        "show_content": true,
-        "content_size": 5,
-        "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "section_richtext_iWftpb": {
       "type": "section-richtext",
       "blocks": {
@@ -109,11 +91,29 @@
         "padding_top": 100,
         "padding_bottom": 100
       }
+    },
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main",
     "section_richtext_iWftpb",
-    "section_icons_M9PAFW"
+    "section_icons_M9PAFW",
+    "main"
   ]
 }
