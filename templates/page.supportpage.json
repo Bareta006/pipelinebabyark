@@ -27,28 +27,36 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_mTKdTT": {
-      "type": "section-richtext",
+    "section_hero_xALtxp": {
+      "type": "section-hero",
       "blocks": {
-        "heading_X4p9MV": {
+        "heading_YPKRk3": {
           "type": "heading",
           "settings": {
-            "heading": "Support",
-            "text_size": 10
+            "title": "babyark Support",
+            "text_size": 8
           }
         }
       },
       "block_order": [
-        "heading_X4p9MV"
+        "heading_YPKRk3"
       ],
       "settings": {
-        "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Container_7f33ad68-1221-4268-8e78-034d525d757d.png",
+        "height": "use_screen_two_thirds",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
         "content_width": 2000,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_icons_jNENC6": {
@@ -138,7 +146,7 @@
       ],
       "settings": {
         "title": "",
-        "bg": "palette--light bg--neutral",
+        "bg": "palette--light bg--accent",
         "icons_size": 20,
         "icon_alignment": "icon--top",
         "layout": "grid--stacked",
@@ -151,7 +159,7 @@
   },
   "order": [
     "main",
-    "section_richtext_mTKdTT",
+    "section_hero_xALtxp",
     "section_icons_jNENC6"
   ]
 }
