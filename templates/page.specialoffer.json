@@ -104,7 +104,7 @@
         "icons_size": 28,
         "icon_alignment": "icon--top",
         "layout": "grid--stacked",
-        "align_text": "text-center",
+        "align_text": "text-left",
         "width": "wrapper",
         "padding_top": 70,
         "padding_bottom": 70
