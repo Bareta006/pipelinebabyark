@@ -103,7 +103,7 @@
         "floating_text2_T6rDRE": {
           "type": "floating_text2",
           "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,168<br/>Bundle Price: $1,050</p>"
+            "floating_text2": "<p>Full Retail Price: $1,168<br/><strong>Bundle Price: $1,050</strong></p>"
           }
         },
         "button_JaYLCj": {
@@ -175,7 +175,7 @@
         "floating_text2_Ua3yfX": {
           "type": "floating_text2",
           "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,480<br/>Bundle Price: $1,350</p>"
+            "floating_text2": "<p>Full Retail Price: $1,480<br/><strong>Bundle Price: $1,350</strong></p>"
           }
         },
         "button_pd6FPh": {
@@ -246,7 +246,7 @@
         "floating_text2_Ngim3L": {
           "type": "floating_text2",
           "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,980<br/>Bundle Price: $1,800</p>"
+            "floating_text2": "<p>Full Retail Price: $1,980<br/><strong>Bundle Price: $1,800</strong></p>"
           }
         },
         "button_TrQwtP": {
