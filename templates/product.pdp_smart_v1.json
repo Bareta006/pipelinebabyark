@@ -588,7 +588,7 @@
           "settings": {
             "kicker": "",
             "title": "Critical alerts",
-            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
+            "text": "<p>Built-in alerts help you not forget your most important passenger.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
