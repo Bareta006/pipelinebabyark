@@ -70,7 +70,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/Group_1803_9aaba8ea-6c84-436e-97d9-6786c763694c.png",
+            "icon_alt": "shopify://shop_images/Group_1803_1.png",
             "icon_color": "#000000",
             "title": "CPST’s",
             "text": "<p>As the gatekeepers to car seat safety and proper usage, we are thrilled to offer CPST’s a 10% early bird discount and an opportunity to become among the first babyark experts in the U.S.</p>",
@@ -82,7 +82,7 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/image_4_1.png",
+            "icon_alt": "shopify://shop_images/Group_1803_2.png",
             "icon_color": "#aaaaaa",
             "title": "First Responders",
             "text": "<p>As the first line of defence in saving lives and with invaluable experience in car accidents, we are thrilled to partner with GovX and offer law enforcement, fire, and EMS First Responders with a 10% discount.</p>",
@@ -101,7 +101,7 @@
       "settings": {
         "title": "",
         "bg": "palette--light bg--accent",
-        "icons_size": 80,
+        "icons_size": 28,
         "icon_alignment": "icon--top",
         "layout": "grid--stacked",
         "align_text": "text-center",
