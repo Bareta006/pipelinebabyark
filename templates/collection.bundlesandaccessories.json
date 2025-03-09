@@ -90,8 +90,8 @@
         "heading_N3r96m": {
           "type": "heading",
           "settings": {
-            "title": "The Foodie Bundle",
-            "text_size": 10
+            "title": "The Smart Foodie Bundle",
+            "text_size": 8
           }
         },
         "floating_text1_GYqMPU": {
@@ -162,8 +162,8 @@
         "heading_g7D3Jz": {
           "type": "heading",
           "settings": {
-            "title": "The Bases Bundle",
-            "text_size": 10
+            "title": "The Smart Bases Bundle",
+            "text_size": 8
           }
         },
         "floating_text1_7NiPVd": {
@@ -227,14 +227,85 @@
         "special_arrange": false
       }
     },
+    "section_hero_FVDX4G": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_X9N9F4": {
+          "type": "heading",
+          "settings": {
+            "title": "The Classic Bases Bundle",
+            "text_size": 8
+          }
+        },
+        "floating_text1_mC9gPa": {
+          "type": "floating_text1",
+          "settings": {
+            "floating_text1": "<p>✔ Classic seat<br/>✔ Extra Smart base</p>"
+          }
+        },
+        "floating_text2_Nh8FMH": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $1,080<br/><strong>Bundle Price: $1,000</strong></p>"
+          }
+        },
+        "button_KE6D9X": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "SHOP NOW",
+            "link_2": "/collections/bundles/products/the-bases-bundle-1?variant=41167513419847?view=pdp_smart_v1",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn--outline",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_X9N9F4",
+        "floating_text1_mC9gPa",
+        "floating_text2_Nh8FMH",
+        "button_KE6D9X"
+      ],
+      "custom_css": [
+        ".text__standard {width: 480px; max-width: 100%;}"
+      ],
+      "settings": {
+        "mobile_special_arrange": true,
+        "image": "shopify://shop_images/Frame_29.png",
+        "mobile_image": "shopify://shop_images/Frame_36.png",
+        "height": "use_image",
+        "overlay_opacity": 0,
+        "overlay_color": "#000000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
     "section_hero_Urjg43": {
       "type": "section-hero",
       "blocks": {
         "heading_ipErdh": {
           "type": "heading",
           "settings": {
-            "title": "The Family Bundle",
-            "text_size": 10
+            "title": "The Smart Family Bundle",
+            "text_size": 8
           }
         },
         "floating_text1_wV4Lzz": {
@@ -296,6 +367,86 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "special_arrange": false
+      }
+    },
+    "section_hero_8PaRec": {
+      "type": "section-hero",
+      "blocks": {
+        "kicker_wxVkzi": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "",
+            "enable_line": false,
+            "text_size": 4
+          }
+        },
+        "heading_X9UErp": {
+          "type": "heading",
+          "settings": {
+            "title": "The Classic Foodie Bundle",
+            "text_size": 8
+          }
+        },
+        "floating_text1_nEbMKt": {
+          "type": "floating_text1",
+          "settings": {
+            "floating_text1": "<p>✔ Classic seat<br/>✔ Extra car seat cover<br/>✔ Cup holder</p>"
+          }
+        },
+        "floating_text2_PkKPA8": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Full Retail Price: $968<br/><strong>Bundle Price: $900</strong></p>"
+          }
+        },
+        "button_EFphLV": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "SHOP NOW",
+            "link_2": "/products/the-foodie-bundle?view=pdp_smart_v1",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn--outline",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn--outline",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "kicker_wxVkzi",
+        "heading_X9UErp",
+        "floating_text1_nEbMKt",
+        "floating_text2_PkKPA8",
+        "button_EFphLV"
+      ],
+      "custom_css": [
+        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}"
+      ],
+      "settings": {
+        "mobile_special_arrange": true,
+        "image": "shopify://shop_images/Frame_30.png",
+        "mobile_image": "shopify://shop_images/Frame_35.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000000",
+        "enable_overlay_text": true,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": true
       }
     },
     "section_collection_slider_ecwqWf": {
@@ -399,7 +550,9 @@
     "section_hero_77iTgn",
     "section_hero_acdjLN",
     "section_hero_rQHDeJ",
+    "section_hero_FVDX4G",
     "section_hero_Urjg43",
+    "section_hero_8PaRec",
     "section_collection_slider_ecwqWf",
     "subcollections",
     "hero",
