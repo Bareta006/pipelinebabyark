@@ -280,8 +280,8 @@
         "image_D9gQaP": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Frame_4.png",
-            "mobile_image": "shopify://shop_images/image_388_1.png",
+            "image": "shopify://shop_images/Frame_4_1.png",
+            "mobile_image": "shopify://shop_images/Frame_444.png",
             "overlay_opacity": 65,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
