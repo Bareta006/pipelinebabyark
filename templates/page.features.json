@@ -280,30 +280,10 @@
             "button_style_2": "btn"
           }
         },
-        "video_slide_HnzVTf": {
-          "type": "video_slide",
-          "settings": {
-            "video_bg": "shopify://files/videos/babyark_how-to_install_rear_facing (1080p)_2.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "Guided installation",
-            "richtext": "<p>The innovative smart base and app guides you through the process, confirm it has properly been installed. </p>",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "SHOP BABYARK",
-            "link": "/pages/safety/?view=compare",
-            "button_color": "btn--white",
-            "button_style": "btn--outline",
-            "mobile_background_color": "#1d1d1d"
-          }
-        },
         "image_abCnpW": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Frame_23.png",
+            "image": "shopify://shop_images/Frame_23_1.png",
             "mobile_image": "shopify://shop_images/Critical_Alerts.png",
             "overlay_opacity": 25,
             "overlay_color": "#000000",
@@ -326,7 +306,6 @@
       },
       "block_order": [
         "image_ViHb7A",
-        "video_slide_HnzVTf",
         "image_abCnpW"
       ],
       "custom_css": [
