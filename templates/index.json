@@ -375,7 +375,7 @@
       ],
       "custom_css": [
         ".hero__title {width: 510px; max-width: 100%;}",
-        ".hero__description{width:660px; max-width:100%;}"
+        ".hero__description {width: 660px; max-width: 100%;}"
       ],
       "settings": {
         "autoplay": true,
@@ -479,7 +479,6 @@
       "custom_css": [
         "{border: 15px solid #fff;}",
         ".icon-slider-container {border-radius: 40px;}",
-        "img {height: 40px !important; object-fit: contain;}",
         ".icon-slider-block p {width: 960px; max-width: 100%; margin: 20px auto; line-height: 1.2;}",
         ".icon-slider-container .icon-slider-block {display: flex; flex-direction: column; justify-content: space-between;}"
       ],
