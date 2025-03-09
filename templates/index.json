@@ -374,7 +374,8 @@
         "image_WJiE3q"
       ],
       "custom_css": [
-        ".hero__title {width: 510px; max-width: 100%;}"
+        ".hero__title {width: 510px; max-width: 100%;}",
+        ".hero__description{width:660px; max-width:100%;}"
       ],
       "settings": {
         "autoplay": true,
