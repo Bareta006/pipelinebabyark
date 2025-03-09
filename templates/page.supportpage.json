@@ -139,7 +139,7 @@
         "icon_block_4AUMdV"
       ],
       "custom_css": [
-        ">div{backgroundn-color: #F6F6F6}",
+        "> div {background-color: #F6F6F6;}",
         ".icon__column {display: flex; align-items: center; justify-content: center; width: auto; margin: 8px auto; background-color: #fff; border-radius: 10px;}",
         ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 30vw; max-width: 100%; height: 15vw; display: flex; justify-content: center; align-items: center; color: #000;}",
         ".icon__column__icon {display: none;}",
