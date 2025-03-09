@@ -418,7 +418,7 @@
         "image_BrhxGx"
       ],
       "custom_css": [
-        ".hero__content {width: 580px; max-width: 100%;}",
+        ".hero__content {width: 520px; max-width: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}"
       ],
