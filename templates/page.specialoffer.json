@@ -96,7 +96,7 @@
         "icon_block_iDeTUy"
       ],
       "custom_css": [
-        ".icon__column__paragraph {color: #000; padding: 0 20px;}"
+        ".icon__column__paragraph {color: #000; padding: 10px 0px;}"
       ],
       "settings": {
         "title": "",
