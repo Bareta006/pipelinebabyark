@@ -117,7 +117,7 @@
         "header-block-image-3"
       ],
       "custom_css": [
-        "@media (max-width:480px){.logo__img{width:100%; }}"
+        "@media (max-width: 480px) {.logo__img {width: 100%; }}"
       ],
       "settings": {
         "header_style": "menu_center",
@@ -128,7 +128,7 @@
         "main_menu_linklist": "new-website-head-nav",
         "mobile_menu_linklist": "",
         "full_width": true,
-        "underline_current": false,
+        "underline_current": true,
         "enable_search": false,
         "enable_account": true,
         "use_icons": true,
