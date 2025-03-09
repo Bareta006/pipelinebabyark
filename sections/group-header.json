@@ -117,6 +117,7 @@
         "header-block-image-3"
       ],
       "custom_css": [
+        ".header__logo__link img {width:100%;}",
         "@media (max-width: 480px) {.logo__img {width: 100%; }}"
       ],
       "settings": {
