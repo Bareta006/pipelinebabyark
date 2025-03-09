@@ -245,13 +245,13 @@
       "settings": {
         "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
-        "icons_size": 120,
+        "icons_size": 80,
         "icon_alignment": "icon--top",
         "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 120,
-        "padding_bottom": 120
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "section_compare_tJGMpG": {
