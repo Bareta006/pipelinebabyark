@@ -431,7 +431,7 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "",
-        "title": "The lowest risk of head injury",
+        "title": "Significantly reduces the risk of head injury",
         "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
         "font_size": 5,
         "text_columns": 1,
