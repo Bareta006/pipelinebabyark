@@ -59,7 +59,7 @@
       ],
       "settings": {
         "mobile_special_arrange": false,
-        "image": "shopify://shop_images/Frame_24.png",
+        "image": "shopify://shop_images/Frame_24_1.png",
         "mobile_image": "shopify://shop_images/image_47.png",
         "height": "use_image",
         "overlay_opacity": 35,
