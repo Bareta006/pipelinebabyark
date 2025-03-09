@@ -54,8 +54,6 @@
         autocapitalize="off"
         name="contact[email]"
         data-newsletter-field />
-      <input type="checkbox" name="contact[accepts_marketing]" value="true" id="accepts-marketing-{{ unique }}">
-      <label for="accepts-marketing-{{ unique }}">Accepts marketing</label>
       <span class="input-group-button">
         <button
           type="submit" {% unless show_icon %}class="{{ style }} {{ color }}"{% endunless %}
@@ -69,8 +67,8 @@
             {{ text }}
           {%- endif -%}
         </button>
-        <p>By submitting your contact information to us, you hereby confirm that you have read and agreed to our Privacy Policy</p>
       </span>
+      <p>By submitting your contact information to us, you hereby confirm that you have read and agreed to our <a target="_blank" href="/pages/privacy-policy">Privacy Policy</a></p>
     </div>
 
     {%- if terms -%}
