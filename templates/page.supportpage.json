@@ -140,8 +140,8 @@
       "custom_css": [
         ".icon__column {display: flex; align-items: center; justify-content: center; width: auto; margin: 8px auto; height: auto; background-color: #fff;}",
         ".icon__column__icon {display: none;}",
-        ".icon__column__text{width:30vw;}",
-        ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 30vw; height: 20vw; display: flex; justify-content: center; align-items: center;}",
+        ".icon__column__text {width: 30vw;}",
+        ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 30vw; max-width:100%; height: 20vw; display: flex; justify-content: center; align-items: center;}",
         ".icon__column__text a:hover {background-color: #efefef;}",
         ".text-link-bare:after {display: none;}"
       ],
