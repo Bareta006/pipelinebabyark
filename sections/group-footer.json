@@ -56,7 +56,7 @@
             "newsletter_enable": true,
             "recaptcha_enabled": false,
             "kicker": "Our newsletter",
-            "heading": "Skip to the details",
+            "heading": "Join our family",
             "richtext": "<p>Receive the latest articles, tips, and offers from babyark.</p>",
             "text_size": 4,
             "background_color": "#1d2124",
