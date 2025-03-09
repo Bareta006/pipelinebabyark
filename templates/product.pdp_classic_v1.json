@@ -292,12 +292,12 @@
       "settings": {
         "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
-        "icons_size": 104,
+        "icons_size": 80,
         "icon_alignment": "icon--top",
         "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 100,
+        "padding_top": 60,
         "padding_bottom": 100
       }
     },
