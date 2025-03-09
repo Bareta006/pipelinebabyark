@@ -50,10 +50,13 @@
         "heading_pW76BG",
         "text_GLdqCe"
       ],
+      "custom_css": [
+        "> section {background-color: #22282d;}"
+      ],
       "settings": {
         "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--accent",
+        "text_color": "text--white",
+        "bg": "palette--light bg--neutral",
         "content_width": 2000,
         "width": "wrapper",
         "padding_top": 80,
@@ -80,7 +83,7 @@
           "settings": {
             "icon_name": "icon-shipment-world",
             "icon_alt": "shopify://shop_images/image_4_1.png",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "First Responders",
             "text": "<p>As the first line of defence in saving lives and with invaluable experience in car accidents, we are thrilled to partner with GovX and offer law enforcement, fire, and EMS First Responders with a 10% discount.</p>",
             "link_text": "Join Now",
