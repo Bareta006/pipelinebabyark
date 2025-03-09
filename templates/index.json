@@ -311,7 +311,7 @@
             "enable_overlay_text": true,
             "kicker": "",
             "title": "Injury Prevention",
-            "richtext": "<p>A steel coil extends from its compressed mode upon impact, braking the forward momentum to provide optimal head and body protection.</p>",
+            "richtext": "<p>A steel coil extends from its compressed mode upon impact, reducing the forward momentum to provide optimal head and body protection.</p>",
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "EXPLORE ALL FEATURES",
