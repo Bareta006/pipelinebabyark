@@ -106,8 +106,8 @@
         "layout": "grid--stacked",
         "align_text": "text-left",
         "width": "wrapper",
-        "padding_top": 70,
-        "padding_bottom": 70
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     }
   },
