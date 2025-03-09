@@ -708,13 +708,13 @@
     "1738783691b78546c1": {
       "type": "apps",
       "blocks": {
-        "judge_me_reviews_review_widget_wqVpnF": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "judge_me_reviews_all_reviews_page_Q7jP9H": {
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },
       "block_order": [
-        "judge_me_reviews_review_widget_wqVpnF"
+        "judge_me_reviews_all_reviews_page_Q7jP9H"
       ],
       "custom_css": [
         "> div {background-color: #fff;}"
