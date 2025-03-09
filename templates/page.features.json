@@ -201,7 +201,7 @@
       ],
       "settings": {
         "autoplay": true,
-        "autoplay_speed": 8,
+        "autoplay_speed": 5,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",
@@ -312,8 +312,8 @@
         ".hero__content {width: 477px; max-width: 100%;}"
       ],
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 4,
+        "autoplay": true,
+        "autoplay_speed": 5,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",
@@ -487,8 +487,8 @@
         ".hero__content {width: 600px; max-width: 100%;}"
       ],
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 4,
+        "autoplay": true,
+        "autoplay_speed": 5,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",

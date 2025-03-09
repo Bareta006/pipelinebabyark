@@ -379,7 +379,7 @@
       ],
       "settings": {
         "autoplay": true,
-        "autoplay_speed": 8,
+        "autoplay_speed": 5,
         "preload_first_image": true,
         "height": "use_image",
         "color_bg": "palette--light bg--neutral",
