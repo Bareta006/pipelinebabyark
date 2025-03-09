@@ -138,9 +138,9 @@
         "icon_block_4AUMdV"
       ],
       "custom_css": [
-        ".icon__column {display: flex; align-items: center; justify-content: center; width: auto; margin: 30px auto; height: auto;}",
+        ".icon__column {display: flex; align-items: center; justify-content: center; width: 30vw; margin: 8px auto; height: auto; backgroud-color:#fff;}",
         ".icon__column__icon {display: none;}",
-        ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center; border: 1px solid;}",
+        ".icon__column__text a {text-decoration: none !important; font-size: 24px; width: 30vw; height: 23vw; display: flex; justify-content: center; align-items: center; border: 1px solid;}",
         ".icon__column__text a:hover {background-color: #efefef;}",
         ".text-link-bare:after {display: none;}"
       ],
