@@ -160,7 +160,7 @@
     "section_liquid_wHKzJe": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.icon__column{\nposition:relative;\n}\n.icon__column:after{\ncontent:'.';\ncolor:transparent;\nbackground-repeat:no-repeat;\nbackground-size:contain;\nbackground-position:center center;\nbackground-image:url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Background_1_893a1b17-1a65-4f8a-9b47-212706e0ef38.png?v=1741519731);\nposition:absolute;\nbottom:25%;\nwidth:30px;\nheight:30px;\n    pointer-events: none;\n}\n</style>"
+        "custom_liquid": "<style>\n.icon__column{\nposition:relative;\n}\n.icon__column:after{\ncontent:'.';\ncolor:transparent;\nbackground-repeat:no-repeat;\nbackground-size:contain;\nbackground-position:center center;\nbackground-image:url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Background_1_893a1b17-1a65-4f8a-9b47-212706e0ef38.png?v=1741519731);\nposition:absolute;\nbottom:25%;\nwidth:30px;\nheight:30px;\n    pointer-events: none;\n}\n@media (max-width:480px){\n.icon__column:after{\nbottom:15%;}\n}\n</style>"
       }
     }
   },
