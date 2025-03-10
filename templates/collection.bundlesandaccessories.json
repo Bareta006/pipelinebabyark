@@ -102,7 +102,7 @@
           "settings": {
             "kicker": "",
             "title": "The Foodie Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6>1,168$ <strong>1,050$</strong></h6>",
+            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
@@ -120,7 +120,7 @@
         "text_BBFDzM"
       ],
       "custom_css": [
-        "h6 p *:not(strong){text-decoration:underline;}"
+        "h6 u{text-decoration: line-through;}"
       ],
       "settings": {
         "height": "use_screen_one_half",
