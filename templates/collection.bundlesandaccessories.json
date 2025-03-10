@@ -120,7 +120,7 @@
         "text_BBFDzM"
       ],
       "custom_css": [
-        "h6 u{text-decoration: line-through;}"
+        "h6 em {text-decoration: line-through;}"
       ],
       "settings": {
         "height": "use_screen_one_half",
