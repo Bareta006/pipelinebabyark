@@ -341,7 +341,7 @@
             "button_text_2": "Shop babyark",
             "button_link_2": "",
             "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
+            "button_style_2": "btn--outline btn--long",
             "text_color": "text--neutral",
             "bg_color": ""
           }
