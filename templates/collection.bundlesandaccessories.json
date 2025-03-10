@@ -76,6 +76,63 @@
         "special_arrange": false
       }
     },
+    "section_double_LDy8cn": {
+      "type": "section-double",
+      "blocks": {
+        "image_WAFEPf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_50.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_BBFDzM": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The Foodie Bundle",
+            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6>1,168$ <strong>1,050$</strong></h6>",
+            "font_size": 6,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_WAFEPf",
+        "text_BBFDzM"
+      ],
+      "custom_css": [
+        "h6 p *:not(strong){text-decoration:underline;}"
+      ],
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_hero_acdjLN": {
       "type": "section-hero",
       "blocks": {
@@ -619,6 +676,7 @@
   },
   "order": [
     "section_hero_77iTgn",
+    "section_double_LDy8cn",
     "section_hero_acdjLN",
     "section_hero_rQHDeJ",
     "section_hero_Urjg43",
