@@ -233,7 +233,7 @@
             "text_columns": 1,
             "align_text": "text-left",
             "button_text": "shop smart",
-            "button_url": "",
+            "button_url": "https://babyark.com/products/the-family-bundle?view=pdp_familybundle_v1",
             "button_color": "btn--black",
             "button_style": "btn btn--large",
             "button_text_2": "shop classic",
