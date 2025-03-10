@@ -18,7 +18,7 @@
         "social": false,
         "share_label": "Share",
         "show_featured_image": true,
-        "image_height": "use_image",
+        "image_height": "use_screen_two_thirds",
         "bg_position": "center-center",
         "sidebar_tags": false,
         "recent": true,
