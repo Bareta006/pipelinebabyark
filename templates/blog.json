@@ -45,7 +45,7 @@
       "type": "blog",
       "settings": {
         "heading": "News",
-        "show_heading": true,
+        "show_heading": false,
         "tag_label": "",
         "tags": false,
         "show_filtertags": true,
