@@ -115,7 +115,7 @@
             "button_color_2": "btn--black",
             "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#efefef"
           }
         }
       },
@@ -160,7 +160,7 @@
             "button_color_2": "btn--black",
             "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#efefef"
           }
         },
         "image_AkFbbq": {
@@ -241,7 +241,7 @@
             "button_color_2": "btn--black",
             "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#efefef"
           }
         }
       },
