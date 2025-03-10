@@ -124,7 +124,8 @@
         "text_BBFDzM"
       ],
       "custom_css": [
-        "h6 em {text-decoration: line-through;}"
+        "h6 em {text-decoration: line-through;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_image",
