@@ -208,7 +208,7 @@
         "image_dU8tjL": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/image_50.png",
+            "image": "shopify://shop_images/Frame_25_1_6a44a119-807b-42c6-8572-01347d8c7d05.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -276,7 +276,7 @@
         "grid_large": 4,
         "grid_medium": 3,
         "grid_mobile": 1.2,
-        "bg": "palette--light bg--accent",
+        "bg": "palette--light bg--neutral",
         "width": "wrapper",
         "padding_top": 70,
         "padding_bottom": 70
