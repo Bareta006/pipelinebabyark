@@ -125,7 +125,133 @@
       ],
       "custom_css": [
         "h6 em {text-decoration: line-through; font-style: normal;}",
-        "h6 strong{font-weight:900;}",
+        "h6 strong {font-weight: 900;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_M3UTHz": {
+      "type": "section-double",
+      "blocks": {
+        "text_KnUeca": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The Bases Bundle",
+            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>1,480$</em> <strong>1,350$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>1,080$</em> <strong>1,000$</strong></h6>",
+            "font_size": 6,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "shop smart",
+            "button_url": "",
+            "button_color": "btn--black",
+            "button_style": "btn btn--large",
+            "button_text_2": "shop classic",
+            "button_link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--large",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "image_AkFbbq": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_51.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_KnUeca",
+        "image_AkFbbq"
+      ],
+      "custom_css": [
+        "h6 em {text-decoration: line-through; font-style: normal;}",
+        "h6 strong {font-weight: 900;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_fgnwyn": {
+      "type": "section-double",
+      "blocks": {
+        "image_dU8tjL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/image_50.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_8UkRmn": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "The Family Bundle",
+            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,980$</em> <strong>1,800$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>1,580$</em> <strong>1,450$</strong></h6>",
+            "font_size": 6,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "shop smart",
+            "button_url": "",
+            "button_color": "btn--black",
+            "button_style": "btn btn--large",
+            "button_text_2": "shop classic",
+            "button_link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--large",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_dU8tjL",
+        "text_8UkRmn"
+      ],
+      "custom_css": [
+        "h6 em {text-decoration: line-through; font-style: normal;}",
+        "h6 strong {font-weight: 900;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
@@ -683,6 +809,8 @@
   "order": [
     "section_hero_77iTgn",
     "section_double_LDy8cn",
+    "section_double_M3UTHz",
+    "section_double_fgnwyn",
     "section_hero_acdjLN",
     "section_hero_rQHDeJ",
     "section_hero_Urjg43",
