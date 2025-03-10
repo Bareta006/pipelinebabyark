@@ -84,7 +84,7 @@
           "settings": {
             "image": "shopify://shop_images/image_50.png",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "",
@@ -110,6 +110,10 @@
             "button_url": "",
             "button_color": "btn--black",
             "button_style": "btn btn--long",
+            "button_text_2": "shop classic",
+            "button_link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--long",
             "text_color": "text--neutral",
             "bg_color": ""
           }
