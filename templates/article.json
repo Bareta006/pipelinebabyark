@@ -11,6 +11,9 @@
   "sections": {
     "main": {
       "type": "article",
+      "custom_css": [
+        ".mobile--show .image__hero__frame {max-height: 360px;}"
+      ],
       "settings": {
         "blog_show_meta": true,
         "tags": false,
