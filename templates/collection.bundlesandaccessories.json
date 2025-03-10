@@ -102,14 +102,14 @@
           "settings": {
             "kicker": "",
             "title": "The Foodie Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
+            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
-            "button_text": "",
+            "button_text": "shop smart",
             "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
+            "button_color": "btn--black",
+            "button_style": "btn btn--long",
             "text_color": "text--neutral",
             "bg_color": ""
           }
@@ -123,7 +123,7 @@
         "h6 em {text-decoration: line-through;}"
       ],
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
