@@ -31,8 +31,8 @@
     {%- if article.metafields.custom.deskhero -%}
       <!-- Desktop hero image -->
       <div data-overlay-header class="small--hide">
-        {%- assign desk_alt = article.metafields.custom.deskhero.alt | default: 'Desktop Banner Image' -%}
-        {% render 'image-parallax', img_object: article.metafields.custom.deskhero, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: desk_alt %}
+        {%- assign desk_alt = article.metafields.custom.deskhero.value.alt | default: 'Desktop Banner Image' -%}
+        {% render 'image-parallax', img_object: article.metafields.custom.deskhero.value, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: desk_alt %}
       </div>
       <!-- Mobile featured image -->
       <div data-overlay-header class="medium-up--hide">
