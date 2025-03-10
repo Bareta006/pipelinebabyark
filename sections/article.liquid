@@ -29,13 +29,13 @@
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   {%- if article.image and show_featured_image -%}
     {%- if article.metafields.custom.deskhero -%}
-      <!-- Desktop hero image - hidden on small screens -->
-      <div data-overlay-header class="small--hide">
+      <!-- Desktop hero image - hidden on mobile -->
+      <div data-overlay-header class="mobile--hide">
         {%- assign desk_alt = article.metafields.custom.deskhero.value.alt | default: 'Desktop Banner Image' -%}
         {% render 'image-parallax', img_object: article.metafields.custom.deskhero.value, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: desk_alt %}
       </div>
-      <!-- Mobile featured image - only visible on small screens -->
-      <div data-overlay-header class="small--show medium-up--hide">
+      <!-- Mobile featured image - only visible on mobile -->
+      <div data-overlay-header class="mobile--show medium-up--hide">
         {%- assign alt = article.image.alt | default: 'Banner Image' -%}
         {% render 'image-parallax', img_object: article.image, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: alt %}
       </div>
