@@ -28,10 +28,24 @@
   data-section-type="article"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   {%- if article.image and show_featured_image -%}
-    <div data-overlay-header>
-      {%- assign alt = article.image.alt | default: 'Banner Image' -%}
-      {% render 'image-parallax', img_object: article.image, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: alt %}
-    </div>
+    {%- if article.metafields.custom.deskhero -%}
+      <!-- Desktop hero image -->
+      <div data-overlay-header class="small--hide">
+        {%- assign desk_alt = article.metafields.custom.deskhero.alt | default: 'Desktop Banner Image' -%}
+        {% render 'image-parallax', img_object: article.metafields.custom.deskhero, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: desk_alt %}
+      </div>
+      <!-- Mobile featured image -->
+      <div data-overlay-header class="medium-up--hide">
+        {%- assign alt = article.image.alt | default: 'Banner Image' -%}
+        {% render 'image-parallax', img_object: article.image, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: alt %}
+      </div>
+    {%- else -%}
+      <!-- Default featured image for all devices -->
+      <div data-overlay-header>
+        {%- assign alt = article.image.alt | default: 'Banner Image' -%}
+        {% render 'image-parallax', img_object: article.image, frame_height_class: section.settings.image_height, bg_position: section.settings.bg_position, preload: true, loading: 'eager', fetchpriority: 'high', alt: alt %}
+      </div>
+    {%- endif -%}
   {%- endif -%}
 
   <div class="{{ section.settings.width }} section-padding">
