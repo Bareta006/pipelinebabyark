@@ -140,6 +140,13 @@
             "padding_bottom": 20
           }
         },
+        "text_L7awwa": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Looking to upgrade with smart sensors?</strong> <a href=\"https://babyark.com/products/babyark-convertible-car-seat-smart-1?view=pdp_smart_v1\" title=\"https://babyark.com/products/babyark-convertible-car-seat-smart-1?view=pdp_smart_v1\">See Smart</a></p>",
+            "padding_bottom": 20
+          }
+        },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
           "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
@@ -188,6 +195,7 @@
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
+        "text_L7awwa",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
@@ -337,6 +345,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
@@ -480,6 +492,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
@@ -519,6 +535,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
@@ -598,6 +618,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }

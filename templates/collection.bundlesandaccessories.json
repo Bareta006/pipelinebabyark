@@ -102,20 +102,20 @@
           "settings": {
             "kicker": "",
             "title": "The Foodie Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
+            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>$1,168</em> <strong>$1,050</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>$968</em> <strong>$900</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
             "button_text": "shop smart",
-            "button_url": "",
+            "button_url": "https://babyark.com/products/the-foodie-bundle?view=pdp_foodiebundle_b1",
             "button_color": "btn--black",
-            "button_style": "btn btn--long",
+            "button_style": "btn btn--large",
             "button_text_2": "shop classic",
             "button_link_2": "",
             "button_color_2": "btn--black",
-            "button_style_2": "btn btn--long",
+            "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#efefef"
           }
         }
       },
@@ -124,7 +124,8 @@
         "text_BBFDzM"
       ],
       "custom_css": [
-        "h6 em {text-decoration: line-through;}",
+        "h6 em {text-decoration: line-through; font-style: normal;}",
+        "h6 strong {font-weight: 900;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
@@ -138,462 +139,149 @@
         "padding_bottom": 0
       }
     },
-    "section_hero_acdjLN": {
-      "type": "section-hero",
+    "section_double_M3UTHz": {
+      "type": "section-double",
       "blocks": {
-        "kicker_nAhkV3": {
-          "type": "kicker",
+        "text_KnUeca": {
+          "type": "text",
           "settings": {
             "kicker": "",
-            "enable_line": false,
-            "text_size": 4
+            "title": "The Bases Bundle",
+            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>$1,480</em> <strong>$1,350</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>$1,080$</em> <strong>$1,000</strong></h6>",
+            "font_size": 6,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "shop smart",
+            "button_url": "https://babyark.com/products/the-bases-bundle-1?view=pdp_basesbundle_v1&variant=41167513485383",
+            "button_color": "btn--black",
+            "button_style": "btn btn--large",
+            "button_text_2": "shop classic",
+            "button_link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--large",
+            "text_color": "text--neutral",
+            "bg_color": "#efefef"
           }
         },
-        "heading_N3r96m": {
-          "type": "heading",
+        "image_AkFbbq": {
+          "type": "image",
           "settings": {
-            "title": "The Smart Foodie Bundle",
-            "text_size": 8
-          }
-        },
-        "floating_text1_GYqMPU": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ Smart seat<br/>✔ Extra car seat cover<br/>✔ Cup holder</p>"
-          }
-        },
-        "floating_text2_T6rDRE": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,168<br/><strong>Bundle Price: $1,050</strong></p>"
-          }
-        },
-        "button_JaYLCj": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/products/the-foodie-bundle?view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
+            "image": "shopify://shop_images/image_51.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         }
       },
       "block_order": [
-        "kicker_nAhkV3",
-        "heading_N3r96m",
-        "floating_text1_GYqMPU",
-        "floating_text2_T6rDRE",
-        "button_JaYLCj"
+        "text_KnUeca",
+        "image_AkFbbq"
       ],
       "custom_css": [
-        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}"
+        "h6 em {text-decoration: line-through; font-style: normal;}",
+        "h6 strong {font-weight: 900;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_27.png",
-        "mobile_image": "shopify://shop_images/image_49.png",
         "height": "use_image",
-        "overlay_opacity": 15,
-        "overlay_color": "#000000",
-        "enable_overlay_text": true,
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
         "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": true
+        "padding_bottom": 0
       }
     },
-    "section_hero_rQHDeJ": {
-      "type": "section-hero",
+    "section_double_fgnwyn": {
+      "type": "section-double",
       "blocks": {
-        "heading_g7D3Jz": {
-          "type": "heading",
+        "image_dU8tjL": {
+          "type": "image",
           "settings": {
-            "title": "The Smart Bases Bundle",
-            "text_size": 8
+            "image": "shopify://shop_images/Frame_25_1_6a44a119-807b-42c6-8572-01347d8c7d05.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
           }
         },
-        "floating_text1_7NiPVd": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ Smart seat<br/>✔ Extra Smart base</p>"
-          }
-        },
-        "floating_text2_Ua3yfX": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,480<br/><strong>Bundle Price: $1,350</strong></p>"
-          }
-        },
-        "button_pd6FPh": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/collections/bundles/products/the-bases-bundle-1?variant=41167513419847?view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_g7D3Jz",
-        "floating_text1_7NiPVd",
-        "floating_text2_Ua3yfX",
-        "button_pd6FPh"
-      ],
-      "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
-      ],
-      "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_26.png",
-        "mobile_image": "shopify://shop_images/Group_29613125_701456b6-684c-44c4-937d-429aacd0aa8f.png",
-        "height": "use_image",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": false
-      }
-    },
-    "section_hero_Urjg43": {
-      "type": "section-hero",
-      "blocks": {
-        "heading_ipErdh": {
-          "type": "heading",
-          "settings": {
-            "title": "The Smart Family Bundle",
-            "text_size": 8
-          }
-        },
-        "floating_text1_wV4Lzz": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ 2 Smart seats</p>"
-          }
-        },
-        "floating_text2_Ngim3L": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,980<br/><strong>Bundle Price: $1,800</strong></p>"
-          }
-        },
-        "button_TrQwtP": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/collections/bundles/products/the-family-bundle?variant=41167529934919&view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_ipErdh",
-        "floating_text1_wV4Lzz",
-        "floating_text2_Ngim3L",
-        "button_TrQwtP"
-      ],
-      "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
-      ],
-      "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_25_1.png",
-        "mobile_image": "shopify://shop_images/Frame_445.png",
-        "height": "use_image",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": false
-      }
-    },
-    "section_hero_8PaRec": {
-      "type": "section-hero",
-      "blocks": {
-        "kicker_wxVkzi": {
-          "type": "kicker",
+        "text_8UkRmn": {
+          "type": "text",
           "settings": {
             "kicker": "",
-            "enable_line": false,
-            "text_size": 4
-          }
-        },
-        "heading_X9UErp": {
-          "type": "heading",
-          "settings": {
-            "title": "The Classic Foodie Bundle",
-            "text_size": 8
-          }
-        },
-        "floating_text1_nEbMKt": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ Classic seat<br/>✔ Extra car seat cover<br/>✔ Cup holder</p>"
-          }
-        },
-        "floating_text2_PkKPA8": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $968<br/><strong>Bundle Price: $900</strong></p>"
-          }
-        },
-        "button_EFphLV": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/products/the-foodie-bundle?view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
+            "title": "The Family Bundle",
+            "text": "<h5><strong>Smart</strong></h5><p>2 babyark Smart seats</p><h6><em>$1,980</em> <strong>$1,800</strong></h6><h5><strong>Classic</strong></h5><p>2 babyark Classic seats</p><h6><em>$1,580</em> <strong>$1,450</strong></h6>",
+            "font_size": 6,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "shop smart",
+            "button_url": "https://babyark.com/products/the-family-bundle?view=pdp_familybundle_v1",
+            "button_color": "btn--black",
+            "button_style": "btn btn--large",
+            "button_text_2": "shop classic",
+            "button_link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--large",
+            "text_color": "text--neutral",
+            "bg_color": "#efefef"
           }
         }
       },
       "block_order": [
-        "kicker_wxVkzi",
-        "heading_X9UErp",
-        "floating_text1_nEbMKt",
-        "floating_text2_PkKPA8",
-        "button_EFphLV"
+        "image_dU8tjL",
+        "text_8UkRmn"
       ],
       "custom_css": [
-        "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}"
+        "h6 em {text-decoration: line-through; font-style: normal;}",
+        "h6 strong {font-weight: 900;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_30.png",
-        "mobile_image": "shopify://shop_images/Frame_35.png",
         "height": "use_image",
-        "overlay_opacity": 15,
-        "overlay_color": "#000000",
-        "enable_overlay_text": true,
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
         "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": true
-      }
-    },
-    "section_hero_FVDX4G": {
-      "type": "section-hero",
-      "blocks": {
-        "heading_X9N9F4": {
-          "type": "heading",
-          "settings": {
-            "title": "The Classic Bases Bundle",
-            "text_size": 8
-          }
-        },
-        "floating_text1_mC9gPa": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ Classic seat<br/>✔ Extra Smart base</p>"
-          }
-        },
-        "floating_text2_Nh8FMH": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,080<br/><strong>Bundle Price: $1,000</strong></p>"
-          }
-        },
-        "button_KE6D9X": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/collections/bundles/products/the-bases-bundle-1?variant=41167513419847?view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_X9N9F4",
-        "floating_text1_mC9gPa",
-        "floating_text2_Nh8FMH",
-        "button_KE6D9X"
-      ],
-      "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
-      ],
-      "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_29.png",
-        "mobile_image": "shopify://shop_images/Frame_36.png",
-        "height": "use_image",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": false
-      }
-    },
-    "section_hero_Rg83xK": {
-      "type": "section-hero",
-      "blocks": {
-        "heading_QcnDqL": {
-          "type": "heading",
-          "settings": {
-            "title": "The Classic Family Bundle",
-            "text_size": 8
-          }
-        },
-        "floating_text1_RtRibe": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>✔ 2 Classic seats</p>"
-          }
-        },
-        "floating_text2_NTKLNd": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Full Retail Price: $1,580<br/><strong>Bundle Price: $1,450</strong></p>"
-          }
-        },
-        "button_F3Mxxe": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "",
-            "link_1": "",
-            "button_size_1": "btn--long",
-            "button_style_1": "btn",
-            "button_color_1": "btn--white",
-            "link_text_2": "SHOP NOW",
-            "link_2": "/collections/bundles/products/the-family-bundle?variant=41167529934919&view=pdp_smart_v1",
-            "button_size_2": "btn--long",
-            "button_style_2": "btn--outline",
-            "button_color_2": "btn--white",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn--outline",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_QcnDqL",
-        "floating_text1_RtRibe",
-        "floating_text2_NTKLNd",
-        "button_F3Mxxe"
-      ],
-      "custom_css": [
-        ".text__standard {width: 480px; max-width: 100%;}"
-      ],
-      "settings": {
-        "mobile_special_arrange": true,
-        "image": "shopify://shop_images/Frame_28.png",
-        "mobile_image": "shopify://shop_images/Classic_bundle.png",
-        "height": "use_image",
-        "overlay_opacity": 0,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--bottom-left",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "special_arrange": false
+        "padding_bottom": 0
       }
     },
     "section_collection_slider_ecwqWf": {
       "type": "section-collection-slider",
+      "custom_css": [
+        "p.kicker-flourished {font-family: var(--FONT-STACK-HEADING); font-weight: 300; text-transform: none; color: #000; font-style: normal; font-size: 35px; letter-spacing: normal;}",
+        ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight: 700; color: #111;}",
+        ".price {font-size: 20px; font-weight: 500; color: #000;}"
+      ],
       "settings": {
         "collection": "accessories",
         "product_limit": 12,
         "title": "Accessories",
-        "align_text": "title-left",
+        "align_text": "title-center",
         "progress_bar": "hidden",
         "grid_large": 4,
         "grid_medium": 3,
         "grid_mobile": 1.2,
-        "bg": "palette--light bg--accent",
+        "bg": "palette--light bg--neutral",
         "width": "wrapper",
         "padding_top": 70,
         "padding_bottom": 70
@@ -682,12 +370,8 @@
   "order": [
     "section_hero_77iTgn",
     "section_double_LDy8cn",
-    "section_hero_acdjLN",
-    "section_hero_rQHDeJ",
-    "section_hero_Urjg43",
-    "section_hero_8PaRec",
-    "section_hero_FVDX4G",
-    "section_hero_Rg83xK",
+    "section_double_M3UTHz",
+    "section_double_fgnwyn",
     "section_collection_slider_ecwqWf",
     "subcollections",
     "hero",
