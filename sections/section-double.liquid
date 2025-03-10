@@ -197,7 +197,9 @@
                         {{ block.settings.text }}
                       </div>
                     {% endif %}
-
+                    {% if block.settings.button_text != blank or block.settings.button_text_2 != blank %}
+                      <div class="brick__block__cta">
+                    {% endif %}
                     {% if block.settings.button_text != blank %}
                       <a href="{{ block.settings.button_url }}"
                         class="standard__cta {{ block.settings.button_style }} {{ block.settings.button_color }}"
@@ -208,6 +210,18 @@
                       </a>
                     {% endif %}
 
+                    {% if block.settings.button_text_2 != blank %}
+                      <a href="{{ block.settings.button_link_2 }}"
+                        class="standard__cta {{ block.settings.button_style_2 }} {{ block.settings.button_color_2 }}"
+                        data-aos="hero"
+                        data-aos-anchor="{{ animation_anchor }}"
+                        data-aos-order="5">
+                        {{ block.settings.button_text_2 }}
+                      </a>
+                    {% endif %}
+                    {% if block.settings.button_text != blank or block.settings.button_text_2 != blank %}
+                      </div>
+                    {% endif %}
                   </div>
                 </div>
               </div>
@@ -888,6 +902,46 @@
       {
         "type": "select",
         "id": "button_style",
+        "label": "Button style",
+        "default": "btn-text-thick-line",
+        "options": [
+          { "value": "btn-text-thick-line", "label": "Capitalized text" },
+          { "value": "btn btn--long", "label": "Solid button" },
+          { "value": "btn--soft btn--long", "label": "Soft button" },
+          { "value": "btn--outline btn--long", "label": "Outlined button" }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Button 2"
+      },
+      {
+        "type": "text",
+        "id": "button_text_2",
+        "label": "Text",
+        "default": "Read more"
+      },
+      {
+        "type": "url",
+        "id": "button_link_2",
+        "label": "Link"
+      },
+      {
+        "type": "select",
+        "id": "button_color_2",
+        "label": "Color",
+        "default": "btn--neutral",
+        "options": [
+          { "value": "btn--primary", "label": "Bright accent" },
+          { "value": "btn--secondary", "label": "Secondary accent" },
+          { "value": "btn--neutral", "label": "Text color" },
+          { "value": "btn--black", "label": "Black" },
+          { "value": "btn--white", "label": "White" }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "button_style_2",
         "label": "Button style",
         "default": "btn-text-thick-line",
         "options": [
