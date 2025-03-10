@@ -292,13 +292,13 @@
       "settings": {
         "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
-        "icons_size": 104,
+        "icons_size": 80,
         "icon_alignment": "icon--top",
         "layout": "grid--slider",
         "align_text": "text-center",
         "width": "wrapper",
-        "padding_top": 100,
-        "padding_bottom": 100
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "image-with-text": {
@@ -431,7 +431,7 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "",
-        "title": "The lowest risk of head injury",
+        "title": "Significantly reduces the risk of head injury",
         "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
         "font_size": 5,
         "text_columns": 1,
@@ -588,7 +588,7 @@
           "settings": {
             "kicker": "",
             "title": "Critical alerts",
-            "text": "<p>The babyark app has a built-in life-saving feature that prevents you from forgetting to take the most important passenger in the car</p>",
+            "text": "<p>Built-in alerts help you not forget your most important passenger.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
