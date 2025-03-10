@@ -14046,7 +14046,7 @@ body:not(.theme-animate-hover) .header__desktop__buttons--icons .header__desktop
  * Switch to the mobile version on screens with
  * course input as the primary input method
  * https://patrickhlauke.github.io/touch/pointer-hover-any-pointer-any-hover/results/
- */
+ *//*
 @media (pointer: coarse) {
   .header__desktop {
     display: none;
@@ -14054,7 +14054,7 @@ body:not(.theme-animate-hover) .header__desktop__buttons--icons .header__desktop
   .header__mobile {
     display: grid;
   }
-}
+}*/
 .js__header__clone {
   position: absolute;
   transform: translateY(-5000px);
