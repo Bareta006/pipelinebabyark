@@ -102,7 +102,7 @@
           "settings": {
             "kicker": "",
             "title": "The Foodie Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
+            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Cover + Cup Holder</p><h6><em>1,168$</em> <strong>1,050$</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
@@ -147,7 +147,7 @@
           "settings": {
             "kicker": "",
             "title": "The Bases Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>1,480$</em> <strong>1,350$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>1,080$</em> <strong>1,000$</strong></h6>",
+            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>1,480$</em> <strong>1,350$</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>1,080$</em> <strong>1,000$</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
@@ -228,7 +228,7 @@
           "settings": {
             "kicker": "",
             "title": "The Family Bundle",
-            "text": "<h5><strong>Smart Bundle</strong></h5><p>2 babyark Smart seats</p><h6><em>1,980$</em> <strong>1,800$</strong></h6><h5><strong>Classic Bundle</strong></h5><p>2 babyark Classic seats</p><h6><em>1,580$</em> <strong>1,450$</strong></h6>",
+            "text": "<h5><strong>Smart</strong></h5><p>2 babyark Smart seats</p><h6><em>1,980$</em> <strong>1,800$</strong></h6><h5><strong>Classic</strong></h5><p>2 babyark Classic seats</p><h6><em>1,580$</em> <strong>1,450$</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
