@@ -268,8 +268,8 @@
     "section_collection_slider_ecwqWf": {
       "type": "section-collection-slider",
       "custom_css": [
-        ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight:700; color:#111;}",
-        ".price {font-size: 20px;}"
+        ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight: 700; color: #111;}",
+        ".price {font-size: 20px; font-weight:500; color:#000;}"
       ],
       "settings": {
         "collection": "accessories",
