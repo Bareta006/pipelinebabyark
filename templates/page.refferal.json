@@ -53,11 +53,12 @@
         "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__title {font-size: 30px; }}"
       ],
       "settings": {
+        "mobile_special_arrange": false,
         "image": "shopify://shop_images/Picture_clothes-spr21-51_jpg_ceb4bda5-460c-4b67-8af4-c3ba3158df39.png",
         "mobile_image": "shopify://shop_images/Copy_of_220624-babyark-01197_2_fb193e4d-5a1e-4402-8eb4-d2673a27d30a.png",
         "height": "use_screen_two_thirds",
         "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 750,
@@ -66,7 +67,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_richtext_rC7yDf": {
@@ -86,7 +88,7 @@
             "heading_size": 8,
             "text_size": 5,
             "items_per_row": "1",
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "icon_size": 24,
             "icon_name_1": "icon-basket-return",
             "icon_image_1": "shopify://shop_images/share-2.png",
@@ -143,7 +145,14 @@
         "heading_eTcGBf": {
           "type": "heading",
           "settings": {
-            "heading": "Enter early, enter often.May the odds be in your favor!",
+            "heading": "Enter early, enter often.",
+            "text_size": 8
+          }
+        },
+        "heading_NU6VU7": {
+          "type": "heading",
+          "settings": {
+            "heading": "May the odds be in your favor!",
             "text_size": 8
           }
         },
@@ -151,7 +160,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "Start referring",
-            "link_1": "",
+            "link_1": "https://babyarkdabc3.referralrock.com/v2/1/",
             "button_size_1": "btn--large",
             "button_style_1": "btn",
             "button_color_1": "btn--black",
@@ -170,7 +179,7 @@
         "text_FXjzx9": {
           "type": "text",
           "settings": {
-            "text": "<p>  </p><p>  </p><p></p><p><a href=\"/pages/terms-of-use\" target=\"_blank\" title=\"Terms of Use\">* Subject to babyark's </a><a href=\"/pages/terms-of-use\" title=\"Terms of Use\">Terms & Conditions</a></p>",
+            "text": "<p>  </p><p>  </p><p></p><p>*Subject to babyark's <a href=\"/pages/terms-of-use\" title=\"Terms of Use\">Terms & Conditions</a></p>",
             "text_size": 4,
             "text_columns": 1
           }
@@ -178,6 +187,7 @@
       },
       "block_order": [
         "heading_eTcGBf",
+        "heading_NU6VU7",
         "button_Cb9weF",
         "text_FXjzx9"
       ],
