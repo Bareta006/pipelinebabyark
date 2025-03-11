@@ -320,7 +320,7 @@
       "settings": {
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "width": "wrapper--full",
+        "width": "wrapper--none",
         "padding_top": 36,
         "padding_bottom": 36
       }
