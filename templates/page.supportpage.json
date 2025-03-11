@@ -46,7 +46,7 @@
         "image": "shopify://shop_images/Container_7f33ad68-1221-4268-8e78-034d525d757d.png",
         "height": "use_screen_two_thirds",
         "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
         "content_width": 2000,
@@ -71,7 +71,7 @@
             "title": "",
             "text": "",
             "link_text": "FAQ",
-            "link_url": ""
+            "link_url": "shopify://pages/faq"
           }
         },
         "icon_block_aABnc3": {
@@ -82,7 +82,7 @@
             "title": "",
             "text": "",
             "link_text": "User Manuals",
-            "link_url": ""
+            "link_url": "shopify://pages/user-guides"
           }
         },
         "icon_block_WCL3Xd": {
@@ -93,7 +93,7 @@
             "title": "",
             "text": "",
             "link_text": "Contact Us",
-            "link_url": ""
+            "link_url": "shopify://pages/contact"
           }
         },
         "icon_block_8akGLN": {
@@ -104,7 +104,7 @@
             "title": "",
             "text": "",
             "link_text": "Compliance",
-            "link_url": ""
+            "link_url": "shopify://pages/compliance-standards"
           }
         },
         "icon_block_JJPzUR": {
@@ -115,7 +115,7 @@
             "title": "",
             "text": "",
             "link_text": "Warranty",
-            "link_url": ""
+            "link_url": "shopify://pages/warranty"
           }
         },
         "icon_block_4AUMdV": {
@@ -126,7 +126,7 @@
             "title": "",
             "text": "",
             "link_text": "Product Registration",
-            "link_url": ""
+            "link_url": "shopify://pages/product-registration"
           }
         }
       },
