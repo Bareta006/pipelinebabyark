@@ -157,7 +157,7 @@
             "button_color": "btn--black",
             "button_style": "btn btn--large",
             "button_text_2": "shop classic",
-            "button_link_2": "",
+            "button_link_2": "shopify://products/the-bases-bundle",
             "button_color_2": "btn--black",
             "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
