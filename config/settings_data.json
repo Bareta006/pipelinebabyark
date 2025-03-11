@@ -49,6 +49,7 @@
     "layout_outer": 50,
     "button_radius": 50,
     "animations_scroll_enable": true,
+    "favicon": "shopify://shop_images/Favicon_babyark.svg",
     "collection_text_alignment": "text-left",
     "product_grid_image": "crop",
     "product_card_wh_ratio": 0.8,

@@ -46,6 +46,12 @@
             "padding_bottom": 20
           }
         },
+        "liquid_YHEEky": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"refferMsg\"></div>"
+          }
+        },
         "variants": {
           "type": "variant-selectors",
           "settings": {
@@ -195,6 +201,7 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "liquid_YHEEky",
         "variants",
         "subscriptions",
         "quantity",
