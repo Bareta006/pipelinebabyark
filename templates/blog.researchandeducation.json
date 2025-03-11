@@ -94,7 +94,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "Explore",
-            "link_1": "",
+            "link_1": "shopify://blogs/our-story",
             "button_size_1": "btn--long",
             "button_style_1": "btn--outline",
             "button_color_1": "btn--white",
@@ -159,7 +159,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "Explore",
-            "link_1": "",
+            "link_1": "shopify://blogs/holistic-approach-to-safety",
             "button_size_1": "btn--long",
             "button_style_1": "btn--outline",
             "button_color_1": "btn--white",
@@ -226,7 +226,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "Explore",
-            "link_1": "",
+            "link_1": "shopify://blogs/testing",
             "button_size_1": "btn--long",
             "button_style_1": "btn--outline",
             "button_color_1": "btn--white",
