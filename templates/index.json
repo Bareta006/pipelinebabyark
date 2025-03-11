@@ -26,11 +26,11 @@
             "text_align": "align--bottom-left",
             "text_color": "text--white",
             "link_text": "see it in action",
-            "link": "/pages/safety/?view=features",
+            "link": "shopify://pages/features",
             "button_color": "btn--white",
             "button_style": "btn",
             "link_text_2": "SHOP",
-            "link_2": "/pages/safety/?view=compare",
+            "link_2": "shopify://pages/compare",
             "button_color_2": "btn--white",
             "button_style_2": "btn--outline"
           }
