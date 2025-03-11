@@ -239,7 +239,7 @@
             "button_color": "btn--black",
             "button_style": "btn btn--large",
             "button_text_2": "shop classic",
-            "button_link_2": "",
+            "button_link_2": "shopify://products/the-family-bundle-1",
             "button_color_2": "btn--black",
             "button_style_2": "btn btn--large",
             "text_color": "text--neutral",
@@ -252,7 +252,7 @@
         "text_8UkRmn"
       ],
       "custom_css": [
-        "h6:first-of-type{margin-bottom:40px;}",
+        "h6:first-of-type {margin-bottom: 40px;}",
         "h6 em {text-decoration: line-through; font-style: normal;}",
         "h6 strong {font-weight: 900;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
