@@ -152,7 +152,7 @@
             "text_columns": 1,
             "align_text": "text-left",
             "button_text": "shop smart",
-            "button_url": "https://babyark.com/products/the-bases-bundle-1?view=pdp_basesbundle_v1&variant=41167513485383",
+            "button_url": "shopify://products/the-bases-bundle-1",
             "button_color": "btn--black",
             "button_style": "btn btn--large",
             "button_text_2": "shop classic",
