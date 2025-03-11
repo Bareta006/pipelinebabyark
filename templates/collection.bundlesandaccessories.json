@@ -107,7 +107,7 @@
             "text_columns": 1,
             "align_text": "text-left",
             "button_text": "shop smart",
-            "button_url": "https://babyark.com/products/the-foodie-bundle?view=pdp_foodiebundle_b1",
+            "button_url": "shopify://products/the-foodie-bundle",
             "button_color": "btn--black",
             "button_style": "btn btn--large",
             "button_text_2": "shop classic",
