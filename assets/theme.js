@@ -18591,6 +18591,31 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`, el);
                 e.preventDefault();
                 this.state = STATES$1.LOADING;
                 const formData = new FormData(this.form);
+                // Check for custom properties and convert them to Shopify's format
+    const customProperties = {};
+    
+    // Check for deliveryDate
+    if (formData.has('deliveryDate')) {
+        customProperties['Delivery Date'] = formData.get('deliveryDate');
+        formData.delete('deliveryDate');
+    }
+    
+    // Check for deliveryTime
+    if (formData.has('deliveryTime')) {
+        customProperties['Delivery Time'] = formData.get('deliveryTime');
+        formData.delete('deliveryTime');
+    }
+    
+    // Check for compatible
+    if (formData.has('compatible')) {
+        customProperties['Compatibility'] = formData.get('compatible');
+        formData.delete('compatible');
+    }
+    
+    // Add properties to formData in Shopify's format
+    for (const [key, value] of Object.entries(customProperties)) {
+        formData.append(`properties[${key}]`, value);
+    }
                 this.addToCart(formData).then(this.handleSuccess.bind(this)).catch(this.handleError.bind(this));
             },
             handleSuccess (response) {
