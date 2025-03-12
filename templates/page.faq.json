@@ -462,7 +462,7 @@
           "type": "text",
           "settings": {
             "title": "Can I buy an additional Classic base for my Smart seat?",
-            "content": "<p>Yes, you can install the Smart seat on Classic bases (without the app connectivity features that are available only in Smart Bases)</p>"
+            "content": "<p>Yes, the Smart seat is compatible with Classic bases, but keep in mind that app connectivity features are only available when using the Smart base.  </p><p>You can purchase a Smart Base, even for a Classic car seat, and will then have access to all the smart features for either seat when the Smart Base is used. Classic and Smart car seats fit on both bases.</p>"
           }
         }
       },
