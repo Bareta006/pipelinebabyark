@@ -592,7 +592,7 @@
           "type": "text",
           "settings": {
             "title": "Can I exchange a seat that has been used?",
-            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p>"
+            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p><p>If your seat is within the 100-day window, you may return it!</p>"
           }
         }
       },
