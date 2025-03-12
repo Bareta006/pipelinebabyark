@@ -447,8 +447,8 @@
         "accordion_block_4_2": {
           "type": "text",
           "settings": {
-            "title": "Will the app be available/useful for the Classic users?",
-            "content": "<p>Yes! For babyark Classic users, the app will still provide important information like an installation guide, instructions for daily use, and information about how to make adjustments to your babyark seat.</p>"
+            "title": "Is the babyark app useful for Classic car seat users?",
+            "content": "<p>Yes, the babyark app remains beneficial for users of the Classic car seat model. It provides essential information such as installation guides, easy access to explanation videos, daily usage instructions, and guidance on adjusting your babyark seat.</p>"
           }
         },
         "accordion_block_4_3": {
