@@ -228,7 +228,7 @@
           "type": "text",
           "settings": {
             "title": "How often do I need to charge the SmartBase? Do I need to replace batteries?",
-            "content": "<p>The ACTV8 smart base uses a rechargeable battery to power its sensors and light indicators. Before using the base for the first time, we recommend charging the base for about 2 hours. The base will need to be charged periodically once it is in use. The battery LED indicator will flash green when charging and flash red when the battery is critically low.</p>"
+            "content": "<p>The ACTV8™ SmartBase features a rechargeable battery.</p><p>We recommend an initial charge of approximately two hours before first use to ensure proper function of all sensors and light indicators. </p><p>With continued use, the base will need periodic recharging. The battery LED indicator will flash green during charging (for Premium) and blue light (for Smart), and red when the battery is critically low.</p>"
           }
         },
         "accordion_block_2_3": {
