@@ -338,7 +338,7 @@
         "accordion_block_3_1": {
           "type": "text",
           "settings": {
-            "title": "Can I use both rigid lower anchors (LATCH) and the vehicle seat belt to install the babyark car seat?",
+            "title": "Can I use both rigid lower anchors (LATCH) and the vehicle seat belt together to install the babyark car seat?",
             "content": "<p>Yes, the babyark car seat is designed and tested to be installed using both the vehicle seat belt and the rigid lower anchors (LATCH) simultaneously.</p><p>Check that your vehicle owner's manual <strong>doesn't prohibit </strong>the following:</p><p>-Installation using both LATCH lower anchors and vehicle seat belt at the same time</p><p>-Placing a support leg on the vehicle floor</p>"
           }
         },
@@ -346,7 +346,7 @@
           "type": "text",
           "settings": {
             "title": "Can I install the babyark car seat with only the vehicle seat belt?",
-            "content": "<p>Yes. The babyark car seat can be installed safely using only the vehicle seat belt. However, it will not be able to utilize the SafeCoil™ energy absorbing system and the app step-by-step instructions.<br/>When using a different installation method, please follow all the instructions in the manual to ensure you are installing the car seat correctly.</p>"
+            "content": "<p>Yes, the babyark car seat can be safely installed using only the vehicle seat belt, however we highly recommend capitalizing on more of our built-in safety features. </p><p>Using the seat belt only may limit the functionality of the SafeCoil™ energy-absorption system. When using an alternative installation method, follow all instructions in the manual to ensure correct installation, as the app’s guided installation is for our recommended install and will be harder to follow and execute if “skipping” steps.</p><p>For rear-facing, you may use only the vehicle seat belt. For forward-facing, you can use the vehicle seat belt and the top tether. As always, read your vehicle’s instruction manual (and babyark’s) to understand your options and ensure you are installing safely.</p>"
           }
         },
         "text_GqjHfN": {
