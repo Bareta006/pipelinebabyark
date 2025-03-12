@@ -234,15 +234,15 @@
         "accordion_block_2_3": {
           "type": "text",
           "settings": {
-            "title": "How long does the battery last?",
-            "content": "<p>When fully charged, the battery can last 3-4 weeks. When the battery is critically low, the battery LED indicator in the front of the base will flash red.</p>"
+            "title": "How long does the SmartBase battery last?",
+            "content": "<p>A fully charged battery typically lasts between three to four weeks. When the battery is critically low, the battery LED indicator on the front of the base will flash red.</p>"
           }
         },
         "accordion_block_2_4": {
           "type": "text",
           "settings": {
             "title": "Does the babyark app have a forgotten child alert?",
-            "content": "<p>Yes. The sensors in the car seat that are connected to the mobile app identify if your baby is still in the seat and will notify you immediately. When using the infant insert cushions, the forgotten child alert will only be activated once the child is buckled.</p>"
+            "content": "<p>Yes, the babyark app includes a forgotten child alert. Sensors within the car seat, connected to the mobile app, detect if your child remains seated while you move away from the vehicle, and will promptly notify you.</p><p>Please note, when using the infant insert cushions, the forgotten child alert activates only when the child is buckled.</p>"
           }
         },
         "text_7UnGaL": {
