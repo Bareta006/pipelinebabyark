@@ -90,18 +90,11 @@
             "content": "<p>The SafeCoil™ system incorporates a steel coil that extends upon impact, effectively absorbing crash forces that would otherwise be transferred to the child. Read more about SafeCoil™<a href=\"https://babyark.com/blogs/news/babyark-safecoil%E2%84%A2-technology-brings-new-era-child-safety-car-seat-technology\"><span style=\"text-decoration:underline\">here</span></a> and its role in <a href=\"https://babyark.com/blogs/holistic-approach-to-safety/created-for-crash-protection\"><span style=\"text-decoration:underline\">babyark’s unparalleled crash protection</span></a> here.</p>"
           }
         },
-        "accordion_block_1_3": {
-          "type": "text",
-          "settings": {
-            "title": "What make the CrbEgg™ frame so shock-resistant?",
-            "content": "<p>The shape of the frame biomimicks nature’s most resilient structure, the egg. Think domes, bridges, racing helmets. The egg is a powerful, impact-diffusing shape. Our egg-shaped frame is made of carbon fiber, which is seven times stronger than steel.</p>"
-          }
-        },
         "accordion_block_1_4": {
           "type": "text",
           "settings": {
-            "title": "Is it true that a woodpecker inspired the side-wing impact protection system?",
-            "content": "<p>That is absolutely true! In fact, we biomimicked the woodpecker’s unique plate-like bone structure which diffuses the brunt of impact when it pecks for food, and applied it to the side-impact protection<br/>system.</p>"
+            "title": "Is it true that a woodpecker's anatomy inspired the side-wing impact protection system?",
+            "content": "<p>Yes, that’s absolutely true! Our design is based on the <strong>woodpecker’s plate-like bone structure</strong>, which helps distribute impact forces efficiently. By applying this principle to our <strong>side-impact protection system</strong>, we’ve enhanced energy absorption to improve safety in the event of a collision. Read more about <a href=\"https://babyark.com/blogs/news/why-the-bioark%E2%84%A2-side-impact-protection-system-is-a-game-changer\"><span style=\"text-decoration:underline\">how we apply biomimicry in the BioArk™ side impact protection system here</span></a>.</p>"
           }
         },
         "text_fzLycb": {
@@ -178,7 +171,6 @@
       "block_order": [
         "accordion_block_1_1",
         "accordion_block_1_2",
-        "accordion_block_1_3",
         "accordion_block_1_4",
         "text_fzLycb",
         "text_hGwQEr",
