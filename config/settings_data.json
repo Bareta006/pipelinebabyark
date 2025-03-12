@@ -103,6 +103,26 @@
         "type": "shopify://apps/powerful-form-builder/blocks/app-embed/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
         "disabled": false,
         "settings": {}
+      },
+      "855628211100114053": {
+        "type": "shopify://apps/klaviyo-email-marketing-sms/blocks/klaviyo-onsite-embed/2632fe16-c075-4321-a88b-50b567f42507",
+        "disabled": false,
+        "settings": {}
+      },
+      "15685250022964305326": {
+        "type": "shopify://apps/elevar-conversion-tracking/blocks/dataLayerEmbed/bc30ab68-b15c-4311-811f-8ef485877ad6",
+        "disabled": false,
+        "settings": {}
+      },
+      "9468172321995857178": {
+        "type": "shopify://apps/qikify-bogo-freegift/blocks/app-embed/2e94b962-8172-4839-8ad9-7837eb8b017a",
+        "disabled": false,
+        "settings": {}
+      },
+      "17676059084223943535": {
+        "type": "shopify://apps/triplewhale/blocks/triple_pixel_snippet/483d496b-3f1a-4609-aea7-8eee3b6b7a2a",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
