@@ -173,6 +173,13 @@
             "title": "Is the chest clip what holds my child in their car seat in the event of a crash?",
             "content": "<p>No. While it’s important to use the chest clip as directed to keep the harness straps positioned correctly, the chest clip is not designed to restrain a child on its own. The car seat's harness is what will do the work of restraining your child. Chest clips are pre-crash positioners and are not intended to withstand crash forces. </p><p>All the parts of the car seat work together to keep your child safe in a crash. Always make sure the harness straps are at the right height, the crotch buckle is buckled, the harness is snug enough to pass the “pinch test,” and the chest clip is positioned correctly at armpit level every time you buckle your child in. uestions in as much detail as possible for your customers.</p>"
           }
+        },
+        "text_pCJxTx": {
+          "type": "text",
+          "settings": {
+            "title": "What is the weight limit for the infant insert?",
+            "content": "<p>The infant insert cushions are designed to help achieve a proper harness fit for smaller children in the rear-facing position, where the harness should be at or just below the child’s shoulders.</p><p>These cushions can be used as needed to provide a snug fit and should be removed once a snug fit can be achieved without them, typically around 11 lbs. (5 kg). </p><p>If a child exceeds the recommended 11 lbs. weight limit but still requires the cushion for a correct harness fit, the infant cushion can continue to be used. Be sure to remove the cushions when they are no longer needed. Infant inserts must be removed when the child weighs more than 22 lbs (10 kg).</p><p>The infant insert consists of two parts: a head support and a body support. These can be used independently, depending on your child's needs, as some may require only the body support.</p><p>Make sure that all elements of the car seat and harness are connected and functioning properly with the position of your infant insert cushion, and as always, don’t connect anything else to the car seat or its pieces that is not meant to be there, as this can interfere in the event of a crash.</p>"
+          }
         }
       },
       "block_order": [
@@ -189,7 +196,8 @@
         "text_ifJ3jP",
         "text_T8RdaB",
         "text_kQQL4N",
-        "text_LDBfJf"
+        "text_LDBfJf",
+        "text_pCJxTx"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
