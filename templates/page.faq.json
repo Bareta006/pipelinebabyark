@@ -171,7 +171,14 @@
           "type": "text",
           "settings": {
             "title": "Is the chest clip what holds my child in their car seat in the event of a crash?",
-            "content": "<p>No. While it’s important to use the chest clip as directed to keep the harness straps positioned correctly, the chest clip is not designed to restrain a child on its own. The car seat's harness is what will do the work of restraining your child. Chest clips are pre-crash positioners and are not intended to withstand crash forces. </p><p>All the parts of the car seat work together to keep your child safe in a crash. Always make sure the harness straps are at the right height, the crotch buckle is buckled, the harness is snug enough to pass the “pinch test,” and the chest clip is positioned correctly at armpit level every time you buckle your child in. uestions in as much detail as possible for your customers.</p>"
+            "content": "<p>No. While it’s important to use the chest clip as directed to keep the harness straps positioned correctly, the chest clip is not designed to restrain a child on its own. The car seat's harness is what will do the work of restraining your child. Chest clips are pre-crash positioners and are not intended to withstand crash forces. </p><p>All the parts of the car seat work together to keep your child safe in a crash. Always make sure the harness straps are at the right height, the crotch buckle is buckled, the harness is snug enough to pass the “pinch test,” and the chest clip is positioned correctly at armpit level every time you buckle your child in. </p>"
+          }
+        },
+        "text_QrTcip": {
+          "type": "text",
+          "settings": {
+            "title": "Frequently asked question",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
           }
         },
         "text_pCJxTx": {
@@ -197,6 +204,7 @@
         "text_T8RdaB",
         "text_kQQL4N",
         "text_LDBfJf",
+        "text_QrTcip",
         "text_pCJxTx"
       ],
       "custom_css": [
