@@ -129,7 +129,14 @@
           "type": "text",
           "settings": {
             "title": "Does the babyark seat follow the \"80/20 rule\" for contact with the vehicle?",
-            "content": "<p>The 80/20 rule is a guideline that states that 80% of the car seat must be on the vehicle seat, with only 20% overhanging the edge of the vehicle seat. babyark is not required to follow the 80/20 rule due to the robust structure of the base and energy absorbing system.</p>"
+            "content": "<p>The 80/20 rule is a guideline that suggests that 80% of the car seat should be on the vehicle seat, with only 20% overhanging.</p><p>Due to the incredibly strong structure of the babyark base and its energy-absorbing system, babyark is not required to adhere to this suggestion.</p><p>As previously stated, babyark has undergone and passed with flying colors all required crash testing and has safety features which help make it one of the most robust seats on the market.</p>"
+          }
+        },
+        "text_N7hMnW": {
+          "type": "text",
+          "settings": {
+            "title": "Frequently asked question",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
           }
         },
         "text_LPJAEy": {
@@ -177,6 +184,7 @@
         "text_yB3aTd",
         "text_iPwQC6",
         "text_mWWqeH",
+        "text_N7hMnW",
         "text_LPJAEy",
         "text_ifJ3jP",
         "text_T8RdaB",
