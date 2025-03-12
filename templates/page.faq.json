@@ -359,8 +359,8 @@
         "text_aXCfYy": {
           "type": "text",
           "settings": {
-            "title": "Can I use babyark in an airplane?",
-            "content": "<p>The original babyark model, the Premium car seat, is certified for use in an aircraft with the base (please refer to the manual for instructions on how to install the car seat in an airplane).<br/>The babyark Classic and Smart car seat are <strong>NOT</strong> certified for use in an aircraft. Their safety features are intended for use in the car, and they are not aircraft compatible, with or without base.</p>"
+            "title": "Is the babyark car seat approved for airplane use?",
+            "content": "<p>The original babyark Premium model is certified for aircraft use with the base. Please refer to the manual for specific installation instructions on airplanes. </p><p>The babyark Classic and Smart car seats are <span style=\"text-decoration:underline\"><strong>not</strong></span> certified for aircraft use, as their safety features are intended for use in the vehicle and are not aircraft compatible.</p>"
           }
         },
         "text_jDBQKm": {
