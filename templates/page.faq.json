@@ -132,13 +132,6 @@
             "content": "<p>The 80/20 rule is a guideline that suggests that 80% of the car seat should be on the vehicle seat, with only 20% overhanging.</p><p>Due to the incredibly strong structure of the babyark base and its energy-absorbing system, babyark is not required to adhere to this suggestion.</p><p>As previously stated, babyark has undergone and passed with flying colors all required crash testing and has safety features which help make it one of the most robust seats on the market.</p>"
           }
         },
-        "text_N7hMnW": {
-          "type": "text",
-          "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
-          }
-        },
         "text_LPJAEy": {
           "type": "text",
           "settings": {
@@ -191,7 +184,6 @@
         "text_yB3aTd",
         "text_iPwQC6",
         "text_mWWqeH",
-        "text_N7hMnW",
         "text_LPJAEy",
         "text_ifJ3jP",
         "text_T8RdaB",
@@ -229,7 +221,7 @@
           "type": "text",
           "settings": {
             "title": "Can I charge the SmartBase while driving and using the seat?",
-            "content": "<p>Charging the base is approved during use and while driving. Note that the charging cable should be safely routed to not interfere with any objects or children. When not in use, store the cable safely away. Charging the base when the vehicle is not powered depends on the vehicle’s model and settings – please refer to your vehicle owner's manual.</p>"
+            "content": "<p>Yes, the SmartBase can be charged during use and while driving. Ensure that the charging cable is safely routed to avoid interference with passengers or vehicle operations. When not in use, store the cable securely. Charging capabilities when the vehicle is off depends on your vehicle's model and settings; please consult your vehicle owner's manual for specifics.</p>"
           }
         },
         "accordion_block_2_2": {
