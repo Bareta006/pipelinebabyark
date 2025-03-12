@@ -454,8 +454,8 @@
         "accordion_block_4_3": {
           "type": "text",
           "settings": {
-            "title": "Will it still be able to detect if the seat has been involved in an accident?",
-            "content": "<p>Yes, Classic users will still have a visual cue and will be able to note if the steel coil has been elongated and if the top and bottom shells of the base are no longer aligned (vs the Smart which will have an additional app notification and a circulating red light on the safety LED ring on the smart base).</p>"
+            "title": "Can the Classic car seat and app detect if it has been involved in an accident?",
+            "content": "<p>Classic users can check for signs of impact by visually inspecting the seat, which is specifically designed to reveal when an impact has significantly damaged the seat and it must be replaced. </p><p>Check for the following indications of impact:</p><ul><li>If the <strong>steel coil has elongated</strong></li><li>If the <strong>top and bottom shells of the base are misaligned</strong></li></ul><p>For <strong>Smart users</strong>, the seat provides <strong>additional alerts</strong>, including:</p><ul><li>An <strong>app notification</strong></li><li>A <strong>red circulating light</strong> on the <strong>safety LED ring</strong> of the Smart base</li></ul><p>With these easy visual cues, guesswork is reduced, and it becomes easier to know if you need to replace your car seat after an impact, even if the impact occurred when you were not in the car!</p>"
           }
         },
         "text_9HaBA8": {
