@@ -38,6 +38,7 @@
         " {z-index: 5;}"
       ],
       "settings": {
+        "mobile_special_arrange": false,
         "image": "shopify://shop_images/Have_a_question_Image_1.png",
         "height": "use_screen_two_thirds",
         "overlay_opacity": 0,
@@ -50,7 +51,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "main": {
@@ -78,7 +80,7 @@
           "type": "text",
           "settings": {
             "title": "What sets the babyark car seat apart in terms of safety?",
-            "content": "<p>babyark is the only car seat with SafeCoil™ active energy-absorption<br/>technology and BioArk™ side-impact protection. The seat is built from carbon<br/>fiber and D3O™, the world's most advanced shock-absorbing polymer. On top of<br/>all this, our SmrtGide™ installation system helps caregivers make sure their<br/>car seat is properly used and installed for each and every ride.</p>"
+            "content": "<p>The babyark car seat is the only car seat equipped with SafeCoil™ active energy-absorption technology and BioArk™ side-impact protection. babyark also uses only premium materials, including aviation-grade-steel as the core element in the main structure, EPP, and D3O™, an advanced shock-absorbing polymer. It also features in app guidance with a step-by-step installation instruction, seat setup guidance and more important information.</p>"
           }
         },
         "accordion_block_1_2": {
