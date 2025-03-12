@@ -286,6 +286,13 @@
             "title": "How do I use the mobile app to safely install the babyark car seat?",
             "content": "<p>Begin by downloading the babyark app to your mobile device. After pairing your babyark seat with the app (which must be done with cellular coverage) and providing initial information, follow the on-screen instructions for step-by-step installation guidance. </p><p>Make sure to follow the instructions for seat setup according to your child’s height and weight. </p><p>Our babyark Smart and Premium seats provide real-time feedback during the installation process, walking you through the process with sensor and LED light assistance. </p><p>Our Classic seat helps you through installation with informative videos and explanatory screens. Either way, installation with babyark is a breeze!</p>"
           }
+        },
+        "text_7yeciJ": {
+          "type": "text",
+          "settings": {
+            "title": "What are the benefits of using the babyark app?",
+            "content": "<p>The babyark app is helpful for users of all seat models.</p><p>The babyark app enhances safety, convenience, and connectivity for Premium and Smart seats by offering:</p><ul><li>Step-by-step installation guidance for a secure setup.</li><li>Safety alerts, including forgotten child and buckle notifications and crash detection.</li><li>Seat orientation alerts, ensuring the correct rear-facing or forward-facing position based on your child’s age and weight.</li><li>Activity tracking, providing insights on ride duration and time spent in the seat.</li><li>Family connectivity, allowing multiple users to access and share seat data.</li></ul><p>While many of the features of our intelligent app are for Smart and Premium seats, the app also supports the Classic model support, featuring installation videos and key information.</p><p>We prioritize minimal data collection to respect your family's privacy while delivering essential safety features.</p>"
+          }
         }
       },
       "block_order": [
@@ -299,7 +306,8 @@
         "text_PYmA8r",
         "text_za8D7h",
         "text_wdMcyj",
-        "text_EQCMdm"
+        "text_EQCMdm",
+        "text_7yeciJ"
       ],
       "custom_css": [
         ".section-faq {background-color: #fafafa;}"
