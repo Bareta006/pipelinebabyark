@@ -366,8 +366,8 @@
         "text_jDBQKm": {
           "type": "text",
           "settings": {
-            "title": "Will you provide a locking clip if I need one to properly install my babyark car seat?",
-            "content": "<p>Yes. The vehicle seat belt must be locked when installing your babyark car seat. If your vehicle seat belt does not lock, please contact babyark and we will send you a locking clip and instructions for use, free of charge.<br/>Please refer to your vehicle owner's manual to confirm how your vehicle seat belts lock.</p>"
+            "title": "Will you provide a locking clip if my vehicle seat belt requires one for proper installation?",
+            "content": "<p>Yes, if your vehicle seat belt does not lock, babyark will supply a locking clip and usage instructions free of charge. </p><p>Consult your vehicle owner's manual to determine the locking mechanism of your seat belts.</p>"
           }
         },
         "text_8MWfzL": {
