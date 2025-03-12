@@ -499,13 +499,6 @@
             "content": "<p>The babyark warranty offers coverage as follows:</p><ul><li>Mechanical Parts: 36 months from the date of purchase.</li><li>Soft Goods and Electronic Parts: 12 months from the date of purchase.​</li></ul><p>This warranty includes defects related to material or usability, all sensors and electronic components of the smart base, and all mechanical elements of the convertible seat.</p><p>Any issues that arise from spilled liquids or improper usage of the seat or base are not covered under warranty. </p>"
           }
         },
-        "text_8iJLJ6": {
-          "type": "text",
-          "settings": {
-            "title": "How do I know if the safety coils have been activated and my babyark needs to be replaced?",
-            "content": "<p>The babyark sensors in the Smart Base will detect whether the SafeCoil™ energy absorption system has been activated. The safety LED ring in the base will show a circulating red light and you will receive a notification on your phone via the babyark app.<br/>There will also be two additional visible cues:<br/>- The SafeCoil will be elongated when viewed through the transparent window in the base.<br/>- The top white/grey shell and bottom black shell of the base will be out of alignment.</p>"
-          }
-        },
         "text_cKzGj4": {
           "type": "text",
           "settings": {
@@ -530,7 +523,6 @@
       },
       "block_order": [
         "text_PVTVUa",
-        "text_8iJLJ6",
         "text_cKzGj4",
         "text_HMTNrd",
         "text_9NMb3M"
@@ -558,7 +550,7 @@
           "type": "text",
           "settings": {
             "title": "What is the babyark 100-day free trial policy?",
-            "content": "<p>We want to make sure the babyark car seat is the perfect fit for your family. If at any point during the first 100 days after purchase you change your mind, you can send your babyark back. No hassle, no questions asked.</p>"
+            "content": "<p>babyark offers a 100-day return policy from the date of purchase. If you are not 100% satisfied with your product or need to exchange for another reason, you can return it within this period for a refund. Products must be returned in their original packaging. </p>"
           }
         },
         "text_mMfRqM": {
