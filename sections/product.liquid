@@ -391,6 +391,33 @@
 
                   <p>{{ block.settings.text | remove: '<p>' | remove: '</p>' }}</p>
                 </div>
+                {% when 'icon-delivery' %}
+                  {% assign image = block.settings.image %}
+  
+                  <div class="product__block__icon delivery-info" style="--PB: {{ block.settings.padding_bottom_delivery }}px;" {{ block.shopify_attributes }}>
+                    <div class="icon-holder" style="--ICON-SIZE: {{ block.settings.icon_size_delivery }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color_delivery }};">
+                      {%- if image -%}
+                        {% liquid
+                          assign icon_size = block.settings.icon_size_delivery | default: 16
+                          assign icon_width = icon_size
+                          assign icon_width_retina = icon_width | times: 2
+                          assign icon_sizes = icon_width | append: 'px'
+                          assign icon_widths = icon_width | append: ', ' | append: icon_width_retina
+                        %}
+  
+                        {% capture srcset %}
+                          {{ image | image_url: width: icon_width_retina }} 2x,
+                          {{ image | image_url: width: icon_width }}
+                        {% endcapture %}
+  
+                        {%- render 'image' img_object: image, srcset: srcset, width: icon_width -%}
+                      {%- else -%}
+                        {%- render 'icon-setting', filename: block.settings.icon_name_delivery -%}
+                      {%- endif -%}
+                    </div>
+  
+                    <p>{{ block.settings.text-delivery | remove: '<p>' | remove: '</p>' }}</p>
+                  </div>
               {% when 'image' %}
                 <div class="product__block__image {{ block.settings.alignment }}" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
                   <div style="max-width: {{ block.settings.image_max_limit | append: 'px' }};">
@@ -1654,6 +1681,97 @@
           "id": "custom_liquid",
           "label": "Custom Liquid",
           "info": "Add app snippets or other Liquid code to create advanced customizations."
+        }
+      ]
+    },
+    {
+      "type": "icon-delivery",
+      "name": "Icon Delivery",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_name_delivery",
+          "label": "Icon",
+          "default": "icon-award",
+          "options": [
+            { "value": "icon-animal", "label": "Animal" },
+            { "value": "icon-animal-paw", "label": "Animal paw" },
+            { "value": "icon-award", "label": "Award" },
+            { "value": "icon-basket-like", "label": "Basket like" },
+            { "value": "icon-basket-return", "label": "Basket return" },
+            { "value": "icon-cart-check", "label": "Cart check" },
+            { "value": "icon-cart-message", "label": "Cart message" },
+            { "value": "icon-chat", "label": "Chat" },
+            { "value": "icon-dollar", "label": "Dollar" },
+            { "value": "icon-earth", "label": "Earth" },
+            { "value": "icon-email", "label": "Email" },
+            { "value": "icon-gluten-free", "label": "Gluten free" },
+            { "value": "icon-iron", "label": "Iron" },
+            { "value": "icon-leaf", "label": "Leaf" },
+            { "value": "icon-legal", "label": "Legal" },
+            { "value": "icon-lock-card", "label": "Lock card" },
+            { "value": "icon-lock-shield", "label": "Lock shield" },
+            { "value": "icon-lock-window", "label": "Lock window" },
+            { "value": "icon-payment", "label": "Payment" },
+            { "value": "icon-phone", "label": "Phone" },
+            { "value": "icon-rating", "label": "Rating" },
+            { "value": "icon-star-rating", "label": "Rating star" },
+            { "value": "icon-recycled", "label": "Recycled" },
+            { "value": "icon-ruler", "label": "Ruler" },
+            { "value": "icon-send", "label": "Send" },
+            { "value": "icon-sewing-machine", "label": "Sewing machine" },
+            { "value": "icon-shipment-world", "label": "Shipment world" },
+            { "value": "icon-shipment", "label": "Shipment" },
+            { "value": "icon-shoes", "label": "Shoes" },
+            { "value": "icon-store", "label": "Store" },
+            { "value": "icon-support-headphones", "label": "Support headphones" },
+            { "value": "icon-thread", "label": "Thread" },
+            { "value": "icon-truck", "label": "Truck" },
+            { "value": "icon-washer", "label": "Washer" },
+            { "value": "icon-water", "label": "Water" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image-delivery",
+          "label": "Image",
+          "info": "If set, image overrides the icon above"
+        },
+        {
+          "type": "range",
+          "id": "icon_size_delivery",
+          "label": "Size",
+          "unit": "px",
+          "min": 16,
+          "max": 50,
+          "step": 2,
+          "default": 16
+        },
+        {
+          "type": "color",
+          "id": "icon_color_delivery",
+          "label": "Icon color",
+          "default": "#4B4B4B"
+        },
+        {
+          "type": "richtext",
+          "id": "text-delivery",
+          "label": "Text",
+          "default": "<p>Icon text</p>"
+        },
+        {
+          "type": "header",
+          "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom_delivery",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding bottom",
+          "default": 8
         }
       ]
     },

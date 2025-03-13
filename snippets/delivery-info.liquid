@@ -1,0 +1,144 @@
+{% comment %}
+  Add this code to your Shopify product page template (e.g., product.liquid or product.json) where you want the script to be rendered.
+{% endcomment %}
+
+<script type="application/json" id="delivery-info">
+  {
+    "product": {
+      "id": {{ product.id }},
+      "title": "{{ product.title | escape }}",
+      "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
+      "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
+    },
+    "variants": [
+      {% assign valid_variants = false %}
+      {% for variant in product.variants %}
+        {% if variant.metafields.delivery.delivery_estimated_date != blank %}
+          {% if valid_variants %},{% endif %}
+          {% assign valid_variants = true %}
+          {
+            "id": {{ variant.id }},
+            "title": "{{ variant.title | escape }}",
+            "delivery_estimated_date": "{{ variant.metafields.delivery.delivery_estimated_date | escape }}"
+          }
+        {% endif %}
+      {% endfor %}
+    ]
+  }
+</script>
+
+
+
+<script>
+ document.addEventListener("DOMContentLoaded", () => {
+    // Fetch JSON data from the script tag
+    const deliveryInfoElement = document.getElementById("delivery-info");
+    if (!deliveryInfoElement) {
+        console.log("Delivery info JSON not found.");
+        return;
+    }
+
+    let deliveryInfo;
+    try {
+        deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
+    } catch (error) {
+        console.log("Error parsing delivery info JSON:", error);
+        return;
+    }
+
+    // Store the original content of the estimate section BEFORE any updates
+    const estimateContentElement = document.querySelector(".pageEstimateDelivery .estimate-content p strong");
+    if (!estimateContentElement) {
+        console.log("Estimate content element not found.");
+        return;
+    }
+
+    // Use a const to ensure the original text is immutable and stored only once
+    if (typeof window.OriginalEstimateText === "undefined") {
+        window.OriginalEstimateText = estimateContentElement.textContent.trim(); // Store in a global variable
+        console.log("Original estimate text captured:", window.OriginalEstimateText);
+    }
+
+    const originalText = window.OriginalEstimateText; // Use the globally stored text
+
+    // Function to update the hidden input fields
+    function updateHiddenInputs() {
+        const variantInput = document.querySelector('input[name="id"]');
+        if (!variantInput) {
+            console.log("Variant input not found.");
+            return;
+        }
+
+        const variantId = parseInt(variantInput.value, 10);
+        const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+
+        // Determine which data to use (variant-specific or general product)
+        const deliveryData = variantData || deliveryInfo.product;
+
+        const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
+        const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
+
+        if (!deliveryTimeInput && !deliveryDateInput) {
+            console.log("Delivery input fields not found.");
+            return;
+        }
+
+        // Clear input values before updating
+        if (deliveryTimeInput) deliveryTimeInput.value = "";
+        if (deliveryDateInput) deliveryDateInput.value = "";
+
+        if (deliveryData.delivery_time) {
+            // Use deliveryTime
+            if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
+            if (deliveryTimeInput) {
+                deliveryTimeInput.value = deliveryData.delivery_time;
+                deliveryTimeInput.name = "deliveryTime";
+            }
+        } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
+            // Use deliveryDate (either product-level or variant-specific)
+            const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
+            if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
+            if (deliveryDateInput) {
+                deliveryDateInput.value = estimatedDate;
+                deliveryDateInput.name = "deliveryDate";
+            }
+        } else {
+            console.log("No delivery info available for this variant or product.");
+        }
+    }
+
+    // Function to update the estimated delivery text
+    function updateEstimatedText() {
+        const variantInput = document.querySelector('input[name="id"]');
+        if (!variantInput) {
+            console.log("Variant input not found.");
+            return;
+        }
+
+        const variantId = parseInt(variantInput.value, 10);
+        const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+
+        if (variantData && variantData.delivery_estimated_date) {
+            // Update to variant-specific estimated date
+            estimateContentElement.textContent = variantData.delivery_estimated_date;
+        } else {
+            // Fallback to the original product text
+            estimateContentElement.textContent = originalText;
+        }
+    }
+
+    // Initial updates for hidden inputs and estimate text
+    updateHiddenInputs();
+    updateEstimatedText();
+
+    // Update on variant change
+    const variantInput = document.querySelector('input[name="id"]');
+    if (variantInput) {
+        variantInput.addEventListener("change", () => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        });
+    }
+});
+
+</script>
