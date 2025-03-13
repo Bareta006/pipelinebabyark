@@ -8116,15 +8116,6 @@
             const priceWrappers = this.outerWrapper.querySelectorAll(selectors$m.priceWrapper);
             const priceButtons = this.outerWrapper.querySelectorAll(selectors$m.priceButton);
             const { price , comparePrice  } = this.getPrices(formState);
-
-            console.log('Before price update:', {
-                variant,
-                price: this.formattingMoney(price),
-                comparePrice: this.formattingMoney(comparePrice),
-                onSale: this.productState.onSale,
-                planSale: this.productState.planSale
-            });
-
             priceWrappers.forEach((wrap)=>{
                 const comparePriceEl = wrap.querySelector(selectors$m.comparePrice);
                 const productPriceEl = wrap.querySelector(selectors$m.productPrice);
@@ -8155,14 +8146,6 @@
                     btn.innerHTML = this.formattingMoney(btnPrice);
                 });
             }
-
-            console.log('After price update:', {
-                displayPrice: this.formattingMoney(price),
-                displayComparePrice: this.formattingMoney(comparePrice),
-                buttonPrice: formState.quantity * price,
-                quantity: formState.quantity
-            });
-
             if (this.hasUnitPricing) {
                 this.updateProductUnits(formState);
             }
@@ -8292,11 +8275,14 @@
             }
         }
         formattingMoney(money) {
+            let formattedMoney;
             if (theme.settings.currency_code_enable) {
-                return themeCurrency.formatMoney(money, theme.moneyFormat) + ` ${theme.currencyCode}`;
+                formattedMoney = themeCurrency.formatMoney(money, theme.moneyFormat) + ` ${theme.currencyCode}`;
             } else {
-                return themeCurrency.formatMoney(money, theme.moneyFormat);
+                formattedMoney = themeCurrency.formatMoney(money, theme.moneyFormat);
             }
+            // Remove decimal places and trailing zeros
+            return formattedMoney.replace(/\.00($|\s)/g, '$1');
         }
         constructor(){
             super();
