@@ -133,7 +133,7 @@
           "showLogo": true,
           "topBottomPosition": 10,
           "rightLeftPosition": 10,
-          "iconSize": "small",
+          "iconSize": "extra-small",
           "iconCustomSize": 64,
           "position": "middle-right"
         }
