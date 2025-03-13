@@ -50,6 +50,39 @@
             "price_selector": ""
           }
         },
+        "icon_ipafMG": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/check.svg",
+            "icon_size": 16,
+            "icon_color": "#4B4B4B",
+            "text": "<p>Where comfort meets convenience - your baby will love it.</p>",
+            "padding_bottom": 16
+          }
+        },
+        "icon_cg8gpM": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/check.svg",
+            "icon_size": 16,
+            "icon_color": "#4B4B4B",
+            "text": "<p>Guided step-by-step installation</p>",
+            "padding_bottom": 16
+          }
+        },
+        "icon_FNDt6x": {
+          "type": "icon",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/check.svg",
+            "icon_size": 16,
+            "icon_color": "#4B4B4B",
+            "text": "<p>Life-saving real-time alerts</p>",
+            "padding_bottom": 16
+          }
+        },
         "variants": {
           "type": "variant-selectors",
           "settings": {
@@ -61,6 +94,7 @@
         },
         "subscriptions": {
           "type": "subscription",
+          "disabled": true,
           "settings": {
             "subscriptions_enable_selectors": true,
             "padding_bottom": 20
@@ -68,6 +102,7 @@
         },
         "quantity": {
           "type": "quantity",
+          "disabled": true,
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
@@ -187,6 +222,9 @@
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "icon_ipafMG",
+        "icon_cg8gpM",
+        "icon_FNDt6x",
         "variants",
         "subscriptions",
         "quantity",
