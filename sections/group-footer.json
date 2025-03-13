@@ -11,6 +11,12 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "section_liquid_nDdLqE": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nmin-width:34px;}\n</style>"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -98,6 +104,7 @@
     }
   },
   "order": [
+    "section_liquid_nDdLqE",
     "footer",
     "subfooter"
   ]

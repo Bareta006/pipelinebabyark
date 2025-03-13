@@ -8274,7 +8274,7 @@
                 }
             }
         }
-        formattingMoney(money) { //edite to remove decimal places and trailing zeros
+        formattingMoney(money) {
             let formattedMoney;
             if (theme.settings.currency_code_enable) {
                 formattedMoney = themeCurrency.formatMoney(money, theme.moneyFormat) + ` ${theme.currencyCode}`;
