@@ -392,7 +392,7 @@
                   <p>{{ block.settings.text | remove: '<p>' | remove: '</p>' }}</p>
                 </div>
                 {% when 'icon-delivery' %}
-                  {% assign image = block.settings.image_delivery %}
+                  {% assign image = block.settings.image-delivery %}
   
                   <div class="product__block__icon delivery-info" style="--PB: {{ block.settings.padding_bottom_delivery }}px;" {{ block.shopify_attributes }}>
                     <div class="icon-holder" style="--ICON-SIZE: {{ block.settings.icon_size_delivery }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color_delivery }};">
