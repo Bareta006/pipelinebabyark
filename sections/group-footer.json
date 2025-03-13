@@ -14,7 +14,7 @@
     "section_liquid_nDdLqE": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:initial;}\n.product__block__icon > .icon-holder >div{\nwidth:34px;}\n</style>"
+        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:20;}\n.product__block__icon > .icon-holder >div{\nwidth:34px;}\n</style>"
       }
     },
     "footer": {
