@@ -82,7 +82,6 @@
             // Determine which data to use (variant-specific or general product)
             const deliveryData = variantData || deliveryInfo.product;
 
-            // Get the input elements
             const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
             const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
 
@@ -91,59 +90,31 @@
                 return;
             }
 
-            // Create new hidden inputs if needed to avoid name switching issues
-            let timeInput = deliveryTimeInput;
-            let dateInput = deliveryDateInput;
-            
+            // Clear input values before updating
+            if (deliveryTimeInput) deliveryTimeInput.value = "";
+            if (deliveryDateInput) deliveryDateInput.value = "";
+
             if (deliveryData.delivery_time) {
-                // We need to use deliveryTime
-                if (!timeInput) {
-                    // If deliveryTime input doesn't exist, create it
-                    timeInput = document.createElement('input');
-                    timeInput.type = 'hidden';
-                    timeInput.name = 'deliveryTime';
-                    document.querySelector('form[action="/cart/add"]').appendChild(timeInput);
+                // Use deliveryTime
+                if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
+                if (deliveryTimeInput) {
+                    deliveryTimeInput.value = deliveryData.delivery_time;
+                    deliveryTimeInput.name = "deliveryTime";
                 }
-                
-                // Set the value
-                timeInput.value = deliveryData.delivery_time;
-                
-                // Remove the deliveryDate input if it exists
-                if (dateInput) {
-                    dateInput.parentNode.removeChild(dateInput);
-                }
-                
-                console.log("Set deliveryTime value:", timeInput.value);
             } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
-                // We need to use deliveryDate
-                if (!dateInput) {
-                    // If deliveryDate input doesn't exist, create it
-                    dateInput = document.createElement('input');
-                    dateInput.type = 'hidden';
-                    dateInput.name = 'deliveryDate';
-                    document.querySelector('form[action="/cart/add"]').appendChild(dateInput);
-                }
-                
-                // Set the value
+                // Use deliveryDate (either product-level or variant-specific)
                 const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
-                dateInput.value = estimatedDate;
-                
-                // Remove the deliveryTime input if it exists
-                if (timeInput) {
-                    timeInput.parentNode.removeChild(timeInput);
+                if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
+                if (deliveryDateInput) {
+                    deliveryDateInput.value = estimatedDate;
+                    deliveryDateInput.name = "deliveryDate";
                 }
-                
-                console.log("Set deliveryDate value:", dateInput.value);
             } else {
                 console.log("No delivery info available for this variant or product.");
-                
-                // Remove both inputs if no delivery info
-                if (timeInput) timeInput.parentNode.removeChild(timeInput);
-                if (dateInput) dateInput.parentNode.removeChild(dateInput);
             }
             
             console.log("Updated hidden inputs for variant ID:", variantId);
-        }, 200); // 200ms delay to ensure DOM is updated
+        }, 100); // 100ms delay to ensure DOM is updated
     }
 
     // Function to update the estimated delivery text
@@ -172,7 +143,7 @@
             }
             
             console.log("Updated estimated text for variant ID:", variantId);
-        }, 150); // 150ms delay to ensure DOM is updated
+        }, 100); // 100ms delay to ensure DOM is updated
     }
 
     // Initial updates for hidden inputs and estimate text
