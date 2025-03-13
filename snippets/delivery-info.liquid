@@ -89,10 +89,23 @@
 
         if (deliveryData.delivery_time) {
             // Use deliveryTime
-            if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
-            if (deliveryTimeInput) {
+            if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
+                // Only use setTimeout when changing the name
+                deliveryDateInput.name = "deliveryTime";
+                setTimeout(() => {
+                    deliveryDateInput.value = deliveryData.delivery_time;
+                }, 50);
+            } else if (deliveryDateInput) {
+                // Name is already correct, set value immediately
+                deliveryDateInput.value = deliveryData.delivery_time;
+            }
+            
+            if (deliveryTimeInput && deliveryTimeInput.name === "deliveryTime") {
+                // Name is already correct, set value immediately
+                deliveryTimeInput.value = deliveryData.delivery_time;
+            } else if (deliveryTimeInput) {
+                // Name is changing, use setTimeout
                 deliveryTimeInput.name = "deliveryTime";
-                // Add small delay before setting the value
                 setTimeout(() => {
                     deliveryTimeInput.value = deliveryData.delivery_time;
                 }, 50);
@@ -100,10 +113,24 @@
         } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
             // Use deliveryDate (either product-level or variant-specific)
             const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
-            if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
-            if (deliveryDateInput) {
+            
+            if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
+                // Only use setTimeout when changing the name
+                deliveryTimeInput.name = "deliveryDate";
+                setTimeout(() => {
+                    deliveryTimeInput.value = estimatedDate;
+                }, 50);
+            } else if (deliveryTimeInput) {
+                // Name is already correct, set value immediately
+                deliveryTimeInput.value = estimatedDate;
+            }
+            
+            if (deliveryDateInput && deliveryDateInput.name === "deliveryDate") {
+                // Name is already correct, set value immediately
+                deliveryDateInput.value = estimatedDate;
+            } else if (deliveryDateInput) {
+                // Name is changing, use setTimeout
                 deliveryDateInput.name = "deliveryDate";
-                // Add small delay before setting the value
                 setTimeout(() => {
                     deliveryDateInput.value = estimatedDate;
                 }, 50);
