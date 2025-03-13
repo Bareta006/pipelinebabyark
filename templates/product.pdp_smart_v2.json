@@ -36,7 +36,7 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 0
+            "padding_bottom": 10
           }
         },
         "affirm_pay_over_time_messaging_product_block_cM8zAB": {
@@ -53,7 +53,7 @@
         "liquid_dphapp": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "<div class=\"product__block__icon\" style=\"--PB: 16px;margin-top:20px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-weight:400;font-family:font-family: var(--FONT-STACK-BODY);font-size:16px;text-transform:none;letter-spacing:0;\">Where comfort meets convenience - your baby will love it.</p>\n                </div>\n<div class=\"product__block__icon\" style=\"--PB: 16px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-family:font-family: var(--FONT-STACK-BODY);font-weight:400;font-size:16px;text-transform:none;letter-spacing:0;\">Guided step-by-step installation</p>\n                </div>\n\n<div class=\"product__block__icon\" style=\"--PB: 16px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-family:font-family: var(--FONT-STACK-BODY);font-size:16px;text-transform:none;letter-spacing:0;font-weight:400;\">Life-saving real-time alerts</p>\n                </div>"
+            "custom_liquid": "<div class=\"product__block__icon\" style=\"--PB: 16px;margin-top:20px;margin-bottom:20px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-weight:400;font-family:font-family: var(--FONT-STACK-BODY);font-size:16px;text-transform:none;letter-spacing:0;\">Where comfort meets convenience - your baby will love it.</p>\n                </div>\n<div class=\"product__block__icon\" style=\"--PB: 16px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-family:font-family: var(--FONT-STACK-BODY);font-weight:400;font-size:16px;text-transform:none;letter-spacing:0;\">Guided step-by-step installation</p>\n                </div>\n\n<div class=\"product__block__icon\" style=\"--PB: 16px;\">\n                  <div class=\"icon-holder\" style=\"--ICON-SIZE: 16px; --ICON-STROKE-COLOR: #4B4B4B;\">\n\n                      \n<!-- /snippets/image.liquid -->\n\n\n\n<div class=\"relative block w-full h-full overflow-hidden\" style=\"--wh-ratio: ;  \">\n      <img src=\"//babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\" alt=\"\" width=\"16\" height=\"17\" loading=\"lazy\" class=\"block overflow-hidden w-full h-full object-cover transition-opacity duration-300 ease-linear \" srcset=\"\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=32 2x,\n                        //babyark.com/cdn/shop/files/check.svg?v=1741870873&amp;width=16\n                      \" fetchpriority=\"auto\" style=\"object-position: center center; \">\n    </div>\n</div>\n\n                  <p style=\"font-family:font-family: var(--FONT-STACK-BODY);font-size:16px;text-transform:none;letter-spacing:0;font-weight:400;\">Life-saving real-time alerts</p>\n                </div>"
           }
         },
         "variants": {
@@ -61,8 +61,8 @@
           "settings": {
             "option_size_swatch": 40,
             "option_size_radio": 50,
-            "option_space": 50,
-            "padding_bottom": 30
+            "option_space": 36,
+            "padding_bottom": 20
           }
         },
         "subscriptions": {
@@ -95,7 +95,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
@@ -129,7 +129,7 @@
             "enable_description": true,
             "read_more": false,
             "icon_description": "",
-            "description_expanded": false,
+            "description_expanded": true,
             "title_1": "Information",
             "icon_name_1": "",
             "raw_content_1": "",
@@ -391,8 +391,8 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "",
-        "title": "Significantly reduces the risk of head injury",
-        "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
+        "title": "We publish what others don’t",
+        "text": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1000, but <strong>not all seats perform the same</strong>. We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
         "font_size": 5,
         "text_columns": 1,
         "align_text": "text-left",
@@ -637,7 +637,7 @@
           "settings": {
             "kicker": "",
             "title": "Critical alerts",
-            "text": "<p>Built-in alerts help you not forget your most important passenger.</p>",
+            "text": "<p>Never second-guess if your child is secured. <strong>Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.</strong></p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
