@@ -418,7 +418,7 @@
           "type": "text",
           "settings": {
             "text": "<p>We want you to love your babyark as much as we do.<br/>So if you don’t, we’ll take it back no questions asked.</p>",
-            "text_size": 6,
+            "text_size": 5,
             "text_columns": 1
           }
         }
