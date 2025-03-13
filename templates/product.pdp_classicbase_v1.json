@@ -265,6 +265,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
@@ -344,6 +348,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
@@ -383,6 +391,10 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
