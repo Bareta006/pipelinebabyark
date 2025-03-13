@@ -94,15 +94,15 @@
             "padding_bottom": 20
           }
         },
-        "icon_Yedxbi": {
-          "type": "icon",
+        "icon_delivery_xm8BMV": {
+          "type": "icon-delivery",
           "settings": {
-            "icon_name": "icon-truck",
-            "image": "shopify://shop_images/Group_29613095.svg",
-            "icon_size": 20,
-            "icon_color": "#4b4b4b",
-            "text": "<p><strong>ESTIMATED DELIVERY BETWEEN </strong>{{ product.metafields.delivery.delivery_time.value }} {{ product.metafields.delivery.estimated_date.value }}</p>",
-            "padding_bottom": 20
+            "icon_name_delivery": "icon-award",
+            "image-delivery": "shopify://shop_images/Group_29613095.svg",
+            "icon_size_delivery": 16,
+            "icon_color_delivery": "#4B4B4B",
+            "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
+            "padding_bottom_delivery": 8
           }
         },
         "icon_EC9RhA": {
@@ -201,7 +201,7 @@
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_WkJHEM",
         "buttons",
-        "icon_Yedxbi",
+        "icon_delivery_xm8BMV",
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
