@@ -693,31 +693,10 @@
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "text_7hmDhz": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "The fabric",
-            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        },
         "video_P9J8Vf": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/cover removal AND magnetic straps.mp4",
+            "video_bg": "shopify://files/videos/High end_new_67de9926-07f2-419f-9452-b82a0ec7ef4d.mp4",
             "object_position": "center-center",
             "video_link": "",
             "popup_text": "",
@@ -733,14 +712,35 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
+        },
+        "text_7hmDhz": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Comfort that keeps them happy, every ride.",
+            "text": "<ul><li>All-day coziness – Soft fabric keeps your baby calm and happy.<br/></li><li>Messes? Handled. – Machine-washable and zip-off for easy cleanup.<br/></li><li>Buckle up, stress-free. – Magnetic straps make every ride smoother.</li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
         }
       },
       "block_order": [
-        "text_7hmDhz",
-        "video_P9J8Vf"
+        "video_P9J8Vf",
+        "text_7hmDhz"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
