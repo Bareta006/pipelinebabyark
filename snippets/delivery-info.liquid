@@ -63,68 +63,87 @@
 
     // Function to update the hidden input fields
     function updateHiddenInputs() {
-        const variantInput = document.querySelector('input[name="id"]');
-        if (!variantInput) {
-            console.log("Variant input not found.");
-            return;
-        }
-
-        const variantId = parseInt(variantInput.value, 10);
-        const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
-
-        // Determine which data to use (variant-specific or general product)
-        const deliveryData = variantData || deliveryInfo.product;
-
-        const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
-        const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
-
-        if (!deliveryTimeInput && !deliveryDateInput) {
-            console.log("Delivery input fields not found.");
-            return;
-        }
-
-        // Clear input values before updating
-        if (deliveryTimeInput) deliveryTimeInput.value = "";
-        if (deliveryDateInput) deliveryDateInput.value = "";
-
-        if (deliveryData.delivery_time) {
-            // Use deliveryTime
-            if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
-            if (deliveryTimeInput) {
-                deliveryTimeInput.value = deliveryData.delivery_time;
-                deliveryTimeInput.name = "deliveryTime";
+        // Add a small delay to ensure DOM is updated with the latest variant
+        setTimeout(() => {
+            const variantInput = document.querySelector('input[name="id"]');
+            if (!variantInput) {
+                console.log("Variant input not found.");
+                return;
             }
-        } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
-            // Use deliveryDate (either product-level or variant-specific)
-            const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
-            if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
-            if (deliveryDateInput) {
-                deliveryDateInput.value = estimatedDate;
-                deliveryDateInput.name = "deliveryDate";
+
+            const variantId = parseInt(variantInput.value, 10);
+            if (isNaN(variantId)) {
+                console.log("Invalid variant ID:", variantInput.value);
+                return;
             }
-        } else {
-            console.log("No delivery info available for this variant or product.");
-        }
+
+            const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+
+            // Determine which data to use (variant-specific or general product)
+            const deliveryData = variantData || deliveryInfo.product;
+
+            const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
+            const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
+
+            if (!deliveryTimeInput && !deliveryDateInput) {
+                console.log("Delivery input fields not found.");
+                return;
+            }
+
+            // Clear input values before updating
+            if (deliveryTimeInput) deliveryTimeInput.value = "";
+            if (deliveryDateInput) deliveryDateInput.value = "";
+
+            if (deliveryData.delivery_time) {
+                // Use deliveryTime
+                if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
+                if (deliveryTimeInput) {
+                    deliveryTimeInput.value = deliveryData.delivery_time;
+                    deliveryTimeInput.name = "deliveryTime";
+                }
+            } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
+                // Use deliveryDate (either product-level or variant-specific)
+                const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
+                if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
+                if (deliveryDateInput) {
+                    deliveryDateInput.value = estimatedDate;
+                    deliveryDateInput.name = "deliveryDate";
+                }
+            } else {
+                console.log("No delivery info available for this variant or product.");
+            }
+            
+            console.log("Updated hidden inputs for variant ID:", variantId);
+        }, 100); // 100ms delay to ensure DOM is updated
     }
 
     // Function to update the estimated delivery text
     function updateEstimatedText() {
-        const variantInput = document.querySelector('input[name="id"]');
-        if (!variantInput) {
-            console.log("Variant input not found.");
-            return;
-        }
+        setTimeout(() => {
+            const variantInput = document.querySelector('input[name="id"]');
+            if (!variantInput) {
+                console.log("Variant input not found.");
+                return;
+            }
 
-        const variantId = parseInt(variantInput.value, 10);
-        const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+            const variantId = parseInt(variantInput.value, 10);
+            if (isNaN(variantId)) {
+                console.log("Invalid variant ID:", variantInput.value);
+                return;
+            }
 
-        if (variantData && variantData.delivery_estimated_date) {
-            // Update to variant-specific estimated date
-            estimateContentElement.textContent = variantData.delivery_estimated_date;
-        } else {
-            // Fallback to the original product text
-            estimateContentElement.textContent = originalText;
-        }
+            const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+
+            if (variantData && variantData.delivery_estimated_date) {
+                // Update to variant-specific estimated date
+                estimateContentElement.textContent = variantData.delivery_estimated_date;
+            } else {
+                // Fallback to the original product text
+                estimateContentElement.textContent = originalText;
+            }
+            
+            console.log("Updated estimated text for variant ID:", variantId);
+        }, 100); // 100ms delay to ensure DOM is updated
     }
 
     // Initial updates for hidden inputs and estimate text
@@ -134,7 +153,25 @@
     // Update on variant change
     const variantInput = document.querySelector('input[name="id"]');
     if (variantInput) {
+        // Use both change and input events to catch all possible variant changes
         variantInput.addEventListener("change", () => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        });
+        
+        // Some themes might use input event instead of change
+        variantInput.addEventListener("input", () => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        });
+        
+        // Also listen for custom events that might be triggered by the theme
+        document.addEventListener("variant:change", () => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        });
+        
+        document.addEventListener("variant:updated", () => {
             updateHiddenInputs();
             updateEstimatedText();
         });
