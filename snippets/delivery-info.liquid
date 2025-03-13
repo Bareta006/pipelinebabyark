@@ -82,35 +82,92 @@
             // Determine which data to use (variant-specific or general product)
             const deliveryData = variantData || deliveryInfo.product;
 
-            const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
-            const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
+            const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]') || document.querySelector('input[data-name="deliveryTime"]');
+            const deliveryDateInput = document.querySelector('input[name="deliveryDate"]') || document.querySelector('input[data-name="deliveryDate"]');
 
+            // Create inputs if they don't exist
             if (!deliveryTimeInput && !deliveryDateInput) {
-                console.log("Delivery input fields not found.");
+                console.log("Creating delivery input fields as they were not found.");
+                
+                // Create hidden inputs and append to the form
+                const form = document.querySelector('form[action*="/cart/add"]');
+                if (!form) {
+                    console.log("Add to cart form not found.");
+                    return;
+                }
+                
+                const timeInput = document.createElement('input');
+                timeInput.type = 'hidden';
+                timeInput.dataset.name = 'deliveryTime';
+                form.appendChild(timeInput);
+                
+                const dateInput = document.createElement('input');
+                dateInput.type = 'hidden';
+                dateInput.dataset.name = 'deliveryDate';
+                form.appendChild(dateInput);
+                
+                // Re-run the function now that we've created the inputs
+                setTimeout(updateHiddenInputs, 10);
                 return;
             }
 
-            // Clear input values before updating
-            if (deliveryTimeInput) deliveryTimeInput.value = "";
-            if (deliveryDateInput) deliveryDateInput.value = "";
-
-            if (deliveryData.delivery_time) {
-                // Use deliveryTime
-                if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
+            // Determine which type of delivery info we have
+            const hasDeliveryTime = !!deliveryData.delivery_time;
+            const hasEstimatedDate = !!(deliveryData.estimated_date || deliveryData.delivery_estimated_date);
+            
+            if (hasDeliveryTime) {
+                // Set up for deliveryTime
+                const deliveryTimeValue = deliveryData.delivery_time;
+                
+                // First set the new value before changing names to avoid empty submissions
                 if (deliveryTimeInput) {
-                    deliveryTimeInput.value = deliveryData.delivery_time;
+                    deliveryTimeInput.value = deliveryTimeValue;
                     deliveryTimeInput.name = "deliveryTime";
+                    deliveryTimeInput.removeAttribute('data-name');
                 }
-            } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
-                // Use deliveryDate (either product-level or variant-specific)
+                
+                if (deliveryDateInput) {
+                    // Remove the name attribute but keep the input in the DOM
+                    deliveryDateInput.removeAttribute('name');
+                    deliveryDateInput.dataset.name = "deliveryDate";
+                    deliveryDateInput.value = ""; // Clear the value as it's not being used
+                }
+                
+                console.log("Set delivery time:", deliveryTimeValue);
+            } else if (hasEstimatedDate) {
+                // Set up for deliveryDate
                 const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
-                if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
+                
+                // First set the new value before changing names to avoid empty submissions
                 if (deliveryDateInput) {
                     deliveryDateInput.value = estimatedDate;
                     deliveryDateInput.name = "deliveryDate";
+                    deliveryDateInput.removeAttribute('data-name');
                 }
+                
+                if (deliveryTimeInput) {
+                    // Remove the name attribute but keep the input in the DOM
+                    deliveryTimeInput.removeAttribute('name');
+                    deliveryTimeInput.dataset.name = "deliveryTime";
+                    deliveryTimeInput.value = ""; // Clear the value as it's not being used
+                }
+                
+                console.log("Set delivery date:", estimatedDate);
             } else {
                 console.log("No delivery info available for this variant or product.");
+                
+                // Make sure both inputs are inactive but preserved in the DOM
+                if (deliveryTimeInput) {
+                    deliveryTimeInput.removeAttribute('name');
+                    deliveryTimeInput.dataset.name = "deliveryTime";
+                    deliveryTimeInput.value = "";
+                }
+                
+                if (deliveryDateInput) {
+                    deliveryDateInput.removeAttribute('name');
+                    deliveryDateInput.dataset.name = "deliveryDate";
+                    deliveryDateInput.value = "";
+                }
             }
             
             console.log("Updated hidden inputs for variant ID:", variantId);
