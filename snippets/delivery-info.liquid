@@ -91,16 +91,22 @@
             // Use deliveryTime
             if (deliveryDateInput) deliveryDateInput.name = "deliveryTime";
             if (deliveryTimeInput) {
-                deliveryTimeInput.value = deliveryData.delivery_time;
                 deliveryTimeInput.name = "deliveryTime";
+                // Add small delay before setting the value
+                setTimeout(() => {
+                    deliveryTimeInput.value = deliveryData.delivery_time;
+                }, 50);
             }
         } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
             // Use deliveryDate (either product-level or variant-specific)
             const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
             if (deliveryTimeInput) deliveryTimeInput.name = "deliveryDate";
             if (deliveryDateInput) {
-                deliveryDateInput.value = estimatedDate;
                 deliveryDateInput.name = "deliveryDate";
+                // Add small delay before setting the value
+                setTimeout(() => {
+                    deliveryDateInput.value = estimatedDate;
+                }, 50);
             }
         } else {
             console.log("No delivery info available for this variant or product.");
