@@ -96,6 +96,7 @@
         }
         
         // Check if the product gallery slideshow exists
+        // Use ID for specificity but keep the data attribute for theme compatibility
         const slideshowContainer = document.getElementById('product-gallery-slideshow');
         if (!slideshowContainer) {
           //console.log('No product gallery slideshow found, skipping initialization');
@@ -252,6 +253,7 @@
     //console.log('Selected color:', selectedColor);
     
     // 2. Get the slideshow container - TARGET ONLY THE PRODUCT GALLERY
+    // Use ID for specificity but keep the data attribute for theme compatibility
     const slideshowContainer = document.getElementById('product-gallery-slideshow');
     if (!slideshowContainer) {
       //console.log('No product gallery slideshow container found');
@@ -453,6 +455,7 @@
     if (!selectedColor) return;
 
     // Get the slideshow container - TARGET ONLY THE PRODUCT GALLERY
+    // Use ID for specificity but keep the data attribute for theme compatibility
     const slideshowContainer = document.getElementById('product-gallery-slideshow');
     
     if (!slideshowContainer) return;
