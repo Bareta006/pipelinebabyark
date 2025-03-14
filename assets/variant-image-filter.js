@@ -95,14 +95,6 @@
           return;
         }
         
-        // Check if the product gallery slideshow exists
-        // Use ID for specificity but keep the data attribute for theme compatibility
-        const slideshowContainer = document.getElementById('product-gallery-slideshow');
-        if (!slideshowContainer) {
-          //console.log('No product gallery slideshow found, skipping initialization');
-          return;
-        }
-        
         // Get the initially selected variant
         const variantSelector = document.querySelector('[name="id"]');
         const selectedVariantId = variantSelector?.value;
@@ -252,11 +244,10 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container - TARGET ONLY THE PRODUCT GALLERY
-    // Use ID for specificity but keep the data attribute for theme compatibility
-    const slideshowContainer = document.getElementById('product-gallery-slideshow');
+    // 2. Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
-      //console.log('No product gallery slideshow container found');
+      //console.log('No slideshow container found');
       return;
     }
     
@@ -454,18 +445,14 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container - TARGET ONLY THE PRODUCT GALLERY
-    // Use ID for specificity but keep the data attribute for theme compatibility
-    const slideshowContainer = document.getElementById('product-gallery-slideshow');
+    // Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     
     if (!slideshowContainer) return;
 
-    // Get all media slides and thumbs ONLY WITHIN THE PRODUCT GALLERY
-    const mediaSlides = slideshowContainer.querySelectorAll('[data-media-slide]');
-    
-    // Find the thumbnails container by ID
-    const thumbnailsContainer = document.getElementById('product-gallery-thumbs');
-    const thumbs = thumbnailsContainer ? thumbnailsContainer.querySelectorAll('[data-slideshow-thumbnail]') : [];
+    // Get all media slides and thumbs
+    const mediaSlides = document.querySelectorAll('[data-media-slide]');
+    const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
     
     if (!mediaSlides.length) return;
 

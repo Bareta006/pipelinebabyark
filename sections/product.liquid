@@ -115,7 +115,6 @@
       <div class="grid__item product__media__wrapper {{ product_image_width }} product__mobile--{{ section.settings.mobile_layout }}">
         {% comment %} Product media slideshow {% endcomment %}
         <div class="product__grid product__grid--{{ grid_style }} flickity-lock-height"
-          id="product-gallery-slideshow"
           data-product-slideshow
           data-slideshow-desktop-style="{{ desktop_slideshow_style }}"
           data-slideshow-mobile-style="{{ section.settings.mobile_layout }}"
@@ -182,7 +181,6 @@
             <div
               {% if thumbnails == 'thumbnails-left' %} data-product-thumbs-slider{% endif %}
               data-product-thumbs
-              id="product-gallery-thumbs"
               class="media__thumb__wrapper">
               {% for media_item in product.media %}
 
