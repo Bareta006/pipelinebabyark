@@ -244,15 +244,14 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the product gallery slideshow container - UPDATED SELECTOR
-    // This specifically targets the product gallery slideshow, not the icon carousel
-    const slideshowContainer = document.querySelector('.product__grid[data-product-slideshow]');
+    // 2. Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
-      //console.log('No product gallery slideshow container found');
+      //console.log('No slideshow container found');
       return;
     }
     
-    // 3. Check if we're in mobile mode and using carousel style
+    // 3. Check if we're in mobile mode
     const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
     if (mobileStyle !== 'carousel') {
       //console.log('Not a carousel mobile style:', mobileStyle);
@@ -274,24 +273,34 @@
       //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
     }
     
-    // 5. Check if Flickity is defined and get the instance
+    // 5. Get existing Flickity instance or create a new one
+    let flkty = null;
+    
+    // Check if Flickity is defined
     if (typeof Flickity === 'undefined') {
       console.error('Flickity is not defined. Make sure the library is loaded.');
       return;
     }
     
-    // Get the Flickity instance for the product gallery
-    let flkty = null;
     try {
       flkty = Flickity.data(slideshowContainer);
       
-      // If Flickity doesn't exist yet, don't initialize it - the theme should handle this
+      // If Flickity doesn't exist yet, initialize it
       if (!flkty) {
-        console.warn('No Flickity instance found for product gallery. The theme should initialize this.');
-        return;
+        //console.log('Creating new Flickity instance');
+        flkty = new Flickity(slideshowContainer, {
+          cellAlign: 'center',
+          contain: true,
+          draggable: true,
+          prevNextButtons: false,
+          pageDots: false,
+          adaptiveHeight: false
+        });
+      } else {
+        //console.log('Using existing Flickity instance');
       }
     } catch (error) {
-      console.error('Error getting Flickity instance:', error);
+      console.error('Error initializing Flickity:', error);
       return;
     }
     
@@ -303,16 +312,33 @@
     const normalizedSelectedColor = selectedColor.trim().toLowerCase();
     //console.log('Filtering slides for normalized color:', normalizedSelectedColor);
     
+    // Debug all stored slides and their alt text
+    //console.log('All stored slides:');
+    window.originalSlidesData.forEach((data, index) => {
+      //console.log(`Slide ${index + 1} alt text:`, data.altText);
+    });
+    
     window.originalSlidesData.forEach((slideData, index) => {
       // Normalize the alt text for comparison
       const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
       
-      // Check for exact match or if alt text contains the color
-      if (normalizedAltText === normalizedSelectedColor || 
-          normalizedAltText.includes(normalizedSelectedColor) || 
-          normalizedSelectedColor.includes(normalizedAltText)) {
+      //console.log(`Comparing slide ${index + 1}:`, normalizedAltText, 'with selected color:', normalizedSelectedColor);
+      
+      // Check for exact match
+      if (normalizedAltText === normalizedSelectedColor) {
         isVisible = true;
+        //console.log('MATCH - Exact match');
+      } 
+      // Check if alt text contains the color
+      else if (normalizedAltText.includes(normalizedSelectedColor)) {
+        isVisible = true;
+        //console.log('MATCH - Contains color');
+      }
+      // Check if color contains the alt text (reverse check)
+      else if (normalizedSelectedColor.includes(normalizedAltText)) {
+        isVisible = true;
+        //console.log('MATCH - Color contains alt text');
       }
       
       if (isVisible) {
@@ -322,8 +348,14 @@
       }
     });
     
+    //console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
+    
     // If no visible slides, show all slides
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
+    
+    if (visibleSlides.length === 0) {
+      //console.log('No matching slides found, showing all slides instead');
+    }
     
     try {
       // 7. Remove all cells from Flickity
@@ -331,6 +363,7 @@
         const cellElements = flkty.getCellElements();
         if (cellElements && cellElements.length > 0) {
           flkty.remove(cellElements);
+          //console.log('Removed all existing cells');
         }
       }
       
@@ -339,6 +372,9 @@
         slidesToShow.forEach(slide => {
           flkty.append(slide);
         });
+        //console.log('Added', slidesToShow.length, 'slides to Flickity');
+      } else {
+        console.warn('No slides to show');
       }
       
       // 9. Update Flickity to reflect changes
@@ -350,6 +386,8 @@
       if (flkty.cells && flkty.cells.length > 0) {
         flkty.select(0, false, true);
       }
+      
+      //console.log('Flickity updated with filtered slides');
     } catch (error) {
       console.error('Error updating Flickity:', error);
       
@@ -378,6 +416,8 @@
           pageDots: false,
           adaptiveHeight: false
         });
+        
+        //console.log('Rebuilt Flickity from scratch after error');
       } catch (fallbackError) {
         console.error('Fallback also failed:', fallbackError);
       }
@@ -405,8 +445,8 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container - UPDATED SELECTOR
-    const slideshowContainer = document.querySelector('.product__grid[data-product-slideshow]');
+    // Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     
     if (!slideshowContainer) return;
 
