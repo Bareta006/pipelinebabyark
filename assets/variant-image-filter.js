@@ -244,10 +244,10 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container - ONLY target the product gallery with ID "product-gallery-div"
-    const slideshowContainer = document.getElementById('product-gallery-div');
+    // 2. Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
-      //console.log('Product gallery div not found');
+      //console.log('No slideshow container found');
       return;
     }
     
@@ -445,8 +445,8 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container - ONLY target the product gallery with ID "product-gallery-div"
-    const slideshowContainer = document.getElementById('product-gallery-div');
+    // Get the slideshow container
+    const slideshowContainer = document.querySelector('[data-product-slideshow]');
     
     if (!slideshowContainer) return;
 
