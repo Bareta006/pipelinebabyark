@@ -6,7 +6,7 @@
   position: relative;
 }
 
-#shopify-section-{{ section.id }} .flickity-carousel {
+#shopify-section-{{ section.id }} .icon-text-flickity-carousel {
   opacity: 1; /* Show carousel from start */
 }
 
@@ -63,11 +63,11 @@
   opacity: 0.8;
 }
 
-#shopify-section-{{ section.id }} .flickity-page-dots {
+#shopify-section-{{ section.id }} .icon-text-flickity-page-dots {
   bottom: 20px;
 }
 
-#shopify-section-{{ section.id }} .flickity-page-dots .dot {
+#shopify-section-{{ section.id }} .icon-text-flickity-page-dots .dot {
   width: 10px;
   height: 10px;
   margin: 0 6px;
@@ -75,15 +75,17 @@
   opacity: 0.4;
 }
 
-#shopify-section-{{ section.id }} .flickity-page-dots .dot.is-selected {
+#shopify-section-{{ section.id }} .icon-text-flickity-page-dots .dot.is-selected {
   opacity: 1;
   width: 20px;
   border-radius: 10px;
   transition: width 0.3s ease;
 }
-#shopify-section-{{ section.id }} .flickity-button{
+
+#shopify-section-{{ section.id }} .icon-text-flickity-button {
   display: none;
 }
+
 @media (max-width: 768px) {
   #shopify-section-{{ section.id }} .icon-slider-container {
     padding: 0 15px;
@@ -117,14 +119,14 @@
          data-section-type="icon-slider-text" 
          style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
-    <div class="flickity-carousel"
-         data-carousel 
+    <div class="icon-text-flickity-carousel"
+         data-icon-text-carousel 
          data-slideshow-autoplay="{{ section.settings.autoplay }}"
          data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
         {%- assign has_link = block.settings.link -%}
         <div class="icon-slider-block{% if has_link != blank %} clickable{% endif %}" 
-             data-carousel-slide
+             data-icon-text-slide
              {% if has_link != blank %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
           {% if block.settings.use_text_instead %}
             <div class="text-instead">{{ block.settings.text_instead }}</div>
@@ -148,107 +150,123 @@
 </section>
 
 {% javascript %}
-document.addEventListener('DOMContentLoaded', () => {
-  //console.log('DOM Content Loaded');
-  const carousels = document.querySelectorAll('[data-carousel]');
-  //console.log('Found carousels:', carousels.length);
-
-  carousels.forEach((carousel, index) => {
-    //console.log(`Initializing carousel ${index}`);
-    const slides = carousel.querySelectorAll('.icon-slider-block');
-    //console.log(`Found ${slides.length} slides`);
+// Use an immediately invoked function expression (IIFE) to isolate the scope
+(function() {
+  // Create a custom event name for this specific section type
+  const ICON_TEXT_INIT_EVENT = 'icon-text-slider:init';
+  const ICON_TEXT_RESIZE_EVENT = 'icon-text-slider:resize';
+  
+  // Custom initialization function
+  function initIconTextSliders() {
+    // Use a unique selector for this specific carousel type
+    const iconTextCarousels = document.querySelectorAll('[data-icon-text-carousel]');
     
-    // Log initial state
-    slides.forEach((slide, i) => {
-      //console.log(`Slide ${i} initial opacity:`, getComputedStyle(slide).opacity);
-      //console.log(`Slide ${i} visibility:`, getComputedStyle(slide).visibility);
-      //console.log(`Slide ${i} display:`, getComputedStyle(slide).display);
-    });
-
-    const autoplay = carousel.dataset.slideshowAutoplay === 'true';
-    const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
+    if (!iconTextCarousels.length) return;
     
-    //console.log('Initializing Flickity');
-    const flkty = new Flickity(carousel, {
-      cellAlign: 'center',
-      contain: true,
-      wrapAround: true,
-      autoPlay: speed,
-      prevNextButtons: true,
-      pageDots: true,
-      draggable: true,
-      fade: false,
-      adaptiveHeight: false,
-      selectedAttraction: 0.2,
-      friction: 0.8,
-      pauseAutoPlayOnHover: true
-    });
-
-    // Enable/disable autoplay based on setting
-    if (!autoplay) {
-      flkty.stopPlayer();
-    }
-
-    // Function to calculate and set heights
-    const calculateHeights = () => {
-      //console.log('Calculating heights');
-      let maxHeight = 0;
-      slides.forEach((slide, i) => {
-        slide.style.height = '';
-        const height = slide.offsetHeight;
-        //console.log(`Slide ${i} natural height:`, height);
-        maxHeight = Math.max(maxHeight, height);
+    iconTextCarousels.forEach((carousel) => {
+      // Check if already initialized to prevent double initialization
+      if (carousel.classList.contains('icon-text-initialized')) return;
+      
+      const slides = carousel.querySelectorAll('[data-icon-text-slide]');
+      const autoplay = carousel.dataset.slideshowAutoplay === 'true';
+      const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
+      
+      // Create a unique namespace for this Flickity instance
+      const iconTextFlickity = new Flickity(carousel, {
+        cellAlign: 'center',
+        contain: true,
+        wrapAround: true,
+        autoPlay: autoplay ? speed : false,
+        prevNextButtons: true,
+        pageDots: true,
+        draggable: true,
+        fade: false,
+        adaptiveHeight: false,
+        // Use different physics values to make it feel different
+        selectedAttraction: 0.1,
+        friction: 0.6,
+        pauseAutoPlayOnHover: true,
+        // Add a namespace to avoid conflicts with other Flickity instances
+        namespace: 'icon-text-flickity'
       });
-
-      //console.log('Max height found:', maxHeight);
-      if (maxHeight > 0) {
-        slides.forEach((slide, i) => {
-          slide.style.height = `${maxHeight}px`;
-          //console.log(`Set slide ${i} height to ${maxHeight}px`);
+      
+      // Mark as initialized
+      carousel.classList.add('icon-text-initialized');
+      
+      // Store the Flickity instance on the element for future reference
+      carousel.iconTextFlickity = iconTextFlickity;
+      
+      // Function to calculate and set heights
+      const calculateHeights = () => {
+        let maxHeight = 0;
+        slides.forEach((slide) => {
+          slide.style.height = '';
+          const height = slide.offsetHeight;
+          maxHeight = Math.max(maxHeight, height);
         });
-        carousel.style.height = `${maxHeight}px`;
         
-        // Force slides to be visible
-        slides.forEach((slide, i) => {
-          slide.style.opacity = '1';
-          slide.style.visibility = 'visible';
-          //console.log(`Forced slide ${i} to be visible`);
-        });
-      }
-
-      flkty.resize();
-      //console.log('Flickity resize called');
-    };
-
-    // Calculate heights immediately
-    calculateHeights();
-
-    // Wait for images to load
-    const images = carousel.querySelectorAll('img');
-    //console.log(`Found ${images.length} images`);
-    images.forEach((img, i) => {
-      if (!img.complete) {
-        //console.log(`Image ${i} not yet loaded`);
-        img.onload = () => {
-          //console.log(`Image ${i} loaded`);
-          calculateHeights();
-        };
-      } else {
-        //console.log(`Image ${i} already loaded`);
-      }
+        if (maxHeight > 0) {
+          slides.forEach((slide) => {
+            slide.style.height = `${maxHeight}px`;
+          });
+          carousel.style.height = `${maxHeight}px`;
+          
+          // Force slides to be visible
+          slides.forEach((slide) => {
+            slide.style.opacity = '1';
+            slide.style.visibility = 'visible';
+          });
+        }
+        
+        if (carousel.iconTextFlickity) {
+          carousel.iconTextFlickity.resize();
+        }
+      };
+      
+      // Calculate heights immediately
+      calculateHeights();
+      
+      // Wait for images to load
+      const images = carousel.querySelectorAll('img');
+      images.forEach((img) => {
+        if (!img.complete) {
+          img.onload = calculateHeights;
+        }
+      });
+      
+      // Add a custom event listener for resize
+      window.addEventListener(ICON_TEXT_RESIZE_EVENT, calculateHeights);
+      
+      // Handle window resize with a debounce
+      let iconTextResizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(iconTextResizeTimer);
+        iconTextResizeTimer = setTimeout(() => {
+          // Dispatch our custom resize event
+          window.dispatchEvent(new CustomEvent(ICON_TEXT_RESIZE_EVENT));
+        }, 250);
+      });
     });
-
-    // Recalculate on window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        //console.log('Window resized, recalculating heights');
-        calculateHeights();
-      }, 250);
-    });
+  }
+  
+  // Initialize on DOMContentLoaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Dispatch our custom init event
+    window.dispatchEvent(new CustomEvent(ICON_TEXT_INIT_EVENT));
   });
-});
+  
+  // Listen for our custom init event
+  window.addEventListener(ICON_TEXT_INIT_EVENT, initIconTextSliders);
+  
+  // Also initialize on Shopify section load events
+  document.addEventListener('shopify:section:load', (event) => {
+    const section = event.target;
+    if (section && section.dataset.sectionType === 'icon-slider-text') {
+      // Dispatch our custom init event
+      window.dispatchEvent(new CustomEvent(ICON_TEXT_INIT_EVENT));
+    }
+  });
+})();
 {% endjavascript %}
 
 {% schema %}
