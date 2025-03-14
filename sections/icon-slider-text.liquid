@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
     
     //console.log('Initializing Flickity');
-    const flkty = new Flickity(carousel, {
+    const flktyIconSlider = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
       wrapAround: true,
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Enable/disable autoplay based on setting
     if (!autoplay) {
-      flkty.stopPlayer();
+      flktyIconSlider.stopPlayer();
     }
 
     // Function to calculate and set heights
@@ -216,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      flkty.resize();
+      flktyIconSlider.resize();
       //console.log('Flickity resize called');
     };
 
