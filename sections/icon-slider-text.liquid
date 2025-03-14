@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
     
     //console.log('Initializing Flickity');
+    setTimeout(() => {
     const flktyIconSlider = new Flickity(carousel, {
       cellAlign: 'center',
       contain: true,
@@ -237,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //console.log(`Image ${i} already loaded`);
       }
     });
-
+    }, 1000);
     // Recalculate on window resize
     let resizeTimer;
     window.addEventListener('resize', () => {
