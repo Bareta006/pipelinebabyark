@@ -19,6 +19,28 @@
     }, 100);
   }
   
+  // Add resize event listener to handle switching between mobile and desktop views
+  let resizeTimer;
+  let lastWidth = window.innerWidth;
+  
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function() {
+      const currentWidth = window.innerWidth;
+      const wasMobile = lastWidth < 768;
+      const isMobile = currentWidth < 768;
+      
+      // Only reinitialize if we've crossed the mobile/desktop threshold
+      if ((wasMobile && !isMobile) || (!wasMobile && isMobile)) {
+        // Reset originalSlidesData to ensure we're working with fresh data
+        window.originalSlidesData = null;
+        initializeWithSelectedVariant();
+      }
+      
+      lastWidth = currentWidth;
+    }, 250); // Debounce resize events
+  });
+  
   // Listen for the theme's variant change event
   document.addEventListener('theme:variant:change', function(event) {
     if (event.detail && event.detail.variant) {
@@ -45,6 +67,8 @@
           const isMobile = window.innerWidth < 768;
           
           if (isMobile) {
+            // Reset originalSlidesData to ensure we're working with fresh data on variant change
+            window.originalSlidesData = null;
             filterImagesForMobile(event.detail.variant, productData);
           } else {
             filterImagesForDesktop(event.detail.variant, productData, false);
@@ -121,6 +145,8 @@
         const isMobile = window.innerWidth < 768;
         
         if (isMobile) {
+          // Reset originalSlidesData to ensure we're working with fresh data
+          window.originalSlidesData = null;
           filterImagesForMobile(selectedVariant, productData);
         } else {
           filterImagesForDesktop(selectedVariant, productData, true);
@@ -244,17 +270,17 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    // 2. Get the main product gallery slider container for mobile
+    // Target the main product gallery slider instead of the icon carousel
+    const slideshowContainer = document.querySelector('.product__media-container .product__media-list');
     if (!slideshowContainer) {
-      //console.log('No slideshow container found');
+      //console.log('No product gallery slider container found');
       return;
     }
     
-    // 3. Check if we're in mobile mode
-    const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
-    if (mobileStyle !== 'carousel') {
-      //console.log('Not a carousel mobile style:', mobileStyle);
+    // Check if the container has Flickity initialized
+    if (!slideshowContainer.classList.contains('flickity-enabled')) {
+      //console.log('Product gallery slider is not a Flickity carousel');
       return;
     }
     
