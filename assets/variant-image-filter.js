@@ -63,6 +63,13 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
+    // Check if we're on a product page by looking for the product gallery div
+    const productGallery = document.getElementById('product-gallery-div');
+    if (!productGallery) {
+      //console.log('Product gallery div not found, not initializing variant image filter');
+      return;
+    }
+    
     const productJsonScript = document.querySelector('[data-product-json]');
     if (productJsonScript) {
       try {
@@ -244,18 +251,16 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container
-    // Make sure we're on a product page by checking for product form
-    const productForm = document.querySelector('form[action*="/cart/add"]');
-    if (!productForm) {
-      //console.log('Not on a product page');
+    // 2. Get the slideshow container - ONLY target the one inside #product-gallery-div
+    const productGallery = document.getElementById('product-gallery-div');
+    if (!productGallery) {
+      //console.log('Product gallery div not found');
       return;
     }
     
-    // Get the main product slideshow - the one closest to the form
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
-      //console.log('No slideshow container found');
+      //console.log('No slideshow container found in product gallery');
       return;
     }
     
@@ -453,13 +458,21 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    // Get the slideshow container - ONLY target the one inside #product-gallery-div
+    const productGallery = document.getElementById('product-gallery-div');
+    if (!productGallery) {
+      //console.log('Product gallery div not found');
+      return;
+    }
     
-    if (!slideshowContainer) return;
+    const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
+    if (!slideshowContainer) {
+      //console.log('No slideshow container found in product gallery');
+      return;
+    }
 
     // Get all media slides and thumbs
-    const mediaSlides = document.querySelectorAll('[data-media-slide]');
+    const mediaSlides = slideshowContainer.querySelectorAll('[data-media-slide]');
     const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
     
     if (!mediaSlides.length) return;
