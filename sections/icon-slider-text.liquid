@@ -6,7 +6,7 @@
   position: relative;
 }
 
-#shopify-section-{{ section.id }} .flickity-carousel {
+#shopify-section-{{ section.id }} .icon-slider-flickity-carousel {
   opacity: 1; /* Show carousel from start */
 }
 
@@ -112,20 +112,19 @@
 }
 </style>
 
-<section class="icon-slider-container {{ section.settings.bg }} not-product-gallery" 
+<section class="icon-slider-container {{ section.settings.bg }}" 
          data-section-id="{{ section.id }}" 
          data-section-type="icon-slider-text" 
          style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
-    <div class="flickity-carousel"
-         data-carousel 
-         data-icon-slider-carousel="true"
+    <div class="icon-slider-flickity-carousel"
+         data-icon-slider-carousel 
          data-slideshow-autoplay="{{ section.settings.autoplay }}"
          data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
       {% for block in section.blocks %}
         {%- assign has_link = block.settings.link -%}
         <div class="icon-slider-block{% if has_link != blank %} clickable{% endif %}" 
-             data-carousel-slide
+             data-icon-slider-slide
              {% if has_link != blank %}onclick="window.location.href='{{ block.settings.link }}'"{% endif %}>
           {% if block.settings.use_text_instead %}
             <div class="text-instead">{{ block.settings.text_instead }}</div>
@@ -150,31 +149,24 @@
 
 {% javascript %}
 document.addEventListener('DOMContentLoaded', () => {
-  //console.log('DOM Content Loaded');
-  const carousels = document.querySelectorAll('[data-icon-slider-carousel="true"]');
-  //console.log('Found carousels:', carousels.length);
-
-  carousels.forEach((carousel, index) => {
-    //console.log(`Initializing carousel ${index}`);
-    const slides = carousel.querySelectorAll('.icon-slider-block');
-    //console.log(`Found ${slides.length} slides`);
+  // Use a more specific selector that won't conflict with product galleries
+  const iconSliders = document.querySelectorAll('[data-icon-slider-carousel]');
+  
+  if (!iconSliders.length) return;
+  
+  iconSliders.forEach((slider) => {
+    const slides = slider.querySelectorAll('[data-icon-slider-slide]');
+    if (!slides.length) return;
     
-    // Log initial state
-    slides.forEach((slide, i) => {
-      //console.log(`Slide ${i} initial opacity:`, getComputedStyle(slide).opacity);
-      //console.log(`Slide ${i} visibility:`, getComputedStyle(slide).visibility);
-      //console.log(`Slide ${i} display:`, getComputedStyle(slide).display);
-    });
-
-    const autoplay = carousel.dataset.slideshowAutoplay === 'true';
-    const speed = parseInt(carousel.dataset.slideshowSpeed, 10) || 5000;
+    const autoplay = slider.dataset.slideshowAutoplay === 'true';
+    const speed = parseInt(slider.dataset.slideshowSpeed, 10) || 5000;
     
-    //console.log('Initializing Flickity');
-    const flkty = new Flickity(carousel, {
+    // Create a new Flickity instance with a unique namespace
+    const iconSliderFlickity = new Flickity(slider, {
       cellAlign: 'center',
       contain: true,
       wrapAround: true,
-      autoPlay: speed,
+      autoPlay: autoplay ? speed : false,
       prevNextButtons: true,
       pageDots: true,
       draggable: true,
@@ -184,58 +176,42 @@ document.addEventListener('DOMContentLoaded', () => {
       friction: 0.8,
       pauseAutoPlayOnHover: true
     });
-
-    // Enable/disable autoplay based on setting
-    if (!autoplay) {
-      flkty.stopPlayer();
-    }
-
+    
+    // Store the Flickity instance directly on the element to prevent conflicts
+    slider._iconSliderFlickity = iconSliderFlickity;
+    
     // Function to calculate and set heights
     const calculateHeights = () => {
-      //console.log('Calculating heights');
       let maxHeight = 0;
-      slides.forEach((slide, i) => {
+      slides.forEach((slide) => {
         slide.style.height = '';
         const height = slide.offsetHeight;
-        //console.log(`Slide ${i} natural height:`, height);
         maxHeight = Math.max(maxHeight, height);
       });
 
-      //console.log('Max height found:', maxHeight);
       if (maxHeight > 0) {
-        slides.forEach((slide, i) => {
+        slides.forEach((slide) => {
           slide.style.height = `${maxHeight}px`;
-          //console.log(`Set slide ${i} height to ${maxHeight}px`);
-        });
-        carousel.style.height = `${maxHeight}px`;
-        
-        // Force slides to be visible
-        slides.forEach((slide, i) => {
+          // Force slides to be visible
           slide.style.opacity = '1';
           slide.style.visibility = 'visible';
-          //console.log(`Forced slide ${i} to be visible`);
         });
+        slider.style.height = `${maxHeight}px`;
       }
 
-      flkty.resize();
-      //console.log('Flickity resize called');
+      if (slider._iconSliderFlickity) {
+        slider._iconSliderFlickity.resize();
+      }
     };
 
     // Calculate heights immediately
     calculateHeights();
 
     // Wait for images to load
-    const images = carousel.querySelectorAll('img');
-    //console.log(`Found ${images.length} images`);
-    images.forEach((img, i) => {
+    const images = slider.querySelectorAll('img');
+    images.forEach((img) => {
       if (!img.complete) {
-        //console.log(`Image ${i} not yet loaded`);
-        img.onload = () => {
-          //console.log(`Image ${i} loaded`);
-          calculateHeights();
-        };
-      } else {
-        //console.log(`Image ${i} already loaded`);
+        img.onload = calculateHeights;
       }
     });
 
@@ -243,10 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        //console.log('Window resized, recalculating heights');
-        calculateHeights();
-      }, 250);
+      resizeTimer = setTimeout(calculateHeights, 250);
     });
   });
 });
