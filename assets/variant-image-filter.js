@@ -19,29 +19,6 @@
     }, 100);
   }
   
-  // Add resize event listener to handle switching between mobile and desktop views
-  let resizeTimer;
-  let lastWidth = window.innerWidth;
-  
-  window.addEventListener('resize', function() {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function() {
-      const currentWidth = window.innerWidth;
-      const wasMobile = lastWidth < 768;
-      const isMobile = currentWidth < 768;
-      
-      // Only reinitialize if we've crossed the mobile/desktop threshold
-      if ((wasMobile && !isMobile) || (!wasMobile && isMobile)) {
-        // Reset cached slides data to ensure we're working with fresh data
-        window.originalSlidesData = null;
-        window.originalGallerySlides = null;
-        initializeWithSelectedVariant();
-      }
-      
-      lastWidth = currentWidth;
-    }, 250); // Debounce resize events
-  });
-  
   // Listen for the theme's variant change event
   document.addEventListener('theme:variant:change', function(event) {
     if (event.detail && event.detail.variant) {
@@ -68,9 +45,6 @@
           const isMobile = window.innerWidth < 768;
           
           if (isMobile) {
-            // Reset cached slides data to ensure we're working with fresh data on variant change
-            window.originalSlidesData = null;
-            window.originalGallerySlides = null;
             filterImagesForMobile(event.detail.variant, productData);
           } else {
             filterImagesForDesktop(event.detail.variant, productData, false);
@@ -147,9 +121,6 @@
         const isMobile = window.innerWidth < 768;
         
         if (isMobile) {
-          // Reset cached slides data to ensure we're working with fresh data
-          window.originalSlidesData = null;
-          window.originalGallerySlides = null;
           filterImagesForMobile(selectedVariant, productData);
         } else {
           filterImagesForDesktop(selectedVariant, productData, true);
@@ -273,265 +244,74 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the mobile product gallery slider
-    // First try to find the main product gallery slider
-    const mainGallerySlider = document.querySelector('.product-gallery__mobile-carousel');
-    
-    // If main gallery slider exists, use it
-    if (mainGallerySlider) {
-      filterMobileGallerySlider(mainGallerySlider, selectedColor);
-    } else {
-      // Fallback to the original slideshow container if main gallery not found
-      const slideshowContainer = document.querySelector('[data-product-slideshow]');
-      if (slideshowContainer) {
-        const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
-        if (mobileStyle === 'carousel') {
-          filterMobileSlideshow(slideshowContainer, selectedColor);
-        }
-      }
-    }
-  }
-  
-  // Function to filter the main mobile gallery slider
-  function filterMobileGallerySlider(gallerySlider, selectedColor) {
-    // Store original slides if needed (only once)
-    if (!window.originalGallerySlides) {
-      const allSlides = gallerySlider.querySelectorAll('.product-gallery__slide');
-      window.originalGallerySlides = Array.from(allSlides).map(slide => {
-        const img = slide.querySelector('img');
-        const altText = img ? (img.getAttribute('alt') || '') : '';
-        return {
-          element: slide.cloneNode(true),
-          altText: altText
-        };
-      });
-    }
-    
-    // Check if Flickity is defined
-    if (typeof Flickity === 'undefined') {
-      console.error('Flickity is not defined. Make sure the library is loaded.');
+    // 2. Get the product gallery slideshow container - UPDATED SELECTOR
+    // This specifically targets the product gallery slideshow, not the icon carousel
+    const slideshowContainer = document.querySelector('.product__grid[data-product-slideshow]');
+    if (!slideshowContainer) {
+      //console.log('No product gallery slideshow container found');
       return;
     }
     
-    // Get existing Flickity instance
-    let flkty = null;
-    try {
-      flkty = Flickity.data(gallerySlider);
-      
-      if (!flkty) {
-        // If no Flickity instance, just hide/show slides directly
-        filterSlidesWithoutFlickity(gallerySlider, selectedColor);
-        return;
-      }
-      
-      // Filter slides based on the selected color
-      const visibleSlides = [];
-      const hiddenSlides = [];
-      
-      // Normalize the selected color for comparison
-      const normalizedSelectedColor = selectedColor.trim().toLowerCase();
-      
-      window.originalGallerySlides.forEach((slideData) => {
-        // Normalize the alt text for comparison
-        const normalizedAltText = slideData.altText.trim().toLowerCase();
-        let isVisible = false;
-        
-        // Check for exact match
-        if (normalizedAltText === normalizedSelectedColor) {
-          isVisible = true;
-        } 
-        // Check if alt text contains the color
-        else if (normalizedAltText.includes(normalizedSelectedColor)) {
-          isVisible = true;
-        }
-        // Check if color contains the alt text (reverse check)
-        else if (normalizedSelectedColor.includes(normalizedAltText)) {
-          isVisible = true;
-        }
-        
-        if (isVisible) {
-          visibleSlides.push(slideData.element.cloneNode(true));
-        } else {
-          hiddenSlides.push(slideData.element.cloneNode(true));
-        }
-      });
-      
-      // If no visible slides, show all slides
-      const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalGallerySlides.map(data => data.element.cloneNode(true));
-      
-      try {
-        // Remove all cells from Flickity
-        if (flkty.cells && flkty.cells.length > 0) {
-          const cellElements = flkty.getCellElements();
-          if (cellElements && cellElements.length > 0) {
-            flkty.remove(cellElements);
-          }
-        }
-        
-        // Add the filtered slides to Flickity
-        if (slidesToShow.length > 0) {
-          slidesToShow.forEach(slide => {
-            flkty.append(slide);
-          });
-        }
-        
-        // Update Flickity to reflect changes
-        flkty.reloadCells();
-        flkty.resize();
-        flkty.updateDraggable();
-        
-        // Go to first cell
-        if (flkty.cells && flkty.cells.length > 0) {
-          flkty.select(0, false, true);
-        }
-      } catch (error) {
-        console.error('Error updating mobile gallery Flickity:', error);
-        
-        // Fallback: If Flickity operations fail, try to rebuild it from scratch
-        try {
-          // Destroy the existing instance
-          if (flkty) {
-            flkty.destroy();
-          }
-          
-          // Clear the container
-          gallerySlider.innerHTML = '';
-          
-          // Add all slides back
-          slidesToShow.forEach(slide => {
-            gallerySlider.appendChild(slide);
-          });
-          
-          // Create a new instance
-          new Flickity(gallerySlider, {
-            cellAlign: 'center',
-            wrapAround: true,
-            contain: true,
-            draggable: true,
-            prevNextButtons: false,
-            pageDots: true,
-            adaptiveHeight: false
-          });
-        } catch (fallbackError) {
-          console.error('Fallback also failed:', fallbackError);
-        }
-      }
-    } catch (error) {
-      console.error('Error with Flickity:', error);
-      // Fallback to non-Flickity approach
-      filterSlidesWithoutFlickity(gallerySlider, selectedColor);
+    // 3. Check if we're in mobile mode and using carousel style
+    const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
+    if (mobileStyle !== 'carousel') {
+      //console.log('Not a carousel mobile style:', mobileStyle);
+      return;
     }
-  }
-  
-  // Function to filter slides without Flickity
-  function filterSlidesWithoutFlickity(container, selectedColor) {
-    const slides = container.querySelectorAll('.product-gallery__slide, .product__media');
-    const normalizedSelectedColor = selectedColor.trim().toLowerCase();
     
-    let hasVisibleSlides = false;
-    
-    slides.forEach(slide => {
-      const img = slide.querySelector('img');
-      const altText = img ? (img.getAttribute('alt') || '').trim().toLowerCase() : '';
-      
-      let isVisible = false;
-      
-      // Check for exact match
-      if (altText === normalizedSelectedColor) {
-        isVisible = true;
-      } 
-      // Check if alt text contains the color
-      else if (altText.includes(normalizedSelectedColor)) {
-        isVisible = true;
-      }
-      // Check if color contains the alt text (reverse check)
-      else if (normalizedSelectedColor.includes(altText)) {
-        isVisible = true;
-      }
-      
-      if (isVisible) {
-        slide.style.display = '';
-        slide.classList.remove('hide');
-        hasVisibleSlides = true;
-      } else {
-        slide.style.display = 'none';
-        slide.classList.add('hide');
-      }
-    });
-    
-    // If no slides are visible, show all slides
-    if (!hasVisibleSlides) {
-      slides.forEach(slide => {
-        slide.style.display = '';
-        slide.classList.remove('hide');
-      });
-    }
-  }
-  
-  // Function to filter the original slideshow container (for backward compatibility)
-  function filterMobileSlideshow(slideshowContainer, selectedColor) {
-    // Store original slides if needed (only once)
+    // 4. Store original slides if needed (only once)
     if (!window.originalSlidesData) {
       const allSlides = slideshowContainer.querySelectorAll('.product__media');
       window.originalSlidesData = Array.from(allSlides).map(slide => {
         const img = slide.querySelector('img');
         const altText = img ? (img.getAttribute('alt') || '') : '';
+        //console.log('Saved slide with alt text:', altText);
         return {
           element: slide.cloneNode(true),
           altText: altText
         };
       });
+      //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
     }
     
-    // Check if Flickity is defined
+    // 5. Check if Flickity is defined and get the instance
     if (typeof Flickity === 'undefined') {
       console.error('Flickity is not defined. Make sure the library is loaded.');
       return;
     }
     
+    // Get the Flickity instance for the product gallery
     let flkty = null;
-    
     try {
       flkty = Flickity.data(slideshowContainer);
       
-      // If Flickity doesn't exist yet, initialize it
+      // If Flickity doesn't exist yet, don't initialize it - the theme should handle this
       if (!flkty) {
-        flkty = new Flickity(slideshowContainer, {
-          cellAlign: 'center',
-          contain: true,
-          draggable: true,
-          prevNextButtons: false,
-          pageDots: false,
-          adaptiveHeight: false
-        });
+        console.warn('No Flickity instance found for product gallery. The theme should initialize this.');
+        return;
       }
     } catch (error) {
-      console.error('Error initializing Flickity:', error);
+      console.error('Error getting Flickity instance:', error);
       return;
     }
     
-    // Filter slides based on the selected color
+    // 6. Filter slides based on the selected color
     const visibleSlides = [];
     const hiddenSlides = [];
     
-    // Normalize the selected color for comparison
+    // Normalize the selected color for comparison (trim whitespace, lowercase)
     const normalizedSelectedColor = selectedColor.trim().toLowerCase();
+    //console.log('Filtering slides for normalized color:', normalizedSelectedColor);
     
-    window.originalSlidesData.forEach((slideData) => {
+    window.originalSlidesData.forEach((slideData, index) => {
       // Normalize the alt text for comparison
       const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
       
-      // Check for exact match
-      if (normalizedAltText === normalizedSelectedColor) {
-        isVisible = true;
-      } 
-      // Check if alt text contains the color
-      else if (normalizedAltText.includes(normalizedSelectedColor)) {
-        isVisible = true;
-      }
-      // Check if color contains the alt text (reverse check)
-      else if (normalizedSelectedColor.includes(normalizedAltText)) {
+      // Check for exact match or if alt text contains the color
+      if (normalizedAltText === normalizedSelectedColor || 
+          normalizedAltText.includes(normalizedSelectedColor) || 
+          normalizedSelectedColor.includes(normalizedAltText)) {
         isVisible = true;
       }
       
@@ -546,7 +326,7 @@
     const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
     try {
-      // Remove all cells from Flickity
+      // 7. Remove all cells from Flickity
       if (flkty.cells && flkty.cells.length > 0) {
         const cellElements = flkty.getCellElements();
         if (cellElements && cellElements.length > 0) {
@@ -554,19 +334,19 @@
         }
       }
       
-      // Add the filtered slides to Flickity
+      // 8. Add the filtered slides to Flickity
       if (slidesToShow.length > 0) {
         slidesToShow.forEach(slide => {
           flkty.append(slide);
         });
       }
       
-      // Update Flickity to reflect changes
+      // 9. Update Flickity to reflect changes
       flkty.reloadCells();
       flkty.resize();
       flkty.updateDraggable();
       
-      // Go to first cell
+      // 10. Go to first cell
       if (flkty.cells && flkty.cells.length > 0) {
         flkty.select(0, false, true);
       }
@@ -625,8 +405,8 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    // Get the slideshow container - UPDATED SELECTOR
+    const slideshowContainer = document.querySelector('.product__grid[data-product-slideshow]');
     
     if (!slideshowContainer) return;
 
