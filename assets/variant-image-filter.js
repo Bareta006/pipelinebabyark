@@ -251,13 +251,14 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container - ONLY target the one inside #product-gallery-div
+    // 2. Get the product gallery div FIRST - this is the container for everything
     const productGallery = document.getElementById('product-gallery-div');
     if (!productGallery) {
       //console.log('Product gallery div not found');
       return;
     }
     
+    // Get the slideshow container WITHIN the product gallery
     const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
       //console.log('No slideshow container found in product gallery');
@@ -271,10 +272,11 @@
       return;
     }
     
-    // 4. Store original slides if needed (only once)
-    if (!window.originalSlidesData) {
-      const allSlides = slideshowContainer.querySelectorAll('.product__media');
-      window.originalSlidesData = Array.from(allSlides).map(slide => {
+    // 4. Store original slides if needed (only once) - ONLY from the product gallery
+    if (!window.productGallerySlides) {
+      // Get slides ONLY from within the product gallery
+      const allSlides = productGallery.querySelectorAll('.product__media');
+      window.productGallerySlides = Array.from(allSlides).map(slide => {
         const img = slide.querySelector('img');
         const altText = img ? (img.getAttribute('alt') || '') : '';
         //console.log('Saved slide with alt text:', altText);
@@ -283,7 +285,7 @@
           altText: altText
         };
       });
-      //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
+      //console.log('Saved original slides data for', window.productGallerySlides.length, 'slides');
     }
     
     // 5. Get existing Flickity instance or create a new one
@@ -327,11 +329,11 @@
     
     // Debug all stored slides and their alt text
     //console.log('All stored slides:');
-    window.originalSlidesData.forEach((data, index) => {
+    window.productGallerySlides.forEach((data, index) => {
       //console.log(`Slide ${index + 1} alt text:`, data.altText);
     });
     
-    window.originalSlidesData.forEach((slideData, index) => {
+    window.productGallerySlides.forEach((slideData, index) => {
       // Normalize the alt text for comparison
       const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
@@ -364,7 +366,7 @@
     //console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
     
     // If no visible slides, show all slides
-    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
+    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.productGallerySlides.map(data => data.element.cloneNode(true));
     
     if (visibleSlides.length === 0) {
       //console.log('No matching slides found, showing all slides instead');
@@ -458,22 +460,24 @@
     
     if (!selectedColor) return;
 
-    // Get the slideshow container - ONLY target the one inside #product-gallery-div
+    // Get the product gallery div FIRST - this is the container for everything
     const productGallery = document.getElementById('product-gallery-div');
     if (!productGallery) {
       //console.log('Product gallery div not found');
       return;
     }
     
+    // Get the slideshow container WITHIN the product gallery
     const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
     if (!slideshowContainer) {
       //console.log('No slideshow container found in product gallery');
       return;
     }
 
-    // Get all media slides and thumbs
-    const mediaSlides = slideshowContainer.querySelectorAll('[data-media-slide]');
-    const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
+    // Get all media slides and thumbs - ONLY from within the product gallery
+    const mediaSlides = productGallery.querySelectorAll('[data-media-slide]');
+    // Thumbs should also be scoped to the product gallery
+    const thumbs = productGallery.querySelectorAll('[data-slideshow-thumbnail]');
     
     if (!mediaSlides.length) return;
 
