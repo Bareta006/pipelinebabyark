@@ -244,10 +244,11 @@
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
     //console.log('Selected color:', selectedColor);
     
-    // 2. Get the slideshow container
-    const slideshowContainer = document.querySelector('[data-product-slideshow]');
+    // 2. Get the slideshow container - SPECIFICALLY the product slideshow
+    // Use a more specific selector to target only the product images slideshow
+    const slideshowContainer = document.querySelector('.product__media__wrapper [data-product-slideshow]');
     if (!slideshowContainer) {
-      //console.log('No slideshow container found');
+      //console.log('No product slideshow container found');
       return;
     }
     
@@ -259,9 +260,13 @@
     }
     
     // 4. Store original slides if needed (only once)
-    if (!window.originalSlidesData) {
+    // Use a more specific key for the product slideshow
+    const slideshowId = slideshowContainer.id || 'product-slideshow';
+    const originalSlidesKey = 'originalSlidesData_' + slideshowId;
+    
+    if (!window[originalSlidesKey]) {
       const allSlides = slideshowContainer.querySelectorAll('.product__media');
-      window.originalSlidesData = Array.from(allSlides).map(slide => {
+      window[originalSlidesKey] = Array.from(allSlides).map(slide => {
         const img = slide.querySelector('img');
         const altText = img ? (img.getAttribute('alt') || '') : '';
         //console.log('Saved slide with alt text:', altText);
@@ -270,7 +275,7 @@
           altText: altText
         };
       });
-      //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
+      //console.log('Saved original slides data for', window[originalSlidesKey].length, 'slides');
     }
     
     // 5. Get existing Flickity instance or create a new one
@@ -314,11 +319,11 @@
     
     // Debug all stored slides and their alt text
     //console.log('All stored slides:');
-    window.originalSlidesData.forEach((data, index) => {
+    window[originalSlidesKey].forEach((data, index) => {
       //console.log(`Slide ${index + 1} alt text:`, data.altText);
     });
     
-    window.originalSlidesData.forEach((slideData, index) => {
+    window[originalSlidesKey].forEach((slideData, index) => {
       // Normalize the alt text for comparison
       const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
@@ -351,7 +356,7 @@
     //console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
     
     // If no visible slides, show all slides
-    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
+    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window[originalSlidesKey].map(data => data.element.cloneNode(true));
     
     if (visibleSlides.length === 0) {
       //console.log('No matching slides found, showing all slides instead');
