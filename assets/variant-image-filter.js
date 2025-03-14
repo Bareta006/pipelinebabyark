@@ -63,13 +63,6 @@
   
   // Function to initialize filtering with the initially selected variant
   function initializeWithSelectedVariant() {
-    // Check if we're on a product page by looking for the product gallery div
-    const productGallery = document.getElementById('product-gallery-div');
-    if (!productGallery) {
-      //console.log('Product gallery div not found, not initializing variant image filter');
-      return;
-    }
-    
     const productJsonScript = document.querySelector('[data-product-json]');
     if (productJsonScript) {
       try {
@@ -213,7 +206,7 @@
 
   // Function specifically for mobile filtering
   function filterImagesForMobile(variant, productData) {
-    console.log('Filtering images for mobile');
+    //console.log('Filtering images for mobile');
     
     // Skip filtering for bundle products
     if (isProductBundle(productData)) {
@@ -222,13 +215,13 @@
     
     // Validate inputs
     if (!variant || !productData) {
-      console.log('Invalid variant or product data');
+      //console.log('Invalid variant or product data');
       return;
     }
     
     // 1. Find the color option index and value
     if (!productData.options || !Array.isArray(productData.options)) {
-      console.log('Product options not found or not an array');
+      //console.log('Product options not found or not an array');
       return;
     }
     
@@ -238,50 +231,49 @@
     );
     
     if (colorOptionIndex === -1) {
-      console.log('No color option found');
+      //console.log('No color option found');
       return; // No color option found
     }
     
     // Ensure variant has options array
     if (!variant.options || !Array.isArray(variant.options) || colorOptionIndex >= variant.options.length) {
-      console.log('Variant options not found or invalid index');
+      //console.log('Variant options not found or invalid index');
       return;
     }
     
     const selectedColor = variant.options[colorOptionIndex].toLowerCase();
-    console.log('Selected color:', selectedColor);
+    //console.log('Selected color:', selectedColor);
     
-    // 2. Get the product gallery div
-    const productGallery = document.getElementById('product-gallery-div');
-    if (!productGallery) {
-      console.log('Product gallery div not found');
-      return;
-    }
-    
-    // Get the slideshow container
-    const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
+    // 2. Get the slideshow container - ONLY target the product gallery with ID "product-gallery-div"
+    const slideshowContainer = document.getElementById('product-gallery-div');
     if (!slideshowContainer) {
-      console.log('No slideshow container found in product gallery');
+      //console.log('Product gallery div not found');
       return;
     }
     
     // 3. Check if we're in mobile mode
     const mobileStyle = slideshowContainer.getAttribute('data-slideshow-mobile-style');
     if (mobileStyle !== 'carousel') {
-      console.log('Not a carousel mobile style:', mobileStyle);
+      //console.log('Not a carousel mobile style:', mobileStyle);
       return;
     }
     
-    // 4. Get all slides from the product gallery
-    const allSlides = productGallery.querySelectorAll('.product__media');
-    if (!allSlides || allSlides.length === 0) {
-      console.log('No slides found in product gallery');
-      return;
+    // 4. Store original slides if needed (only once)
+    if (!window.originalSlidesData) {
+      const allSlides = slideshowContainer.querySelectorAll('.product__media');
+      window.originalSlidesData = Array.from(allSlides).map(slide => {
+        const img = slide.querySelector('img');
+        const altText = img ? (img.getAttribute('alt') || '') : '';
+        //console.log('Saved slide with alt text:', altText);
+        return {
+          element: slide.cloneNode(true),
+          altText: altText
+        };
+      });
+      //console.log('Saved original slides data for', window.originalSlidesData.length, 'slides');
     }
     
-    console.log('Found', allSlides.length, 'slides in product gallery');
-    
-    // 5. Get existing Flickity instance
+    // 5. Get existing Flickity instance or create a new one
     let flkty = null;
     
     // Check if Flickity is defined
@@ -293,90 +285,142 @@
     try {
       flkty = Flickity.data(slideshowContainer);
       
-      // If Flickity exists, destroy it so we can rebuild
-      if (flkty) {
-        console.log('Destroying existing Flickity instance');
-        flkty.destroy();
+      // If Flickity doesn't exist yet, initialize it
+      if (!flkty) {
+        //console.log('Creating new Flickity instance');
+        flkty = new Flickity(slideshowContainer, {
+          cellAlign: 'center',
+          contain: true,
+          draggable: true,
+          prevNextButtons: false,
+          pageDots: false,
+          adaptiveHeight: false
+        });
+      } else {
+        //console.log('Using existing Flickity instance');
       }
     } catch (error) {
-      console.error('Error with Flickity:', error);
+      console.error('Error initializing Flickity:', error);
+      return;
     }
     
-    // 6. Create arrays to hold visible and hidden slides
+    // 6. Filter slides based on the selected color
     const visibleSlides = [];
     const hiddenSlides = [];
     
-    // 7. Filter slides based on the selected color
-    Array.from(allSlides).forEach((slide, index) => {
-      const img = slide.querySelector('img');
-      const altText = img ? (img.getAttribute('alt') || '') : '';
-      
-      // Normalize for comparison
-      const normalizedAltText = altText.trim().toLowerCase();
-      const normalizedSelectedColor = selectedColor.trim().toLowerCase();
-      
-      console.log(`Slide ${index + 1} alt text:`, normalizedAltText);
-      
+    // Normalize the selected color for comparison (trim whitespace, lowercase)
+    const normalizedSelectedColor = selectedColor.trim().toLowerCase();
+    //console.log('Filtering slides for normalized color:', normalizedSelectedColor);
+    
+    // Debug all stored slides and their alt text
+    //console.log('All stored slides:');
+    window.originalSlidesData.forEach((data, index) => {
+      //console.log(`Slide ${index + 1} alt text:`, data.altText);
+    });
+    
+    window.originalSlidesData.forEach((slideData, index) => {
+      // Normalize the alt text for comparison
+      const normalizedAltText = slideData.altText.trim().toLowerCase();
       let isVisible = false;
+      
+      //console.log(`Comparing slide ${index + 1}:`, normalizedAltText, 'with selected color:', normalizedSelectedColor);
       
       // Check for exact match
       if (normalizedAltText === normalizedSelectedColor) {
         isVisible = true;
-        console.log('MATCH - Exact match');
+        //console.log('MATCH - Exact match');
       } 
       // Check if alt text contains the color
       else if (normalizedAltText.includes(normalizedSelectedColor)) {
         isVisible = true;
-        console.log('MATCH - Contains color');
+        //console.log('MATCH - Contains color');
       }
       // Check if color contains the alt text (reverse check)
       else if (normalizedSelectedColor.includes(normalizedAltText)) {
         isVisible = true;
-        console.log('MATCH - Color contains alt text');
+        //console.log('MATCH - Color contains alt text');
       }
-      
-      // Clone the slide to avoid reference issues
-      const clonedSlide = slide.cloneNode(true);
       
       if (isVisible) {
-        visibleSlides.push(clonedSlide);
+        visibleSlides.push(slideData.element.cloneNode(true));
       } else {
-        hiddenSlides.push(clonedSlide);
+        hiddenSlides.push(slideData.element.cloneNode(true));
       }
     });
     
-    console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
+    //console.log('Filtering results:', visibleSlides.length, 'visible slides,', hiddenSlides.length, 'hidden slides');
     
-    // 8. If no visible slides, show all slides
-    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : Array.from(allSlides).map(slide => slide.cloneNode(true));
+    // If no visible slides, show all slides
+    const slidesToShow = visibleSlides.length > 0 ? visibleSlides : window.originalSlidesData.map(data => data.element.cloneNode(true));
     
     if (visibleSlides.length === 0) {
-      console.log('No matching slides found, showing all slides instead');
+      //console.log('No matching slides found, showing all slides instead');
     }
     
-    // 9. Clear the slideshow container
-    slideshowContainer.innerHTML = '';
-    
-    // 10. Add the filtered slides to the container
-    slidesToShow.forEach(slide => {
-      slideshowContainer.appendChild(slide);
-    });
-    
-    // 11. Initialize a new Flickity instance
     try {
-      console.log('Creating new Flickity instance with', slidesToShow.length, 'slides');
-      new Flickity(slideshowContainer, {
-        cellAlign: 'center',
-        wrapAround: true,
-        contain: true,
-        draggable: true,
-        prevNextButtons: false,
-        pageDots: true,
-        adaptiveHeight: false
-      });
-      console.log('Flickity initialized successfully');
+      // 7. Remove all cells from Flickity
+      if (flkty.cells && flkty.cells.length > 0) {
+        const cellElements = flkty.getCellElements();
+        if (cellElements && cellElements.length > 0) {
+          flkty.remove(cellElements);
+          //console.log('Removed all existing cells');
+        }
+      }
+      
+      // 8. Add the filtered slides to Flickity
+      if (slidesToShow.length > 0) {
+        slidesToShow.forEach(slide => {
+          flkty.append(slide);
+        });
+        //console.log('Added', slidesToShow.length, 'slides to Flickity');
+      } else {
+        console.warn('No slides to show');
+      }
+      
+      // 9. Update Flickity to reflect changes
+      flkty.reloadCells();
+      flkty.resize();
+      flkty.updateDraggable();
+      
+      // 10. Go to first cell
+      if (flkty.cells && flkty.cells.length > 0) {
+        flkty.select(0, false, true);
+      }
+      
+      //console.log('Flickity updated with filtered slides');
     } catch (error) {
-      console.error('Error initializing Flickity:', error);
+      console.error('Error updating Flickity:', error);
+      
+      // Fallback: If Flickity operations fail, try to rebuild it from scratch
+      try {
+        // Destroy the existing instance
+        if (flkty) {
+          flkty.destroy();
+        }
+        
+        // Clear the container
+        slideshowContainer.innerHTML = '';
+        
+        // Add all slides back
+        slidesToShow.forEach(slide => {
+          slideshowContainer.appendChild(slide);
+        });
+        
+        // Create a new instance
+        new Flickity(slideshowContainer, {
+          cellAlign: 'center',
+          wrapAround: true,
+          contain: true,
+          draggable: true,
+          prevNextButtons: false,
+          pageDots: false,
+          adaptiveHeight: false
+        });
+        
+        //console.log('Rebuilt Flickity from scratch after error');
+      } catch (fallbackError) {
+        console.error('Fallback also failed:', fallbackError);
+      }
     }
   }
 
@@ -401,24 +445,14 @@
     
     if (!selectedColor) return;
 
-    // Get the product gallery div FIRST - this is the container for everything
-    const productGallery = document.getElementById('product-gallery-div');
-    if (!productGallery) {
-      //console.log('Product gallery div not found');
-      return;
-    }
+    // Get the slideshow container - ONLY target the product gallery with ID "product-gallery-div"
+    const slideshowContainer = document.getElementById('product-gallery-div');
     
-    // Get the slideshow container WITHIN the product gallery
-    const slideshowContainer = productGallery.querySelector('[data-product-slideshow]');
-    if (!slideshowContainer) {
-      //console.log('No slideshow container found in product gallery');
-      return;
-    }
+    if (!slideshowContainer) return;
 
-    // Get all media slides and thumbs - ONLY from within the product gallery
-    const mediaSlides = productGallery.querySelectorAll('[data-media-slide]');
-    // Thumbs should also be scoped to the product gallery
-    const thumbs = productGallery.querySelectorAll('[data-slideshow-thumbnail]');
+    // Get all media slides and thumbs
+    const mediaSlides = document.querySelectorAll('[data-media-slide]');
+    const thumbs = document.querySelectorAll('[data-slideshow-thumbnail]');
     
     if (!mediaSlides.length) return;
 
