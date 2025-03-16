@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -26,125 +27,159 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_tCdKie": {
-      "type": "section-richtext",
+    "section_double_BWqPHB": {
+      "type": "section-double",
       "blocks": {
-        "text_XGVLFP": {
+        "text_jxymQE": {
           "type": "text",
           "settings": {
-            "text": "<p>For your child's continued safety. Although child restraint systems undergo testing and evaluation, it is possible that a child restraint could be recalled.<br/><br/>In case of a recall, we can reach you only if we have your name and address, so please fill in the registration form to be on our recall list.<br/><br/>In order to properly register your child restraint system, you will need to provide the model number, serial number and date of manufacture. This information is printed on the registration card and can also be found on a white label located on the back of the child restraint system.<br/><br/>For help on where to locate the information about your product, see the image below.</p><p><em>By clicking the \"Register\" button below I agree to the processing of my personal information as described in the </em><a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\"><span style=\"text-decoration:underline\"><em>Privacy Policy</em></span></a></p>",
+            "kicker": "",
+            "title": "",
+            "text": "<h1>First<br/>Responders</h1><p>To thank you for your service, we've partnered with GovX to offer a discount on our store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "Save up to 10%",
+            "button_link_2": "https://auth.govx.com/shopify/verify?shop=babyarkshop.myshopify.com&utm_source=shopify&utm_medium=govxid&utm_campaign=custom_link",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--long",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "image_WL9dfa": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_f68f594f-80b7-4040-b8c3-c369000b81bf.jpg",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "Shop Now",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_jxymQE",
+        "image_WL9dfa"
+      ],
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_fAHeMY": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_MRER4P": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rich text",
+            "text_size": 8
+          }
+        },
+        "text_J9Fmxe": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>This offer is eligible for:</strong></p><ul><li>Current & former U.S. military</li><li>First responders including law enforcement, fire, and EMS</li></ul><h2></h2><h2>How it works</h2><p>1</p><p>Click the button to claim your discount and you'll be asked to verify your affiliation with GovX ID. Verification is real-time and secure. If you already have a GovX ID account, just log in! </p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "text_hEjUnn": {
+          "type": "text",
+          "settings": {
+            "text": "<p>2</p><p>After you verify, you'll receive a single-use discount code to apply at checkout. Be sure to copy your code.</p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "text_8pTFKe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>3</p><p>For future purchases, simply log in with your GovX ID to unlock a new discount code. There is a limit of one discount code per day.</p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "text_t34My4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Verification is powered by</p>",
             "text_size": 4,
             "text_columns": 1
           }
         }
       },
       "block_order": [
-        "text_XGVLFP"
+        "heading_MRER4P",
+        "text_J9Fmxe",
+        "text_hEjUnn",
+        "text_8pTFKe",
+        "text_t34My4"
       ],
       "settings": {
         "align_text": "text-center",
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "content_width": 2000,
+        "content_width": 950,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "1737642332f8ed41e1": {
-      "type": "apps",
-      "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
-          "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MzE0NTU=\"></div>"
-          }
-        }
-      },
-      "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
-      ],
-      "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "section_columns_PNUBaq": {
+    "section_columns_ATmJih": {
       "type": "section-columns",
       "blocks": {
-        "text_block_Lqreek": {
+        "text_block_qhjTmN": {
           "type": "text_block",
           "settings": {
             "enable_image": true,
-            "image": "shopify://shop_images/Group_789.png",
+            "image": "shopify://shop_images/image_11.png",
             "shape_class": "",
-            "title": "Sticker Anatomy",
-            "text": "<ol><li>Model number</li><li>Serial number</li><li>Date of manufacture</li></ol>",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_HAiyte": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_788.png",
-            "shape_class": "",
-            "title": "Car Seat",
+            "title": "",
             "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
+            "button_label": "Learn More",
+            "button_link": "https://www.govx.com/t/govx-id",
+            "button_color": "btn--black",
+            "button_style": "btn",
             "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_43WHAX": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_786.png",
-            "shape_class": "",
-            "title": "Base",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_link": "",
             "video_button_color": "text--white"
           }
         }
       },
       "block_order": [
-        "text_block_Lqreek",
-        "text_block_HAiyte",
-        "text_block_43WHAX"
+        "text_block_qhjTmN"
       ],
       "custom_css": [
-        "img {object-fit: contain;}",
-        ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
-        ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}",
-        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
+        ".index__column {margin: 0 auto;}",
+        ".column__image > div{aspect-ratio:0}",
+        "img {object-fit: contain; width: 106px; margin:0 auto;}"
       ],
       "settings": {
-        "title": "Locate Traceability Sticker",
+        "title": "",
         "bg": "palette--light bg--neutral",
         "align_text": "text-center",
         "scale_image": true,
-        "wh_ratio": 1.5,
+        "wh_ratio": 1,
         "grid_large": 3,
         "grid_medium": 3,
         "grid_mobile": 1,
@@ -157,8 +192,8 @@
   },
   "order": [
     "main",
-    "section_richtext_tCdKie",
-    "1737642332f8ed41e1",
-    "section_columns_PNUBaq"
+    "section_double_BWqPHB",
+    "section_richtext_fAHeMY",
+    "section_columns_ATmJih"
   ]
 }
