@@ -117,12 +117,12 @@
         "header-block-image-3"
       ],
       "custom_css": [
-        ".header__logo__link img {width:100%;}",
+        ".header__logo__link img {width: 100%;}",
         "@media (max-width: 480px) {.logo__img {width: 100%; }}"
       ],
       "settings": {
         "header_style": "menu_center",
-        "logo": "shopify://shop_images/babyark_logo_green_for_Shopify_e46979e1-6480-4e22-b1e6-695f253fed09.png",
+        "logo": "shopify://shop_images/Green_logo.png",
         "logo_max_limit": 150,
         "logo_padding": 10,
         "logo_text_size": 5,
@@ -142,7 +142,7 @@
         "transparent_article": true,
         "transparent_page": true,
         "transparent_text_color": "#ffffff",
-        "transparent_logo": "shopify://shop_images/Link.png",
+        "transparent_logo": "shopify://shop_images/White_Logo.png",
         "show_collection_images": true,
         "collection_wh_ratio": 1.4
       }
