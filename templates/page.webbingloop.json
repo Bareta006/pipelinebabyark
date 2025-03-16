@@ -168,27 +168,6 @@
     "section_double_6bP3cJ": {
       "type": "section-double",
       "blocks": {
-        "video_VAHzGQ": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/babyark BSC tutorial_22Dec2024.MOV",
-            "object_position": "center-center",
-            "image": "shopify://shop_images/Screen_Shot_2024-12-24_at_15.54.26_660af2b4-b67e-4c50-85fc-f6eb48578a4e.webp",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "Introducing",
-            "title": "Featured video",
-            "richtext": "<p>This area is used to describe your video’s details.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_MqTTmp": {
           "type": "text",
           "settings": {
@@ -209,11 +188,36 @@
             "text_color": "text--neutral",
             "bg_color": ""
           }
+        },
+        "video_VAHzGQ": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/babyark BSC tutorial_22Dec2024.MOV",
+            "object_position": "center-center",
+            "image": "shopify://shop_images/Screen_Shot_2024-12-24_at_15.54.26_660af2b4-b67e-4c50-85fc-f6eb48578a4e.webp",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_VAHzGQ",
-        "text_MqTTmp"
+        "text_MqTTmp",
+        "video_VAHzGQ"
+      ],
+      "custom_css": [
+        ".brick__section > .brick__block:first-child {width: 66%;}",
+        ".brick__section > .brick__block:nth-child(2) {width: 33%;}"
       ],
       "settings": {
         "height": "use_screen_two_thirds",
