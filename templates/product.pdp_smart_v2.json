@@ -81,6 +81,12 @@
             "padding_bottom": 20
           }
         },
+        "liquid_3azAi3": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"refprog\"></div>"
+          }
+        },
         "buttons": {
           "type": "add-buttons",
           "settings": {
@@ -199,6 +205,7 @@
         "variants",
         "subscriptions",
         "quantity",
+        "liquid_3azAi3",
         "buttons",
         "icon_delivery_Dg86V6",
         "icon_EC9RhA",
