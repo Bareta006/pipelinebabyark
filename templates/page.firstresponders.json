@@ -88,18 +88,11 @@
     "section_richtext_fAHeMY": {
       "type": "section-richtext",
       "blocks": {
-        "heading_MRER4P": {
-          "type": "heading",
-          "settings": {
-            "heading": "Rich text",
-            "text_size": 8
-          }
-        },
         "text_J9Fmxe": {
           "type": "text",
           "settings": {
             "text": "<p><strong>This offer is eligible for:</strong></p><ul><li>Current & former U.S. military</li><li>First responders including law enforcement, fire, and EMS</li></ul><h2></h2><h2>How it works</h2><p>1</p><p>Click the button to claim your discount and you'll be asked to verify your affiliation with GovX ID. Verification is real-time and secure. If you already have a GovX ID account, just log in! </p>",
-            "text_size": 4,
+            "text_size": 6,
             "text_columns": 1
           }
         },
@@ -107,7 +100,7 @@
           "type": "text",
           "settings": {
             "text": "<p>2</p><p>After you verify, you'll receive a single-use discount code to apply at checkout. Be sure to copy your code.</p>",
-            "text_size": 4,
+            "text_size": 6,
             "text_columns": 1
           }
         },
@@ -115,7 +108,7 @@
           "type": "text",
           "settings": {
             "text": "<p>3</p><p>For future purchases, simply log in with your GovX ID to unlock a new discount code. There is a limit of one discount code per day.</p>",
-            "text_size": 4,
+            "text_size": 6,
             "text_columns": 1
           }
         },
@@ -123,13 +116,12 @@
           "type": "text",
           "settings": {
             "text": "<p>Verification is powered by</p>",
-            "text_size": 4,
+            "text_size": 6,
             "text_columns": 1
           }
         }
       },
       "block_order": [
-        "heading_MRER4P",
         "text_J9Fmxe",
         "text_hEjUnn",
         "text_8pTFKe",
@@ -142,7 +134,7 @@
         "content_width": 1000,
         "width": "wrapper",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     },
     "section_columns_ATmJih": {
