@@ -71,11 +71,11 @@
     <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }}"
       data-overflow-wrapper>
             <div class="brick__section brick--{{ section.blocks.size }} {{ margin_class }} {{ border_class }} {{ section.settings.height }} {{ swaparoo_class }} w-573">
+              {% if section.settings.graphSide_heading != blank %}
+                <div class="graphSide_heading">{{ section.settings.graphSide_heading }}</div>
+              {% endif %}
       {% for block in section.blocks %}
                 <div class="brick__block adjust_height">
-                  {% if section.settings.graphSide_heading != blank %}
-                    <div class="graphSide_heading">{{ section.settings.graphSide_heading }}</div>
-                  {% endif %}
                   <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
                             <div class="graphs">
                                 <div class="graph mb-8">
