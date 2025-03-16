@@ -17,6 +17,12 @@
         "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:30px;\nobject-fit:contain;}\n.product__block__icon > .icon-holder >div{\nwidth:34px;}  \n</style>"
       }
     },
+    "section_liquid_NTjR4q": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<script>\n// Extract URL parameters and save them in a constant variable\nconst urlParams = new URLSearchParams(window.location.search);\nconst parameters = {};\n\n// List of parameters to look for in the URL\nconst PARAMS_TO_CHECK = ['RR_WCID', 'RR_WCID_TTL', 'REFERRALCODE'];\n\nPARAMS_TO_CHECK.forEach(param => {\n    if (urlParams.has(param)) {\n        // Save the parameter and its value if it exists in the URL\n        parameters[param] = urlParams.get(param);\n    }\n});\n\n// Function to check if the required parameters are present in the URL\nfunction hasRequiredParameters() {\n    return PARAMS_TO_CHECK.some(param => urlParams.has(param));\n}\n\n// Function to add referral message to each product card\nfunction addReferralMessageToProducts() {\n    // Add message to product page\n    const productPage = document.querySelector('.product-page.main-product');\n    if (productPage) {\n        const productTitle = productPage.querySelector('h1.product-title');\n        if (productTitle) {\n            const refMessageDiv = document.createElement('div');\n            refMessageDiv.className = 'x-estimate-delivery rounded-md';\n            refMessageDiv.style.backgroundColor = '#B4C7DC';\n            refMessageDiv.innerHTML = `\n                <div class=\"flex relative\">\n                    <div class=\"absolute left-0 top-1/2 -translate-y-1/2 mr-2 w-[var(--font-size-large)]\"></div>\n                    <div class=\"estimate-content hover:pointer-events-auto pointer-events-none pl-8 p-break-words rte\">\n                        <p style=\"color:#333333;\">You've been referred by a friend. <b>Your $100 discount</b> will be applied at checkout.</p>\n                    </div>\n                </div>\n            `;\n            productTitle.insertAdjacentElement('afterend', refMessageDiv);\n        } else {\n            console.error(\"Product title not found on the product page.\");\n        }\n    }\n}\n\n// Function to initialize referral-related scripts\nfunction initializeReferral() {\n    if (hasRequiredParameters()) {\n        setTimeout(addReferralMessageToProducts, 750); // Add referral messages\n    }\n}\n\n// Execute the initialization function on DOM ready\ndocument.addEventListener('DOMContentLoaded', initializeReferral);\n</script>"
+      }
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -105,6 +111,7 @@
   },
   "order": [
     "section_liquid_nDdLqE",
+    "section_liquid_NTjR4q",
     "footer",
     "subfooter"
   ]
