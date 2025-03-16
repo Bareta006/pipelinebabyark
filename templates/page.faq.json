@@ -745,7 +745,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "CONTACT US",
-            "link_1": "",
+            "link_1": "shopify://pages/contact",
             "button_size_1": "btn--medium",
             "button_style_1": "btn--outline",
             "button_color_1": "btn--neutral",
