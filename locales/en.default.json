@@ -497,7 +497,7 @@
   "shopify": {
     "checkout": {
       "marketing": {
-        "accept_sms_checkbox_label": "By checking this box, you agree to receive recurring automated promotional and personalized marketing text messages from babyark at this number. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg & data rates may apply. View Privacy Policy here (https://babyark.com/pages/privacy-policy)."
+        "accept_sms_checkbox_label": "By checking this box, you agree to receive recurring automated promotional and personalized marketing text messages from babyark at this number. Consent is not a condition of any purchase. Reply HELP for help and STOP to cancel. Msg frequency varies. Msg & data rates may apply. View Privacy Policy here (<a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\">https://babyark.com/pages/privacy-policy</a>)."
       }
     }
   }
