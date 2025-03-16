@@ -11,6 +11,7 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {
         "kicker": "",
         "kicker_size": 3,
@@ -26,130 +27,116 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_tCdKie": {
+    "section_hero_jcMJEx": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_mCWXDc": {
+          "type": "heading",
+          "settings": {
+            "title": "Webbing Loop Troubleshooting",
+            "text_size": 10
+          }
+        }
+      },
+      "block_order": [
+        "heading_mCWXDc"
+      ],
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Mask_group_7.webp",
+        "height": "use_screen_two_thirds",
+        "overlay_opacity": 30,
+        "overlay_color": "#000",
+        "enable_overlay_text": true,
+        "preload_image": true,
+        "content_width": 2000,
+        "text_align": "align--middle-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
+    "section_richtext_cVAiEn": {
       "type": "section-richtext",
       "blocks": {
-        "text_XGVLFP": {
+        "heading_ECJbPr": {
+          "type": "heading",
+          "settings": {
+            "heading": "To check if the webbing loop on your vehicle seat belt is interfering with the tensioner on the babyark base (located at the belt path) – see illustration below.",
+            "text_size": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_ECJbPr"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 950,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_GaqNCV": {
+      "type": "section-double",
+      "blocks": {
+        "image_6e6Dq3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_2091.webp",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "Shop Now",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_R398hH": {
           "type": "text",
           "settings": {
-            "text": "<p>For your child's continued safety. Although child restraint systems undergo testing and evaluation, it is possible that a child restraint could be recalled.<br/><br/>In case of a recall, we can reach you only if we have your name and address, so please fill in the registration form to be on our recall list.<br/><br/>In order to properly register your child restraint system, you will need to provide the model number, serial number and date of manufacture. This information is printed on the registration card and can also be found on a white label located on the back of the child restraint system.<br/><br/>For help on where to locate the information about your product, see the image below.</p><p><em>By clicking the \"Register\" button below I agree to the processing of my personal information as described in the </em><a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\"><span style=\"text-decoration:underline\"><em>Privacy Policy</em></span></a></p>",
-            "text_size": 4,
-            "text_columns": 1
+            "kicker": "",
+            "title": "",
+            "text": "<p>If the loop is located in the middle or outside of the belt path (green areas) – there’s no issue and you can proceed with the installation process as shown in the app and user manual.<br/>If the loop is located in the red area (under the tensioners) follow the instructions below to try to reposition the loop:</p><p></p><ol><li>Flip the loop away from the belt path so it’s no longer in the red area (under the tensioners)</li><li>Shift the base on the lower anchor bar to reposition the loop * Or change the positioning of the rigid lower anchors in the seat bight If using the seat belt only rear-facing method.</li><li>Try a different seating position</li></ol><p>If none of these adjustments fix the positioning of the loop, you will need to use a belt shortening clip – please contact babyark to receive one free of charge. Only use the belt shortening clip provided to you by babyark. contact@babyark.com or at 1-888-9BABYARK</p><p></p><ul><li>If using the recommended installation - try the vehicle seat belt-only installation method to see if this eliminates the loop interference. You can use this installation method until you receive a belt shortening clip from babyark.<br/><br/><strong>PLEASE NOTE: locking clips are not the same as belt shortening clips (even if they look similar). Only use an approved belt shortening clip provided by babyark.</strong></li></ul>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
           }
         }
       },
       "block_order": [
-        "text_XGVLFP"
+        "image_6e6Dq3",
+        "text_R398hH"
       ],
       "settings": {
-        "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "content_width": 2000,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "1737642332f8ed41e1": {
-      "type": "apps",
-      "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
-          "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MzE0NTU=\"></div>"
-          }
-        }
-      },
-      "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
-      ],
-      "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "section_columns_PNUBaq": {
-      "type": "section-columns",
-      "blocks": {
-        "text_block_Lqreek": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_789.png",
-            "shape_class": "",
-            "title": "Sticker Anatomy",
-            "text": "<ol><li>Model number</li><li>Serial number</li><li>Date of manufacture</li></ol>",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_HAiyte": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_788.png",
-            "shape_class": "",
-            "title": "Car Seat",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        },
-        "text_block_43WHAX": {
-          "type": "text_block",
-          "settings": {
-            "enable_image": true,
-            "image": "shopify://shop_images/Group_786.png",
-            "shape_class": "",
-            "title": "Base",
-            "text": "",
-            "button_label": "",
-            "button_link": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn--soft",
-            "enable_video": false,
-            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-            "video_button_color": "text--white"
-          }
-        }
-      },
-      "block_order": [
-        "text_block_Lqreek",
-        "text_block_HAiyte",
-        "text_block_43WHAX"
-      ],
-      "custom_css": [
-        "img {object-fit: contain;}",
-        ".index__column.grid__item {display: flex; flex-direction: column-reverse; justify-content: space-between;}",
-        ".accent-title-large {order: 1;}",
-        ".wrapper > div {align-items: stretch;}",
-        "[data-custom-scrollbar-items] {flex-flow: row wrap !important;}"
-      ],
-      "settings": {
-        "title": "Locate Traceability Sticker",
-        "bg": "palette--light bg--neutral",
-        "align_text": "text-center",
-        "scale_image": true,
-        "wh_ratio": 1.5,
-        "grid_large": 3,
-        "grid_medium": 3,
-        "grid_mobile": 1,
-        "progress_bar_mobile": false,
-        "width": "wrapper",
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -157,8 +144,8 @@
   },
   "order": [
     "main",
-    "section_richtext_tCdKie",
-    "1737642332f8ed41e1",
-    "section_columns_PNUBaq"
+    "section_hero_jcMJEx",
+    "section_richtext_cVAiEn",
+    "section_double_GaqNCV"
   ]
 }
