@@ -31,7 +31,7 @@
         "text_H9zhjy": {
           "type": "text",
           "settings": {
-            "title": "<p><strong>- </strong>babyark Smart Seat<br/><strong>- </strong>Cupholder<br/><strong>- </strong>Car Seat Cover</p>",
+            "title": "<p><strong>- </strong>babyark Classic Seat<br/><strong>- </strong>Cupholder<br/><strong>- </strong>Car Seat Cover</p>",
             "padding_bottom": 10
           }
         },
@@ -100,7 +100,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
@@ -137,9 +137,9 @@
             "read_more": false,
             "icon_description": "",
             "description_expanded": false,
-            "title_1": "babyark Smart seat",
+            "title_1": "babyark Classic seat",
             "icon_name_1": "",
-            "raw_content_1": "<p>The babyark has redefined car seat safety through performance engineering, protective design, smart connectivity and the highest-grade materials. The advanced safety system provides unparalleled protection, ease of use and the highest level of comfort for your child. The Premium seat allows for a rear-facing limit of up to 55 lbs. and a forward-facing limit of up to 65 lbs.</p>",
+            "raw_content_1": "<p>The babyark has redefined car seat safety through performance engineering, protective design and the highest-grade materials. The advanced safety system provides unparalleled protection, ease of use and the highest level of comfort for your child. The Classic seat allows for a rear-facing limit of up to 50 lbs. and a forward-facing limit of up to 65 lbs.</p>",
             "title_2": "Cupholder",
             "icon_name_2": "",
             "raw_content_2": "<p>The babyark cup holder was designed to fit on either side of the seat, and features a user-friendly snap-on lock for easy installation, usability and safety. The cup holder is extremely convenient and flexible, can accommodate various container sizes, and can be easily removed by simply rotating and pulling it away.</p>",
