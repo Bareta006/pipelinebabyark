@@ -78,11 +78,11 @@
         "height": "use_screen_one_half",
         "brick_gutter": 0,
         "borders": false,
-        "bg_color": "",
+        "bg_color": "#ffffff",
         "preload_image": false,
         "width": "wrapper--none",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "section_richtext_fAHeMY": {
