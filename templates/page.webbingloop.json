@@ -98,7 +98,7 @@
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
-            "link_text": "Shop Now",
+            "link_text": "",
             "link": "",
             "button_color": "btn--white",
             "button_style": "btn"
@@ -117,7 +117,7 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
-            "button_text_2": "Read more",
+            "button_text_2": "",
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
@@ -131,12 +131,97 @@
         "text_R398hH"
       ],
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
         "preload_image": false,
-        "width": "wrapper--none",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_bmbwUG": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_Pwqwqy": {
+          "type": "heading",
+          "settings": {
+            "heading": "Belt shortening clip instructions:",
+            "text_size": 8
+          }
+        }
+      },
+      "block_order": [
+        "heading_Pwqwqy"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 950,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_6bP3cJ": {
+      "type": "section-double",
+      "blocks": {
+        "video_VAHzGQ": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/babyark BSC tutorial_22Dec2024.MOV",
+            "object_position": "center-center",
+            "image": "shopify://shop_images/Screen_Shot_2024-12-24_at_15.54.26_660af2b4-b67e-4c50-85fc-f6eb48578a4e.webp",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "Introducing",
+            "title": "Featured video",
+            "richtext": "<p>This area is used to describe your video’s details.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_MqTTmp": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "",
+            "text": "<p><strong>Once you receive the belt shortening clip, follow the written instructions below or watch the video demonstration done by our babyark CPST advocate - Britney. If you would like additional assistance, email Britney at britney@babyark.com to schedule a remote seat check.</strong></p><ol><li>Grab the seat belt so that the loop is facing out toward the door of the vehicle and the metal part of the latch plate is facing toward the interior of the vehicle</li><li>Move the latch plate up and out of the way and place your finger on the side of the vehicle seat belt facing the interior of the vehicle about 3” above the top of the loop</li><li>Keeping your finger in that location, use your other hand to push the latch plate up about 6” and fold that part of the seat belt down (over your other finger) into a “seat belt sandwich” with the loop facing down toward the floor of the vehicle. </li><li>Hold the seat belt sandwiched together. The hand holding the belt in the sandwich position will be closest to the bottom of the vehicle seat belt. The loop should still be facing down. </li><li>Place the belt shortening clip under the “sandwich” near the hand that is holding the sandwich closed (about 3” below the bottom of the loop). Tuck both parts of the sandwiched seat belt under the first two metal fingers, over the center bar, and then under the second two metal fingers.</li><li>Only the four metal fingers of the clip will be visible on the top of the sandwich. The center bar will be covered with seat belt webbing and the loop should still be facing down.</li><li>Next, take just the top layer of the seat belt sandwich (near where you initially folded the belt over your finger) and pull it over the closest two metal fingers and then tuck it under the furthest two metal fingers. </li><li>The belt shortening clip should now be inside the seat belt sandwich and there should only be two visible metal fingers.</li><li>Route the seat belt through the belt path, buckle it on the other side, and continue the installation process as shown in the app and user manual. Make sure to lock the seat belt after activating the anti-rebound bar.<br/> <br/><strong>If you are not certain about your case or how to use the belt shortening clip, please contact us.</strong></li></ol>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_VAHzGQ",
+        "text_MqTTmp"
+      ],
+      "settings": {
+        "height": "use_screen_two_thirds",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -146,6 +231,8 @@
     "main",
     "section_hero_jcMJEx",
     "section_richtext_cVAiEn",
-    "section_double_GaqNCV"
+    "section_double_GaqNCV",
+    "section_richtext_bmbwUG",
+    "section_double_6bP3cJ"
   ]
 }
