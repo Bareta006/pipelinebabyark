@@ -46,7 +46,7 @@
         "image": "shopify://shop_images/Mask_group_7.webp",
         "height": "use_screen_two_thirds",
         "overlay_opacity": 30,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": true,
         "preload_image": true,
         "content_width": 2000,
@@ -91,7 +91,7 @@
           "settings": {
             "image": "shopify://shop_images/Group_2091.webp",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "",
@@ -188,43 +188,28 @@
             "text_color": "text--neutral",
             "bg_color": ""
           }
-        },
-        "video_VAHzGQ": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/babyark BSC tutorial_22Dec2024.MOV",
-            "object_position": "center-center",
-            "image": "shopify://shop_images/Screen_Shot_2024-12-24_at_15.54.26_660af2b4-b67e-4c50-85fc-f6eb48578a4e.webp",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text_MqTTmp",
-        "video_VAHzGQ"
+        "text_MqTTmp"
       ],
-      "custom_css": [
-        ".brick__section > .brick__block:first-child {width: 66%;}",
-        ".brick__section > .brick__block:nth-child(2) {width: 33%;}"
-      ],
+      "custom_css": [],
       "settings": {
-        "height": "use_screen_one_third",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
         "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_video_player_bdGN6b": {
+      "type": "section-video-player",
+      "settings": {
+        "video": "shopify://files/videos/babyark BSC tutorial_22Dec2024.MOV",
+        "video_link": "",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
@@ -237,6 +222,7 @@
     "section_richtext_cVAiEn",
     "section_double_GaqNCV",
     "section_richtext_bmbwUG",
-    "section_double_6bP3cJ"
+    "section_double_6bP3cJ",
+    "section_video_player_bdGN6b"
   ]
 }
