@@ -1,0 +1,98 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_GXwmNU": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_kRhxET": {
+          "type": "heading",
+          "settings": {
+            "heading": "Join the movement",
+            "text_size": 8
+          }
+        },
+        "text_VdGRfb": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Register for the babyark CPST program and become one of the first U.S installation experts. 10% early bird discount.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "heading_kRhxET",
+        "text_VdGRfb"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "17421258271fdb5e94": {
+      "type": "apps",
+      "blocks": {
+        "powerful_form_builder_app_block_64Vmy3": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "settings": {
+            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"MjkyNjM=\"></div>"
+          }
+        }
+      },
+      "block_order": [
+        "powerful_form_builder_app_block_64Vmy3"
+      ],
+      "custom_css": [
+        "h3 {font-weight: 400; font-size: 42px;}",
+        "p,label {font-size: 18px;}",
+        ".globo-form-input {margin-top: 5px;}",
+        ".globo-list-control .checkbox-wrapper {box-shadow: none !important; background: none;}",
+        ".wizard__submit {border-radius: 50px; margin: 0 auto; display: block; font-size: 18px; width: 140px; padding: 10px 15px; font-weight: 400;}",
+        "@media (max-width: 480px) {.g-container {padding: 0 16px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_richtext_GXwmNU",
+    "17421258271fdb5e94"
+  ]
+}

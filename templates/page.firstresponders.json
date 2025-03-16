@@ -1,0 +1,191 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_BWqPHB": {
+      "type": "section-double",
+      "blocks": {
+        "text_jxymQE": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "",
+            "text": "<h1>First<br/>Responders</h1><p>To thank you for your service, we've partnered with GovX to offer a discount on our store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "Save up to 10%",
+            "button_link_2": "https://auth.govx.com/shopify/verify?shop=babyarkshop.myshopify.com&utm_source=shopify&utm_medium=govxid&utm_campaign=custom_link",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn btn--long",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        },
+        "image_WL9dfa": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_f68f594f-80b7-4040-b8c3-c369000b81bf.jpg",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_jxymQE",
+        "image_WL9dfa"
+      ],
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "#ffffff",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_richtext_fAHeMY": {
+      "type": "section-richtext",
+      "blocks": {
+        "text_J9Fmxe": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>This offer is eligible for:</strong></p><ul><li>Current & former U.S. military</li><li>First responders including law enforcement, fire, and EMS</li></ul><h2></h2><h2>How it works</h2><p>1</p><p>Click the button to claim your discount and you'll be asked to verify your affiliation with GovX ID. Verification is real-time and secure. If you already have a GovX ID account, just log in! </p>",
+            "text_size": 6,
+            "text_columns": 1
+          }
+        },
+        "text_hEjUnn": {
+          "type": "text",
+          "settings": {
+            "text": "<p>2</p><p>After you verify, you'll receive a single-use discount code to apply at checkout. Be sure to copy your code.</p>",
+            "text_size": 6,
+            "text_columns": 1
+          }
+        },
+        "text_8pTFKe": {
+          "type": "text",
+          "settings": {
+            "text": "<p>3</p><p>For future purchases, simply log in with your GovX ID to unlock a new discount code. There is a limit of one discount code per day.</p>",
+            "text_size": 6,
+            "text_columns": 1
+          }
+        },
+        "text_t34My4": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Verification is powered by</p>",
+            "text_size": 6,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "text_J9Fmxe",
+        "text_hEjUnn",
+        "text_8pTFKe",
+        "text_t34My4"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 1000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 0
+      }
+    },
+    "section_columns_ATmJih": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_qhjTmN": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/image_11.png",
+            "shape_class": "",
+            "title": "",
+            "text": "",
+            "button_label": "Learn More",
+            "button_link": "https://www.govx.com/t/govx-id",
+            "button_color": "btn--black",
+            "button_style": "btn",
+            "enable_video": false,
+            "video_link": "",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_qhjTmN"
+      ],
+      "custom_css": [
+        ".index__column {margin: 0 auto;}",
+        ".column__image > div {aspect-ratio: 0;}",
+        "img {object-fit: contain; width: 106px; margin: 0 auto;}"
+      ],
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "align_text": "text-center",
+        "scale_image": true,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_double_BWqPHB",
+    "section_richtext_fAHeMY",
+    "section_columns_ATmJih"
+  ]
+}

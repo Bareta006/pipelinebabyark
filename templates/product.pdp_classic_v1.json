@@ -73,6 +73,12 @@
             "price_selector": ""
           }
         },
+        "liquid_63tWUC": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"refprog\"></div>"
+          }
+        },
         "buttons": {
           "type": "add-buttons",
           "settings": {
@@ -87,7 +93,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
@@ -190,6 +196,7 @@
         "subscriptions",
         "quantity",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_63tWUC",
         "buttons",
         "icon_delivery_nqDtmM",
         "icon_EC9RhA",
@@ -453,7 +460,8 @@
         "button_color": "btn--neutral",
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
-        "bg_color_text": "#ffffff"
+        "bg_color_text": "#ffffff",
+        "graphSide_heading": ""
       }
     },
     "section_double_LJxgJN": {
