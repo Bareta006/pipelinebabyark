@@ -139,7 +139,7 @@
         "align_text": "text-center",
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "content_width": 950,
+        "content_width": 1000,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
@@ -171,8 +171,8 @@
       ],
       "custom_css": [
         ".index__column {margin: 0 auto;}",
-        ".column__image > div{aspect-ratio:0}",
-        "img {object-fit: contain; width: 106px; margin:0 auto;}"
+        ".column__image > div {aspect-ratio: 0;}",
+        "img {object-fit: contain; width: 106px; margin: 0 auto;}"
       ],
       "settings": {
         "title": "",
