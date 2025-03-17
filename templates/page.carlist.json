@@ -65,11 +65,18 @@
         "not_compatible_text": "No, your car doesn’t fit with babyark",
         "check_again_text": "Search Another Car"
       }
+    },
+    "section_liquid_7LtxMq": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.dropdown-container .contact__fields {\n    justify-content: center;\n    margin: 20px 0;\n}\n\n</style>"
+      }
     }
   },
   "order": [
     "main",
     "section_richtext_WJ4Rnn",
-    "car_list_GzmaNC"
+    "car_list_GzmaNC",
+    "section_liquid_7LtxMq"
   ]
 }
