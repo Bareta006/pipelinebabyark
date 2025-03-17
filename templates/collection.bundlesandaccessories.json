@@ -55,7 +55,7 @@
       ],
       "custom_css": [
         "@media (min-width: 992px) {.text__standard {width: 480px; max-width: 100%; }}",
-        "@media (max-width: 480px) {.text__standard {text-align: center; }}"
+        "@media (max-width: 480px) {.text__standard {text-align: center; } .align--bottom-left {align-items: flex-start; }}"
       ],
       "settings": {
         "mobile_special_arrange": false,
