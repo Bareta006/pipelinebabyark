@@ -31,7 +31,7 @@
         {%endif%}
         <p>In order to enjoy babyark's full benefits, you need to install it using lower anchors, vehicle seat belt, and a support leg. See the list below for guidance.<br>If it doesn't appear or if you're not sure – <span style="color:#375E5E" class="cursor-pointer underline" x-on:click="openPopup = true">click here</span>.</p>
     </div>
-    <div x-show="openPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center" x-cloak>
+    <div x-show="openPopup" id="popup" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center" x-cloak>
       <div class="p-2 pt-8 pb-8 md:pt-16 md:pb-16 md:pr-8 md:pl-8 rounded-lg shadow-lg relative w-full max-w-5xl" style="background-color:#F6F2EF;">
         <button x-on:click="openPopup = false" class="absolute top-2 right-2 m-2 text-black text-2xl font-bold hover:text-gray-600 transition-colors">
           &#10005; <!-- Close icon (X) -->
