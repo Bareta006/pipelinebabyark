@@ -36,7 +36,7 @@
         <button x-on:click="openPopup = false" class="absolute top-2 right-2 m-2 text-black text-2xl font-bold hover:text-gray-600 transition-colors">
           &#10005; <!-- Close icon (X) -->
         </button>
-  
+        {% comment %}
         {%- form 'contact', id: 'carForm', class: 'eurus page-width' -%}
           {%- if form.posted_successfully? -%}
           <p class="text-center text-[1.485rem]">Thanks for contacting us.<br>We'll get back to you as soon as possible.</p>
@@ -103,6 +103,8 @@
             </div>
         {%- endunless -%}
         {%- endform -%}
+        {% endcomment %}
+        <div class="globo-formbuilder" data-id="ODEwNjQ="></div>
       </div>
     </div>
   </div>
