@@ -122,7 +122,7 @@
       ],
       "settings": {
         "header_style": "menu_center",
-        "logo": "shopify://shop_images/Green_logo.png",
+        "logo": "shopify://shop_images/Green_logo.svg",
         "logo_max_limit": 150,
         "logo_padding": 10,
         "logo_text_size": 5,
@@ -142,7 +142,7 @@
         "transparent_article": true,
         "transparent_page": true,
         "transparent_text_color": "#ffffff",
-        "transparent_logo": "shopify://shop_images/White_Logo.png",
+        "transparent_logo": "shopify://shop_images/White_Logo.svg",
         "show_collection_images": true,
         "collection_wh_ratio": 1.4
       }
