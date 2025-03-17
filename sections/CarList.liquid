@@ -9,6 +9,17 @@
         window.dispatchEvent(event);
       }
     }, 250);
+    
+    // Make sure the close button works properly
+    document.querySelectorAll('[x-on\\:click="openPopup = false"]').forEach(button => {
+      button.addEventListener('click', function() {
+        // This is a fallback in case Alpine.js doesn't handle the click properly
+        const popupElement = document.querySelector('[x-show="openPopup"]');
+        if (popupElement) {
+          popupElement.style.display = 'none';
+        }
+      });
+    });
     });
   </script>
 <div x-data="{ openPopup: false, submitted: false }" @open-popup.window="openPopup = true">
@@ -18,17 +29,17 @@
                 {{ section.settings.section_title }}
             </h2>
         {%endif%}
-        <p>In order to enjoy babyark’s full benefits, you need to install it using lower anchors, vehicle seat belt, and a support leg. See the list below for guidance.<br>If it doesn’t appear or if you’re not sure – <span style="color:#375E5E" class="cursor-pointer underline" x-on:click="openPopup = true">click here</span>.</p>
+        <p>In order to enjoy babyark's full benefits, you need to install it using lower anchors, vehicle seat belt, and a support leg. See the list below for guidance.<br>If it doesn't appear or if you're not sure – <span style="color:#375E5E" class="cursor-pointer underline" x-on:click="openPopup = true">click here</span>.</p>
     </div>
     <div x-show="openPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center" x-cloak>
       <div class="p-2 pt-8 pb-8 md:pt-16 md:pb-16 md:pr-8 md:pl-8 rounded-lg shadow-lg relative w-full max-w-5xl" style="background-color:#F6F2EF;">
-        <button x-on:click="openPopup = false" class="absolute top-2 right-2 m-2 text-black text-2xl">
+        <button x-on:click="openPopup = false" class="absolute top-2 right-2 m-2 text-black text-2xl font-bold hover:text-gray-600 transition-colors">
           &#10005; <!-- Close icon (X) -->
         </button>
   
         {%- form 'contact', id: 'carForm', class: 'eurus page-width' -%}
           {%- if form.posted_successfully? -%}
-          <p class="text-center text-[1.485rem]">Thanks for contacting us.<br>We’ll get back to you as soon as possible.</p>
+          <p class="text-center text-[1.485rem]">Thanks for contacting us.<br>We'll get back to you as soon as possible.</p>
           {%- elsif form.errors -%}
             <p class="flex items-center pl-4 pr-4 pt-3 pb-3 mb-3 bg-[rgba(var(--color-error),0.2)] selection:bg-[rgba(var(--color-error),0.4)]" tabindex="-1" autofocus>
               <span class="text-[rgba(var(--color-error))] inline-block w-5 mr-2">{% render 'icon-alls', icon: 'icon-error' %} </span>
@@ -313,6 +324,51 @@ document.addEventListener('DOMContentLoaded', function() {
     align-items: stretch;
     text-align: center;
         }
+    }
+    
+    /* Popup styling */
+    [x-cloak] { display: none !important; }
+    
+    .fixed.inset-0 {
+        animation: fadeIn 0.3s ease-out;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    .fixed.inset-0 > div {
+        animation: slideIn 0.3s ease-out;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+    
+    @keyframes slideIn {
+        from { transform: translateY(20px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+    
+    .fixed.inset-0 button {
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background-color: rgba(0, 0, 0, 0.05);
+        transition: background-color 0.2s;
+    }
+    
+    .fixed.inset-0 button:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Make sure the form looks good in the popup */
+    .eurus.page-width {
+        padding: 0 15px;
     }
 </style>
 
