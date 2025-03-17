@@ -69,7 +69,7 @@
     "section_liquid_7LtxMq": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.dropdown-container .contact__fields {\n    justify-content: center;\n    margin: 20px 0;\n}\n#popup {\n    width: 600px;\n    max-width: 95%;\n    left: 50%;\n    z-index: 9;\n    transform: translate(-50%, -50%);\n    top: 50%;\n}\n</style>"
+        "custom_liquid": "<style>\n.dropdown-container .contact__fields {\n    justify-content: center;\n    margin: 20px 0;\n}\n#popup {\n    width: 600px;\n    max-width: 95%;\n    left: 50%;\n    z-index: 9;\n    transform: translate(-50%, -50%);\n    top: 50%;\n}\nbutton#closePopup {\n    left: 20px;\n    top: 40px;\n    z-index: 999;\n}\n</style>"
       }
     }
   },
