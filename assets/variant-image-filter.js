@@ -183,6 +183,21 @@
       return true;
     }
     
+    // Check product title - for cup holder
+    if (productData.title && typeof productData.title === 'string' && 
+      productData.title.toLowerCase().includes('holder')) {
+    //console.log('Product title contains "bundle", skipping image filtering');
+    return true;
+  }
+  
+    // Check product title - for cup holder
+    if (productData.title && typeof productData.title === 'string' && 
+      productData.title.toLowerCase().includes('cover')) {
+    //console.log('Product title contains "bundle", skipping image filtering');
+    return true;
+  }
+  
+
     // Check product tags if they exist
     if (productData.tags && Array.isArray(productData.tags)) {
       for (let i = 0; i < productData.tags.length; i++) {
