@@ -1,0 +1,391 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var urlParams = new URLSearchParams(window.location.search);
+      var formSubmitted = urlParams.get('contact_posted');
+      var formId = urlParams.get('form_id');
+      setTimeout(function() {
+      if (formSubmitted) {
+        var event = new CustomEvent('open-popup');
+        window.dispatchEvent(event);
+      }
+    }, 250);
+    });
+  </script>
+<div x-data="{ openPopup: false, submitted: false }" @open-popup.window="openPopup = true">
+    <div class="relative page-width mx-auto pt-[28px] md:pt-[100px] pb-[28px] md:pb-[100px] text-center max-w-4xl p-break-words rte pt-2 pb-2 leading-tight">
+        {%if section.settings.section_title != blank%}
+            <h2>
+                {{ section.settings.section_title }}
+            </h2>
+        {%endif%}
+        <p>In order to enjoy babyark’s full benefits, you need to install it using lower anchors, vehicle seat belt, and a support leg. See the list below for guidance.<br>If it doesn’t appear or if you’re not sure – <span style="color:#375E5E" class="cursor-pointer underline" x-on:click="openPopup = true">click here</span>.</p>
+    </div>
+    <div x-show="openPopup" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-center items-center" x-cloak>
+      <div class="p-2 pt-8 pb-8 md:pt-16 md:pb-16 md:pr-8 md:pl-8 rounded-lg shadow-lg relative w-full max-w-5xl" style="background-color:#F6F2EF;">
+        <button x-on:click="openPopup = false" class="absolute top-2 right-2 m-2 text-black text-2xl">
+          &#10005; <!-- Close icon (X) -->
+        </button>
+  
+        {%- form 'contact', id: 'carForm', class: 'eurus page-width' -%}
+          {%- if form.posted_successfully? -%}
+          <p class="text-center text-[1.485rem]">Thanks for contacting us.<br>We’ll get back to you as soon as possible.</p>
+          {%- elsif form.errors -%}
+            <p class="flex items-center pl-4 pr-4 pt-3 pb-3 mb-3 bg-[rgba(var(--color-error),0.2)] selection:bg-[rgba(var(--color-error),0.4)]" tabindex="-1" autofocus>
+              <span class="text-[rgba(var(--color-error))] inline-block w-5 mr-2">{% render 'icon-alls', icon: 'icon-error' %} </span>
+              {{ form.errors.translated_fields.email | capitalize }}
+              {{ form.errors.messages.email }}
+            </p>
+          {%- endif -%}
+          {%- unless form.posted_successfully? -%}
+            <div class="contact__fields">
+
+            {% assign input_class = "w-full pl-0 pr-0 lg:pl-0 lg:pr-0 pt-5 pb-1 md:pt-5 md:pb-2 border focus:outline-none focus:border-current input bg-transparent placeholder:opacity-0" %}
+            {% assign label_class = "duration-150 leading-tight absolute top-1/2 left-5 lg:left-0 -translate-y-1/2 input_focus:text-xs input_focus:top-3 input_not_empty:top-3 input_not_empty:text-xs" %}
+            {% assign section_wrapper = "mb-3 mr-4 ml-4 lg:mb-4 flex-0 relative" %}
+
+            <!-- First Row: Full Name and Email -->
+            <div class="flex flex-col md:flex-row form-section">
+                <div class="{{ section_wrapper }} md:w-1/3">
+                <input type="text" id="ContactFormName" name="contact[name]" class="{{ input_class }}" placeholder="Full Name" required>
+                <label class="{{ label_class }}" for="ContactFormName">Full Name</label>
+                </div>
+                <div class="{{ section_wrapper }} md:w-1/3">
+                <input type="email" id="ContactFormEmail" name="contact[email]" class="{{ input_class }}" placeholder="Email" required>
+                <label class="{{ label_class }}" for="ContactFormEmail">Email</label>
+                </div>
+                <div class="{{ section_wrapper }} md:w-1/3">
+                    
+                    </div>
+            </div>
+
+            <!-- Second Row: Brand, Model, and Year -->
+            <div class="flex flex-col md:flex-row form-section">
+                <div class="{{ section_wrapper }} md:w-1/3">
+                <input type="text" id="brand" name="contact[brand]" class="{{ input_class }}" placeholder="Brand" required>
+                <label class="{{ label_class }}" for="brand">Brand</label>
+                </div>
+                <div class="{{ section_wrapper }} md:w-1/3">
+                <input type="text" id="model" name="contact[model]" class="{{ input_class }}" placeholder="Model" required>
+                <label class="{{ label_class }}" for="model">Model</label>
+                </div>
+                <div class="{{ section_wrapper }} md:w-1/3">
+                <input type="text" id="year" name="contact[year]" class="{{ input_class }}" placeholder="Year" required>
+                <label class="{{ label_class }}" for="year">Year</label>
+                </div>
+                <label class="hidden {{ label_class }}" for="subject">Subject</label>
+                <input type="hidden" id="subject" name="contact[subject]" value="Car Compatibility" />
+            </div>
+
+            <!-- Third Row: Submit Button -->
+            <div class="submitSection text-left mt-3.5 md:mt-5 form-section">
+                <button type="submit" class="button button-solid flex items-center gap-2 leading-normal pl-8 pr-8 lg:pl-8 lg:pr-8 pt-2.5 pb-2.5 lg:pt-3 lg:pb-3 cursor-pointer empty:hidden pointer-events-auto">
+                    {% render 'icon-alls', icon: 'icon-contact-env' %}
+                    {%- if section.settings.button_label != blank -%}
+                    {% assign button_label = section.settings.button_label %}
+                    {%- else -%}
+                    {% assign button_label = 'templates.contact.form.send' | t %}
+                    {%- endif -%}
+                    {% render 'button-label', button_label: 'Submit' %}
+                </button>
+                </div>
+
+            </div>
+        {%- endunless -%}
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+<div class="car-compatibility-container">
+    {% if section.settings.enable_section %}
+        <div class="dropdown-container eurus">
+            <div class="contact__fields">
+                <div class="mb-3 lg:mb-4 flex-1 relative">
+                    <select id="brandDropdown" class="dropdown" data-placeholder="{{ section.settings.brand_placeholder }}">
+                        <option value="">{{ section.settings.brand_placeholder }}</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+                <div class="mb-3 lg:mb-4 flex-1 relative">
+                    <select id="modelDropdown" class="dropdown" disabled data-placeholder="{{ section.settings.model_placeholder }}">
+                        <option value="">{{ section.settings.model_placeholder }}</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>    
+                <div class="mb-3 lg:mb-4 flex-1 relative">
+                    <select id="yearDropdown" class="dropdown" disabled data-placeholder="{{ section.settings.year_placeholder }}">
+                        <option value="">{{ section.settings.year_placeholder }}</option>
+                        <!-- Options will be populated by JavaScript -->
+                    </select>
+                </div>
+            </div>
+        </div>
+ 
+        <div id="compatibleContainer" class="result-container result-hidden flex">
+            <h3 id="selectedCarTitle" class="selected-car-title"></h3>
+            <div class="flex compatibleInnerContainer">
+                <img src="{{ section.settings.compatible_image | img_url }}" alt="Compatible">
+                <p>{{ section.settings.compatible_text }}</p>
+                <a href="#" class="check-again-link">{{ section.settings.check_again_text }}</a>
+            </div>
+        </div>
+
+        <div id="notCompatibleContainer" class="result-container result-hidden flex">
+            <h3 id="selectedCarTitleNotCompatible" class="selected-car-title"></h3>
+            <div class="compatibleInnerContainer flex">
+                <img src="{{ section.settings.not_compatible_image | img_url }}" alt="Not Compatible">
+                <p>{{ section.settings.not_compatible_text }}</p>
+                <a href="#" class="check-again-link">{{ section.settings.check_again_text }}</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const carCompatibilityData = {{ pages['car-list-compatibility'].metafields.custom.json.value | json }};
+
+    const brandDropdown = document.getElementById('brandDropdown');
+    const modelDropdown = document.getElementById('modelDropdown');
+    const yearDropdown = document.getElementById('yearDropdown');
+    const dropdownContainer = document.querySelector('.dropdown-container');
+    const selectedCarTitle = document.getElementById('selectedCarTitle');
+    const compatibleContainer = document.getElementById('compatibleContainer');
+    const notCompatibleContainer = document.getElementById('notCompatibleContainer');
+
+    // Populate the brand dropdown
+    Object.keys(carCompatibilityData).forEach(brand => {
+        const option = document.createElement('option');
+        option.value = brand;
+        option.textContent = brand;
+        brandDropdown.appendChild(option);
+    });
+
+    // Event listener for brand dropdown changes
+    brandDropdown.addEventListener('change', function() {
+        modelDropdown.innerHTML = '<option value="">Select Model</option>';
+        yearDropdown.innerHTML = '<option value="">Select Year</option>';
+        yearDropdown.disabled = true;
+
+        const selectedBrand = this.value;
+        if (selectedBrand) {
+            modelDropdown.disabled = false;
+            Object.keys(carCompatibilityData[selectedBrand]).forEach(model => {
+                const option = document.createElement('option');
+                option.value = model;
+                option.textContent = model;
+                modelDropdown.appendChild(option);
+            });
+        } else {
+            modelDropdown.disabled = true;
+        }
+    });
+
+    // Event listener for model dropdown changes
+    modelDropdown.addEventListener('change', function() {
+        yearDropdown.innerHTML = '<option value="">Select Year</option>';
+
+        const selectedBrand = brandDropdown.value;
+        const selectedModel = this.value;
+        if (selectedModel) {
+            yearDropdown.disabled = false;
+            carCompatibilityData[selectedBrand][selectedModel].forEach(item => {
+                const option = document.createElement('option');
+                option.value = item.y;
+                option.textContent = item.y;
+                yearDropdown.appendChild(option);
+            });
+        } else {
+            yearDropdown.disabled = true;
+        }
+    });
+
+    // Event listener for year dropdown changes
+    yearDropdown.addEventListener('change', function() {
+        const selectedBrand = brandDropdown.value;
+        const selectedModel = modelDropdown.value;
+        const selectedYear = this.value;
+
+        if (selectedBrand && selectedModel && selectedYear) {
+            const result = carCompatibilityData[selectedBrand][selectedModel].find(item => item.y === selectedYear);
+            if (result) {
+                selectedCarTitle.textContent = `${selectedBrand} / ${selectedModel} / ${selectedYear}`;
+                dropdownContainer.classList.add('result-hidden');
+
+                if (result.c === 'yes') {
+                    compatibleContainer.classList.remove('result-hidden');
+                    notCompatibleContainer.classList.add('result-hidden');
+                } else {
+                    notCompatibleContainer.classList.remove('result-hidden');
+                    compatibleContainer.classList.add('result-hidden');
+                }
+            }
+        }
+    });
+
+    // Event listener for check again link
+    document.querySelectorAll('.check-again-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            compatibleContainer.classList.add('result-hidden');
+            notCompatibleContainer.classList.add('result-hidden');
+            dropdownContainer.classList.remove('result-hidden');
+            brandDropdown.value = '';
+            modelDropdown.innerHTML = '<option value="">Select Model</option>';
+            yearDropdown.innerHTML = '<option value="">Select Year</option>';
+            modelDropdown.disabled = true;
+            yearDropdown.disabled = true;
+        });
+    });
+});
+
+</script>
+<style>
+    .car-compatibility-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding-bottom:80px;
+    }
+    .dropdown-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        width:768px;
+        max-width:100%;
+    }
+    .dropdown {
+        width: 100%;
+        max-width: 300px;
+        padding: 10px;
+        border-radius: 5px;
+    }
+    .eurus select {
+    -webkit-appearance: auto;
+    -webkit-border-radius: 0;
+}
+.dropdown-container .contact__fields {
+    display: flex;
+    width: 768px;
+    max-width: 100%;
+    gap: 20px;
+}
+.result-container {
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+}
+.result-container h3{
+    font-size: 2rem;
+    width:100%;
+}
+.compatibleInnerContainer {
+    flex-direction: column;
+    margin: 20px 0;
+    text-align: center;
+    justify-content: center;
+    gap: 15px;
+    align-items: center;
+}
+.compatibleInnerContainer img {
+    width: 120px;
+}
+.check-again-link{
+    text-decoration: underline;
+}
+    @media (min-width: 960px) {
+        .dropdown-container {
+            flex-direction: row;
+            justify-content: center;
+        }
+        .dropdown {
+            flex: 1;
+            margin: 0 10px;
+        }
+    }
+    .result-hidden {
+        display: none;
+    }
+    @media (max-width:480px){
+        .contact__fields{
+            flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+        }
+    }
+</style>
+
+{% schema %}
+{
+    "name": "Car List Compatibility",
+    "class": "carlist-section",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_title",
+            "label": "title for this section",
+            "default": "Car list"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_section",
+            "label": "Enable this section",
+            "default": true
+        },
+        {
+            "type": "text",
+            "id": "brand_placeholder",
+            "label": "Brand Dropdown Placeholder",
+            "default": "Select Brand"
+        },
+        {
+            "type": "text",
+            "id": "model_placeholder",
+            "label": "Model Dropdown Placeholder",
+            "default": "Select Model"
+        },
+        {
+            "type": "text",
+            "id": "year_placeholder",
+            "label": "Year Dropdown Placeholder",
+            "default": "Select Year"
+        },
+        {
+            "type": "image_picker",
+            "id": "compatible_image",
+            "label": "Compatible Image"
+        },
+        {
+            "type": "textarea",
+            "id": "compatible_text",
+            "label": "Text for Compatible",
+            "default": "This item is compatible with your selection."
+        },
+        {
+            "type": "image_picker",
+            "id": "not_compatible_image",
+            "label": "Not Compatible Image"
+        },
+        {
+            "type": "textarea",
+            "id": "not_compatible_text",
+            "label": "Text for Not Compatible",
+            "default": "This item is not compatible with your selection."
+        },
+        {
+            "type": "text",
+            "id": "check_again_text",
+            "label": "Check Again Link Text",
+            "default": "Check Another Vehicle"
+        }
+    ],
+    "presets": [
+        {
+            "name": "Car List Compatibility",
+            "category": "Custom"
+        }
+    ]
+}
+{% endschema %}
+
