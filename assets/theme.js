@@ -4554,7 +4554,7 @@
                 this.hideAccordion();
             } else {
                 this.showAccordion();
-                this.closeSiblings();
+                //this.closeSiblings();
                 // Collection filters
                 // Accordion with range slider custom event to reload
                 if (this.body.hasAttribute(selectors$J.rangeSlider)) {
