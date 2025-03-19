@@ -56,6 +56,7 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "image": "shopify://shop_images/image_362.png",
+        "mobile_image": "shopify://shop_images/Group_29613153.png",
         "table_background_color": "#22282d",
         "table_text_color": "#ffffff"
       }
