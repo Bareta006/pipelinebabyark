@@ -6,6 +6,7 @@
     --table-text-color: #000;
   }
 
+  /* ===== Base layout & containers ===== */
   .section-comparison-wrapper {
     display: flex;
     flex-direction: column;
@@ -13,37 +14,21 @@
     padding-bottom: var(--PB);
   }
   
-  @media screen and (min-width: 768px) {
-    .section-comparison-wrapper { 
-      flex-direction: row;
-    }
-  }
-  
   .comparison-image-container {
     width: 100%;
     height: 100%;
-    background-color: var(--table-bg-color);
-  }
-  
-  @media screen and (min-width: 768px) {
-    .comparison-image-container {
-      width: 50%;
-    }
   }
   
   .comparison-table-container {
     width: 100%;
   }
   
-  @media screen and (min-width: 768px) {
-    .comparison-table-container {
-      width: 50%;
-    }
-  }
-  
+  /* ===== Table structure ===== */
   .comparison-table {
     padding: 15px 0;
+    background-color: var(--table-bg-color);
     color: var(--table-text-color);
+    border-radius: 16px;
   }
 
   .comparison-row {
@@ -51,14 +36,6 @@
     display: flex;
     margin: 5px 0;
     flex-direction: column;
-  }
-
-  @media screen and (min-width: 768px) {
-    .comparison-row {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-    }
   }
   
   .feature-column {
@@ -70,20 +47,23 @@
     flex: 2;
     display: flex;
     justify-content: space-between;
-  }
-  
-  .featureName {
-    text-align: left;
-    font-weight: 500;
-    font-size: 16px;
-    text-transform: uppercase;
-    padding: 8px;
+    border-left: 1px solid rgba(0,0,0,0.1);
+    margin-left: 15px;
   }
   
   .product-column {
     flex: 1;
     text-align: center;
     padding: 0 10px;
+  }
+  
+  /* ===== Text & content styling ===== */
+  .featureName {
+    text-align: left;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 8px;
   }
   
   .featureValue {
@@ -93,23 +73,6 @@
     align-items: center;
     justify-content: center;
     padding: 8px;
-  }
-  
-  .linktopage {
-    cursor: pointer;
-    color: var(--table-text-color) !important;
-    border-color: var(--table-text-color) !important;
-    padding: 7px;
-  }
-  
-  .product-1-container {
-    background-color: var(--product-1-color);
-    padding: 10px;
-  }
-  
-  .product-2-container {
-    background-color: var(--product-2-color);
-    padding: 10px;
   }
   
   .product-header {
@@ -133,55 +96,33 @@
     margin-left: 5px;
     text-transform: uppercase;
   }
-
-  /* Section height classes */
-  .section-height--use-screen-full {
-    min-height: 100vh;
+  
+  /* ===== Product color containers ===== */
+  .product-1-container {
+    background-color: var(--product-1-color);
+    padding: 10px;
   }
   
-  .section-height--use-screen-three-quarters {
-    min-height: 75vh;
+  .product-2-container {
+    background-color: var(--product-2-color);
+    padding: 10px;
   }
   
-  .section-height--use-screen-two-thirds {
-    min-height: 66vh;
+  /* ===== Buttons & links ===== */
+  .linktopage {
+    cursor: pointer;
+    color: var(--table-text-color) !important;
+    border-color: var(--table-text-color) !important;
+    padding: 7px;
   }
   
-  .section-height--use-screen-one-half {
-    min-height: 50vh;
-  }
-  
-  .section-height--use-screen-one-third {
-    min-height: 33vh;
-  }
-  
-  .section-height--use-screen-one-fifth {
-    min-height: 20vh;
-  }
-  
-  .section-height--use-pixels-800 {
-    min-height: 800px;
-  }
-  
-  .section-height--use-pixels-650 {
-    min-height: 650px;
-  }
-  
-  .section-height--use-pixels-500 {
-    min-height: 500px;
-  }
-  
-  .section-height--use-image {
-    min-height: auto;
-  }
-  
-  /* SVG styling */
+  /* ===== SVG icons ===== */
   .checkmark-svg path,
   .dash-svg line {
     stroke: currentColor;
   }
   
-  /* Scroll arrow */
+  /* ===== Scroll arrow ===== */
   .scroll_icon_wrap {
     position: absolute;
     bottom: 20px;
@@ -202,6 +143,7 @@
     color: var(--table-text-color);
   }
   
+  /* ===== Media Queries ===== */
   @media screen and (max-width: 767px) {
     .comparison-row {
       margin: 3px 0;
@@ -210,14 +152,34 @@
     .comparison-table {
       padding: 10px 0;
     }
+  }
+  
+  @media screen and (min-width: 768px) {
+    .section-comparison-wrapper {
+      flex-direction: row;
+    }
     
-    .featureName {
-      font-size: 14px;
+    .comparison-image-container {
+      width: 50%;
+    }
+    
+    .comparison-table-container {
+      width: 50%;
+    }
+    
+    .comparison-row {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
     }
     
     .products-column {
-      border-left: 1px solid rgba(0,0,0,0.1);
-      margin-left: 15px;
+      border-left: none;
+      margin-left: 0;
+    }
+    
+    .featureName {
+      font-size: 16px;
     }
   }
 </style>
