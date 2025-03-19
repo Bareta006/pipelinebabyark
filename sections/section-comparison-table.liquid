@@ -85,9 +85,8 @@
   }
   
   .product-title {
-    font-size:22px;
+    font-size: 22px;
     font-weight: 500;
-
   }
   
   .productBadgeTop {
@@ -147,11 +146,17 @@
     cursor: pointer;
     color: var(--table-text-color);
   }
+  
   .price-column .featureValue {
-    color:#8C8C8C;
+    color: #8C8C8C;
   }
+  
   /* ===== Media Queries ===== */
   @media screen and (max-width: 767px) {
+    .hide-on-mobile {
+      display: none !important;
+    }
+    
     .comparison-row {
       margin: 3px 0;
       flex-direction: row;
@@ -163,7 +168,30 @@
     }
   }
   
+  @media screen and (max-width: 480px) {
+    .featureName {
+      font-size: 12px;
+      line-height: 15px;
+    }
+    
+    .product-title {
+      font-size: 17px;
+    }
+    
+    .comparison-table-container {
+      padding: 20px;
+    }
+    
+    .linktopage {
+      padding: 8px;
+    }
+  }
+  
   @media screen and (min-width: 768px) {
+    .hide-on-desktop {
+      display: none !important;
+    }
+    
     .section-comparison-wrapper {
       flex-direction: row;
     }
@@ -175,7 +203,7 @@
     .comparison-table-container {
       width: 50%;
       display: flex;
-    align-items: center;
+      align-items: center;
     }
     
     .comparison-row {
@@ -187,21 +215,6 @@
     .products-column {
       border-left: none;
       margin-left: 0;
-    }
-  }
-  @media screen and (max-width: 480px) {
-    .featureName {
-      font-size: 12px;
-      line-height: 15px;
-    }
-    .product-title {
-      font-size: 17px;
-    }
-    .comparison-table-container{
-        padding: 20px;
-    }
-    .linktopage{
-        padding: 8px;
     }
   }
 </style>
@@ -231,25 +244,38 @@
   
   <!-- Image Container -->
   <div class="comparison-image-container">
-    {% if section.settings.mobile_image != blank and request.display_mode != 'desktop' %}
-      {%- assign image = section.settings.mobile_image -%}
-    {% else %}
-      {%- assign image = section.settings.image -%}
-    {% endif %}
-    
-    {% if image != blank %}
-      <div class="image-wrapper">
+    {% if section.settings.mobile_image != blank and section.settings.image != blank %}
+      <div class="image-wrapper hide-on-mobile">
         {% render 'image', 
-          img_object: image, 
+          img_object: section.settings.image, 
           max_width: 2000,
           show_scale: true,
-          wrapper_class: 'image-wrapper',
+          wrapper_class: 'image-wrapper desktop-only-image',
+          img_class: 'responsive-image__image'
+        %}
+      </div>
+      <div class="image-wrapper hide-on-desktop">
+        {% render 'image', 
+          img_object: section.settings.mobile_image, 
+          max_width: 768,
+          show_scale: true,
+          wrapper_class: 'image-wrapper mobile-only-image',
           img_class: 'responsive-image__image'
         %}
       </div>
     {% else %}
       <div class="image-wrapper">
-        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% if section.settings.image != blank %}
+          {% render 'image', 
+            img_object: section.settings.image, 
+            max_width: 2000,
+            show_scale: true,
+            wrapper_class: 'image-wrapper',
+            img_class: 'responsive-image__image'
+          %}
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {% endif %}
       </div>
     {% endif %}
   </div>
