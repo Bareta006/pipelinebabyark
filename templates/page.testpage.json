@@ -33,16 +33,16 @@
         "product_wLJ4KP": {
           "type": "product",
           "settings": {
-            "product_id": "",
-            "product_badge": "new",
+            "product_id": "babyark-convertible-car-seat-smart",
+            "product_badge": "",
             "product_atc": false
           }
         },
         "product_y7Fpci": {
           "type": "product",
           "settings": {
-            "product_id": "",
-            "product_badge": "new",
+            "product_id": "babyark-convertible-car-seat-classic",
+            "product_badge": "",
             "product_atc": false
           }
         }
@@ -52,9 +52,10 @@
         "product_y7Fpci"
       ],
       "settings": {
-        "height": "use_screen_two_thirds",
-        "padding_top": 20,
-        "padding_bottom": 20,
+        "height": "use_image",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "image": "shopify://shop_images/image_362.png",
         "table_background_color": "rgba(232, 232, 232, 0.7)",
         "table_text_color": "#000000"
       }
