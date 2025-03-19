@@ -174,6 +174,10 @@
     min-height: 500px;
   }
   
+  .section-height--use-image {
+    min-height: auto;
+  }
+  
   /* SVG styling */
   .checkmark-svg path,
   .dash-svg line {
@@ -244,187 +248,144 @@
   data-section-id="{{ section.id }}"
   data-section-type="comparison-table">
   
-  {% for block in section.blocks %}
-    {% case block.type %}
-      {% when 'image' %}
-        <div class="comparison-image-container" {{ block.shopify_attributes }}>
-          {% if block.settings.mobile_image != blank and request.display_mode != 'desktop' %}
-            {%- assign image = block.settings.mobile_image -%}
-          {% else %}
-            {%- assign image = block.settings.image -%}
-          {% endif %}
-          
-          {% if image != blank %}
-            <div class="image-wrapper">
-              {% render 'image', 
-                img_object: image, 
-                max_width: 2000,
-                show_scale: true,
-                wrapper_class: 'image-wrapper',
-                img_class: 'responsive-image__image'
-              %}
-            </div>
-          {% else %}
-            <div class="image-wrapper">
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-            </div>
-          {% endif %}
+  <!-- Image Container -->
+  <div class="comparison-image-container">
+    {% if section.settings.mobile_image != blank and request.display_mode != 'desktop' %}
+      {%- assign image = section.settings.mobile_image -%}
+    {% else %}
+      {%- assign image = section.settings.image -%}
+    {% endif %}
+    
+    {% if image != blank %}
+      <div class="image-wrapper">
+        {% render 'image', 
+          img_object: image, 
+          max_width: 2000,
+          show_scale: true,
+          wrapper_class: 'image-wrapper',
+          img_class: 'responsive-image__image'
+        %}
+      </div>
+    {% else %}
+      <div class="image-wrapper">
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {% endif %}
+  </div>
+  
+  <!-- Comparison Table Container -->
+  <div class="comparison-table-container">
+    {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity & Notifications" | split: ',' %} 
+    {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
+    
+    <div class="comparison-table">
+      <!-- Product header row -->
+      <div class="comparison-row">
+        <div class="feature-column">
+          <h3 class="featureName">Features</h3>
         </div>
-      
-      {% when 'comparison_table' %}
-        <div class="comparison-table-container" {{ block.shopify_attributes }}>
-          {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity & Notifications" | split: ',' %} 
-          {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
-          
-          <div class="comparison-table">
-            <!-- Product header row -->
-            <div class="comparison-row">
-              <div class="feature-column">
-                <h3 class="featureName">Features</h3>
-              </div>
-              
-              <div class="products-column">
-                {% if product_1 %}
-                  <div class="product-column">
-                    <div class="product-1-container">
-                      <div class="product-header">
-                        <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M4.75955 11.2973C3.49772 11.2958 2.28803 10.8027 1.39578 9.92615C0.503529 9.04962 0.00157172 7.86124 0 6.62164C0 5.38075 0.488033 3.80144 1.27205 2.49734C2.24416 0.886905 3.48057 0 4.75955 0C6.03853 0 7.27792 0.886905 8.24706 2.49734C9.03206 3.80046 9.5191 5.38075 9.5191 6.62164C9.51753 7.86124 9.01558 9.04962 8.12333 9.92615C7.23108 10.8027 6.02138 11.2958 4.75955 11.2973ZM4.75955 1.5657C4.08641 1.5657 3.29546 2.21143 2.6431 3.29477C2.01549 4.33727 1.59378 5.67444 1.59378 6.62164C1.59378 7.44698 1.92752 8.23851 2.52159 8.82212C3.11566 9.40572 3.92139 9.73358 4.76153 9.73358C5.60167 9.73358 6.4074 9.40572 7.00147 8.82212C7.59554 8.23851 7.92929 7.44698 7.92929 6.62164C7.92929 5.67444 7.50758 4.33727 6.87997 3.29477C6.22365 2.21143 5.4327 1.5657 4.75955 1.5657Z" fill="currentColor"/>
-                          <path d="M4.75955 15.7831C3.49772 15.7816 2.28803 15.2885 1.39578 14.4119C0.503529 13.5354 0.00157172 12.347 0 11.1074H1.59378C1.59378 11.9328 1.92752 12.7243 2.52159 13.3079C3.11566 13.8915 3.92139 14.2194 4.76153 14.2194C5.60167 14.2194 6.4074 13.8915 7.00147 13.3079C7.59554 12.7243 7.92929 11.9328 7.92929 11.1074H9.52306C9.52149 12.3477 9.01899 13.5367 8.12589 14.4133C7.23278 15.2899 6.02207 15.7826 4.75955 15.7831Z" fill="currentColor"/>
-                        </svg>
-                        <span class="product-title">{{ product_1.metafields.comparison.titlename }}</span>
-                        {% if section.settings.product_1_badge != blank %}
-                          <span class="productBadgeTop">{{ section.settings.product_1_badge }}</span>
-                        {% endif %}
-                      </div>
-                    </div>
-                  </div>
-                {% endif %}
-                
-                {% if product_2 %}
-                  <div class="product-column">
-                    <div class="product-2-container">
-                      <div class="product-header">
-                        <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M4.75955 11.2973C3.49772 11.2958 2.28803 10.8027 1.39578 9.92615C0.503529 9.04962 0.00157172 7.86124 0 6.62164C0 5.38075 0.488033 3.80144 1.27205 2.49734C2.24416 0.886905 3.48057 0 4.75955 0C6.03853 0 7.27792 0.886905 8.24706 2.49734C9.03206 3.80046 9.5191 5.38075 9.5191 6.62164C9.51753 7.86124 9.01558 9.04962 8.12333 9.92615C7.23108 10.8027 6.02138 11.2958 4.75955 11.2973ZM4.75955 1.5657C4.08641 1.5657 3.29546 2.21143 2.6431 3.29477C2.01549 4.33727 1.59378 5.67444 1.59378 6.62164C1.59378 7.44698 1.92752 8.23851 2.52159 8.82212C3.11566 9.40572 3.92139 9.73358 4.76153 9.73358C5.60167 9.73358 6.4074 9.40572 7.00147 8.82212C7.59554 8.23851 7.92929 7.44698 7.92929 6.62164C7.92929 5.67444 7.50758 4.33727 6.87997 3.29477C6.22365 2.21143 5.4327 1.5657 4.75955 1.5657Z" fill="currentColor"/>
-                          <path d="M4.75955 15.7831C3.49772 15.7816 2.28803 15.2885 1.39578 14.4119C0.503529 13.5354 0.00157172 12.347 0 11.1074H1.59378C1.59378 11.9328 1.92752 12.7243 2.52159 13.3079C3.11566 13.8915 3.92139 14.2194 4.76153 14.2194C5.60167 14.2194 6.4074 13.8915 7.00147 13.3079C7.59554 12.7243 7.92929 11.9328 7.92929 11.1074H9.52306C9.52149 12.3477 9.01899 13.5367 8.12589 14.4133C7.23278 15.2899 6.02207 15.7826 4.75955 15.7831Z" fill="currentColor"/>
-                        </svg>
-                        <span class="product-title">{{ product_2.metafields.comparison.titlename }}</span>
-                        {% if section.settings.product_2_badge != blank %}
-                          <span class="productBadgeTop">{{ section.settings.product_2_badge }}</span>
-                        {% endif %}
-                      </div>
-                    </div>
-                  </div>
-                {% endif %}
-              </div>
-            </div>
-            
-            <!-- Feature comparison rows -->
-            {% for i in (0..feature_names.size) %}
-              {% assign feature_name = feature_names[i] %}
-              {% assign metafield_key = metafield_keys[i] %}
-              
-              {% if feature_name != blank and metafield_key != blank %}
-                <div class="comparison-row">
-                  <div class="feature-column">
-                    <div class="featureName">{{ feature_name }}</div>
-                  </div>
-                  
-                  <div class="products-column">
-                    {% if product_1 %}
-                      <div class="product-column">
-                        <div class="featureValue">
-                          {% if product_1.metafields.comparison[metafield_key] == 'true' or product_1.metafields.comparison[metafield_key] == true %}
-                            <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
-                              <path d="M9.91464 1.48047L4.02484 7.47736L1.34766 4.7515" stroke="currentColor" stroke-width="2.5771" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          {% else %}
-                            <svg class="dash-svg" width="14" height="3" viewBox="0 0 14 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <line x1="1.5" y1="1.5" x2="12.5" y2="1.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"></line>
-                            </svg>
-                          {% endif %}
-                        </div>
-                      </div>
-                    {% endif %}
-                    
-                    {% if product_2 %}
-                      <div class="product-column">
-                        <div class="featureValue">
-                          {% if product_2.metafields.comparison[metafield_key] == 'true' or product_2.metafields.comparison[metafield_key] == true %}
-                            <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
-                              <path d="M9.91464 1.48047L4.02484 7.47736L1.34766 4.7515" stroke="currentColor" stroke-width="2.5771" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
-                          {% else %}
-                            <svg class="dash-svg" width="14" height="3" viewBox="0 0 14 3" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <line x1="1.5" y1="1.5" x2="12.5" y2="1.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"></line>
-                            </svg>
-                          {% endif %}
-                        </div>
-                      </div>
+        
+        <div class="products-column">
+          {% for block in section.blocks %}
+            {% assign product = all_products[block.settings.product_id] %}
+            {% if product %}
+              <div class="product-column" {{ block.shopify_attributes }}>
+                <div class="{% if forloop.index == 1 %}product-1-container{% else %}product-2-container{% endif %}">
+                  <div class="product-header">
+                    <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M4.75955 11.2973C3.49772 11.2958 2.28803 10.8027 1.39578 9.92615C0.503529 9.04962 0.00157172 7.86124 0 6.62164C0 5.38075 0.488033 3.80144 1.27205 2.49734C2.24416 0.886905 3.48057 0 4.75955 0C6.03853 0 7.27792 0.886905 8.24706 2.49734C9.03206 3.80046 9.5191 5.38075 9.5191 6.62164C9.51753 7.86124 9.01558 9.04962 8.12333 9.92615C7.23108 10.8027 6.02138 11.2958 4.75955 11.2973ZM4.75955 1.5657C4.08641 1.5657 3.29546 2.21143 2.6431 3.29477C2.01549 4.33727 1.59378 5.67444 1.59378 6.62164C1.59378 7.44698 1.92752 8.23851 2.52159 8.82212C3.11566 9.40572 3.92139 9.73358 4.76153 9.73358C5.60167 9.73358 6.4074 9.40572 7.00147 8.82212C7.59554 8.23851 7.92929 7.44698 7.92929 6.62164C7.92929 5.67444 7.50758 4.33727 6.87997 3.29477C6.22365 2.21143 5.4327 1.5657 4.75955 1.5657Z" fill="currentColor"/>
+                      <path d="M4.75955 15.7831C3.49772 15.7816 2.28803 15.2885 1.39578 14.4119C0.503529 13.5354 0.00157172 12.347 0 11.1074H1.59378C1.59378 11.9328 1.92752 12.7243 2.52159 13.3079C3.11566 13.8915 3.92139 14.2194 4.76153 14.2194C5.60167 14.2194 6.4074 13.8915 7.00147 13.3079C7.59554 12.7243 7.92929 11.9328 7.92929 11.1074H9.52306C9.52149 12.3477 9.01899 13.5367 8.12589 14.4133C7.23278 15.2899 6.02207 15.7826 4.75955 15.7831Z" fill="currentColor"/>
+                    </svg>
+                    <span class="product-title">{{ product.metafields.comparison.titlename }}</span>
+                    {% if block.settings.product_badge != blank %}
+                      <span class="productBadgeTop">{{ block.settings.product_badge }}</span>
                     {% endif %}
                   </div>
                 </div>
-              {% endif %}
-            {% endfor %}
-            
-            <!-- Price row -->
-            <div class="comparison-row">
-              <div class="feature-column">
-                <div class="featureName">Price</div>
               </div>
-              
-              <div class="products-column">
-                {% if product_1 %}
-                  <div class="product-column">
-                    <div class="featureValue">{{ product_1.price | money_without_trailing_zeros }}</div>
-                  </div>
-                {% endif %}
-                
-                {% if product_2 %}
-                  <div class="product-column">
-                    <div class="featureValue">{{ product_2.price | money_without_trailing_zeros }}</div>
-                  </div>
-                {% endif %}
-              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Feature comparison rows -->
+      {% for i in (0..feature_names.size) %}
+        {% assign feature_name = feature_names[i] %}
+        {% assign metafield_key = metafield_keys[i] %}
+        
+        {% if feature_name != blank and metafield_key != blank %}
+          <div class="comparison-row">
+            <div class="feature-column">
+              <div class="featureName">{{ feature_name }}</div>
             </div>
             
-            <!-- Button links row -->
-            <div class="comparison-row">
-              <div class="feature-column">
-                <div class="featureName"></div>
-              </div>
-              
-              <div class="products-column">
-                {% if product_1 %}
-                  <div class="product-column">
+            <div class="products-column">
+              {% for block in section.blocks %}
+                {% assign product = all_products[block.settings.product_id] %}
+                {% if product %}
+                  <div class="product-column" {{ block.shopify_attributes }}>
                     <div class="featureValue">
-                      {% if section.settings.product_1_atc %}
-                        <a class="linktopage atc" onclick="productPageAtc();">Add To Cart</a>
+                      {% if product.metafields.comparison[metafield_key] == 'true' or product.metafields.comparison[metafield_key] == true %}
+                        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" width="12" height="9" viewBox="0 0 12 9" fill="none">
+                          <path d="M9.91464 1.48047L4.02484 7.47736L1.34766 4.7515" stroke="currentColor" stroke-width="2.5771" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
                       {% else %}
-                        <a href="{{ product_1.url }}" class="linktopage btn--outline">Shop</a>
+                        <svg class="dash-svg" width="14" height="3" viewBox="0 0 14 3" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <line x1="1.5" y1="1.5" x2="12.5" y2="1.5" stroke="currentColor" stroke-width="3" stroke-linecap="round"></line>
+                        </svg>
                       {% endif %}
                     </div>
                   </div>
                 {% endif %}
-                
-                {% if product_2 %}
-                  <div class="product-column">
-                    <div class="featureValue">
-                      {% if section.settings.product_2_atc %}
-                        <a class="linktopage atc" onclick="productPageAtc();">Add To Cart</a>
-                      {% else %}
-                        <a href="{{ product_2.url }}" class="linktopage btn--outline">Shop</a>
-                      {% endif %}
-                    </div>
-                  </div>
-                {% endif %}
-              </div>
+              {% endfor %}
             </div>
           </div>
+        {% endif %}
+      {% endfor %}
+      
+      <!-- Price row -->
+      <div class="comparison-row">
+        <div class="feature-column">
+          <div class="featureName">Price</div>
         </div>
-    {% endcase %}
-  {% endfor %}
+        
+        <div class="products-column">
+          {% for block in section.blocks %}
+            {% assign product = all_products[block.settings.product_id] %}
+            {% if product %}
+              <div class="product-column" {{ block.shopify_attributes }}>
+                <div class="featureValue">{{ product.price | money_without_trailing_zeros }}</div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      
+      <!-- Button links row -->
+      <div class="comparison-row">
+        <div class="feature-column">
+          <div class="featureName"></div>
+        </div>
+        
+        <div class="products-column">
+          {% for block in section.blocks %}
+            {% assign product = all_products[block.settings.product_id] %}
+            {% if product %}
+              <div class="product-column" {{ block.shopify_attributes }}>
+                <div class="featureValue">
+                  {% if block.settings.product_atc %}
+                    <a class="linktopage atc" onclick="productPageAtc();">Add To Cart</a>
+                  {% else %}
+                    <a href="{{ product.url }}" class="linktopage btn--outline">Shop</a>
+                  {% endif %}
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
   
   {% if section.settings.height == 'use_screen_full' %}
     <div class="scroll_icon_wrap">
@@ -457,7 +418,8 @@
         { "value": "use_screen_one_fifth", "label": "One fifth of screen height"},
         { "value": "use_pixels_800", "label": "800px" },
         { "value": "use_pixels_650", "label": "650px" },
-        { "value": "use_pixels_500", "label": "500px" }
+        { "value": "use_pixels_500", "label": "500px" },
+        { "value": "use_image", "label": "Image height" }
       ]
     },
     {
@@ -482,45 +444,18 @@
     },
     {
       "type": "header",
-      "content": "Product 1 Settings"
+      "content": "Image Settings"
     },
     {
-      "type": "product",
-      "id": "product_1_id",
-      "label": "Select Product 1"
+      "type": "image_picker",
+      "id": "image",
+      "label": "Desktop image"
     },
     {
-      "type": "text",
-      "id": "product_1_badge",
-      "label": "Product 1 badge text",
-      "default": "new"
-    },
-    {
-      "type": "checkbox",
-      "id": "product_1_atc",
-      "label": "Product 1 - Add to cart button?",
-      "default": false
-    },
-    {
-      "type": "header",
-      "content": "Product 2 Settings"
-    },
-    {
-      "type": "product",
-      "id": "product_2_id",
-      "label": "Select Product 2"
-    },
-    {
-      "type": "text",
-      "id": "product_2_badge",
-      "label": "Product 2 badge text",
-      "default": "new"
-    },
-    {
-      "type": "checkbox",
-      "id": "product_2_atc",
-      "label": "Product 2 - Add to cart button?",
-      "default": false
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image (optional)",
+      "info": "If not provided, desktop image will be used"
     },
     {
       "type": "header",
@@ -541,28 +476,28 @@
   ],
   "blocks": [
     {
-      "type": "image",
-      "name": "Image",
-      "limit": 1,
+      "type": "product",
+      "name": "Product",
+      "limit": 2,
       "settings": [
         {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Desktop image"
+          "type": "product",
+          "id": "product_id",
+          "label": "Select Product"
         },
         {
-          "type": "image_picker",
-          "id": "mobile_image",
-          "label": "Mobile image (optional)",
-          "info": "If not provided, desktop image will be used"
+          "type": "text",
+          "id": "product_badge",
+          "label": "Add a text badge",
+          "default": "new"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_atc",
+          "label": "Add to cart button?",
+          "default": false
         }
       ]
-    },
-    {
-      "type": "comparison_table",
-      "name": "Comparison Table",
-      "limit": 1,
-      "settings": []
     }
   ],
   "presets": [
@@ -571,10 +506,10 @@
       "category": "Comparison",
       "blocks": [
         {
-          "type": "image"
+          "type": "product"
         },
         {
-          "type": "comparison_table"
+          "type": "product"
         }
       ]
     }
