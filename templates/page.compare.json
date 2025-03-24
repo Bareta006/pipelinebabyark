@@ -9,12 +9,6 @@
  */
 {
   "sections": {
-    "section_liquid_nWU7hz": {
-      "type": "section-liquid",
-      "settings": {
-        "custom_liquid": "<style>\n.menu__item:last-of-type > a[href^=\"/pages/compare\"] {\n  background-color: #fff;\n  color: #000;\n}\n</style>"
-      }
-    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -169,6 +163,12 @@
         "right_box_text_align": "center",
         "mobile_box_vertical_align": "flex-end",
         "mobile_box_text_align": "center"
+      }
+    },
+    "section_liquid_nWU7hz": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.menu__item:last-of-type > a[href^=\"/pages/compare\"] {\n  background-color: #fff;\n  color: #000;\n}\n</style>"
       }
     },
     "section_icons_rJb3FF": {
@@ -413,11 +413,11 @@
     }
   },
   "order": [
-    "section_liquid_nWU7hz",
     "main",
     "section_slideshow_VrgPDy",
     "flexbox_image_content_MnpxaF",
     "flexbox_image_content_PqTF8w",
+    "section_liquid_nWU7hz",
     "section_icons_rJb3FF",
     "section_comparison_table_AwKY6M",
     "17382369213956607f",
