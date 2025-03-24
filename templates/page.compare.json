@@ -34,7 +34,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Frame_12.png",
-            "mobile_image": "shopify://shop_images/Your_safety_favorites_4.png",
+            "mobile_image": "shopify://shop_images/Image_52.png",
             "overlay_opacity": 30,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -63,7 +63,7 @@
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
         "@media (min-width: 1024px) {.hero__content__wrapper {padding-bottom: 80px; }}",
-        "@media (max-width: 480px) {.hero__content {color: #000; }}"
+        "@media (max-width: 480px) {.hero__content {color: #fff; }}"
       ],
       "settings": {
         "autoplay": false,
@@ -254,51 +254,6 @@
         "padding_bottom": 60
       }
     },
-    "section_compare_tJGMpG": {
-      "type": "section-compare",
-      "blocks": {
-        "compare_aaxyxq": {
-          "type": "compare",
-          "settings": {
-            "product_id": "babyark-convertible-car-seat-smart",
-            "product_badge": "",
-            "product_atc": false
-          }
-        },
-        "compare_yPDHdM": {
-          "type": "compare",
-          "settings": {
-            "product_id": "babyark-convertible-car-seat-classic",
-            "product_badge": "",
-            "product_atc": false
-          }
-        }
-      },
-      "block_order": [
-        "compare_aaxyxq",
-        "compare_yPDHdM"
-      ],
-      "custom_css": [
-        ".image__hero__scale img {object-position: top center !important;}",
-        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; }}"
-      ],
-      "settings": {
-        "image": "shopify://shop_images/Frame_15.png",
-        "mobile_image": "shopify://shop_images/Compare_-_Shop_Smart_Mobile_2.png",
-        "height": "use_image",
-        "overlay_opacity": 15,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--top-center",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_comparison_table_AwKY6M": {
       "type": "section-comparison-table",
       "blocks": {
@@ -458,7 +413,6 @@
     "flexbox_image_content_MnpxaF",
     "flexbox_image_content_PqTF8w",
     "section_icons_rJb3FF",
-    "section_compare_tJGMpG",
     "section_comparison_table_AwKY6M",
     "17382369213956607f",
     "section_icons_W8cw7D",
