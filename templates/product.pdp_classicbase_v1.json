@@ -256,7 +256,7 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.Two bases.",
+            "title": "One seat.<br>Two bases.",
             "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
             "font_size": 5,
             "text_columns": 1,
