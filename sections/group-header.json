@@ -118,7 +118,6 @@
       ],
       "custom_css": [
         ".header__logo__link img {width: 100%;}",
-        ".header__menu__inner .menu__item:last-of-type > a {background-color: #fff; color: #000;}",
         "@media (max-width: 480px) {.logo__img {width: 100%; }}"
       ],
       "settings": {

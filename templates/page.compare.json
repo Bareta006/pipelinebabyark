@@ -9,6 +9,12 @@
  */
 {
   "sections": {
+    "section_liquid_nWU7hz": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.menu__item > a[href=\"/pages/compare?buy\"] {\n  background-color: #fff;\n  color: #000;\n}\n</style>"
+      }
+    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -62,7 +68,7 @@
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
         "@media (min-width: 1024px) {.hero__content__wrapper {padding-bottom: 80px; }}",
-        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title {font-size: 27px; } .slideshow__slide:first-child .hero__kicker{font-size:12px;}}"
+        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title {font-size: 27px; } .slideshow__slide:first-child .hero__kicker {font-size: 12px; }}"
       ],
       "settings": {
         "autoplay": false,
@@ -407,6 +413,7 @@
     }
   },
   "order": [
+    "section_liquid_nWU7hz",
     "main",
     "section_slideshow_VrgPDy",
     "flexbox_image_content_MnpxaF",
