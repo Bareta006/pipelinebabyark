@@ -12,7 +12,7 @@
     "section_liquid_nWU7hz": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.menu__item > a[href=\"/pages/compare?buy\"] {\n  background-color: #fff;\n  color: #000;\n}\n</style>"
+        "custom_liquid": "<style>\n.menu__item:last-of-type > a[href^=\"/pages/compare\"] {\n  background-color: #fff;\n  color: #000;\n}\n</style>"
       }
     },
     "main": {
