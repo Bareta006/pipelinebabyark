@@ -59,11 +59,10 @@
       ],
       "custom_css": [
         ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 0px auto; line-height: 1;}",
-        ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
         "@media (min-width: 1024px) {.hero__content__wrapper {padding-bottom: 80px; }}",
-        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title{font-size:30px; }}"
+        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title {font-size: 27px; } .slideshow__slide:first-child .hero__kicker{font-size:12px;}}"
       ],
       "settings": {
         "autoplay": false,
