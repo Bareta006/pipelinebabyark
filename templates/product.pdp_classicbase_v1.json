@@ -94,7 +94,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
@@ -256,7 +256,7 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "One seat.<br>Two bases.",
+            "title": "One seat.Two bases.",
             "text": "<p>For parents with more than one car, it often just makes sense to have two bases instead of having to buy two babyarks. It saves both money and hassle. You can now leave one base in each car and only carry the seat on a per need basis.</p>",
             "font_size": 5,
             "text_columns": 1,
@@ -339,8 +339,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "SafeCoil ™ impact-activated shock-absorbing technology",
-            "text": "<p>Twin steel coils, calibrated to the baby’s weight, extend from their compressed mode upon impact, breaking the forward momentum to provide optimal head and body protection</p>",
+            "title": "SafeCoil™ shock absorbing system",
+            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
