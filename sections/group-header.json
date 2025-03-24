@@ -118,7 +118,8 @@
       ],
       "custom_css": [
         ".header__logo__link img {width: 100%;}",
-        "@media (max-width: 480px) {.logo__img {width: 100%; }}"
+        ".header__desktop__bar__c .menu__item:last-of-type a[href^=\"/compare\"]{}",
+        " @media (max-width: 480px) {.logo__img {width: 100%; }}"
       ],
       "settings": {
         "header_style": "menu_center",
