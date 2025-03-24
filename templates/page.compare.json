@@ -63,7 +63,7 @@
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
         "@media (min-width: 1024px) {.hero__content__wrapper {padding-bottom: 80px; }}",
-        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper{align-items:start; }}"
+        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title{font-size:30px; }}"
       ],
       "settings": {
         "autoplay": false,
