@@ -53,7 +53,7 @@
         "liquid_TaxeUj": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'PEACE OF MIND, EVERY RIDE.',\n  bullet_1: 'Where comfort meets convenience - your baby will love it.',\n  bullet_2: 'Guided step-by-step installation',\n  bullet_3: 'A lifetime of premium safety - no expiration date.'\n%}"
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'PEACE OF MIND, EVERY RIDE.',\n  bullet_1: 'Where comfort meets convenience - your baby will love it.',\n  bullet_2: 'Guided step-by-step installation',\n  bullet_3: 'Life-saving real-time alerts'\n%}"
           }
         },
         "variants": {
