@@ -1,0 +1,110 @@
+{% schema %}
+  {
+    "name": "Stock Levels",
+    "settings": [],
+    "presets": [
+      {
+        "name": "Stock Levels",
+        "category": "Inventory"
+      }
+    ]
+  }
+  {% endschema %}
+  {% assign exclude_products = 'bundle,xcover' | split: ',' %}
+  <div class="page-width stock-levels-section">
+    <h1 class="text-center mb-4">Stock Levels</h1>
+    <div class="table-responsive">
+      <table class="stock-levels-table">
+        <thead>
+          <tr>
+            <th>Name of Item</th>
+            <th>SKU</th>
+            <th>Stock Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+{% for product in collections.all.products %}
+  {% assign product_title_lower = product.title | downcase %}
+  {% assign exclude_product = false %}
+  {% for excluded in exclude_products %}
+    {% if product_title_lower contains excluded %}
+      {% assign exclude_product = true %}
+    {% endif %}
+  {% endfor %}
+  {% unless exclude_product %}
+    {% for variant in product.variants %}
+      <tr>
+        <td>{{ product.title }}{% if product.variants.size > 1 %} - {{ variant.title }}{% endif %}</td>
+        <td>{{ variant.sku }}</td>
+        <td>
+          {% if variant.inventory_quantity > 20 %}
+            <span class="instock">In Stock</span>
+          {% elsif variant.inventory_quantity > 5 %}
+            <span class="lessthan20">Less than 20</span>
+          {% elsif variant.inventory_quantity > 0 %}
+            <span class="lessthan5">Last Ones</span>
+          {% else %}
+            {% if variant.inventory_policy == 'continue' %}
+              <span class="availabletoorder">Available to pre-order</span>
+            {% else %}
+              <span class="outofstock">Out of Stock</span>
+            {% endif %}
+          {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  {% endunless %}
+{% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <style>
+    .stock-levels-section {
+      padding: 20px;
+    }
+    .table-responsive {
+      overflow-x: auto;
+    }
+    .stock-levels-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .stock-levels-table th,
+    .stock-levels-table td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    .stock-levels-table thead {
+      background-color: #f2f2f2;
+    }
+    .instock {
+      color: green;
+      font-weight: bold;
+    }
+    .lessthan20 {
+      color: orange;
+    }
+    .lessthan5 {
+      color: red;
+    }
+    .outofstock {
+      color: gray;
+      font-style: italic;
+    }
+    .availabletoorder {
+      color: blue;
+      font-style: italic;
+    }
+    @media screen and (max-width: 600px) {
+      .stock-levels-table th,
+      .stock-levels-table td {
+        padding: 5px;
+      }
+    }
+  </style>
+  
