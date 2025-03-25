@@ -43,7 +43,13 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 40
+            "padding_bottom": 20
+          }
+        },
+        "liquid_9Q8n8w": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'REASSURANCE FOLLOWS YOU TO EVERY CAR.',\n  bullet_1: 'Extra car? Buy only an extra base, save money.',\n  bullet_2: 'Easily transfer a car seat across vehicles',\n  bullet_3: 'SafeCoil ™ technology for superior safety'\n%}"
           }
         },
         "variants": {
@@ -189,6 +195,7 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "liquid_9Q8n8w",
         "variants",
         "subscriptions",
         "quantity",
