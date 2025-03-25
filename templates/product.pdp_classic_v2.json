@@ -36,7 +36,24 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 40
+            "padding_bottom": 16
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "liquid_wgXxQP": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "{% render 'product-page-bullets-smart' %}"
           }
         },
         "variants": {
@@ -60,17 +77,6 @@
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
-          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
-          "settings": {
-            "logo_align": "left",
-            "font_size": 16,
-            "logo_color": "blue",
-            "logo_type": "logo",
-            "public_api_key": "",
-            "price_selector": ""
           }
         },
         "liquid_63tWUC": {
@@ -192,10 +198,11 @@
         "title",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_wgXxQP",
         "variants",
         "subscriptions",
         "quantity",
-        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_63tWUC",
         "buttons",
         "icon_delivery_nqDtmM",
@@ -316,69 +323,6 @@
         "padding_bottom": 100
       }
     },
-    "image-with-text": {
-      "type": "section-double",
-      "blocks": {
-        "video_8UFBFR": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Anchored in safety",
-            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "video_8UFBFR",
-        "text"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_double_new_U8Re4G": {
       "type": "section-double-new",
       "blocks": {
@@ -450,8 +394,8 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "",
-        "title": "Significantly reduces the risk of head injury",
-        "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
+        "title": "We publish what others don’t",
+        "text": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1000, but <strong>not all seats perform the same.</strong> We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
         "font_size": 5,
         "text_columns": 1,
         "align_text": "text-left",
@@ -461,16 +405,52 @@
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
         "bg_color_text": "#ffffff",
-        "graphSide_heading": ""
+        "graphSide_heading": "See the Numbers. Compare the Safety."
       }
     },
-    "section_double_LJxgJN": {
+    "section_richtext_m9BB7q": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_xwmqgP": {
+          "type": "heading",
+          "settings": {
+            "heading": "100 days - Buy it, Try it.",
+            "text_size": 9
+          }
+        },
+        "text_99Xfnf": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We want you to love your babyark as much as we do.<br/>So if you don’t, we’ll take it back no questions asked.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "heading_xwmqgP",
+        "text_99Xfnf"
+      ],
+      "custom_css": [
+        "> section {background-color: #22282d;}"
+      ],
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--white",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
+    },
+    "image-with-text": {
       "type": "section-double",
       "blocks": {
-        "video_7g3amg": {
+        "video_8UFBFR": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
             "object_position": "center-center",
             "video_link": "",
             "popup_text": "",
@@ -487,6 +467,49 @@
             "button_style": "btn"
           }
         },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Anchored in safety",
+            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "video_8UFBFR",
+        "text"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_LJxgJN": {
+      "type": "section-double",
+      "blocks": {
         "text_hTMywk": {
           "type": "text",
           "settings": {
@@ -507,14 +530,34 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "video_7g3amg": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_7g3amg",
-        "text_hTMywk"
+        "text_hTMywk",
+        "video_7g3amg"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -530,6 +573,26 @@
     "section_double_wMxLWV": {
       "type": "section-double",
       "blocks": {
+        "video_d96caf": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/side impact.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text_RLUN7h": {
           "type": "text",
           "settings": {
@@ -550,34 +613,14 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "video_d96caf": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/side impact.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text_RLUN7h",
-        "video_d96caf"
+        "video_d96caf",
+        "text_RLUN7h"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -593,32 +636,12 @@
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "video_P9J8Vf": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/cover removal AND magnetic straps.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_7hmDhz": {
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "The fabric",
-            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
+            "title": "Comfort that keeps them happy, every ride.",
+            "text": "<ul><li>All-day coziness – Soft fabric keeps your baby calm and happy.<br/></li><li>Messes? Handled. – Machine-washable and zip-off for easy cleanup.<br/></li><li>Buckle up, stress-free. – Magnetic straps make every ride smoother.</li></ul>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -633,14 +656,32 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "image_nHimtR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_P9J8Vf",
-        "text_7hmDhz"
+        "text_7hmDhz",
+        "image_nHimtR"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -651,6 +692,64 @@
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
+      }
+    },
+    "icon_slider_text_C4JwVA": {
+      "type": "icon-slider-text",
+      "blocks": {
+        "icon_slider_block_NLPRF6": {
+          "type": "icon_slider_block",
+          "settings": {
+            "use_text_instead": false,
+            "text_instead": "",
+            "image": "shopify://shop_images/PS_Logo_2_2ef278a5-2796-4c1a-b1fb-5a0b59487f46.png",
+            "title": "",
+            "description": "\"Where babyark really stands out is in its safety features. It uses a shock-absorption system called SafeCoil to reduce the force and forward momentum the seat will experience if the car stops suddenly.\" ",
+            "link": ""
+          }
+        },
+        "icon_slider_block_NQ3YD3": {
+          "type": "icon_slider_block",
+          "settings": {
+            "use_text_instead": false,
+            "text_instead": "",
+            "image": "shopify://shop_images/Parents_Logo_c4563569-114b-4976-99b7-b77536b2914a.png",
+            "title": "",
+            "description": "\"The babyark looks like it’s from the future and has features parents will love, like app integration, hidden magnets for the straps, and more.\"",
+            "link": ""
+          }
+        },
+        "icon_slider_block_6dt7Dy": {
+          "type": "icon_slider_block",
+          "settings": {
+            "use_text_instead": false,
+            "text_instead": "",
+            "image": "shopify://shop_images/The_quality_edit_logo_3a5559f1-d1f1-4e76-b936-560c19b8c623.png",
+            "title": "",
+            "description": "\"I love the ease of cleaning. All of the padding comes off with a simple zipper and is able to be tossed into the washing machine.\"",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_slider_block_NLPRF6",
+        "icon_slider_block_NQ3YD3",
+        "icon_slider_block_6dt7Dy"
+      ],
+      "custom_css": [
+        "{border: 15px solid #fff;}",
+        ".icon-slider-container {border-radius: 40px;}",
+        "img {height: 60px !important; object-fit: contain;}",
+        ".icon-slider-block p {width: 960px; max-width: 100%; margin: 20px auto; line-height: 1.2;}",
+        ".icon-slider-container .icon-slider-block {display: flex; flex-direction: column; justify-content: space-between;}"
+      ],
+      "settings": {
+        "bg": "palette--dark bg--invert--accent",
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "width": "wrapper"
       }
     },
     "17388565930c97fe0d": {
@@ -734,11 +833,13 @@
     "section_liquid_3BhB6X",
     "main",
     "section_icons_3jALpN",
-    "image-with-text",
     "section_double_new_U8Re4G",
+    "section_richtext_m9BB7q",
+    "image-with-text",
     "section_double_LJxgJN",
     "section_double_wMxLWV",
     "section_double_kUy7cV",
+    "icon_slider_text_C4JwVA",
     "17388565930c97fe0d",
     "1738783691b78546c1",
     "related",
