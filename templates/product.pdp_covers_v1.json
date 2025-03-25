@@ -12,7 +12,7 @@
     "section_liquid_3BhB6X": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n@media (min-width:960px){\n.product__media:nth-child(3){\nwidth:100%;}\n}\n</style>"
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n\n</style>"
       }
     },
     "main": {
@@ -94,7 +94,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
