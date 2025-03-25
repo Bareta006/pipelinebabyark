@@ -510,26 +510,6 @@
     "section_double_LJxgJN": {
       "type": "section-double",
       "blocks": {
-        "video_7g3amg": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_hTMywk": {
           "type": "text",
           "settings": {
@@ -550,14 +530,34 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "video_7g3amg": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_7g3amg",
-        "text_hTMywk"
+        "text_hTMywk",
+        "video_7g3amg"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -573,6 +573,26 @@
     "section_double_wMxLWV": {
       "type": "section-double",
       "blocks": {
+        "video_d96caf": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/side impact.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text_RLUN7h": {
           "type": "text",
           "settings": {
@@ -593,34 +613,14 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "video_d96caf": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/side impact.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text_RLUN7h",
-        "video_d96caf"
+        "video_d96caf",
+        "text_RLUN7h"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -636,32 +636,12 @@
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "video_P9J8Vf": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/cover removal AND magnetic straps.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_7hmDhz": {
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "The fabric",
-            "text": "<ul><li>Premium, naturally flame-resistant </li><li>Zippers for easy changing </li><li>Machine washable </li><li>Magnetic straps for easy placement of the child</li></ul>",
+            "title": "Comfort that keeps them happy, every ride.",
+            "text": "<ul><li>All-day coziness – Soft fabric keeps your baby calm and happy.<br/></li><li>Messes? Handled. – Machine-washable and zip-off for easy cleanup.<br/></li><li>Buckle up, stress-free. – Magnetic straps make every ride smoother.</li></ul>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -676,14 +656,32 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "image_nHimtR": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_P9J8Vf",
-        "text_7hmDhz"
+        "text_7hmDhz",
+        "image_nHimtR"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
