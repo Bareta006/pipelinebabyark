@@ -43,7 +43,13 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 40
+            "padding_bottom": 20
+          }
+        },
+        "liquid_RPr8qy": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'CLOSE FOR COMFORT - EASY BOTTLE ACCESS.',\n  bullet_1: 'Easily connected - snaps on, twists off',\n  bullet_2: 'Works on either side of the seat',\n  bullet_3: 'Let your little self serve, safely'\n%}"
           }
         },
         "variants": {
@@ -94,7 +100,7 @@
             "icon_name_delivery": "icon-award",
             "image-delivery": "shopify://shop_images/Group_29613095.svg",
             "icon_size_delivery": 16,
-            "icon_color_delivery": "#4B4B4B",
+            "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
           }
@@ -189,6 +195,7 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "liquid_RPr8qy",
         "variants",
         "subscriptions",
         "quantity",
