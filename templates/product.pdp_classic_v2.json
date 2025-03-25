@@ -53,7 +53,7 @@
         "liquid_wgXxQP": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "{% render 'product-page-bullets-smart' %}"
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'PEACE OF MIND, EVERY RIDE.',\n  bullet_1: 'Where comfort meets convenience - your baby will love it.',\n  bullet_2: 'Guided step-by-step installation',\n  bullet_3: 'A lifetime of premium safety - no expiration date.'\n%}"
           }
         },
         "variants": {
@@ -662,7 +662,7 @@
           "settings": {
             "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1.png",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "enable_overlay_text": false,
             "kicker": "",
             "title": "",
