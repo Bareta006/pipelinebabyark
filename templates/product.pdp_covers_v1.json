@@ -43,7 +43,13 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 40
+            "padding_bottom": 20
+          }
+        },
+        "liquid_7JnA4t": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'CAR SEAT CONVENIENCE, UNCOVERED.',\n  bullet_1: 'Zip off for easy changes',\n  bullet_2: 'Machine washable for simple cleanup',\n  bullet_3: 'Ultimate comfort with premium fabrics'\n%}"
           }
         },
         "variants": {
@@ -189,6 +195,7 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "liquid_7JnA4t",
         "variants",
         "subscriptions",
         "quantity",
