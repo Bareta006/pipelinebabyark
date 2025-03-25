@@ -88,7 +88,6 @@
       ],
       "settings": {
         "menu_position": "left",
-        "footer_image": "shopify://shop_images/Vector_3.png",
         "logo_max_limit": 320,
         "width": "wrapper--full",
         "padding_top": 50,
