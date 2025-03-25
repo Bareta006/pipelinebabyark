@@ -46,6 +46,17 @@
             "padding_bottom": 20
           }
         },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
         "liquid_7JnA4t": {
           "type": "liquid",
           "settings": {
@@ -73,17 +84,6 @@
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
-          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
-          "settings": {
-            "logo_align": "left",
-            "font_size": 16,
-            "logo_color": "blue",
-            "logo_type": "logo",
-            "public_api_key": "",
-            "price_selector": ""
           }
         },
         "buttons": {
@@ -195,11 +195,11 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_7JnA4t",
         "variants",
         "subscriptions",
         "quantity",
-        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "buttons",
         "icon_delivery_UzEJDY",
         "icon_EC9RhA",
