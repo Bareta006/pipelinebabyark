@@ -36,7 +36,7 @@
           "type": "price",
           "settings": {
             "price_size": 7,
-            "padding_bottom": 40
+            "padding_bottom": 16
           }
         },
         "affirm_pay_over_time_messaging_product_block_cM8zAB": {
@@ -323,69 +323,6 @@
         "padding_bottom": 100
       }
     },
-    "image-with-text": {
-      "type": "section-double",
-      "blocks": {
-        "video_8UFBFR": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Anchored in safety",
-            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "video_8UFBFR",
-        "text"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "section_double_new_U8Re4G": {
       "type": "section-double-new",
       "blocks": {
@@ -457,8 +394,8 @@
         "padding_top": 0,
         "padding_bottom": 0,
         "kicker": "",
-        "title": "Significantly reduces the risk of head injury",
-        "text": "<p>The HIC parameter serves to evaluate the likelihood of a head injury occurring to the passenger, in our case, the child. The maximum limit (set by the National Highway Traffic Safety Administration NHSTA) is 1000 and is calculated based on the accelerations experienced by the head during an impact. The lower the HIC result, the lower the chances of a head injury.</p>",
+        "title": "We publish what others don’t",
+        "text": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1000, but <strong>not all seats perform the same.</strong> We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
         "font_size": 5,
         "text_columns": 1,
         "align_text": "text-left",
@@ -468,7 +405,70 @@
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
         "bg_color_text": "#ffffff",
-        "graphSide_heading": ""
+        "graphSide_heading": "See the Numbers. Compare the Safety."
+      }
+    },
+    "image-with-text": {
+      "type": "section-double",
+      "blocks": {
+        "video_8UFBFR": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Anchored in safety",
+            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "video_8UFBFR",
+        "text"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "section_double_LJxgJN": {
@@ -741,8 +741,8 @@
     "section_liquid_3BhB6X",
     "main",
     "section_icons_3jALpN",
-    "image-with-text",
     "section_double_new_U8Re4G",
+    "image-with-text",
     "section_double_LJxgJN",
     "section_double_wMxLWV",
     "section_double_kUy7cV",
