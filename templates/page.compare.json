@@ -34,7 +34,7 @@
           "type": "image",
           "settings": {
             "image": "shopify://shop_images/Frame_12.png",
-            "mobile_image": "shopify://shop_images/Your_safety_favorites_4.png",
+            "mobile_image": "shopify://shop_images/Image_52.png",
             "overlay_opacity": 30,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -59,11 +59,10 @@
       ],
       "custom_css": [
         ".slideshow__slide:first-child .hero__title {width: 660px; max-width: 100%; margin: 0px auto; line-height: 1;}",
-        ".image__hero__scale {min-height: 100%; max-height: 100%;}",
         ".slideshow__wrapper > div:last-child {opacity: 0;}",
         ".custom-prev-next-button {display: none;}",
         "@media (min-width: 1024px) {.hero__content__wrapper {padding-bottom: 80px; }}",
-        "@media (max-width: 480px) {.hero__content {color: #000; }}"
+        "@media (max-width: 480px) {.hero__content {color: #fff; } .hero__content__wrapper {align-items: start; } .slideshow__slide:first-child .hero__title {font-size: 27px; } .slideshow__slide:first-child .hero__kicker {font-size: 12px; }}"
       ],
       "settings": {
         "autoplay": false,
@@ -166,6 +165,12 @@
         "mobile_box_text_align": "center"
       }
     },
+    "section_liquid_nWU7hz": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": ""
+      }
+    },
     "section_icons_rJb3FF": {
       "type": "section-icons",
       "blocks": {
@@ -254,19 +259,19 @@
         "padding_bottom": 60
       }
     },
-    "section_compare_tJGMpG": {
-      "type": "section-compare",
+    "section_comparison_table_AwKY6M": {
+      "type": "section-comparison-table",
       "blocks": {
-        "compare_aaxyxq": {
-          "type": "compare",
+        "product_9Fgxix": {
+          "type": "product",
           "settings": {
             "product_id": "babyark-convertible-car-seat-smart",
             "product_badge": "",
             "product_atc": false
           }
         },
-        "compare_yPDHdM": {
-          "type": "compare",
+        "product_DDBHPD": {
+          "type": "product",
           "settings": {
             "product_id": "babyark-convertible-car-seat-classic",
             "product_badge": "",
@@ -275,28 +280,17 @@
         }
       },
       "block_order": [
-        "compare_aaxyxq",
-        "compare_yPDHdM"
-      ],
-      "custom_css": [
-        ".image__hero__scale img {object-position: top center !important;}",
-        "@media (max-width: 480px) {.comparison-table {background-color: transparent; padding: 0; } .comparison-table .comparison-row:first-of-type svg {display: none; } .hero__content {padding: 0; }}"
+        "product_9Fgxix",
+        "product_DDBHPD"
       ],
       "settings": {
-        "image": "shopify://shop_images/Frame_15.png",
-        "mobile_image": "shopify://shop_images/Compare_-_Shop_Smart_Mobile_2.png",
         "height": "use_image",
-        "overlay_opacity": 15,
-        "overlay_color": "#000000",
-        "enable_overlay_text": false,
-        "preload_image": false,
-        "content_width": 2000,
-        "text_align": "align--top-center",
-        "text_color": "text--white",
-        "color_bg": "hero__content--transparent",
-        "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "image": "shopify://shop_images/Group_29613152.png",
+        "mobile_image": "shopify://shop_images/Group_29613153_1.png",
+        "table_background_color": "#22282d",
+        "table_text_color": "#ffffff"
       }
     },
     "17382369213956607f": {
@@ -423,8 +417,9 @@
     "section_slideshow_VrgPDy",
     "flexbox_image_content_MnpxaF",
     "flexbox_image_content_PqTF8w",
+    "section_liquid_nWU7hz",
     "section_icons_rJb3FF",
-    "section_compare_tJGMpG",
+    "section_comparison_table_AwKY6M",
     "17382369213956607f",
     "section_icons_W8cw7D",
     "173824262189ac1f13"
