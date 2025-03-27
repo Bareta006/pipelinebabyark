@@ -25,14 +25,14 @@
             "product_show_cutline": true,
             "show_rating": false,
             "show_rating_count": false,
-            "padding_bottom": 20
+            "padding_bottom": 0
           }
         },
         "text_H9zhjy": {
           "type": "text",
           "settings": {
-            "title": "<p><strong>- </strong>babyark Smart Seat<br/><strong>- </strong>Cupholder<br/><strong>- </strong>Car Seat Cover</p>",
-            "padding_bottom": 10
+            "title": "<p>babyark Smart Seat / Cupholder / Car Seat Cover</p>",
+            "padding_bottom": 20
           }
         },
         "judge_me_reviews_preview_badge_VYMFNW": {
