@@ -423,6 +423,67 @@
         "padding_bottom": 0
       }
     },
+    "section_double_MKgFEt": {
+      "type": "section-double",
+      "blocks": {
+        "text_UQMbzk": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Close for comfort",
+            "text": "<p>The babyark cup holder was designed to fit on either side of the seat, and features a user-friendly snap-on lock for easy installation, usability and safety. Make sure your child has everything they need at the tip of their fingers with the seamlessly designed cup holder.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        },
+        "image_xBCCeY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/be33069028764d4cb59ebe4a65356ce1_thumbnail_0000000000_1100x_jpg.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_UQMbzk",
+        "image_xBCCeY"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_liquid_BVfpcw": {
       "type": "section-liquid",
       "settings": {
@@ -470,6 +531,7 @@
     "section_liquid_jFhBqR",
     "section_double_jyKnAh",
     "section_double_wxmfB6",
+    "section_double_MKgFEt",
     "section_liquid_BVfpcw",
     "section_liquid_KWtGT3",
     "1740406995b34af773"
