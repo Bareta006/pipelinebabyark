@@ -22,7 +22,7 @@
         "text_CnjCwT": {
           "type": "text",
           "settings": {
-            "richtext": "<p>Questions? Comments? Let your customers get in touch with you by filling out the email form below. Reassure them that someone will  get back to them within a certain timeframe</p>",
+            "richtext": "<p>Questions? Comments? </p><p>Get in touch with us and we'll get back to you as soon as we can.</p>",
             "text_size": 5
           }
         }
@@ -32,6 +32,7 @@
         "text_CnjCwT"
       ],
       "settings": {
+        "mobile_special_arrange": false,
         "image": "shopify://shop_images/Contact_us.png",
         "height": "use_screen_two_thirds",
         "overlay_opacity": 20,
@@ -44,7 +45,8 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "main": {
