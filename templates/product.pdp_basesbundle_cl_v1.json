@@ -281,26 +281,6 @@
     "section_double_jyKnAh": {
       "type": "section-double",
       "blocks": {
-        "video_qAzq7k": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_3wc4Bw": {
           "type": "text",
           "settings": {
@@ -321,14 +301,34 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "video_qAzq7k": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_qAzq7k",
-        "text_3wc4Bw"
+        "text_3wc4Bw",
+        "video_qAzq7k"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -344,6 +344,26 @@
     "section_double_wxmfB6": {
       "type": "section-double",
       "blocks": {
+        "video_QA9HYh": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text_inNXph": {
           "type": "text",
           "settings": {
@@ -364,34 +384,14 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "video_QA9HYh": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text_inNXph",
-        "video_QA9HYh"
+        "video_QA9HYh",
+        "text_inNXph"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
