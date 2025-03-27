@@ -46,6 +46,23 @@
             "padding_bottom": 20
           }
         },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "liquid_MbGFnH": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"margin:20px 0;\">\n  <h4 style=\"color: #333;font-family: Montserrat;font-size: 16px;font-style: normal;font-weight: 600;margin-bottom:0;text-transform:uppercase;\">\nA Smart combo with super-sized savings\n  </h4>\n<p>\nSweet savings on everything you need to set your car seat up for success with less mess.\n</p>\n</div>"
+          }
+        },
         "variants": {
           "type": "variant-selectors",
           "settings": {
@@ -67,17 +84,6 @@
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
-          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
-          "settings": {
-            "logo_align": "left",
-            "font_size": 16,
-            "logo_color": "blue",
-            "logo_type": "logo",
-            "public_api_key": "",
-            "price_selector": ""
           }
         },
         "liquid_WkJHEM": {
@@ -195,10 +201,11 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_MbGFnH",
         "variants",
         "subscriptions",
         "quantity",
-        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_WkJHEM",
         "buttons",
         "icon_delivery_xm8BMV",
