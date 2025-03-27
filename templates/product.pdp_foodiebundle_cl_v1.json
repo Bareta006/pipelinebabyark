@@ -161,6 +161,13 @@
             "padding_bottom": 20
           }
         },
+        "text_KBnLbR": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Looking to upgrade with smart sensors? See Smart </strong><a href=\"/products/the-foodie-bundle\" title=\"The Foodie Bundle\"><span style=\"text-decoration:underline\">See Smart</span></a></p>",
+            "padding_bottom": 20
+          }
+        },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
           "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
@@ -212,6 +219,7 @@
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
+        "text_KBnLbR",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
@@ -266,6 +274,27 @@
     "section_double_jyKnAh": {
       "type": "section-double",
       "blocks": {
+        "text_3wc4Bw": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "SafeCoil™ shock absorbing system",
+            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        },
         "video_qAzq7k": {
           "type": "video",
           "settings": {
@@ -285,35 +314,14 @@
             "button_color": "btn--white",
             "button_style": "btn"
           }
-        },
-        "text_3wc4Bw": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "SafeCoil™Impact-Activated Shock Absorption",
-            "text": "<p>Twin steel coils, calibrated to the baby’s weight, extend from their compressed mode upon impact, breaking the forward momentum to provide optimal head and body protection</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
         }
       },
       "block_order": [
-        "video_qAzq7k",
-        "text_3wc4Bw"
+        "text_3wc4Bw",
+        "video_qAzq7k"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -329,6 +337,26 @@
     "section_double_wxmfB6": {
       "type": "section-double",
       "blocks": {
+        "video_QA9HYh": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/cover removal AND magnetic straps_New_44bcca07-a30c-4019-91fa-c5ce88abcde0.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text_inNXph": {
           "type": "text",
           "settings": {
@@ -349,21 +377,62 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "video_QA9HYh": {
-          "type": "video",
+        }
+      },
+      "block_order": [
+        "video_QA9HYh",
+        "text_inNXph"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+      ],
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_double_8ApmCR": {
+      "type": "section-double",
+      "blocks": {
+        "text_jgwzMK": {
+          "type": "text",
           "settings": {
-            "video_bg": "shopify://files/videos/cover removal AND magnetic straps_New_44bcca07-a30c-4019-91fa-c5ce88abcde0.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
+            "kicker": "",
+            "title": "Close for comfort",
+            "text": "<p>The babyark cup holder was designed to fit on either side of the seat, and features a user-friendly snap-on lock for easy installation, usability and safety. Make sure your child has everything they need at the tip of their fingers with the seamlessly designed cup holder.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        },
+        "image_M84CUY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/be33069028764d4cb59ebe4a65356ce1_thumbnail_0000000000_1100x_jpg.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
             "kicker": "",
             "title": "",
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -372,14 +441,14 @@
         }
       },
       "block_order": [
-        "text_inNXph",
-        "video_QA9HYh"
+        "text_jgwzMK",
+        "image_M84CUY"
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
-        "height": "use_screen_full",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
@@ -436,6 +505,7 @@
     "section_liquid_jFhBqR",
     "section_double_jyKnAh",
     "section_double_wxmfB6",
+    "section_double_8ApmCR",
     "section_liquid_BVfpcw",
     "section_liquid_KWtGT3",
     "1740406995b34af773"
