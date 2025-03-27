@@ -57,6 +57,12 @@
             "price_selector": ""
           }
         },
+        "liquid_9NDqBg": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"margin:20px 0;\">\n  <h4 style=\"color: #333;font-family: Montserrat;font-size: 16px;font-style: normal;font-weight: 600;margin-bottom:0;text-transform:uppercase;\">\nEASY INSTALL, CONVENIENCE FOR ALL.\n  </h4>\n<p>\n\n</p>\n</div>"
+          }
+        },
         "variants": {
           "type": "variant-selectors",
           "settings": {
@@ -158,7 +164,7 @@
         "text_kPBicy": {
           "type": "text",
           "settings": {
-            "title": "<p><strong>Want simpler, budget-friendly safety?</strong><a href=\"https://babyark.com/products/the-foodie-bundle-1\" title=\"The Foodie Bundle\"><span style=\"text-decoration:underline\">See Classic</span></a></p>",
+            "title": "<p><strong>Want simpler, budget-friendly safety? </strong><a href=\"/products/the-family-bundle-1\" title=\"The Family Bundle\"><span style=\"text-decoration:underline\">See Classic</span></a></p>",
             "padding_bottom": 20
           }
         },
@@ -203,6 +209,7 @@
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_9NDqBg",
         "variants",
         "subscriptions",
         "quantity",
