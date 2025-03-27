@@ -25,14 +25,14 @@
             "product_show_cutline": true,
             "show_rating": false,
             "show_rating_count": false,
-            "padding_bottom": 20
+            "padding_bottom": 0
           }
         },
         "text_H9zhjy": {
           "type": "text",
           "settings": {
-            "title": "<p><strong>- </strong>babyark Smart Seat<br/><strong>- </strong>Extra Smart base</p>",
-            "padding_bottom": 10
+            "title": "<p>babyark Smart Seat / Extra Smart base</p>",
+            "padding_bottom": 20
           }
         },
         "judge_me_reviews_preview_badge_VYMFNW": {
@@ -44,6 +44,23 @@
           "settings": {
             "price_size": 7,
             "padding_bottom": 20
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "liquid_UznzVX": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div style=\"margin:20px 0;\">\n  <h4 style=\"color: #333;font-family: Montserrat;font-size: 16px;font-style: normal;font-weight: 600;margin-bottom:0;text-transform:uppercase;\">\nSmart Savings for Multiple Caretakers\n  </h4>\n<p>\nWant the benefits of the Smart seat across multiple cars, at a discount? Transfer your tiny treasure across vehicles without the hassle with this Bases Bundle.\n</p>\n</div>"
           }
         },
         "variants": {
@@ -67,17 +84,6 @@
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
-          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
-          "settings": {
-            "logo_align": "left",
-            "font_size": 16,
-            "logo_color": "blue",
-            "logo_type": "logo",
-            "public_api_key": "",
-            "price_selector": ""
           }
         },
         "liquid_WkJHEM": {
@@ -195,10 +201,11 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "liquid_UznzVX",
         "variants",
         "subscriptions",
         "quantity",
-        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_WkJHEM",
         "buttons",
         "icon_delivery_tU93Ab",
