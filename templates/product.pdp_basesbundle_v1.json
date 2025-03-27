@@ -111,6 +111,28 @@
             "padding_bottom_delivery": 8
           }
         },
+        "icon_delivery_DXRUXU": {
+          "type": "icon-delivery",
+          "settings": {
+            "icon_name_delivery": "icon-award",
+            "image-delivery": "shopify://shop_images/Group_29613100.png",
+            "icon_size_delivery": 16,
+            "icon_color_delivery": "#4b4b4b",
+            "text-delivery": "<p><strong>100 Day free trial</strong></p>",
+            "padding_bottom_delivery": 8
+          }
+        },
+        "icon_delivery_ydwpMj": {
+          "type": "icon-delivery",
+          "settings": {
+            "icon_name_delivery": "icon-award",
+            "image-delivery": "shopify://shop_images/Group_29613097_2.png",
+            "icon_size_delivery": 16,
+            "icon_color_delivery": "#4b4b4b",
+            "text-delivery": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
+            "padding_bottom_delivery": 8
+          }
+        },
         "icon_EC9RhA": {
           "type": "icon",
           "disabled": true,
@@ -158,6 +180,13 @@
             "title_5": "",
             "icon_name_5": "",
             "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "text_zbAf7f": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Want simpler, budget-friendly safety? </strong><a href=\"/products/the-bases-bundle\" title=\"The Bases Bundle\"><span style=\"text-decoration:underline\">See Classic</span></a></p>",
             "padding_bottom": 20
           }
         },
@@ -209,9 +238,12 @@
         "liquid_WkJHEM",
         "buttons",
         "icon_delivery_tU93Ab",
+        "icon_delivery_DXRUXU",
+        "icon_delivery_ydwpMj",
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
+        "text_zbAf7f",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
@@ -266,26 +298,6 @@
     "section_double_jyKnAh": {
       "type": "section-double",
       "blocks": {
-        "video_qAzq7k": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_3wc4Bw": {
           "type": "text",
           "settings": {
@@ -306,14 +318,34 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "video_qAzq7k": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/One seat. Two bases.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_qAzq7k",
-        "text_3wc4Bw"
+        "text_3wc4Bw",
+        "video_qAzq7k"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
@@ -329,6 +361,26 @@
     "section_double_wxmfB6": {
       "type": "section-double",
       "blocks": {
+        "video_QA9HYh": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text_inNXph": {
           "type": "text",
           "settings": {
@@ -349,34 +401,14 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "video_QA9HYh": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/final-13-02-24-no-titles_4.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text_inNXph",
-        "video_QA9HYh"
+        "video_QA9HYh",
+        "text_inNXph"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
         "height": "use_screen_full",
