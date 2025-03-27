@@ -111,6 +111,28 @@
             "padding_bottom_delivery": 8
           }
         },
+        "icon_delivery_qxRhmd": {
+          "type": "icon-delivery",
+          "settings": {
+            "icon_name_delivery": "icon-award",
+            "image-delivery": "shopify://shop_images/Group_29613100.png",
+            "icon_size_delivery": 16,
+            "icon_color_delivery": "#4b4b4b",
+            "text-delivery": "<p><strong>100 Day free trial</strong></p>",
+            "padding_bottom_delivery": 8
+          }
+        },
+        "icon_delivery_FjNqnH": {
+          "type": "icon-delivery",
+          "settings": {
+            "icon_name_delivery": "icon-award",
+            "image-delivery": "shopify://shop_images/Group_29613097_2.png",
+            "icon_size_delivery": 16,
+            "icon_color_delivery": "#4b4b4b",
+            "text-delivery": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
+            "padding_bottom_delivery": 8
+          }
+        },
         "icon_EC9RhA": {
           "type": "icon",
           "disabled": true,
@@ -158,6 +180,13 @@
             "title_5": "",
             "icon_name_5": "",
             "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "text_CChCHz": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Want simpler, budget-friendly safety? </strong><a href=\"/products/the-foodie-bundle-1\" title=\"The Foodie Bundle\"><span style=\"text-decoration:underline\">See Classic</span></a></p>",
             "padding_bottom": 20
           }
         },
@@ -209,9 +238,12 @@
         "liquid_WkJHEM",
         "buttons",
         "icon_delivery_xm8BMV",
+        "icon_delivery_qxRhmd",
+        "icon_delivery_FjNqnH",
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
+        "text_CChCHz",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
