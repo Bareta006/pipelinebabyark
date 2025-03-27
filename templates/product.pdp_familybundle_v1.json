@@ -25,14 +25,14 @@
             "product_show_cutline": true,
             "show_rating": false,
             "show_rating_count": false,
-            "padding_bottom": 20
+            "padding_bottom": 0
           }
         },
         "text_H9zhjy": {
           "type": "text",
           "settings": {
-            "title": "<p><strong>- </strong>2 babyark Smart Seats</p>",
-            "padding_bottom": 10
+            "title": "<p>2 babyark Smart Seats</p>",
+            "padding_bottom": 20
           }
         },
         "judge_me_reviews_preview_badge_VYMFNW": {
@@ -44,6 +44,17 @@
           "settings": {
             "price_size": 7,
             "padding_bottom": 20
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
           }
         },
         "variants": {
@@ -67,17 +78,6 @@
           "settings": {
             "show_quantity": false,
             "padding_bottom": 20
-          }
-        },
-        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
-          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
-          "settings": {
-            "logo_align": "left",
-            "font_size": 16,
-            "logo_color": "blue",
-            "logo_type": "logo",
-            "public_api_key": "",
-            "price_selector": ""
           }
         },
         "liquid_WkJHEM": {
@@ -155,6 +155,13 @@
             "padding_bottom": 20
           }
         },
+        "text_kPBicy": {
+          "type": "text",
+          "settings": {
+            "title": "<p><strong>Want simpler, budget-friendly safety?</strong><a href=\"https://babyark.com/products/the-foodie-bundle-1\" title=\"The Foodie Bundle\"><span style=\"text-decoration:underline\">See Classic</span></a></p>",
+            "padding_bottom": 20
+          }
+        },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
           "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
@@ -195,16 +202,17 @@
         "text_H9zhjy",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "variants",
         "subscriptions",
         "quantity",
-        "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_WkJHEM",
         "buttons",
         "icon_delivery_zYhCwQ",
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
+        "text_kPBicy",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
