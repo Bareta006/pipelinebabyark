@@ -26526,9 +26526,22 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     border-color:var(--text-transparent);
   }
   .header__wrapper[data-header-transparent="true"] a#navShop:hover {
-    color: var(--text-transparent);
+    color: #333333;
     border-color:var(--text-transparent);
     background: #fff;
+    transition: 0.3s;
+  }
+    .header__wrapper[data-header-transparent="false"] #navShop {
+    padding: 10px 25px;
+    transition: 0.3s;
+    font-size: 11px;
+    color:var(--text-transparent);
+    border-color:var(--text-transparent);
+  }
+  .header__wrapper[data-header-transparent="false"] a#navShop:hover {
+    color: #fff;
+    border-color:var(--text-transparent);
+    background: var(--text-transparent);
     transition: 0.3s;
   }
 }
