@@ -26518,12 +26518,12 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
   transition: 0.3s;
 }
 @media (min-width: 768px) {
-  a#navShop {
+  .header_wrapper[data-header-transparent="true"] #navShop {
     padding: 10px 25px;
     transition: 0.3s;
     font-size: 11px;
   }
-  a#navShop:hover {
+  .header_wrapper[data-header-transparent="true"] a#navShop:hover {
     color: #333333;
     background: #fff;
     transition: 0.3s;
