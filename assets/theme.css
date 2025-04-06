@@ -25174,3 +25174,16 @@ input:not(.sold-out):not(.unavailable):not(:disabled) ~ label [data-shopify-xr-h
 .\[\&\>svg\]\:inline-block>svg{
   display: inline-block;
 }
+
+/*custom css*/
+@media (min-width: 768px) {
+a#navShop {
+    padding: 10px 25px;
+    transition: 0.3s;
+}
+a#navShop:hover {
+        color: #333333;
+    background: #fff;
+    transition: 0.3s;
+}
+}
