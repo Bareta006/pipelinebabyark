@@ -25180,6 +25180,7 @@ input:not(.sold-out):not(.unavailable):not(:disabled) ~ label [data-shopify-xr-h
 a#navShop {
     padding: 10px 25px;
     transition: 0.3s;
+    font-size: 11px;
 }
 a#navShop:hover {
         color: #333333;
