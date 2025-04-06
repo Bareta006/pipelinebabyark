@@ -187,7 +187,7 @@
       "type": "flexbox-image-content",
       "custom_css": [
         ".mobile-content-box {background-color: transparent;}",
-        ".hero__description {width: 380px; max-width:100%;}"
+        ".hero__description {width: 300px; max-width: 100%;}"
       ],
       "settings": {
         "desktop_image": "shopify://shop_images/Frame_1_1.png",
