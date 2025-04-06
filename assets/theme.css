@@ -25176,6 +25176,16 @@ input:not(.sold-out):not(.unavailable):not(:disabled) ~ label [data-shopify-xr-h
 }
 
 /*custom css*/
+#viewCart {
+  border-radius: 0 !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  transition: 0.3s;
+}
+#viewCart:hover {
+  background-color: #304545 !important;
+  transition: 0.3s;
+}
 @media (min-width: 768px) {
 a#navShop {
     padding: 10px 25px;
