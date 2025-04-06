@@ -26507,14 +26507,14 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
 
 /*custom css*/
 #viewCart {
-  border-radius: 0 !important;
-  background-color: #000 !important;
-  color: #fff !important;
+  border-radius: 0;
+  background-color: #000;
+  color: #fff;
   transition: 0.3s;
-  padding: 24px 12px !important;
+  padding: 24px 12px;
 }
 #viewCart:hover {
-  background-color: #304545 !important;
+  background-color: #304545;
   transition: 0.3s;
 }
 @media (min-width: 768px) {
@@ -26527,5 +26527,10 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     color: #333333;
     background: #fff;
     transition: 0.3s;
+  }
+}
+@media (max-width: 767px) {
+  #viewCart {
+    padding: 20px 12px;
   }
 }
