@@ -26518,13 +26518,16 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
   transition: 0.3s;
 }
 @media (min-width: 768px) {
-  .header_wrapper[data-header-transparent="true"] #navShop {
+  .header_wrapper  #navShop {
     padding: 10px 25px;
     transition: 0.3s;
     font-size: 11px;
+    color:var(--text-transparent);
+    border-color:var(--text-transparent);
   }
-  .header_wrapper[data-header-transparent="true"] a#navShop:hover {
-    color: #333333;
+  .header_wrapper  a#navShop:hover {
+    color: var(--text-transparent);
+    border-color:var(--text-transparent);
     background: #fff;
     transition: 0.3s;
   }
