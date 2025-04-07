@@ -26525,6 +26525,7 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     transition: 0.3s;
     margin-left: 5px;
     padding: 10px 25px;
+    font-size: 11px;
   }
   .header__wrapper[data-header-transparent="true"] #navShop:hover {
     
@@ -26540,6 +26541,7 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     background: var(--COLOR-NAV-TEXT-LIGHT);
     transition: 0.3s;
     margin-left: 5px;
+    font-size: 11px;
     padding: 10px 25px;
   }
     .header__wrapper[data-header-transparent="false"] #navShop:hover {
