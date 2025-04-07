@@ -3714,7 +3714,7 @@
             const instance = this;
             axios.get(url).then(function(response) {
                 // handle success - click on div[data-drawer-toggle="drawer-cart"]
-                const cartDrawerClickable = document.querySelector(selectors$O.cartDrawer);
+                const cartDrawerClickable = document.querySelector('.navlink--cart');
                 cartDrawerClickable.click();
                 
                 //changed from
