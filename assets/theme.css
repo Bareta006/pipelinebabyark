@@ -26524,9 +26524,11 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     background: #fff;
     transition: 0.3s;
     margin-left: 5px;
+    padding: 10px 25px;
   }
   .header__wrapper[data-header-transparent="true"] #navShop:hover {
-    padding: 10px 25px;
+    
+    background: transparent;
     transition: 0.3s;
     font-size: 11px;
     color:var(--text-transparent);
@@ -26538,9 +26540,10 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
     background: var(--COLOR-NAV-TEXT-LIGHT);
     transition: 0.3s;
     margin-left: 5px;
+    padding: 10px 25px;
   }
     .header__wrapper[data-header-transparent="false"] #navShop:hover {
-    padding: 10px 25px;
+    background: transparent;
     transition: 0.3s;
     font-size: 11px;
     color:var(--COLOR-NAV-TEXT-LIGHT);
