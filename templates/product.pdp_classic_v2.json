@@ -18,6 +18,22 @@
     "main": {
       "type": "product",
       "blocks": {
+        "custom_buttons_Jbzy6F": {
+          "type": "custom-buttons",
+          "settings": {
+            "link_text": "SMART",
+            "link": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_color": "btn--black",
+            "button_style": "btn--outline",
+            "link_text_2": "Classic",
+            "link_2": "#",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn",
+            "text_link_text": "Learn more",
+            "text_link_url": "",
+            "padding_bottom": 20
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -195,6 +211,7 @@
         }
       },
       "block_order": [
+        "custom_buttons_Jbzy6F",
         "title",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
