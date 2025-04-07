@@ -18,6 +18,22 @@
     "main": {
       "type": "product",
       "blocks": {
+        "custom_buttons_nDM4gY": {
+          "type": "custom-buttons",
+          "settings": {
+            "link_text": "SMART",
+            "link": "#",
+            "button_color": "btn--black",
+            "button_style": "btn",
+            "link_text_2": "CLASSIC",
+            "link_2": "shopify://products/babyark-convertible-car-seat-classic",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn--outline",
+            "text_link_text": "COMPARE MODELS",
+            "text_link_url": "#compareModel",
+            "padding_bottom": 20
+          }
+        },
         "title": {
           "type": "title",
           "settings": {
@@ -197,6 +213,7 @@
         }
       },
       "block_order": [
+        "custom_buttons_nDM4gY",
         "title",
         "judge_me_reviews_preview_badge_VYMFNW",
         "price",
