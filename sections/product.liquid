@@ -263,6 +263,11 @@
                       </a>
                     {% endif %}
                   </div>
+                  {% if block.settings.text_link_text != blank and block.settings.text_link_url != blank %}
+                    <div class="product__block__custom-buttons__text-link">
+                      <a href="{{ block.settings.text_link_url }}">{{ block.settings.text_link_text }}</a>
+                    </div>
+                  {% endif %}
                 </div>
               {% when 'subscription' %}
                 {%- if block.settings.subscriptions_enable_selectors -%}
@@ -2107,6 +2112,21 @@
         },
         {
           "type": "header",
+          "content": "Text Link"
+        },
+        {
+          "type": "text",
+          "id": "text_link_text",
+          "label": "Link text",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "text_link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "header",
           "content": "Block spacing"
         },
         {
@@ -2129,12 +2149,19 @@
 <script src="{{ 'variant-image-filter.js' | asset_url }}" defer="defer"></script>
 
 <style>
+  .product__block__custom-buttons {
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+  
   .product__block__custom-buttons__wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 15px;
     width: 100%;
+    margin-bottom: 15px;
   }
   
   .product__block__custom-buttons__wrapper a {
@@ -2142,6 +2169,15 @@
     flex-grow: 0;
     min-width: 150px;
     text-align: center;
+  }
+  
+  .product__block__custom-buttons__text-link {
+    margin-top: 10px;
+  }
+  
+  .product__block__custom-buttons__text-link a {
+    text-decoration: underline;
+    font-size: 14px;
   }
   
   @media only screen and (max-width: 749px) {
