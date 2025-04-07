@@ -3715,10 +3715,7 @@
             axios.get(url).then(function(response) {
                 // handle success - click on div[data-drawer-toggle="drawer-cart"]
                 const cartDrawerClickable = document.querySelector(selectors$O.cartDrawer);
-                cartDrawerClickable.addEventListener('click', (function(e) {
-                    e.preventDefault();
-                    instance.popdown.classList.remove(classes$w.visible);
-                }).bind(this));
+                cartDrawerClickable.click();
                 
                 //changed from
                 // const fresh = document.createElement('div');
