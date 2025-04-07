@@ -3744,7 +3744,7 @@
             // Hook into cart drawer
             const cartButton = this.popdown.querySelector(selectors$O.cartToggleButton);
             const cartDrawer = document.querySelector(selectors$O.cartDrawer);
-            if (cartDrawer) {
+            if (!cartDrawer) {
                 cartButton.addEventListener('click', (function(e) {
                     e.preventDefault();
                     this.popdown.classList.remove(classes$w.visible);
