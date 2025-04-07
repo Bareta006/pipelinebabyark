@@ -3713,19 +3713,26 @@
             const url = `${window.theme.routes.root_url}variants/${variant.id}/?section_id=api-product-popdown`;
             const instance = this;
             axios.get(url).then(function(response) {
-                // handle success
-                const fresh = document.createElement('div');
-                fresh.innerHTML = response.data;
-                instance.popdown.innerHTML = fresh.querySelector(selectors$O.apiContent).innerHTML;
-                instance.connectCartButton();
-                instance.connectCloseButton();
-                // If user is navigating with keyboard, focus on the view cart button after popdown opens
-                if (document.body.classList.contains(classes$w.focusEnable)) {
-                    const cartButton = instance.popdown.querySelector(selectors$O.cartToggleButton);
-                    setTimeout(()=>{
-                        cartButton.focus();
-                    }, 0);
-                }
+                // handle success - click on div[data-drawer-toggle="drawer-cart"]
+                const cartDrawerClickable = document.querySelector(selectors$O.cartDrawer);
+                cartDrawerClickable.addEventListener('click', (function(e) {
+                    e.preventDefault();
+                    instance.popdown.classList.remove(classes$w.visible);
+                }).bind(this));
+                
+                //changed from
+                // const fresh = document.createElement('div');
+                // fresh.innerHTML = response.data;
+                // instance.popdown.innerHTML = fresh.querySelector(selectors$O.apiContent).innerHTML;
+                // instance.connectCartButton();
+                // instance.connectCloseButton();
+                // // If user is navigating with keyboard, focus on the view cart button after popdown opens
+                // if (document.body.classList.contains(classes$w.focusEnable)) {
+                //     const cartButton = instance.popdown.querySelector(selectors$O.cartToggleButton);
+                //     setTimeout(()=>{
+                //         cartButton.focus();
+                //     }, 0);
+                // }
             }).catch(function(error) {
                 console.warn(error);
             });
@@ -3744,7 +3751,7 @@
             // Hook into cart drawer
             const cartButton = this.popdown.querySelector(selectors$O.cartToggleButton);
             const cartDrawer = document.querySelector(selectors$O.cartDrawer);
-            if (!cartDrawer) {
+            if (cartDrawer) {
                 cartButton.addEventListener('click', (function(e) {
                     e.preventDefault();
                     this.popdown.classList.remove(classes$w.visible);
