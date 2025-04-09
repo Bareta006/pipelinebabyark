@@ -3718,9 +3718,9 @@
                 cartDrawerClickable.click();
                 
                 //changed from
-                // const fresh = document.createElement('div');
-                // fresh.innerHTML = response.data;
-                // instance.popdown.innerHTML = fresh.querySelector(selectors$O.apiContent).innerHTML;
+                 const fresh = document.createElement('div');
+                 fresh.innerHTML = response.data;
+                instance.popdown.innerHTML = fresh.querySelector(selectors$O.apiContent).innerHTML;
                 // instance.connectCartButton();
                 // instance.connectCloseButton();
                 // // If user is navigating with keyboard, focus on the view cart button after popdown opens
