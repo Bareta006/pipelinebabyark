@@ -35,15 +35,21 @@
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343.png",
             "title": "SHOP SMART",
+            "title_color": "text--white",
             "description": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
+            "description_color": "text--white",
+            "text_alignment": "left",
+            "button_alignment": "left",
             "button_1_text": "SHOP SMART",
             "button_1_link": "#",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
+            "button_1_hide_mobile": false,
             "button_2_text": "EXPLORE",
             "button_2_link": "#",
             "button_2_color": "btn--white",
-            "button_2_style": "btn--outline"
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": false
           }
         },
         "card_rYrAeF": {
@@ -51,15 +57,21 @@
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343_766297c5-b459-49ff-b7e0-4a1b7e107d35.png",
             "title": "Shop Classic",
+            "title_color": "text--white",
             "description": "<p>Simple installation and advanced crash protection, meet comfort and convenience.</p>",
+            "description_color": "text--white",
+            "text_alignment": "left",
+            "button_alignment": "left",
             "button_1_text": "SHOP CLASSIC",
             "button_1_link": "#",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
+            "button_1_hide_mobile": false,
             "button_2_text": "EXPLORE",
             "button_2_link": "#",
             "button_2_color": "btn--white",
-            "button_2_style": "btn--outline"
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": false
           }
         }
       },
