@@ -49,7 +49,7 @@
             "button_2_link": "#",
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline",
-            "button_2_hide_mobile": false
+            "button_2_hide_mobile": true
           }
         },
         "card_rYrAeF": {
@@ -71,7 +71,7 @@
             "button_2_link": "#",
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline",
-            "button_2_hide_mobile": false
+            "button_2_hide_mobile": true
           }
         }
       },
