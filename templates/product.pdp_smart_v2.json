@@ -29,8 +29,11 @@
             "link_2": "shopify://products/babyark-convertible-car-seat-classic",
             "button_color_2": "btn--black",
             "button_style_2": "btn--outline",
-            "text_link_text": "",
-            "text_link_url": "",
+            "text_link_text": "COMPARE MODELS",
+            "text_link_url": "#",
+            "enable_comparison_popup": true,
+            "product_1": "babyark-convertible-car-seat-smart",
+            "product_2": "babyark-convertible-car-seat-classic",
             "padding_bottom": 20
           }
         },
