@@ -2302,28 +2302,46 @@
 <style>
   /* Custom Buttons Styling */
   .product__block__custom-buttons {
-    padding-bottom: var(--PB);
+    padding-bottom: 20px;
     border-bottom: 1px solid #e8e8e8;
     margin-bottom: 20px;
   }
   
   .product__block__custom-buttons__wrapper {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px;
+    width: 100%;
     justify-content: flex-start;
     margin-bottom: 15px;
   }
-  
+    
+  .product__block__custom-buttons__wrapper a {
+    margin: 0;
+    flex-grow: 1;
+    min-width: 150px;
+    text-align: center;
+  }
+
   .product__block__custom-buttons__text-link {
     margin-top: 10px;
   }
   
   .product__block__custom-buttons__text-link a {
     text-decoration: underline;
-    font-size: 0.9em;
+    font-size: 14px;
   }
-  
+    @media  (max-width: 749px) {
+    .product__block__custom-buttons__wrapper {
+      flex-direction: row;
+      justify-content: flex-start;
+    }
+      .product__block__custom-buttons__wrapper a {
+    min-width: 40%;
+
+  }
+
   /* Comparison Popup Styling */
   .comparison-popup-overlay {
     position: fixed;
