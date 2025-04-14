@@ -1,0 +1,274 @@
+<!-- /sections/two-cards-section.liquid -->
+
+<div class="two-cards-section">
+  <div class="two-cards-container">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'card' %}
+          <div class="card-wrapper" {{ block.shopify_attributes }}>
+            {% render 'card-with-buttons',
+              image: block.settings.background_image,
+              title: block.settings.title,
+              description: block.settings.description,
+              button_1_text: block.settings.button_1_text,
+              button_1_link: block.settings.button_1_link,
+              button_1_color: block.settings.button_1_color,
+              button_1_style: block.settings.button_1_style,
+              button_2_text: block.settings.button_2_text,
+              button_2_link: block.settings.button_2_link,
+              button_2_color: block.settings.button_2_color,
+              button_2_style: block.settings.button_2_style
+            %}
+          </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  .two-cards-section {
+    padding: 0 72px;
+  }
+  
+  .two-cards-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .card-wrapper {
+    flex: 0 0 calc(50% - 0px);
+    position: relative;
+    width: 100%;
+  }
+  
+  .card-with-buttons {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 0;
+    padding-bottom: 125%; /* 4:5 ratio (height:width) = 5/4 * 100% = 125% */
+    overflow: hidden;
+  }
+  
+  .card-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .card-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+  }
+  
+  .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 2;
+    padding: 0 30px;
+  }
+  
+  .card-header {
+    margin-top: 100px;
+  }
+  
+  .card-title {
+    margin: 0 0 15px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  
+  .card-description {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .card-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 60px;
+  }
+  
+  .card-button {
+    min-width: 120px;
+    text-align: center;
+  }
+  
+  @media screen and (max-width: 749px) {
+    .two-cards-section {
+      padding: 0 20px;
+    }
+    
+    .two-cards-container {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .card-wrapper {
+      flex: 0 0 100%;
+    }
+    
+    .card-content {
+      padding: 0 20px;
+    }
+    
+    .card-header {
+      margin-top: 30px;
+    }
+    
+    .card-buttons {
+      margin-bottom: 30px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Two Cards Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Add your description here</p>"
+        },
+        {
+          "type": "header",
+          "content": "Button 1"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_1_color",
+          "label": "Button Color",
+          "default": "btn--primary",
+          "options": [
+            { "value": "btn--primary", "label": "Primary" },
+            { "value": "btn--secondary", "label": "Secondary" },
+            { "value": "btn--neutral", "label": "Neutral" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_1_style",
+          "label": "Button Style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid" },
+            { "value": "btn--soft", "label": "Soft" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button 2"
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_2_color",
+          "label": "Button Color",
+          "default": "btn--white",
+          "options": [
+            { "value": "btn--primary", "label": "Primary" },
+            { "value": "btn--secondary", "label": "Secondary" },
+            { "value": "btn--neutral", "label": "Neutral" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_2_style",
+          "label": "Button Style",
+          "default": "btn--outline",
+          "options": [
+            { "value": "btn", "label": "Solid" },
+            { "value": "btn--soft", "label": "Soft" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Two Cards Section",
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

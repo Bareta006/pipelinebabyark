@@ -1,0 +1,54 @@
+{% comment %}
+  Card with Buttons Snippet
+  
+  Usage:
+  {% render 'card-with-buttons',
+    image: image,
+    title: title,
+    description: description,
+    button_1_text: button_1_text,
+    button_1_link: button_1_link,
+    button_1_color: button_1_color,
+    button_1_style: button_1_style,
+    button_2_text: button_2_text,
+    button_2_link: button_2_link,
+    button_2_color: button_2_color,
+    button_2_style: button_2_style
+  %}
+{% endcomment %}
+
+<div class="card-with-buttons">
+  <div class="card-background">
+    {% if image != blank %}
+      {{ image | image_url: width: 1500 | image_tag: loading: 'lazy', class: 'card-image' }}
+    {% else %}
+      <div class="card-placeholder"></div>
+    {% endif %}
+  </div>
+  
+  <div class="card-content">
+    <div class="card-header">
+      {% if title != blank %}
+        <h3 class="card-title">{{ title }}</h3>
+      {% endif %}
+      
+      {% if description != blank %}
+        <div class="card-description">{{ description }}</div>
+      {% endif %}
+    </div>
+    
+    <div class="card-buttons">
+      {% if button_1_text != blank and button_1_link != blank %}
+        <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} card-button">
+          {{ button_1_text }}
+        </a>
+      {% endif %}
+      
+      {% if button_2_text != blank and button_2_link != blank %}
+        <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} card-button">
+          {{ button_2_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div> 
