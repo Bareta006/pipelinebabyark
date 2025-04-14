@@ -8,16 +8,23 @@
           <div class="card-wrapper" {{ block.shopify_attributes }}>
             {% render 'card-with-buttons',
               image: block.settings.background_image,
+              mobile_image: block.settings.mobile_background_image,
               title: block.settings.title,
               description: block.settings.description,
+              text_alignment: block.settings.text_alignment,
+              title_color: block.settings.title_color,
+              description_color: block.settings.description_color,
+              button_alignment: block.settings.button_alignment,
               button_1_text: block.settings.button_1_text,
               button_1_link: block.settings.button_1_link,
               button_1_color: block.settings.button_1_color,
               button_1_style: block.settings.button_1_style,
+              button_1_hide_mobile: block.settings.button_1_hide_mobile,
               button_2_text: block.settings.button_2_text,
               button_2_link: block.settings.button_2_link,
               button_2_color: block.settings.button_2_color,
-              button_2_style: block.settings.button_2_style
+              button_2_style: block.settings.button_2_style,
+              button_2_hide_mobile: block.settings.button_2_hide_mobile
             %}
           </div>
       {% endcase %}
@@ -62,6 +69,15 @@
     z-index: 1;
   }
   
+  .desktop-image, .mobile-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .mobile-image {
+    display: none;
+  }
+  
   .card-image {
     width: 100%;
     height: 100%;
@@ -92,15 +108,26 @@
     margin-top: 100px;
   }
   
+  /* Text alignment classes */
+  .text-left {
+    text-align: left;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .text-right {
+    text-align: right;
+  }
+  
   .card-title {
     margin: 0 0 15px;
-    color: #ffffff;
     font-size: 24px;
     font-weight: 700;
   }
   
   .card-description {
-    color: #ffffff;
     font-size: 16px;
     line-height: 1.5;
   }
@@ -110,6 +137,19 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 60px;
+  }
+  
+  /* Button alignment classes */
+  .buttons-left {
+    justify-content: flex-start;
+  }
+  
+  .buttons-center {
+    justify-content: center;
+  }
+  
+  .buttons-right {
+    justify-content: flex-end;
   }
   
   .card-button {
@@ -131,6 +171,14 @@
       flex: 0 0 100%;
     }
     
+    .desktop-image {
+      display: none;
+    }
+    
+    .mobile-image {
+      display: block;
+    }
+    
     .card-content {
       padding: 0 20px;
     }
@@ -141,6 +189,11 @@
     
     .card-buttons {
       margin-bottom: 30px;
+    }
+    
+    /* Hide buttons on mobile when enabled */
+    .hide-mobile {
+      display: none;
     }
   }
 </style>
@@ -156,9 +209,19 @@
       "limit": 2,
       "settings": [
         {
+          "type": "header",
+          "content": "Background Images"
+        },
+        {
           "type": "image_picker",
           "id": "background_image",
-          "label": "Background Image"
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_background_image",
+          "label": "Mobile Image (optional)",
+          "info": "If not provided, desktop image will be used on mobile"
         },
         {
           "type": "header",
@@ -171,10 +234,72 @@
           "default": "Card Title"
         },
         {
+          "type": "select",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "text--white",
+          "options": [
+            { "value": "text--white", "label": "White" },
+            { "value": "text--neutral", "label": "Normal text" },
+            { "value": "text--primary", "label": "Primary accent" },
+            { "value": "text--secondary", "label": "Secondary accent" },
+            { "value": "text--black", "label": "Black" },
+            { "value": "text--invert--primary", "label": "Primary dark accent" },
+            { "value": "text--invert--secondary", "label": "Secondary dark accent" },
+            { "value": "text--invert", "label": "Inverted text color" },
+            { "value": "text--bright--primary", "label": "Primary bright accent" },
+            { "value": "text--bright--secondary", "label": "Secondary bright accent" }
+          ]
+        },
+        {
           "type": "richtext",
           "id": "description",
           "label": "Description",
           "default": "<p>Add your description here</p>"
+        },
+        {
+          "type": "select",
+          "id": "description_color",
+          "label": "Description color",
+          "default": "text--white",
+          "options": [
+            { "value": "text--white", "label": "White" },
+            { "value": "text--neutral", "label": "Normal text" },
+            { "value": "text--primary", "label": "Primary accent" },
+            { "value": "text--secondary", "label": "Secondary accent" },
+            { "value": "text--black", "label": "Black" },
+            { "value": "text--invert--primary", "label": "Primary dark accent" },
+            { "value": "text--invert--secondary", "label": "Secondary dark accent" },
+            { "value": "text--invert", "label": "Inverted text color" },
+            { "value": "text--bright--primary", "label": "Primary bright accent" },
+            { "value": "text--bright--secondary", "label": "Secondary bright accent" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "text_alignment",
+          "label": "Text alignment",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Buttons"
+        },
+        {
+          "type": "select",
+          "id": "button_alignment",
+          "label": "Buttons alignment",
+          "default": "left",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "center", "label": "Center" },
+            { "value": "right", "label": "Right" }
+          ]
         },
         {
           "type": "header",
@@ -216,6 +341,12 @@
           ]
         },
         {
+          "type": "checkbox",
+          "id": "button_1_hide_mobile",
+          "label": "Hide on mobile",
+          "default": false
+        },
+        {
           "type": "header",
           "content": "Button 2"
         },
@@ -253,6 +384,12 @@
             { "value": "btn--soft", "label": "Soft" },
             { "value": "btn--outline", "label": "Outline" }
           ]
+        },
+        {
+          "type": "checkbox",
+          "id": "button_2_hide_mobile",
+          "label": "Hide on mobile",
+          "default": false
         }
       ]
     }

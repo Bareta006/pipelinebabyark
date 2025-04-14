@@ -4,48 +4,69 @@
   Usage:
   {% render 'card-with-buttons',
     image: image,
+    mobile_image: mobile_image,
     title: title,
     description: description,
+    text_alignment: text_alignment,
+    title_color: title_color,
+    description_color: description_color,
+    button_alignment: button_alignment,
     button_1_text: button_1_text,
     button_1_link: button_1_link,
     button_1_color: button_1_color,
     button_1_style: button_1_style,
+    button_1_hide_mobile: button_1_hide_mobile,
     button_2_text: button_2_text,
     button_2_link: button_2_link,
     button_2_color: button_2_color,
-    button_2_style: button_2_style
+    button_2_style: button_2_style,
+    button_2_hide_mobile: button_2_hide_mobile
   %}
 {% endcomment %}
 
 <div class="card-with-buttons">
   <div class="card-background">
     {% if image != blank %}
-      {{ image | image_url: width: 1500 | image_tag: loading: 'lazy', class: 'card-image' }}
+      <div class="desktop-image">
+        {{ image | image_url: width: 1500 | image_tag: loading: 'lazy', class: 'card-image' }}
+      </div>
     {% else %}
-      <div class="card-placeholder"></div>
+      <div class="card-placeholder desktop-image"></div>
+    {% endif %}
+    
+    {% if mobile_image != blank %}
+      <div class="mobile-image">
+        {{ mobile_image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'card-image' }}
+      </div>
+    {% elsif image != blank %}
+      <div class="mobile-image">
+        {{ image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'card-image' }}
+      </div>
+    {% else %}
+      <div class="card-placeholder mobile-image"></div>
     {% endif %}
   </div>
   
   <div class="card-content">
-    <div class="card-header">
+    <div class="card-header text-{{ text_alignment | default: 'left' }}">
       {% if title != blank %}
-        <h3 class="card-title">{{ title }}</h3>
+        <h3 class="card-title {{ title_color | default: 'text--white' }}">{{ title }}</h3>
       {% endif %}
       
       {% if description != blank %}
-        <div class="card-description">{{ description }}</div>
+        <div class="card-description {{ description_color | default: 'text--white' }}">{{ description }}</div>
       {% endif %}
     </div>
     
-    <div class="card-buttons">
+    <div class="card-buttons buttons-{{ button_alignment | default: 'left' }}">
       {% if button_1_text != blank and button_1_link != blank %}
-        <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} card-button">
+        <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} card-button {% if button_1_hide_mobile %}hide-mobile{% endif %}">
           {{ button_1_text }}
         </a>
       {% endif %}
       
       {% if button_2_text != blank and button_2_link != blank %}
-        <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} card-button">
+        <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} card-button {% if button_2_hide_mobile %}hide-mobile{% endif %}">
           {{ button_2_text }}
         </a>
       {% endif %}
