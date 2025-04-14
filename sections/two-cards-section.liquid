@@ -127,10 +127,25 @@
     font-weight: 700;
   }
   
+  .card-title span {
+    color: inherit; /* Inherit color from the color class */
+  }
+  
   .card-description {
     font-size: 16px;
     line-height: 1.5;
   }
+  
+  /* Make sure theme color classes work by not overriding them */
+  .text--white {
+    color: #ffffff;
+  }
+  
+  .text--black {
+    color: #000000;
+  }
+  
+  /* Rest of theme color classes will apply as defined in the theme */
   
   .card-buttons {
     display: flex;
