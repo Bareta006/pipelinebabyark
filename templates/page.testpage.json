@@ -35,9 +35,9 @@
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343.png",
             "title": "SHOP SMART",
-            "title_color": "text--white",
+            "title_color": "#ffffff",
             "description": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
-            "description_color": "text--white",
+            "description_color": "#ffffff",
             "text_alignment": "center",
             "button_alignment": "center",
             "button_1_text": "SHOP SMART",
@@ -57,9 +57,9 @@
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343_766297c5-b459-49ff-b7e0-4a1b7e107d35.png",
             "title": "Shop Classic",
-            "title_color": "text--white",
+            "title_color": "#ffffff",
             "description": "<p>Simple installation and advanced crash protection, meet comfort and convenience.</p>",
-            "description_color": "text--white",
+            "description_color": "#ffffff",
             "text_alignment": "center",
             "button_alignment": "center",
             "button_1_text": "SHOP CLASSIC",
