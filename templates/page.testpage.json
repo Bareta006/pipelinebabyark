@@ -27,43 +27,51 @@
         "padding_bottom": 36
       }
     },
-    "section_comparison_table_nkrUmm": {
-      "type": "section-comparison-table",
+    "two_cards_section_kBxtPL": {
+      "type": "two-cards-section",
       "blocks": {
-        "product_wLJ4KP": {
-          "type": "product",
+        "card_gPX3FB": {
+          "type": "card",
           "settings": {
-            "product_id": "babyark-convertible-car-seat-smart",
-            "product_badge": "",
-            "product_atc": false
+            "background_image": "shopify://shop_images/Rectangle_1486127343.png",
+            "title": "Card Title",
+            "description": "<p>Add your description here</p>",
+            "button_1_text": "Shop Now",
+            "button_1_link": "",
+            "button_1_color": "btn--primary",
+            "button_1_style": "btn",
+            "button_2_text": "Learn More",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
           }
         },
-        "product_y7Fpci": {
-          "type": "product",
+        "card_rYrAeF": {
+          "type": "card",
           "settings": {
-            "product_id": "babyark-convertible-car-seat-classic",
-            "product_badge": "",
-            "product_atc": false
+            "background_image": "shopify://shop_images/Rectangle_1486127343_766297c5-b459-49ff-b7e0-4a1b7e107d35.png",
+            "title": "Card Title",
+            "description": "<p>Add your description here</p>",
+            "button_1_text": "Shop Now",
+            "button_1_link": "",
+            "button_1_color": "btn--primary",
+            "button_1_style": "btn",
+            "button_2_text": "Learn More",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
           }
         }
       },
       "block_order": [
-        "product_wLJ4KP",
-        "product_y7Fpci"
+        "card_gPX3FB",
+        "card_rYrAeF"
       ],
-      "settings": {
-        "height": "use_image",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "image": "shopify://shop_images/Group_29613152.png",
-        "mobile_image": "shopify://shop_images/Group_29613153_1.png",
-        "table_background_color": "#22282d",
-        "table_text_color": "#ffffff"
-      }
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "section_comparison_table_nkrUmm"
+    "two_cards_section_kBxtPL"
   ]
 }
