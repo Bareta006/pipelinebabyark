@@ -285,70 +285,57 @@
                           
                           {% if first_product and second_product %}
                             <h2 class="comparison-title">COMPARE MODELS</h2>
-                            <div class="tableSide">
+                            <div class="comparison-table">
+                              <div class="comparison-header">
+                                <!-- Column for feature names - left empty in header -->
+                                <div class="feature-column"></div>
+                                <!-- Product name columns -->
+                                <div class="product-column">{{ first_product.metafields.comparison.titlename | default: first_product.title }}</div>
+                                <div class="product-column">{{ second_product.metafields.comparison.titlename | default: second_product.title }}</div>
+                              </div>
+                              
                               {% assign feature_names = "SafeCoil™ Technology,Rigid LATCH Connection,BioArk™ Side Impact Protection,Front Support Leg,Anti-Rebound Bar,Magnetic straps,Quick Lock Chest Clip,No Rethread Harness,9 Recline Positions,No Expiration Date,Guiding Lights,App Connectivity & Notifications" | split: ',' %} 
                               {% assign metafield_keys = "safecoil,rigid,bioark,supportleg,rebound,magneticstraps,quick_lock_chest_clip,no_rethread_headrest,9_recline_positions,no_expiration_date,guiding_lights,app_connectivity" | split: ',' %}
                               
-                              <div class="comparison-table">
-                                <div class="comparison-header">
-                                  <div class="model-name">{{ first_product.metafields.comparison.titlename | default: first_product.title }}</div>
-                                  <div class="model-features"></div>
-                                  <div class="model-name">{{ second_product.metafields.comparison.titlename | default: second_product.title }}</div>
-                                </div>
-                                
-                                <!-- Feature comparison rows -->
-                                {% for i in (0..feature_names.size) %}
-                                  {% assign feature_name = feature_names[i] %}
-                                  {% assign metafield_key = metafield_keys[i] %}
-                                  {% if feature_name != blank and metafield_key != blank %}
-                                    <div class="comparison-row">
-                                      <!-- Left product value -->
-                                      <div class="check-mark">
-                                        {% if first_product.metafields.comparison[metafield_key] == 'true' or first_product.metafields.comparison[metafield_key] == true %}
-                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
-                                          </svg>
-                                        {% else %}
-                                          &nbsp;
-                                        {% endif %}
-                                      </div>
-                                      
-                                      <!-- Feature name -->
-                                      <div class="feature-name">{{ feature_name }}</div>
-                                      
-                                      <!-- Right product value -->
-                                      <div class="check-mark">
-                                        {% if second_product.metafields.comparison[metafield_key] == 'true' or second_product.metafields.comparison[metafield_key] == true %}
-                                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
-                                          </svg>
-                                        {% else %}
-                                          &nbsp;
-                                        {% endif %}
-                                      </div>
+                              <!-- Feature comparison rows -->
+                              {% for i in (0..feature_names.size) %}
+                                {% assign feature_name = feature_names[i] %}
+                                {% assign metafield_key = metafield_keys[i] %}
+                                {% if feature_name != blank and metafield_key != blank %}
+                                  <div class="comparison-row">
+                                    <!-- Feature name - left column -->
+                                    <div class="feature-name">{{ feature_name }}</div>
+                                    
+                                    <!-- First product checkmark -->
+                                    <div class="check-mark">
+                                      {% if first_product.metafields.comparison[metafield_key] == 'true' or first_product.metafields.comparison[metafield_key] == true %}
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+                                        </svg>
+                                      {% else %}
+                                        <span class="dash">—</span>
+                                      {% endif %}
                                     </div>
-                                  {% endif %}
-                                {% endfor %}
-                                
-                                <!-- Price row only if needed -->
-                                {% comment %}
-                                <div class="comparison-row price-row">
-                                  <div class="price">{{ first_product.price | money_without_trailing_zeros }}</div>
-                                  <div class="feature-name">Price</div>
-                                  <div class="price">{{ second_product.price | money_without_trailing_zeros }}</div>
-                                </div>
-                                {% endcomment %}
-                                
-                                <!-- Button links -->
-                                <div class="comparison-row buttons-row">
-                                  <div class="shop-link">
-                                    <a href="{{ first_product.url }}" class="btn--outline linktopage">Shop</a>
+                                    
+                                    <!-- Second product checkmark -->
+                                    <div class="check-mark">
+                                      {% if second_product.metafields.comparison[metafield_key] == 'true' or second_product.metafields.comparison[metafield_key] == true %}
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="currentColor"/>
+                                        </svg>
+                                      {% else %}
+                                        <span class="dash">—</span>
+                                      {% endif %}
+                                    </div>
                                   </div>
-                                  <div class="spacer"></div>
-                                  <div class="shop-link">
-                                    <a href="{{ second_product.url }}" class="linktopage btn--outline">Shop</a>
-                                  </div>
-                                </div>
+                                {% endif %}
+                              {% endfor %}
+                              
+                              <!-- Price row -->
+                              <div class="comparison-row price-row">
+                                <div class="feature-name">Price</div>
+                                <div class="price">{{ first_product.price | money_without_trailing_zeros }}</div>
+                                <div class="price">{{ second_product.price | money_without_trailing_zeros }}</div>
                               </div>
                             </div>
                           {% else %}
@@ -2359,19 +2346,20 @@
   .comparison-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     font-weight: bold;
-    padding: 10px 0;
+    padding: 10px 0 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   }
   
-  .model-name {
-    width: 30%;
-    text-align: center;
+  .feature-column {
+    width: 45%;
+    text-align: left;
   }
   
-  .model-features {
-    width: 40%;
+  .product-column {
+    width: 27.5%;
+    text-align: center;
   }
   
   .comparison-row {
@@ -2382,44 +2370,40 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
   
-  .check-mark {
-    width: 30%;
-    text-align: center;
-  }
-  
   .feature-name {
-    width: 40%;
-    text-align: center;
-    font-size: 14px;
+    width: 45%;
+    text-align: left;
+    font-size: 16px;
+    padding-right: 10px;
   }
   
-  .buttons-row {
+  .check-mark {
+    width: 27.5%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .check-mark svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .dash {
+    font-size: 24px;
+    line-height: 18px;
+  }
+  
+  .price-row {
     border-bottom: none;
-    margin-top: 20px;
+    padding-top: 20px;
   }
   
-  .shop-link {
-    width: 30%;
+  .price {
+    width: 27.5%;
     text-align: center;
-  }
-  
-  .spacer {
-    width: 40%;
-  }
-  
-  .linktopage {
-    display: inline-block;
-    padding: 8px 20px;
-    border: 1px solid #fff;
-    border-radius: 30px;
-    text-decoration: none;
-    color: #fff;
-    font-size: 14px;
-    transition: background-color 0.3s;
-  }
-  
-  .linktopage:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    font-size: 16px;
   }
   
   @media screen and (max-width: 767px) {
@@ -2432,7 +2416,7 @@
     }
     
     .feature-name {
-      font-size: 12px;
+      font-size: 14px;
     }
     
     .comparison-row {
@@ -2440,8 +2424,16 @@
     }
     
     .check-mark svg {
-      width: 20px;
-      height: 20px;
+      width: 16px;
+      height: 16px;
+    }
+    
+    .dash {
+      font-size: 20px;
+    }
+    
+    .price {
+      font-size: 14px;
     }
   }
   
