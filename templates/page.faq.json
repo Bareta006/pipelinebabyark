@@ -652,13 +652,6 @@
             "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
           }
         },
-        "text_mJArLY": {
-          "type": "text",
-          "settings": {
-            "title": "Does checking my eligibility affect my credit score?",
-            "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
-          }
-        },
         "text_qY7dar": {
           "type": "text",
           "settings": {
@@ -679,7 +672,6 @@
         "text_QRAAT9",
         "text_pNKG98",
         "text_gVqXWy",
-        "text_mJArLY",
         "text_qY7dar",
         "text_kwHcHt"
       ],
