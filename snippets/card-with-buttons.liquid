@@ -51,12 +51,12 @@
     <div class="card-header text-{{ text_alignment | default: 'left' }}">
       {% if title != blank %}
         <h3 class="card-title">
-          <span class="{{ title_color }}">{{ title }}</span>
+          <span style="color: {{ title_color }};">{{ title }}</span>
         </h3>
       {% endif %}
       
       {% if description != blank %}
-        <div class="card-description {{ description_color }}">
+        <div class="card-description" style="color: {{ description_color }};">
           {{ description }}
         </div>
       {% endif %}
