@@ -34,6 +34,7 @@
           "type": "card",
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127343_1.png",
             "title": "SHOP SMART",
             "title_color": "#1a1b1d",
             "description": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
@@ -56,6 +57,7 @@
           "type": "card",
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127344.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127343_2.png",
             "title": "Shop Classic",
             "title_color": "#1a1b1d",
             "description": "<p>Simple installation and advanced crash protection, meet comfort and convenience.</p>",
