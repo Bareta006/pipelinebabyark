@@ -202,14 +202,15 @@
   }
   
   #section-{{ section.id }} .carousel-card__title {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-weight: 600;
+    font-size: 40px;
+    font-weight: 400;
     margin-bottom: 0.75rem;
     line-height: 1.2;
+    letter-spacing: -0.4px;
   }
   
   #section-{{ section.id }} .carousel-card__description {
-    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-size: 20px;
     margin-bottom: 1.25rem;
     line-height: 1.4;
     max-width: 25rem;
@@ -264,6 +265,14 @@
     #section-{{ section.id }} .carousel-card {
       aspect-ratio: 3.65/5;
     }
+      #section-{{ section.id }} .carousel-card__title {
+    font-size: 32px;
+    letter-spacing: -0.32px;
+  }
+    #section-{{ section.id }} .carousel-card__description {
+    font-size: 16px;
+    max-width: 100%;
+  }
   }
 </style>
 
