@@ -190,6 +190,27 @@
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline"
           }
+        },
+        "card_N8KKTP": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-06.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127368.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Changeable Covers",
+            "title_color": "#ffffff",
+            "description": "<p>Easy zip on and off fabric covers that can be machine washed.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
         }
       },
       "block_order": [
@@ -197,7 +218,8 @@
         "card_bwNrpM",
         "card_JRzhq3",
         "card_L8p9gd",
-        "card_Yqaa3n"
+        "card_Yqaa3n",
+        "card_N8KKTP"
       ],
       "name": "Cards Carousel",
       "settings": {
