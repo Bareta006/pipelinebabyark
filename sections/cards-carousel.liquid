@@ -3,8 +3,7 @@
 <section class="section-carousel" 
   id="section-{{ section.id }}"
   data-section-id="{{ section.id }}"
-  data-section-type="section-carousel"
-  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; margin-bottom: 60px;">
+  data-section-type="section-carousel">
   <div class="wrapper">
     {% if section.settings.title != blank %}
       <div class="section__header text-{{ section.settings.title_alignment }}">
@@ -27,11 +26,8 @@
         data-grid-large
         data-grid-medium
         data-grid-small
-        style="
-          --grid-large-items: 2.8;
-          --grid-medium-items: 2.2;
-          --grid-small-items: 1.2;"
-        class="cards-carousel">
+        class="cards-carousel"
+        style="--grid-large-items: 2.8; --grid-medium-items: 2.2; --grid-small-items: 1.2;">
         {% for block in section.blocks %}
           <div class="carousel-slide" {{ block.shopify_attributes }} data-carousel-slide>
             {% render 'carousel-card', 
@@ -61,8 +57,14 @@
 </section>
 
 <style>
+  #section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin-bottom: 3.75rem;
+  }
+
   #section-{{ section.id }} .section__header {
-    margin-bottom: 30px;
+    margin-bottom: 1.875rem;
   }
   
   #section-{{ section.id }} .text-left {
@@ -78,48 +80,39 @@
   }
   
   #section-{{ section.id }} .section__title {
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
   
   #section-{{ section.id }} .section__button {
-    margin-bottom: 30px;
-  }
-  
-  /* Add a minimum height to the carousel */
-  #section-{{ section.id }} .cards-carousel {
-    min-height: 500px;
-    position: relative;
-    overflow: visible;
-  }
-  
-  #section-{{ section.id }} .carousel-slide {
-    height: auto;
-    padding: 10px;
-    min-height: 400px;
-    opacity: 1 !important;
-    visibility: visible !important;
+    margin-bottom: 1.875rem;
   }
   
   /* Ensure the carousel navigation arrows appear at the bottom right */
   #section-{{ section.id }} .flickity-button {
     position: absolute;
-    bottom: -50px;
+    bottom: -3.125rem;
     top: auto;
+    z-index: 10;
   }
   
   #section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 60px;
+    right: 3.75rem;
     left: auto;
   }
   
   #section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 10px;
+    right: 0.625rem;
   }
   
   /* Make sure carousel controls are visible */
   #section-{{ section.id }} .flickity-button {
     background-color: var(--color-bg-light);
     opacity: 1;
+  }
+
+  /* Ensure proper spacing for slides */
+  #section-{{ section.id }} .carousel-slide {
+    padding: 0.625rem;
   }
 </style>
 
