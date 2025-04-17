@@ -4,56 +4,54 @@
   id="section-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-section-type="section-carousel">
-  <div class="wrapper">
-    {% if section.settings.title != blank %}
-      <div class="section__header text-{{ section.settings.title_alignment }}">
-        <h2 class="section__title">{{ section.settings.title }}</h2>
-        
-        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
-          <div class="section__button">
-            <a href="{{ section.settings.button_link }}" class="{{ section.settings.button_color }} {{ section.settings.button_style }}">
-              {{ section.settings.button_text }}
-            </a>
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-    
-    <flickity-carousel>
-      <div
-        data-carousel
-        data-grid
-        data-grid-large
-        data-grid-medium
-        data-grid-small
-        class="cards-carousel"
-        style="--grid-large-items: 2.8; --grid-medium-items: 2.2; --grid-small-items: 1.2;">
-        {% for block in section.blocks %}
-          <div class="carousel-slide" {{ block.shopify_attributes }} data-carousel-slide>
-            {% render 'carousel-card', 
-              image: block.settings.background_image,
-              mobile_image: block.settings.mobile_background_image,
-              overlay_enabled: block.settings.overlay_enabled,
-              overlay_opacity: block.settings.overlay_opacity,
-              title: block.settings.title,
-              title_color: block.settings.title_color,
-              description: block.settings.description,
-              description_color: block.settings.description_color,
-              button_1_text: block.settings.button_1_text,
-              button_1_link: block.settings.button_1_link,
-              button_1_color: block.settings.button_1_color,
-              button_1_style: block.settings.button_1_style,
-              button_2_text: block.settings.button_2_text,
-              button_2_link: block.settings.button_2_link,
-              button_2_color: block.settings.button_2_color,
-              button_2_style: block.settings.button_2_style,
-              section_id: section.id
-            %}
-          </div>
-        {% endfor %}
-      </div>
-    </flickity-carousel>
-  </div>
+  {% if section.settings.title != blank %}
+    <div class="section__header text-{{ section.settings.title_alignment }}">
+      <h2 class="section__title">{{ section.settings.title }}</h2>
+      
+      {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+        <div class="section__button">
+          <a href="{{ section.settings.button_link }}" class="{{ section.settings.button_color }} {{ section.settings.button_style }}">
+            {{ section.settings.button_text }}
+          </a>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+  
+  <flickity-carousel>
+    <div
+      data-carousel
+      data-grid
+      data-grid-large
+      data-grid-medium
+      data-grid-small
+      class="cards-carousel"
+      style="--grid-large-items: 2.8; --grid-medium-items: 2.2; --grid-small-items: 1.2;">
+      {% for block in section.blocks %}
+        <div class="carousel-slide" {{ block.shopify_attributes }} data-carousel-slide>
+          {% render 'carousel-card', 
+            image: block.settings.background_image,
+            mobile_image: block.settings.mobile_background_image,
+            overlay_enabled: block.settings.overlay_enabled,
+            overlay_opacity: block.settings.overlay_opacity,
+            title: block.settings.title,
+            title_color: block.settings.title_color,
+            description: block.settings.description,
+            description_color: block.settings.description_color,
+            button_1_text: block.settings.button_1_text,
+            button_1_link: block.settings.button_1_link,
+            button_1_color: block.settings.button_1_color,
+            button_1_style: block.settings.button_1_style,
+            button_2_text: block.settings.button_2_text,
+            button_2_link: block.settings.button_2_link,
+            button_2_color: block.settings.button_2_color,
+            button_2_style: block.settings.button_2_style,
+            section_id: section.id
+          %}
+        </div>
+      {% endfor %}
+    </div>
+  </flickity-carousel>
 </section>
 
 <style>
@@ -61,10 +59,14 @@
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
     margin-bottom: 3.75rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   #section-{{ section.id }} .section__header {
     margin-bottom: 1.875rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
   }
   
   #section-{{ section.id }} .text-left {
@@ -92,13 +94,13 @@
     overflow: visible;
   }
   
+  /* Force the proper number of cards in view */
   #section-{{ section.id }} .flickity-slider > * {
-    width: calc(100% / var(--grid-large-items)) !important;
+    width: calc(100% / 2.8) !important;
   }
   
   #section-{{ section.id }} .carousel-slide {
     padding: 0.625rem;
-    width: 100%;
   }
   
   /* Ensure the carousel navigation arrows appear at the bottom right */
@@ -124,16 +126,21 @@
     opacity: 1;
   }
   
+  /* Ensure content is visible and properly positioned */
+  #section-{{ section.id }} .cards-carousel {
+    width: 100%;
+  }
+  
   /* Responsive styles for different viewports */
   @media screen and (max-width: 989px) {
     #section-{{ section.id }} .flickity-slider > * {
-      width: calc(100% / var(--grid-medium-items)) !important;
+      width: calc(100% / 2.2) !important;
     }
   }
   
   @media screen and (max-width: 749px) {
     #section-{{ section.id }} .flickity-slider > * {
-      width: calc(100% / var(--grid-small-items)) !important;
+      width: calc(100% / 1.2) !important;
     }
   }
 </style>

@@ -51,30 +51,32 @@
   </div>
   
   <div class="carousel-card__content">
-    {% if title != blank %}
-      <h3 class="carousel-card__title carousel-card__title--color-{{ title_color | strip: '#' }}">
-        {{ title }}
-      </h3>
-    {% endif %}
-    
-    {% if description != blank %}
-      <div class="carousel-card__description carousel-card__description--color-{{ description_color | strip: '#' }}">
-        {{ description }}
-      </div>
-    {% endif %}
-    
-    <div class="carousel-card__buttons">
-      {% if button_1_text != blank and button_1_link != blank %}
-        <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} carousel-card__button">
-          {{ button_1_text }}
-        </a>
+    <div class="carousel-card__content-inner">
+      {% if title != blank %}
+        <h3 class="carousel-card__title carousel-card__title--color-{{ title_color | strip: '#' }}">
+          {{ title }}
+        </h3>
       {% endif %}
       
-      {% if button_2_text != blank and button_2_link != blank %}
-        <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} carousel-card__button">
-          {{ button_2_text }}
-        </a>
+      {% if description != blank %}
+        <div class="carousel-card__description carousel-card__description--color-{{ description_color | strip: '#' }}">
+          {{ description }}
+        </div>
       {% endif %}
+      
+      <div class="carousel-card__buttons">
+        {% if button_1_text != blank and button_1_link != blank %}
+          <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} carousel-card__button">
+            {{ button_1_text }}
+          </a>
+        {% endif %}
+        
+        {% if button_2_text != blank and button_2_link != blank %}
+          <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} carousel-card__button">
+            {{ button_2_text }}
+          </a>
+        {% endif %}
+      </div>
     </div>
   </div>
 </div>
@@ -146,11 +148,15 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: flex-start;
     padding: 2rem;
     z-index: 3;
-    text-align: center;
+    text-align: left;
+  }
+  
+  #section-{{ section_id }} .carousel-card__content-inner {
+    width: 100%;
   }
   
   #section-{{ section_id }} .carousel-card__title {
@@ -179,7 +185,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.625rem;
-    justify-content: center;
+    justify-content: flex-start;
   }
   
   #section-{{ section_id }} .carousel-card__button {
