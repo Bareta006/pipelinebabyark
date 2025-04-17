@@ -87,6 +87,20 @@
     margin-bottom: 1.875rem;
   }
   
+  /* Set proper width for flickity cells based on viewport */
+  #section-{{ section.id }} .flickity-viewport {
+    overflow: visible;
+  }
+  
+  #section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / var(--grid-large-items)) !important;
+  }
+  
+  #section-{{ section.id }} .carousel-slide {
+    padding: 0.625rem;
+    width: 100%;
+  }
+  
   /* Ensure the carousel navigation arrows appear at the bottom right */
   #section-{{ section.id }} .flickity-button {
     position: absolute;
@@ -109,10 +123,18 @@
     background-color: var(--color-bg-light);
     opacity: 1;
   }
-
-  /* Ensure proper spacing for slides */
-  #section-{{ section.id }} .carousel-slide {
-    padding: 0.625rem;
+  
+  /* Responsive styles for different viewports */
+  @media screen and (max-width: 989px) {
+    #section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / var(--grid-medium-items)) !important;
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / var(--grid-small-items)) !important;
+    }
   }
 </style>
 
