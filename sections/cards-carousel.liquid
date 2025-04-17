@@ -25,6 +25,7 @@
       data-grid-large
       data-grid-medium
       data-grid-small
+      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left" }'
       class="cards-carousel"
       style="--grid-large-items: 2.8; --grid-medium-items: 2.2; --grid-small-items: 1.2;">
       {% for block in section.blocks %}
@@ -242,7 +243,7 @@
   
   @media screen and (max-width: 649px) {
     #section-{{ section.id }} .cards-carousel {
-      padding-left: 0.9375rem; /* 15px */
+      padding-left: 1rem; /* 15px */
     }
     
     #section-{{ section.id }} .flickity-slider > * {
