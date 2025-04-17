@@ -18,6 +18,20 @@
     "main": {
       "type": "product",
       "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": 8,
+            "product_show_cutline": true,
+            "show_rating": false,
+            "show_rating_count": false,
+            "padding_bottom": 10
+          }
+        },
+        "judge_me_reviews_preview_badge_VYMFNW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
         "custom_buttons_nDM4gY": {
           "type": "custom-buttons",
           "settings": {
@@ -34,22 +48,15 @@
             "enable_comparison_popup": true,
             "product_1": "babyark-convertible-car-seat-smart",
             "product_2": "babyark-convertible-car-seat-classic",
-            "padding_bottom": 20
+            "padding_bottom": 0
           }
         },
-        "title": {
-          "type": "title",
+        "text_awD4cw": {
+          "type": "text",
           "settings": {
-            "text_size": 8,
-            "product_show_cutline": true,
-            "show_rating": false,
-            "show_rating_count": false,
+            "title": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
             "padding_bottom": 20
           }
-        },
-        "judge_me_reviews_preview_badge_VYMFNW": {
-          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
         },
         "price": {
           "type": "price",
@@ -216,9 +223,10 @@
         }
       },
       "block_order": [
-        "custom_buttons_nDM4gY",
         "title",
         "judge_me_reviews_preview_badge_VYMFNW",
+        "custom_buttons_nDM4gY",
+        "text_awD4cw",
         "price",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_TaxeUj",
