@@ -45,8 +45,7 @@
             button_2_text: block.settings.button_2_text,
             button_2_link: block.settings.button_2_link,
             button_2_color: block.settings.button_2_color,
-            button_2_style: block.settings.button_2_style,
-            section_id: section.id
+            button_2_style: block.settings.button_2_style
           %}
         </div>
       {% endfor %}
@@ -94,6 +93,12 @@
     overflow: visible;
   }
   
+  /* Added proper side padding */
+  #section-{{ section.id }} .cards-carousel {
+    width: 100%;
+    padding-left: 4.375rem; /* 70px */
+  }
+  
   /* Force the proper number of cards in view */
   #section-{{ section.id }} .flickity-slider > * {
     width: calc(100% / 2.8) !important;
@@ -126,21 +131,155 @@
     opacity: 1;
   }
   
-  /* Ensure content is visible and properly positioned */
-  #section-{{ section.id }} .cards-carousel {
+  /* ===== CARD STYLES (MOVED FROM SNIPPET) ===== */
+  #section-{{ section.id }} .carousel-card {
+    position: relative;
+    aspect-ratio: 4/5;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  #section-{{ section.id }} .carousel-card__background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  #section-{{ section.id }} .carousel-card__desktop-image,
+  #section-{{ section.id }} .carousel-card__mobile-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #section-{{ section.id }} .carousel-card__mobile-image {
+    display: none;
+  }
+  
+  #section-{{ section.id }} .carousel-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  #section-{{ section.id }} .carousel-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+  }
+  
+  #section-{{ section.id }} .carousel-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 2;
+  }
+  
+  /* Handle overlay opacity */
+  {% for i in (0..100) %}
+    {% assign step = i | modulo: 5 %}
+    {% if step == 0 %}
+      #section-{{ section.id }} .carousel-card__overlay--opacity-{{ i }} {
+        opacity: {{ i | times: 0.01 }};
+      }
+    {% endif %}
+  {% endfor %}
+  
+  #section-{{ section.id }} .carousel-card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: 2rem;
+    z-index: 3;
+    text-align: left;
+  }
+  
+  #section-{{ section.id }} .carousel-card__content-inner {
+    width: 100%;
+  }
+  
+  #section-{{ section.id }} .carousel-card__title {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  
+  #section-{{ section.id }} .carousel-card__description {
+    font-size: clamp(0.875rem, 2vw, 1rem);
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+    max-width: 25rem;
+  }
+  
+  /* Fixed color styling */
+  {% for block in section.blocks %}
+    #section-{{ section.id }} .carousel-card[data-block-id="{{ block.id }}"] .carousel-card__title {
+      color: {{ block.settings.title_color }};
+    }
+    
+    #section-{{ section.id }} .carousel-card[data-block-id="{{ block.id }}"] .carousel-card__description {
+      color: {{ block.settings.description_color }};
+    }
+  {% endfor %}
+  
+  #section-{{ section.id }} .carousel-card__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    justify-content: flex-start;
+  }
+  
+  #section-{{ section.id }} .carousel-card__button {
+    min-width: 7.5rem;
   }
   
   /* Responsive styles for different viewports */
   @media screen and (max-width: 989px) {
+    #section-{{ section.id }} .cards-carousel {
+      padding-left: 2.1875rem; /* 35px */
+    }
+    
     #section-{{ section.id }} .flickity-slider > * {
       width: calc(100% / 2.2) !important;
+    }
+    
+    #section-{{ section.id }} .carousel-card {
+      border-radius: 10px;
     }
   }
   
   @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .cards-carousel {
+      padding-left: 0.9375rem; /* 15px */
+    }
+    
     #section-{{ section.id }} .flickity-slider > * {
       width: calc(100% / 1.2) !important;
+    }
+    
+    #section-{{ section.id }} .carousel-card__desktop-image {
+      display: none;
+    }
+    
+    #section-{{ section.id }} .carousel-card__mobile-image {
+      display: block;
+    }
+    
+    #section-{{ section.id }} .carousel-card__content {
+      padding: 1.5rem;
     }
   }
 </style>

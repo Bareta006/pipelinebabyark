@@ -18,12 +18,11 @@
     button_2_text: button_2_text,
     button_2_link: button_2_link,
     button_2_color: button_2_color,
-    button_2_style: button_2_style,
-    section_id: section.id
+    button_2_style: button_2_style
   %}
 {% endcomment %}
 
-<div class="carousel-card">
+<div class="carousel-card" data-block-id="{{ block.id }}">
   <div class="carousel-card__background">
     {% if image != blank %}
       <div class="carousel-card__desktop-image">
@@ -53,13 +52,13 @@
   <div class="carousel-card__content">
     <div class="carousel-card__content-inner">
       {% if title != blank %}
-        <h3 class="carousel-card__title carousel-card__title--color-{{ title_color | strip: '#' }}">
+        <h3 class="carousel-card__title">
           {{ title }}
         </h3>
       {% endif %}
       
       {% if description != blank %}
-        <div class="carousel-card__description carousel-card__description--color-{{ description_color | strip: '#' }}">
+        <div class="carousel-card__description">
           {{ description }}
         </div>
       {% endif %}
@@ -79,136 +78,4 @@
       </div>
     </div>
   </div>
-</div>
-
-<style>
-  #section-{{ section_id }} .carousel-card {
-    position: relative;
-    aspect-ratio: 4/5;
-    border-radius: 20px;
-    overflow: hidden;
-  }
-  
-  #section-{{ section_id }} .carousel-card__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-  
-  #section-{{ section_id }} .carousel-card__desktop-image,
-  #section-{{ section_id }} .carousel-card__mobile-image {
-    width: 100%;
-    height: 100%;
-  }
-  
-  #section-{{ section_id }} .carousel-card__mobile-image {
-    display: none;
-  }
-  
-  #section-{{ section_id }} .carousel-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-  
-  #section-{{ section_id }} .carousel-card__placeholder {
-    width: 100%;
-    height: 100%;
-    background-color: #f4f4f4;
-  }
-  
-  #section-{{ section_id }} .carousel-card__overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #000000;
-    z-index: 2;
-  }
-  
-  {% for i in (0..100) %}
-    {% assign step = i | modulo: 5 %}
-    {% if step == 0 %}
-      #section-{{ section_id }} .carousel-card__overlay--opacity-{{ i }} {
-        opacity: {{ i | times: 0.01 }};
-      }
-    {% endif %}
-  {% endfor %}
-  
-  #section-{{ section_id }} .carousel-card__content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 2rem;
-    z-index: 3;
-    text-align: left;
-  }
-  
-  #section-{{ section_id }} .carousel-card__content-inner {
-    width: 100%;
-  }
-  
-  #section-{{ section_id }} .carousel-card__title {
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-weight: 600;
-    margin-bottom: 0.75rem;
-    line-height: 1.2;
-  }
-  
-  #section-{{ section_id }} .carousel-card__description {
-    font-size: clamp(0.875rem, 2vw, 1rem);
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
-    max-width: 25rem;
-  }
-  
-  #section-{{ section_id }} .carousel-card__title--color-{{ title_color | strip: '#' }} {
-    color: {{ title_color }};
-  }
-  
-  #section-{{ section_id }} .carousel-card__description--color-{{ description_color | strip: '#' }} {
-    color: {{ description_color }};
-  }
-  
-  #section-{{ section_id }} .carousel-card__buttons {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-    justify-content: flex-start;
-  }
-  
-  #section-{{ section_id }} .carousel-card__button {
-    min-width: 7.5rem;
-  }
-  
-  @media screen and (max-width: 989px) {
-    #section-{{ section_id }} .carousel-card {
-      border-radius: 10px;
-    }
-  }
-  
-  @media screen and (max-width: 749px) {
-    #section-{{ section_id }} .carousel-card__desktop-image {
-      display: none;
-    }
-    
-    #section-{{ section_id }} .carousel-card__mobile-image {
-      display: block;
-    }
-    
-    #section-{{ section_id }} .carousel-card__content {
-      padding: 1.5rem;
-    }
-  }
-</style> 
+</div> 
