@@ -91,8 +91,8 @@
           "settings": {
             "background_image": "shopify://shop_images/Group_1597881130.png",
             "mobile_background_image": "shopify://shop_images/Group_1597881133.png",
-            "overlay_enabled": true,
-            "overlay_opacity": 50,
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
             "title": "Injury prevention",
             "title_color": "#ffffff",
             "description": "<p>The SafeCoilTM impact-activated steel coils significantly reduce force and forward momentum, extending gently as your car slows to bring the seat to rest safely and softly.</p>",
@@ -202,10 +202,10 @@
       "name": "Cards Carousel",
       "settings": {
         "title": "Cards Carousel",
-        "title_alignment": "left",
-        "button_text": "View all",
-        "button_link": "",
-        "button_color": "btn--primary",
+        "title_alignment": "center",
+        "button_text": "Discover",
+        "button_link": "#",
+        "button_color": "btn--black",
         "button_style": "btn",
         "padding_top": 50,
         "padding_bottom": 50
