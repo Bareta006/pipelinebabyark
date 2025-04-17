@@ -12,7 +12,7 @@
     "section_liquid_3BhB6X": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n} \n.product__inner .jdgm-preview-badge .jdgm-star.jdgm-star{\ncolor:#000;\n}\n.product__block__custom-buttons__text-link a{\nfont-weight:600;\n}\n.product__block__custom-buttons{\nborder-bottom:none !important;\n}\n\n</style>"
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n} \n.product__inner .jdgm-preview-badge .jdgm-star.jdgm-star{\ncolor:#000;\n}\n.product__block__custom-buttons__text-link a{\nfont-weight:600;\n}\n.product__block__custom-buttons{\nborder-bottom:none !important;\n}\n.product__inner \n .product__block__text p{\ntext-align:center;}\n</style>"
       }
     },
     "main": {
@@ -178,13 +178,6 @@
             "padding_bottom": 20
           }
         },
-        "text_L7awwa": {
-          "type": "text",
-          "settings": {
-            "title": "<p><strong>Looking to upgrade with smart sensors? </strong><a href=\"/products/babyark-convertible-car-seat-smart\" title=\"babyark Convertible Car Seat - Smart\"><span style=\"text-decoration:underline\">See Smart</span></a></p>",
-            "padding_bottom": 20
-          }
-        },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
           "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
@@ -237,7 +230,6 @@
         "icon_EC9RhA",
         "icon_Eafi8h",
         "description",
-        "text_L7awwa",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
