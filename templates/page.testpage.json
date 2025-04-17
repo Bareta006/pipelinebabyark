@@ -106,10 +106,54 @@
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline"
           }
+        },
+        "card_bwNrpM": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-02.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127349.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Guided installation",
+            "title_color": "#ffffff",
+            "description": "<p>The innovative smart base and app guide you through the process, confirming the seat has been properly installed.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
+        },
+        "card_JRzhq3": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-03.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127363.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Magnetic harness",
+            "title_color": "#ffffff",
+            "description": "<p>Magnetic straps that allow you to easily place your child in the seat without any extra hassle</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
         }
       },
       "block_order": [
-        "card_E8rTr6"
+        "card_E8rTr6",
+        "card_bwNrpM",
+        "card_JRzhq3"
       ],
       "name": "Cards Carousel",
       "settings": {
