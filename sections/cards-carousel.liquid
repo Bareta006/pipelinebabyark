@@ -181,16 +181,6 @@
     z-index: 2;
   }
   
-  /* Handle overlay opacity */
-  {% for i in (0..100) %}
-    {% assign step = i | modulo: 5 %}
-    {% if step == 0 %}
-      #section-{{ section.id }} .carousel-card__overlay--opacity-{{ i }} {
-        opacity: {{ i | times: 0.01 }};
-      }
-    {% endif %}
-  {% endfor %}
-  
   #section-{{ section.id }} .carousel-card__content {
     position: absolute;
     top: 0;
@@ -223,17 +213,6 @@
     line-height: 1.4;
     max-width: 25rem;
   }
-  
-  /* Fixed color styling */
-  {% for block in section.blocks %}
-    #section-{{ section.id }} .carousel-card[data-block-id="{{ block.id }}"] .carousel-card__title {
-      color: {{ block.settings.title_color }};
-    }
-    
-    #section-{{ section.id }} .carousel-card[data-block-id="{{ block.id }}"] .carousel-card__description {
-      color: {{ block.settings.description_color }};
-    }
-  {% endfor %}
   
   #section-{{ section.id }} .carousel-card__buttons {
     display: flex;

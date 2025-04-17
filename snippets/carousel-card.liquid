@@ -45,20 +45,20 @@
     {% endif %}
     
     {% if overlay_enabled %}
-      <div class="carousel-card__overlay carousel-card__overlay--opacity-{{ overlay_opacity }}"></div>
+      <div class="carousel-card__overlay" style="opacity: {{ overlay_opacity | divided_by: 100.0 }};"></div>
     {% endif %}
   </div>
   
   <div class="carousel-card__content">
     <div class="carousel-card__content-inner">
       {% if title != blank %}
-        <h3 class="carousel-card__title">
+        <h3 class="carousel-card__title" style="color: {{ title_color }};">
           {{ title }}
         </h3>
       {% endif %}
       
       {% if description != blank %}
-        <div class="carousel-card__description">
+        <div class="carousel-card__description" style="color: {{ description_color }};">
           {{ description }}
         </div>
       {% endif %}
