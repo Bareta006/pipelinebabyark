@@ -169,13 +169,35 @@
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline"
           }
+        },
+        "card_Yqaa3n": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-05_5277dbba-5b79-4b57-8b55-29f0f41d8bca.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127367.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Critical Alerts",
+            "title_color": "#ffffff",
+            "description": "<p>Get real time notifications like forgotten child alerts and buckle confirmation, even when grandma or the babysitter are driving.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
         }
       },
       "block_order": [
         "card_E8rTr6",
         "card_bwNrpM",
         "card_JRzhq3",
-        "card_L8p9gd"
+        "card_L8p9gd",
+        "card_Yqaa3n"
       ],
       "name": "Cards Carousel",
       "settings": {
