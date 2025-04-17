@@ -134,7 +134,7 @@
   /* ===== CARD STYLES (MOVED FROM SNIPPET) ===== */
   #section-{{ section.id }} .carousel-card {
     position: relative;
-    aspect-ratio: 4/5;
+    aspect-ratio: 6.34/8;
     border-radius: 20px;
     overflow: hidden;
   }
@@ -240,7 +240,7 @@
     }
   }
   
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 649px) {
     #section-{{ section.id }} .cards-carousel {
       padding-left: 0.9375rem; /* 15px */
     }
@@ -259,6 +259,9 @@
     
     #section-{{ section.id }} .carousel-card__content {
       padding: 1.5rem;
+    }
+    #section-{{ section.id }} .carousel-card {
+      aspect-ratio: 3.65/5;
     }
   }
 </style>
