@@ -1,0 +1,358 @@
+<!-- /sections/cards-carousel.liquid -->
+
+<section class="section-carousel" 
+  id="section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="section-carousel"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="wrapper">
+    {% if section.settings.title != blank %}
+      <div class="section__header text-{{ section.settings.title_alignment }}">
+        <h2 class="section__title">{{ section.settings.title }}</h2>
+        
+        {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+          <div class="section__button">
+            <a href="{{ section.settings.button_link }}" class="{{ section.settings.button_color }} {{ section.settings.button_style }}">
+              {{ section.settings.button_text }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    
+    <flickity-carousel>
+      <div
+        data-carousel
+        data-grid
+        data-grid-large
+        data-grid-medium
+        data-grid-small
+        style="
+          --grid-large-items: 2.8;
+          --grid-medium-items: 2.2;
+          --grid-small-items: 1.2;"
+        class="cards-carousel">
+        {% for block in section.blocks %}
+          <div class="carousel-slide" {{ block.shopify_attributes }} data-carousel-slide>
+            {% render 'carousel-card', 
+              image: block.settings.background_image,
+              mobile_image: block.settings.mobile_background_image,
+              overlay_enabled: block.settings.overlay_enabled,
+              overlay_opacity: block.settings.overlay_opacity,
+              title: block.settings.title,
+              title_color: block.settings.title_color,
+              description: block.settings.description,
+              description_color: block.settings.description_color,
+              button_1_text: block.settings.button_1_text,
+              button_1_link: block.settings.button_1_link,
+              button_1_color: block.settings.button_1_color,
+              button_1_style: block.settings.button_1_style,
+              button_2_text: block.settings.button_2_text,
+              button_2_link: block.settings.button_2_link,
+              button_2_color: block.settings.button_2_color,
+              button_2_style: block.settings.button_2_style,
+              section_id: section.id
+            %}
+          </div>
+        {% endfor %}
+      </div>
+    </flickity-carousel>
+  </div>
+</section>
+
+<style>
+  #section-{{ section.id }} .section__header {
+    margin-bottom: 30px;
+  }
+  
+  #section-{{ section.id }} .text-left {
+    text-align: left;
+  }
+  
+  #section-{{ section.id }} .text-center {
+    text-align: center;
+  }
+  
+  #section-{{ section.id }} .text-right {
+    text-align: right;
+  }
+  
+  #section-{{ section.id }} .section__title {
+    margin-bottom: 20px;
+  }
+  
+  #section-{{ section.id }} .section__button {
+    margin-bottom: 30px;
+  }
+  
+  /* Ensure the carousel navigation arrows appear at the bottom right */
+  #section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -50px;
+    top: auto;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 60px;
+    left: auto;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 10px;
+  }
+  
+  /* Make sure carousel controls are visible */
+  #section-{{ section.id }} .flickity-button {
+    background-color: var(--color-bg-light);
+    opacity: 1;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Cards Carousel",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Cards Carousel"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button color",
+      "default": "btn--primary",
+      "options": [
+        { "value": "btn--primary", "label": "Primary" },
+        { "value": "btn--secondary", "label": "Secondary" },
+        { "value": "btn--neutral", "label": "Neutral" },
+        { "value": "btn--black", "label": "Black" },
+        { "value": "btn--white", "label": "White" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button style",
+      "default": "btn",
+      "options": [
+        { "value": "btn", "label": "Solid" },
+        { "value": "btn--soft", "label": "Soft" },
+        { "value": "btn--outline", "label": "Outline" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Carousel Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Background Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_background_image",
+          "label": "Mobile Image (optional)",
+          "info": "If not provided, desktop image will be used on mobile"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "checkbox",
+          "id": "overlay_enabled",
+          "label": "Enable overlay",
+          "default": true
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay opacity",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 50
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Add your description here</p>"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "header",
+          "content": "Button 1"
+        },
+        {
+          "type": "text",
+          "id": "button_1_text",
+          "label": "Button Text",
+          "default": "Shop Now"
+        },
+        {
+          "type": "url",
+          "id": "button_1_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_1_color",
+          "label": "Button Color",
+          "default": "btn--primary",
+          "options": [
+            { "value": "btn--primary", "label": "Primary" },
+            { "value": "btn--secondary", "label": "Secondary" },
+            { "value": "btn--neutral", "label": "Neutral" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_1_style",
+          "label": "Button Style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid" },
+            { "value": "btn--soft", "label": "Soft" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button 2"
+        },
+        {
+          "type": "text",
+          "id": "button_2_text",
+          "label": "Button Text",
+          "default": "Learn More"
+        },
+        {
+          "type": "url",
+          "id": "button_2_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_2_color",
+          "label": "Button Color",
+          "default": "btn--white",
+          "options": [
+            { "value": "btn--primary", "label": "Primary" },
+            { "value": "btn--secondary", "label": "Secondary" },
+            { "value": "btn--neutral", "label": "Neutral" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_2_style",
+          "label": "Button Style",
+          "default": "btn--outline",
+          "options": [
+            { "value": "btn", "label": "Solid" },
+            { "value": "btn--soft", "label": "Soft" },
+            { "value": "btn--outline", "label": "Outline" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cards Carousel",
+      "blocks": [
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        },
+        {
+          "type": "card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

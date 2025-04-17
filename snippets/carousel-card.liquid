@@ -1,0 +1,196 @@
+{% comment %}
+  Carousel Card Snippet
+  
+  Usage:
+  {% render 'carousel-card',
+    image: image,
+    mobile_image: mobile_image,
+    overlay_enabled: overlay_enabled,
+    overlay_opacity: overlay_opacity,
+    title: title,
+    title_color: title_color,
+    description: description,
+    description_color: description_color,
+    button_1_text: button_1_text,
+    button_1_link: button_1_link,
+    button_1_color: button_1_color,
+    button_1_style: button_1_style,
+    button_2_text: button_2_text,
+    button_2_link: button_2_link,
+    button_2_color: button_2_color,
+    button_2_style: button_2_style,
+    section_id: section.id
+  %}
+{% endcomment %}
+
+<div class="carousel-card">
+  <div class="carousel-card__background">
+    {% if image != blank %}
+      <div class="carousel-card__desktop-image">
+        {{ image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'carousel-card__image' }}
+      </div>
+    {% else %}
+      <div class="carousel-card__placeholder carousel-card__desktop-image"></div>
+    {% endif %}
+    
+    {% if mobile_image != blank %}
+      <div class="carousel-card__mobile-image">
+        {{ mobile_image | image_url: width: 500 | image_tag: loading: 'lazy', class: 'carousel-card__image' }}
+      </div>
+    {% elsif image != blank %}
+      <div class="carousel-card__mobile-image">
+        {{ image | image_url: width: 500 | image_tag: loading: 'lazy', class: 'carousel-card__image' }}
+      </div>
+    {% else %}
+      <div class="carousel-card__placeholder carousel-card__mobile-image"></div>
+    {% endif %}
+    
+    {% if overlay_enabled %}
+      <div class="carousel-card__overlay" style="opacity: {{ overlay_opacity | divided_by: 100.0 }};"></div>
+    {% endif %}
+  </div>
+  
+  <div class="carousel-card__content">
+    {% if title != blank %}
+      <h3 class="carousel-card__title" style="color: {{ title_color }};">
+        {{ title }}
+      </h3>
+    {% endif %}
+    
+    {% if description != blank %}
+      <div class="carousel-card__description" style="color: {{ description_color }};">
+        {{ description }}
+      </div>
+    {% endif %}
+    
+    <div class="carousel-card__buttons">
+      {% if button_1_text != blank and button_1_link != blank %}
+        <a href="{{ button_1_link }}" class="{{ button_1_color | default: 'btn--primary' }} {{ button_1_style | default: 'btn' }} carousel-card__button">
+          {{ button_1_text }}
+        </a>
+      {% endif %}
+      
+      {% if button_2_text != blank and button_2_link != blank %}
+        <a href="{{ button_2_link }}" class="{{ button_2_color | default: 'btn--secondary' }} {{ button_2_style | default: 'btn--outline' }} carousel-card__button">
+          {{ button_2_text }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<style>
+  #section-{{ section_id }} .carousel-card {
+    position: relative;
+    height: 0;
+    padding-bottom: 125%; /* 4:5 aspect ratio */
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  
+  #section-{{ section_id }} .carousel-card__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  #section-{{ section_id }} .carousel-card__desktop-image,
+  #section-{{ section_id }} .carousel-card__mobile-image {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #section-{{ section_id }} .carousel-card__mobile-image {
+    display: none;
+  }
+  
+  #section-{{ section_id }} .carousel-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  #section-{{ section_id }} .carousel-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+  }
+  
+  #section-{{ section_id }} .carousel-card__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 2;
+  }
+  
+  #section-{{ section_id }} .carousel-card__content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    z-index: 3;
+    text-align: center;
+  }
+  
+  #section-{{ section_id }} .carousel-card__title {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 1.2;
+  }
+  
+  #section-{{ section_id }} .carousel-card__description {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+    max-width: 400px;
+  }
+  
+  #section-{{ section_id }} .carousel-card__buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  
+  #section-{{ section_id }} .carousel-card__button {
+    min-width: 120px;
+  }
+  
+  @media screen and (max-width: 989px) {
+    #section-{{ section_id }} .carousel-card {
+      border-radius: 10px;
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    #section-{{ section_id }} .carousel-card__desktop-image {
+      display: none;
+    }
+    
+    #section-{{ section_id }} .carousel-card__mobile-image {
+      display: block;
+    }
+    
+    #section-{{ section_id }} .carousel-card__title {
+      font-size: 24px;
+    }
+    
+    #section-{{ section_id }} .carousel-card__description {
+      font-size: 14px;
+    }
+  }
+</style> 
