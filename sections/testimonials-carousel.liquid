@@ -68,8 +68,8 @@
   
   #section-{{ section.id }} .section__rating {
     display: flex;
-    flex-direction: {% if section.settings.title_alignment == 'center' %}column{% else %}row{% endif %};
-    align-items: {% if section.settings.title_alignment == 'center' %}center{% else %}baseline{% endif %};
+    flex-direction: row;
+    align-items: center;
     gap: 0.5rem;
   }
   
