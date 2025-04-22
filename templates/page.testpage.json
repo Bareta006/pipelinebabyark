@@ -221,7 +221,6 @@
         "card_Yqaa3n",
         "card_N8KKTP"
       ],
-      "name": "Cards Carousel",
       "settings": {
         "title": "Features to give <br> you peace of mind",
         "title_alignment": "center",
@@ -253,12 +252,30 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "testimonials_carousel_dWLrCC": {
+      "type": "testimonials-carousel",
+      "settings": {
+        "title": "What our customers say",
+        "title_color": "#000000",
+        "title_alignment": "center",
+        "title_font_size": 40,
+        "title_font_size_mobile": 28,
+        "show_stars": true,
+        "star_count": 4.5,
+        "star_color": "#333333",
+        "review_count": "140",
+        "review_count_color": "#333333",
+        "padding_top": 50,
+        "padding_bottom": 50
+      }
     }
   },
   "order": [
     "main",
     "two_cards_section_kBxtPL",
     "cards_carousel_GeitRn",
-    "1744881645213a75ca"
+    "1744881645213a75ca",
+    "testimonials_carousel_dWLrCC"
   ]
 }
