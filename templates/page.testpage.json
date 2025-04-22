@@ -234,6 +234,46 @@
     },
     "testimonials_carousel_dWLrCC": {
       "type": "testimonials-carousel",
+      "blocks": {
+        "testimonial_MJqrQc": {
+          "type": "testimonial",
+          "settings": {
+            "author_image": "shopify://shop_images/734dd247643cebc88a32af9bd6cafbe7.png",
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the BabyArk Car Seat has been a game changer. My daughter is now 1.5 years old, and this car seat has made our daily routines so much easier.",
+            "review_link_text": "Read full review",
+            "review_link_url": "#"
+          }
+        },
+        "testimonial_xKwtkW": {
+          "type": "testimonial",
+          "settings": {
+            "author_image": "shopify://shop_images/734dd247643cebc88a32af9bd6cafbe7.png",
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the BabyArk Car Seat has been a game changer. My daughter is now 1.5 years old, and this car seat has made our daily routines so much easier.",
+            "review_link_text": "Read full review",
+            "review_link_url": "#"
+          }
+        },
+        "testimonial_FnLjck": {
+          "type": "testimonial",
+          "settings": {
+            "author_image": "shopify://shop_images/734dd247643cebc88a32af9bd6cafbe7.png",
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the BabyArk Car Seat has been a game changer. My daughter is now 1.5 years old, and this car seat has made our daily routines so much easier.",
+            "review_link_text": "Read full review",
+            "review_link_url": "#"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_MJqrQc",
+        "testimonial_xKwtkW",
+        "testimonial_FnLjck"
+      ],
       "settings": {
         "title": "What our customers say",
         "title_color": "#000000",
