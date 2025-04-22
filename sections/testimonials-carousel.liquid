@@ -1,13 +1,13 @@
 <!-- /sections/testimonials-carousel.liquid -->
 
-<section class="section-testimonials" 
+<section class="section section-testimonials" 
   id="section-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-section-type="testimonials-carousel">
   
-  <div class="section__header text-{{ section.settings.title_alignment }}">
+  <div class="section__header">
     {% if section.settings.title != blank %}
-      <h2 class="section__title" style="color: {{ section.settings.title_color }}; font-size: {{ section.settings.title_font_size }}px;">
+      <h2 class="section__title">
         {{ section.settings.title }}
       </h2>
     {% endif %}
@@ -17,11 +17,12 @@
         <div class="stars-container">
           {% assign full_stars = section.settings.star_count | floor %}
           {% assign half_star = section.settings.star_count | minus: full_stars %}
+          {% assign next_star = full_stars | plus: 1 %}
           
           {% for i in (1..5) %}
             {% if i <= full_stars %}
               <span class="star filled">★</span>
-            {% elsif half_star >= 0.5 and i == full_stars plus 1 %}
+            {% elsif half_star >= 0.5 and i == next_star %}
               <span class="star half">★</span>
             {% else %}
               <span class="star empty">★</span>
@@ -36,56 +37,10 @@
     {% endif %}
   </div>
   
-  <flickity-carousel>
-    <div
-      data-carousel
-      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left" }'
-      class="testimonials-carousel">
-      {% for block in section.blocks %}
-        <div class="testimonial-slide" {{ block.shopify_attributes }} data-carousel-slide>
-          <div class="testimonial-card">
-            {% if block.settings.show_quote_icon %}
-              <div class="testimonial-quote-icon">
-                <svg width="32" height="28" viewBox="0 0 32 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M0 28V18.6667C0 16.5289 0.341 14.5422 1.023 12.7067C1.705 10.8711 2.599 9.28 3.705 7.93333C4.811 6.58667 6.061 5.49333 7.455 4.65333C8.849 3.81333 10.243 3.2 11.637 2.8L14 7C12.053 7.73333 10.447 8.77333 9.182 10.12C7.917 11.4667 7.205 13.0667 7.046 14.9333H12V28H0ZM18 28V18.6667C18 16.5289 18.341 14.5422 1.023 12.7067C1.705 10.8711 20.599 9.28 21.705 7.93333C22.811 6.58667 24.061 5.49333 25.455 4.65333C26.849 3.81333 28.243 3.2 29.637 2.8L32 7C30.053 7.73333 28.447 8.77333 27.182 10.12C25.917 11.4667 25.205 13.0667 25.046 14.9333H30V28H18Z" fill="{{ block.settings.quote_icon_color }}"/>
-                </svg>
-              </div>
-            {% endif %}
-            
-            <div class="testimonial-content">
-              {% if block.settings.testimonial_text != blank %}
-                <div class="testimonial-text" style="color: {{ block.settings.testimonial_text_color }};">
-                  {{ block.settings.testimonial_text }}
-                </div>
-              {% endif %}
-              
-              <div class="testimonial-author">
-                {% if block.settings.author_image != blank %}
-                  <div class="author-image">
-                    {{ block.settings.author_image | image_url: width: 60 | image_tag: loading: 'lazy', class: 'author-avatar' }}
-                  </div>
-                {% endif %}
-                
-                <div class="author-info">
-                  {% if block.settings.author_name != blank %}
-                    <h4 class="author-name" style="color: {{ block.settings.author_name_color }};">
-                      {{ block.settings.author_name }}
-                    </h4>
-                  {% endif %}
-                  
-                  {% if block.settings.author_title != blank %}
-                    <div class="author-title" style="color: {{ block.settings.author_title_color }};">
-                      {{ block.settings.author_title }}
-                    </div>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endfor %}
-    </div>
-  </flickity-carousel>
+  <!-- Placeholder for future testimonial content -->
+  <div class="testimonials-placeholder">
+    <p>Testimonials content will be added here based on your requirements.</p>
+  </div>
 </section>
 
 <style>
@@ -101,29 +56,20 @@
     margin-bottom: 2.5rem;
     padding-left: 1.25rem;
     padding-right: 1.25rem;
-  }
-  
-  #section-{{ section.id }} .text-left {
-    text-align: left;
-  }
-  
-  #section-{{ section.id }} .text-center {
-    text-align: center;
-  }
-  
-  #section-{{ section.id }} .text-right {
-    text-align: right;
+    text-align: {{ section.settings.title_alignment }};
   }
   
   #section-{{ section.id }} .section__title {
     margin-bottom: 1rem;
     font-weight: 500;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_font_size }}px;
   }
   
   #section-{{ section.id }} .section__rating {
     display: flex;
-    flex-direction: {{ section.settings.title_alignment == 'center' ? 'column' : 'row' }};
-    align-items: {{ section.settings.title_alignment == 'center' ? 'center' : 'baseline' }};
+    flex-direction: {% if section.settings.title_alignment == 'center' %}column{% else %}row{% endif %};
+    align-items: {% if section.settings.title_alignment == 'center' %}center{% else %}baseline{% endif %};
     gap: 0.5rem;
   }
   
@@ -159,105 +105,18 @@
     color: {{ section.settings.review_count_color }};
   }
   
-  /* Testimonial carousel styles */
-  #section-{{ section.id }} .testimonials-carousel {
-    width: 100%;
-    padding-left: 1.25rem;
-  }
-  
-  #section-{{ section.id }} .testimonial-slide {
-    width: calc(100% / {{ section.settings.slides_per_view }});
-    min-width: 280px;
-    padding: 0 1rem;
-  }
-  
-  #section-{{ section.id }} .testimonial-card {
-    background-color: {{ section.settings.card_background_color }};
-    border-radius: 12px;
-    padding: 2rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #section-{{ section.id }} .testimonial-quote-icon {
-    margin-bottom: 1.5rem;
-  }
-  
-  #section-{{ section.id }} .testimonial-text {
-    font-size: 1.125rem;
-    line-height: 1.6;
-    margin-bottom: 2rem;
-  }
-  
-  #section-{{ section.id }} .testimonial-author {
-    display: flex;
-    align-items: center;
-    margin-top: auto;
-  }
-  
-  #section-{{ section.id }} .author-image {
-    margin-right: 1rem;
-  }
-  
-  #section-{{ section.id }} .author-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  #section-{{ section.id }} .author-name {
-    font-size: 1rem;
-    font-weight: 500;
-    margin: 0 0 0.25rem;
-  }
-  
-  #section-{{ section.id }} .author-title {
-    font-size: 0.875rem;
-  }
-  
-  /* Carousel navigation */
-  #section-{{ section.id }} .flickity-button {
-    position: absolute;
-    bottom: -3.125rem;
-    top: auto;
-    z-index: 10;
-    background-color: var(--color-bg-light);
-    opacity: 1;
-  }
-  
-  #section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 3.75rem;
-    left: auto;
-  }
-  
-  #section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 0.625rem;
+  #section-{{ section.id }} .testimonials-placeholder {
+    text-align: center;
+    padding: 3rem;
+    background-color: #f9f9f9;
+    margin: 0 1.25rem;
+    border-radius: 8px;
   }
   
   /* Responsive styles */
-  @media screen and (max-width: 989px) {
-    #section-{{ section.id }} .testimonial-slide {
-      width: calc(100% / {{ section.settings.slides_per_view_tablet }});
-    }
-  }
-  
   @media screen and (max-width: 749px) {
     #section-{{ section.id }} .section__title {
       font-size: {{ section.settings.title_font_size_mobile }}px;
-    }
-    
-    #section-{{ section.id }} .testimonial-slide {
-      width: calc(100% / {{ section.settings.slides_per_view_mobile }});
-    }
-    
-    #section-{{ section.id }} .testimonial-card {
-      padding: 1.5rem;
-    }
-    
-    #section-{{ section.id }} .testimonial-text {
-      font-size: 1rem;
     }
   }
 </style>
@@ -352,43 +211,6 @@
     },
     {
       "type": "header",
-      "content": "Carousel Settings"
-    },
-    {
-      "type": "color",
-      "id": "card_background_color",
-      "label": "Card background color",
-      "default": "#f6f6f6"
-    },
-    {
-      "type": "range",
-      "id": "slides_per_view",
-      "min": 1,
-      "max": 4,
-      "step": 1,
-      "label": "Cards per view (desktop)",
-      "default": 3
-    },
-    {
-      "type": "range",
-      "id": "slides_per_view_tablet",
-      "min": 1,
-      "max": 3,
-      "step": 1,
-      "label": "Cards per view (tablet)",
-      "default": 2
-    },
-    {
-      "type": "range",
-      "id": "slides_per_view_mobile",
-      "min": 1,
-      "max": 2,
-      "step": 0.1,
-      "label": "Cards per view (mobile)",
-      "default": 1.1
-    },
-    {
-      "type": "header",
       "content": "Section spacing"
     },
     {
@@ -412,85 +234,10 @@
       "default": 50
     }
   ],
-  "blocks": [
-    {
-      "type": "testimonial",
-      "name": "Testimonial",
-      "settings": [
-        {
-          "type": "checkbox",
-          "id": "show_quote_icon",
-          "label": "Show quote icon",
-          "default": true
-        },
-        {
-          "type": "color",
-          "id": "quote_icon_color",
-          "label": "Quote icon color",
-          "default": "#d1d1d1"
-        },
-        {
-          "type": "textarea",
-          "id": "testimonial_text",
-          "label": "Testimonial text",
-          "default": "This product changed my life! Absolutely love the quality and customer service."
-        },
-        {
-          "type": "color",
-          "id": "testimonial_text_color",
-          "label": "Testimonial text color",
-          "default": "#333333"
-        },
-        {
-          "type": "header",
-          "content": "Author"
-        },
-        {
-          "type": "image_picker",
-          "id": "author_image",
-          "label": "Author image"
-        },
-        {
-          "type": "text",
-          "id": "author_name",
-          "label": "Author name",
-          "default": "John Doe"
-        },
-        {
-          "type": "color",
-          "id": "author_name_color",
-          "label": "Author name color",
-          "default": "#333333"
-        },
-        {
-          "type": "text",
-          "id": "author_title",
-          "label": "Author title",
-          "default": "Verified Customer"
-        },
-        {
-          "type": "color",
-          "id": "author_title_color",
-          "label": "Author title color",
-          "default": "#666666"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
       "name": "Testimonials Carousel",
-      "blocks": [
-        {
-          "type": "testimonial"
-        },
-        {
-          "type": "testimonial"
-        },
-        {
-          "type": "testimonial"
-        }
-      ]
+      "settings": {}
     }
   ]
 }
