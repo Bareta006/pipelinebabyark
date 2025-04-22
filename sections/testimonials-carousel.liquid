@@ -37,10 +37,45 @@
     {% endif %}
   </div>
   
-  <!-- Placeholder for future testimonial content -->
-  <div class="testimonials-placeholder">
-    <p>Testimonials content will be added here based on your requirements.</p>
-  </div>
+  <!-- Testimonials carousel -->
+  <flickity-carousel>
+    <div
+      data-carousel
+      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left" }'
+      class="testimonials-carousel">
+      {% for block in section.blocks %}
+        <div class="testimonial-slide" {{ block.shopify_attributes }} data-carousel-slide>
+          <div class="testimonial-card">
+            <div class="testimonial-author">
+              {% if block.settings.author_image != blank %}
+                <div class="author-image">
+                  {{ block.settings.author_image | image_url: width: 70 | image_tag: loading: 'lazy', class: 'author-avatar' }}
+                </div>
+              {% endif %}
+              
+              {% if block.settings.author_name != blank %}
+                <div class="author-name">{{ block.settings.author_name }}</div>
+              {% endif %}
+            </div>
+            
+            {% if block.settings.testimonial_subject != blank %}
+              <h3 class="testimonial-subject">{{ block.settings.testimonial_subject }}</h3>
+            {% endif %}
+            
+            {% if block.settings.testimonial_text != blank %}
+              <div class="testimonial-text">{{ block.settings.testimonial_text }}</div>
+            {% endif %}
+            
+            {% if block.settings.review_link_text != blank and block.settings.review_link_url != blank %}
+              <div class="testimonial-link">
+                <a href="{{ block.settings.review_link_url }}">{{ block.settings.review_link_text }}</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </flickity-carousel>
 </section>
 
 <style>
@@ -60,7 +95,7 @@
   }
   
   #section-{{ section.id }} .section__title {
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
     font-weight: 500;
     color: {{ section.settings.title_color }};
     font-size: {{ section.settings.title_font_size }}px;
@@ -69,7 +104,7 @@
   #section-{{ section.id }} .section__rating {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
   }
   
@@ -105,18 +140,106 @@
     color: {{ section.settings.review_count_color }};
   }
   
-  #section-{{ section.id }} .testimonials-placeholder {
-    text-align: center;
-    padding: 3rem;
-    background-color: #f9f9f9;
-    margin: 0 1.25rem;
-    border-radius: 8px;
+  /* Testimonial carousel styles */
+  #section-{{ section.id }} .testimonials-carousel {
+    width: 100%;
+    padding-left: 1.25rem;
+  }
+  
+  #section-{{ section.id }} .testimonial-slide {
+    width: calc(100% / 2.5); /* 2.5 cards per view on desktop */
+    min-width: 280px;
+    padding: 0 1rem;
+  }
+  
+  #section-{{ section.id }} .testimonial-card {
+    background-color: #22282D;
+    border-radius: 20px;
+    padding: 2rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+  }
+  
+  #section-{{ section.id }} .testimonial-author {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  #section-{{ section.id }} .author-image {
+    margin-right: 1rem;
+  }
+  
+  #section-{{ section.id }} .author-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  #section-{{ section.id }} .author-name {
+    font-size: 19px;
+    font-weight: 500;
+  }
+  
+  #section-{{ section.id }} .testimonial-subject {
+    font-size: 19px;
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: #fff;
+  }
+  
+  #section-{{ section.id }} .testimonial-text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+  }
+  
+  #section-{{ section.id }} .testimonial-link {
+    margin-top: auto;
+  }
+  
+  #section-{{ section.id }} .testimonial-link a {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: underline;
+  }
+  
+  /* Carousel navigation */
+  #section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -3.125rem;
+    top: auto;
+    z-index: 10;
+    background-color: var(--color-bg-light);
+    opacity: 1;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 3.75rem;
+    left: auto;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 0.625rem;
   }
   
   /* Responsive styles */
   @media screen and (max-width: 749px) {
     #section-{{ section.id }} .section__title {
       font-size: {{ section.settings.title_font_size_mobile }}px;
+    }
+    
+    #section-{{ section.id }} .testimonial-slide {
+      width: 100%; /* 1 card per view on mobile */
+    }
+    
+    #section-{{ section.id }} .testimonial-card {
+      border-radius: 10px;
+      padding: 1.5rem;
     }
   }
 </style>
@@ -234,11 +357,63 @@
       "default": 50
     }
   ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author image"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author name",
+          "default": "Jennifer P."
+        },
+        {
+          "type": "text",
+          "id": "testimonial_subject",
+          "label": "Testimonial subject",
+          "default": "Stylish & Safe Car Seat!"
+        },
+        {
+          "type": "textarea",
+          "id": "testimonial_text",
+          "label": "Testimonial text",
+          "default": "As a first-time mom, finding the right car seat for my little one was a big decision, and the BabyArk Car Seat has been a game changer. My daughter is now 1.5 years old, and this car seat has made our daily routines so much easier."
+        },
+        {
+          "type": "text",
+          "id": "review_link_text",
+          "label": "Review link text",
+          "default": "Read full review"
+        },
+        {
+          "type": "url",
+          "id": "review_link_url",
+          "label": "Review link URL"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Testimonials Carousel",
-      "settings": {}
+      "blocks": [
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "testimonial"
+        }
+      ]
     }
   ]
-} 
+}
 {% endschema %} 
