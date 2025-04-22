@@ -106,14 +106,124 @@
             "button_2_color": "btn--white",
             "button_2_style": "btn--outline"
           }
+        },
+        "card_bwNrpM": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-02.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127349.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Guided installation",
+            "title_color": "#ffffff",
+            "description": "<p>The innovative smart base and app guide you through the process, confirming the seat has been properly installed.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
+        },
+        "card_JRzhq3": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-03.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127363.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Magnetic harness",
+            "title_color": "#ffffff",
+            "description": "<p>Magnetic straps that allow you to easily place your child in the seat without any extra hassle</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
+        },
+        "card_L8p9gd": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-04.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881134.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Critical Alerts",
+            "title_color": "#ffffff",
+            "description": "<p>Get real time notifications like forgotten child alerts and buckle confirmation, even when grandma or the babysitter are driving.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
+        },
+        "card_Yqaa3n": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-05_5277dbba-5b79-4b57-8b55-29f0f41d8bca.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127367.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Safety Favorites",
+            "title_color": "#ffffff",
+            "description": "<p>The only convertible car seat with a Front Load Leg, Rigid Lower Anchors (LATCH), and an Anti-Rebound Bar.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
+        },
+        "card_N8KKTP": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Feature-06.png",
+            "mobile_background_image": "shopify://shop_images/Rectangle_1486127368.png",
+            "overlay_enabled": false,
+            "overlay_opacity": 0,
+            "title": "Changeable Covers",
+            "title_color": "#ffffff",
+            "description": "<p>Easy zip on and off fabric covers that can be machine washed.</p>",
+            "description_color": "#ffffff",
+            "button_1_text": "EXPLORE",
+            "button_1_link": "#",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline"
+          }
         }
       },
       "block_order": [
-        "card_E8rTr6"
+        "card_E8rTr6",
+        "card_bwNrpM",
+        "card_JRzhq3",
+        "card_L8p9gd",
+        "card_Yqaa3n",
+        "card_N8KKTP"
       ],
       "name": "Cards Carousel",
       "settings": {
-        "title": "Features to giveyou peace of mind",
+        "title": "Features to give <br> you peace of mind",
         "title_alignment": "center",
         "button_text": "Discover",
         "button_link": "#",
@@ -122,11 +232,33 @@
         "padding_top": 50,
         "padding_bottom": 50
       }
+    },
+    "1744881645213a75ca": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_featured_carousel_rJwGUM": {
+          "type": "shopify://apps/judge-me-reviews/blocks/featured_carousel/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "maxwidth": 1600
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_featured_carousel_rJwGUM"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "two_cards_section_kBxtPL",
-    "cards_carousel_GeitRn"
+    "cards_carousel_GeitRn",
+    "1744881645213a75ca"
   ]
 }
