@@ -255,7 +255,142 @@
 
   <!-- Paste popup code or third party scripts below this comment line ============== -->
 
+<script>
+  function checkCookie(cookieName) {
+  var cookies = document.cookie;
+  return cookies.split("; ").some(function (cookie) {
+    return cookie.indexOf(cookieName + "=") === 0;
+  });
+}
 
+var bannerHeight = "80px";
+var couponCode = "REFERARK";
+var fontFamily = "Montserrat";
+var fontSize = "14px";
+var bannerBackgroundColor = "#fff";
+var textColor = "#000";
+var borderColor = "#262626";
+var buttonFontSize = "12px";
+var buttonPadding = "5px 6px";
+var bannerText = "";
+var couponText = "Use code";
+var couponButtonText = "at checkout to receive $100 off your purchase!";
+var smallText = "";
+
+var topBanner;
+var headerElement;
+var stickyNav = null;
+var bannerDismissed = false;
+var stickyNavAdjusted = false;
+
+function getStickyNav() {
+  if (!stickyNav) {
+    stickyNav = document.querySelector(".js__header__stuck");
+  }
+  return stickyNav;
+}
+
+function applyStickyNavOffset() {
+  const nav = getStickyNav();
+  if (!nav) return;
+
+  if (bannerDismissed) {
+    nav.style.top = "0";
+  } else {
+    nav.style.top = bannerHeight;
+    stickyNavAdjusted = true;
+  }
+}
+
+function resetStickyNavOffset() {
+  const nav = getStickyNav();
+  if (nav) {
+    nav.style.top = "0";
+  }
+  stickyNavAdjusted = false;
+}
+
+function initBanner() {
+  if (!checkCookie("RR_WCID")) return;
+
+  headerElement = document.getElementById(
+    "shopify-section-sections--15902346543175__announcement"
+  );
+  if (!headerElement) return;
+
+  headerElement.style.top = bannerHeight;
+  document.body.style.paddingTop = bannerHeight;
+
+  topBanner = document.createElement("div");
+  topBanner.innerHTML =
+    '<div style="position: fixed; top: 0; left: 0; width: 100%; height: ' +
+    bannerHeight +
+    "; background-color: " +
+    bannerBackgroundColor +
+    "; color: " +
+    textColor +
+    '; z-index: 5000; display: flex; justify-content: space-between; align-items: center;">' +
+    '<div style="flex-grow: 1; display: flex; justify-content: center; align-items: center; gap: 20px;">' +
+    '<div id="rr-text" style="font-size: ' +
+    fontSize +
+    '; display: flex; align-items: center;">' +
+    '<div style="text-align: center;">' +
+    '<strong style="font-weight: 700">' +
+    bannerText +
+    "</strong> " +
+    couponText +
+    " " +
+    "<button onclick=\"navigator.clipboard.writeText('" +
+    couponCode +
+    "'); alert('Code copied')\" style=\"text-transform: uppercase; color: " +
+    textColor +
+    "; cursor: pointer; padding: " +
+    buttonPadding +
+    "; border: 1px solid " +
+    borderColor +
+    "; font-size: " +
+    buttonFontSize +
+    '; font-weight: 600; line-height: 11px; border-radius: 5px;">' +
+    couponCode +
+    "</button> " +
+    couponButtonText +
+    "<br>" +
+    "<small>" +
+    smallText +
+    "</small>" +
+    "</div>" +
+    "</div>" +
+    "</div>" +
+    '<button id="closeBanner" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: inherit; font-size: 24px; cursor: pointer;">✕</button>' +
+    "</div>";
+
+  var style = document.createElement("style");
+  style.innerHTML =
+    "@media (max-width: 600px) {" +
+    "#rr-copy-code { padding: 7px 7px !important; width: 135px; font-size: 0.65rem !important; line-height: inherit !important; }" +
+    "#rr-text { font-size: 0.75rem !important; } }";
+
+  document.head.appendChild(style);
+  document.body.insertBefore(topBanner, document.body.firstChild);
+
+  document.getElementById("closeBanner").addEventListener("click", function () {
+    bannerDismissed = true;
+    topBanner.style.display = "none";
+    document.body.style.paddingTop = "0";
+    if (headerElement) headerElement.style.top = "0";
+    resetStickyNavOffset();
+  });
+
+  applyStickyNavOffset();
+}
+
+window.addEventListener("scroll", () => {
+  const nav = getStickyNav();
+  if (nav) applyStickyNavOffset();
+});
+
+initBanner();
+</script>
   <!-- And above this comment line ================================================== -->
 
 </body>
