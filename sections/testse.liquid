@@ -1,6 +1,244 @@
-{% schema %}
-  {
-    "name": "Section name",
-    "settings": []
+<!-- /sections/testimonials-carousel.liquid -->
+
+<section class="section section-testimonials" 
+  id="section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="testimonials-carousel">
+  
+  <div class="section__header">
+    {% if section.settings.title != blank %}
+      <h2 class="section__title">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.show_stars %}
+      <div class="section__rating">
+        <div class="stars-container">
+          {% assign full_stars = section.settings.star_count | floor %}
+          {% assign half_star = section.settings.star_count | minus: full_stars %}
+          {% assign next_star = full_stars | plus: 1 %}
+          
+          {% for i in (1..5) %}
+            {% if i <= full_stars %}
+              <span class="star filled">★</span>
+            {% elsif half_star >= 0.5 and i == next_star %}
+              <span class="star half">★</span>
+            {% else %}
+              <span class="star empty">★</span>
+            {% endif %}
+          {% endfor %}
+        </div>
+        
+        <div class="reviews-count">
+          {{ section.settings.star_count }} | {{ section.settings.review_count }}+ reviews
+        </div>
+      </div>
+    {% endif %}
+  </div>
+  
+  <!-- Placeholder for future testimonial content -->
+  <div class="testimonials-placeholder">
+    <p>Testimonials content will be added here based on your requirements.</p>
+  </div>
+</section>
+
+<style>
+  #section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin-bottom: 3.75rem;
+    width: 100%;
+    max-width: 100%;
   }
-{% endschema %}
+
+  #section-{{ section.id }} .section__header {
+    margin-bottom: 2.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    text-align: {{ section.settings.title_alignment }};
+  }
+  
+  #section-{{ section.id }} .section__title {
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_font_size }}px;
+  }
+  
+  #section-{{ section.id }} .section__rating {
+    display: flex;
+    flex-direction: {% if section.settings.title_alignment == 'center' %}column{% else %}row{% endif %};
+    align-items: {% if section.settings.title_alignment == 'center' %}center{% else %}baseline{% endif %};
+    gap: 0.5rem;
+  }
+  
+  #section-{{ section.id }} .stars-container {
+    display: flex;
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+  
+  #section-{{ section.id }} .star {
+    color: #d6d6d6;
+  }
+  
+  #section-{{ section.id }} .star.filled {
+    color: {{ section.settings.star_color }};
+  }
+  
+  #section-{{ section.id }} .star.half {
+    position: relative;
+    color: #d6d6d6;
+  }
+  
+  #section-{{ section.id }} .star.half:before {
+    content: "★";
+    position: absolute;
+    color: {{ section.settings.star_color }};
+    width: 50%;
+    overflow: hidden;
+  }
+  
+  #section-{{ section.id }} .reviews-count {
+    font-size: 1rem;
+    color: {{ section.settings.review_count_color }};
+  }
+  
+  #section-{{ section.id }} .testimonials-placeholder {
+    text-align: center;
+    padding: 3rem;
+    background-color: #f9f9f9;
+    margin: 0 1.25rem;
+    border-radius: 8px;
+  }
+  
+  /* Responsive styles */
+  @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .section__title {
+      font-size: {{ section.settings.title_font_size_mobile }}px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials Carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "What our customers say"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 20,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size (mobile)",
+      "default": 28
+    },
+    {
+      "type": "header",
+      "content": "Rating"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_stars",
+      "label": "Show star rating",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "star_count",
+      "min": 1,
+      "max": 5,
+      "step": 0.1,
+      "label": "Star rating (out of 5)",
+      "default": 4.8
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#333333"
+    },
+    {
+      "type": "text",
+      "id": "review_count",
+      "label": "Number of reviews",
+      "default": "140"
+    },
+    {
+      "type": "color",
+      "id": "review_count_color",
+      "label": "Review count text color",
+      "default": "#333333"
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials Carousel",
+      "settings": {}
+    }
+  ]
+}
+{% endschema %} 
