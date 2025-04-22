@@ -41,7 +41,7 @@
   <flickity-carousel>
     <div
       data-carousel
-      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left" }'
+      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": true, "draggable": true }'
       class="testimonials-carousel">
       {% for block in section.blocks %}
         <div class="testimonial-slide" {{ block.shopify_attributes }} data-carousel-slide>
@@ -214,17 +214,32 @@
     bottom: -3.125rem;
     top: auto;
     z-index: 10;
-    background-color: var(--color-bg-light);
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     opacity: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #section-{{ section.id }} .flickity-button:hover {
+    background-color: #fff;
+  }
+  
+  #section-{{ section.id }} .flickity-button-icon {
+    fill: #333;
   }
   
   #section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 3.75rem;
+    right: 5rem;
     left: auto;
   }
   
   #section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 0.625rem;
+    right: 1.25rem;
   }
   
   /* Responsive styles */
@@ -241,6 +256,23 @@
       border-radius: 10px;
       padding: 1.5rem;
     }
+    
+    #section-{{ section.id }} .flickity-button {
+      width: 36px;
+      height: 36px;
+    }
+    
+    #section-{{ section.id }} .flickity-prev-next-button.previous {
+      right: 4rem;
+    }
+  }
+  
+  /* Make sure the carousel container has position:relative for absolute positioning of arrows */
+  #section-{{ section.id }} flickity-carousel {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-bottom: 5rem; /* Add padding at bottom for arrows */
   }
 </style>
 
@@ -371,19 +403,19 @@
           "type": "text",
           "id": "author_name",
           "label": "Author name",
-          "default": "Jennifer P."
+          "default": "name of person here"
         },
         {
           "type": "text",
           "id": "testimonial_subject",
           "label": "Testimonial subject",
-          "default": "Stylish & Safe Car Seat!"
+          "default": "review title here"
         },
         {
           "type": "textarea",
           "id": "testimonial_text",
           "label": "Testimonial text",
-          "default": "As a first-time mom, finding the right car seat for my little one was a big decision, and the BabyArk Car Seat has been a game changer. My daughter is now 1.5 years old, and this car seat has made our daily routines so much easier."
+          "default": "review test here"
         },
         {
           "type": "text",
