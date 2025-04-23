@@ -42,18 +42,15 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
   }
   
-  /* Control article card image heights */
   #section-{{ section.id }} .article-card__image {
     width: 100%;
     position: relative;
-    overflow: hidden;
   }
   
   #section-{{ section.id }} .article-card__main-image {
     width: 100%;
     display: block;
     object-fit: cover;
-    aspect-ratio: 16/9;
   }
   
   #section-{{ section.id }} .article-card__logo {
@@ -94,7 +91,12 @@
   
   #section-{{ section.id }} .article-cards__carousel-item {
     padding-right: 1.25rem;
-    height: auto;
+    width: 25%; /* Explicit width for desktop */
+  }
+  
+  /* Force the first cell to match others */
+  #section-{{ section.id }} .article-cards__carousel-item:first-child {
+    width: 25% !important; /* Force first cell to be same width as others */
   }
   
   /* Carousel navigation */
@@ -171,8 +173,9 @@
       font-size: {{ section.settings.card_text_font_size_mobile }}px;
     }
     
-    #section-{{ section.id }} .article-cards__carousel-item {
-      /* width value removed - controlled by Flickity */
+    #section-{{ section.id }} .article-cards__carousel-item,
+    #section-{{ section.id }} .article-cards__carousel-item:first-child {
+      width: 100% !important; /* Force all cells to be full width on mobile */
     }
     
     #section-{{ section.id }} .flickity-button {
@@ -224,8 +227,8 @@
           "draggable": true,
           "freeScroll": false,
           "percentPosition": true,
-          "groupCells": 4,
-          "equalHeightCells": true
+          "equalizeHeight": true,
+          "groupCells": 4
         }'
         data-mobile-options='{
           "pageDots": false,
@@ -236,8 +239,8 @@
           "draggable": true,
           "freeScroll": false,
           "percentPosition": true,
-          "groupCells": 1,
-          "equalHeightCells": true
+          "equalizeHeight": true,
+          "groupCells": 1
         }'
         class="article-cards__carousel">
         {% for block in section.blocks %}
@@ -275,47 +278,6 @@
 
     // Initialize Flickity with the appropriate options
     const flkty = new Flickity(carousel, options);
-    
-    // After initialization, ensure all cells are the same height by calculating the tallest
-    function equalizeHeights() {
-      const slides = carousel.querySelectorAll('.article-cards__carousel-item');
-      let maxHeight = 0;
-      
-      // Reset heights to natural size first
-      slides.forEach(slide => {
-        slide.style.height = 'auto';
-        const articleCard = slide.querySelector('.article-card');
-        if (articleCard) {
-          articleCard.style.height = 'auto';
-        }
-      });
-      
-      // Find the tallest slide
-      slides.forEach(slide => {
-        const height = slide.offsetHeight;
-        if (height > maxHeight) {
-          maxHeight = height;
-        }
-      });
-      
-      // Apply the height to all slides
-      if (maxHeight > 0) {
-        slides.forEach(slide => {
-          slide.style.height = `${maxHeight}px`;
-          const articleCard = slide.querySelector('.article-card');
-          if (articleCard) {
-            articleCard.style.height = '100%';
-          }
-        });
-      }
-    }
-    
-    // Run on init and resize
-    equalizeHeights();
-    window.addEventListener('resize', equalizeHeights);
-    
-    // Also rerun when the carousel moves (in case images load later)
-    flkty.on('settle', equalizeHeights);
   });
 </script>
 
