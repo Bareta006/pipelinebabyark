@@ -211,34 +211,27 @@
     <flickity-carousel>
       <div
         data-carousel
-        data-options='{
+        data-desktop-options='{
           "pageDots": false,
-          "prevNextButtons": true,
+          "prevNextButtons": false,
           "wrapAround": false,
           "contain": true,
           "cellAlign": "left",
           "draggable": true,
           "freeScroll": false,
           "percentPosition": true,
-          "selectedAttraction": 0.2,
-          "friction": 0.8,
-          "adaptiveHeight": false,
-          "groupCells": 4,
-          "cellSelector": ".article-cards__carousel-item",
-          "responsive": [
-            {
-              "breakpoint": 990,
-              "settings": {
-                "groupCells": 3
-              }
-            },
-            {
-              "breakpoint": 750,
-              "settings": {
-                "groupCells": 1
-              }
-            }
-          ]
+          "groupCells": 4
+        }'
+        data-mobile-options='{
+          "pageDots": false,
+          "prevNextButtons": true,
+          "wrapAround": true,
+          "contain": true,
+          "cellAlign": "left",
+          "draggable": true,
+          "freeScroll": false,
+          "percentPosition": true,
+          "groupCells": 1
         }'
         class="article-cards__carousel">
         {% for block in section.blocks %}
@@ -258,6 +251,26 @@
     </flickity-carousel>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('section-{{ section.id }}');
+    if (!section) return;
+
+    const carousel = section.querySelector('[data-carousel]');
+    if (!carousel) return;
+
+    let options;
+    if (window.innerWidth <= 749) {
+      options = JSON.parse(carousel.getAttribute('data-mobile-options'));
+    } else {
+      options = JSON.parse(carousel.getAttribute('data-desktop-options'));
+    }
+
+    // Initialize Flickity with the appropriate options
+    const flkty = new Flickity(carousel, options);
+  });
+</script>
 
 
 {% schema %}
