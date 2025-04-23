@@ -409,28 +409,27 @@
         },
         {
           "type": "select",
-          "id": "button_style",
-          "label": "Button style",
-          "default": "primary",
+          "id": "button_color",
+          "label": "Color",
+          "default": "btn--white",
           "options": [
-            {
-              "value": "primary",
-              "label": "Primary"
-            },
-            {
-              "value": "secondary",
-              "label": "Secondary"
-            },
-            {
-              "value": "tertiary",
-              "label": "Tertiary"
-            }
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
           ]
         },
         {
-          "type": "color",
-          "id": "button_color",
-          "label": "Button color"
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
         }
       ]
     }
