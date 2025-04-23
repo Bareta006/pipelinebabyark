@@ -138,12 +138,12 @@
   }
   
   /* Override Flickity's hiding of buttons */
-  #section-{{ section.id }} .flickity-button.flickity-prev-next-button.hide {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
+  #section-{{ section.id }} .flickity-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
   }
-  
+
   /* Responsive Styles */
   @media screen and (max-width: 989px) {
     #section-{{ section.id }} .article-cards__carousel-item {
@@ -180,6 +180,11 @@
     #section-{{ section.id }} .flickity-prev-next-button.previous {
       right: 4rem;
     }
+      #section-{{ section.id }} .flickity-button {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
   }
 </style>
 
