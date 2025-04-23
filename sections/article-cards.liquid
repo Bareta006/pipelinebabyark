@@ -1,9 +1,52 @@
 <!-- /sections/article-cards.liquid -->
 
+<section class="section section-article-cards" 
+  id="section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="article-cards"
+  style="background-color: {{ section.settings.section_bg_color }};">
+  
+  <div class="section__header">
+    {% if section.settings.title != blank %}
+      <h2 class="section__title">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.text != blank %}
+      <div class="section__text">
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+  </div>
+  
+  <flickity-carousel>
+    <div
+      data-carousel
+      data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "draggable": true, "freeScroll": false }'
+      class="article-cards-carousel">
+      {% for block in section.blocks %}
+        <div class="article-slide" {{ block.shopify_attributes }} data-carousel-slide>
+          {% render 'article-card', 
+            image: block.settings.image,
+            logo: block.settings.logo,
+            text: block.settings.text,
+            button_text: block.settings.button_text,
+            button_url: block.settings.button_url,
+            button_style: block.settings.button_style,
+            button_color: block.settings.button_color
+          %}
+        </div>
+      {% endfor %}
+    </div>
+  </flickity-carousel>
+</section>
+
 <style>
   #section-{{ section.id }} {
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+    margin-bottom: 3.75rem;
     width: 100%;
     max-width: 100%;
   }
@@ -31,6 +74,17 @@
     margin-right: auto;
   }
   
+  /* Article carousel styles */
+  #section-{{ section.id }} .article-cards-carousel {
+    width: 100%;
+    padding-left: 4.375rem;
+  }
+  
+  #section-{{ section.id }} .article-slide {
+    width: calc(100% / 4); /* 4 cards per view on desktop */
+    padding: 0 2rem 0 0;
+  }
+  
   /* Article Card Styles */
   #section-{{ section.id }} .article-card {
     background-color: {{ section.settings.card_bg_color }};
@@ -56,7 +110,6 @@
   #section-{{ section.id }} .article-card__logo {
     padding: 1.25rem 1.25rem 0;
     max-width: 120px;
-    
     position: relative;
   }
   
@@ -76,27 +129,13 @@
     padding: 0 1.25rem 1.25rem;
     margin-top: auto;
   }
-  #section-{{ section.id }} .article-card__button a{
+  
+  #section-{{ section.id }} .article-card__button a {
     font-size: 14px;
     text-transform: none;
     letter-spacing: 0;
     font-weight: 400;
     padding: 7px 15px;
-  }
-  /* Carousel */
-  #section-{{ section.id }} .article-cards__carousel {
-    width: 100%;
-    padding-left: 1.25rem;
-  }
-  
-  #section-{{ section.id }} .article-cards__carousel-item {
-    padding-right: 1.25rem;
-    width: 25%; /* Explicit width for desktop */
-  }
-  
-  /* Force the first cell to match others */
-  #section-{{ section.id }} .article-cards__carousel-item:first-child {
-    width: 25% !important; /* Force first cell to be same width as others */
   }
   
   /* Carousel navigation */
@@ -111,10 +150,9 @@
     height: 44px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     opacity: 1;
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
-    visibility: visible !important;
   }
   
   #section-{{ section.id }} .flickity-button:hover {
@@ -134,28 +172,7 @@
     right: 1.25rem;
   }
   
-  /* Make sure the carousel container has position:relative for absolute positioning of arrows */
-  #section-{{ section.id }} flickity-carousel {
-    position: relative;
-    width: 100%;
-    display: block;
-    padding-bottom: 5rem; /* Add padding at bottom for arrows */
-  }
-  
-  /* Override Flickity's hiding of buttons */
-  #section-{{ section.id }} .flickity-button {
-    display: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-  }
-
-  /* Responsive Styles */
-  @media screen and (max-width: 989px) {
-    #section-{{ section.id }} .article-cards__carousel-item {
-      /* width value removed - controlled by Flickity */
-    }
-  }
-  
+  /* Responsive styles */
   @media screen and (max-width: 749px) {
     #section-{{ section.id }} .section__title {
       font-size: {{ section.settings.title_font_size_mobile }}px;
@@ -173,9 +190,12 @@
       font-size: {{ section.settings.card_text_font_size_mobile }}px;
     }
     
-    #section-{{ section.id }} .article-cards__carousel-item,
-    #section-{{ section.id }} .article-cards__carousel-item:first-child {
-      width: 100% !important; /* Force all cells to be full width on mobile */
+    #section-{{ section.id }} .article-cards-carousel {
+      padding-left: 1.25rem;
+    }
+    
+    #section-{{ section.id }} .article-slide {
+      width: 95%; /* 1 card per view on mobile with a peek */
     }
     
     #section-{{ section.id }} .flickity-button {
@@ -186,101 +206,8 @@
     #section-{{ section.id }} .flickity-prev-next-button.previous {
       right: 4rem;
     }
-      #section-{{ section.id }} .flickity-button {
-    display: flex !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-  }
   }
 </style>
-
-<section class="section section-article-cards" 
-  id="section-{{ section.id }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="article-cards"
-  style="background-color: {{ section.settings.section_bg_color }};">
-  
-  <div class="section__header">
-    {% if section.settings.title != blank %}
-      <h2 class="section__title">
-        {{ section.settings.title }}
-      </h2>
-    {% endif %}
-    
-    {% if section.settings.text != blank %}
-      <div class="section__text">
-        {{ section.settings.text }}
-      </div>
-    {% endif %}
-  </div>
-  
-  <div class="section__content">
-    <flickity-carousel>
-      <div
-        data-carousel
-        data-desktop-options='{
-          "pageDots": false,
-          "prevNextButtons": false,
-          "wrapAround": false,
-          "contain": true,
-          "cellAlign": "left",
-          "draggable": true,
-          "freeScroll": false,
-          "percentPosition": true,
-          "equalizeHeight": true,
-          "groupCells": 4
-        }'
-        data-mobile-options='{
-          "pageDots": false,
-          "prevNextButtons": true,
-          "wrapAround": true,
-          "contain": true,
-          "cellAlign": "left",
-          "draggable": true,
-          "freeScroll": false,
-          "percentPosition": true,
-          "equalizeHeight": true,
-          "groupCells": 1
-        }'
-        class="article-cards__carousel">
-        {% for block in section.blocks %}
-          <div class="article-cards__carousel-item" {{ block.shopify_attributes }} data-carousel-slide>
-            {% render 'article-card', 
-              image: block.settings.image,
-              logo: block.settings.logo,
-              text: block.settings.text,
-              button_text: block.settings.button_text,
-              button_url: block.settings.button_url,
-              button_style: block.settings.button_style,
-              button_color: block.settings.button_color
-            %}
-          </div>
-        {% endfor %}
-      </div>
-    </flickity-carousel>
-  </div>
-</section>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const section = document.getElementById('section-{{ section.id }}');
-    if (!section) return;
-
-    const carousel = section.querySelector('[data-carousel]');
-    if (!carousel) return;
-
-    let options;
-    if (window.innerWidth <= 749) {
-      options = JSON.parse(carousel.getAttribute('data-mobile-options'));
-    } else {
-      options = JSON.parse(carousel.getAttribute('data-desktop-options'));
-    }
-
-    // Initialize Flickity with the appropriate options
-    const flkty = new Flickity(carousel, options);
-  });
-</script>
-
 
 {% schema %}
 {
