@@ -207,8 +207,9 @@
     <flickity-carousel>
       <div
         data-carousel
-        data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": true, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": true }'
-        class="article-cards__carousel">
+        data-options='{ "pageDots": false, "prevNextButtons": true, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": true }'
+        class="article-cards__carousel"
+        id="article-carousel-{{ section.id }}">
         {% for block in section.blocks %}
           <div class="article-cards__carousel-item" {{ block.shopify_attributes }} data-carousel-slide>
             {% render 'article-card', 
@@ -226,6 +227,38 @@
     </flickity-carousel>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Function to handle carousel wrap behavior based on screen size
+    function setCarouselWrapBehavior() {
+      const carousel = document.querySelector('#article-carousel-{{ section.id }}');
+      if (!carousel) return;
+      
+      const isMobile = window.innerWidth <= 749;
+      
+      // Set or update Flickity instance options
+      if (carousel.flickityInstance) {
+        // If Flickity is already initialized, update the wrapAround option
+        carousel.flickityInstance.options.wrapAround = isMobile;
+        carousel.flickityInstance.resize(); // Force a resize to apply the change
+      } else {
+        // Store the original options to modify them
+        const options = JSON.parse(carousel.getAttribute('data-options'));
+        options.wrapAround = isMobile;
+        
+        // Update the data-options attribute with the new settings
+        carousel.setAttribute('data-options', JSON.stringify(options));
+      }
+    }
+    
+    // Set initial behavior
+    setCarouselWrapBehavior();
+    
+    // Update on resize
+    window.addEventListener('resize', setCarouselWrapBehavior);
+  });
+</script>
 
 
 {% schema %}
