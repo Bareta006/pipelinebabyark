@@ -1,0 +1,458 @@
+<!-- /sections/article-cards.liquid -->
+
+<section class="section section-article-cards" 
+  id="section-{{ section.id }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="article-cards"
+  style="background-color: {{ section.settings.section_bg_color }};">
+  
+  <div class="section__header">
+    {% if section.settings.title != blank %}
+      <h2 class="section__title">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    
+    {% if section.settings.text != blank %}
+      <div class="section__text">
+        {{ section.settings.text }}
+      </div>
+    {% endif %}
+  </div>
+  
+  <div class="section__content">
+    <flickity-carousel>
+      <div
+        data-carousel
+        data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": true, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": true }'
+        class="article-cards__carousel">
+        {% for block in section.blocks %}
+          <div class="article-cards__carousel-item" {{ block.shopify_attributes }} data-carousel-slide>
+            {% render 'article-card', 
+              image: block.settings.image,
+              logo: block.settings.logo,
+              text: block.settings.text,
+              button_text: block.settings.button_text,
+              button_url: block.settings.button_url,
+              button_style: block.settings.button_style,
+              button_color: block.settings.button_color
+            %}
+          </div>
+        {% endfor %}
+      </div>
+    </flickity-carousel>
+  </div>
+</section>
+
+<style>
+  #section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #section-{{ section.id }} .section__header {
+    margin-bottom: 2.5rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    text-align: {{ section.settings.title_alignment }};
+  }
+  
+  #section-{{ section.id }} .section__title {
+    margin-bottom: 1rem;
+    font-weight: 500;
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_font_size }}px;
+  }
+  
+  #section-{{ section.id }} .section__text {
+    margin-bottom: 2rem;
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.text_font_size }}px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  /* Article Card Styles */
+  #section-{{ section.id }} .article-card {
+    background-color: {{ section.settings.card_bg_color }};
+    border-radius: 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  #section-{{ section.id }} .article-card__image {
+    width: 100%;
+    position: relative;
+  }
+  
+  #section-{{ section.id }} .article-card__main-image {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+  }
+  
+  #section-{{ section.id }} .article-card__logo {
+    padding: 1.25rem 1.25rem 0;
+    max-width: 120px;
+    margin-top: -20px;
+    position: relative;
+  }
+  
+  #section-{{ section.id }} .article-card__logo-image {
+    display: block;
+    max-width: 100%;
+  }
+  
+  #section-{{ section.id }} .article-card__text {
+    padding: 1.25rem;
+    font-size: {{ section.settings.card_text_font_size }}px;
+    color: {{ section.settings.card_text_color }};
+    flex-grow: 1;
+  }
+  
+  #section-{{ section.id }} .article-card__button {
+    padding: 0 1.25rem 1.25rem;
+    margin-top: auto;
+  }
+  
+  /* Carousel */
+  #section-{{ section.id }} .article-cards__carousel {
+    width: 100%;
+    padding-left: 1.25rem;
+  }
+  
+  #section-{{ section.id }} .article-cards__carousel-item {
+    width: 25%; /* 4 cards per view on desktop */
+    padding-right: 1.25rem;
+  }
+  
+  /* Carousel navigation */
+  #section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -3.125rem;
+    top: auto;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+  }
+  
+  #section-{{ section.id }} .flickity-button:hover {
+    background-color: #fff;
+  }
+  
+  #section-{{ section.id }} .flickity-button-icon {
+    fill: #333;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 5rem;
+    left: auto;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 1.25rem;
+  }
+  
+  /* Make sure the carousel container has position:relative for absolute positioning of arrows */
+  #section-{{ section.id }} flickity-carousel {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-bottom: 5rem; /* Add padding at bottom for arrows */
+  }
+  
+  /* Override Flickity's hiding of buttons */
+  #section-{{ section.id }} .flickity-button.flickity-prev-next-button.hide {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+  
+  /* Responsive Styles */
+  @media screen and (max-width: 989px) {
+    #section-{{ section.id }} .article-cards__carousel-item {
+      width: 33.333%; /* 3 cards per view on tablet */
+    }
+  }
+  
+  @media screen and (max-width: 749px) {
+    #section-{{ section.id }} .section__title {
+      font-size: {{ section.settings.title_font_size_mobile }}px;
+    }
+    
+    #section-{{ section.id }} .section__text {
+      font-size: {{ section.settings.text_font_size_mobile }}px;
+    }
+    
+    #section-{{ section.id }} .article-card {
+      border-radius: 10px;
+    }
+    
+    #section-{{ section.id }} .article-card__text {
+      font-size: {{ section.settings.card_text_font_size_mobile }}px;
+    }
+    
+    #section-{{ section.id }} .article-cards__carousel-item {
+      width: 100%; /* 1 card per view on mobile */
+    }
+    
+    #section-{{ section.id }} .flickity-button {
+      width: 36px;
+      height: 36px;
+    }
+    
+    #section-{{ section.id }} .flickity-prev-next-button.previous {
+      right: 4rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Article Cards",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Heading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Featured Articles"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size",
+      "min": 20,
+      "max": 72,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size (desktop)",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Title font size (mobile)",
+      "default": 28
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Browse our collection of featured articles and resources.</p>"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "text_font_size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "label": "Text font size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_font_size_mobile",
+      "min": 10,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Text font size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Card Design"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "card_text_color",
+      "label": "Card text color",
+      "default": "#333333"
+    },
+    {
+      "type": "range",
+      "id": "card_text_font_size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "label": "Card text font size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "card_text_font_size_mobile",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "label": "Card text font size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Section Design"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Section background color",
+      "default": "#F5F5F5"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Article Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Main image"
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Card text",
+          "default": "Share information about this article or resource."
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text",
+          "default": "Read More"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button style",
+          "default": "primary",
+          "options": [
+            {
+              "value": "primary",
+              "label": "Primary"
+            },
+            {
+              "value": "secondary",
+              "label": "Secondary"
+            },
+            {
+              "value": "tertiary",
+              "label": "Tertiary"
+            }
+          ]
+        },
+        {
+          "type": "color",
+          "id": "button_color",
+          "label": "Button color"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Article Cards",
+      "blocks": [
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        },
+        {
+          "type": "article_card"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %} 

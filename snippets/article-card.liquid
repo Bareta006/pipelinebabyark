@@ -1,0 +1,40 @@
+{% comment %}
+  Article Card Snippet
+  
+  Accepts:
+  - image: The main card image
+  - logo: The logo to display under the image
+  - text: Main text content
+  - button_text: Text for the button
+  - button_url: URL for the button
+  - button_style: Button style from theme settings
+  - button_color: Button color
+{% endcomment %}
+
+<div class="article-card">
+  {% if image != blank %}
+    <div class="article-card__image">
+      {{ image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'article-card__main-image' }}
+    </div>
+  {% endif %}
+  
+  {% if logo != blank %}
+    <div class="article-card__logo">
+      {{ logo | image_url: width: 120 | image_tag: loading: 'lazy', class: 'article-card__logo-image' }}
+    </div>
+  {% endif %}
+  
+  {% if text != blank %}
+    <div class="article-card__text">
+      {{ text }}
+    </div>
+  {% endif %}
+  
+  {% if button_text != blank and button_url != blank %}
+    <div class="article-card__button">
+      <a href="{{ button_url }}" class="btn {% if button_style %}btn--{{ button_style }}{% endif %}" {% if button_color %}style="background-color: {{ button_color }};"{% endif %}>
+        {{ button_text }}
+      </a>
+    </div>
+  {% endif %}
+</div> 
