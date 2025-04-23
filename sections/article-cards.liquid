@@ -40,6 +40,35 @@
       {% endfor %}
     </div>
   </flickity-carousel>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const carouselEl = document.querySelector('#section-{{ section.id }} [data-carousel]');
+      
+      // Check if we're on mobile
+      if (window.innerWidth <= 749) {
+        // Override options for mobile
+        const options = {
+          pageDots: false,
+          prevNextButtons: true,
+          wrapAround: true, // Enable wrap on mobile
+          contain: true,
+          cellAlign: 'left',
+          draggable: true,
+          freeScroll: false
+        };
+        
+        // If Flickity already initialized, destroy it
+        if (carouselEl.flickityInstance) {
+          carouselEl.flickityInstance.destroy();
+        }
+        
+        // Initialize with mobile options
+        const flkty = new Flickity(carouselEl, options);
+        carouselEl.flickityInstance = flkty;
+      }
+    });
+  </script>
 </section>
 
 <style>
@@ -195,7 +224,7 @@
     }
     
     #section-{{ section.id }} .article-slide {
-      width: 95%; /* 1 card per view on mobile with a peek */
+      width: 100%; /* 1 card per view on mobile with a peek */
     }
     
     #section-{{ section.id }} .flickity-button {
