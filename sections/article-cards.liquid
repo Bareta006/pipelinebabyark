@@ -31,20 +31,6 @@
     margin-right: auto;
   }
   
-  /* Grid for desktop */
-  #section-{{ section.id }} .article-cards__carousel:after {
-    content: 'flickity';
-    display: none; /* hide by default */
-  }
-  
-  /* In desktop view, render as a grid */
-  #section-{{ section.id }} .article-cards__carousel {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1.25rem;
-    padding: 0 1.25rem;
-  }
-  
   /* Article Card Styles */
   #section-{{ section.id }} .article-card {
     background-color: {{ section.settings.card_bg_color }};
@@ -97,32 +83,75 @@
     font-weight: 400;
     padding: 7px 15px;
   }
+  /* Carousel */
+  #section-{{ section.id }} .article-cards__carousel {
+    width: 100%;
+    padding-left: 1.25rem;
+  }
   
-  /* Hide carousel navigation on desktop */
+  #section-{{ section.id }} .article-cards__carousel-item {
+    width: 25%; /* 4 cards per view on desktop */
+    padding-right: 1.25rem;
+  }
+  
+  /* Carousel navigation */
   #section-{{ section.id }} .flickity-button {
-    display: none !important;
+    position: absolute;
+    bottom: -3.125rem;
+    top: auto;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    opacity: 1;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    visibility: visible !important;
+  }
+  
+  #section-{{ section.id }} .flickity-button:hover {
+    background-color: #fff;
+  }
+  
+  #section-{{ section.id }} .flickity-button-icon {
+    fill: #333;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 5rem;
+    left: auto;
+  }
+  
+  #section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 1.25rem;
+  }
+  
+  /* Make sure the carousel container has position:relative for absolute positioning of arrows */
+  #section-{{ section.id }} flickity-carousel {
+    position: relative;
+    width: 100%;
+    display: block;
+    padding-bottom: 5rem; /* Add padding at bottom for arrows */
+  }
+  
+  /* Override Flickity's hiding of buttons */
+  #section-{{ section.id }} .flickity-button.flickity-prev-next-button.hide {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
   
   /* Responsive Styles */
   @media screen and (max-width: 989px) {
-    #section-{{ section.id }} .article-cards__carousel {
-      grid-template-columns: repeat(3, 1fr);
+    #section-{{ section.id }} .article-cards__carousel-item {
+      width: 33.333%; /* 3 cards per view on tablet */
     }
   }
   
   @media screen and (max-width: 749px) {
-    /* Show the carousel on mobile */
-    #section-{{ section.id }} .article-cards__carousel:after {
-      content: 'flickity';
-      display: block; /* enable flickity on mobile */
-    }
-    
-    /* Reset the grid layout for mobile */
-    #section-{{ section.id }} .article-cards__carousel {
-      display: block;
-      padding-left: 1.25rem;
-    }
-    
     #section-{{ section.id }} .section__title {
       font-size: {{ section.settings.title_font_size_mobile }}px;
     }
@@ -141,57 +170,15 @@
     
     #section-{{ section.id }} .article-cards__carousel-item {
       width: 100%; /* 1 card per view on mobile */
-      padding-right: 1.25rem;
     }
     
-    /* Show carousel navigation on mobile */
     #section-{{ section.id }} .flickity-button {
-      position: absolute;
-      bottom: -3.125rem;
-      top: auto;
-      z-index: 10;
-      background-color: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
       width: 36px;
       height: 36px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      opacity: 1;
-      display: flex !important;
-      align-items: center;
-      justify-content: center;
-      visibility: visible !important;
-    }
-    
-    #section-{{ section.id }} .flickity-button:hover {
-      background-color: #fff;
-    }
-    
-    #section-{{ section.id }} .flickity-button-icon {
-      fill: #333;
     }
     
     #section-{{ section.id }} .flickity-prev-next-button.previous {
       right: 4rem;
-      left: auto;
-    }
-    
-    #section-{{ section.id }} .flickity-prev-next-button.next {
-      right: 1.25rem;
-    }
-    
-    /* Make sure the carousel container has position:relative for absolute positioning of arrows */
-    #section-{{ section.id }} flickity-carousel {
-      position: relative;
-      width: 100%;
-      display: block;
-      padding-bottom: 5rem; /* Add padding at bottom for arrows */
-    }
-    
-    /* Override Flickity's hiding of buttons */
-    #section-{{ section.id }} .flickity-button.flickity-prev-next-button.hide {
-      display: flex !important;
-      opacity: 1 !important;
-      visibility: visible !important;
     }
   }
 </style>
@@ -217,21 +204,26 @@
   </div>
   
   <div class="section__content">
-    <div class="article-cards__carousel">
-      {% for block in section.blocks %}
-        <div class="article-cards__carousel-item" {{ block.shopify_attributes }}>
-          {% render 'article-card', 
-            image: block.settings.image,
-            logo: block.settings.logo,
-            text: block.settings.text,
-            button_text: block.settings.button_text,
-            button_url: block.settings.button_url,
-            button_style: block.settings.button_style,
-            button_color: block.settings.button_color
-          %}
-        </div>
-      {% endfor %}
-    </div>
+    <flickity-carousel>
+      <div
+        data-carousel
+        data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": true, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": true }'
+        class="article-cards__carousel">
+        {% for block in section.blocks %}
+          <div class="article-cards__carousel-item" {{ block.shopify_attributes }} data-carousel-slide>
+            {% render 'article-card', 
+              image: block.settings.image,
+              logo: block.settings.logo,
+              text: block.settings.text,
+              button_text: block.settings.button_text,
+              button_url: block.settings.button_url,
+              button_style: block.settings.button_style,
+              button_color: block.settings.button_color
+            %}
+          </div>
+        {% endfor %}
+      </div>
+    </flickity-carousel>
   </div>
 </section>
 
