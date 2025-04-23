@@ -207,7 +207,7 @@
     <flickity-carousel>
       <div
         data-carousel
-        data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": true, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": true }'
+        data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "draggable": true, "isWrapping": false, "freeScroll": false, "percentPosition": true, "selectedAttraction": 0.2, "friction": 0.8 }'
         class="article-cards__carousel">
         {% for block in section.blocks %}
           <div class="article-cards__carousel-item" {{ block.shopify_attributes }} data-carousel-slide>
