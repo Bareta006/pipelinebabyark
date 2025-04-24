@@ -22,7 +22,48 @@
   <flickity-carousel>
     <div
       data-carousel
-      data-options='{ "pageDots": false, "prevNextButtons": true, "wrapAround": true, "contain": true, "cellAlign": "left", "draggable": true, "groupCells": true, "isWrapping": true }'
+      data-options='{
+        "pageDots": false,
+        "prevNextButtons": false,
+        "wrapAround": true,
+        "contain": true,
+        "cellAlign": "left",
+        "draggable": false,
+        "groupCells": true,
+        "freeScroll": false,
+        "adaptiveHeight": false,
+        "watchCSS": false,
+        "selectedAttraction": 0.1,
+        "friction": 0.8,
+        "accessibility": true,
+        "resize": true,
+        "responsive": [
+          {
+            "breakpoint": 750,
+            "settings": {
+              "prevNextButtons": true,
+              "draggable": true,
+              "freeScroll": false,
+              "wrapAround": true,
+              "cellAlign": "center",
+              "groupCells": 1,
+              "contain": true
+            }
+          },
+          {
+            "breakpoint": 990,
+            "settings": {
+              "prevNextButtons": true,
+              "draggable": true,
+              "freeScroll": false,
+              "wrapAround": true,
+              "cellAlign": "center",
+              "groupCells": 2,
+              "contain": true
+            }
+          }
+        ]
+      }'
       class="article-cards-carousel">
       {% for block in section.blocks %}
         <div class="article-card-slide" {{ block.shopify_attributes }} data-carousel-slide>
@@ -143,10 +184,10 @@
     height: 44px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     opacity: 1;
-    display: flex ;
+    display: flex;
     align-items: center;
     justify-content: center;
-    visibility: visible ;
+    visibility: visible;
   }
   
   #section-{{ section.id }} .flickity-button:hover {
@@ -166,7 +207,7 @@
     right: 1.25rem;
   }
   
-  /* Override flickity's hiding of buttons */
+  /* Override flickity's hiding of buttons - hide by default on desktop */
   #section-{{ section.id }} .flickity-button.flickity-prev-next-button {
     display: none;
   }
@@ -196,15 +237,23 @@
     #section-{{ section.id }} .flickity-button {
       width: 36px;
       height: 36px;
+      display: flex;
     }
     
     #section-{{ section.id }} .flickity-prev-next-button.previous {
       right: 4rem;
     }
-      /* Override flickity's hiding of buttons */
-  #section-{{ section.id }} .flickity-button.flickity-prev-next-button {
-    display: flex;
   }
+  
+  /* Tablet styles */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    #section-{{ section.id }} .article-card-slide {
+      width: 50%; /* 2 cards per view on tablet */
+    }
+    
+    #section-{{ section.id }} .flickity-button {
+      display: flex;
+    }
   }
 </style>
 
