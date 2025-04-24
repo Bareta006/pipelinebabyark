@@ -191,6 +191,7 @@
     
     #section-{{ section.id }} .article-card-slide {
       width: 100%; /* 1 card per view on mobile */
+      padding: 0.625rem;
     }
     
     #section-{{ section.id }} .flickity-button {
@@ -204,6 +205,9 @@
       /* Override flickity's hiding of buttons */
   #section-{{ section.id }} .flickity-button.flickity-prev-next-button {
     display: flex;
+  }
+  #section-{{ section.id }} .article-cards-carousel {
+    padding-left: 0;
   }
   }
 </style>
