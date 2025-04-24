@@ -32,26 +32,13 @@
         "groupCells": true,
         "freeScroll": false,
         "adaptiveHeight": false,
-        "watchCSS": false,
         "selectedAttraction": 0.1,
         "friction": 0.8,
         "accessibility": true,
         "resize": true,
         "responsive": [
           {
-            "breakpoint": 750,
-            "settings": {
-              "prevNextButtons": true,
-              "draggable": true,
-              "freeScroll": false,
-              "wrapAround": true,
-              "cellAlign": "center",
-              "groupCells": 1,
-              "contain": true
-            }
-          },
-          {
-            "breakpoint": 990,
+            "breakpoint": 989,
             "settings": {
               "prevNextButtons": true,
               "draggable": true,
@@ -59,6 +46,18 @@
               "wrapAround": true,
               "cellAlign": "center",
               "groupCells": 2,
+              "contain": true
+            }
+          },
+          {
+            "breakpoint": 749,
+            "settings": {
+              "prevNextButtons": true,
+              "draggable": true,
+              "freeScroll": false,
+              "wrapAround": true,
+              "cellAlign": "center",
+              "groupCells": 1,
               "contain": true
             }
           }
@@ -211,6 +210,15 @@
   #section-{{ section.id }} .flickity-button.flickity-prev-next-button {
     display: none;
   }
+  
+  /* Always show arrows on mobile and tablet */
+  @media screen and (max-width: 989px) {
+    #section-{{ section.id }} .flickity-button.flickity-prev-next-button {
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+    }
+  }
 
   /* Responsive styles */
   @media screen and (max-width: 749px) {
@@ -237,7 +245,6 @@
     #section-{{ section.id }} .flickity-button {
       width: 36px;
       height: 36px;
-      display: flex;
     }
     
     #section-{{ section.id }} .flickity-prev-next-button.previous {
@@ -249,10 +256,6 @@
   @media screen and (min-width: 750px) and (max-width: 989px) {
     #section-{{ section.id }} .article-card-slide {
       width: 50%; /* 2 cards per view on tablet */
-    }
-    
-    #section-{{ section.id }} .flickity-button {
-      display: flex;
     }
   }
 </style>
