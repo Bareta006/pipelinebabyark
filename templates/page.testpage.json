@@ -310,7 +310,7 @@
             "image": "shopify://shop_images/Image-02_c8080f73-2404-4555-b5c1-24a2a1df754e.png",
             "logo": "shopify://shop_images/Frame_1597881200.png",
             "text": "The Best New Baby Products of 2025",
-            "button_text": "Read More",
+            "button_text": "Read article",
             "button_url": "#",
             "button_style": "btn--outline",
             "button_color": "btn--black"
@@ -322,7 +322,7 @@
             "image": "shopify://shop_images/Image-03_a6b5c485-b0d3-4e6f-9576-e4376f8ea0bf.png",
             "logo": "shopify://shop_images/Frame_1597881201.png",
             "text": "The Best Convertible Car Seats We Tested and Trusted With Our Own Kids’ Safety",
-            "button_text": "Read More",
+            "button_text": "Read article",
             "button_url": "#",
             "button_style": "btn--outline",
             "button_color": "btn--neutral"
@@ -334,7 +334,7 @@
             "image": "shopify://shop_images/Image-04_2d275e1e-66d7-4cf7-90b8-ab7aa31aed74.png",
             "logo": "shopify://shop_images/Frame_1597881202.png",
             "text": "Expert tips for choosing the right car seat: Top picks for parents",
-            "button_text": "Read More",
+            "button_text": "Read article",
             "button_url": "#",
             "button_style": "btn--outline",
             "button_color": "btn--black"
