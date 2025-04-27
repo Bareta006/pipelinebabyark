@@ -724,8 +724,8 @@
         "video_P9J8Vf": {
           "type": "video",
           "settings": {
-            "video_bg": "shopify://files/videos/High end_new_67de9926-07f2-419f-9452-b82a0ec7ef4d.mp4",
             "object_position": "center-center",
+            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1_f3b07f31-ff8b-4b84-b10f-07e145eb70c9.png",
             "video_link": "",
             "popup_text": "",
             "kicker": "",
@@ -771,7 +771,7 @@
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
-        "height": "use_screen_full",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
