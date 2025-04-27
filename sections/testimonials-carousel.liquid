@@ -211,7 +211,9 @@
   /* Carousel navigation */
   #section-{{ section.id }} .flickity-button {
     position: absolute;
-    bottom: -3.125rem;
+    bottom: -4.125rem;
+    color: #220E53;
+    border: 1px solid;
     top: auto;
     z-index: 10;
     background-color: rgba(255, 255, 255, 0.8);
@@ -229,6 +231,9 @@
     background-color: #fff;
   }
   
+  #section-{{ section.id }} .flickity-button:disabled {
+    opacity: 0.5;
+  }
   #section-{{ section.id }} .flickity-button-icon {
     fill: #333;
   }
