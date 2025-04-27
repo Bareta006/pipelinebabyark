@@ -19,7 +19,9 @@
   {%- if canonical_url != blank -%}
     <link rel="canonical" href="{{ canonical_url }}">
   {%- endif -%}
-
+    {% if page.metafields.seo.noindex %}
+  <meta name="robots" content="noindex">
+{% endif %}
   <!-- ======================= Pipeline Theme V7.4.2 ========================= -->
 
   <!-- Preloading ================================================================== -->
