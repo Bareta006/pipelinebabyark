@@ -35,7 +35,7 @@
           "settings": {
             "background_image": "shopify://shop_images/Rectangle_1486127343.png",
             "mobile_background_image": "shopify://shop_images/Rectangle_1486127343_1.png",
-            "title": "SHOP SMART",
+            "title": "Shop Smart",
             "title_color": "#1a1b1d",
             "description": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
             "description_color": "#1a1b1d",
@@ -95,7 +95,7 @@
             "overlay_opacity": 0,
             "title": "Injury prevention",
             "title_color": "#ffffff",
-            "description": "<p>The SafeCoilTM impact-activated steel coils significantly reduce force and forward momentum, extending gently as your car slows to bring the seat to rest safely and softly.</p>",
+            "description": "<p>The SafeCoil™ impact-activated steel coils significantly reduce force and forward momentum, extending gently as your car slows to bring the seat to rest safely and softly.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
             "button_1_link": "#",
@@ -222,7 +222,7 @@
         "card_N8KKTP"
       ],
       "settings": {
-        "title": "Features to give <br> you peace of mind",
+        "title": "Features to give  you peace of mind",
         "title_alignment": "center",
         "button_text": "Discover",
         "button_link": "#",
