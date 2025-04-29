@@ -12,6 +12,27 @@
     "section_slideshow_eQpBwF": {
       "type": "section-slideshow",
       "blocks": {
+        "video_slide_yFpBNY": {
+          "type": "video_slide",
+          "settings": {
+            "video_bg": "shopify://files/videos/Desktop.mp4",
+            "mobile_video_bg": "shopify://files/videos/Mobilemp4.mp4",
+            "object_position": "center-center",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Safe. Smart. Beautiful.",
+            "title": "The World’s Most Advanced Car Seat",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "see it in action",
+            "link": "shopify://pages/features",
+            "button_color": "btn--white",
+            "button_style": "btn",
+            "mobile_background_color": "#ffffff"
+          }
+        },
         "image_4wpA6D": {
           "type": "image",
           "disabled": true,
@@ -35,30 +56,11 @@
             "button_color_2": "btn--white",
             "button_style_2": "btn--outline"
           }
-        },
-        "video_slide_yFpBNY": {
-          "type": "video_slide",
-          "settings": {
-            "object_position": "center-center",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Safe. Smart. Beautiful.",
-            "title": "The World’s Most Advanced Car Seat",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "see it in action",
-            "link": "shopify://pages/features",
-            "button_color": "btn--white",
-            "button_style": "btn",
-            "mobile_background_color": "#ffffff"
-          }
         }
       },
       "block_order": [
-        "image_4wpA6D",
-        "video_slide_yFpBNY"
+        "video_slide_yFpBNY",
+        "image_4wpA6D"
       ],
       "custom_css": [
         ".custom-prev-next-button {display: none;}",
