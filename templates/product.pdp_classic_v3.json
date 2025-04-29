@@ -680,7 +680,7 @@
         "image_nHimtR": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1.png",
+            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1_f3b07f31-ff8b-4b84-b10f-07e145eb70c9.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -704,7 +704,7 @@
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
-        "height": "use_screen_full",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
