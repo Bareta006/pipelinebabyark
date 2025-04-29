@@ -407,6 +407,92 @@
         "padding_bottom": 50
       }
     },
+    "section_hero_cGUrkh": {
+      "type": "section-hero",
+      "blocks": {
+        "kicker_irwVtn": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "SAFE. SMART. BEAUTIFUL.",
+            "enable_line": false,
+            "text_size": 4
+          }
+        },
+        "heading_tTLxEz": {
+          "type": "heading",
+          "settings": {
+            "title": "Smart or Classic<br>The choice is yours",
+            "text_size": 8
+          }
+        },
+        "text_RnLk7Q": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>This area is used to describe your store.</p>",
+            "text_size": 6
+          }
+        },
+        "button_kQ3piY": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "View products",
+            "link_1": "",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "Learn more",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        },
+        "floating_text1_ngChrp": {
+          "type": "floating_text1",
+          "settings": {
+            "floating_text1": "<p>Floating Text</p>"
+          }
+        },
+        "floating_text2_z4Y77c": {
+          "type": "floating_text2",
+          "settings": {
+            "floating_text2": "<p>Floating Text</p>"
+          }
+        }
+      },
+      "block_order": [
+        "kicker_irwVtn",
+        "heading_tTLxEz",
+        "text_RnLk7Q",
+        "button_kQ3piY",
+        "floating_text1_ngChrp",
+        "floating_text2_z4Y77c"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Group_29613109_1_1.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127360.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--top-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
     "testimonials_carousel_dWLrCC": {
       "type": "testimonials-carousel",
       "blocks": {
@@ -548,6 +634,7 @@
     "main",
     "two_cards_section_kBxtPL",
     "cards_carousel_GeitRn",
+    "section_hero_cGUrkh",
     "testimonials_carousel_dWLrCC",
     "article_cards_CqkrbJ"
   ]
