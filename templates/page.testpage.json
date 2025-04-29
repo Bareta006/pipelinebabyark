@@ -485,7 +485,7 @@
         "p.kicker-flourished {font-family: var(--FONT-STACK-HEADING); font-weight: 300; text-transform: none; color: #000; font-style: normal; font-size: 35px; letter-spacing: normal;}",
         ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight: 700; color: #111;}",
         ".price {font-size: 20px; font-weight: 500; color: #000;}",
-        ".product-grid-item__container{border-radius: 20px;}"
+        ".product-grid-item__container {border-radius: 20px;}"
       ],
       "name": "Product slider",
       "settings": {
@@ -636,6 +636,33 @@
         "padding_top": 60,
         "padding_bottom": 50
       }
+    },
+    "174593118866ff9647": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_quiz_carousel_block_6C8BJW": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "xv6zpinlwpm0j"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_quiz_carousel_block_6C8BJW"
+      ],
+      "custom_css": [
+        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
+        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
+        "> div {background-color: #fff;}",
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -647,6 +674,7 @@
     "section_hero_cGUrkh",
     "section_collection_slider_pHNrah",
     "testimonials_carousel_dWLrCC",
-    "article_cards_CqkrbJ"
+    "article_cards_CqkrbJ",
+    "174593118866ff9647"
   ]
 }
