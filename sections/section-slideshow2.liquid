@@ -787,6 +787,32 @@ document.addEventListener('DOMContentLoaded', function() {
   // Fix for mobile scrolling issue
   const slideshowWrappers = document.querySelectorAll('[data-slideshow-wrapper]');
   slideshowWrappers.forEach(wrapper => {
+    // Count number of video slides
+    const videoSlidesInWrapper = wrapper.querySelectorAll('.slideshow__slide.section--video');
+    const totalSlides = wrapper.querySelectorAll('.slideshow__slide').length;
+    const isFirstSlideVideo = wrapper.querySelector('.slideshow__slide:first-child.section--video') !== null;
+    const isSingleSlide = totalSlides === 1;
+    
+    // Special handling for single video slide
+    if (isSingleSlide && isFirstSlideVideo) {
+      // Force video visibility and layout
+      const videoSlide = wrapper.querySelector('.slideshow__slide.section--video');
+      const videoElement = videoSlide.querySelector('video');
+      
+      if (videoElement) {
+        // Ensure video is visible and properly sized
+        videoSlide.style.opacity = '1';
+        videoSlide.style.visibility = 'visible';
+        videoElement.style.opacity = '1';
+        videoElement.style.visibility = 'visible';
+        
+        // Make sure video autoplay works
+        videoElement.play().catch(e => {
+          console.log('Video autoplay prevented:', e);
+        });
+      }
+    }
+    
     // Wait for Flickity to initialize
     setTimeout(() => {
       const flickityInstance = Flickity.data(wrapper);
@@ -799,8 +825,19 @@ document.addEventListener('DOMContentLoaded', function() {
           flickityInstance.slider.style.touchAction = 'pan-y pinch-zoom';
         }
         
-        // Force Flickity to update its internal state
-        flickityInstance.resize();
+        // Special handling for first slide video
+        if (isFirstSlideVideo) {
+          // Make sure first slide is properly visible
+          flickityInstance.select(0, false, true);
+          
+          // Force a resize to ensure proper layout
+          flickityInstance.resize();
+          
+          // Additional resize after a delay to ensure videos have loaded
+          setTimeout(() => {
+            flickityInstance.resize();
+          }, 1000);
+        }
       }
     }, 500);
   });
