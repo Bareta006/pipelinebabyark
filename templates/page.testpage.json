@@ -42,7 +42,7 @@
         "video_slide_RxUfET"
       ],
       "custom_css": [
-        ".custom-prev-next-button {display: none;}",
+        ".custom-prev-next-button,. {display: none;}",
         ".hero__content {width: 696px; max-width: 100%;}",
         ".hero__title {font-size: 60px; font-weight: 400; line-height: 100%; /* 80px */ letter-spacing: -2.4px;}",
         "@media (min-width: 600px) {.hero__cta__wrapper a {padding: 14px 35px; min-width: auto; }}",
