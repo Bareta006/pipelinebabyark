@@ -425,22 +425,15 @@
             "text_size": 8
           }
         },
-        "text_RnLk7Q": {
-          "type": "text",
-          "settings": {
-            "richtext": "<p>This area is used to describe your store.</p>",
-            "text_size": 6
-          }
-        },
         "button_kQ3piY": {
           "type": "button",
           "settings": {
-            "link_text_1": "View products",
-            "link_1": "",
+            "link_text_1": "Compare",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
             "button_color_1": "btn--white",
-            "link_text_2": "Learn more",
+            "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--long",
             "button_style_2": "btn-text-thick-line",
@@ -468,7 +461,6 @@
       "block_order": [
         "kicker_irwVtn",
         "heading_tTLxEz",
-        "text_RnLk7Q",
         "button_kQ3piY",
         "floating_text1_ngChrp",
         "floating_text2_z4Y77c"
