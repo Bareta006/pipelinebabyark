@@ -70,7 +70,7 @@
                     </div>
                   {% endunless %}
                   
-                  {% unless block.settings.link_text == '' %}
+                  {% unless block.settings.link_text == '' and block.settings.link_text_2 == '' %}
                     <div class="hero__cta__wrapper">
                       {% if block.settings.link_text != blank %}
                         <a class="{{ block.settings.button_color }} {{ block.settings.button_style }} hero__btn btn--long"
@@ -181,7 +181,7 @@
                       {{ block.settings.richtext }}
                     </div>
                   {% endunless %}
-                  {% unless block.settings.link_text == '' %}
+                  {% unless block.settings.link_text == '' and block.settings.link_text_2 == '' %}
                     <div class="hero__cta__wrapper">
                       {% if block.settings.link_text != blank %}
                         <a class="{{ block.settings.button_color }} {{ block.settings.button_style }} hero__btn btn--long"
@@ -647,6 +647,45 @@
         {
           "type": "select",
           "id": "button_style",
+          "label": "Button style",
+          "default": "btn",
+          "options": [
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button 2"
+        },
+        {
+          "type": "text",
+          "id": "link_text_2",
+          "label": "Text",
+          "info": "Leave blank to link entire slide"
+        },
+        {
+          "type": "url",
+          "id": "link_2",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "button_color_2",
+          "label": "Color",
+          "default": "btn--white",
+          "options": [
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style_2",
           "label": "Button style",
           "default": "btn",
           "options": [
