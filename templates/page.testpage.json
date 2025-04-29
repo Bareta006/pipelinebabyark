@@ -9,6 +9,70 @@
  */
 {
   "sections": {
+    "section_slideshow_eQpBwF": {
+      "type": "section-slideshow",
+      "blocks": {
+        "image_4wpA6D": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/045A9091_1.png",
+            "mobile_image": "shopify://shop_images/Rectangle_1486127358.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
+          }
+        },
+        "image_aBFrTH": {
+          "type": "image",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "Introducing",
+            "title": "Image slideshow",
+            "richtext": "<p>Tell your brand's story through images.</p>",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "View products",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--white",
+            "button_style_2": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "image_4wpA6D",
+        "image_aBFrTH"
+      ],
+      "name": "Slideshow",
+      "settings": {
+        "autoplay": false,
+        "autoplay_speed": 8,
+        "preload_first_image": false,
+        "height": "use_screen_full",
+        "color_bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -368,6 +432,7 @@
     }
   },
   "order": [
+    "section_slideshow_eQpBwF",
     "main",
     "two_cards_section_kBxtPL",
     "cards_carousel_GeitRn",
