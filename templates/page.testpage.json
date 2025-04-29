@@ -129,6 +129,36 @@
             "width": 100,
             "spacing": 50
           }
+        },
+        "logo_image_jgYNJ8": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/image_377.png",
+            "link": "https://theeverymom.com/babyark-car-seat-review/",
+            "new_tab": true,
+            "width": 175,
+            "spacing": 50
+          }
+        },
+        "logo_image_tAY899": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613072.png",
+            "link": "https://www.forbes.com/sites/forbes-personal-shopper/2024/08/07/prevent-hot-car-deaths/",
+            "new_tab": true,
+            "width": 60,
+            "spacing": 50
+          }
+        },
+        "logo_image_QE7PFK": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/image_378.png",
+            "link": "https://www.thequalityedit.com/articles/babyark-carseat-review",
+            "new_tab": true,
+            "width": 75,
+            "spacing": 50
+          }
         }
       },
       "block_order": [
@@ -138,7 +168,10 @@
         "logo_image_6wnQ3C",
         "logo_image_nUhbRR",
         "logo_image_ewwqCt",
-        "logo_image_9NFEzx"
+        "logo_image_9NFEzx",
+        "logo_image_jgYNJ8",
+        "logo_image_tAY899",
+        "logo_image_QE7PFK"
       ],
       "name": "Logo list",
       "settings": {
