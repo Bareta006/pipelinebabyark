@@ -497,7 +497,7 @@
         "grid_medium": 3,
         "grid_mobile": 1.2,
         "bg": "palette--light bg--neutral",
-        "width": "wrapper",
+        "width": "wrapper--full",
         "padding_top": 36,
         "padding_bottom": 36
       }
