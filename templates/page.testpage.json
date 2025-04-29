@@ -451,27 +451,13 @@
             "button_style_3": "btn-text-thick-line",
             "button_color_3": "btn--white"
           }
-        },
-        "floating_text1_ngChrp": {
-          "type": "floating_text1",
-          "settings": {
-            "floating_text1": "<p>Floating Text</p>"
-          }
-        },
-        "floating_text2_z4Y77c": {
-          "type": "floating_text2",
-          "settings": {
-            "floating_text2": "<p>Floating Text</p>"
-          }
         }
       },
       "block_order": [
         "kicker_irwVtn",
         "heading_tTLxEz",
         "heading_EeT47m",
-        "button_kQ3piY",
-        "floating_text1_ngChrp",
-        "floating_text2_z4Y77c"
+        "button_kQ3piY"
       ],
       "name": "Image banner",
       "settings": {
