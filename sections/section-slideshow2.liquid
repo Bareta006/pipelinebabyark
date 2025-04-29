@@ -20,7 +20,17 @@
       data-slideshow-wrapper
       data-slideshow-autoplay="{{ section.settings.autoplay }}"
       data-slideshow-slides="{{ section.blocks.size }}"
-      data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}">
+      data-slideshow-speed="{{ section.settings.autoplay_speed | times: 1000 }}"
+      {% if section.blocks.first.type == 'video_slide' %}
+        {% assign first_video = section.blocks.first.settings.video_bg %}
+        {% if first_video %}
+          {% comment %} Pre-calculate and set initial height based on first video aspect ratio {% endcomment %}
+          {% assign video_aspect = first_video.aspect_ratio | default: 1.779 %}
+          {% assign initial_height = 100 | divided_by: video_aspect | times: 100 %}
+          style="min-height: calc(100vw / {{ video_aspect }}); --initial-height: calc(100vw / {{ video_aspect }});"
+          data-first-video-aspect="{{ video_aspect }}"
+        {% endif %}
+      {% endif %}>
       {% for block in section.blocks %}
         {% case block.type %}
           {% when 'video_slide' %}
@@ -30,6 +40,8 @@
               data-slideshow-index="{{ forloop.index0 }}"
               data-mobile-bg-color="{{ block.settings.mobile_background_color }}"
               data-mobile-bg-opacity="{{ block.settings.mobile_background_opacity }}"
+              {% if block.settings.video_bg %}data-video-aspect="{{ block.settings.video_bg.aspect_ratio | default: 1.779 }}"{% endif %}
+              {% if block.settings.mobile_video_bg %}data-mobile-video-aspect="{{ block.settings.mobile_video_bg.aspect_ratio | default: 1.779 }}"{% endif %}
               {{ block.shopify_attributes }} style="background-color: {{ block.settings.mobile_background_color }};">
               <div class="hero__content__wrapper {{ block.settings.text_align }} video-wrapper">
                 <div class="{{ hero_content_class }} js-overflow-content {% if block.settings.enable_overlay_text %} backdrop--hero{% endif %}" {% if block.settings.enable_overlay_text %} style="--bg: {{ block.settings.overlay_color }}; --opacity: {{ block.settings.overlay_opacity | times: 0.01 }};"{% endif %}>
@@ -80,19 +92,42 @@
                 <div data-slide-custom-next class="custom-prev-next-button next"></div>
               </div>
 
-              <div class="section--image  section--video fade-in-child js-overflow-container {{ section.settings.height }}"
-                {%- assign video_wh_ratio = block.settings.video_bg.aspect_ratio | default: 1 -%}
-                style="--wh-ratio: {{ video_wh_ratio }};">
+              <div class="section--image section--video fade-in-child js-overflow-container {{ section.settings.height }}"
+                {% if block.settings.video_bg %}
+                  {% assign video_wh_ratio = block.settings.video_bg.aspect_ratio | default: 1.779 %}
+                  style="--wh-ratio: {{ video_wh_ratio }}; {% if section.settings.height == 'use_image' %}padding-bottom: calc(100% / {{ video_wh_ratio }});{% endif %}"
+                {% elsif block.settings.mobile_video_bg %}
+                  {% assign video_wh_ratio = block.settings.mobile_video_bg.aspect_ratio | default: 1.779 %}
+                  style="--wh-ratio: {{ video_wh_ratio }}; {% if section.settings.height == 'use_image' %}padding-bottom: calc(100% / {{ video_wh_ratio }});{% endif %}"
+                {% else %}
+                  style="--wh-ratio: 1.779; {% if section.settings.height == 'use_image' %}padding-bottom: 56.25%;{% endif %}"
+                {% endif %}>
                 <div class="video-autoplay-wrapper">
                   {%- assign video_styles = block.settings.object_position | replace: '-', ' ' | prepend: 'object-position: ' -%}
                   {% if block.settings.mobile_video_bg != blank and request.design_mode != true %}
                     <div class="video-autoplay-wrapper--mobile">
-                      {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                      {% if block.settings.mobile_video_bg.preview_image %}
+                      <img 
+                        src="{{ block.settings.mobile_video_bg.preview_image | img_url: 'master' }}" 
+                        alt="{{ block.settings.mobile_video_bg.alt | default: 'Mobile Video' }}"
+                        style="{{ video_styles }}; width: 100%; height: 100%; object-fit: cover;"
+                        class="video-preview-image"
+                      >
+                      {% endif %}
+                      {{ block.settings.mobile_video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '', preload: "auto" }}
                     </div>
                   {% endif %}
                   {% if block.settings.video_bg != blank %}
                     <div class="video-autoplay-wrapper--{%if block.settings.mobile_video_bg != blank %}desktop{% endif %}" {% if section.settings.height == 'use_screen_full' %} style="height: 100%;" {% endif %}>
-                      {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '' }}
+                      {% if block.settings.video_bg.preview_image %}
+                      <img 
+                        src="{{ block.settings.video_bg.preview_image | img_url: 'master' }}" 
+                        alt="{{ block.settings.video_bg.alt | default: 'Video' }}"
+                        style="{{ video_styles }}; width: 100%; height: 100%; object-fit: cover;"
+                        class="video-preview-image"
+                      >
+                      {% endif %}
+                      {{ block.settings.video_bg | video_tag: autoplay: true, loop: true, muted: true, controls: false, playsinline: true, style: video_styles, data-video-autoplay: '', preload: "auto" }}
                     </div>
                   {% endif %}
                 </div>
@@ -220,6 +255,31 @@
     height: 100%;
   }
 
+  /* Initial height for flickity viewport based on video aspect ratio */
+  #shopify-section-{{ section.id }} .slideshow__wrapper[data-first-video-aspect] .flickity-viewport {
+    min-height: var(--initial-height, 500px);
+    height: var(--initial-height, 500px) !important;
+  }
+
+  /* Style for preview images that show before video loads */
+  #shopify-section-{{ section.id }} .video-preview-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.5s ease;
+  }
+  #shopify-section-{{ section.id }} .video-autoplay-wrapper video {
+    z-index: 2;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .video-autoplay-wrapper video.playing + .video-preview-image {
+    opacity: 0;
+  }
+
   @media only screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .slideshow__wrapper {
       height: auto !important;
@@ -306,7 +366,6 @@
     height: 100%;
     object-fit: cover;
   }
-
 
 </style>
 </div>
@@ -794,47 +853,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const isFirstSlideVideo = wrapper.querySelector('.slideshow__slide:first-child.section--video') !== null;
     const isSingleSlide = totalSlides === 1;
     
-    // Set initial minimum height to flickity wrapper to prevent height:0 issue
-    const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
-    if (firstSlide) {
-      // For video slides
-      if (isFirstSlideVideo) {
-        const firstVideo = firstSlide.querySelector('video');
-        if (firstVideo) {
-          // Set an initial height on both the wrapper and the flickity-viewport
-          const initialHeight = isUseImageHeight ? window.innerWidth / (16/9) : 500;
-          wrapper.style.minHeight = `${initialHeight}px`;
-          
-          // Also set min-height directly on the viewport as soon as Flickity initializes
-          setTimeout(() => {
-            const viewport = wrapper.querySelector('.flickity-viewport');
-            if (viewport) {
-              viewport.style.minHeight = `${initialHeight}px`;
-              viewport.style.height = `${initialHeight}px`;
-            }
-          }, 0);
-        }
-      } else {
-        // For image slides
-        const img = firstSlide.querySelector('img');
-        if (img) {
-          img.onload = function() {
-            const initialHeight = img.height || 500;
-            wrapper.style.minHeight = `${initialHeight}px`;
-            
-            // Set min-height on the viewport
-            const viewport = wrapper.querySelector('.flickity-viewport');
-            if (viewport) {
-              viewport.style.minHeight = `${initialHeight}px`;
-              viewport.style.height = `${initialHeight}px`;
-            }
-          };
-          
-          // If image is already loaded, force the onload handler to run
-          if (img.complete) {
-            img.onload();
-          }
-        }
+    // Get video aspect ratio from Liquid if available
+    const firstVideoAspect = wrapper.getAttribute('data-first-video-aspect');
+    
+    // Set flickity-viewport height from the calculated Liquid value
+    if (firstVideoAspect && isFirstSlideVideo) {
+      const viewport = wrapper.querySelector('.flickity-viewport');
+      if (viewport) {
+        // The CSS already sets this, but we reinforce it here
+        const calculatedHeight = window.innerWidth / parseFloat(firstVideoAspect);
+        viewport.style.height = `${calculatedHeight}px`;
+        viewport.style.minHeight = `${calculatedHeight}px`;
       }
     }
     
@@ -843,15 +872,24 @@ document.addEventListener('DOMContentLoaded', function() {
       videoSlidesInWrapper.forEach(videoSlide => {
         // For each video slide, get all video elements (mobile and desktop)
         const videos = videoSlide.querySelectorAll('video');
+        const previewImages = videoSlide.querySelectorAll('.video-preview-image');
         
         if (videos.length === 0) return;
         
-        videos.forEach(video => {
+        videos.forEach((video, index) => {
           // Ensure visibility
           video.style.opacity = '1';
           video.style.visibility = 'visible';
           
           // Make sure video autoplay works
+          video.addEventListener('playing', function() {
+            video.classList.add('playing');
+            // Hide corresponding preview image when video starts playing
+            if (previewImages[index]) {
+              previewImages[index].style.opacity = '0';
+            }
+          });
+          
           if (video.paused) {
             video.play().catch(e => {
               console.log('Video autoplay prevented:', e);
@@ -860,11 +898,11 @@ document.addEventListener('DOMContentLoaded', function() {
           
           // Handle video metadata loading to get dimensions
           if (video.readyState >= 2) {
-            setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight);
+            setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight, firstVideoAspect);
           } else {
             // Wait for video metadata to load before setting dimensions
             video.addEventListener('loadedmetadata', function() {
-              setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight);
+              setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight, firstVideoAspect);
             });
           }
         });
@@ -872,7 +910,7 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Wait for the videos to process before applying Flickity
       setTimeout(() => {
-        ensureFlickityInitialized(wrapper, isFirstSlideVideo);
+        ensureFlickityInitialized(wrapper, isFirstSlideVideo, firstVideoAspect);
       }, 100);
     }
   });
@@ -880,9 +918,15 @@ document.addEventListener('DOMContentLoaded', function() {
   /**
    * Set video dimensions based on video aspect ratio
    */
-  function setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight) {
-    // Calculate video's aspect ratio
-    const videoRatio = video.videoWidth / video.videoHeight;
+  function setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight, liquidAspectRatio) {
+    // Use liquid aspect ratio if available, otherwise calculate from video
+    let videoRatio;
+    if (liquidAspectRatio && parseFloat(liquidAspectRatio) > 0) {
+      videoRatio = parseFloat(liquidAspectRatio);
+    } else {
+      videoRatio = video.videoWidth / video.videoHeight || 16/9; // Fallback to 16:9
+    }
+    
     const isMobile = window.innerWidth < 750;
     
     // The container elements that need their height set
@@ -955,28 +999,37 @@ document.addEventListener('DOMContentLoaded', function() {
   /**
    * Ensure Flickity is properly initialized and configured
    */
-  function ensureFlickityInitialized(wrapper, isFirstSlideVideo) {
+  function ensureFlickityInitialized(wrapper, isFirstSlideVideo, liquidAspectRatio) {
     // Try to get existing Flickity instance
     let flickityInstance = Flickity.data(wrapper);
     
     if (flickityInstance) {
       // Configure existing Flickity
-      configureFlickity(flickityInstance, wrapper, isFirstSlideVideo);
+      configureFlickity(flickityInstance, wrapper, isFirstSlideVideo, liquidAspectRatio);
     } else {
       // Wait for Flickity to be initialized by the theme
       setTimeout(() => {
         flickityInstance = Flickity.data(wrapper);
         if (flickityInstance) {
-          configureFlickity(flickityInstance, wrapper, isFirstSlideVideo);
+          configureFlickity(flickityInstance, wrapper, isFirstSlideVideo, liquidAspectRatio);
         } else {
           // Force initialize if needed
           const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
           if (firstSlide) {
             const firstVideo = firstSlide.querySelector('video');
-            if (firstVideo && firstVideo.readyState >= 2) {
+            if (firstVideo && firstVideo.readyState >= 2 || liquidAspectRatio) {
+              let videoRatio;
+              if (liquidAspectRatio && parseFloat(liquidAspectRatio) > 0) {
+                videoRatio = parseFloat(liquidAspectRatio);
+              } else if (firstVideo) {
+                videoRatio = firstVideo.videoWidth / firstVideo.videoHeight || 16/9;
+              } else {
+                videoRatio = 16/9; // Fallback
+              }
+              
               const slideHeight = window.innerWidth < 750 ? 
                 window.innerWidth / (16/9) : 
-                wrapper.clientWidth / (firstVideo.videoWidth / firstVideo.videoHeight);
+                wrapper.clientWidth / videoRatio;
               
               // Set explicit height on viewport
               const viewport = wrapper.querySelector('.flickity-viewport');
@@ -994,7 +1047,7 @@ document.addEventListener('DOMContentLoaded', function() {
   /**
    * Configure Flickity for optimal video handling
    */
-  function configureFlickity(flickityInstance, wrapper, isFirstSlideVideo) {
+  function configureFlickity(flickityInstance, wrapper, isFirstSlideVideo, liquidAspectRatio) {
     // Increase drag threshold to prevent accidental swipes
     flickityInstance.options.dragThreshold = 30;
     
@@ -1010,18 +1063,27 @@ document.addEventListener('DOMContentLoaded', function() {
       // Set explicit height on viewport for the first slide
       const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
       if (firstSlide) {
-        const firstVideo = firstSlide.querySelector('video');
-        if (firstVideo && firstVideo.readyState >= 2) {
-          const slideHeight = window.innerWidth < 750 ? 
-            window.innerWidth / (16/9) : 
-            wrapper.clientWidth / (firstVideo.videoWidth / firstVideo.videoHeight);
-          
-          // Set explicit height on viewport
-          const viewport = wrapper.querySelector('.flickity-viewport');
-          if (viewport) {
-            viewport.style.height = `${slideHeight}px`;
-            viewport.style.minHeight = `${slideHeight}px`;
+        let videoRatio;
+        if (liquidAspectRatio && parseFloat(liquidAspectRatio) > 0) {
+          videoRatio = parseFloat(liquidAspectRatio);
+        } else {
+          const firstVideo = firstSlide.querySelector('video');
+          if (firstVideo && firstVideo.readyState >= 2) {
+            videoRatio = firstVideo.videoWidth / firstVideo.videoHeight || 16/9;
+          } else {
+            videoRatio = 16/9; // Fallback
           }
+        }
+        
+        const slideHeight = window.innerWidth < 750 ? 
+          window.innerWidth / (16/9) : 
+          wrapper.clientWidth / videoRatio;
+        
+        // Set explicit height on viewport
+        const viewport = wrapper.querySelector('.flickity-viewport');
+        if (viewport) {
+          viewport.style.height = `${slideHeight}px`;
+          viewport.style.minHeight = `${slideHeight}px`;
         }
       }
     }
@@ -1047,7 +1109,12 @@ document.addEventListener('DOMContentLoaded', function() {
       if (viewport && parseInt(viewport.style.height) < 50) {
         const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
         if (firstSlide) {
-          const defaultHeight = 500;
+          let defaultHeight;
+          if (liquidAspectRatio) {
+            defaultHeight = wrapper.clientWidth / parseFloat(liquidAspectRatio);
+          } else {
+            defaultHeight = 500;
+          }
           viewport.style.height = `${defaultHeight}px`;
           viewport.style.minHeight = `${defaultHeight}px`;
           flickityInstance.resize();
@@ -1064,13 +1131,14 @@ document.addEventListener('DOMContentLoaded', function() {
       const section = wrapper.closest('.section-slideshow');
       const isUseImageHeight = section.querySelector('.use_image') !== null;
       const videoSlides = wrapper.querySelectorAll('.slideshow__slide.section--video');
+      const liquidAspectRatio = wrapper.getAttribute('data-first-video-aspect');
       
       if (videoSlides.length > 0) {
         videoSlides.forEach(videoSlide => {
           const videos = videoSlide.querySelectorAll('video');
           if (videos.length > 0) {
             // Use the first video for dimensions
-            setVideoDimensions(videos[0], videoSlide, wrapper, isUseImageHeight);
+            setVideoDimensions(videos[0], videoSlide, wrapper, isUseImageHeight, liquidAspectRatio);
           }
         });
         
