@@ -52,6 +52,7 @@
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
+        "show_dots": false,
         "preload_first_image": false,
         "height": "use_screen_two_thirds",
         "color_bg": "palette--light bg--neutral",
