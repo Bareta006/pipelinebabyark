@@ -479,6 +479,29 @@
         "special_arrange": false
       }
     },
+    "section_collection_slider_pHNrah": {
+      "type": "section-collection-slider",
+      "custom_css": [
+        "p.kicker-flourished {font-family: var(--FONT-STACK-HEADING); font-weight: 300; text-transform: none; color: #000; font-style: normal; font-size: 35px; letter-spacing: normal;}",
+        ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight: 700; color: #111;}",
+        ".price {font-size: 20px; font-weight: 500; color: #000;}"
+      ],
+      "name": "Product slider",
+      "settings": {
+        "collection": "accessories",
+        "product_limit": 12,
+        "title": "Accessories",
+        "align_text": "title-center",
+        "progress_bar": "hidden",
+        "grid_large": 4,
+        "grid_medium": 3,
+        "grid_mobile": 1.2,
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "testimonials_carousel_dWLrCC": {
       "type": "testimonials-carousel",
       "blocks": {
@@ -621,6 +644,7 @@
     "two_cards_section_kBxtPL",
     "cards_carousel_GeitRn",
     "section_hero_cGUrkh",
+    "section_collection_slider_pHNrah",
     "testimonials_carousel_dWLrCC",
     "article_cards_CqkrbJ"
   ]
