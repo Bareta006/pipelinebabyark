@@ -421,7 +421,14 @@
         "heading_tTLxEz": {
           "type": "heading",
           "settings": {
-            "title": "Smart or ClassicThe choice is yours",
+            "title": "Smart or Classic",
+            "text_size": 9
+          }
+        },
+        "heading_EeT47m": {
+          "type": "heading",
+          "settings": {
+            "title": "The choice is yours",
             "text_size": 9
           }
         },
@@ -461,6 +468,7 @@
       "block_order": [
         "kicker_irwVtn",
         "heading_tTLxEz",
+        "heading_EeT47m",
         "button_kQ3piY",
         "floating_text1_ngChrp",
         "floating_text2_z4Y77c"
