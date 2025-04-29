@@ -103,7 +103,8 @@
         "logo_image_nUhbRR": {
           "type": "logo_image",
           "settings": {
-            "link": "",
+            "image": "shopify://shop_images/Group_29613066.png",
+            "link": "https://www.babylist.com/hello-baby/best-new-baby-products?tblci=GiBpb2Q3HKHOImDbtyaoBsLBOCJz4XgOalhgL3vLZpsPLSCMrWMo9O-19J7g5MM3#:~:text=from%20durable%20steel%20to",
             "new_tab": true,
             "width": 140,
             "spacing": 50
