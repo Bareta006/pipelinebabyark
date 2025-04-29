@@ -57,6 +57,77 @@
         "padding_bottom": 0
       }
     },
+    "section_logos_447f9H": {
+      "type": "section-logos",
+      "blocks": {
+        "logo_image_ix6mNW": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613069.png",
+            "link": "https://www.thebump.com/a/best-convertible-car-seats#product-3",
+            "new_tab": true,
+            "width": 90,
+            "spacing": 50
+          }
+        },
+        "logo_image_FaqqaH": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613065.png",
+            "link": "https://www.mother.ly/parenting/safety/car-seat-safety/car-seat-safety-guide/#:~:text=Convertible%20Car%20Seat%20Premium",
+            "new_tab": true,
+            "width": 170,
+            "spacing": 50
+          }
+        },
+        "logo_image_pV6K69": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613067.png",
+            "link": "https://www.parents.com/best-convertible-car-seats-7546527#:~:text=on%20Babyark.com-,Why%20We%20Like%20It,-This%20convertible%20car",
+            "new_tab": true,
+            "width": 95,
+            "spacing": 50
+          }
+        },
+        "logo_image_6wnQ3C": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_4.png",
+            "link": "https://www.fastcompany.com/90830388/this-new-baby-car-seat-combines-military-grade-tech-and-ferrari-aesthetics",
+            "new_tab": true,
+            "width": 130,
+            "spacing": 50
+          }
+        },
+        "logo_image_nUhbRR": {
+          "type": "logo_image",
+          "settings": {
+            "link": "",
+            "new_tab": true,
+            "width": 140,
+            "spacing": 50
+          }
+        }
+      },
+      "block_order": [
+        "logo_image_ix6mNW",
+        "logo_image_FaqqaH",
+        "logo_image_pV6K69",
+        "logo_image_6wnQ3C",
+        "logo_image_nUhbRR"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "title": "Logo list",
+        "bg": "palette--light bg--neutral",
+        "enable_marquee": true,
+        "marquee_speed": 30,
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -417,6 +488,7 @@
   },
   "order": [
     "section_slideshow_eQpBwF",
+    "section_logos_447f9H",
     "main",
     "two_cards_section_kBxtPL",
     "cards_carousel_GeitRn",
