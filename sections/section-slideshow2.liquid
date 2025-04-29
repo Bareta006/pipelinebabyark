@@ -31,8 +31,8 @@
           {% assign initial_height = 100 | divided_by: video_aspect | times: 100 %}
           style="min-height: calc(100vw / {{ video_aspect }}); --initial-height: calc(100vw / {{ video_aspect }}); --mobile-initial-height: calc(100vw / {{ mobile_aspect }});"
           data-first-video-aspect="{{ video_aspect }}"
-          data-first-mobile-video-aspect="{{ mobile_aspect }}"
-        {% endif %}>
+          data-first-mobile-video-aspect="{{ mobile_aspect }}">
+        {% endif %}
       {% else %}
         {% assign scroll_class = '' -%}
       {% endif %}
