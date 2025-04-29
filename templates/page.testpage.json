@@ -9,16 +9,15 @@
  */
 {
   "sections": {
-    "section_slideshow_eQpBwF": {
-      "type": "section-slideshow",
+    "section_slideshow2_xdz9EJ": {
+      "type": "section-slideshow2",
       "blocks": {
-        "video_slide_yFpBNY": {
+        "video_slide_RxUfET": {
           "type": "video_slide",
           "settings": {
             "video_bg": "shopify://files/videos/Desktop.mp4",
             "mobile_video_bg": "shopify://files/videos/Mobilemp4.mp4",
             "object_position": "center-center",
-            "fallback_image": "shopify://shop_images/045A9091_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000",
             "enable_overlay_text": false,
@@ -27,7 +26,7 @@
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
-            "link_text": "see it in action",
+            "link_text": "View products",
             "link": "shopify://pages/features",
             "button_color": "btn--white",
             "button_style": "btn",
@@ -36,7 +35,7 @@
         }
       },
       "block_order": [
-        "video_slide_yFpBNY"
+        "video_slide_RxUfET"
       ],
       "custom_css": [
         ".custom-prev-next-button {display: none;}",
@@ -45,12 +44,12 @@
         "@media (min-width: 600px) {.hero__cta__wrapper a {padding: 14px 35px; min-width: auto; }}",
         "@media (max-width: 480px) {.hero__title {font-size: 32px; line-height: 120%; letter-spacing: -0.36px; } .hero__content__wrapper {align-items: end; text-align: center; } .hero__cta__wrapper {align-items: center; padding-bottom: 40px; }}"
       ],
-      "name": "Slideshow",
+      "name": "Slideshow2",
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
-        "preload_first_image": true,
-        "height": "use_image",
+        "preload_first_image": false,
+        "height": "use_screen_two_thirds",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
@@ -672,7 +671,7 @@
     }
   },
   "order": [
-    "section_slideshow_eQpBwF",
+    "section_slideshow2_xdz9EJ",
     "section_logos_447f9H",
     "main",
     "two_cards_section_kBxtPL",
