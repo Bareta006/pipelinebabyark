@@ -175,7 +175,7 @@
       ],
       "name": "Logo list",
       "settings": {
-        "title": "Logo list",
+        "title": "",
         "bg": "palette--light bg--neutral",
         "enable_marquee": true,
         "marquee_speed": 30,
