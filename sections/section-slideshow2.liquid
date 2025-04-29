@@ -794,6 +794,50 @@ document.addEventListener('DOMContentLoaded', function() {
     const isFirstSlideVideo = wrapper.querySelector('.slideshow__slide:first-child.section--video') !== null;
     const isSingleSlide = totalSlides === 1;
     
+    // Set initial minimum height to flickity wrapper to prevent height:0 issue
+    const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
+    if (firstSlide) {
+      // For video slides
+      if (isFirstSlideVideo) {
+        const firstVideo = firstSlide.querySelector('video');
+        if (firstVideo) {
+          // Set an initial height on both the wrapper and the flickity-viewport
+          const initialHeight = isUseImageHeight ? window.innerWidth / (16/9) : 500;
+          wrapper.style.minHeight = `${initialHeight}px`;
+          
+          // Also set min-height directly on the viewport as soon as Flickity initializes
+          setTimeout(() => {
+            const viewport = wrapper.querySelector('.flickity-viewport');
+            if (viewport) {
+              viewport.style.minHeight = `${initialHeight}px`;
+              viewport.style.height = `${initialHeight}px`;
+            }
+          }, 0);
+        }
+      } else {
+        // For image slides
+        const img = firstSlide.querySelector('img');
+        if (img) {
+          img.onload = function() {
+            const initialHeight = img.height || 500;
+            wrapper.style.minHeight = `${initialHeight}px`;
+            
+            // Set min-height on the viewport
+            const viewport = wrapper.querySelector('.flickity-viewport');
+            if (viewport) {
+              viewport.style.minHeight = `${initialHeight}px`;
+              viewport.style.height = `${initialHeight}px`;
+            }
+          };
+          
+          // If image is already loaded, force the onload handler to run
+          if (img.complete) {
+            img.onload();
+          }
+        }
+      }
+    }
+    
     // Special handling for videos, especially for use_image height setting
     if (videoSlidesInWrapper.length > 0) {
       videoSlidesInWrapper.forEach(videoSlide => {
@@ -894,6 +938,13 @@ document.addEventListener('DOMContentLoaded', function() {
       wrapper.style.visibility = 'visible';
     });
     
+    // Directly set height on the Flickity viewport
+    const viewport = wrapper.querySelector('.flickity-viewport');
+    if (viewport) {
+      viewport.style.height = `${slideHeight}px`;
+      viewport.style.minHeight = `${slideHeight}px`;
+    }
+    
     // Resize Flickity if it exists
     const flickityInstance = Flickity.data(wrapper);
     if (flickityInstance) {
@@ -917,6 +968,24 @@ document.addEventListener('DOMContentLoaded', function() {
         flickityInstance = Flickity.data(wrapper);
         if (flickityInstance) {
           configureFlickity(flickityInstance, wrapper, isFirstSlideVideo);
+        } else {
+          // Force initialize if needed
+          const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
+          if (firstSlide) {
+            const firstVideo = firstSlide.querySelector('video');
+            if (firstVideo && firstVideo.readyState >= 2) {
+              const slideHeight = window.innerWidth < 750 ? 
+                window.innerWidth / (16/9) : 
+                wrapper.clientWidth / (firstVideo.videoWidth / firstVideo.videoHeight);
+              
+              // Set explicit height on viewport
+              const viewport = wrapper.querySelector('.flickity-viewport');
+              if (viewport) {
+                viewport.style.height = `${slideHeight}px`;
+                viewport.style.minHeight = `${slideHeight}px`;
+              }
+            }
+          }
         }
       }, 500);
     }
@@ -937,6 +1006,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Make sure first slide is properly visible if it's a video
     if (isFirstSlideVideo) {
       flickityInstance.select(0, false, true);
+      
+      // Set explicit height on viewport for the first slide
+      const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
+      if (firstSlide) {
+        const firstVideo = firstSlide.querySelector('video');
+        if (firstVideo && firstVideo.readyState >= 2) {
+          const slideHeight = window.innerWidth < 750 ? 
+            window.innerWidth / (16/9) : 
+            wrapper.clientWidth / (firstVideo.videoWidth / firstVideo.videoHeight);
+          
+          // Set explicit height on viewport
+          const viewport = wrapper.querySelector('.flickity-viewport');
+          if (viewport) {
+            viewport.style.height = `${slideHeight}px`;
+            viewport.style.minHeight = `${slideHeight}px`;
+          }
+        }
+      }
     }
     
     // Force resize to ensure correct layout
@@ -952,6 +1039,18 @@ document.addEventListener('DOMContentLoaded', function() {
         flickityInstance.options.draggable = false;
         if (flickityInstance.slider) {
           flickityInstance.updateDraggable();
+        }
+      }
+      
+      // Final check for viewport height
+      const viewport = wrapper.querySelector('.flickity-viewport');
+      if (viewport && parseInt(viewport.style.height) < 50) {
+        const firstSlide = wrapper.querySelector('.slideshow__slide:first-child');
+        if (firstSlide) {
+          const defaultHeight = 500;
+          viewport.style.height = `${defaultHeight}px`;
+          viewport.style.minHeight = `${defaultHeight}px`;
+          flickityInstance.resize();
         }
       }
     }, 1000);
