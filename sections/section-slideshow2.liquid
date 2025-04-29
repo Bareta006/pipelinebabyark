@@ -16,7 +16,7 @@
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   {% if section.blocks.size > 0 %}
     <div class="{{ section.settings.width }} section-padding">
-      <div class="slideshow__wrapper js-overflow-container flickity-badge-dots {{ scroll_class }}"
+      <div class="slideshow__wrapper js-overflow-container {% if section.settings.show_dots %}flickity-badge-dots{% endif %} {{ scroll_class }}"
       data-slideshow-wrapper
       data-slideshow-autoplay="{{ section.settings.autoplay }}"
       data-slideshow-slides="{{ section.blocks.size }}"
@@ -32,7 +32,9 @@
           style="min-height: calc(100vw / {{ video_aspect }}); --initial-height: calc(100vw / {{ video_aspect }}); --mobile-initial-height: calc(100vw / {{ mobile_aspect }});"
           data-first-video-aspect="{{ video_aspect }}"
           data-first-mobile-video-aspect="{{ mobile_aspect }}"
-        {% endif %}
+        {% endif %}>
+      {% else %}
+        {% assign scroll_class = '' -%}
       {% endif %}>
       {% for block in section.blocks %}
         {% case block.type %}
@@ -403,6 +405,11 @@
     height: 100%;
     object-fit: cover;
   }
+
+  /* Hide dots when setting is disabled */
+  #shopify-section-{{ section.id }} .slideshow__wrapper:not(.flickity-badge-dots) .flickity-page-dots {
+    display: none;
+  }
 </style>
 </div>
 
@@ -425,6 +432,13 @@
       "unit":    "sec",
       "label":   "Change slides every",
       "default": 8
+    },
+    {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show navigation dots",
+      "default": true,
+      "info": "Displays the navigation dots at the bottom of the slideshow"
     },
     {
       "type": "checkbox",
