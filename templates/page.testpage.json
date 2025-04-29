@@ -106,7 +106,27 @@
             "image": "shopify://shop_images/Group_29613066.png",
             "link": "https://www.babylist.com/hello-baby/best-new-baby-products?tblci=GiBpb2Q3HKHOImDbtyaoBsLBOCJz4XgOalhgL3vLZpsPLSCMrWMo9O-19J7g5MM3#:~:text=from%20durable%20steel%20to",
             "new_tab": true,
-            "width": 140,
+            "width": 110,
+            "spacing": 50
+          }
+        },
+        "logo_image_ewwqCt": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613070.png",
+            "link": "https://www.wallpaper.com/transport/babyark",
+            "new_tab": true,
+            "width": 120,
+            "spacing": 50
+          }
+        },
+        "logo_image_9NFEzx": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_29613071.png",
+            "link": "https://www.engadget.com/the-babyark-uses-sensor-laden-anticrash-materials-to-keep-your-kids-safe-in-auto-wrecks-041807015.html",
+            "new_tab": true,
+            "width": 100,
             "spacing": 50
           }
         }
@@ -116,7 +136,9 @@
         "logo_image_FaqqaH",
         "logo_image_pV6K69",
         "logo_image_6wnQ3C",
-        "logo_image_nUhbRR"
+        "logo_image_nUhbRR",
+        "logo_image_ewwqCt",
+        "logo_image_9NFEzx"
       ],
       "name": "Logo list",
       "settings": {
