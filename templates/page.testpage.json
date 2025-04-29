@@ -40,7 +40,8 @@
         "image_4wpA6D"
       ],
       "custom_css": [
-        ".custom-prev-next-button{display:none;}"
+        ".custom-prev-next-button {display: none;}",
+        ".hero__content{width:696px; max-width:100%;}"
       ],
       "name": "Slideshow",
       "settings": {
