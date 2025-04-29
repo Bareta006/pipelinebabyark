@@ -20,31 +20,10 @@
             "overlay_opacity": 15,
             "overlay_color": "#000",
             "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "View products",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn",
-            "link_text_2": "",
-            "link_2": "",
-            "button_color_2": "btn--white",
-            "button_style_2": "btn"
-          }
-        },
-        "image_aBFrTH": {
-          "type": "image",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Introducing",
-            "title": "Image slideshow",
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--middle-center",
+            "kicker": "Safe. Smart. Beautiful.",
+            "title": "The World’s Most Advanced Car Seat",
+            "richtext": "",
+            "text_align": "align--middle-left",
             "text_color": "text--white",
             "link_text": "View products",
             "link": "",
@@ -58,14 +37,13 @@
         }
       },
       "block_order": [
-        "image_4wpA6D",
-        "image_aBFrTH"
+        "image_4wpA6D"
       ],
       "name": "Slideshow",
       "settings": {
         "autoplay": false,
         "autoplay_speed": 8,
-        "preload_first_image": false,
+        "preload_first_image": true,
         "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
