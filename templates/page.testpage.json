@@ -32,35 +32,10 @@
             "button_style": "btn",
             "mobile_background_color": "#ffffff"
           }
-        },
-        "image_4wpA6D": {
-          "type": "image",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/045A9091_1.png",
-            "mobile_image": "shopify://shop_images/Rectangle_1486127358.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "Safe. Smart. Beautiful.",
-            "title": "The World’s Most Advanced Car Seat",
-            "richtext": "",
-            "text_align": "align--middle-left",
-            "text_color": "text--white",
-            "link_text": "see it in action",
-            "link": "shopify://pages/features",
-            "button_color": "btn--white",
-            "button_style": "btn",
-            "link_text_2": "buy",
-            "link_2": "shopify://products/babyark-convertible-car-seat-smart",
-            "button_color_2": "btn--white",
-            "button_style_2": "btn--outline"
-          }
         }
       },
       "block_order": [
-        "video_slide_yFpBNY",
-        "image_4wpA6D"
+        "video_slide_yFpBNY"
       ],
       "custom_css": [
         ".custom-prev-next-button {display: none;}",
@@ -74,7 +49,7 @@
         "autoplay": false,
         "autoplay_speed": 8,
         "preload_first_image": true,
-        "height": "use_image",
+        "height": "use_screen_full",
         "color_bg": "palette--light bg--neutral",
         "width": "wrapper--none",
         "padding_top": 0,
