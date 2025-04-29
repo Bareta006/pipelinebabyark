@@ -784,139 +784,218 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Fix for slideshow with video slide(s)
+  // Fix for slideshow with video slides
   const slideshowWrappers = document.querySelectorAll('[data-slideshow-wrapper]');
   slideshowWrappers.forEach(wrapper => {
     const section = wrapper.closest('.section-slideshow');
+    const isUseImageHeight = section.querySelector('.use_image') !== null;
     const videoSlidesInWrapper = wrapper.querySelectorAll('.slideshow__slide.section--video');
     const totalSlides = wrapper.querySelectorAll('.slideshow__slide').length;
     const isFirstSlideVideo = wrapper.querySelector('.slideshow__slide:first-child.section--video') !== null;
     const isSingleSlide = totalSlides === 1;
-    const isUseImageHeight = section.querySelector('.use_image') !== null;
     
-    // Function to set proper video dimensions
-    const setVideoDimensions = () => {
+    // Special handling for videos, especially for use_image height setting
+    if (videoSlidesInWrapper.length > 0) {
       videoSlidesInWrapper.forEach(videoSlide => {
-        const videoElement = videoSlide.querySelector('video');
-        if (!videoElement) return;
+        // For each video slide, get all video elements (mobile and desktop)
+        const videos = videoSlide.querySelectorAll('video');
         
-        // Handle 'use_image' height setting specifically
-        if (isUseImageHeight) {
-          // First, make sure the video is loaded
-          if (videoElement.readyState >= 2) {
-            setVideoDimensionsFromElement(videoElement, videoSlide, wrapper);
-          } else {
-            // Set event listener to set dimensions once video metadata is loaded
-            videoElement.addEventListener('loadedmetadata', () => {
-              setVideoDimensionsFromElement(videoElement, videoSlide, wrapper);
+        if (videos.length === 0) return;
+        
+        videos.forEach(video => {
+          // Ensure visibility
+          video.style.opacity = '1';
+          video.style.visibility = 'visible';
+          
+          // Make sure video autoplay works
+          if (video.paused) {
+            video.play().catch(e => {
+              console.log('Video autoplay prevented:', e);
             });
           }
-        } else {
-          // For other height settings, ensure video fills the container
-          videoElement.style.width = '100%';
-          videoElement.style.height = '100%';
-          videoElement.style.objectFit = 'cover';
-        }
-        
-        // Ensure visibility
-        videoSlide.style.opacity = '1';
-        videoSlide.style.visibility = 'visible';
-        videoElement.style.opacity = '1';
-        videoElement.style.visibility = 'visible';
-        
-        // Make sure video autoplay works
-        videoElement.play().catch(e => {
-          console.log('Video autoplay prevented:', e);
+          
+          // Handle video metadata loading to get dimensions
+          if (video.readyState >= 2) {
+            setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight);
+          } else {
+            // Wait for video metadata to load before setting dimensions
+            video.addEventListener('loadedmetadata', function() {
+              setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight);
+            });
+          }
         });
       });
-    };
+      
+      // Wait for the videos to process before applying Flickity
+      setTimeout(() => {
+        ensureFlickityInitialized(wrapper, isFirstSlideVideo);
+      }, 100);
+    }
+  });
+
+  /**
+   * Set video dimensions based on video aspect ratio
+   */
+  function setVideoDimensions(video, videoSlide, wrapper, isUseImageHeight) {
+    // Calculate video's aspect ratio
+    const videoRatio = video.videoWidth / video.videoHeight;
+    const isMobile = window.innerWidth < 750;
     
-    // Calculate dimensions from the actual video
-    const setVideoDimensionsFromElement = (videoElement, videoSlide, wrapper) => {
-      // Get video's natural dimensions
-      const videoRatio = videoElement.videoWidth / videoElement.videoHeight;
-      
-      // Set a fixed height for the slideshow based on screen width and video ratio
-      let slideHeight;
-      
-      if (window.innerWidth < 750) {
-        // On mobile, use 16:9 aspect ratio for height calculation if possible
-        slideHeight = window.innerWidth / (16/9);
+    // The container elements that need their height set
+    const videoContainers = videoSlide.querySelectorAll('.section--video');
+    const videoWrapper = videoSlide.querySelector('.video-wrapper');
+    
+    let slideHeight;
+    
+    // For "use_image" height, we use the video's natural aspect ratio
+    if (isUseImageHeight) {
+      if (isMobile) {
+        // On mobile, we need to handle the column layout differently
+        slideHeight = window.innerWidth / (16/9); // Use 16:9 for mobile consistency
         
-        // The mobile video slide has flex-direction column
-        const videoContainer = videoSlide.querySelector('.section--video');
-        if (videoContainer) {
-          videoContainer.style.height = `${slideHeight}px`;
-        }
+        // Set height on video container
+        videoContainers.forEach(container => {
+          container.style.height = `${slideHeight}px`;
+          container.style.paddingBottom = '0'; // Override any percentage padding
+        });
         
-        // Add min-height to the slide itself to avoid content being cut off
-        videoSlide.style.minHeight = `${slideHeight + 100}px`; // Add space for content below
+        // Make sure the slide itself has enough height
+        videoSlide.style.minHeight = `${slideHeight + 100}px`; // Extra space for content
       } else {
-        // On desktop, use the video's natural ratio
+        // On desktop, use the video's actual ratio for proper display
         slideHeight = wrapper.clientWidth / videoRatio;
         
-        // Set height on the wrapper, slide, and video containers
+        // Apply height to the main elements
         wrapper.style.height = `${slideHeight}px`;
         videoSlide.style.height = `${slideHeight}px`;
+        if (videoWrapper) videoWrapper.style.height = `${slideHeight}px`;
         
-        const videoContainer = videoSlide.querySelector('.section--video');
-        if (videoContainer) {
-          videoContainer.style.height = `${slideHeight}px`;
+        // Set height on video containers
+        videoContainers.forEach(container => {
+          container.style.height = `${slideHeight}px`;
+          container.style.paddingBottom = '0'; // Override any percentage padding
+        });
+      }
+    } else {
+      // For fixed height settings (not use_image), ensure videos fill the container
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.objectFit = 'cover';
+    }
+    
+    // Force the slide to be visible
+    videoSlide.style.opacity = '1';
+    videoSlide.style.visibility = 'visible';
+    
+    // Ensure videos are visible
+    const videoWrappers = videoSlide.querySelectorAll('.video-autoplay-wrapper, .video-autoplay-wrapper--desktop, .video-autoplay-wrapper--mobile');
+    videoWrappers.forEach(wrapper => {
+      wrapper.style.opacity = '1';
+      wrapper.style.visibility = 'visible';
+    });
+    
+    // Resize Flickity if it exists
+    const flickityInstance = Flickity.data(wrapper);
+    if (flickityInstance) {
+      flickityInstance.resize();
+    }
+  }
+  
+  /**
+   * Ensure Flickity is properly initialized and configured
+   */
+  function ensureFlickityInitialized(wrapper, isFirstSlideVideo) {
+    // Try to get existing Flickity instance
+    let flickityInstance = Flickity.data(wrapper);
+    
+    if (flickityInstance) {
+      // Configure existing Flickity
+      configureFlickity(flickityInstance, wrapper, isFirstSlideVideo);
+    } else {
+      // Wait for Flickity to be initialized by the theme
+      setTimeout(() => {
+        flickityInstance = Flickity.data(wrapper);
+        if (flickityInstance) {
+          configureFlickity(flickityInstance, wrapper, isFirstSlideVideo);
         }
-      }
-      
-      // Force Flickity to update its layout if it exists
-      const flickityInstance = Flickity.data(wrapper);
-      if (flickityInstance) {
-        flickityInstance.resize();
-      }
-    };
+      }, 500);
+    }
+  }
+  
+  /**
+   * Configure Flickity for optimal video handling
+   */
+  function configureFlickity(flickityInstance, wrapper, isFirstSlideVideo) {
+    // Increase drag threshold to prevent accidental swipes
+    flickityInstance.options.dragThreshold = 30;
     
-    // Set dimensions immediately for any loaded videos
-    setVideoDimensions();
+    // Update touch action for better mobile scrolling behavior
+    if (flickityInstance.slider) {
+      flickityInstance.slider.style.touchAction = 'pan-y pinch-zoom';
+    }
     
-    // Wait for Flickity to initialize
+    // Make sure first slide is properly visible if it's a video
+    if (isFirstSlideVideo) {
+      flickityInstance.select(0, false, true);
+    }
+    
+    // Force resize to ensure correct layout
+    flickityInstance.resize();
+    
+    // Additional resize after videos have had time to load completely
     setTimeout(() => {
-      const flickityInstance = Flickity.data(wrapper);
-      if (flickityInstance) {
-        // Increase drag threshold to prevent accidental swipes
-        flickityInstance.options.dragThreshold = 30;
-        
-        // Update the slider element to use proper touch action
+      flickityInstance.resize();
+      
+      // For single-slide videos, disable Flickity dragging
+      const isSingleSlide = wrapper.querySelectorAll('.slideshow__slide').length === 1;
+      if (isSingleSlide) {
+        flickityInstance.options.draggable = false;
         if (flickityInstance.slider) {
-          flickityInstance.slider.style.touchAction = 'pan-y pinch-zoom';
-        }
-        
-        // Special handling for videos
-        if (videoSlidesInWrapper.length > 0) {
-          // Make sure first slide is properly visible
-          flickityInstance.select(0, false, true);
-          
-          // Apply dimensions again after Flickity is initialized
-          setVideoDimensions();
-          
-          // Additional resize after a delay to ensure videos have loaded
-          setTimeout(() => {
-            setVideoDimensions();
-            flickityInstance.resize();
-          }, 1000);
+          flickityInstance.updateDraggable();
         }
       }
-    }, 500);
+    }, 1000);
+  }
+  
+  // Handle window resize to maintain correct video dimensions
+  window.addEventListener('resize', debounce(function() {
+    const slideshowWrappers = document.querySelectorAll('[data-slideshow-wrapper]');
     
-    // Handle window resize
-    window.addEventListener('resize', () => {
-      if (videoSlidesInWrapper.length > 0) {
-        setVideoDimensions();
+    slideshowWrappers.forEach(wrapper => {
+      const section = wrapper.closest('.section-slideshow');
+      const isUseImageHeight = section.querySelector('.use_image') !== null;
+      const videoSlides = wrapper.querySelectorAll('.slideshow__slide.section--video');
+      
+      if (videoSlides.length > 0) {
+        videoSlides.forEach(videoSlide => {
+          const videos = videoSlide.querySelectorAll('video');
+          if (videos.length > 0) {
+            // Use the first video for dimensions
+            setVideoDimensions(videos[0], videoSlide, wrapper, isUseImageHeight);
+          }
+        });
         
-        // Also resize Flickity if it exists
+        // Resize Flickity if needed
         const flickityInstance = Flickity.data(wrapper);
         if (flickityInstance) {
           flickityInstance.resize();
         }
       }
     });
-  });
+  }, 250));
+  
+  // Debounce function to prevent excessive resize calculations
+  function debounce(func, wait) {
+    let timeout;
+    return function() {
+      const context = this;
+      const args = arguments;
+      clearTimeout(timeout);
+      timeout = setTimeout(function() {
+        func.apply(context, args);
+      }, wait);
+    };
+  }
 });
 </script>
 
