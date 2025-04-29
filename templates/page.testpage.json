@@ -666,7 +666,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n.tolstoy-carousel-container {\n  width: 100%;\n}\n.tolstoy-carousel-arrow-button-container {\n  display: none;\n}\n</style>"
+        "custom_liquid": "<style>\n.tolstoy-carousel-container {\n  width: 100%;\nmargin-bottom:0;\n}\n.tolstoy-carousel-arrow-button-container {\n  display: none;\n}\n</style>"
       }
     }
   },
