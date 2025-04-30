@@ -41,7 +41,7 @@
   <flickity-carousel>
     <div
       data-carousel
-      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": true, "draggable": true, "groupCells": true, "isWrapping": true, "equalizeHeight": true }'
+      data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": true, "draggable": true, "groupCells": true, "isWrapping": true }'
       class="testimonials-carousel">
       {% for block in section.blocks %}
         <div class="testimonial-slide" {{ block.shopify_attributes }} data-carousel-slide>
@@ -150,7 +150,6 @@
     width: calc(100% / 2.5); /* 2.5 cards per view on desktop */
     min-width: 280px;
     padding: 0 2rem 0 0;
-    height: auto;
   }
   
   #section-{{ section.id }} .testimonial-card {
@@ -247,16 +246,6 @@
   #section-{{ section.id }} .flickity-prev-next-button.next {
     right: 1.25rem;
   }
-
-  /* Equal height styles */
-  #section-{{ section.id }} .is-selected .testimonial-card {
-    height: 100%;
-  }
-
-  /* Force Flickity to set all cells to the height of the tallest cell */
-  #section-{{ section.id }} .flickity-viewport {
-    height: auto !important;
-  }
   
   /* Responsive styles */
   @media screen and (max-width: 749px) {
@@ -294,17 +283,6 @@
     width: 100%;
     display: block;
     padding-bottom: 5rem; /* Add padding at bottom for arrows */
-  }
-
-  /* Additional CSS for equal height */
-  #section-{{ section.id }} .flickity-slider {
-    display: flex;
-    align-items: stretch;
-  }
-
-  #section-{{ section.id }} .testimonial-slide {
-    display: flex;
-    height: auto;
   }
 </style>
 
