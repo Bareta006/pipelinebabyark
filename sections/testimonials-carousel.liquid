@@ -251,7 +251,26 @@
   #section-{{ section.id }} .flickity-prev-next-button.next {
     right: 1.25rem;
   }
-  
+       @media screen and (min-width: 1440px) and (max-width: 1600px) {
+    #section-{{ section.id }} .testimonial-slide {
+      min-height: 420px;
+    }
+  }
+     @media screen and (min-width: 1280px) and (max-width: 1440px) {
+    #section-{{ section.id }} .testimonial-slide {
+      min-height: 470px;
+    }
+  }
+   @media screen and (min-width: 1024px) and (max-width: 1280px) {
+    #section-{{ section.id }} .testimonial-slide {
+      min-height: 540px;
+    }
+  }
+  @media screen and (min-width: 990px) and (max-width: 1024px) {
+    #section-{{ section.id }} .testimonial-slide {
+      min-height: 660px;
+    }
+  }
   /* Responsive styles */
   @media screen and (max-width: 749px) {
     #section-{{ section.id }} .section__title {
