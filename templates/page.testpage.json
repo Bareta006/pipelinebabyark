@@ -490,7 +490,8 @@
         ".product__grid__title__wrapper p {font-family: \"Montserrat\"; text-transform: uppercase; font-weight: 700; color: #111;}",
         ".price {font-size: 20px; font-weight: 500; color: #000;}",
         ".product-grid-item__container {border-radius: 20px;}",
-        ".flickity-button {display: none;}"
+        ".flickity-button {display: none;}",
+        "@media (max-width:480px){.product-grid-item__container {border-radius: 10px;}}"
       ],
       "name": "Product slider",
       "settings": {
