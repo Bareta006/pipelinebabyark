@@ -254,12 +254,12 @@
             "mobile_background_image": "shopify://shop_images/Rectangle_1486127345.png",
             "overlay_enabled": false,
             "overlay_opacity": 0,
-            "title": "Injury prevention",
+            "title": "Injury Prevention",
             "title_color": "#ffffff",
-            "description": "<p>The SafeCoil™ impact-activated steel coils significantly reduce force and forward momentum, extending gently as your car slows to bring the seat to rest safely and softly.</p>",
+            "description": "<p>The impact-activated steel SafeCoil™ significantly reduces force and momentum, extending gently to bring the seat to rest safely and softly.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -275,12 +275,12 @@
             "mobile_background_image": "shopify://shop_images/Rectangle_1486127349.png",
             "overlay_enabled": false,
             "overlay_opacity": 0,
-            "title": "Guided installation",
+            "title": "Guided Installation",
             "title_color": "#ffffff",
             "description": "<p>The innovative smart base and app guide you through the process, confirming the seat has been properly installed.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -296,12 +296,12 @@
             "mobile_background_image": "shopify://shop_images/Rectangle_1486127363.png",
             "overlay_enabled": false,
             "overlay_opacity": 0,
-            "title": "Magnetic harness",
+            "title": "Magnetic Straps",
             "title_color": "#ffffff",
             "description": "<p>Magnetic straps that allow you to easily place your child in the seat without any extra hassle</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -319,10 +319,10 @@
             "overlay_opacity": 0,
             "title": "Critical Alerts",
             "title_color": "#ffffff",
-            "description": "<p>Get real time notifications like forgotten child alerts and buckle confirmation, even when grandma or the babysitter are driving.</p>",
+            "description": "<p>Get real-time notifications like forgotten child alerts and buckle confirmation, even when grandma or the babysitter are driving.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -343,7 +343,7 @@
             "description": "<p>The only convertible car seat with a Front Load Leg, Rigid Lower Anchors (LATCH), and an Anti-Rebound Bar.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -364,7 +364,7 @@
             "description": "<p>Easy zip on and off fabric covers that can be machine washed.</p>",
             "description_color": "#ffffff",
             "button_1_text": "EXPLORE",
-            "button_1_link": "#",
+            "button_1_link": "shopify://pages/features",
             "button_1_color": "btn--white",
             "button_1_style": "btn",
             "button_2_text": "",
@@ -383,7 +383,7 @@
         "card_dLjWwz"
       ],
       "settings": {
-        "title": "Features to giveyou peace of mind",
+        "title": "Features to Give You Peace of Mind",
         "title_alignment": "center",
         "button_text": "Discover",
         "button_link": "shopify://pages/features",
@@ -396,14 +396,6 @@
     "section_hero_hERtKb": {
       "type": "section-hero",
       "blocks": {
-        "kicker_pkJj8y": {
-          "type": "kicker",
-          "settings": {
-            "kicker": "SAFE. SMART. BEAUTIFUL.",
-            "enable_line": false,
-            "text_size": 4
-          }
-        },
         "heading_yNPYqy": {
           "type": "heading",
           "settings": {
@@ -421,7 +413,7 @@
         "button_QU6XaB": {
           "type": "button",
           "settings": {
-            "link_text_1": "Compare",
+            "link_text_1": "Explore",
             "link_1": "shopify://products/babyark-convertible-car-seat-smart",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
@@ -440,7 +432,6 @@
         }
       },
       "block_order": [
-        "kicker_pkJj8y",
         "heading_yNPYqy",
         "heading_htF8jp",
         "button_QU6XaB"
@@ -553,7 +544,7 @@
         "testimonial_NdeQWj"
       ],
       "settings": {
-        "title": "What our customers say",
+        "title": "What Our Customers Say",
         "title_color": "#000000",
         "title_alignment": "center",
         "title_font_size": 40,
@@ -564,7 +555,7 @@
         "review_count": "140",
         "review_count_color": "#333333",
         "padding_top": 50,
-        "padding_bottom": 50
+        "padding_bottom": 0
       }
     },
     "article_cards_y6LcWb": {
@@ -631,7 +622,7 @@
         "title_font_size": 40,
         "title_font_size_mobile": 28,
         "title_alignment": "center",
-        "text": "<p>Browse our collection of featured articles and resources.</p>",
+        "text": "<p>See who's talking about babyark</p>",
         "text_color": "#333333",
         "text_font_size": 16,
         "text_font_size_mobile": 14,
