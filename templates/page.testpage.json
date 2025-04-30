@@ -235,7 +235,7 @@
         "card_rYrAeF": {
           "type": "card",
           "settings": {
-            "background_image": "shopify://shop_images/Rectangle_1486127344.png",
+            "background_image": "shopify://shop_images/Desktop-ShopClassic.png",
             "mobile_background_image": "shopify://shop_images/Rectangle_1486127343_2.png",
             "title": "Shop Classic",
             "title_color": "#1a1b1d",
@@ -491,7 +491,7 @@
         ".price {font-size: 20px; font-weight: 500; color: #000;}",
         ".product-grid-item__container {border-radius: 20px;}",
         ".flickity-button {display: none;}",
-        "@media (max-width:480px){.product-grid-item__container {border-radius: 10px;}}"
+        "@media (max-width: 480px) {.product-grid-item__container {border-radius: 10px; }}"
       ],
       "name": "Product slider",
       "settings": {
