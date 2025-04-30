@@ -644,83 +644,6 @@
         "padding_bottom": 50
       }
     },
-    "article_cards_kFDggK": {
-      "type": "article-cards",
-      "blocks": {
-        "article_card_itVM8t": {
-          "type": "article_card",
-          "settings": {
-            "image": "shopify://shop_images/Image-01_b00afb1f-3d77-4159-9df4-92335d3ddc20.png",
-            "logo": "shopify://shop_images/Frame_1597881199.png",
-            "text": "Best of the Bump Award Winners of 2024",
-            "button_text": "Read article",
-            "button_url": "#",
-            "button_style": "btn--outline",
-            "button_color": "btn--black"
-          }
-        },
-        "article_card_tBmhef": {
-          "type": "article_card",
-          "settings": {
-            "image": "shopify://shop_images/Image-02_c8080f73-2404-4555-b5c1-24a2a1df754e.png",
-            "logo": "shopify://shop_images/Frame_1597881200.png",
-            "text": "The Best New Baby Products of 2025",
-            "button_text": "Read article",
-            "button_url": "#",
-            "button_style": "btn--outline",
-            "button_color": "btn--black"
-          }
-        },
-        "article_card_mhnKnQ": {
-          "type": "article_card",
-          "settings": {
-            "image": "shopify://shop_images/Image-03_a6b5c485-b0d3-4e6f-9576-e4376f8ea0bf.png",
-            "logo": "shopify://shop_images/Frame_1597881201.png",
-            "text": "The Best Convertible Car Seats We Tested and Trusted With Our Own Kids’ Safety",
-            "button_text": "Read article",
-            "button_url": "#",
-            "button_style": "btn--outline",
-            "button_color": "btn--neutral"
-          }
-        },
-        "article_card_Baq6YC": {
-          "type": "article_card",
-          "settings": {
-            "image": "shopify://shop_images/Image-04_2d275e1e-66d7-4cf7-90b8-ab7aa31aed74.png",
-            "logo": "shopify://shop_images/Frame_1597881202.png",
-            "text": "Expert tips for choosing the right car seat: Top picks for parents",
-            "button_text": "Read article",
-            "button_url": "#",
-            "button_style": "btn--outline",
-            "button_color": "btn--black"
-          }
-        }
-      },
-      "block_order": [
-        "article_card_itVM8t",
-        "article_card_tBmhef",
-        "article_card_mhnKnQ",
-        "article_card_Baq6YC"
-      ],
-      "settings": {
-        "title": "Featured Coverage",
-        "title_color": "#000000",
-        "title_font_size": 40,
-        "title_font_size_mobile": 28,
-        "title_alignment": "center",
-        "text": "<p>Browse our collection of featured articles and resources.</p>",
-        "text_color": "#333333",
-        "text_font_size": 16,
-        "text_font_size_mobile": 14,
-        "card_bg_color": "#ffffff",
-        "card_text_color": "#333333",
-        "card_text_font_size": 16,
-        "card_text_font_size_mobile": 14,
-        "section_bg_color": "#f5f5f5",
-        "padding_top": 60,
-        "padding_bottom": 50
-      }
-    },
     "apps_tEmHtx": {
       "type": "apps",
       "blocks": {
@@ -763,7 +686,6 @@
     "section_collection_slider_9HnL3F",
     "testimonials_carousel_kLm8tg",
     "article_cards_y6LcWb",
-    "article_cards_kFDggK",
     "apps_tEmHtx",
     "section_liquid_3V9nzx"
   ]
