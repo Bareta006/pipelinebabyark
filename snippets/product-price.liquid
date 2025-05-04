@@ -11,7 +11,7 @@
 <div class="product__block__price" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
   <div class="product__price__wrap">
     <div class="product__price__main" data-price-wrapper>
-      <span class="product__price {{ price_size_class }}" style="position: relative;">
+      <span class="product__price {{ price_size_class }}" style="position: relative;"> 
               {% comment %} if there is show compare at price in <del></del> {% endcomment %}
       {% if current_variant.compare_at_price > current_variant.price %}
         <span class="product__price accent-size-4 ml-2" style="position: absolute; top: -22px; left: 0;">
