@@ -11,7 +11,13 @@
 <div class="product__block__price" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
   <div class="product__price__wrap">
     <div class="product__price__main" data-price-wrapper>
-      <span class="product__price {{ price_size_class }}">
+      <span class="product__price {{ price_size_class }}" style="position: relative;">
+              {% comment %} if there is show compare at price in <del></del> {% endcomment %}
+      {% if current_variant.compare_at_price > current_variant.price %}
+        <span class="product__price accent-size-5 ml-2" style="position: absolute; top: 0; left: 0;">
+          <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
+        </span>
+      {% endif %}
         <span data-product-price {% if current_variant.compare_at_price > current_variant.price %} class="product__price--sale"{% endif %}>
           {%- if settings.currency_code_enable -%}
             {{ current_variant.price | money_without_trailing_zeros_with_currency }}
@@ -26,12 +32,6 @@
         {{ 'products.product.save' | t }}
         <span data-price-off-amount></span>
       </span> {% endcomment %}
-      {% comment %} if there is show compare at price in <del></del> {% endcomment %}
-      {% if current_variant.compare_at_price > current_variant.price %}
-        <span class="product__price accent-size-5 ml-2">
-          <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
-        </span>
-      {% endif %}
       <span class=" accent-size-5" style="
     line-height: 1.4;
     margin-left: 5px;
