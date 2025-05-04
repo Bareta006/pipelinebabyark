@@ -29,17 +29,6 @@
     },
     "1737642332f8ed41e1": {
       "type": "apps",
-      "blocks": {
-        "powerful_form_builder_app_block_8mXMWn": {
-          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
-          "settings": {
-            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"ODM5NTI=\"></div>"
-          }
-        }
-      },
-      "block_order": [
-        "powerful_form_builder_app_block_8mXMWn"
-      ],
       "settings": {
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
