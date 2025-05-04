@@ -170,7 +170,7 @@
         "text_HrKzJ3": {
           "type": "text",
           "settings": {
-            "title": "<p>Looking to upgrade with smart sensors? See Smart</p>",
+            "title": "<p>Looking to upgrade with smart sensors? <a href=\"/products/the-bases-bundle-1\" title=\"The Bases Bundle\">See Smart</a></p>",
             "padding_bottom": 20
           }
         },
