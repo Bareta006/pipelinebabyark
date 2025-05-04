@@ -251,9 +251,9 @@
           "type": "card",
           "settings": {
             "background_image": "shopify://shop_images/Group_1597881130.png",
-            "mobile_background_image": "shopify://shop_images/Rectangle_1486127345.png",
-            "overlay_enabled": false,
-            "overlay_opacity": 0,
+            "mobile_background_image": "shopify://shop_images/Group_1597881133_1.png",
+            "overlay_enabled": true,
+            "overlay_opacity": 15,
             "title": "Injury Prevention",
             "title_color": "#ffffff",
             "description": "<p>The steel SafeCoil™ significantly reduces crash force and momentum, extending gently to bring the car seat to rest safely and softly.</p>",
