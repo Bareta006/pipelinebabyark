@@ -84,7 +84,8 @@
         "newsletter"
       ],
       "custom_css": [
-        ".footer__title {display: none;}"
+        ".footer__title {display: none;}",
+        "#accordion-linklist-2-2{display:block !important;}"
       ],
       "settings": {
         "menu_position": "left",
