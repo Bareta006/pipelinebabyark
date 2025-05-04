@@ -20,14 +20,6 @@
           {%- endif -%}
         </span>
       </span>
-<span class=" accent-size-5" style="
-    line-height: 1.4;
-    margin-left: 5px;
-    letter-spacing: 0;
-    text-transform: none;
-">
-        <span>or Flexible Payments</span>
-      </span>
       {% comment %} <span data-price-off class="product__price--off hide">
         <span data-price-off-type>{{ 'products.product.sale' | t }}</span>
         <em>•</em>
@@ -40,6 +32,14 @@
           <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
         </span>
       {% endif %}
+      <span class=" accent-size-5" style="
+    line-height: 1.4;
+    margin-left: 5px;
+    letter-spacing: 0;
+    text-transform: none;
+">
+        <span>or Flexible Payments</span>
+      </span>
       {% liquid
         assign units = product.variants | map: 'unit_price' | compact
         if units[0]
