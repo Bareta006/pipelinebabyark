@@ -14,7 +14,7 @@
       <span class="product__price {{ price_size_class }}" style="position: relative;">
               {% comment %} if there is show compare at price in <del></del> {% endcomment %}
       {% if current_variant.compare_at_price > current_variant.price %}
-        <span class="product__price accent-size-5 ml-2" style="position: absolute; top: 0; left: 0;">
+        <span class="product__price accent-size-4 ml-2" style="position: absolute; top: -22px; left: 0;">
           <del>{{ current_variant.compare_at_price | money_without_trailing_zeros }}</del>
         </span>
       {% endif %}
