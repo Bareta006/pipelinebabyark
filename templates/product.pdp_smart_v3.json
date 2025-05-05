@@ -432,42 +432,6 @@
         "graphSide_heading": "See the Numbers. Compare the Safety."
       }
     },
-    "section_richtext_Mf8czk": {
-      "type": "section-richtext",
-      "blocks": {
-        "heading_6h9mfV": {
-          "type": "heading",
-          "settings": {
-            "heading": "100 days - Buy it, Try it.",
-            "text_size": 9
-          }
-        },
-        "text_D6PcyH": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We want you to love your babyark as much as we do.<br/>So if you don’t, we’ll take it back no questions asked.</p>",
-            "text_size": 5,
-            "text_columns": 1
-          }
-        }
-      },
-      "block_order": [
-        "heading_6h9mfV",
-        "text_D6PcyH"
-      ],
-      "custom_css": [
-        "> section {background-color: #22282d;}"
-      ],
-      "settings": {
-        "align_text": "text-center",
-        "text_color": "text--white",
-        "bg": "palette--light bg--neutral",
-        "content_width": 2000,
-        "width": "wrapper",
-        "padding_top": 50,
-        "padding_bottom": 50
-      }
-    },
     "image-with-text": {
       "type": "section-double",
       "blocks": {
@@ -922,7 +886,6 @@
     "main",
     "section_icons_3jALpN",
     "section_double_new_U8Re4G",
-    "section_richtext_Mf8czk",
     "image-with-text",
     "section_double_LJxgJN",
     "section_double_wMxLWV",
