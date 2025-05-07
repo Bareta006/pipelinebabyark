@@ -127,6 +127,7 @@
         "h6:first-of-type {margin-bottom: 40px;}",
         "h6 em {text-decoration: line-through; font-style: normal;}",
         "h6 strong {font-weight: 900;}",
+        ".brick__block__cta a {margin-left: 0;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
@@ -191,6 +192,7 @@
         "h6:first-of-type {margin-bottom: 40px;}",
         "h6 em {text-decoration: line-through; font-style: normal;}",
         "h6 strong {font-weight: 900;}",
+        ".brick__block__cta a {margin-left: 0;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block:last-child {width: 57%; }}"
       ],
       "settings": {
@@ -255,6 +257,7 @@
         "h6:first-of-type {margin-bottom: 40px;}",
         "h6 em {text-decoration: line-through; font-style: normal;}",
         "h6 strong {font-weight: 900;}",
+        ".brick__block__cta a{margin-left:0;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
       ],
       "settings": {
