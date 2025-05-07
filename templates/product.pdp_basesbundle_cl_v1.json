@@ -98,6 +98,12 @@
             "custom_liquid": "<div id=\"specialMsg\"><b class=\"flex gap-0\"></b></div>"
           }
         },
+        "liquid_hwC6R3": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<p style=\"color:#000;text-align:center;font-size:16px;font-weight:500;\">\n<i>Interested in puchasing an extended warranty?<br>\n<u><a style=\"font-weight:600;\" target=\"_blank\" href=\"https://babyark.com/pages/support\">Contact Customer Service.</a></u></i>\n</p>"
+          }
+        },
         "buttons": {
           "type": "add-buttons",
           "settings": {
@@ -221,6 +227,7 @@
         "subscriptions",
         "quantity",
         "liquid_WkJHEM",
+        "liquid_hwC6R3",
         "buttons",
         "icon_delivery_hDLJ7q",
         "icon_EC9RhA",
