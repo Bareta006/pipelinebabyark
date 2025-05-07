@@ -89,7 +89,7 @@
         "liquid_WkJHEM": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "<div id=\"specialMsg\"><b class=\"flex gap-0\"></b></div>"
+            "custom_liquid": "<div id=\"specialMsg\"><b class=\"flex gap-0\"></b></div>\n<p style=\"color:#000;text-align:center;font-size:16px;font-weight:500;\">\n<i>Interested in puchasing an extended warranty?<br>\n<u><a style=\"font-weight:600;\" target=\"_blank\" href=\"https://babyark.com/pages/support\">Contact Customer Service.</a></u></i>\n</p>"
           }
         },
         "buttons": {
