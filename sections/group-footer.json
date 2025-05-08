@@ -14,7 +14,7 @@
     "section_liquid_nDdLqE": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:30px;\nobject-fit:contain;}\n.product__block__icon > .icon-holder >div{\nwidth:34px;}  \nbody ._storiesContainer_1v61q_7{\ndisplay:block!important;}\n.tolstoy-stories .tolstoy-stories-main-container{\n  overflow: hidden;\n}\n@media (max-width:480px){\noverflow-x:hidden;\n}\n</style>"
+        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:30px;\nobject-fit:contain;}\n.product__block__icon > .icon-holder >div{\nwidth:34px;}  \nbody ._storiesContainer_1v61q_7{\ndisplay:block!important;}\n.tolstoy-stories .tolstoy-stories-main-container{\n  overflow: hidden;\n}\n@media (max-width:480px){\nhtml,body{overflow-x:hidden;\n}\n</style>"
       }
     },
     "section_liquid_NTjR4q": {
