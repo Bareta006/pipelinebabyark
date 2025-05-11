@@ -125,7 +125,7 @@
             
             <div class="blog__filter-description">
               {% comment %}Default text for "All" filter{% endcomment %}
-              <div class="filter-text filter-text--all active">
+              <div class="filter-text filter-text--all active rte body-size-5 columns--1 aos-init aos-animate">
                 {% if shop.metaobjects.blog_tag_texts.all %}
                   {{ shop.metaobjects.blog_tag_texts.all.tag_text }}
                 {% else %}
@@ -147,7 +147,7 @@
                     {% endif %}
                   {% endfor %}
                   
-                  <div class="filter-text filter-text--{{ tag_handle }}" style="display: none;">
+                  <div class="filter-text filter-text--{{ tag_handle }} rte body-size-5 columns--1 aos-init aos-animate" style="display: none;">
                     {% if metaobject_tag %}
                       {{ metaobject_tag.tag_text | metafield_tag }}
                     {% else %}
