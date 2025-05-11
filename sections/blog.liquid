@@ -140,7 +140,8 @@
                   {% assign metaobject_tag = nil %}
                   
                   {% for blog_tag_text in shop.metaobjects.blog_tag_texts.values %}
-                    {% if blog_tag_text.tag_name == tag or blog_tag_text.tag_name | handleize == tag_handle %}
+                    {% assign handleized_name = blog_tag_text.tag_name | handleize %}
+                    {% if blog_tag_text.tag_name == tag or handleized_name == tag_handle %}
                       {% assign metaobject_tag = blog_tag_text %}
                       {% break %}
                     {% endif %}
