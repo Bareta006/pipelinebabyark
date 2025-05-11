@@ -122,6 +122,40 @@
                 {% endif %}
               {% endfor %}
             </div>
+            
+            <div class="blog__filter-description">
+              {% comment %}Default text for "All" filter{% endcomment %}
+              <div class="filter-text filter-text--all active">
+                {% if shop.metaobjects.blog_tag_texts.all %}
+                  {{ shop.metaobjects.blog_tag_texts.all.tag_text }}
+                {% else %}
+                  <p>Explore all our articles across different subjects.</p>
+                {% endif %}
+              </div>
+              
+              {% comment %}Text for each tag{% endcomment %}
+              {% for tag in all_filtertags_array %}
+                {% if tag != '' %}
+                  {% assign tag_handle = tag | handleize %}
+                  {% assign metaobject_tag = nil %}
+                  
+                  {% for blog_tag_text in shop.metaobjects.blog_tag_texts.values %}
+                    {% if blog_tag_text.tag_name == tag or blog_tag_text.tag_name | handleize == tag_handle %}
+                      {% assign metaobject_tag = blog_tag_text %}
+                      {% break %}
+                    {% endif %}
+                  {% endfor %}
+                  
+                  <div class="filter-text filter-text--{{ tag_handle }}" style="display: none;">
+                    {% if metaobject_tag %}
+                      {{ metaobject_tag.tag_text }}
+                    {% else %}
+                      <p>Articles about {{ tag }}</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% endfor %}
+            </div>
           </div>
         {% endif %}
       {% endif %}
@@ -182,6 +216,7 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+    margin-bottom: 25px;
   }
   
   #shopify-section-{{ section.id }} .blog__filter-tag {
@@ -200,6 +235,23 @@
     color: #fff;
     border-color: #000;
   }
+  
+  #shopify-section-{{ section.id }} .blog__filter-description {
+    max-width: 800px;
+    margin: 0 auto 30px;
+    text-align: center;
+    padding: 0 20px;
+  }
+  
+  #shopify-section-{{ section.id }} .filter-text {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  #shopify-section-{{ section.id }} .filter-text.active {
+    opacity: 1;
+  }
+  
   #shopify-section-{{ section.id }} h3 a {
     color: #161616;
     font-size: 20px;
@@ -212,13 +264,13 @@
     min-width: min(140px, 100%);
     margin-top: 30px;
   }
-  
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.blog__filter-tag');
     const articles = document.querySelectorAll('.article__item');
+    const filterTexts = document.querySelectorAll('.filter-text');
     
     filterButtons.forEach(button => {
       button.addEventListener('click', function() {
@@ -227,6 +279,19 @@
         // Update active button
         filterButtons.forEach(btn => btn.classList.remove('blog__filter-tag--active'));
         this.classList.add('blog__filter-tag--active');
+        
+        // Show appropriate filter text
+        filterTexts.forEach(text => {
+          text.classList.remove('active');
+          text.style.display = 'none';
+        });
+        
+        // Find the matching text element
+        const matchingText = document.querySelector(`.filter-text--${filter}`);
+        if (matchingText) {
+          matchingText.style.display = 'block';
+          matchingText.classList.add('active');
+        }
         
         // Filter articles
         articles.forEach(article => {
