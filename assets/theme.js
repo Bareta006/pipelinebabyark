@@ -4453,7 +4453,7 @@
                 bubbles: true,
               })
             );
-          }, 100);
+          }, 250);
           //changed from
           const fresh = document.createElement("div");
           fresh.innerHTML = response.data;
