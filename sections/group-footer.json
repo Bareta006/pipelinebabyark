@@ -39,7 +39,7 @@
           "settings": {
             "linklist": "footer-first",
             "title": "",
-            "accordion_default": ""
+            "accordion_default": "accordion-is-open"
           }
         },
         "text-3": {
