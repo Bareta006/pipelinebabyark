@@ -105,8 +105,8 @@
           "type": "icon-delivery",
           "settings": {
             "icon_name_delivery": "icon-award",
-            "image-delivery": "shopify://shop_images/Group_29613095.svg",
-            "icon_size_delivery": 16,
+            "image-delivery": "shopify://shop_images/Frame_11_1.png",
+            "icon_size_delivery": 42,
             "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
