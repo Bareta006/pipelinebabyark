@@ -30,6 +30,9 @@
       "block_order": [
         "announce_text"
       ],
+      "custom_css": [
+        "p{text-transform:none; letter-spacing:0;}"
+      ],
       "settings": {
         "text_size": 3,
         "layout": "slider",
