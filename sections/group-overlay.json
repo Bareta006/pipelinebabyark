@@ -19,10 +19,31 @@
           "settings": {
             "product": "cup-holder"
           }
+        },
+        "upsell_product_7r9Rtn": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "car-seat-cover"
+          }
+        },
+        "upsell_product_GMNrHc": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "the-babyark-smart-base"
+          }
+        },
+        "upsell_product_xMJ3nM": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "g01-classic-base"
+          }
         }
       },
       "block_order": [
-        "upsell_product_FGKqfA"
+        "upsell_product_FGKqfA",
+        "upsell_product_7r9Rtn",
+        "upsell_product_GMNrHc",
+        "upsell_product_xMJ3nM"
       ],
       "settings": {
         "cart_shipping_enable": false,
