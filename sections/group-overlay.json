@@ -13,6 +13,17 @@
   "sections": {
     "cart": {
       "type": "cart-drawer",
+      "blocks": {
+        "upsell_product_FGKqfA": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "cup-holder"
+          }
+        }
+      },
+      "block_order": [
+        "upsell_product_FGKqfA"
+      ],
       "settings": {
         "cart_shipping_enable": false,
         "cart_show_quantity": true,
@@ -21,6 +32,15 @@
         "message": "Spend ||amount|| more for free shipping",
         "cart_custom_message_enable": false,
         "cart_custom_message_text": "<p>Use code <strong>TENOFF</strong> at checkout for 10% off</p>",
+        "show_upsell_carousel": false,
+        "upsell_title": "You may also like",
+        "desktop_items_per_view": 2.5,
+        "tablet_items_per_view": 2,
+        "mobile_items_per_view": 1.2,
+        "enable_autoplay": false,
+        "autoplay_speed": 5,
+        "enable_free_scroll": true,
+        "enable_wrap_around": false,
         "cart_color_bg": "palette--light bg--neutral",
         "cart_show_additional_buttons": false
       }
