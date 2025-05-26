@@ -13,6 +13,38 @@
   "sections": {
     "cart": {
       "type": "cart-drawer",
+      "blocks": {
+        "upsell_product_FGKqfA": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "cup-holder"
+          }
+        },
+        "upsell_product_7r9Rtn": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "car-seat-cover"
+          }
+        },
+        "upsell_product_GMNrHc": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "the-babyark-smart-base"
+          }
+        },
+        "upsell_product_xMJ3nM": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "g01-classic-base"
+          }
+        }
+      },
+      "block_order": [
+        "upsell_product_FGKqfA",
+        "upsell_product_7r9Rtn",
+        "upsell_product_GMNrHc",
+        "upsell_product_xMJ3nM"
+      ],
       "settings": {
         "cart_shipping_enable": false,
         "cart_show_quantity": true,
@@ -21,6 +53,15 @@
         "message": "Spend ||amount|| more for free shipping",
         "cart_custom_message_enable": false,
         "cart_custom_message_text": "<p>Use code <strong>TENOFF</strong> at checkout for 10% off</p>",
+        "show_upsell_carousel": true,
+        "upsell_title": "You may also like",
+        "desktop_items_per_view": 1.5,
+        "tablet_items_per_view": 1.5,
+        "mobile_items_per_view": 1.2,
+        "enable_autoplay": false,
+        "autoplay_speed": 5,
+        "enable_free_scroll": true,
+        "enable_wrap_around": false,
         "cart_color_bg": "palette--light bg--neutral",
         "cart_show_additional_buttons": false
       }
