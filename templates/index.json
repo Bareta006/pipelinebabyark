@@ -554,8 +554,8 @@
         "star_color": "#333333",
         "review_count": "132",
         "review_count_color": "#333333",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     },
     "article_cards_y6LcWb": {
@@ -656,7 +656,7 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--none",
-        "padding_top": 20,
+        "padding_top": 0,
         "padding_bottom": 0
       }
     },

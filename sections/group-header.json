@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>100-Day Trial: Experience it for Yourself</p>",
+            "text": "<p>Now available at Dillards.com!</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
@@ -29,6 +29,9 @@
       },
       "block_order": [
         "announce_text"
+      ],
+      "custom_css": [
+        "p{text-transform:none; letter-spacing:0;}"
       ],
       "settings": {
         "text_size": 3,
