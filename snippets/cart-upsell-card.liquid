@@ -1,0 +1,239 @@
+{% comment %}
+  Cart Upsell Product Card
+  - Displays product image on left
+  - Shows title, price, variant dropdown (if applicable), and add to cart button on right
+  - Supports AJAX add to cart
+  Usage: {% render 'cart-upsell-card', product: product %}
+{% endcomment %}
+
+<div class="cart-upsell-card" data-product-id="{{ product.id }}">
+  <div class="cart-upsell-card__image">
+    <img id="variant-image-{{ product.id }}" src="{{ product.featured_image | img_url: '120x120', crop: 'center' }}" alt="{{ product.title | escape }}" loading="lazy">
+  </div>
+  
+  <div class="cart-upsell-card__content">
+    <h4 class="cart-upsell-card__title">{{ product.title }}</h4>
+    <div class="cart-upsell-card__price">
+      <div id="price-display-{{ product.id }}">
+        {% if product.compare_at_price > product.price %}
+          <span class="cart-upsell-card__price-sale">{{ product.price | money }}</span>
+          <span class="cart-upsell-card__price-compare">{{ product.compare_at_price | money }}</span>
+        {% else %}
+          <span>{{ product.price | money }}</span>
+        {% endif %}
+      </div>
+    </div>
+    
+    <div class="cart-upsell-form">
+      <div x-data="productAddButtonForm()">
+        {%- form 'product', product -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-product-select>
+          
+          {% comment %} Add delivery metafields as hidden inputs {% endcomment %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          
+          {% comment %} Create a JSON object with all the delivery info, similar to delivery-info.liquid {% endcomment %}
+          <script type="application/json" id="delivery-info-{{ product.id }}">
+            {
+              "product": {
+                "id": {{ product.id }},
+                "title": "{{ product.title | escape }}",
+                "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
+                "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
+              },
+              "variants": [
+                {% assign valid_variants = false %}
+                {% for variant in product.variants %}
+                  {% if variant.metafields.delivery.delivery_estimated_date != blank %}
+                    {% if valid_variants %},{% endif %}
+                    {% assign valid_variants = true %}
+                    {
+                      "id": {{ variant.id }},
+                      "title": "{{ variant.title | escape }}",
+                      "delivery_estimated_date": "{{ variant.metafields.delivery.delivery_estimated_date | escape }}"
+                    }
+                  {% endif %}
+                {% endfor %}
+              ]
+            }
+          </script>
+
+          {% comment %} Set initial values for delivery inputs {% endcomment %}
+          {% if current_variant.metafields.delivery.delivery_estimated_date != blank %}
+            <input type="hidden" name="deliveryDate" value="{{ current_variant.metafields.delivery.delivery_estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
+          {% elsif product.metafields.delivery.estimated_date != blank %}
+            <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
+          {% endif %}
+          
+          {% if product.metafields.delivery.delivery_time != blank %}
+            <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-delivery-time-input="{{ product.id }}"/>
+          {% endif %}
+          
+          {% if product.has_only_default_variant == false and product.variants.size > 1 %}
+            <div class="cart-upsell-card__variants">
+              <select 
+                name="id" 
+                data-product-select-variant 
+                class="cart-upsell-card__variant-select"
+                onchange="updateVariantDisplay(this, '{{ product.id }}')">
+                {% for variant in product.variants %}
+                  <option 
+                    value="{{ variant.id }}" 
+                    {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                    {% unless variant.available %}disabled="disabled"{% endunless %}
+                    data-variant-image="{% if variant.featured_image %}{{ variant.featured_image | img_url: '120x120', crop: 'center' }}{% else %}{{ product.featured_image | img_url: '120x120', crop: 'center' }}{% endif %}"
+                    data-variant-price="{{ variant.price | money }}"
+                    data-variant-compare-price="{{ variant.compare_at_price | money }}"
+                    data-variant-on-sale="{% if variant.compare_at_price > variant.price %}true{% else %}false{% endif %}"
+                  >
+                    {{ variant.title }} {% unless variant.available %}- {{ 'products.product.sold_out' | t }}{% endunless %}
+                  </option>
+                {% endfor %}
+              </select>
+            </div>
+          {% endif %}
+          
+          <button 
+            type="submit" 
+            name="add" 
+            class="cart-upsell-card__button" 
+            {% unless product.available %}disabled{% endunless %}
+            data-add-to-cart
+            @click.prevent="handleClickAddButton"
+          >
+            {{ 'products.product.add_to_cart' | t }}
+            <span class="spinner" x-show="isLoading"></span>
+          </button>
+        {%- endform -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateVariantDisplay(selectElement, productId) {
+    // Get the selected option
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+    // Update image
+    const variantImage = selectedOption.getAttribute('data-variant-image');
+    if (variantImage) {
+      const currentImage = document.getElementById('variant-image-' + productId);
+      if (currentImage) {
+        currentImage.src = variantImage;
+      }
+    }
+    
+    // Update price
+    const priceDisplay = document.getElementById('price-display-' + productId);
+    if (priceDisplay) {
+      const variantPrice = selectedOption.getAttribute('data-variant-price');
+      const variantComparePrice = selectedOption.getAttribute('data-variant-compare-price');
+      const variantOnSale = selectedOption.getAttribute('data-variant-on-sale') === 'true';
+      
+      if (variantOnSale) {
+        priceDisplay.innerHTML = `
+          <span class="cart-upsell-card__price-sale">${variantPrice}</span>
+          <span class="cart-upsell-card__price-compare">${variantComparePrice}</span>
+        `;
+      } else {
+        priceDisplay.innerHTML = `<span>${variantPrice}</span>`;
+      }
+    }
+    
+    // Update delivery info based on selected variant
+    updateDeliveryInputs(selectElement, productId);
+  }
+  
+  function updateDeliveryInputs(selectElement, productId) {
+    // Get JSON data from the script tag
+    const deliveryInfoElement = document.getElementById('delivery-info-' + productId);
+    if (!deliveryInfoElement) {
+      console.log('Delivery info JSON not found for product ' + productId);
+      return;
+    }
+    
+    let deliveryInfo;
+    try {
+      deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
+    } catch (error) {
+      console.log('Error parsing delivery info JSON:', error);
+      return;
+    }
+    
+    // Get selected variant ID
+    const variantId = parseInt(selectElement.value, 10);
+    
+    // Find variant data if available
+    const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+    
+    // Determine which data to use (variant-specific or general product)
+    const deliveryData = variantData || deliveryInfo.product;
+    
+    // Get the input fields
+    const deliveryDateInput = document.querySelector('[data-delivery-date-input="' + productId + '"]');
+    const deliveryTimeInput = document.querySelector('[data-delivery-time-input="' + productId + '"]');
+    
+    // Update delivery date input
+    if (variantData && variantData.delivery_estimated_date) {
+      // Use variant-specific estimated date
+      if (!deliveryDateInput) {
+        // Create input if it doesn't exist
+        const form = selectElement.closest('form');
+        if (form) {
+          const newInput = document.createElement('input');
+          newInput.type = 'hidden';
+          newInput.name = 'deliveryDate';
+          newInput.value = variantData.delivery_estimated_date;
+          newInput.setAttribute('data-delivery-date-input', productId);
+          form.appendChild(newInput);
+        }
+      } else {
+        // Update existing input
+        deliveryDateInput.value = variantData.delivery_estimated_date;
+      }
+    } else if (deliveryData.estimated_date) {
+      // Use product-level estimated date
+      if (!deliveryDateInput) {
+        // Create input if it doesn't exist
+        const form = selectElement.closest('form');
+        if (form) {
+          const newInput = document.createElement('input');
+          newInput.type = 'hidden';
+          newInput.name = 'deliveryDate';
+          newInput.value = deliveryData.estimated_date;
+          newInput.setAttribute('data-delivery-date-input', productId);
+          form.appendChild(newInput);
+        }
+      } else {
+        // Update existing input
+        deliveryDateInput.value = deliveryData.estimated_date;
+      }
+    } else if (deliveryDateInput) {
+      // No date available, remove input if it exists
+      deliveryDateInput.remove();
+    }
+    
+    // Update delivery time input
+    if (deliveryData.delivery_time) {
+      if (!deliveryTimeInput) {
+        // Create input if it doesn't exist
+        const form = selectElement.closest('form');
+        if (form) {
+          const newInput = document.createElement('input');
+          newInput.type = 'hidden';
+          newInput.name = 'deliveryTime';
+          newInput.value = deliveryData.delivery_time;
+          newInput.setAttribute('data-delivery-time-input', productId);
+          form.appendChild(newInput);
+        }
+      } else {
+        // Update existing input
+        deliveryTimeInput.value = deliveryData.delivery_time;
+      }
+    } else if (deliveryTimeInput) {
+      // No time available, remove input if it exists
+      deliveryTimeInput.remove();
+    }
+  }
+</script> 

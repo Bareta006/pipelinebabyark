@@ -4,14 +4,10 @@
 
 <div class="cart__items">
   {% for line_item in cart.items %}
-    {% assign is_protection_plan = false %}
-    {% if line_item.product.handle == 'clyde-protection-plan-e0fae702-426f-47a3-b79c-e613e467fd5a-1' %}
-      {% assign is_protection_plan = true %}
-    {% endif %}
-    <div class="cart__items__row{% if is_protection_plan %} protection-plan-item{% endif %}" data-cart-item>
+    <div class="cart__items__row" data-cart-item>
       <div class="item--loadbar" data-item-loadbar style="display: none;">&nbsp;</div>
       <div class="cart__items__grid" data-item>
-        <!--<div class="cart__items__remove">
+        <div class="cart__items__remove">
           <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&amp;quantity=0"
             data-remove-key="{{ line_item.key }}"
             tabindex="0">
@@ -22,7 +18,7 @@
               {{ 'cart.general.remove' | t }}
             </span>
           </a>
-        </div>-->
+        </div>
 
         <div class="cart__items__image{% unless line_item.image %} product-no-image{% endunless %}">
           <a href="{{ line_item.url }}">
@@ -48,7 +44,7 @@
             {% endif %}
           </a>
         </div>
-            <div class="flex cart__items__title_price">
+
         <div class="cart__items__title">
           <p>
             <a href="{{ line_item.url }}">
@@ -193,7 +189,6 @@
             </p>
           {% endif %}
         </div>
-        </div>
 
         <div class="cart__items__quantity">
           <div class="quantity__wrapper" data-quantity-selector>
@@ -238,16 +233,6 @@
             </div>
           {%- endfor -%}
         {% endif %}
-         
-        {% render 'cart-protection-plan', line_item: line_item %}
-        
-        {% comment %}
-        {% if forloop.first %}
-          {% render 'protection-plan-debug' %}
-        {% endif %}
-        
-        {% render 'cart-protection-display', line_item: line_item %}
-        {% endcomment %}
       </div>
     </div>
     {%- assign cart_products = cart_products | append: line_item.product.id | append: ',' -%}

@@ -1,0 +1,41 @@
+{% comment %}
+  Simple protection plan display for testing
+  Just displays all protection plan variants as buttons
+{% endcomment %}
+
+{%- liquid
+  assign protection_handle = 'clyde-protection-plan-e0fae702-426f-47a3-b79c-e613e467fd5a-1'
+  assign protection_product = all_products[protection_handle]
+-%}
+
+<div style="margin-top: 15px; padding: 10px; background: #f6f6f6; border-radius: 8px;">
+  <h4 style="margin-top: 0; margin-bottom: 10px; font-size: 14px; color: #333;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 5px;">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+    </svg>
+    Available Protection Plans (Test Display)
+  </h4>
+  
+  {% if protection_product == blank %}
+    <p style="color: red; font-size: 12px; margin: 5px 0;">Could not find protection plan product: {{ protection_handle }}</p>
+  {% else %}
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      {% for variant in protection_product.variants %}
+        {% if variant.title contains 'year' %}
+          <form method="post" action="/cart/add" style="margin: 0;">
+            <input type="hidden" name="id" value="{{ variant.id }}" />
+            <input type="hidden" name="quantity" value="1" />
+            <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}" />
+            <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}" />
+            <input type="hidden" name="return_to" value="/cart" />
+            <button type="submit" style="border-radius: 50px; border: 1px solid #303030; background-color: white; color: #000; font-size: 12px; padding: 8px 12px; cursor: pointer; min-width: 90px; text-align: center;">
+              {{ variant.title }}
+              <br>
+              <strong>{{ variant.price | money }}</strong>
+            </button>
+          </form>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div> 

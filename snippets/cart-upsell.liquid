@@ -1,0 +1,126 @@
+{% comment %}
+  Cart Upsell Carousel
+  - Displays upsell products in a carousel
+  - Uses Flickity for carousel functionality
+  - Supports AJAX add to cart
+  Usage: {% render 'cart-upsell', section: section %}
+{% endcomment %}
+
+{% if section.settings.show_upsell_carousel and section.blocks.size > 0 %}
+  <div class="cart-upsell">
+    {% if section.settings.upsell_title != blank %}
+      <h3 class="cart-upsell__title">{{ section.settings.upsell_title }}</h3>
+    {% endif %}
+    
+    <div class="cart-upsell__carousel">
+      {% for block in section.blocks %}
+        {% if block.type == 'upsell_product' and block.settings.product != blank %}
+          {% assign product = block.settings.product %}
+          
+          {% if product.available %}
+            <div class="cart-upsell__slide">
+              {% render 'cart-upsell-card', product: product %}
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Wait 1 second before initializing to ensure all elements are loaded
+      setTimeout(function() {
+        const carousel = document.querySelector('.cart-upsell__carousel');
+        if (carousel) {
+          // Initialize Flickity with all section settings
+          const flkty = new Flickity(carousel, {
+            cellAlign: 'left',
+            contain: true,
+            draggable: true,
+            freeScroll: {{ section.settings.enable_free_scroll | default: true | json }},
+            wrapAround: {{ section.settings.enable_wrap_around | default: false | json }},
+            autoPlay: {% if section.settings.enable_autoplay %}{{ section.settings.autoplay_speed | default: 5 | times: 1000 }}{% else %}false{% endif %},
+            pageDots: false,
+            prevNextButtons: false,
+            dragThreshold: 10,
+            resize: true,
+            groupCells: {% if section.settings.desktop_items_per_view %}{{ section.settings.desktop_items_per_view }}{% else %}2.5{% endif %}
+          });
+
+          // Handle responsive groupCells
+          function updateGroupCells() {
+            const width = window.innerWidth;
+            let groupCells;
+            
+            if (width <= 480) {
+              groupCells = {{ section.settings.mobile_items_per_view | default: 1.2 | json }};
+            } else if (width <= 768) {
+              groupCells = {{ section.settings.tablet_items_per_view | default: 2 | json }};
+            } else {
+              groupCells = {{ section.settings.desktop_items_per_view | default: 2.5 | json }};
+            }
+            
+            flkty.options.groupCells = groupCells;
+            flkty.resize();
+          }
+
+          // Update on resize
+          window.addEventListener('resize', updateGroupCells);
+          updateGroupCells(); // Initial call
+
+          // Smooth trackpad scrolling with proper sensitivity
+          let isWheeling = false;
+          let wheelEndTimeout;
+          
+          carousel.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            
+            // Get scroll delta (prefer horizontal for trackpads)
+            const deltaX = e.deltaX;
+            const deltaY = e.deltaY;
+            const delta = Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY;
+            
+            if (Math.abs(delta) < 0.5) return; // Ignore tiny movements
+            
+            // Start wheel mode if not already
+            if (!isWheeling) {
+              isWheeling = true;
+              flkty.slider.style.pointerEvents = 'none'; // Disable other interactions
+            }
+            
+            // Calculate new position with sensitivity
+            const sensitivity = 1.2; // Adjust this for more/less sensitivity
+            const currentX = flkty.x;
+            const newX = currentX - (delta * sensitivity);
+            
+            // Get boundaries
+            const maxX = 0;
+            const minX = -flkty.slideableWidth + flkty.size.innerWidth;
+            
+            // Clamp to boundaries
+            const clampedX = Math.max(minX, Math.min(maxX, newX));
+            
+            // Apply the new position
+            flkty.x = clampedX;
+            flkty.settle(flkty.x);
+            
+            // Clear existing timeout
+            clearTimeout(wheelEndTimeout);
+            
+            // End wheel mode after scrolling stops
+            wheelEndTimeout = setTimeout(function() {
+              isWheeling = false;
+              flkty.slider.style.pointerEvents = ''; // Re-enable interactions
+              
+              // Settle to nearest cell if free scroll is disabled
+              if (!flkty.options.freeScroll) {
+                flkty.settle(flkty.x);
+              }
+            }, 100);
+          });
+        }
+      }, 1000);
+    });
+  </script>
+{% endif %} 

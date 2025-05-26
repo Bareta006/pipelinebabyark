@@ -19,6 +19,394 @@
 -%}
 {%- if settings.cart_style == "drawer" or settings.cart_style == "pop" -%}
   {%- if template.name != 'cart' -%}
+
+    <style>
+      .cart__drawer__title {
+  display: flex;
+  height: 100%;
+  margin: 0;
+  padding: 0 0 0 var(--gutter);
+  align-items: center;
+      font-family: var(--FONT-STACK-HEADING);
+  line-height: var(--leading-normal);
+  color: #000;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2; /* 111.111% */
+  letter-spacing: -1.08px;
+}
+.cart__drawer .drawer__top{
+  padding: 7px 0;
+  height: auto;
+}
+.drawer__content{
+  max-width: 687px;
+}
+.drawer__top__left,.drawer__button{
+  height:initial;
+}
+.cart__items__row {
+    max-width: 600px;
+    margin: 10px auto 0;
+    background: #F6F6F6;
+    border: none;
+    border-radius: 10px;
+}
+.cart__items__title_price{
+  display: flex;
+  justify-content: space-between;
+}
+.cart__items__title p a{
+  color: #000;
+font-size: 18px;
+font-style: normal;
+font-weight: 400;
+line-height: 40px; /* 222.222% */
+letter-spacing: -0.54px;
+}
+.line__price mark{
+  color: #000;
+}
+.cart__items__meta{
+  color: #000;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%; /* 18.2px */
+}
+.cart__items__quantity .quantity__wrapper{
+  max-width: 75px;
+}
+.cart__items__quantity .quantity__input{
+      height: 24px;
+    border-radius: 50px;
+    border-color: #000;
+    color: #000;
+}
+.drawer__benefits {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background: #303030;
+    color: #fff;
+    padding: 10px 0;
+}
+.drawer__benefits__item {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+.drawer__benefits__item__icon svg{
+  width: auto;
+  height: 20px;
+}
+.drawer__benefits__item__text{
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: 130%; /* 18.2px */
+}
+.drawer__bottom {
+    background-color: #F6F6F6;
+    border-top: 7px solid #fff;
+}
+.bottom_drawer_footer {
+    justify-content: space-between;
+    padding: 5px 50px;
+}
+#cart-form button{
+    color: #FFF;
+    text-align: center;
+    font-family: Montserrat;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 0px; /* 0% */
+    padding: 25px 60px;
+    border-radius: 50px;
+    letter-spacing: 0;
+    text-transform: none;
+}
+.cart__subtotal {
+    color: #000;
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 40px;
+    letter-spacing: -0.78px;
+}
+.payments_icons {
+    display: flex;
+    padding: 10px 0;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.cart-protection-container{
+  grid-column: 1 / -1;
+}
+.protection-plan-form button[name="add"] {
+    margin-top: 5px;
+    background-color: transparent;
+    color: #000;
+    border: 1px solid #000;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.protection-plan-form button[name="add"]:hover{
+  color:#fff;
+  border-color:#000;
+  background-color: #000;
+  transition: 0.3s;
+}
+.protection-plan-item a{
+  pointer-events: none;
+}
+.drawer__bottom__meta{
+  padding: 0px 50px;
+}
+.items_count >p{
+  display: block!important;
+}
+
+/* Upsell Carousel Styles */
+.cart-upsell {
+  padding: 10px 20px;
+}
+.cart-upsell__title {
+  color: #000;
+  font-size: 26px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: left;
+  padding-left: 10px;
+  letter-spacing: -0.78px;
+}
+.cart-upsell__carousel {
+  overflow: hidden;
+}
+.cart-upsell__slide {
+  padding: 0 10px;
+  width: calc(100% / {{ section.settings.desktop_items_per_view }})
+}
+.cart-upsell-card {
+  display: flex;
+  background: #FFFFFF;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.cart-upsell-card__image {
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  padding: 5px;
+}
+.cart-upsell-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 5px;
+}
+.cart-upsell-card__content {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+}
+.cart-upsell-card__title {
+  margin: 0 0 5px;
+  font-size: 18px;
+  font-weight: 400;
+  color: #000;
+  line-height: 1.2;
+}
+.cart-upsell-card__price {
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+.cart-upsell-card__price-sale {
+  color: #D92121;
+  font-weight: 600;
+  margin-right: 5px;
+}
+.cart-upsell-card__price-compare {
+  text-decoration: line-through;
+  color: #777;
+}
+.cart-upsell-card__variants {
+  width: 50%;
+}
+.cart-upsell-card__variant-select {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 35px;
+  margin-bottom: 0px;
+}
+button.cart-upsell-card__button[name="add"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 15px;
+  background-color: #000;
+  color: #FFF;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin:0;
+}
+button.cart-upsell-card__button[name="add"]:hover {
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+button.cart-upsell-card__button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+.cart-upsell-form {
+  margin: 0;
+}
+
+/* Simplified spinner styling */
+.cart-upsell-card__button .spinner {
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+.cart-upsell-card__button .spinner:after {
+  content: " ";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: spin 1.2s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Remove complex button states */
+.cart-upsell-form form {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.drawer__bottom__upsell .flickity-viewport{
+  min-height:unset !important;
+}
+.drawer__bottom p[data-cart-final] span{
+  display: none;
+}
+@media (max-width: 768px) {
+  .drawer__bottom__meta{
+        padding: 0px 50px 0;
+    text-align: center;
+  }
+  .cart__items__title_price .cart__items__title{
+    width: 75%;
+  }
+  .cart__items__title_price .cart__items__price{
+    width: 25%;
+  }
+  .drawer__benefits__item {
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.cart__drawer__title{
+  font-size: 24px;
+}
+.cart__drawer .drawer__top {
+    padding: 7px 0;
+    height: auto;
+}
+.bottom_drawer_footer {
+    padding: 5px 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.items_count_and_total {
+    align-items: center;
+}
+.cart__items__row{
+      margin: 7px auto 0;
+      max-width:95%;
+      padding: 10px;
+}
+.cart__items__title p a {
+    line-height: 1.2;
+}
+.cart-protection-container{
+  padding:0;
+}
+.cart-protection-options{
+  gap:3px;
+}
+.protection-plan-form button[name="add"]{
+  font-size:12px;
+          padding: 7px;
+}
+
+/* Mobile upsell styles */
+.cart-upsell-card__title {
+  font-size: 14px;
+}
+.cart-upsell-card__image {
+  width: 90px;
+  height: 90px;
+}
+.cart-upsell-card__content {
+  padding: 8px;
+}
+.cart-upsell-card__button {
+  font-size: 12px;
+  padding: 6px 12px;
+}
+.cart-upsell {
+  padding: 10px;
+}
+.cart-upsell__title {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+.cart-upsell__slide {
+  padding: 0 5px;
+  width: calc(100% / {{ section.settings.tablet_items_per_view }})
+}
+}
+@media (max-width: 480px) {
+  .cart-upsell__slide {
+    width: calc(100% / {{ section.settings.mobile_items_per_view }})
+  }
+  .cart-upsell-card__price{
+    margin-top: 0px;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+</style>
     <section
       data-section-id="{{ section.id }}"
       data-section-type="cart-drawer"
@@ -40,6 +428,52 @@
               aria-label="{{ 'general.accessibility.close' | t }}">
               {% render 'icon-core-x' %}
             </button>
+          </div>
+          <div class="drawer__benefits">
+            <div class="drawer__benefits__item">
+              <div class="drawer__benefits__item__icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="34" height="20" viewBox="0 0 34 20" fill="none">
+  <path d="M9.69336 0C8.6273 0 7.90252 0.98487 7.90234 2.02441V3.29297H5.08789C2.19161 3.29297 9.53674e-05 6.13556 0 9.42871V15.1768C0.000301361 16.3366 0.786091 17.4639 1.95508 17.4639H2.57129C2.80855 18.481 3.7265 19.2354 4.81738 19.2354C5.90823 19.2353 6.8262 18.481 7.06348 17.4639H16.7822C17.0195 18.481 17.9374 19.2354 19.0283 19.2354C20.1192 19.2353 21.0371 18.481 21.2744 17.4639H22.916C23.9822 17.4639 24.707 16.4782 24.707 15.4385V2.02441C24.7069 0.984869 23.9821 0 22.916 0H9.69336ZM19.0283 15.6582C19.7554 15.6583 20.3357 16.2399 20.3359 16.9463C20.3357 17.6526 19.7554 18.2353 19.0283 18.2354C18.3012 18.2354 17.721 17.6526 17.7207 16.9463C17.7209 16.2399 18.3012 15.6582 19.0283 15.6582ZM4.81738 15.6582C5.5445 15.6583 6.12479 16.2399 6.125 16.9463C6.12473 17.6526 5.54446 18.2353 4.81738 18.2354C4.09026 18.2354 3.51003 17.6526 3.50977 16.9463C3.50998 16.2399 4.09022 15.6582 4.81738 15.6582ZM22.916 1C23.2802 1 23.7069 1.3747 23.707 2.02441V15.4385C23.707 16.0884 23.2803 16.4639 22.916 16.4639H21.2842C21.0605 15.4286 20.132 14.6582 19.0283 14.6582C17.9246 14.6582 16.9961 15.4286 16.7725 16.4639H8.90234V2.02441C8.90251 1.3747 9.32914 1 9.69336 1H22.916ZM7.90234 16.4639H7.07324C6.84954 15.4286 5.9211 14.6582 4.81738 14.6582C3.71362 14.6582 2.78521 15.4286 2.56152 16.4639H1.95508C1.52076 16.4639 1.00029 15.9863 1 15.1768V9.42871C1.00009 6.48697 2.92534 4.29297 5.08789 4.29297H7.90234V16.4639ZM26.0986 12.9219C25.8708 12.9685 25.6992 13.1705 25.6992 13.4121C25.6994 13.6536 25.8709 13.8558 26.0986 13.9023L26.1992 13.9121H29.9922C30.2682 13.9121 30.4919 13.688 30.4922 13.4121C30.4922 13.136 30.2683 12.9121 29.9922 12.9121H26.1992L26.0986 12.9219ZM26.0947 9.67871C25.8671 9.72549 25.6963 9.92746 25.6963 10.1689C25.6965 10.4102 25.8672 10.6125 26.0947 10.6592L26.1963 10.6689H31.2305C31.5064 10.6689 31.7302 10.4449 31.7305 10.1689C31.7305 9.8928 31.5066 9.66895 31.2305 9.66895H26.1963L26.0947 9.67871ZM26.0967 6.51074C25.8689 6.55735 25.6974 6.75949 25.6973 7.00098C25.6973 7.24257 25.8689 7.44456 26.0967 7.49121L26.1973 7.50098H32.7695C33.0457 7.50098 33.2695 7.27712 33.2695 7.00098C33.2694 6.72497 33.0456 6.50098 32.7695 6.50098H26.1973L26.0967 6.51074Z" fill="white"/>
+</svg>
+              </div>
+              <div class="drawer__benefits__item__text">
+                Free Delivery
+              </div>
+            </div>
+                        <div class="drawer__benefits__item">
+              <div class="drawer__benefits__item__icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="22" viewBox="0 0 20 22" fill="none">
+  <path d="M13.7615 17.8179C13.3322 17.8179 12.9474 17.708 12.6072 17.4881C12.2721 17.2682 12.0051 16.9489 11.8062 16.53C11.6125 16.1112 11.5156 15.6034 11.5156 15.0066C11.5156 14.4098 11.6125 13.902 11.8062 13.4832C12.0051 13.0644 12.2721 12.745 12.6072 12.5251C12.9474 12.3053 13.3322 12.1953 13.7615 12.1953C14.1856 12.1953 14.5677 12.3053 14.908 12.5251C15.2483 12.745 15.5153 13.0644 15.709 13.4832C15.9027 13.902 15.9996 14.4098 15.9996 15.0066C15.9996 15.6034 15.9027 16.1112 15.709 16.53C15.5153 16.9489 15.2483 17.2682 14.908 17.4881C14.5677 17.708 14.1856 17.8179 13.7615 17.8179ZM13.7615 17.119C14.0495 17.119 14.3007 17.0405 14.5154 16.8834C14.7353 16.7264 14.9054 16.4908 15.0258 16.1767C15.1515 15.8626 15.2143 15.4725 15.2143 15.0066C15.2143 14.5407 15.1515 14.1507 15.0258 13.8365C14.9054 13.5224 14.7353 13.2868 14.5154 13.1298C14.3007 12.9727 14.0495 12.8942 13.7615 12.8942C13.4736 12.8942 13.2197 12.9727 12.9998 13.1298C12.7799 13.2868 12.6072 13.5224 12.4815 13.8365C12.3611 14.1507 12.3009 14.5407 12.3009 15.0066C12.3009 15.4725 12.3611 15.8626 12.4815 16.1767C12.6072 16.4908 12.7799 16.7264 12.9998 16.8834C13.2197 17.0405 13.4736 17.119 13.7615 17.119Z" fill="white"/>
+  <path d="M8.9959 17.8179C8.56661 17.8179 8.18182 17.708 7.84154 17.4881C7.50648 17.2682 7.23949 16.9489 7.04055 16.53C6.84685 16.1112 6.75 15.6034 6.75 15.0066C6.75 14.4098 6.84685 13.902 7.04055 13.4832C7.23949 13.0644 7.50648 12.745 7.84154 12.5251C8.18182 12.3053 8.56661 12.1953 8.9959 12.1953C9.41995 12.1953 9.80211 12.3053 10.1424 12.5251C10.4827 12.745 10.7497 13.0644 10.9434 13.4832C11.1371 13.902 11.2339 14.4098 11.2339 15.0066C11.2339 15.6034 11.1371 16.1112 10.9434 16.53C10.7497 16.9489 10.4827 17.2682 10.1424 17.4881C9.80211 17.708 9.41995 17.8179 8.9959 17.8179ZM8.9959 17.119C9.28383 17.119 9.53512 17.0405 9.74976 16.8834C9.96964 16.7264 10.1398 16.4908 10.2602 16.1767C10.3858 15.8626 10.4487 15.4725 10.4487 15.0066C10.4487 14.5407 10.3858 14.1507 10.2602 13.8365C10.1398 13.5224 9.96964 13.2868 9.74976 13.1298C9.53512 12.9727 9.28383 12.8942 8.9959 12.8942C8.70796 12.8942 8.45405 12.9727 8.23418 13.1298C8.0143 13.2868 7.84154 13.5224 7.71589 13.8365C7.59548 14.1507 7.53528 14.5407 7.53528 15.0066C7.53528 15.4725 7.59548 15.8626 7.71589 16.1767C7.84154 16.4908 8.0143 16.7264 8.23418 16.8834C8.45405 17.0405 8.70796 17.119 8.9959 17.119Z" fill="white"/>
+  <path d="M5.24074 17.7555V12.5727L5.57841 12.9418H4V12.2586H6.01817V17.7555H5.24074Z" fill="white"/>
+  <path d="M17 3H3C1.89543 3 1 3.89543 1 5V19C1 20.1046 1.89543 21 3 21H17C18.1046 21 19 20.1046 19 19V5C19 3.89543 18.1046 3 17 3Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M14 1V5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M6 1V5" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M1 9H19" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+              </div>
+              <div class="drawer__benefits__item__text">
+                100 Days Free Trial
+              </div>
+            </div>
+                        <div class="drawer__benefits__item">
+              <div class="drawer__benefits__item__icon">
+<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+  <g clip-path="url(#clip0_2946_3306)">
+    <path d="M19 9.50059C19 14.7472 14.7472 19.0012 9.49941 19.0012C4.25159 19.0012 0 14.7472 0 9.50059C0 4.25394 4.25277 0 9.50059 0C14.7484 0 19.0012 4.25277 19.0012 9.50059H19ZM17.9721 9.49941C17.9721 4.82019 14.1786 1.02677 9.49941 1.02677C4.82019 1.02677 1.02795 4.82019 1.02795 9.49941C1.02795 14.1786 4.82137 17.9721 9.50059 17.9721C14.1798 17.9721 17.9732 14.1786 17.9732 9.49941H17.9721Z" fill="white"/>
+    <path d="M10.0316 3.68418L10.0363 4.97176C11.2757 5.02228 12.1474 6.19707 12.38 7.32488L11.3356 7.31196C11.1641 5.39234 7.89931 5.30893 7.73367 7.2027C7.57742 8.98134 9.95991 8.90851 11.0865 9.38312C13.7944 10.525 12.7688 14.1974 10.0316 14.2574V15.3147H8.97308L8.96838 14.2621C7.43762 14.1552 6.30981 12.8535 6.38852 11.3204L7.31309 11.3356C7.31309 13.6758 11.3943 14.0823 11.5529 11.8361C11.7256 9.3984 7.41412 10.478 6.73391 8.33168C6.18528 6.59885 7.2426 5.12213 8.96133 4.84723L8.97308 3.68301H10.0316V3.68418Z" fill="white"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_2946_3306">
+      <rect width="19" height="19" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
+              </div>
+              <div class="drawer__benefits__item__text">
+                Flexible Payments
+              </div>
+            </div>
           </div>
           <div class="drawer__body" data-drawer-scrolls>
 
@@ -96,33 +530,117 @@
                 </div>
               </div>
             {%- endif -%}
-
+            <div class="drawer__bottom__upsell">
+              {% render 'cart-upsell', section: section %}
+            </div>
             {%- if section.settings.cart_shipping_enable -%}
               {% render 'cart-shipping-estimate' %}
             {%- endif -%}
 
             <p class="drawer__bottom__meta body-size-3"><em>{{ 'cart.general.shipping_at_checkout' | t }}</em></p>
 
-            <div class="drawer__footer__subtotal" data-cart-subtotal>
+            <div class="drawer__footer__subtotal" data-cart-subtotal>   
               {% render 'cart-subtotal' %}
-            </div>
+            </div> 
+            <div class="flex bottom_drawer_footer">
+              <div class="items_count_and_total flex flex-col">
+                <div class="items_count"> 
+                  {% if cart.item_count > 0  and cart.item_count == 1 %}
+                    <p data-header-cart-count="{{ cart.item_count }}" >{{ cart.item_count }} Item in Cart</p>
+                  {% elsif cart.item_count > 1 %}
+                    <p data-header-cart-count="{{ cart.item_count }}" >{{ cart.item_count }} Items in Cart</p>
+                  {% else %}
+                    <p data-cart-count="0">No items in cart</p>
+                  {% endif %}
+                </div>
+                <div class="cart__subtotal">
+                  <p data-cart-final data-cart-price="{{ cart.total_price }}">Total: {{ cart.total_price | money_with_currency | replace: "USD" , "" }}</p>
+                </div>
+              </div>
+              <div class="checkout_and_icons">
+                <form id='cart-form' action="{{ routes.cart_url }}" method="post" novalidate class="cart">
+                    <button type="submit" name="checkout" class="btn checkout__button">
+                      {{ 'cart.general.checkout' | t }}
 
-            <form id='cart-form' action="{{ routes.cart_url }}" method="post" novalidate class="cart">
-              <button type="submit" name="checkout" class="btn btn--primary btn--large btn--full checkout__button">
-                {{ 'cart.general.checkout' | t }} •
-                <span data-cart-final>
-                  {{ cart.total_price | money_with_currency }}
-                </span>
-              </button>
-            </form>
-            <a id="viewCart" href="/cart" class="btn btn--secondary btn--large btn--full">View Cart</a>
-            {% render 'cart-drawer-benefits' %}
+                    </button>
+                </form>
+                <div class="payments_icons">
+                  <div class="pay_icon_item">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="54" height="13" viewBox="0 0 54 13" fill="none">
+                        <g clip-path="url(#clip0_2946_3315)">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M35.5498 0.666687C34.4786 0.666687 33.6102 1.50237 33.6102 2.53325V11.0223C33.6102 12.0532 34.4786 12.8889 35.5498 12.8889H51.3558C52.427 12.8889 53.2954 12.0532 53.2954 11.0223V2.53325C53.2954 1.50237 52.427 0.666687 51.3558 0.666687H35.5498ZM38.3184 9.20192V7.05016H39.7251C41.0103 7.05016 41.6936 6.35673 41.6936 5.30587C41.6936 4.25501 41.0103 3.62594 39.7251 3.62594H37.4122V9.20192H38.3184ZM38.3184 4.45518H39.5171C40.349 4.45518 40.7577 4.78401 40.7577 5.33447C40.7577 5.88492 40.3639 6.21376 39.5542 6.21376H38.3184V4.45518ZM43.2914 9.3163C43.9822 9.3163 44.4353 9.0232 44.6433 8.52279C44.7028 9.08039 45.052 9.36634 45.8096 9.17332L45.8172 8.57998C45.5125 8.60858 45.453 8.50135 45.453 8.19396V6.73562C45.453 5.87777 44.8662 5.37021 43.7817 5.37021C42.7119 5.37021 42.0954 5.88492 42.0954 6.75706H42.9275C42.9275 6.34244 43.232 6.09224 43.7669 6.09224C44.3313 6.09224 44.5914 6.32814 44.5839 6.73562V6.92148L43.6256 7.02157C42.5485 7.13593 41.9543 7.52912 41.9543 8.2154C41.9543 8.78015 42.3702 9.3163 43.2914 9.3163ZM43.4771 8.67292C43.0091 8.67292 42.8234 8.42986 42.8234 8.18679C42.8234 7.85796 43.2098 7.70783 43.9674 7.62206L44.5617 7.55772C44.5245 8.18679 44.0862 8.67292 43.4771 8.67292ZM48.5687 9.48072C48.1899 10.3672 47.5807 10.6317 46.63 10.6317H46.2213V9.90249H46.6597C47.1796 9.90249 47.4322 9.74522 47.7071 9.29484L46.0208 5.48459H46.9567L48.1602 8.26544L49.2299 5.48459H50.1436L48.5687 9.48072Z" fill="#5A31F4"/>
+                          <path d="M4.61607 6.03896C3.37518 5.77992 2.82236 5.67855 2.82236 5.21839C2.82236 4.78558 3.19648 4.56998 3.94469 4.56998C4.60271 4.56998 5.08371 4.84672 5.43778 5.38894C5.46449 5.43078 5.51961 5.44526 5.5647 5.42273L6.96092 4.74375C7.01102 4.71961 7.02939 4.65848 7.00101 4.61181C6.42147 3.64483 5.35093 3.11548 3.94135 3.11548C2.08919 3.11548 0.938477 3.99397 0.938477 5.39056C0.938477 6.87401 2.3397 7.2489 3.58228 7.50794C4.82483 7.76699 5.37931 7.86834 5.37931 8.3285C5.37931 8.78866 4.97515 9.00588 4.16847 9.00588C3.42361 9.00588 2.8708 8.67766 2.53677 8.0405C2.51173 7.99384 2.45327 7.97453 2.40485 7.99868L1.01196 8.66317C0.963528 8.68731 0.943486 8.74361 0.968539 8.79189C1.52135 9.86185 2.65536 10.4636 4.17015 10.4636C6.09914 10.4636 7.26487 9.59958 7.26487 8.15957C7.26487 6.71955 5.85697 6.30123 4.61607 6.04219V6.03896Z" fill="#5A31F4"/>
+                          <path d="M12.0981 3.11552C11.3064 3.11552 10.6067 3.38583 10.1039 3.8669C10.0722 3.89587 10.0204 3.87494 10.0204 3.83312V0.761615C10.0204 0.70852 9.97701 0.666687 9.92191 0.666687H8.17497C8.11985 0.666687 8.07642 0.70852 8.07642 0.761615V10.2947C8.07642 10.3478 8.11985 10.3896 8.17497 10.3896H9.92191C9.97701 10.3896 10.0204 10.3478 10.0204 10.2947V6.113C10.0204 5.30532 10.6634 4.68587 11.5302 4.68587C12.397 4.68587 13.025 5.29245 13.025 6.113V10.2947C13.025 10.3478 13.0684 10.3896 13.1235 10.3896H14.8705C14.9256 10.3896 14.969 10.3478 14.969 10.2947V6.113C14.969 4.35603 13.7732 3.11714 12.0981 3.11714V3.11552Z" fill="#5A31F4"/>
+                          <path d="M18.5163 2.8436C17.5677 2.8436 16.6759 3.12194 16.0378 3.52579C15.9945 3.55315 15.9795 3.60946 16.0062 3.6529L16.776 4.91914C16.8045 4.96419 16.8645 4.98029 16.9113 4.95294C17.3957 4.67137 17.9501 4.52495 18.5163 4.52818C20.0411 4.52818 21.1617 5.56434 21.1617 6.93356C21.1617 8.10005 20.2649 8.96407 19.1275 8.96407C18.2007 8.96407 17.5577 8.44438 17.5577 7.71069C17.5577 7.29075 17.743 6.94643 18.2257 6.70349C18.2758 6.67774 18.2942 6.61821 18.2642 6.57154L17.5377 5.38735C17.5142 5.34875 17.4642 5.33105 17.419 5.34713C16.4454 5.69467 15.7622 6.53132 15.7622 7.65438C15.7622 9.35344 17.1669 10.6213 19.126 10.6213C21.414 10.6213 23.059 9.09439 23.059 6.90461C23.059 4.55713 21.1451 2.84198 18.513 2.84198L18.5163 2.8436Z" fill="#5A31F4"/>
+                          <path d="M28.1678 3.10262C27.2842 3.10262 26.496 3.41636 25.9198 3.96984C25.888 4.00042 25.8363 3.97789 25.8363 3.93606V3.26996C25.8363 3.21686 25.7929 3.17502 25.7377 3.17502H24.0359C23.9809 3.17502 23.9374 3.21686 23.9374 3.26996V12.7886C23.9374 12.8417 23.9809 12.8835 24.0359 12.8835H25.7828C25.838 12.8835 25.8815 12.8417 25.8815 12.7886V9.66717C25.8815 9.62533 25.9332 9.60442 25.9648 9.63177C26.5394 10.1466 27.2993 10.4475 28.1695 10.4475C30.2187 10.4475 31.8169 8.84982 31.8169 6.77426C31.8169 4.6987 30.2169 3.10101 28.1695 3.10101L28.1678 3.10262ZM27.8388 8.83534C26.673 8.83534 25.7895 7.94237 25.7895 6.76139C25.7895 5.58042 26.6713 4.68744 27.8388 4.68744C29.0062 4.68744 29.8863 5.56594 29.8863 6.76139C29.8863 7.95685 29.0178 8.83534 27.8371 8.83534H27.8388Z" fill="#5A31F4"/>
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_2946_3315">
+                            <rect width="53.3333" height="12.2222" fill="white" transform="translate(0 0.666626)"/>
+                          </clipPath>
+                        </defs>
+                      </svg>
+                  </div>
+                  <div class="pay_icon_item">
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="20" viewBox="0 0 32 20" fill="none">
+  <g clip-path="url(#clip0_2946_3336)">
+    <path opacity="0.07" d="M29.0994 0H2.9006C1.50879 0 0.444458 1.08333 0.444458 2.5V17.5C0.444458 18.9167 1.59066 20 2.9006 20H29.0994C30.4912 20 31.5556 18.9167 31.5556 17.5V2.5C31.5556 1.08333 30.4094 0 29.0994 0Z" fill="black"/>
+    <path d="M29.0993 0.833313C29.9999 0.833313 30.7367 1.58331 30.7367 2.49998V17.5C30.7367 18.4166 29.9999 19.1666 29.0993 19.1666H2.90049C1.9999 19.1666 1.26306 18.4166 1.26306 17.5V2.49998C1.26306 1.58331 1.9999 0.833313 2.90049 0.833313H29.0993Z" fill="white"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M5.33059 14.115C5.02766 14.115 4.87211 13.9625 4.87211 13.7117C4.87211 13.245 5.3838 13.0883 6.31632 12.9875C6.31632 13.6092 5.90287 14.1142 5.32813 14.1142L5.33059 14.115ZM5.73176 10.6175C5.06533 10.6175 4.29901 10.9367 3.8831 11.2742L4.26299 12.0908C4.59702 11.78 5.13573 11.5142 5.62205 11.5142C6.08544 11.5142 6.34088 11.6717 6.34088 11.9892C6.34088 12.2017 6.17141 12.31 5.85211 12.3525C4.65679 12.51 3.71936 12.8458 3.71936 13.7833C3.71936 14.5267 4.23924 14.9758 5.05141 14.9758C5.63106 14.9758 6.14685 14.6483 6.39246 14.2175V14.8592H7.47316V12.1708C7.47316 11.0625 6.71749 10.615 5.73258 10.615L5.73176 10.6175ZM16.5797 10.7383V14.855H17.7366V12.8717C17.7366 11.9292 18.2966 11.6517 18.6871 11.6517C18.8631 11.65 19.035 11.7017 19.1816 11.8008L19.3936 10.7125C19.2297 10.6458 19.0543 10.6135 18.8778 10.6175C18.2835 10.6175 17.9093 10.885 17.6629 11.43V10.7383H16.5797ZM24.7521 10.6167C24.1413 10.6167 23.6837 10.985 23.4463 11.3392C23.2252 10.8808 22.7585 10.6175 22.1969 10.6175C21.5861 10.6175 21.162 10.9625 20.9672 11.3608V10.7383H19.8513V14.8542H21.0089V12.735C21.0089 11.9767 21.4003 11.61 21.7654 11.61C22.0962 11.61 22.3999 11.8267 22.3999 12.3883V14.8542H23.5551V12.735C23.5551 11.965 23.9375 11.61 24.319 11.61C24.6252 11.61 24.9494 11.835 24.9494 12.3808V14.8542H26.1054V12.0083C26.1054 11.0833 25.4939 10.6167 24.7546 10.6167M13.765 10.7383H12.7178V10.32C12.7178 9.77501 13.0232 9.62001 13.286 9.62001C13.4661 9.62251 13.6422 9.66751 13.8018 9.75085L14.1588 8.92085C14.1588 8.92085 13.7969 8.68085 13.1395 8.68085C12.401 8.68085 11.5602 9.10501 11.5602 10.4358V10.7383H9.80977V10.32C9.80977 9.77501 10.1143 9.62001 10.378 9.62001C10.5581 9.62001 10.7349 9.66501 10.8937 9.75085L11.2499 8.92085C11.037 8.79418 10.6956 8.68085 10.2314 8.68085C9.49293 8.68085 8.65211 9.10501 8.65211 10.4358V10.7383H7.98322V11.6458H8.65456V14.8542H9.80895V11.6458H11.5626V14.8542H12.7178V11.6458H13.7658V10.7375L13.765 10.7383Z" fill="#101820"/>
+    <path d="M15.6095 10.7383H14.4551V14.8525H15.6095V10.7383Z" fill="#101820"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4977 10.0383H15.6283C16.2882 7.9275 18.5266 6.07167 21.1874 6.07167C24.4246 6.07167 27.2213 8.58 27.2213 12.485C27.2311 13.2867 27.1231 14.085 26.9004 14.8542H27.9974L28.0089 14.8158C28.1939 14.0542 28.2848 13.2725 28.2807 12.4883C28.2807 8.13417 25.1631 5 21.1898 5C18.0689 5 15.2869 7.205 14.4985 10.04L14.4977 10.0383Z" fill="#4A4AF4"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_2946_3336">
+      <rect width="31.1111" height="20" fill="white" transform="translate(0.444458)"/>
+    </clipPath>
+  </defs>
+</svg>
+                  </div>
+                  <div class="pay_icon_item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="33" height="20" viewBox="0 0 33 20" fill="none">
+  <g clip-path="url(#clip0_2946_3327)">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M30.2339 0H3.0994C1.65788 0 0.555542 1.08333 0.555542 2.5V17.5C0.555542 18.9167 1.74268 20 3.0994 20H30.2339C31.6754 20 32.7778 18.9167 32.7778 17.5V2.5C32.7778 1.08333 31.5906 0 30.2339 0Z" fill="#FFB3C7"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M30.234 0.833313C31.1667 0.833313 31.9299 1.58331 31.9299 2.49998V17.5C31.9299 18.4166 31.1667 19.1666 30.234 19.1666H3.09947C2.16672 19.1666 1.40356 18.4166 1.40356 17.5V2.49998C1.40356 1.58331 2.16672 0.833313 3.09947 0.833313H30.234Z" fill="#FFB3C7"/>
+    <path d="M29.4852 10.9867C29.0722 10.9867 28.7373 11.32 28.7373 11.73C28.7373 12.1409 29.0722 12.4742 29.4852 12.4742C29.899 12.4742 30.2339 12.1409 30.2339 11.73C30.2348 11.5339 30.1565 11.3455 30.0161 11.2061C29.8757 11.0667 29.6848 10.9878 29.4852 10.9867ZM27.0236 10.4117C27.0236 9.84835 26.5403 9.39252 25.9433 9.39252C25.3463 9.39252 24.863 9.84835 24.863 10.4109C24.863 10.9734 25.3463 11.43 25.9433 11.43C26.5403 11.43 27.0236 10.9734 27.0236 10.4109V10.4117ZM27.0278 8.43169H28.22V12.39H27.0278V12.1375C26.6806 12.3738 26.2682 12.5003 25.8458 12.5C24.6849 12.5 23.7446 11.565 23.7446 10.4109C23.7446 9.25752 24.6858 8.32252 25.8458 8.32252C26.2842 8.32252 26.6903 8.45585 27.0278 8.68502V8.43169ZM17.4858 8.94752V8.43169H16.2648V12.39H17.4884V10.5425C17.4884 9.91835 18.1684 9.58419 18.6407 9.58419H18.6543V8.43252C18.171 8.43252 17.7249 8.63835 17.4858 8.94752ZM14.445 10.4109C14.445 9.84835 13.9617 9.39252 13.3648 9.39252C12.7686 9.39252 12.2845 9.84835 12.2845 10.4109C12.2845 10.9734 12.7678 11.43 13.3648 11.43C13.9617 11.43 14.445 10.9734 14.445 10.4109ZM14.4493 8.43169H15.6415V12.39H14.4493V12.1375C14.1018 12.374 13.6891 12.5005 13.2664 12.5C12.1064 12.5 11.1652 11.565 11.1652 10.4109C11.1652 9.25752 12.1064 8.32252 13.2664 8.32252C13.7048 8.32252 14.1118 8.45585 14.4484 8.68502L14.4493 8.43169ZM21.6255 8.32502C21.1498 8.32502 20.6987 8.47252 20.3977 8.87752V8.43169H19.2105V12.39H20.4121V10.31C20.4121 9.70835 20.8183 9.41335 21.3067 9.41335C21.8307 9.41335 22.1317 9.72502 22.1317 10.3017V12.3909H23.3231V9.87335C23.3231 8.95169 22.5854 8.32502 21.6255 8.32502ZM9.42941 12.3917H10.6776V6.66669H9.42941V12.39V12.3917ZM3.94739 12.3917H5.2685V6.66669H3.94739V12.3917ZM8.56873 6.66669C8.57208 7.26909 8.4545 7.86622 8.22271 8.4239C7.99093 8.98159 7.64949 9.48886 7.21794 9.91669L9.04443 12.3917H7.41212L5.42707 9.70169L5.93923 9.32002C6.35701 9.01067 6.69548 8.60968 6.92765 8.14902C7.15981 7.68835 7.27925 7.18075 7.27645 6.66669H8.56873Z" fill="#0A0B09"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_2946_3327">
+      <rect width="32.2222" height="20" fill="white" transform="translate(0.555542)"/>
+    </clipPath>
+  </defs>
+</svg>
+                  </div>
+                  <div class="pay_icon_item">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="34" height="20" viewBox="0 0 34 20" fill="none">
+  <g clip-path="url(#clip0_2946_3332)">
+    <path opacity="0.07" d="M30.567 0H3.43253C1.99101 0 0.888672 1.08333 0.888672 2.5V17.5C0.888672 18.9167 2.07581 20 3.43253 20H30.567C32.0086 20 33.1109 18.9167 33.1109 17.5V2.5C33.1109 1.08333 31.9238 0 30.567 0Z" fill="black"/>
+    <path d="M30.5671 0.833313C31.4999 0.833313 32.263 1.58331 32.263 2.49998V17.5C32.263 18.4166 31.4999 19.1666 30.5671 19.1666H3.4326C2.49985 19.1666 1.73669 18.4166 1.73669 17.5V2.49998C1.73669 1.58331 2.49985 0.833313 3.4326 0.833313H30.5671Z" fill="url(#paint0_linear_2946_3332)"/>
+    <path d="M14.9741 16.0758C14.3523 16.0686 13.7523 15.8494 13.2765 15.4558C12.3573 14.7058 10.9591 12.9875 11.9308 9.90998C12.1004 9.37164 12.2971 8.88164 12.5176 8.43581C12.0283 8.27581 11.6468 8.21081 11.4916 8.20414L11.4755 7.13414C11.651 7.12998 12.2734 7.21248 13.0594 7.48914C14.6129 5.13331 16.8879 4.32081 18.7178 4.08498C20.5265 3.85164 22.7473 4.65081 23.3519 6.95331C23.7208 8.35831 23.418 9.85164 22.5404 10.9466C21.8358 11.8275 20.4748 12.865 17.9343 12.8183L17.551 12.8058C17.5594 13.2291 17.5037 13.6512 17.3857 14.0583C17.0431 15.2358 16.28 15.9475 15.2361 16.0616C15.1492 16.0714 15.0617 16.0761 14.9741 16.0758ZM13.5182 8.84831C13.3053 9.27331 13.1205 9.73331 12.9645 10.2283C12.22 12.585 13.0984 13.9225 13.9659 14.6308C14.3059 14.9075 14.7248 15.0425 15.1174 14.9983C15.3387 14.9741 16.0137 14.9 16.3444 13.7625C16.5835 12.9425 16.4758 12.0408 16.0417 11.225C15.4168 10.0491 14.4238 9.30414 13.5182 8.84831ZM17.3984 11.7308L17.9623 11.7483C19.6362 11.7833 20.8869 11.2875 21.6916 10.2833C22.3589 9.44914 22.5879 8.30414 22.303 7.22164C21.8637 5.54664 20.2085 4.97248 18.8586 5.14581C16.765 5.41581 15.1615 6.34581 14.0677 7.91998C15.1225 8.45748 16.2596 9.33414 16.9999 10.7266C17.1737 11.0525 17.306 11.3891 17.3984 11.7308Z" fill="white"/>
+  </g>
+  <defs>
+    <linearGradient id="paint0_linear_2946_3332" x1="32.0336" y1="0.891658" x2="5.72095" y2="26.2549" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#AFFBCE"/>
+      <stop offset="0.328" stop-color="#906FEB"/>
+      <stop offset="0.657" stop-color="#7950EC"/>
+    </linearGradient>
+    <clipPath id="clip0_2946_3332">
+      <rect width="32.2222" height="20" fill="white" transform="translate(0.888672)"/>
+    </clipPath>
+  </defs>
+</svg>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--<a id="viewCart" href="/cart" class="btn btn--secondary btn--large btn--full">View Cart</a>-->
+            
             {% if additional_checkout_buttons and section.settings.cart_show_additional_buttons %}
-              <div class="drawer__checkout__additional">
+              <!--<div class="drawer__checkout__additional">
                 <div class="additional-checkout-buttons additional-checkout-buttons--vertical">
                   {{ content_for_additional_checkout_buttons }}
                 </div>
-              </div>
+              </div>-->
             {% endif %}
           </div>
         </div>
@@ -191,6 +709,76 @@
     },
     {
       "type": "header",
+      "content": "Upsell Products"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_upsell_carousel",
+      "label": "Show upsell products carousel",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "upsell_title",
+      "label": "Upsell section title",
+      "default": "You may also like"
+    },
+    {
+      "type": "range",
+      "id": "desktop_items_per_view",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "label": "Desktop items per view",
+      "default": 2.5
+    },
+    {
+      "type": "range",
+      "id": "tablet_items_per_view",
+      "min": 1,
+      "max": 4,
+      "step": 0.5,
+      "label": "Tablet items per view",
+      "default": 2
+    },
+    {
+      "type": "range",
+      "id": "mobile_items_per_view",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Mobile items per view",
+      "default": 1.2
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Enable autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "label": "Autoplay speed (in seconds)",
+      "default": 5
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_free_scroll",
+      "label": "Enable free scroll",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_wrap_around",
+      "label": "Enable wrap around",
+      "default": false
+    },
+    {
+      "type": "header",
       "content": "Colors"
     },
     {
@@ -240,6 +828,53 @@
       "info": "Move buttons for Apple Pay, Amazon Pay and PayPal express from the first step of the checkout to the cart.",
       "default": false
     }
+  ],
+  "blocks": [
+    {
+      "type": "upsell_product",
+      "name": "Upsell Product",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
+
+<script>
+  document.addEventListener('cart:updated', function(event) {
+    if (event.detail && event.detail.cart) {
+      const cart = event.detail.cart;
+      const itemsCountElement = document.querySelector('.items_count p');
+      
+      if (itemsCountElement) {
+        if (cart.item_count === 0) {
+          itemsCountElement.textContent = "No items in cart";
+          itemsCountElement.setAttribute('data-cart-count', '0');
+        } else if (cart.item_count === 1) {
+          itemsCountElement.textContent = "1 Item in Cart";
+          itemsCountElement.setAttribute('data-header-cart-count', '1');
+        } else {
+          itemsCountElement.textContent = `${cart.item_count} Items in Cart`;
+          itemsCountElement.setAttribute('data-header-cart-count', cart.item_count);
+        }
+      }
+    }
+  });
+  
+  // Also listen for theme:cart:change event
+  document.addEventListener('theme:cart:change', function(event) {
+    if (event.detail && event.detail.cart) {
+      // Create a new event to reuse the same handler
+      document.dispatchEvent(new CustomEvent('cart:updated', {
+        detail: event.detail,
+        bubbles: true
+      }));
+    }
+  });
+</script>

@@ -1,0 +1,348 @@
+{% comment %}
+  Cart Protection Plan Snippet
+  - Displays protection plan options for products in cart
+  - Parses variant titles to extract price ranges and year plans
+  - Offers 2, 3, and 5 year protection plans
+  - Excludes bundles and protection plans themselves
+  - Uses AJAX add to cart functionality matching the product page
+  - Handles multiple quantities by showing recommendation to add more protection plans
+  
+  Usage:
+  {% render 'cart-protection-plan', line_item: line_item %}
+{% endcomment %}
+
+{%- liquid
+  assign protection_handle = 'clyde-protection-plan-e0fae702-426f-47a3-b79c-e613e467fd5a-1'
+  assign protection_product = all_products[protection_handle]
+  
+  # Check if the current item already has a protection plan or is a protection plan itself
+  assign has_protection = false
+  assign is_protection = false
+  assign protection_count = 0
+  
+  # Check if current item is a protection plan
+  if line_item.product.handle == protection_handle
+    assign is_protection = true
+  endif
+  
+  # Check if this is a bundle (skip protection for bundles)
+  assign is_bundle = false
+  if line_item.product.tags contains 'bundle' or line_item.product.type contains 'Bundle' or line_item.product.title contains 'Bundle'
+    assign is_bundle = true
+  endif
+  
+  # Determine if the line item is discounted
+  assign item_discounted = false
+  
+  # A line item is discounted if line_price < original_line_price
+  if line_item.original_line_price > line_item.final_line_price
+    assign item_discounted = true
+  endif
+  
+  # Get the appropriate price for protection plan calculation
+  # If item is discounted, use variant's compare_at_price if available, or original price
+  assign item_price = line_item.final_price
+  if item_discounted
+    assign variant = line_item.variant
+    if variant.compare_at_price > 0
+      assign item_price = variant.compare_at_price
+    else
+      # If no compare_at_price, use original_price (price before discounts)
+      assign item_price = line_item.original_price
+    endif
+  endif
+  
+  assign item_quantity = line_item.quantity
+  
+  # Check if any items in cart are protection plans for this product
+  # Count how many protection plans we have for this item - use line_item.id instead of line_item.key
+  assign current_item_id = line_item.id | append: ''
+  assign current_item_key = line_item.key | append: ''
+  
+  for item in cart.items
+    if item.product.handle == protection_handle
+      assign found_for_this_item = false
+      
+      # Check for _protection_reference property (key-based)
+      for property in item.properties
+        if property.first == '_protection_reference'
+          assign protection_ref = property.last | append: ''
+          if protection_ref == current_item_key
+            assign has_protection = true
+            assign protection_count = protection_count | plus: item.quantity
+            assign found_for_this_item = true
+            break
+          endif
+        endif
+      endfor
+      
+      # Check for _protection_item_id property (id-based) if not already found
+      if found_for_this_item == false
+        for property in item.properties
+          if property.first == '_protection_item_id'
+            assign protection_id = property.last | append: ''
+            if protection_id == current_item_id
+              assign has_protection = true
+              assign protection_count = protection_count | plus: item.quantity
+              break
+            endif
+          endif
+        endfor
+      endif
+    endif
+  endfor
+  
+  # Find matching protection plan variants for this item price
+  assign plan_2year = blank
+  assign plan_3year = blank
+  assign plan_5year = blank
+  
+  for variant in protection_product.variants
+    # Extract price range and years from variant title
+    # Example: "750-999.99 / 3 Year"
+    assign title_parts = variant.title | split: " / "
+    
+    if title_parts.size == 2
+      assign price_range = title_parts[0] | strip 
+      assign years = title_parts[1] | strip
+      
+      # Extract min and max prices from range (convert to cents for comparison)
+      assign range_parts = price_range | remove: "$" | split: "-"
+      
+      if range_parts.size == 2
+        assign range_min = range_parts[0] | times: 100 
+        assign range_max = range_parts[1] | remove: ".99" | times: 100
+        
+        # Check if item price is within this range
+        if item_price >= range_min and item_price <= range_max
+          # Store the appropriate variant based on years
+          if years contains "2 Year"
+            assign plan_2year = variant
+          elsif years contains "3 Year"
+            assign plan_3year = variant 
+          elsif years contains "5 Year"
+            assign plan_5year = variant
+          endif
+        endif
+      endif
+    endif
+  endfor
+  
+  # Check if we found any protection plans for this price range
+  assign has_plans = false
+  if plan_2year != blank or plan_3year != blank or plan_5year != blank
+    assign has_plans = true
+  endif
+  
+  # Check if we need more protection plans 
+  assign needs_more_protection = false
+  if protection_count < item_quantity and protection_count > 0
+    assign needs_more_protection = true
+  endif
+-%}
+
+{% if is_protection == false and is_bundle == false and has_plans %}
+  {% if has_protection == false or needs_more_protection %}
+    <div class="cart-protection-container">
+      <h4 class="cart-protection-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+  <g clip-path="url(#clip0_2946_3313)">
+    <path d="M12 0.923065C13.3846 0.923065 14.5062 2.44153 15.7339 2.96307C16.9616 3.4846 18.8816 3.19845 19.8139 4.18614C20.7462 5.17383 20.5108 6.98768 21.0369 8.26614C21.5631 9.5446 23.0769 10.6154 23.0769 12C23.0769 13.3846 21.5585 14.5061 21.0369 15.7338C20.5154 16.9615 20.8016 18.8815 19.8139 19.8138C18.8262 20.7461 17.0123 20.52 15.7339 21.0369C14.4554 21.5538 13.3846 23.0769 12 23.0769C10.6154 23.0769 9.49387 21.5585 8.26617 21.0369C7.03848 20.5154 5.11848 20.8015 4.18617 19.8138C3.25386 18.8261 3.48002 17.0123 2.9631 15.7338C2.44617 14.4554 0.923096 13.3846 0.923096 12C0.923096 10.6154 2.44156 9.49383 2.9631 8.26614C3.48463 7.03845 3.19848 5.11845 4.18617 4.18614C5.17386 3.25383 6.98771 3.47999 8.26617 2.96307C9.54463 2.44614 10.6154 0.923065 12 0.923065ZM12 4.42153C10.5011 4.42153 9.03592 4.866 7.78965 5.69873C6.54338 6.53146 5.57203 7.71505 4.99843 9.09984C4.42484 10.4846 4.27476 12.0084 4.56718 13.4785C4.85959 14.9486 5.58137 16.2989 6.64124 17.3588C7.7011 18.4186 9.05146 19.1404 10.5215 19.4328C11.9916 19.7252 13.5154 19.5752 14.9002 19.0016C16.285 18.428 17.4685 17.4566 18.3013 16.2104C19.134 14.9641 19.5785 13.4989 19.5785 12C19.5724 9.99193 18.772 8.06785 17.3521 6.64793C15.9322 5.22801 14.0081 4.42761 12 4.42153ZM15.5169 8.6446L16.26 9.34614C16.336 9.44642 16.3771 9.56879 16.3771 9.6946C16.3771 9.82042 16.336 9.94279 16.26 10.0431L11.5754 15.2631C11.4828 15.3681 11.3682 15.4515 11.2398 15.5073C11.1114 15.5631 10.9723 15.59 10.8323 15.5861C10.6931 15.5854 10.5554 15.5563 10.4277 15.5008C10.2999 15.4453 10.1848 15.3644 10.0892 15.2631L7.5554 12.7385C7.50899 12.6987 7.47094 12.6501 7.44346 12.5955C7.41598 12.5409 7.39962 12.4814 7.39532 12.4204C7.39103 12.3594 7.39889 12.2982 7.41845 12.2403C7.438 12.1824 7.46887 12.1289 7.50925 12.0831L7.5554 12.0323L8.30771 11.3354C8.39831 11.2379 8.52356 11.1799 8.65649 11.1739C8.78942 11.1678 8.91941 11.2142 9.01848 11.3031L9.05079 11.3354L10.8462 13.1815L14.8108 8.65845C14.9037 8.56493 15.0293 8.51119 15.1611 8.50861C15.2928 8.50602 15.4205 8.55479 15.5169 8.6446Z" fill="black"/>
+  </g>
+  <defs>
+    <clipPath id="clip0_2946_3313">
+      <rect width="24" height="24" fill="white"/>
+    </clipPath>
+  </defs>
+</svg>
+        
+        {% if needs_more_protection %}
+          Add babyark Warranty ({{ protection_count }}/{{ item_quantity }})
+        {% else %}
+          Add babyark Warranty
+        {% endif %}
+        
+      </h4>
+      <p>Protect your purchase with additional coverage for complete peace of mind</p>
+      <div class="cart-protection-options">
+        {% if plan_2year != blank %}
+          <div class="protection-plan-form">
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
+                <input type="hidden" name="id" value="{{ plan_2year.id }}">
+                <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
+                <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
+                <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
+                <button 
+                  type="submit" 
+                  name="add" 
+                  data-add-to-cart
+                  class="protection-plan-button plan-2-years"
+                  @click.prevent="handleClickAddButton"
+                >
+                  2 Years
+                  <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
+                </button>
+              {%- endform -%}
+            </div>
+          </div>
+        {% endif %}
+        
+        {% if plan_3year != blank %}
+          <div class="protection-plan-form">
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
+                <input type="hidden" name="id" value="{{ plan_3year.id }}">
+                <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
+                <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
+                <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
+                <button 
+                  type="submit" 
+                  name="add" 
+                  data-add-to-cart
+                  class="protection-plan-button plan-3-years"
+                  @click.prevent="handleClickAddButton"
+                >
+                  3 Years
+                  <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
+                </button>
+              {%- endform -%}
+            </div>
+          </div>
+        {% endif %}
+        
+        {% if plan_5year != blank %}
+          <div class="protection-plan-form">
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
+                <input type="hidden" name="id" value="{{ plan_5year.id }}">
+                <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
+                <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
+                <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
+                <button 
+                  type="submit" 
+                  name="add" 
+                  data-add-to-cart
+                  class="protection-plan-button plan-5-years"
+                  @click.prevent="handleClickAddButton"
+                >
+                  5 Years
+                  <span class="protection-price">+{{ plan_5year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
+                </button>
+              {%- endform -%}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+    
+    <style>
+      .cart-protection-container {
+        margin-top: 0;
+        border-radius: 10px;
+        background-color: #F6F6F6;
+        padding: 10px 0 0;
+        width: 100%;
+      }
+      .cart-protection-container > p {
+        font-size: 14px;
+        font-weight: 400;
+        margin: 0 0 8px 0;
+        line-height: 1.2;
+      }
+      .cart-protection-title {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #303030;
+        font-size: 17px;
+        font-weight: 600;
+        margin: 0 0 8px 0;
+        line-height: 1;
+      }
+      
+      .cart-protection-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        
+      }
+      
+      .protection-plan-form {
+        margin: 0;
+      }
+      
+      .protection-plan-button {
+        border-radius: 50px;
+        border: 1px solid #303030;
+        background-color: white;
+        color: #000;
+        font-size: 12px;
+        font-weight: 400;
+        padding: 8px 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        line-height: 1.2;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+      
+      .protection-plan-button:hover {
+        background-color: #303030;
+        color: white;
+      }
+      
+      .protection-price {
+        font-weight: 500;
+        margin-left: 4px;
+      }
+      
+      /* Simplified spinner styling */
+      .protection-plan-button .spinner {
+        margin-left: 5px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .protection-plan-button .spinner:after {
+        content: " ";
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #000;
+        border-color: #000 transparent #000 transparent;
+        animation: spin 1.2s linear infinite;
+      }
+      
+      .protection-plan-button:hover .spinner:after {
+        border-color: #fff transparent #fff transparent;
+      }
+      
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      
+      @media (max-width: 768px) {
+        .cart-protection-options {
+          justify-content: center;
+        }
+        
+        .cart-protection-title {
+          justify-content: center;
+        }
+        .cart-protection-container{
+          padding:0;
+        }
+      }
+    </style>
+  {% endif %}
+{% endif %} 
