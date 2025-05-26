@@ -54,7 +54,7 @@
         "cart_custom_message_enable": false,
         "cart_custom_message_text": "<p>Use code <strong>TENOFF</strong> at checkout for 10% off</p>",
         "show_upsell_carousel": true,
-        "upsell_title": "You may also like",
+        "upsell_title": "Add your must-haves",
         "desktop_items_per_view": 1.5,
         "tablet_items_per_view": 1.5,
         "mobile_items_per_view": 1.2,
