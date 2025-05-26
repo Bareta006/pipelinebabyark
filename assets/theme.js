@@ -13151,7 +13151,7 @@
           this.cart.total_price,
           theme.moneyFormat
         );
-        this.finalPrice.innerHTML = price + ` ${theme.currencyCode}`;
+        this.finalPrice.innerHTML = price + `<span>${theme.currencyCode}</span>`;
       }
       if (this.subtotal && this.cart) {
         window
