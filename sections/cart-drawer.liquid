@@ -852,7 +852,9 @@ button.cart-upsell-card__button:disabled {
     if (event.detail && event.detail.cart) {
       const cart = event.detail.cart;
       const itemsCountElement = document.querySelector('.items_count p');
+      const cartTotalElement = document.querySelector('[data-cart-final]');
       
+      // Update item count
       if (itemsCountElement) {
         if (cart.item_count === 0) {
           itemsCountElement.textContent = "No items in cart";
@@ -865,15 +867,32 @@ button.cart-upsell-card__button:disabled {
           itemsCountElement.setAttribute('data-header-cart-count', cart.item_count);
         }
       }
+      
+      // Update cart total
+      if (cartTotalElement && cart.total_price !== undefined) {
+        const formattedPrice = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+          minimumFractionDigits: 2
+        }).format(cart.total_price / 100);
+        
+        cartTotalElement.textContent = `${formattedPrice}`;
+        cartTotalElement.setAttribute('data-cart-price', cart.total_price);
+      }
     }
   });
   
-  // Also listen for theme:cart:change event
+  // Listen for theme:cart:change event and trigger cart reload for protection plans
   document.addEventListener('theme:cart:change', function(event) {
     if (event.detail && event.detail.cart) {
       // Create a new event to reuse the same handler
       document.dispatchEvent(new CustomEvent('cart:updated', {
         detail: event.detail,
+        bubbles: true
+      }));
+      
+      // Also trigger a cart reload to update the cart items and subtotal
+      document.dispatchEvent(new CustomEvent('theme:cart:reload', {
         bubbles: true
       }));
     }
