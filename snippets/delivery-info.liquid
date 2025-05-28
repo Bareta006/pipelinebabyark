@@ -41,6 +41,7 @@
     let deliveryInfo;
     try {
         deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
+        console.log("Full delivery info JSON:", deliveryInfo);
     } catch (error) {
         console.log("Error parsing delivery info JSON:", error);
         return;
@@ -68,6 +69,9 @@
             console.log("Variant input not found.");
             return;
         }
+
+        console.log("Variant input element:", variantInput);
+        console.log("Variant input value (raw):", variantInput.value);
 
         const variantId = parseInt(variantInput.value, 10);
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
