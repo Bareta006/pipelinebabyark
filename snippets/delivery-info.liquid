@@ -72,9 +72,6 @@
         const variantId = parseInt(variantInput.value, 10);
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
 
-        // Determine which data to use (variant-specific or general product)
-        const deliveryData = variantData || deliveryInfo.product;
-
         const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
         const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
 
@@ -87,49 +84,63 @@
         if (deliveryTimeInput) deliveryTimeInput.value = "";
         if (deliveryDateInput) deliveryDateInput.value = "";
 
-        if (deliveryData.delivery_time) {
-            // Use deliveryTime
-            if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
-                // Only use setTimeout when changing the name
-                deliveryDateInput.name = "deliveryTime";
-                setTimeout(() => {
-                    deliveryDateInput.value = deliveryData.delivery_time;
-                }, 50);
-            } else if (deliveryDateInput) {
-                // Name is already correct, set value immediately
-                deliveryDateInput.value = deliveryData.delivery_time;
-            }
-            
-            if (deliveryTimeInput && deliveryTimeInput.name === "deliveryTime") {
-                // Name is already correct, set value immediately
-                deliveryTimeInput.value = deliveryData.delivery_time;
-            } else if (deliveryTimeInput) {
-                // Name is changing, use setTimeout
-                deliveryTimeInput.name = "deliveryTime";
-                setTimeout(() => {
-                    deliveryTimeInput.value = deliveryData.delivery_time;
-                }, 50);
-            }
-        } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
-            // Use deliveryDate (either product-level or variant-specific)
-            const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
+        // Priority logic: variant-specific data takes precedence over product-level data
+        if (variantData && variantData.delivery_estimated_date) {
+            // Use variant-specific delivery estimated date (highest priority)
+            const estimatedDate = variantData.delivery_estimated_date;
             
             if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
-                // Only use setTimeout when changing the name
                 deliveryTimeInput.name = "deliveryDate";
                 setTimeout(() => {
                     deliveryTimeInput.value = estimatedDate;
                 }, 50);
             } else if (deliveryTimeInput) {
-                // Name is already correct, set value immediately
                 deliveryTimeInput.value = estimatedDate;
             }
             
             if (deliveryDateInput && deliveryDateInput.name === "deliveryDate") {
-                // Name is already correct, set value immediately
                 deliveryDateInput.value = estimatedDate;
             } else if (deliveryDateInput) {
-                // Name is changing, use setTimeout
+                deliveryDateInput.name = "deliveryDate";
+                setTimeout(() => {
+                    deliveryDateInput.value = estimatedDate;
+                }, 50);
+            }
+        } else if (deliveryInfo.product.delivery_time) {
+            // Use product-level delivery time
+            if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
+                deliveryDateInput.name = "deliveryTime";
+                setTimeout(() => {
+                    deliveryDateInput.value = deliveryInfo.product.delivery_time;
+                }, 50);
+            } else if (deliveryDateInput) {
+                deliveryDateInput.value = deliveryInfo.product.delivery_time;
+            }
+            
+            if (deliveryTimeInput && deliveryTimeInput.name === "deliveryTime") {
+                deliveryTimeInput.value = deliveryInfo.product.delivery_time;
+            } else if (deliveryTimeInput) {
+                deliveryTimeInput.name = "deliveryTime";
+                setTimeout(() => {
+                    deliveryTimeInput.value = deliveryInfo.product.delivery_time;
+                }, 50);
+            }
+        } else if (deliveryInfo.product.estimated_date) {
+            // Use product-level estimated date
+            const estimatedDate = deliveryInfo.product.estimated_date;
+            
+            if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
+                deliveryTimeInput.name = "deliveryDate";
+                setTimeout(() => {
+                    deliveryTimeInput.value = estimatedDate;
+                }, 50);
+            } else if (deliveryTimeInput) {
+                deliveryTimeInput.value = estimatedDate;
+            }
+            
+            if (deliveryDateInput && deliveryDateInput.name === "deliveryDate") {
+                deliveryDateInput.value = estimatedDate;
+            } else if (deliveryDateInput) {
                 deliveryDateInput.name = "deliveryDate";
                 setTimeout(() => {
                     deliveryDateInput.value = estimatedDate;
