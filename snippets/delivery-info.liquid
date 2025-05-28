@@ -87,6 +87,7 @@
         // Priority logic: variant-specific data takes precedence over product-level data
         if (variantData && variantData.delivery_estimated_date) {
             // Use variant-specific delivery estimated date (highest priority)
+            console.log("Using variant-specific delivery date:", variantData.delivery_estimated_date);
             const estimatedDate = variantData.delivery_estimated_date;
             
             if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
@@ -108,6 +109,7 @@
             }
         } else if (deliveryInfo.product.delivery_time) {
             // Use product-level delivery time
+            console.log("Using product-level delivery time:", deliveryInfo.product.delivery_time);
             if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
                 deliveryDateInput.name = "deliveryTime";
                 setTimeout(() => {
@@ -127,6 +129,7 @@
             }
         } else if (deliveryInfo.product.estimated_date) {
             // Use product-level estimated date
+            console.log("Using product-level estimated date:", deliveryInfo.product.estimated_date);
             const estimatedDate = deliveryInfo.product.estimated_date;
             
             if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
