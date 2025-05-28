@@ -72,6 +72,10 @@
         const variantId = parseInt(variantInput.value, 10);
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
 
+        console.log("Current variant ID:", variantId);
+        console.log("Available variants in JSON:", deliveryInfo.variants);
+        console.log("Found variant data:", variantData);
+
         const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
         const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
 
