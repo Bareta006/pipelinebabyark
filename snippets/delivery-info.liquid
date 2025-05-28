@@ -62,6 +62,33 @@
 
     const originalText = window.OriginalEstimateText; // Use the globally stored text
 
+    // Function to get variant ID from URL or form input
+    function getCurrentVariantId() {
+        // First, try to get from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlVariantId = urlParams.get('variant');
+        
+        // Then get from form input
+        const variantInput = document.querySelector('input[name="id"]');
+        const formVariantId = variantInput ? variantInput.value : null;
+        
+        console.log("URL variant ID:", urlVariantId);
+        console.log("Form variant ID:", formVariantId);
+        
+        // Prefer URL variant ID if it exists and is different from form
+        if (urlVariantId && urlVariantId !== formVariantId) {
+            console.log("Using URL variant ID (mismatch detected)");
+            // Update the form input to match URL
+            if (variantInput) {
+                variantInput.value = urlVariantId;
+            }
+            return parseInt(urlVariantId, 10);
+        }
+        
+        // Otherwise use form variant ID
+        return formVariantId ? parseInt(formVariantId, 10) : null;
+    }
+
     // Function to update the hidden input fields
     function updateHiddenInputs() {
         const variantInput = document.querySelector('input[name="id"]');
@@ -73,7 +100,7 @@
         console.log("Variant input element:", variantInput);
         console.log("Variant input value (raw):", variantInput.value);
 
-        const variantId = parseInt(variantInput.value, 10);
+        const variantId = getCurrentVariantId();
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
 
         console.log("Current variant ID:", variantId);
@@ -170,7 +197,7 @@
             return;
         }
 
-        const variantId = parseInt(variantInput.value, 10);
+        const variantId = getCurrentVariantId();
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
 
         if (variantData && variantData.delivery_estimated_date) {
