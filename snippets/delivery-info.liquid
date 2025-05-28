@@ -41,7 +41,6 @@
     let deliveryInfo;
     try {
         deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
-        console.log("Full delivery info JSON:", deliveryInfo);
     } catch (error) {
         console.log("Error parsing delivery info JSON:", error);
         return;
@@ -62,36 +61,19 @@
 
     const originalText = window.OriginalEstimateText; // Use the globally stored text
 
-    // Function to get current variant ID (simple approach)
-    function getCurrentVariantId() {
-        const variantInput = document.querySelector('input[name="id"]');
-        if (variantInput && variantInput.value) {
-            return parseInt(variantInput.value, 10);
-        }
-        
-        // Fallback to URL if form input is empty/wrong
-        const urlParams = new URLSearchParams(window.location.search);
-        const urlVariantId = urlParams.get('variant');
-        if (urlVariantId) {
-            // Update form to match URL
-            if (variantInput) {
-                variantInput.value = urlVariantId;
-            }
-            return parseInt(urlVariantId, 10);
-        }
-        
-        return null;
-    }
-
     // Function to update the hidden input fields
     function updateHiddenInputs() {
-        const variantId = getCurrentVariantId();
-        if (!variantId) {
-            console.log("No variant ID found.");
+        const variantInput = document.querySelector('input[name="id"]');
+        if (!variantInput) {
+            console.log("Variant input not found.");
             return;
         }
 
+        const variantId = parseInt(variantInput.value, 10);
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+
+        // Determine which data to use (variant-specific or general product)
+        const deliveryData = variantData || deliveryInfo.product;
 
         const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
         const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
@@ -105,70 +87,84 @@
         if (deliveryTimeInput) deliveryTimeInput.value = "";
         if (deliveryDateInput) deliveryDateInput.value = "";
 
-        // Simple priority: variant first, then product
-        if (variantData && variantData.delivery_estimated_date) {
-            // Use variant-specific delivery date
-            console.log("Using variant delivery date:", variantData.delivery_estimated_date);
-            const estimatedDate = variantData.delivery_estimated_date;
-            
-            if (deliveryTimeInput) {
-                deliveryTimeInput.name = "deliveryDate";
-                deliveryTimeInput.value = estimatedDate;
-            }
-            if (deliveryDateInput) {
-                deliveryDateInput.name = "deliveryDate";
-                deliveryDateInput.value = estimatedDate;
-            }
-        } else if (deliveryInfo.product.delivery_time) {
-            // Use product delivery time
-            console.log("Using product delivery time:", deliveryInfo.product.delivery_time);
-            if (deliveryTimeInput) {
-                deliveryTimeInput.name = "deliveryTime";
-                deliveryTimeInput.value = deliveryInfo.product.delivery_time;
-            }
-            if (deliveryDateInput) {
+        if (deliveryData.delivery_time) {
+            // Use deliveryTime
+            if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
+                // Only use setTimeout when changing the name
                 deliveryDateInput.name = "deliveryTime";
-                deliveryDateInput.value = deliveryInfo.product.delivery_time;
+                setTimeout(() => {
+                    deliveryDateInput.value = deliveryData.delivery_time;
+                }, 50);
+            } else if (deliveryDateInput) {
+                // Name is already correct, set value immediately
+                deliveryDateInput.value = deliveryData.delivery_time;
             }
-        } else if (deliveryInfo.product.estimated_date) {
-            // Use product estimated date
-            console.log("Using product estimated date:", deliveryInfo.product.estimated_date);
-            const estimatedDate = deliveryInfo.product.estimated_date;
             
-            if (deliveryTimeInput) {
+            if (deliveryTimeInput && deliveryTimeInput.name === "deliveryTime") {
+                // Name is already correct, set value immediately
+                deliveryTimeInput.value = deliveryData.delivery_time;
+            } else if (deliveryTimeInput) {
+                // Name is changing, use setTimeout
+                deliveryTimeInput.name = "deliveryTime";
+                setTimeout(() => {
+                    deliveryTimeInput.value = deliveryData.delivery_time;
+                }, 50);
+            }
+        } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
+            // Use deliveryDate (either product-level or variant-specific)
+            const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
+            
+            if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
+                // Only use setTimeout when changing the name
                 deliveryTimeInput.name = "deliveryDate";
+                setTimeout(() => {
+                    deliveryTimeInput.value = estimatedDate;
+                }, 50);
+            } else if (deliveryTimeInput) {
+                // Name is already correct, set value immediately
                 deliveryTimeInput.value = estimatedDate;
             }
-            if (deliveryDateInput) {
-                deliveryDateInput.name = "deliveryDate";
+            
+            if (deliveryDateInput && deliveryDateInput.name === "deliveryDate") {
+                // Name is already correct, set value immediately
                 deliveryDateInput.value = estimatedDate;
+            } else if (deliveryDateInput) {
+                // Name is changing, use setTimeout
+                deliveryDateInput.name = "deliveryDate";
+                setTimeout(() => {
+                    deliveryDateInput.value = estimatedDate;
+                }, 50);
             }
         } else {
-            console.log("No delivery info available.");
+            console.log("No delivery info available for this variant or product.");
         }
     }
 
     // Function to update the estimated delivery text
     function updateEstimatedText() {
-        const variantId = getCurrentVariantId();
-        if (!variantId) return;
+        const variantInput = document.querySelector('input[name="id"]');
+        if (!variantInput) {
+            console.log("Variant input not found.");
+            return;
+        }
 
+        const variantId = parseInt(variantInput.value, 10);
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
 
         if (variantData && variantData.delivery_estimated_date) {
-            // Use variant-specific date
+            // Update to variant-specific estimated date
             estimateContentElement.textContent = variantData.delivery_estimated_date;
         } else {
-            // Use original product text
+            // Fallback to the original product text
             estimateContentElement.textContent = originalText;
         }
     }
 
-    // Initial updates
+    // Initial updates for hidden inputs and estimate text
     updateHiddenInputs();
     updateEstimatedText();
 
-    // Listen for variant changes
+    // Update on variant change
     const variantInput = document.querySelector('input[name="id"]');
     if (variantInput) {
         variantInput.addEventListener("change", () => {
@@ -177,15 +173,30 @@
         });
     }
 
-    // Listen for variant selector changes (covers most Shopify themes)
-    document.addEventListener('change', (e) => {
-        if (e.target.name && e.target.name.includes('option')) {
+    // FIXED: Listen to radio button changes (the actual variant selectors)
+    const radioInputs = document.querySelectorAll('input[name^="options["]');
+    radioInputs.forEach(radio => {
+        radio.addEventListener("change", () => {
+            // Small delay to let the hidden input update first
             setTimeout(() => {
                 updateHiddenInputs();
                 updateEstimatedText();
-            }, 50);
-        }
+            }, 100);
+        });
     });
+
+    // BACKUP: Watch for changes to the hidden input value using MutationObserver
+    if (variantInput) {
+        const observer = new MutationObserver(() => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        });
+        
+        observer.observe(variantInput, {
+            attributes: true,
+            attributeFilter: ['value']
+        });
+    }
 });
 
 </script>
