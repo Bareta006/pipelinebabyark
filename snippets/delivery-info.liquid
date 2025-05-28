@@ -75,18 +75,22 @@
         console.log("URL variant ID:", urlVariantId);
         console.log("Form variant ID:", formVariantId);
         
-        // Prefer URL variant ID if it exists and is different from form
-        if (urlVariantId && urlVariantId !== formVariantId) {
-            console.log("Using URL variant ID (mismatch detected)");
-            // Update the form input to match URL
+        // If we have a form variant ID, use it (it's the most current)
+        if (formVariantId) {
+            return parseInt(formVariantId, 10);
+        }
+        
+        // Fallback to URL variant ID
+        if (urlVariantId) {
+            console.log("Using URL variant ID as fallback");
+            // Update the form input to match URL if possible
             if (variantInput) {
                 variantInput.value = urlVariantId;
             }
             return parseInt(urlVariantId, 10);
         }
         
-        // Otherwise use form variant ID
-        return formVariantId ? parseInt(formVariantId, 10) : null;
+        return null;
     }
 
     // Function to update the hidden input fields
@@ -213,14 +217,50 @@
     updateHiddenInputs();
     updateEstimatedText();
 
-    // Update on variant change
+    // Update on variant change - comprehensive event handling
     const variantInput = document.querySelector('input[name="id"]');
     if (variantInput) {
         variantInput.addEventListener("change", () => {
+            console.log("Variant input changed");
             updateHiddenInputs();
             updateEstimatedText();
         });
     }
+
+    // Listen for variant selector changes (radio buttons, dropdowns, etc.)
+    const variantSelectors = document.querySelectorAll('input[name*="option"], select[name*="option"], input[type="radio"][name*="variant"], select[name*="variant"]');
+    variantSelectors.forEach(selector => {
+        selector.addEventListener('change', () => {
+            console.log("Variant selector changed");
+            setTimeout(() => {
+                updateHiddenInputs();
+                updateEstimatedText();
+            }, 100); // Small delay to ensure form updates
+        });
+    });
+
+    // Listen for any form changes that might affect variants
+    const productForm = document.querySelector('form[action*="/cart/add"]');
+    if (productForm) {
+        productForm.addEventListener('change', (e) => {
+            if (e.target.name && (e.target.name.includes('option') || e.target.name.includes('variant') || e.target.name === 'id')) {
+                console.log("Product form changed");
+                setTimeout(() => {
+                    updateHiddenInputs();
+                    updateEstimatedText();
+                }, 100);
+            }
+        });
+    }
+
+    // Also listen for URL changes (back/forward navigation)
+    window.addEventListener('popstate', () => {
+        console.log("URL changed");
+        setTimeout(() => {
+            updateHiddenInputs();
+            updateEstimatedText();
+        }, 100);
+    });
 });
 
 </script>
