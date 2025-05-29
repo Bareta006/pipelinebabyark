@@ -296,27 +296,30 @@
           matchingText.classList.add('active');
         }
         
-        // Filter articles
+        // Filter articles - target the parent grid item instead of the article item
         articles.forEach(article => {
-          if (filter === 'all') {
-            article.style.display = 'block';
-          } else {
-            const filtertags = article.getAttribute('data-filtertags');
-            if (filtertags) {
-              // Split by comma if it contains commas
-              const tagsArray = filtertags.includes(',') 
-                ? filtertags.split(',').map(tag => tag.trim())
-                : [filtertags.trim()];
-              
-              // Check if any of the article's tags match the filter
-              // Tags are already handleized in the HTML
-              if (tagsArray.includes(filter)) {
-                article.style.display = 'block';
-              } else {
-                article.style.display = 'none';
-              }
+          const gridItem = article.closest('.grid__item');
+          if (gridItem) {
+            if (filter === 'all') {
+              gridItem.style.display = 'block';
             } else {
-              article.style.display = 'none';
+              const filtertags = article.getAttribute('data-filtertags');
+              if (filtertags) {
+                // Split by comma if it contains commas
+                const tagsArray = filtertags.includes(',') 
+                  ? filtertags.split(',').map(tag => tag.trim())
+                  : [filtertags.trim()];
+                
+                // Check if any of the article's tags match the filter
+                // Tags are already handleized in the HTML
+                if (tagsArray.includes(filter)) {
+                  gridItem.style.display = 'block';
+                } else {
+                  gridItem.style.display = 'none';
+                }
+              } else {
+                gridItem.style.display = 'none';
+              }
             }
           }
         });
