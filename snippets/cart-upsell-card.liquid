@@ -59,10 +59,10 @@
           </script>
 
           {% comment %} Set initial values for delivery inputs - following same logic as main product page {% endcomment %}
-          {% if product.metafields.delivery.delivery_time != blank %}
-            <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-delivery-time-input="{{ product.id }}"/>
-          {% elsif current_variant.metafields.delivery.delivery_estimated_date != blank %}
+          {% if current_variant.metafields.delivery.delivery_estimated_date != blank %}
             <input type="hidden" name="deliveryDate" value="{{ current_variant.metafields.delivery.delivery_estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
+          {% elsif product.metafields.delivery.delivery_time != blank %}
+            <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-delivery-time-input="{{ product.id }}"/>
           {% elsif product.metafields.delivery.estimated_date != blank %}
             <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
           {% endif %}
@@ -184,8 +184,17 @@
     deliveryDateInputs.forEach(input => input.remove());
     
     // Create new input based on available data (following same logic as main product page)
-    if (deliveryData.delivery_time) {
-      // Use deliveryTime
+    if (deliveryData.delivery_estimated_date) {
+      // Use variant-specific deliveryDate FIRST
+      const newInput = document.createElement('input');
+      newInput.type = 'hidden';
+      newInput.name = 'deliveryDate';
+      newInput.value = deliveryData.delivery_estimated_date;
+      newInput.setAttribute('data-delivery-date-input', productId);
+      form.appendChild(newInput);
+      console.log('Created deliveryDate input for product ' + productId + ' with value:', deliveryData.delivery_estimated_date);
+    } else if (deliveryData.delivery_time) {
+      // Use product deliveryTime SECOND
       const newInput = document.createElement('input');
       newInput.type = 'hidden';
       newInput.name = 'deliveryTime';
@@ -193,16 +202,15 @@
       newInput.setAttribute('data-delivery-time-input', productId);
       form.appendChild(newInput);
       console.log('Created deliveryTime input for product ' + productId + ' with value:', deliveryData.delivery_time);
-    } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
-      // Use deliveryDate (either product-level or variant-specific)
-      const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
+    } else if (deliveryData.estimated_date) {
+      // Use product estimated_date THIRD
       const newInput = document.createElement('input');
       newInput.type = 'hidden';
       newInput.name = 'deliveryDate';
-      newInput.value = estimatedDate;
+      newInput.value = deliveryData.estimated_date;
       newInput.setAttribute('data-delivery-date-input', productId);
       form.appendChild(newInput);
-      console.log('Created deliveryDate input for product ' + productId + ' with value:', estimatedDate);
+      console.log('Created deliveryDate input for product ' + productId + ' with value:', deliveryData.estimated_date);
     } else {
       console.log('No delivery info available for product ' + productId);
     }
