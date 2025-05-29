@@ -74,9 +74,9 @@
     function updateHiddenInputs() {
         console.log("--- updateHiddenInputs() called ---");
         
-        const variantInput = document.querySelector('input[name="id"]');
+        const variantInput = document.querySelector('.product__main__content input[name="id"]');
         if (!variantInput) {
-            console.log("ERROR: Variant input not found.");
+            console.log("ERROR: Variant input not found in .product__main__content");
             return;
         }
         
@@ -90,13 +90,13 @@
         const deliveryData = variantData || deliveryInfo.product;
         console.log("Using delivery data:", deliveryData);
 
-        const deliveryTimeInput = document.querySelector('input[name="deliveryTime"]');
-        const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
+        const deliveryTimeInput = document.querySelector('.product__main__content input[name="deliveryTime"]');
+        const deliveryDateInput = document.querySelector('.product__main__content input[name="deliveryDate"]');
         console.log("Found deliveryTimeInput:", deliveryTimeInput);
         console.log("Found deliveryDateInput:", deliveryDateInput);
 
         if (!deliveryTimeInput && !deliveryDateInput) {
-            console.log("ERROR: Delivery input fields not found.");
+            console.log("ERROR: Delivery input fields not found in .product__main__content");
             return;
         }
 
@@ -181,9 +181,9 @@
     function updateEstimatedText() {
         console.log("--- updateEstimatedText() called ---");
         
-        const variantInput = document.querySelector('input[name="id"]');
+        const variantInput = document.querySelector('.product__main__content input[name="id"]');
         if (!variantInput) {
-            console.log("ERROR: Variant input not found.");
+            console.log("ERROR: Variant input not found in .product__main__content");
             return;
         }
 
@@ -212,9 +212,9 @@
     updateEstimatedText();
 
     // Update on variant change
-    const variantInput = document.querySelector('input[name="id"]');
+    const variantInput = document.querySelector('.product__main__content input[name="id"]');
     if (variantInput) {
-        console.log("✓ Found variant input, adding change listener");
+        console.log("✓ Found variant input in .product__main__content, adding change listener");
         variantInput.addEventListener("change", () => {
             console.log("=== VARIANT CHANGED ===");
             console.log("New variant value:", variantInput.value);
@@ -222,7 +222,7 @@
             updateEstimatedText();
         });
     } else {
-        console.log("ERROR: Variant input not found for event listener");
+        console.log("ERROR: Variant input not found in .product__main__content for event listener");
     }
     
     console.log("=== DELIVERY INFO SCRIPT COMPLETED ===");
