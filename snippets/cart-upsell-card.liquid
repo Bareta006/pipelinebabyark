@@ -58,15 +58,13 @@
             }
           </script>
 
-          {% comment %} Set initial values for delivery inputs {% endcomment %}
-          {% if current_variant.metafields.delivery.delivery_estimated_date != blank %}
+          {% comment %} Set initial values for delivery inputs - following same logic as main product page {% endcomment %}
+          {% if product.metafields.delivery.delivery_time != blank %}
+            <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-delivery-time-input="{{ product.id }}"/>
+          {% elsif current_variant.metafields.delivery.delivery_estimated_date != blank %}
             <input type="hidden" name="deliveryDate" value="{{ current_variant.metafields.delivery.delivery_estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
           {% elsif product.metafields.delivery.estimated_date != blank %}
             <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}" data-delivery-date-input="{{ product.id }}"/>
-          {% endif %}
-          
-          {% if product.metafields.delivery.delivery_time != blank %}
-            <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-delivery-time-input="{{ product.id }}"/>
           {% endif %}
           
           {% if product.has_only_default_variant == false and product.variants.size > 1 %}
@@ -177,19 +175,13 @@
       return;
     }
     
-    // Get existing delivery inputs
-    let deliveryTimeInput = form.querySelector('[data-delivery-time-input="' + productId + '"]');
-    let deliveryDateInput = form.querySelector('[data-delivery-date-input="' + productId + '"]');
+    // Get existing delivery inputs (both with and without data attributes)
+    let deliveryTimeInputs = form.querySelectorAll('input[name="deliveryTime"]');
+    let deliveryDateInputs = form.querySelectorAll('input[name="deliveryDate"]');
     
-    // Clear existing inputs
-    if (deliveryTimeInput) {
-      deliveryTimeInput.remove();
-      deliveryTimeInput = null;
-    }
-    if (deliveryDateInput) {
-      deliveryDateInput.remove();
-      deliveryDateInput = null;
-    }
+    // Clear ALL existing delivery inputs
+    deliveryTimeInputs.forEach(input => input.remove());
+    deliveryDateInputs.forEach(input => input.remove());
     
     // Create new input based on available data (following same logic as main product page)
     if (deliveryData.delivery_time) {
