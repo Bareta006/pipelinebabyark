@@ -272,6 +272,13 @@
     flex-direction: row;
     flex-wrap: wrap;
   }
+  @media (max-width: 480px) {
+    #shopify-section-{{ section.id }} .blog__filter-tags-wrapper{
+          flex-wrap: nowrap;
+    overflow-x: scroll;
+    justify-content: start;
+    }
+  }
 </style>
 
 <script>
