@@ -11,18 +11,31 @@
       "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
     },
     "variants": [
+      {% comment %} DEBUG: Total variants: {{ product.variants.size }} {% endcomment %}
       {% assign valid_variants = false %}
       {% for variant in product.variants %}
-        {% if variant.metafields.delivery.delivery_estimated_date != blank %}
+        {% comment %} DEBUG: === VARIANT {{ variant.id }} - {{ variant.title }} === {% endcomment %}
+        {% comment %} DEBUG: variant.metafields.delivery.delivery_estimated_date = "{{ variant.metafields.delivery.delivery_estimated_date }}" {% endcomment %}
+        {% comment %} DEBUG: variant.metafields.delivery.delivery_estimated_date.value = "{{ variant.metafields.delivery.delivery_estimated_date.value }}" {% endcomment %}
+        {% for metafield in variant.metafields %}
+          {% comment %} DEBUG: Metafield namespace: {{ metafield.namespace }}, key: {{ metafield.key }}, value: {{ metafield.value }} {% endcomment %}
+        {% endfor %}
+        {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
+        {% unless variant_delivery_date %}
+          {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
+        {% endunless %}
+        {% if variant_delivery_date != blank %}
+          {% comment %} DEBUG: Found valid variant with date: {{ variant_delivery_date }} {% endcomment %}
           {% if valid_variants %},{% endif %}
           {% assign valid_variants = true %}
           {
             "id": {{ variant.id }},
             "title": "{{ variant.title | escape }}",
-            "delivery_estimated_date": "{{ variant.metafields.delivery.delivery_estimated_date | escape }}"
+            "delivery_estimated_date": "{{ variant_delivery_date | escape }}"
           }
         {% endif %}
       {% endfor %}
+      {% comment %} DEBUG: Valid variants found: {{ valid_variants }} {% endcomment %}
     ]
   }
 </script>
@@ -170,31 +183,6 @@
         variantInput.addEventListener("change", () => {
             updateHiddenInputs();
             updateEstimatedText();
-        });
-    }
-
-    // FIXED: Listen to radio button changes (the actual variant selectors)
-    const radioInputs = document.querySelectorAll('input[name^="options["]');
-    radioInputs.forEach(radio => {
-        radio.addEventListener("change", () => {
-            // Small delay to let the hidden input update first
-            setTimeout(() => {
-                updateHiddenInputs();
-                updateEstimatedText();
-            }, 100);
-        });
-    });
-
-    // BACKUP: Watch for changes to the hidden input value using MutationObserver
-    if (variantInput) {
-        const observer = new MutationObserver(() => {
-            updateHiddenInputs();
-            updateEstimatedText();
-        });
-        
-        observer.observe(variantInput, {
-            attributes: true,
-            attributeFilter: ['value']
         });
     }
 });
