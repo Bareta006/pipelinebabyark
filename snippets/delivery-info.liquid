@@ -35,197 +35,197 @@
 
 <script>
  document.addEventListener("DOMContentLoaded", () => {
-    console.log("=== DELIVERY INFO SCRIPT STARTING ===");
+    //console.log("=== DELIVERY INFO SCRIPT STARTING ===");
     
     // Fetch JSON data from the script tag
     const deliveryInfoElement = document.getElementById("delivery-info");
     if (!deliveryInfoElement) {
-        console.log("ERROR: Delivery info JSON not found.");
+        //console.log("ERROR: Delivery info JSON not found.");
         return;
     }
-    console.log("✓ Found delivery info element");
+    //console.log("✓ Found delivery info element");
 
     let deliveryInfo;
     try {
         deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
-        console.log("✓ Parsed delivery info JSON:", deliveryInfo);
+        //console.log("✓ Parsed delivery info JSON:", deliveryInfo);
     } catch (error) {
-        console.log("ERROR: Error parsing delivery info JSON:", error);
+        //console.log("ERROR: Error parsing delivery info JSON:", error);
         return;
     }
 
     // Store the original content of the estimate section BEFORE any updates
     const estimateContentElement = document.querySelector(".delivery-info > p > strong");
     if (!estimateContentElement) {
-        console.log("ERROR: Estimate content element not found.");
+        //console.log("ERROR: Estimate content element not found.");
         return;
     }
-    console.log("✓ Found estimate content element:", estimateContentElement);
+    //console.log("✓ Found estimate content element:", estimateContentElement);
 
     // Use a const to ensure the original text is immutable and stored only once
     if (typeof window.OriginalEstimateText === "undefined") {
         window.OriginalEstimateText = estimateContentElement.textContent.trim(); // Store in a global variable
-        console.log("✓ Original estimate text captured:", window.OriginalEstimateText);
+        //console.log("✓ Original estimate text captured:", window.OriginalEstimateText);
     }
 
     const originalText = window.OriginalEstimateText; // Use the globally stored text
 
     // Function to update the hidden input fields
     function updateHiddenInputs() {
-        console.log("--- updateHiddenInputs() called ---");
+        //console.log("--- updateHiddenInputs() called ---");
         
         const variantInput = document.querySelector('.product__main__content input[name="id"]');
         if (!variantInput) {
-            console.log("ERROR: Variant input not found in .product__main__content");
+            //console.log("ERROR: Variant input not found in .product__main__content");
             return;
         }
         
         const variantId = parseInt(variantInput.value, 10);
-        console.log("Current variant ID:", variantId);
+        //console.log("Current variant ID:", variantId);
         
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
-        console.log("Found variant data:", variantData);
+        //console.log("Found variant data:", variantData);
 
         // Determine which data to use (variant-specific or general product)
         const deliveryData = variantData || deliveryInfo.product;
-        console.log("Using delivery data:", deliveryData);
+        //console.log("Using delivery data:", deliveryData);
 
         const deliveryTimeInput = document.querySelector('.product__main__content input[name="deliveryTime"]');
         const deliveryDateInput = document.querySelector('.product__main__content input[name="deliveryDate"]');
-        console.log("Found deliveryTimeInput:", deliveryTimeInput);
-        console.log("Found deliveryDateInput:", deliveryDateInput);
+        //console.log("Found deliveryTimeInput:", deliveryTimeInput);
+        //console.log("Found deliveryDateInput:", deliveryDateInput);
 
         if (!deliveryTimeInput && !deliveryDateInput) {
-            console.log("ERROR: Delivery input fields not found in .product__main__content");
+            //console.log("ERROR: Delivery input fields not found in .product__main__content");
             return;
         }
 
         // Clear input values before updating
         if (deliveryTimeInput) {
-            console.log("Clearing deliveryTimeInput value");
+            //console.log("Clearing deliveryTimeInput value");
             deliveryTimeInput.value = "";
         }
         if (deliveryDateInput) {
-            console.log("Clearing deliveryDateInput value");
+            //console.log("Clearing deliveryDateInput value");
             deliveryDateInput.value = "";
         }
 
         if (deliveryData.delivery_time) {
-            console.log("Using delivery_time:", deliveryData.delivery_time);
+            //console.log("Using delivery_time:", deliveryData.delivery_time);
             // Use deliveryTime
             if (deliveryDateInput && deliveryDateInput.name !== "deliveryTime") {
-                console.log("Changing deliveryDateInput name to deliveryTime");
+                //console.log("Changing deliveryDateInput name to deliveryTime");
                 // Only use setTimeout when changing the name
                 deliveryDateInput.name = "deliveryTime";
                 setTimeout(() => {
                     deliveryDateInput.value = deliveryData.delivery_time;
-                    console.log("Set deliveryDateInput value to:", deliveryData.delivery_time);
+                    //console.log("Set deliveryDateInput value to:", deliveryData.delivery_time);
                 }, 50);
             } else if (deliveryDateInput) {
                 // Name is already correct, set value immediately
                 deliveryDateInput.value = deliveryData.delivery_time;
-                console.log("Set deliveryDateInput value immediately to:", deliveryData.delivery_time);
+                //console.log("Set deliveryDateInput value immediately to:", deliveryData.delivery_time);
             }
             
             if (deliveryTimeInput && deliveryTimeInput.name === "deliveryTime") {
                 // Name is already correct, set value immediately
                 deliveryTimeInput.value = deliveryData.delivery_time;
-                console.log("Set deliveryTimeInput value immediately to:", deliveryData.delivery_time);
+                //console.log("Set deliveryTimeInput value immediately to:", deliveryData.delivery_time);
             } else if (deliveryTimeInput) {
                 // Name is changing, use setTimeout
-                console.log("Changing deliveryTimeInput name to deliveryTime");
+                //console.log("Changing deliveryTimeInput name to deliveryTime");
                 deliveryTimeInput.name = "deliveryTime";
                 setTimeout(() => {
                     deliveryTimeInput.value = deliveryData.delivery_time;
-                    console.log("Set deliveryTimeInput value to:", deliveryData.delivery_time);
+                    //console.log("Set deliveryTimeInput value to:", deliveryData.delivery_time);
                 }, 50);
             }
         } else if (deliveryData.estimated_date || deliveryData.delivery_estimated_date) {
             // Use deliveryDate (either product-level or variant-specific)
             const estimatedDate = deliveryData.estimated_date || deliveryData.delivery_estimated_date;
-            console.log("Using estimated date:", estimatedDate);
+            //console.log("Using estimated date:", estimatedDate);
             
             if (deliveryTimeInput && deliveryTimeInput.name !== "deliveryDate") {
-                console.log("Changing deliveryTimeInput name to deliveryDate");
+                //console.log("Changing deliveryTimeInput name to deliveryDate");
                 // Only use setTimeout when changing the name
                 deliveryTimeInput.name = "deliveryDate";
                 setTimeout(() => {
                     deliveryTimeInput.value = estimatedDate;
-                    console.log("Set deliveryTimeInput value to:", estimatedDate);
+                    //console.log("Set deliveryTimeInput value to:", estimatedDate);
                 }, 50);
             } else if (deliveryTimeInput) {
                 // Name is already correct, set value immediately
                 deliveryTimeInput.value = estimatedDate;
-                console.log("Set deliveryTimeInput value immediately to:", estimatedDate);
+                //console.log("Set deliveryTimeInput value immediately to:", estimatedDate);
             }
             
             if (deliveryDateInput && deliveryDateInput.name === "deliveryDate") {
                 // Name is already correct, set value immediately
                 deliveryDateInput.value = estimatedDate;
-                console.log("Set deliveryDateInput value immediately to:", estimatedDate);
+                //console.log("Set deliveryDateInput value immediately to:", estimatedDate);
             } else if (deliveryDateInput) {
                 // Name is changing, use setTimeout
-                console.log("Changing deliveryDateInput name to deliveryDate");
+                //console.log("Changing deliveryDateInput name to deliveryDate");
                 deliveryDateInput.name = "deliveryDate";
                 setTimeout(() => {
                     deliveryDateInput.value = estimatedDate;
-                    console.log("Set deliveryDateInput value to:", estimatedDate);
+                    //console.log("Set deliveryDateInput value to:", estimatedDate);
                 }, 50);
             }
         } else {
-            console.log("No delivery info available for this variant or product.");
+            //console.log("No delivery info available for this variant or product.");
         }
     }
 
     // Function to update the estimated delivery text
     function updateEstimatedText() {
-        console.log("--- updateEstimatedText() called ---");
+        //console.log("--- updateEstimatedText() called ---");
         
         const variantInput = document.querySelector('.product__main__content input[name="id"]');
         if (!variantInput) {
-            console.log("ERROR: Variant input not found in .product__main__content");
+            //console.log("ERROR: Variant input not found in .product__main__content");
             return;
         }
 
         const variantId = parseInt(variantInput.value, 10);
-        console.log("Current variant ID for text update:", variantId);
+        //console.log("Current variant ID for text update:", variantId);
         
         const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
-        console.log("Found variant data for text update:", variantData);
+        //console.log("Found variant data for text update:", variantData);
 
         if (variantData && variantData.delivery_estimated_date) {
-            console.log("Updating text to variant-specific date:", variantData.delivery_estimated_date);
+            //console.log("Updating text to variant-specific date:", variantData.delivery_estimated_date);
             // Update to variant-specific estimated date
             estimateContentElement.textContent = variantData.delivery_estimated_date;
-            console.log("Text updated. New content:", estimateContentElement.textContent);
+            //console.log("Text updated. New content:", estimateContentElement.textContent);
         } else {
-            console.log("Falling back to original text:", originalText);
+            //console.log("Falling back to original text:", originalText);
             // Fallback to the original product text
             estimateContentElement.textContent = originalText;
-            console.log("Text updated to original. New content:", estimateContentElement.textContent);
+            //console.log("Text updated to original. New content:", estimateContentElement.textContent);
         }
     }
 
     // Initial updates for hidden inputs and estimate text
-    console.log("=== RUNNING INITIAL UPDATES ===");
+    //console.log("=== RUNNING INITIAL UPDATES ===");
     updateHiddenInputs();
     updateEstimatedText();
 
     // Update on variant change
     const variantInput = document.querySelector('.product__main__content input[name="id"]');
     if (variantInput) {
-        console.log("✓ Found variant input in .product__main__content, adding change listener");
+        //console.log("✓ Found variant input in .product__main__content, adding change listener");
         variantInput.addEventListener("change", () => {
-            console.log("=== VARIANT CHANGED ===");
-            console.log("New variant value:", variantInput.value);
+            //console.log("=== VARIANT CHANGED ===");
+            //console.log("New variant value:", variantInput.value);
             updateHiddenInputs();
             updateEstimatedText();
         });
     } else {
-        console.log("ERROR: Variant input not found in .product__main__content for event listener");
+        //console.log("ERROR: Variant input not found in .product__main__content for event listener");
     }
     
-    console.log("=== DELIVERY INFO SCRIPT COMPLETED ===");
+    //console.log("=== DELIVERY INFO SCRIPT COMPLETED ===");
 });
 
 </script>
