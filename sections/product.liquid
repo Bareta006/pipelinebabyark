@@ -531,6 +531,23 @@
                   </div>
                 </div>
               {% when 'outofstock-message' %}
+                <style>
+                  .outofstock-message__container {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                  }
+                  .outofstock-message__icon {
+                    width: 20px;
+                    height: 20px;
+                    color: #000;
+                  }
+                  .outofstock-message__content {
+                    font-size: 14px;
+                    line-height: 1.5;
+                  }
+
+                </style>
                 <div class="product__block__outofstock-message" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
                   <div id="outofstock-message-{{ section.id }}" class="outofstock-message" style="display: none;">
                     <div class="outofstock-message__container">
