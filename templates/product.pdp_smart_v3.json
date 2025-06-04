@@ -94,7 +94,7 @@
         "outofstock_message_Kjz6w3": {
           "type": "outofstock-message",
           "settings": {
-            "message": "Contact customer service to find a retail location near you with this color in stock",
+            "message": "<p><a href=\"/pages/contact\" target=\"_blank\" title=\"Contact\">Contact customer service</a> to find a retail location near you with this color in stock</p>",
             "padding_bottom": 20
           }
         },
