@@ -530,6 +530,12 @@
                     {%- render 'image' img_object: block.settings.image, srcset: srcset, width: image_width -%}
                   </div>
                 </div>
+              {% when 'outofstock-message' %}
+                <div class="product__block__outofstock-message" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
+                  <div id="outofstock-message-{{ section.id }}" class="outofstock-message" style="display: none;">
+                    <p>{{ block.settings.message | default: "Contact customer service to find a retail location near you with this color in stock" }}</p>
+                  </div>
+                </div>
             {% endcase %}
           {% endfor %}
 
@@ -555,6 +561,20 @@
 
 <script type="application/json" id="ModelJson-{{ section.id }}">
   {{ product.media | where: 'media_type', 'model' | json }}
+</script>
+
+<script type="application/json" id="VariantOutofstockJson-{{ section.id }}">
+  {
+    "variants": [
+      {%- for variant in product.variants -%}
+        {
+          "id": {{ variant.id | json }},
+          "available": {{ variant.available | json }},
+          "outofstock_message": {{ variant.metafields.custom.outofstockmsg | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
 </script>
 
 </div>
@@ -2234,6 +2254,34 @@
           "default": 20
         }
       ]
+    },
+    {
+      "type": "outofstock-message",
+      "name": "Out of stock message",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "message",
+          "label": "Message",
+          "default": "Contact customer service to find a retail location near you with this color in stock",
+          "info": "This message will show when a variant is out of stock and has the custom.outofstockmsg metafield set to true"
+        },
+        {
+          "type": "header",
+          "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding bottom",
+          "default": 20
+        }
+      ]
     }
   ]
 }
@@ -2481,6 +2529,49 @@
           }
         });
       }
+    });
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionId = '{{ section.id }}';
+    const variantDataElement = document.getElementById('VariantOutofstockJson-' + sectionId);
+    const outofstockMessageElement = document.getElementById('outofstock-message-' + sectionId);
+    
+    if (!variantDataElement || !outofstockMessageElement) return;
+    
+    const variantData = JSON.parse(variantDataElement.textContent);
+    
+    function checkOutofstockMessage(variantId) {
+      const variant = variantData.variants.find(v => v.id == variantId);
+      
+      if (variant && !variant.available && variant.outofstock_message === true) {
+        outofstockMessageElement.style.display = 'block';
+      } else {
+        outofstockMessageElement.style.display = 'none';
+      }
+    }
+    
+    // Check on page load
+    const currentVariantId = {{ current_variant.id | json }};
+    if (currentVariantId) {
+      checkOutofstockMessage(currentVariantId);
+    }
+    
+    // Listen for variant changes
+    document.addEventListener('variant:change', function(event) {
+      if (event.detail && event.detail.variant) {
+        checkOutofstockMessage(event.detail.variant.id);
+      }
+    });
+    
+    // Alternative listener for variant selection changes (backup)
+    const variantSelectors = document.querySelectorAll('[name="id"]');
+    variantSelectors.forEach(function(selector) {
+      selector.addEventListener('change', function() {
+        checkOutofstockMessage(this.value);
+      });
     });
   });
 </script>
