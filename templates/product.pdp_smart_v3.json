@@ -91,6 +91,13 @@
             "padding_bottom": 20
           }
         },
+        "outofstock_message_Kjz6w3": {
+          "type": "outofstock-message",
+          "settings": {
+            "message": "Contact customer service to find a retail location near you with this color in stock",
+            "padding_bottom": 20
+          }
+        },
         "subscriptions": {
           "type": "subscription",
           "disabled": true,
@@ -224,6 +231,7 @@
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_TaxeUj",
         "variants",
+        "outofstock_message_Kjz6w3",
         "subscriptions",
         "quantity",
         "liquid_3azAi3",
