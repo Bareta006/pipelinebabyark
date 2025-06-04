@@ -533,7 +533,11 @@
               {% when 'outofstock-message' %}
                 <div class="product__block__outofstock-message" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
                   <div id="outofstock-message-{{ section.id }}" class="outofstock-message" style="display: none;">
-                    <p>{{ block.settings.message | default: "Contact customer service to find a retail location near you with this color in stock" }}</p>
+                    {% if block.settings.message != blank %}
+                      {{ block.settings.message }}
+                    {% else %}
+                      <p>Contact customer service to find a retail location near you with this color in stock</p>
+                    {% endif %}
                   </div>
                 </div>
             {% endcase %}
@@ -2261,11 +2265,11 @@
       "limit": 1,
       "settings": [
         {
-          "type": "text",
+          "type": "richtext",
           "id": "message",
           "label": "Message",
-          "default": "Contact customer service to find a retail location near you with this color in stock",
-          "info": "This message will show when a variant is out of stock and has the custom.outofstockmsg metafield set to true"
+          "default": "<p>Contact customer service to find a retail location near you with this color in stock</p>",
+          "info": "This message will show when a variant is out of stock and has the custom.outofstockmsg metafield set to true. You can add links and formatting."
         },
         {
           "type": "header",
