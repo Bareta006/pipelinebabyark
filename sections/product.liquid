@@ -574,7 +574,7 @@
         {
           "id": {{ variant.id | json }},
           "available": {{ variant.available | json }},
-          "outofstock_message": {{ variant.metafields.custom.outofstockmsg | json }}
+          "outofstock_message": {% if variant.metafields.custom.outofstockmsg %}true{% else %}false{% endif %}
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}
     ]
@@ -2563,19 +2563,39 @@
       checkOutofstockMessage(currentVariantId);
     }
     
-    // Listen for variant changes
+    // Listen for variant changes (main event)
     document.addEventListener('variant:change', function(event) {
       if (event.detail && event.detail.variant) {
         checkOutofstockMessage(event.detail.variant.id);
       }
     });
     
-    // Alternative listener for variant selection changes (backup)
-    const variantSelectors = document.querySelectorAll('[name="id"]');
-    variantSelectors.forEach(function(selector) {
-      selector.addEventListener('change', function() {
-        checkOutofstockMessage(this.value);
-      });
+    // Listen for radio button changes (your swatch system)
+    document.addEventListener('change', function(event) {
+      if (event.target.matches('input[data-swatch-input]')) {
+        // Get the form ID to find the current variant
+        const form = event.target.form;
+        if (form) {
+          const formData = new FormData(form);
+          const variantId = formData.get('id');
+          if (variantId) {
+            checkOutofstockMessage(variantId);
+          }
+        }
+      }
     });
+    
+    // Alternative listener for any form input changes
+    const productForm = document.querySelector('[data-product-form]');
+    if (productForm) {
+      productForm.addEventListener('change', function(event) {
+        setTimeout(function() {
+          const hiddenInput = productForm.querySelector('input[name="id"]');
+          if (hiddenInput && hiddenInput.value) {
+            checkOutofstockMessage(hiddenInput.value);
+          }
+        }, 100);
+      });
+    }
   });
 </script>
