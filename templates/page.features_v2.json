@@ -72,7 +72,7 @@
         "slide_title_color": "#000000",
         "slide_description_color": "#666666",
         "bg": "palette--light bg--neutral",
-        "width": "wrapper--full-padded",
+        "width": "wrapper--full",
         "padding_top": 60,
         "padding_bottom": 60
       }
