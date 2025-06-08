@@ -59,7 +59,7 @@
         "title_size": 10,
         "description_size": 5,
         "slide_title_size": 10,
-        "slide_description_size": 5,
+        "slide_description_size": 6,
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
         "width": "wrapper--full",
