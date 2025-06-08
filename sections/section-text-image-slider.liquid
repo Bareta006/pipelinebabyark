@@ -34,55 +34,20 @@
         <flickity-carousel>
           <div
             data-carousel
-            data-text-image-slider
-            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true, "draggable": true }'
+            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left" }'
             class="text-image-slider-carousel">
             
             {% for block in section.blocks %}
               <div class="text-image-slide" data-carousel-slide {{ block.shopify_attributes }}>
-                <div class="slide-container">
-                  
-                  <!-- Text Side -->
-                  <div class="slide-text-side">
-                    <div class="slide-counter">
-                      <span class="current-slide">{{ forloop.index }}</span> / <span class="total-slides">{{ section.blocks.size }}</span>
-                    </div>
-                    
-                    {% if block.settings.slide_title != blank %}
-                      <h3 class="slide-title heading-size-{{ section.settings.slide_title_size }}">
-                        {{ block.settings.slide_title }}
-                      </h3>
-                    {% endif %}
-                    
-                    {% if block.settings.slide_description != blank %}
-                      <div class="slide-description rte body-size-{{ section.settings.slide_description_size }}">
-                        {{ block.settings.slide_description }}
-                      </div>
-                    {% endif %}
-                  </div>
-                  
-                  <!-- Image Side -->
-                  <div class="slide-image-side">
-                    {% if block.settings.slide_image != blank %}
-                      {%- capture image_sizes -%}
-                        (min-width: 990px) 50vw, 100vw
-                      {%- endcapture -%}
-                      
-                      {% render 'image',
-                        img_object: block.settings.slide_image,
-                        alt: block.settings.slide_title,
-                        class: 'slide-image',
-                        sizes: image_sizes,
-                        loading: 'lazy'
-                      %}
-                    {% else %}
-                      <div class="slide-image-placeholder">
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                      </div>
-                    {% endif %}
-                  </div>
-                  
-                </div>
+                {% render 'text-image-slide', 
+                  slide_counter: forloop.index,
+                  total_slides: section.blocks.size,
+                  slide_title: block.settings.slide_title,
+                  slide_description: block.settings.slide_description,
+                  slide_image: block.settings.slide_image,
+                  slide_title_size: section.settings.slide_title_size,
+                  slide_description_size: section.settings.slide_description_size
+                %}
               </div>
             {% endfor %}
             
@@ -99,7 +64,6 @@
 <style>
   #shopify-section-{{ section.id }} {
     --text-image-slider-gap: 3rem;
-    --nav-arrow-size: 2.5rem;
   }
 
   #shopify-section-{{ section.id }} .text-image-slider-content {
@@ -131,43 +95,13 @@
     min-height: 500px;
   }
 
-  #shopify-section-{{ section.id }} .slide-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--text-image-slider-gap);
-    align-items: center;
-    min-height: 500px;
-  }
-
-  #shopify-section-{{ section.id }} .slide-text-side {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-  }
-
-  #shopify-section-{{ section.id }} .slide-counter {
-    font-size: 1rem;
-    font-weight: 500;
-    opacity: 0.7;
-    margin-bottom: 0.5rem;
-  }
-
-  #shopify-section-{{ section.id }} .slide-title {
-    margin: 0;
-  }
-
-  #shopify-section-{{ section.id }} .slide-description {
-    margin: 0;
-  }
-
-  /* Flickity Navigation Arrows */
+  /* Flickity Navigation Arrows - positioned at bottom right like cards-carousel */
   #shopify-section-{{ section.id }} .flickity-button {
     position: absolute;
     bottom: -4rem;
     top: auto;
-    width: var(--nav-arrow-size);
-    height: var(--nav-arrow-size);
+    width: 2.5rem;
+    height: 2.5rem;
     border: 1px solid var(--color-border);
     background-color: var(--color-bg);
     border-radius: 50%;
@@ -195,26 +129,6 @@
     left: auto;
   }
 
-  #shopify-section-{{ section.id }} .slide-image-side {
-    position: relative;
-    min-height: 400px;
-  }
-
-  #shopify-section-{{ section.id }} .slide-image,
-  #shopify-section-{{ section.id }} .slide-image-placeholder {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 8px;
-  }
-
-  #shopify-section-{{ section.id }} .slide-image-placeholder {
-    background-color: var(--color-bg-light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   /* Mobile Styles */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .text-image-slider-content {
@@ -228,22 +142,6 @@
 
     #shopify-section-{{ section.id }} .text-image-slider-wrapper {
       padding: 0 2rem 2rem 2rem;
-    }
-
-    #shopify-section-{{ section.id }} .slide-container {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-      min-height: auto;
-    }
-
-    #shopify-section-{{ section.id }} .slide-text-side {
-      order: 2;
-      padding: 1.5rem 0;
-    }
-
-    #shopify-section-{{ section.id }} .slide-image-side {
-      order: 1;
-      min-height: 250px;
     }
   }
 </style>
