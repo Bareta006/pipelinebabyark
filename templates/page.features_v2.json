@@ -33,8 +33,9 @@
         "slide_qKKN88": {
           "type": "slide",
           "settings": {
-            "slide_title": "First Slide",
-            "slide_description": "<p>This is the description for the first slide of our amazing content slider.</p>"
+            "slide_title": "Energy Absorption",
+            "slide_description": "<p>Our proprietary SafeCoil ™ system significantly reduces force transferred to your child in the case of a crash. The steel coil is activated upon impact, extending as your car slows to bring the car seat (and your baby) to a more gradual, gentle stop.</p>",
+            "slide_image": "shopify://shop_images/Hero_Images_Desktope.png"
           }
         },
         "slide_bwtP7F": {
