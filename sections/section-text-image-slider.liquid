@@ -109,6 +109,12 @@
     opacity: 1;
   }
 
+  /* Force buttons to show even when theme adds "hide" class */
+  #shopify-section-{{ section.id }} .flickity-button.hide {
+    display: block !important;
+    opacity: 1 !important;
+  }
+
   #shopify-section-{{ section.id }} .flickity-button:hover {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
