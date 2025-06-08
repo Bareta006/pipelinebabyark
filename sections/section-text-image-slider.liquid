@@ -34,8 +34,13 @@
         <flickity-carousel>
           <div
             data-carousel
+            data-grid
+            data-grid-large
+            data-grid-medium
+            data-grid-small
             data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": false, "cellAlign": "left", "prevNextButtons": true }'
-            class="text-image-slider-carousel">
+            class="text-image-slider-carousel"
+            style="--grid-large-items: 1.2; --grid-medium-items: 1.1; --grid-small-items: 1;">
             
             {% for block in section.blocks %}
               <div class="text-image-slide" data-carousel-slide {{ block.shopify_attributes }}>
@@ -93,6 +98,11 @@
   #shopify-section-{{ section.id }} .text-image-slide {
     width: 100%;
     min-height: 500px;
+  }
+
+  /* Force proper slide width for navigation to work */
+  #shopify-section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / var(--grid-large-items)) !important;
   }
 
   /* Flickity Navigation Arrows - positioned at bottom right like cards-carousel */
