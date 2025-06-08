@@ -34,6 +34,7 @@
         <flickity-carousel>
           <div
             data-carousel
+            data-carousel-progress
             data-grid
             data-grid-large
             data-grid-medium
@@ -56,6 +57,13 @@
               </div>
             {% endfor %}
             
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="text-image-slider-progress">
+            <div class="progress-bar">
+              <div class="progress-bar-fill" data-carousel-progress-bar></div>
+            </div>
           </div>
         </flickity-carousel>
         
@@ -178,6 +186,28 @@
     #shopify-section-{{ section.id }} .text-image-slider-wrapper {
       padding: 0 2rem 2rem 2rem;
     }
+  }
+
+  /* Progress Bar Styles */
+  #shopify-section-{{ section.id }} .text-image-slider-progress {
+    margin-top: 2rem;
+    padding: 0 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: var(--color-border);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .progress-bar-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
   }
 </style>
 
