@@ -34,7 +34,7 @@
         <flickity-carousel>
           <div
             data-carousel
-            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": false, "cellAlign": "left", "prevNextButtons": true }'
             class="text-image-slider-carousel">
             
             {% for block in section.blocks %}
@@ -115,6 +115,11 @@
     opacity: 1 !important;
   }
 
+  /* Prevent theme from hiding arrows when disabled */
+  #shopify-section-{{ section.id }}.hidden-arrows .flickity-button {
+    display: block !important;
+  }
+
   #shopify-section-{{ section.id }} .flickity-button:hover {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
@@ -122,7 +127,17 @@
   }
 
   #shopify-section-{{ section.id }} .flickity-button:disabled {
-    opacity: 0.5;
+    opacity: 0.3 !important;
+    cursor: not-allowed;
+    background-color: var(--color-bg-light) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text-light) !important;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:disabled:hover {
+    background-color: var(--color-bg-light) !important;
+    border-color: var(--color-border) !important;
+    color: var(--color-text-light) !important;
   }
 
   #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
