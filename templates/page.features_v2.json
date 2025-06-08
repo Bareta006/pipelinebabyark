@@ -38,25 +38,18 @@
             "slide_image": "shopify://shop_images/Hero_Images_Desktope.png"
           }
         },
-        "slide_bwtP7F": {
+        "slide_6GLXAx": {
           "type": "slide",
           "settings": {
-            "slide_title": "Second Slide",
-            "slide_description": "<p>This is the description for the second slide with more great content to explore.</p>"
-          }
-        },
-        "slide_eDgmC8": {
-          "type": "slide",
-          "settings": {
-            "slide_title": "Third Slide",
-            "slide_description": "<p>This is the description for the third slide showcasing additional features.</p>"
+            "slide_title": "Energy Absorption",
+            "slide_description": "<p>Our proprietary SafeCoil ™ system significantly reduces force transferred to your child in the case of a crash. The steel coil is activated upon impact, extending as your car slows to bring the car seat (and your baby) to a more gradual, gentle stop.</p>",
+            "slide_image": "shopify://shop_images/Hero_Images_Desktope.png"
           }
         }
       },
       "block_order": [
         "slide_qKKN88",
-        "slide_bwtP7F",
-        "slide_eDgmC8"
+        "slide_6GLXAx"
       ],
       "name": "Text Image Slider",
       "settings": {
@@ -72,14 +65,72 @@
         "slide_title_color": "#000000",
         "slide_description_color": "#666666",
         "bg": "palette--light bg--neutral",
-        "width": "wrapper--full",
+        "width": "wrapper--full-padded",
         "padding_top": 60,
         "padding_bottom": 60
+      }
+    },
+    "section_list_collections_ChFAK7": {
+      "type": "section-list-collections",
+      "blocks": {
+        "collection_NCU4QG": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "top_text": "",
+            "top_text_disabled": false,
+            "title": "",
+            "title_disabled": false,
+            "bottom_text": "",
+            "bottom_text_disabled": false,
+            "collection_url": "",
+            "text_color": "text--white"
+          }
+        },
+        "collection_WDdYRU": {
+          "type": "collection",
+          "settings": {
+            "collection": "",
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "top_text": "",
+            "top_text_disabled": false,
+            "title": "",
+            "title_disabled": false,
+            "bottom_text": "",
+            "bottom_text_disabled": false,
+            "collection_url": "",
+            "text_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "collection_NCU4QG",
+        "collection_WDdYRU"
+      ],
+      "name": "Collection list",
+      "settings": {
+        "title": "Collection list",
+        "bg": "palette--light bg--neutral",
+        "carousel_enabled_on": "mobile",
+        "wh_ratio": 1.5,
+        "grid_large": 2,
+        "grid_medium": 2,
+        "grid_mobile": 1.2,
+        "font_family": "body",
+        "title_size": 8,
+        "accent_size": 3,
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     }
   },
   "order": [
     "main",
-    "section_text_image_slider_BQqXVe"
+    "section_text_image_slider_BQqXVe",
+    "section_list_collections_ChFAK7"
   ]
 }
