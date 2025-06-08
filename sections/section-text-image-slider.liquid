@@ -126,13 +126,17 @@
   }
 
   #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 4rem;
-    left: auto;
+    right: auto;
+    left: 40%;
+    transform: translateX(-50%);
+    border: 1px solid;
   }
 
   #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 0.5rem;
-    left: auto;
+    right: auto;
+    left: calc(40% + 40px);
+    transform: translateX(-50%);
+    border: 1px solid;
   }
 
   /* Mobile Styles */
