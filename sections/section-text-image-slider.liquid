@@ -89,9 +89,19 @@
           </div>
         </flickity-carousel>
         
-        <!-- Progress Bar (Desktop only) -->
-        <div class="progress-bar">
-          <div class="progress-fill"></div>
+        <!-- Navigation Container - Progress Bar + Arrows side by side -->
+        <div class="slider-navigation">
+          <div class="progress-bar">
+            <div class="progress-fill"></div>
+          </div>
+          <div class="nav-arrows">
+            <button class="nav-arrow nav-prev" data-slide-prev>
+              {% render 'icon-core-chevron-left' %}
+            </button>
+            <button class="nav-arrow nav-next" data-slide-next>
+              {% render 'icon-core-chevron-right' %}
+            </button>
+          </div>
         </div>
       </div>
       
@@ -166,11 +176,19 @@
     margin: 0;
   }
 
-  /* Progress Bar Positioning */
-  #shopify-section-{{ section.id }} .progress-bar {
+  /* Navigation Container - Progress Bar + Arrows side by side */
+  #shopify-section-{{ section.id }} .slider-navigation {
     position: absolute;
     bottom: 2rem;
     left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+  }
+
+  #shopify-section-{{ section.id }} .progress-bar {
     width: 200px;
     height: var(--progress-height);
     background-color: var(--color-border);
@@ -186,44 +204,44 @@
     width: 0%;
   }
 
-  /* Flickity Navigation Arrows - positioned at bottom right */
-  #shopify-section-{{ section.id }} .flickity-button {
-    position: absolute;
-    bottom: 0.5rem;
-    top: auto;
-    z-index: 10;
+  #shopify-section-{{ section.id }} .nav-arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrow {
     width: var(--nav-arrow-size);
     height: var(--nav-arrow-size);
     border: 1px solid var(--color-border);
     background-color: var(--color-bg);
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
     color: var(--color-text);
   }
 
-  #shopify-section-{{ section.id }} .flickity-button:hover:not(:disabled) {
+  #shopify-section-{{ section.id }} .nav-arrow:hover:not(:disabled) {
     background-color: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-white);
   }
 
-  #shopify-section-{{ section.id }} .flickity-button:disabled {
+  #shopify-section-{{ section.id }} .nav-arrow:disabled {
     opacity: 0.5;
     cursor: not-allowed;
   }
 
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 3.5rem;
-    left: auto;
-  }
-
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 0.5rem;
-    left: auto;
-  }
-
-  #shopify-section-{{ section.id }} .flickity-button svg {
+  #shopify-section-{{ section.id }} .nav-arrow svg {
     width: 1rem;
     height: 1rem;
+  }
+
+  /* Hide Flickity's built-in navigation since we're using custom */
+  #shopify-section-{{ section.id }} .flickity-button {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .slide-image-side {
@@ -306,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
       wrapAround: false,
       contain: true,
       cellAlign: 'left',
-      prevNextButtons: true,
+      prevNextButtons: false,
       draggable: true,
       adaptiveHeight: false
     });
@@ -328,6 +346,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentSlideSpan = slide.querySelector('.current-slide');
         if (currentSlideSpan) {
           currentSlideSpan.textContent = currentIndex + 1;
+        }
+      });
+      
+      // Update navigation arrows
+      const prevButton = document.querySelector(`#shopify-section-${sectionId} [data-slide-prev]`);
+      const nextButton = document.querySelector(`#shopify-section-${sectionId} [data-slide-next]`);
+      
+      if (prevButton) {
+        prevButton.disabled = currentIndex === 0;
+      }
+      
+      if (nextButton) {
+        nextButton.disabled = currentIndex === totalSlides - 1;
+      }
+    }
+    
+    // Navigation button handlers
+    const prevButton = document.querySelector(`#shopify-section-${sectionId} [data-slide-prev]`);
+    const nextButton = document.querySelector(`#shopify-section-${sectionId} [data-slide-next]`);
+    
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        if (!prevButton.disabled) {
+          flkty.previous();
+        }
+      });
+    }
+    
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        if (!nextButton.disabled) {
+          flkty.next();
         }
       });
     }
