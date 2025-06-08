@@ -55,17 +55,14 @@
       "settings": {
         "title": "Safety First. Always.",
         "description": "<p>Safety has guided every decision we make from day one, and continues to influence every choice going forward.</p>",
-        "title_alignment": "center",
+        "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
         "slide_title_size": 6,
         "slide_description_size": 5,
-        "title_color": "#000000",
-        "description_color": "#666666",
-        "slide_title_color": "#000000",
-        "slide_description_color": "#666666",
+        "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "width": "wrapper--full-padded",
+        "width": "wrapper--full",
         "padding_top": 60,
         "padding_bottom": 60
       }
