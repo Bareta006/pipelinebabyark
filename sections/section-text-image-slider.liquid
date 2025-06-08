@@ -1,0 +1,621 @@
+<!-- /sections/section-text-image-slider.liquid -->
+
+{%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
+
+<section class="section-text-image-slider {{ section.settings.bg }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="text-image-slider"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    <!-- Section Header -->
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="section__header text-{{ section.settings.title_alignment }}">
+        {% if section.settings.title != blank %}
+          <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+          <div class="section__description rte body-size-{{ section.settings.description_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Slider Container -->
+    <div class="text-image-slider-wrapper">
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-text-image-slider
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": false, "draggable": true }'
+          class="text-image-slider-carousel">
+          
+          {% for block in section.blocks %}
+            <div class="text-image-slide" data-carousel-slide {{ block.shopify_attributes }}>
+              <div class="slide-container">
+                
+                <!-- Text Side -->
+                <div class="slide-text-side">
+                  <div class="slide-counter">
+                    <span class="current-slide">{{ forloop.index }}</span> / <span class="total-slides">{{ section.blocks.size }}</span>
+                  </div>
+                  
+                  {% if block.settings.slide_title != blank %}
+                    <h3 class="slide-title heading-size-{{ section.settings.slide_title_size }}">
+                      {{ block.settings.slide_title }}
+                    </h3>
+                  {% endif %}
+                  
+                  {% if block.settings.slide_description != blank %}
+                    <div class="slide-description rte body-size-{{ section.settings.slide_description_size }}">
+                      {{ block.settings.slide_description }}
+                    </div>
+                  {% endif %}
+                  
+                  <!-- Progress Bar and Navigation -->
+                  <div class="slide-navigation">
+                    <div class="progress-bar">
+                      <div class="progress-fill"></div>
+                    </div>
+                    <div class="nav-arrows">
+                      <button class="nav-arrow nav-prev" data-slide-prev disabled>
+                        {% render 'icon-core-chevron-left' %}
+                      </button>
+                      <button class="nav-arrow nav-next" data-slide-next>
+                        {% render 'icon-core-chevron-right' %}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Image Side -->
+                <div class="slide-image-side">
+                  {% if block.settings.slide_image != blank %}
+                    {%- capture image_sizes -%}
+                      (min-width: 990px) 50vw, 100vw
+                    {%- endcapture -%}
+                    
+                    {% render 'image',
+                      img_object: block.settings.slide_image,
+                      alt: block.settings.slide_title,
+                      class: 'slide-image',
+                      sizes: image_sizes,
+                      loading: 'lazy'
+                    %}
+                  {% else %}
+                    <div class="slide-image-placeholder">
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    </div>
+                  {% endif %}
+                </div>
+                
+              </div>
+            </div>
+          {% endfor %}
+          
+        </div>
+      </flickity-carousel>
+      
+      <!-- Mobile Navigation (positioned at bottom right) -->
+      <div class="mobile-nav-arrows">
+        <button class="mobile-nav-arrow mobile-nav-prev" data-mobile-slide-prev disabled>
+          {% render 'icon-core-chevron-left' %}
+        </button>
+        <button class="mobile-nav-arrow mobile-nav-next" data-mobile-slide-next>
+          {% render 'icon-core-chevron-right' %}
+        </button>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --text-image-slider-gap: 3rem;
+    --progress-height: 4px;
+    --nav-arrow-size: 2.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .section__header {
+    margin-bottom: 3rem;
+  }
+  
+  #shopify-section-{{ section.id }} .section__title {
+    margin-bottom: 1.5rem;
+    color: {{ section.settings.title_color }};
+  }
+  
+  #shopify-section-{{ section.id }} .section__description {
+    color: {{ section.settings.description_color }};
+  }
+
+  #shopify-section-{{ section.id }} .text-image-slider-wrapper {
+    position: relative;
+  }
+
+  #shopify-section-{{ section.id }} .text-image-slider-carousel {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .text-image-slide {
+    width: 100%;
+    min-height: 500px;
+  }
+
+  #shopify-section-{{ section.id }} .slide-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--text-image-slider-gap);
+    align-items: center;
+    min-height: 500px;
+  }
+
+  #shopify-section-{{ section.id }} .slide-text-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .slide-counter {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    margin-bottom: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .slide-title {
+    margin: 0;
+    color: {{ section.settings.slide_title_color }};
+  }
+
+  #shopify-section-{{ section.id }} .slide-description {
+    color: {{ section.settings.slide_description_color }};
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slide-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .progress-bar {
+    flex: 1;
+    height: var(--progress-height);
+    background-color: var(--color-border);
+    border-radius: calc(var(--progress-height) / 2);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .progress-fill {
+    height: 100%;
+    background-color: var(--color-primary);
+    border-radius: calc(var(--progress-height) / 2);
+    transition: width 0.3s ease;
+    width: 0%;
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrows {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrow {
+    width: var(--nav-arrow-size);
+    height: var(--nav-arrow-size);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrow:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .nav-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .slide-image-side {
+    position: relative;
+    min-height: 400px;
+  }
+
+  #shopify-section-{{ section.id }} .slide-image,
+  #shopify-section-{{ section.id }} .slide-image-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .slide-image-placeholder {
+    background-color: var(--color-bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-nav-arrows {
+    display: none;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    gap: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-nav-arrow {
+    width: var(--nav-arrow-size);
+    height: var(--nav-arrow-size);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-nav-arrow:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  #shopify-section-{{ section.id }} .mobile-nav-arrow:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .mobile-nav-arrow svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  /* Mobile Styles */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .slide-container {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      min-height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .slide-text-side {
+      order: 2;
+      padding: 1.5rem 0;
+    }
+
+    #shopify-section-{{ section.id }} .slide-image-side {
+      order: 1;
+      min-height: 250px;
+    }
+
+    #shopify-section-{{ section.id }} .slide-navigation {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-nav-arrows {
+      display: flex;
+    }
+
+    #shopify-section-{{ section.id }} .section__header {
+      margin-bottom: 2rem;
+    }
+
+    #shopify-section-{{ section.id }} .text-image-slider-wrapper {
+      padding-bottom: 4rem;
+    }
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sliders = document.querySelectorAll('[data-text-image-slider]');
+  
+  sliders.forEach(slider => {
+    const sectionId = slider.closest('[data-section-id]').getAttribute('data-section-id');
+    const slides = slider.querySelectorAll('.text-image-slide');
+    const totalSlides = slides.length;
+    
+    if (totalSlides <= 1) return;
+    
+    // Initialize Flickity
+    const flkty = new Flickity(slider, {
+      pageDots: false,
+      freeScroll: false,
+      wrapAround: false,
+      contain: true,
+      cellAlign: 'left',
+      prevNextButtons: false,
+      draggable: true,
+      adaptiveHeight: false
+    });
+    
+    // Update progress bar and navigation
+    function updateSlideInfo() {
+      const currentIndex = flkty.selectedIndex;
+      const progressPercent = ((currentIndex + 1) / totalSlides) * 100;
+      
+      // Update progress bars
+      const progressFills = document.querySelectorAll(`#shopify-section-${sectionId} .progress-fill`);
+      progressFills.forEach(fill => {
+        fill.style.width = progressPercent + '%';
+      });
+      
+      // Update navigation arrows
+      const prevButtons = document.querySelectorAll(`#shopify-section-${sectionId} [data-slide-prev], #shopify-section-${sectionId} [data-mobile-slide-prev]`);
+      const nextButtons = document.querySelectorAll(`#shopify-section-${sectionId} [data-slide-next], #shopify-section-${sectionId} [data-mobile-slide-next]`);
+      
+      prevButtons.forEach(btn => {
+        btn.disabled = currentIndex === 0;
+      });
+      
+      nextButtons.forEach(btn => {
+        btn.disabled = currentIndex === totalSlides - 1;
+      });
+    }
+    
+    // Navigation button handlers
+    const prevButtons = document.querySelectorAll(`#shopify-section-${sectionId} [data-slide-prev], #shopify-section-${sectionId} [data-mobile-slide-prev]`);
+    const nextButtons = document.querySelectorAll(`#shopify-section-${sectionId} [data-slide-next], #shopify-section-${sectionId} [data-mobile-slide-next]`);
+    
+    prevButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!btn.disabled) {
+          flkty.previous();
+        }
+      });
+    });
+    
+    nextButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!btn.disabled) {
+          flkty.next();
+        }
+      });
+    });
+    
+    // Listen for slide changes
+    flkty.on('select', updateSlideInfo);
+    
+    // Initial setup
+    updateSlideInfo();
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Text Image Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Our Featured Content"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description",
+      "default": "<p>Discover our amazing features through this interactive slider.</p>"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Title Size",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Description Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Slide Content"
+    },
+    {
+      "type": "range",
+      "id": "slide_title_size",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Slide Title Size",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "slide_description_size",
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "label": "Slide Description Size",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Section Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Section Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "slide_title_color",
+      "label": "Slide Title Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "slide_description_color",
+      "label": "Slide Description Color",
+      "default": "#666666"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default"},
+        { "value": "palette--light bg--accent", "label": "Light"},
+        { "value": "palette--dark bg--invert", "label": "Dark"},
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+        { "value": "palette--bright bg--bright", "label": "Bright"},
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--full", "label": "Full width"},
+        { "value": "wrapper--full-padded", "label": "Full width padded"},
+        { "value": "wrapper", "label": "Page width"},
+        { "value": "wrapper--narrow", "label": "Page width narrow"},
+        { "value": "wrapper--tiny", "label": "Page width extra narrow"}
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+        {
+          "type": "text",
+          "id": "slide_title",
+          "label": "Slide Title",
+          "default": "Slide Title"
+        },
+        {
+          "type": "richtext",
+          "id": "slide_description",
+          "label": "Slide Description",
+          "default": "<p>This is the slide description that explains the content of this particular slide.</p>"
+        },
+        {
+          "type": "image_picker",
+          "id": "slide_image",
+          "label": "Slide Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text Image Slider",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "First Slide",
+            "slide_description": "<p>This is the description for the first slide of our amazing content slider.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "Second Slide", 
+            "slide_description": "<p>This is the description for the second slide with more great content to explore.</p>"
+          }
+        },
+        {
+          "type": "slide",
+          "settings": {
+            "slide_title": "Third Slide",
+            "slide_description": "<p>This is the description for the third slide showcasing additional features.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
+  }
+}
+{% endschema %} 
