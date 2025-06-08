@@ -197,19 +197,42 @@
   #shopify-section-{{ section.id }} .progress-bar {
     width: 100%;
     height: 4px;
-    background-color: var(--color-border);
+    background-color: #e0e0e0;
     border-radius: 2px;
     overflow: hidden;
   }
 
   #shopify-section-{{ section.id }} .progress-bar-fill {
     height: 100%;
-    background-color: var(--color-primary);
+    background-color: #333;
     border-radius: 2px;
     transition: width 0.3s ease;
     width: 0%;
   }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.querySelector('#shopify-section-{{ section.id }} [data-carousel]');
+  const progressBar = document.querySelector('#shopify-section-{{ section.id }} [data-carousel-progress-bar]');
+  
+  if (carousel && progressBar) {
+    // Wait for Flickity to initialize
+    setTimeout(() => {
+      const flickityInstance = Flickity.data(carousel);
+      if (flickityInstance) {
+        const updateProgress = () => {
+          const progress = (flickityInstance.selectedIndex + 1) / flickityInstance.slides.length * 100;
+          progressBar.style.width = progress + '%';
+        };
+        
+        flickityInstance.on('select', updateProgress);
+        updateProgress(); // Set initial progress
+      }
+    }, 100);
+  }
+});
+</script>
 
 {% schema %}
 {
