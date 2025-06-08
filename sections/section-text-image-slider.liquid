@@ -2,113 +2,119 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
 
-<section class="section-text-image-slider {{ section.settings.text_color }} {{ section.settings.bg }}"
+<section class="section-text-image-slider {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="text-image-slider"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   
   <div class="{{ section.settings.width }} section-padding">
-    <!-- Section Header -->
-    {% if section.settings.title != blank or section.settings.description != blank %}
-      <div class="section__header {{ section.settings.title_alignment }}">
-        {% if section.settings.title != blank %}
-          <h2 class="section__title heading-size-{{ section.settings.title_size }}">
-            {{ section.settings.title }}
-          </h2>
-        {% endif %}
-        
-        {% if section.settings.description != blank %}
-          <div class="section__description rte body-size-{{ section.settings.description_size }}">
-            {{ section.settings.description }}
-          </div>
-        {% endif %}
-      </div>
-    {% endif %}
-
-    <!-- Slider Container -->
-    <div class="text-image-slider-wrapper">
-      <flickity-carousel>
-        <div
-          data-carousel
-          data-text-image-slider
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": false, "draggable": true }'
-          class="text-image-slider-carousel">
-          
-          {% for block in section.blocks %}
-            <div class="text-image-slide" data-carousel-slide {{ block.shopify_attributes }}>
-              <div class="slide-container">
-                
-                <!-- Text Side -->
-                <div class="slide-text-side">
-                  <div class="slide-counter">
-                    <span class="current-slide">{{ forloop.index }}</span> / <span class="total-slides">{{ section.blocks.size }}</span>
-                  </div>
-                  
-                  {% if block.settings.slide_title != blank %}
-                    <h3 class="slide-title heading-size-{{ section.settings.slide_title_size }}">
-                      {{ block.settings.slide_title }}
-                    </h3>
-                  {% endif %}
-                  
-                  {% if block.settings.slide_description != blank %}
-                    <div class="slide-description rte body-size-{{ section.settings.slide_description_size }}">
-                      {{ block.settings.slide_description }}
-                    </div>
-                  {% endif %}
-                  
-                  <!-- Progress Bar and Navigation -->
-                  <div class="slide-navigation">
-                    <div class="progress-bar">
-                      <div class="progress-fill"></div>
-                    </div>
-                    <div class="nav-arrows">
-                      <button class="nav-arrow nav-prev" data-slide-prev disabled>
-                        {% render 'icon-core-chevron-left' %}
-                      </button>
-                      <button class="nav-arrow nav-next" data-slide-next>
-                        {% render 'icon-core-chevron-right' %}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Image Side -->
-                <div class="slide-image-side">
-                  {% if block.settings.slide_image != blank %}
-                    {%- capture image_sizes -%}
-                      (min-width: 990px) 50vw, 100vw
-                    {%- endcapture -%}
-                    
-                    {% render 'image',
-                      img_object: block.settings.slide_image,
-                      alt: block.settings.slide_title,
-                      class: 'slide-image',
-                      sizes: image_sizes,
-                      loading: 'lazy'
-                    %}
-                  {% else %}
-                    <div class="slide-image-placeholder">
-                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                    </div>
-                  {% endif %}
-                </div>
-                
-              </div>
-            </div>
-          {% endfor %}
-          
-        </div>
-      </flickity-carousel>
+    
+    <!-- Content Container with Background and Border Radius -->
+    <div class="text-image-slider-content {{ section.settings.bg }}">
       
-      <!-- Mobile Navigation (positioned at bottom right) -->
-      <div class="mobile-nav-arrows">
-        <button class="mobile-nav-arrow mobile-nav-prev" data-mobile-slide-prev disabled>
-          {% render 'icon-core-chevron-left' %}
-        </button>
-        <button class="mobile-nav-arrow mobile-nav-next" data-mobile-slide-next>
-          {% render 'icon-core-chevron-right' %}
-        </button>
+      <!-- Section Header -->
+      {% if section.settings.title != blank or section.settings.description != blank %}
+        <div class="section__header {{ section.settings.title_alignment }}">
+          {% if section.settings.title != blank %}
+            <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+              {{ section.settings.title }}
+            </h2>
+          {% endif %}
+          
+          {% if section.settings.description != blank %}
+            <div class="section__description rte body-size-{{ section.settings.description_size }}">
+              {{ section.settings.description }}
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+
+      <!-- Slider Container -->
+      <div class="text-image-slider-wrapper">
+        <flickity-carousel>
+          <div
+            data-carousel
+            data-text-image-slider
+            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": false, "draggable": true }'
+            class="text-image-slider-carousel">
+            
+            {% for block in section.blocks %}
+              <div class="text-image-slide" data-carousel-slide {{ block.shopify_attributes }}>
+                <div class="slide-container">
+                  
+                  <!-- Text Side -->
+                  <div class="slide-text-side">
+                    <div class="slide-counter">
+                      <span class="current-slide">{{ forloop.index }}</span> / <span class="total-slides">{{ section.blocks.size }}</span>
+                    </div>
+                    
+                    {% if block.settings.slide_title != blank %}
+                      <h3 class="slide-title heading-size-{{ section.settings.slide_title_size }}">
+                        {{ block.settings.slide_title }}
+                      </h3>
+                    {% endif %}
+                    
+                    {% if block.settings.slide_description != blank %}
+                      <div class="slide-description rte body-size-{{ section.settings.slide_description_size }}">
+                        {{ block.settings.slide_description }}
+                      </div>
+                    {% endif %}
+                    
+                    <!-- Progress Bar and Navigation -->
+                    <div class="slide-navigation">
+                      <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                      </div>
+                      <div class="nav-arrows">
+                        <button class="nav-arrow nav-prev" data-slide-prev disabled>
+                          {% render 'icon-core-chevron-left' %}
+                        </button>
+                        <button class="nav-arrow nav-next" data-slide-next>
+                          {% render 'icon-core-chevron-right' %}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Image Side -->
+                  <div class="slide-image-side">
+                    {% if block.settings.slide_image != blank %}
+                      {%- capture image_sizes -%}
+                        (min-width: 990px) 50vw, 100vw
+                      {%- endcapture -%}
+                      
+                      {% render 'image',
+                        img_object: block.settings.slide_image,
+                        alt: block.settings.slide_title,
+                        class: 'slide-image',
+                        sizes: image_sizes,
+                        loading: 'lazy'
+                      %}
+                    {% else %}
+                      <div class="slide-image-placeholder">
+                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                      </div>
+                    {% endif %}
+                  </div>
+                  
+                </div>
+              </div>
+            {% endfor %}
+            
+          </div>
+        </flickity-carousel>
+        
+        <!-- Mobile Navigation (positioned at bottom right) -->
+        <div class="mobile-nav-arrows">
+          <button class="mobile-nav-arrow mobile-nav-prev" data-mobile-slide-prev disabled>
+            {% render 'icon-core-chevron-left' %}
+          </button>
+          <button class="mobile-nav-arrow mobile-nav-next" data-mobile-slide-next>
+            {% render 'icon-core-chevron-right' %}
+          </button>
+        </div>
       </div>
+      
     </div>
     
   </div>
@@ -119,6 +125,12 @@
     --text-image-slider-gap: 3rem;
     --progress-height: 4px;
     --nav-arrow-size: 2.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .text-image-slider-content {
+    border-radius: 30px;
+    overflow: hidden;
+    padding: 3rem;
   }
 
   #shopify-section-{{ section.id }} .section__header {
@@ -288,6 +300,11 @@
 
   /* Mobile Styles */
   @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .text-image-slider-content {
+      border-radius: 20px;
+      padding: 2rem;
+    }
+
     #shopify-section-{{ section.id }} .slide-container {
       grid-template-columns: 1fr;
       gap: 1.5rem;
