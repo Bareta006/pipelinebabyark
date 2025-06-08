@@ -2,7 +2,7 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
 
-<section class="section-text-image-slider {{ section.settings.bg }}"
+<section class="section-text-image-slider {{ section.settings.text_color }} {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="text-image-slider"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
@@ -10,7 +10,7 @@
   <div class="{{ section.settings.width }} section-padding">
     <!-- Section Header -->
     {% if section.settings.title != blank or section.settings.description != blank %}
-      <div class="section__header text-{{ section.settings.title_alignment }}">
+      <div class="section__header {{ section.settings.title_alignment }}">
         {% if section.settings.title != blank %}
           <h2 class="section__title heading-size-{{ section.settings.title_size }}">
             {{ section.settings.title }}
@@ -31,7 +31,7 @@
         <div
           data-carousel
           data-text-image-slider
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true, "draggable": true }'
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": false, "draggable": true }'
           class="text-image-slider-carousel">
           
           {% for block in section.blocks %}
@@ -127,11 +127,6 @@
   
   #shopify-section-{{ section.id }} .section__title {
     margin-bottom: 1.5rem;
-    color: {{ section.settings.title_color }};
-  }
-  
-  #shopify-section-{{ section.id }} .section__description {
-    color: {{ section.settings.description_color }};
   }
 
   #shopify-section-{{ section.id }} .text-image-slider-wrapper {
@@ -165,17 +160,15 @@
   #shopify-section-{{ section.id }} .slide-counter {
     font-size: 1rem;
     font-weight: 500;
-    color: var(--color-text-light);
+    opacity: 0.7;
     margin-bottom: 0.5rem;
   }
 
   #shopify-section-{{ section.id }} .slide-title {
     margin: 0;
-    color: {{ section.settings.slide_title_color }};
   }
 
   #shopify-section-{{ section.id }} .slide-description {
-    color: {{ section.settings.slide_description_color }};
     margin: 0;
   }
 
@@ -429,18 +422,18 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "select",
       "id": "title_alignment",
       "label": "Title Alignment",
-      "default": "center",
+      "default": "text-center",
       "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Centered" },
+        { "value": "text-right", "label": "Right" }
       ]
     },
     {
       "type": "range",
       "id": "title_size",
       "min": 1,
-      "max": 12,
+      "max": 15,
       "step": 1,
       "label": "Title Size",
       "default": 8
@@ -449,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "description_size",
       "min": 1,
-      "max": 12,
+      "max": 15,
       "step": 1,
       "label": "Description Size",
       "default": 5
@@ -462,7 +455,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "slide_title_size",
       "min": 1,
-      "max": 12,
+      "max": 15,
       "step": 1,
       "label": "Slide Title Size",
       "default": 6
@@ -471,42 +464,32 @@ document.addEventListener('DOMContentLoaded', function() {
       "type": "range",
       "id": "slide_description_size",
       "min": 1,
-      "max": 12,
+      "max": 15,
       "step": 1,
       "label": "Slide Description Size",
       "default": 4
     },
     {
       "type": "header",
-      "content": "Colors"
-    },
-    {
-      "type": "color",
-      "id": "title_color",
-      "label": "Section Title Color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "description_color",
-      "label": "Section Description Color",
-      "default": "#666666"
-    },
-    {
-      "type": "color",
-      "id": "slide_title_color",
-      "label": "Slide Title Color",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "slide_description_color",
-      "label": "Slide Description Color",
-      "default": "#666666"
-    },
-    {
-      "type": "header",
       "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+      ]
     },
     {
       "type": "select",
@@ -532,11 +515,10 @@ document.addEventListener('DOMContentLoaded', function() {
       "label": "Width",
       "default": "wrapper",
       "options": [
-        { "value": "wrapper--full", "label": "Full width"},
-        { "value": "wrapper--full-padded", "label": "Full width padded"},
-        { "value": "wrapper", "label": "Page width"},
-        { "value": "wrapper--narrow", "label": "Page width narrow"},
-        { "value": "wrapper--tiny", "label": "Page width extra narrow"}
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
       ]
     },
     {
@@ -547,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 2,
       "unit": "px",
       "label": "Padding top",
-      "default": 60
+      "default": 36
     },
     {
       "type": "range",
@@ -557,7 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
       "step": 2,
       "unit": "px",
       "label": "Padding bottom",
-      "default": 60
+      "default": 36
     }
   ],
   "blocks": [
@@ -588,7 +570,7 @@ document.addEventListener('DOMContentLoaded', function() {
   "presets": [
     {
       "name": "Text Image Slider",
-      "category": "Custom",
+      "category": "Image",
       "blocks": [
         {
           "type": "slide",
