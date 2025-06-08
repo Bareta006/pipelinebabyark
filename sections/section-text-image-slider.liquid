@@ -62,7 +62,7 @@
           <!-- Progress Bar -->
           <div class="text-image-slider-progress">
             <div class="progress-bar">
-              <div class="progress-bar-fill" data-carousel-progress-bar></div>
+              <div class="progress-bar-fill" data-carousel-track></div>
             </div>
           </div>
         </flickity-carousel>
@@ -210,29 +210,6 @@
     width: 0%;
   }
 </style>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const carousel = document.querySelector('#shopify-section-{{ section.id }} [data-carousel]');
-  const progressBar = document.querySelector('#shopify-section-{{ section.id }} [data-carousel-progress-bar]');
-  
-  if (carousel && progressBar) {
-    // Wait for Flickity to initialize
-    setTimeout(() => {
-      const flickityInstance = Flickity.data(carousel);
-      if (flickityInstance) {
-        const updateProgress = () => {
-          const progress = (flickityInstance.selectedIndex + 1) / flickityInstance.slides.length * 100;
-          progressBar.style.width = progress + '%';
-        };
-        
-        flickityInstance.on('select', updateProgress);
-        updateProgress(); // Set initial progress
-      }
-    }, 100);
-  }
-});
-</script>
 
 {% schema %}
 {
