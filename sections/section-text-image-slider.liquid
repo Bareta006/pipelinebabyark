@@ -186,6 +186,16 @@
     #shopify-section-{{ section.id }} .text-image-slider-wrapper {
       padding: 0 2rem 2rem 2rem;
     }
+
+    /* Force single slide on mobile */
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: 100% !important;
+      margin-right: 0 !important;
+    }
+
+    #shopify-section-{{ section.id }} .text-image-slide {
+      width: 100% !important;
+    }
   }
 
   /* Progress Bar Styles */
