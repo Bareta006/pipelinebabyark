@@ -39,7 +39,7 @@
             data-grid-large
             data-grid-medium
             data-grid-small
-            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": false, "cellAlign": "left", "prevNextButtons": true }'
+            data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": false, "cellAlign": "left", "prevNextButtons": true, "groupCells": true }'
             class="text-image-slider-carousel"
             style="--grid-large-items: 1; --grid-medium-items: 1; --grid-small-items: 1;">
             
@@ -185,16 +185,6 @@
 
     #shopify-section-{{ section.id }} .text-image-slider-wrapper {
       padding: 0 2rem 2rem 2rem;
-    }
-
-    /* Force single slide on mobile */
-    #shopify-section-{{ section.id }} .flickity-slider > * {
-      width: 100% !important;
-      margin-right: 0 !important;
-    }
-
-    #shopify-section-{{ section.id }} .text-image-slide {
-      width: 100% !important;
     }
   }
 
