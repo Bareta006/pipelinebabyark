@@ -34,7 +34,6 @@
         <flickity-carousel>
           <div
             data-carousel
-            data-carousel-progress
             data-grid
             data-grid-large
             data-grid-medium
@@ -182,54 +181,80 @@ document.addEventListener('DOMContentLoaded', function() {
   const section = document.querySelector('[data-section-id="{{ section.id }}"]');
   if (!section) return;
   
-  // Wait for Flickity to initialize
-  setTimeout(function() {
+  console.log('Text Image Slider: Starting initialization');
+  
+  function initializeSlider() {
     const flickitySection = section.querySelector('.flickity-enabled');
-    if (!flickitySection) return;
+    console.log('Flickity section found:', !!flickitySection);
     
+    if (!flickitySection) {
+      // Try again if not ready
+      setTimeout(initializeSlider, 500);
+      return;
+    }
+    
+    // Set up custom arrows
     const realPrevButton = flickitySection.querySelector('.flickity-prev-next-button.previous');
     const realNextButton = flickitySection.querySelector('.flickity-prev-next-button.next');
     
-    if (!realPrevButton || !realNextButton) return;
-    
-    // Get all custom arrows within this section
-    const customPrevButtons = section.querySelectorAll('.custom-prev');
-    const customNextButtons = section.querySelectorAll('.custom-next');
-    
-    // Connect custom prev buttons to real prev button
-    customPrevButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        realPrevButton.click();
+    if (realPrevButton && realNextButton) {
+      const customPrevButtons = section.querySelectorAll('.custom-prev');
+      const customNextButtons = section.querySelectorAll('.custom-next');
+      
+      customPrevButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          realPrevButton.click();
+        });
       });
-    });
-    
-    // Connect custom next buttons to real next button
-    customNextButtons.forEach(button => {
-      button.addEventListener('click', function(e) {
-        e.preventDefault();
-        realNextButton.click();
+      
+      customNextButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+          realNextButton.click();
+        });
       });
-    });
+      
+      console.log('Custom arrows connected');
+    }
     
-    // Progress bar logic - use exactly the same approach as theme.js
+    // Set up progress bars
     const progressBars = section.querySelectorAll('[data-slide-progress]');
+    console.log('Progress bars found:', progressBars.length);
     
     if (progressBars.length > 0 && window.Flickity) {
       const flickityInstance = window.Flickity.data(flickitySection);
+      console.log('Flickity instance:', !!flickityInstance);
       
       if (flickityInstance) {
-        // This is EXACTLY how theme.js does it in progressBarCalculate()
-        flickityInstance.on('scroll', function(progress) {
-          progress = Math.max(0, Math.min(1, progress)) * 100 + '%';
+        const totalSlides = flickityInstance.slides.length;
+        console.log('Total slides:', totalSlides);
+        
+        function updateProgress(index) {
+          const progress = totalSlides > 1 ? (index / (totalSlides - 1)) * 100 : 100;
+          const finalProgress = Math.max(25, progress);
+          console.log('Updating progress to:', finalProgress + '%', 'for slide:', index);
+          
           progressBars.forEach(bar => {
-            bar.style.width = progress;
+            bar.style.width = finalProgress + '%';
           });
+        }
+        
+        // Listen to select events
+        flickityInstance.on('select', function(index) {
+          updateProgress(index);
         });
+        
+        // Set initial progress
+        updateProgress(flickityInstance.selectedIndex || 0);
+        
+        console.log('Progress system initialized');
       }
     }
-    
-  }, 500); // Longer timeout to ensure everything is ready
+  }
+  
+  // Start initialization
+  setTimeout(initializeSlider, 1000);
 });
 </script>
 
