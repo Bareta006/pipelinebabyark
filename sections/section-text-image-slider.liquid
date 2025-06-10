@@ -212,51 +212,24 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
     
-    // Set up progress bars - find all progress elements in this section
+    // Progress bar logic - use exactly the same approach as theme.js
     const progressBars = section.querySelectorAll('[data-slide-progress]');
     
-    // Get the Flickity instance and listen for scroll events
-    const flickityCarousel = section.querySelector('[data-carousel]');
-    if (flickityCarousel && window.Flickity && progressBars.length > 0) {
+    if (progressBars.length > 0 && window.Flickity) {
+      const flickityInstance = window.Flickity.data(flickitySection);
       
-      // Wait a bit more for Flickity to be fully ready
-      setTimeout(function() {
-        const flickityInstance = window.Flickity.data(flickityCarousel);
-        
-        if (flickityInstance) {
-          const totalSlides = flickityInstance.slides.length;
-          
-          // Update all progress bars simultaneously
-          flickityInstance.on('scroll', function(progress) {
-            progress = Math.max(0, Math.min(1, progress)) * 100 + '%';
-            progressBars.forEach(bar => {
-              bar.style.width = progress;
-            });
-          });
-          
-          // Also listen for select events for more accurate updates
-          flickityInstance.on('select', function(index) {
-            const progressPercent = totalSlides > 1 ? (index / (totalSlides - 1)) * 100 : 100;
-            const finalProgress = Math.max(25, progressPercent) + '%'; // Min 25%
-            
-            progressBars.forEach(bar => {
-              bar.style.width = finalProgress;
-            });
-          });
-          
-          // Set initial progress
-          const currentIndex = flickityInstance.selectedIndex || 0;
-          const initialProgress = totalSlides > 1 ? (currentIndex / (totalSlides - 1)) * 100 : 100;
-          const finalInitialProgress = Math.max(25, initialProgress) + '%';
-          
+      if (flickityInstance) {
+        // This is EXACTLY how theme.js does it in progressBarCalculate()
+        flickityInstance.on('scroll', function(progress) {
+          progress = Math.max(0, Math.min(1, progress)) * 100 + '%';
           progressBars.forEach(bar => {
-            bar.style.width = finalInitialProgress;
+            bar.style.width = progress;
           });
-        }
-      }, 200);
+        });
+      }
     }
     
-  }, 100);
+  }, 500); // Longer timeout to ensure everything is ready
 });
 </script>
 
