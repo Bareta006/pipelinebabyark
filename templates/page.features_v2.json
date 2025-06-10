@@ -104,7 +104,7 @@
         "card_description_size": 6,
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "width": "wrapper",
+        "width": "wrapper--full",
         "padding_top": 36,
         "padding_bottom": 36
       }
