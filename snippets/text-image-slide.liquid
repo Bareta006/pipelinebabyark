@@ -41,7 +41,8 @@
      
     <!-- Progress Bar -->
     <div class="slide-progress-bar">
-      <div class="slide-progress-fill" data-slide-progress></div>
+      <div class="slide-progress-fill" data-slide-progress 
+           style="width: {% assign progress = slide_counter | times: 100.0 | divided_by: total_slides %}{% assign final_progress = progress | at_least: 25 %}{{ final_progress }}%;"></div>
     </div>
   </div>
   
@@ -143,7 +144,6 @@
     border-radius: 2px;
     transition: width 0.3s ease;
     width: 0%;
-    min-width: 25%;
   }
 
   .slide-image-side {

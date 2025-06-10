@@ -217,40 +217,6 @@ document.addEventListener('DOMContentLoaded', function() {
       
       console.log('Custom arrows connected');
     }
-    
-    // Set up progress bars
-    const progressBars = section.querySelectorAll('[data-slide-progress]');
-    console.log('Progress bars found:', progressBars.length);
-    
-    if (progressBars.length > 0 && window.Flickity) {
-      const flickityInstance = window.Flickity.data(flickitySection);
-      console.log('Flickity instance:', !!flickityInstance);
-      
-      if (flickityInstance) {
-        const totalSlides = flickityInstance.slides.length;
-        console.log('Total slides:', totalSlides);
-        
-        function updateProgress(index) {
-          const progress = totalSlides > 1 ? (index / (totalSlides - 1)) * 100 : 100;
-          const finalProgress = Math.max(25, progress);
-          console.log('Updating progress to:', finalProgress + '%', 'for slide:', index);
-          
-          progressBars.forEach(bar => {
-            bar.style.width = finalProgress + '%';
-          });
-        }
-        
-        // Listen to select events
-        flickityInstance.on('select', function(index) {
-          updateProgress(index);
-        });
-        
-        // Set initial progress
-        updateProgress(flickityInstance.selectedIndex || 0);
-        
-        console.log('Progress system initialized');
-      }
-    }
   }
   
   // Start initialization
