@@ -32,17 +32,18 @@
         {{ slide_description }}
       </div>
     {% endif %}
-    
-    <!-- Custom Navigation Arrows -->
-    <div class="custom-arrows">
-      <button class="custom-prev" aria-label="Previous slide">‹</button>
-      <button class="custom-next" aria-label="Next slide">›</button>
-    </div>
-     
-    <!-- Progress Bar -->
-    <div class="slide-progress-bar">
-      <div class="slide-progress-fill" data-slide-progress 
-           style="width: {% assign progress = slide_counter | times: 100.0 | divided_by: total_slides %}{% assign final_progress = progress | at_least: 25 %}{{ final_progress }}%;"></div>
+    <div class="slide-arrows-progress-bar-container">
+      <!-- Custom Navigation Arrows -->
+      <div class="custom-arrows">
+        <button class="custom-prev" aria-label="Previous slide">‹</button>
+        <button class="custom-next" aria-label="Next slide">›</button>
+      </div>
+      
+      <!-- Progress Bar -->
+      <div class="slide-progress-bar">
+        <div class="slide-progress-fill" data-slide-progress 
+            style="width: {% assign progress = slide_counter | times: 100.0 | divided_by: total_slides %}{% assign final_progress = progress | at_least: 25 %}{{ final_progress }}%;"></div>
+      </div>
     </div>
   </div>
   
