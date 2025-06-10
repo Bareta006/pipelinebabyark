@@ -158,18 +158,9 @@
     color: var(--color-text-light) !important;
   }
 
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: auto;
-    left: 40%;
-    transform: translateX(-50%);
-    border: 1px solid;
-  }
-
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
-    right: auto;
-    left: calc(40% + 60px);
-    transform: translateX(-50%);
-    border: 1px solid;
+  /* Hide default Flickity arrows */
+  #shopify-section-{{ section.id }} .flickity-prev-next-button {
+    display: none !important;
   }
 
   /* Mobile Styles */
@@ -215,6 +206,45 @@
     min-width: 33%;
   }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const section = document.querySelector('[data-section-id="{{ section.id }}"]');
+  if (!section) return;
+  
+  // Wait for Flickity to initialize
+  setTimeout(function() {
+    const flickitySection = section.querySelector('.flickity-enabled');
+    if (!flickitySection) return;
+    
+    const realPrevButton = flickitySection.querySelector('.flickity-prev-next-button.previous');
+    const realNextButton = flickitySection.querySelector('.flickity-prev-next-button.next');
+    
+    if (!realPrevButton || !realNextButton) return;
+    
+    // Get all custom arrows within this section
+    const customPrevButtons = section.querySelectorAll('.custom-prev');
+    const customNextButtons = section.querySelectorAll('.custom-next');
+    
+    // Connect custom prev buttons to real prev button
+    customPrevButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        realPrevButton.click();
+      });
+    });
+    
+    // Connect custom next buttons to real next button
+    customNextButtons.forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+        realNextButton.click();
+      });
+    });
+    
+  }, 100);
+});
+</script>
 
 {% schema %}
 {

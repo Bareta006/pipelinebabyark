@@ -32,6 +32,12 @@
         {{ slide_description }}
       </div>
     {% endif %}
+    
+    <!-- Custom Navigation Arrows -->
+    <div class="custom-arrows">
+      <button class="custom-prev" aria-label="Previous slide">‹</button>
+      <button class="custom-next" aria-label="Next slide">›</button>
+    </div>
   </div>
   
   <!-- Image Side -->
@@ -86,6 +92,35 @@
 
   .slide-description {
     margin: 0;
+  }
+
+  .custom-arrows {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .custom-prev,
+  .custom-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    color: var(--color-text);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .custom-prev:hover,
+  .custom-next:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
   }
 
   .slide-image-side {
