@@ -35,14 +35,14 @@
           "settings": {
             "slide_title": "Energy Absorption",
             "slide_description": "<p>Our proprietary SafeCoil ™ system significantly reduces force transferred to your child in the case of a crash. The steel coil is activated upon impact, extending as your car slows to bring the car seat (and your baby) to a more gradual, gentle stop.</p>",
-            "slide_image": "shopify://shop_images/Hero_Images_Desktope.png"
+            "slide_image": "shopify://shop_images/Group_1597881193.png"
           }
         },
         "slide_6GLXAx": {
           "type": "slide",
           "settings": {
-            "slide_title": "Energy Absorption",
-            "slide_description": "<p>Our proprietary SafeCoil ™ system significantly reduces force transferred to your child in the case of a crash. The steel coil is activated upon impact, extending as your car slows to bring the car seat (and your baby) to a more gradual, gentle stop.</p>",
+            "slide_title": "Side Impact Protection",
+            "slide_description": "<p>Prioritizing side impact protection since day one. <br/>The BioArk™ side impact protection system mitigates impact, providing a layer of defense and diverting the brunt of incoming forces to the structure of the seat and away from your child in the event of a T-bone crash.</p>",
             "slide_image": "shopify://shop_images/Hero_Images_Desktope.png"
           }
         }
@@ -67,59 +67,44 @@
         "padding_bottom": 60
       }
     },
-    "section_list_collections_ChFAK7": {
-      "type": "section-list-collections",
+    "section_inline_cards_A4XHfV": {
+      "type": "section-inline-cards",
       "blocks": {
-        "collection_NCU4QG": {
-          "type": "collection",
+        "card_PYUpgQ": {
+          "type": "card",
           "settings": {
-            "collection": "",
-            "overlay_color": "#000000",
-            "overlay_opacity": 15,
-            "top_text": "",
-            "top_text_disabled": false,
-            "title": "",
-            "title_disabled": false,
-            "bottom_text": "",
-            "bottom_text_disabled": false,
-            "collection_url": "",
-            "text_color": "text--white"
+            "card_image": "shopify://shop_images/Hero_Images_Desktope_796ab37a-f158-45ac-9735-9719de4adb9a.png",
+            "card_title": "Safety Favorites",
+            "card_description": "<p>The only convertible car seat with a load leg, rigid Lower Anchors (LATCH), and an anti-rebound bar. Features you know and love from infant seats, coming together in structural support and stability for your convertible car seat, whichever way your child is facing.</p>"
           }
         },
-        "collection_WDdYRU": {
-          "type": "collection",
+        "card_Q4dx86": {
+          "type": "card",
           "settings": {
-            "collection": "",
-            "overlay_color": "#000000",
-            "overlay_opacity": 15,
-            "top_text": "",
-            "top_text_disabled": false,
-            "title": "",
-            "title_disabled": false,
-            "bottom_text": "",
-            "bottom_text_disabled": false,
-            "collection_url": "",
-            "text_color": "text--white"
+            "card_image": "shopify://shop_images/Group_1597881180.png",
+            "card_title": "Real-Time Feedback",
+            "card_description": "<p>The babyark app facilitates accurate, streamlined installation and smart monitoring. With LED lighting, audio confirmation of each completed stage, and in-app visual prompts for step-by-step guidance, installation is a breeze.  </p>"
           }
         }
       },
       "block_order": [
-        "collection_NCU4QG",
-        "collection_WDdYRU"
+        "card_PYUpgQ",
+        "card_Q4dx86"
       ],
-      "name": "Collection list",
+      "name": "Inline Cards",
       "settings": {
-        "title": "Collection list",
-        "bg": "palette--light bg--neutral",
-        "carousel_enabled_on": "mobile",
-        "wh_ratio": 1.5,
-        "grid_large": 2,
-        "grid_medium": 2,
-        "grid_mobile": 1.2,
-        "font_family": "body",
-        "title_size": 8,
-        "accent_size": 3,
-        "width": "wrapper--full",
+        "title": "Easy, Guided Installation",
+        "description": "<p>Smart sensors synchronize with real-time app feedback for step-by-step installation guidance. Together with patented technology and built-in mechanical components like the front load leg, safety-first engineering merges with simple efficiency. <br/></p>",
+        "title_alignment": "text-center",
+        "title_size": 10,
+        "description_size": 6,
+        "cards_desktop": 2,
+        "cards_tablet": "2",
+        "card_title_size": 9,
+        "card_description_size": 6,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -128,6 +113,6 @@
   "order": [
     "main",
     "section_text_image_slider_BQqXVe",
-    "section_list_collections_ChFAK7"
+    "section_inline_cards_A4XHfV"
   ]
 }
