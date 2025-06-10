@@ -156,7 +156,15 @@
   #shopify-section-{{ section.id }} .flickity-prev-next-button {
     display: none !important;
   }
-
+  #shopify-section-{{ section.id }} .slide-arrows-progress-bar-container {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 30px;
+  }
+  #shopify-section-{{ section.id }} .slide-arrows-progress-bar-container .slide-progress-bar{
+    max-width: 260px
+  }
   /* Mobile Styles */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .text-image-slider-content {
@@ -204,14 +212,20 @@ document.addEventListener('DOMContentLoaded', function() {
       customPrevButtons.forEach(button => {
         button.addEventListener('click', function(e) {
           e.preventDefault();
-          realPrevButton.click();
+          // Don't trigger if button is disabled
+          if (!button.disabled && !button.classList.contains('disabled')) {
+            realPrevButton.click();
+          }
         });
       });
       
       customNextButtons.forEach(button => {
         button.addEventListener('click', function(e) {
           e.preventDefault();
-          realNextButton.click();
+          // Don't trigger if button is disabled
+          if (!button.disabled && !button.classList.contains('disabled')) {
+            realNextButton.click();
+          }
         });
       });
       
