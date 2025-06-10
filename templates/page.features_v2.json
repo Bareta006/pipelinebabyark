@@ -73,15 +73,17 @@
         "card_PYUpgQ": {
           "type": "card",
           "settings": {
-            "card_title": "First Card",
-            "card_description": "<p>This is the description for the first card showcasing our amazing features.</p>"
+            "card_image": "shopify://shop_images/Hero_Images_Desktope_796ab37a-f158-45ac-9735-9719de4adb9a.png",
+            "card_title": "Safety Favorites",
+            "card_description": "<p>The only convertible car seat with a load leg, rigid Lower Anchors (LATCH), and an anti-rebound bar. Features you know and love from infant seats, coming together in structural support and stability for your convertible car seat, whichever way your child is facing.</p>"
           }
         },
         "card_Q4dx86": {
           "type": "card",
           "settings": {
-            "card_title": "Second Card",
-            "card_description": "<p>This is the description for the second card with more great content to explore.</p>"
+            "card_image": "shopify://shop_images/Group_1597881180.png",
+            "card_title": "Real-Time Feedback",
+            "card_description": "<p>The babyark app facilitates accurate, streamlined installation and smart monitoring. With LED lighting, audio confirmation of each completed stage, and in-app visual prompts for step-by-step guidance, installation is a breeze.  </p>"
           }
         }
       },
