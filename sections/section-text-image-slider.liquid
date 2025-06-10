@@ -180,8 +180,16 @@
       padding: 0 2rem 2rem 2rem;
     }
   }
-
-
+@media screen and (max-width: 480px) {
+  #shopify-section-{{ section.id }} .flickity-carousel > div {
+    padding-right: 0;
+    margin: 0;
+    padding-left: 0;
+  }
+  #shopify-section-{{ section.id }} .flickity-carousel > div.flickity-viewport{
+    overflow:hidden;
+  }
+}
 </style>
 
 <script>
