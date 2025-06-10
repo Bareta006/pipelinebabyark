@@ -38,6 +38,11 @@
       <button class="custom-prev" aria-label="Previous slide">‹</button>
       <button class="custom-next" aria-label="Next slide">›</button>
     </div>
+    
+    <!-- Progress Bar -->
+    <div class="slide-progress-bar">
+      <div class="slide-progress-fill" data-slide-progress></div>
+    </div>
   </div>
   
   <!-- Image Side -->
@@ -121,6 +126,23 @@
     background-color: var(--color-primary);
     border-color: var(--color-primary);
     color: var(--color-white);
+  }
+
+  .slide-progress-bar {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 1.5rem;
+  }
+
+  .slide-progress-fill {
+    height: 100%;
+    background-color: #333;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+    width: 0%;
   }
 
   .slide-image-side {
