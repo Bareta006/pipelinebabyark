@@ -1,0 +1,639 @@
+<!-- /sections/section-fullwidth-card-slider.liquid -->
+
+{%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
+
+<section class="section-fullwidth-card-slider {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="fullwidth-card-slider"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    
+    <!-- Section Header -->
+    {% if section.settings.title != blank %}
+      <div class="section__header {{ section.settings.title_alignment }}">
+        <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+          {{ section.settings.title }}
+        </h2>
+        {% if section.settings.description != blank %}
+          <div class="section__description rte body-size-{{ section.settings.description_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Fullwidth Slider Container -->
+    <div class="fullwidth-card-slider-wrapper">
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-grid
+          data-grid-large
+          data-grid-medium
+          data-grid-small
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          class="fullwidth-card-carousel"
+          style="--grid-large-items: 1.2; --grid-medium-items: 1.1; --grid-small-items: 1;">
+          
+          {% for block in section.blocks %}
+            <div class="fullwidth-card-slide" data-carousel-slide {{ block.shopify_attributes }}>
+              {% render 'fullwidth-card-slide', 
+                desktop_image: block.settings.desktop_image,
+                mobile_image: block.settings.mobile_image,
+                title: block.settings.title,
+                description: block.settings.description,
+                title_color: block.settings.title_color,
+                description_color: block.settings.description_color,
+                button_text: block.settings.button_text,
+                button_link: block.settings.button_link,
+                button_style: block.settings.button_style,
+                button_color: block.settings.button_color,
+                text_align: block.settings.text_align,
+                title_size: section.settings.card_title_size,
+                description_size: section.settings.card_description_size,
+                overlay_opacity: block.settings.overlay_opacity,
+                overlay_color: block.settings.overlay_color,
+                enable_overlay_text: block.settings.enable_overlay_text,
+                block_id: block.id
+              %}
+            </div>
+          {% endfor %}
+          
+        </div>
+      </flickity-carousel>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    --fullwidth-card-gap: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .section__header {
+    margin-bottom: 1.875rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+  
+  #shopify-section-{{ section.id }} .section__title {
+    margin-bottom: 1.25rem;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card-slider-wrapper {
+    position: relative;
+    margin: 0 -2rem;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card-carousel {
+    width: 100%;
+    padding-left: 4.375rem;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card-slide {
+    padding: 0 calc(var(--fullwidth-card-gap) / 2);
+    min-height: 500px;
+  }
+
+  /* Force proper slide width for 1.2 items in view */
+  #shopify-section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / 1.2) !important;
+  }
+
+  /* Flickity Navigation Arrows */
+  #shopify-section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -4.125rem;
+    top: auto;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
+    border-radius: 50%;
+    color: #220E53;
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:disabled {
+    opacity: 0.5;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 3.75rem;
+    left: auto;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 0.625rem;
+  }
+
+  /* ===== FULLWIDTH CARD STYLES ===== */
+  
+  /* Base Card Styles */
+  #shopify-section-{{ section.id }} .fullwidth-card {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  /* Background Image Container */
+  #shopify-section-{{ section.id }} .fullwidth-card__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  /* Desktop Image - Show by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Mobile Image - Hidden by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
+    display: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card__placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card__placeholder::before {
+    content: "No image";
+    color: #999;
+    font-size: 14px;
+  }
+
+  /* Image Overlay */
+  #shopify-section-{{ section.id }} .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  /* Content Wrapper - Uses theme alignment classes */
+  #shopify-section-{{ section.id }} .hero__content__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 3;
+    padding: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content {
+    max-width: 500px;
+  }
+
+  /* Hero content styling - following theme patterns */
+  #shopify-section-{{ section.id }} .hero__title {
+    margin-bottom: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .hero__description {
+    margin-bottom: 1.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .hero__cta__wrapper {
+    margin-top: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .hero__btn {
+    display: inline-block;
+  }
+
+  /* Backdrop for overlay text */
+  #shopify-section-{{ section.id }} .backdrop--hero {
+    padding: 1.5rem;
+    border-radius: 8px;
+  }
+
+  /* Mobile Styles - Responsive Layout */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .fullwidth-card-slider-wrapper {
+      margin: 0 -1rem;
+    }
+
+    #shopify-section-{{ section.id }} .fullwidth-card-carousel {
+      padding-left: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .fullwidth-card-slide {
+      min-height: auto;
+    }
+
+    /* Single slide in view on mobile */
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: 100% !important;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+      right: 4rem;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+      right: 1rem;
+    }
+
+    /* Mobile Card Layout - Image on top, text below */
+    #shopify-section-{{ section.id }} .fullwidth-card {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #shopify-section-{{ section.id }} .fullwidth-card__background {
+      position: relative;
+      height: 250px;
+      border-radius: 16px 16px 0 0;
+    }
+
+    /* Show mobile image, hide desktop image */
+    #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
+      display: block;
+    }
+
+    /* Mobile Content Positioning */
+    #shopify-section-{{ section.id }} .hero__content__wrapper {
+      position: relative;
+      height: auto;
+      padding: 1.5rem;
+      background-color: var(--color-bg);
+      border-radius: 0 0 16px 16px;
+      align-items: flex-start;
+    }
+
+    #shopify-section-{{ section.id }} .hero__content {
+      max-width: none;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .hero__title {
+      margin-bottom: 0.75rem;
+      color: var(--color-text) !important;
+    }
+
+    #shopify-section-{{ section.id }} .hero__description {
+      margin-bottom: 1rem;
+      color: var(--color-text) !important;
+    }
+
+    /* Hide overlay on mobile since text is not overlaid */
+    #shopify-section-{{ section.id }} .image-overlay {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .backdrop--hero {
+      background: none !important;
+      padding: 0;
+    }
+  }
+
+  /* Tablet Styles */
+  @media screen and (min-width: 750px) and (max-width: 999px) {
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / 1.1) !important;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Fullwidth Card Slider",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Featured Cards"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description",
+      "default": "<p>Explore our amazing collection of featured content.</p>"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Centered" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Title Size",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Description Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Card Content"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Card Title Size",
+      "default": 9
+    },
+    {
+      "type": "range",
+      "id": "card_description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Card Description Size",
+      "default": 6
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "desktop_image",
+          "label": "Desktop Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image",
+          "info": "If not provided, desktop image will be used"
+        },
+        {
+          "type": "header",
+          "content": "Overlay"
+        },
+        {
+          "type": "range",
+          "id": "overlay_opacity",
+          "label": "Overlay Opacity",
+          "info": "Increase contrast for legible text",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "%",
+          "default": 15
+        },
+        {
+          "type": "color",
+          "id": "overlay_color",
+          "label": "Overlay Color",
+          "default": "#000000"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_overlay_text",
+          "label": "Overlay behind text only",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Card Title",
+          "default": "Card Title"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Card Description",
+          "default": "<p>This is a description for this card item.</p>"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description Color",
+          "default": "#ffffff"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text Alignment",
+          "default": "align--bottom-left",
+          "options": [
+            { "value": "align--top-left", "label": "Top left"},
+            { "value": "align--top-center", "label": "Top center"},
+            { "value": "align--top-right", "label": "Top right"},
+            { "value": "align--middle-left", "label": "Middle left"},
+            { "value": "align--middle-center", "label": "Absolute center"},
+            { "value": "align--middle-right", "label": "Middle right"},
+            { "value": "align--bottom-left", "label": "Bottom left"},
+            { "value": "align--bottom-center", "label": "Bottom center"},
+            { "value": "align--bottom-right", "label": "Bottom right"}
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Button"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        },
+        {
+          "type": "select",
+          "id": "button_color",
+          "label": "Button Color",
+          "default": "btn--primary",
+          "options": [
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button Style",
+          "default": "btn",
+          "options": [
+            { "value": "btn-text-thick-line", "label": "Capitalized text" },
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fullwidth Card Slider",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "First Card",
+            "description": "<p>This is the description for the first card in our fullwidth slider.</p>",
+            "button_text": "Learn More"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Second Card", 
+            "description": "<p>This is the description for the second card with amazing content.</p>",
+            "button_text": "Discover"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Third Card",
+            "description": "<p>This is the description for the third card showcasing more features.</p>",
+            "button_text": "Explore"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
+  }
+}
+{% endschema %} 
