@@ -34,7 +34,7 @@
           data-grid-small
           data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
           class="fullwidth-card-carousel"
-          style="--grid-large-items: 1.2; --grid-medium-items: 1.1; --grid-small-items: 1;">
+          style="--grid-large-items: {{ section.settings.grid_large }}; --grid-medium-items: {{ section.settings.grid_medium }}; --grid-small-items: {{ section.settings.grid_mobile }};">
           
           {% for block in section.blocks %}
             <div class="fullwidth-card-slide" data-carousel-slide {{ block.shopify_attributes }}>
@@ -101,7 +101,7 @@
 
   /* Force proper slide width for 1.2 items in view */
   #shopify-section-{{ section.id }} .flickity-slider > * {
-    width: calc(100% / 1.2) !important;
+    width: calc(100% / {{ section.settings.grid_large }}) !important;
   }
 
   /* Flickity Navigation Arrows */
@@ -259,7 +259,7 @@
 
     /* Single slide in view on mobile */
     #shopify-section-{{ section.id }} .flickity-slider > * {
-      width: 100% !important;
+      width: calc(100% / {{ section.settings.grid_mobile }}) !important;
     }
 
     #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
@@ -331,7 +331,7 @@
   /* Tablet Styles */
   @media screen and (min-width: 750px) and (max-width: 999px) {
     #shopify-section-{{ section.id }} .flickity-slider > * {
-      width: calc(100% / 1.1) !important;
+      width: calc(100% / {{ section.settings.grid_medium }}) !important;
     }
   }
 </style>
@@ -409,6 +409,37 @@
     },
     {
       "type": "header",
+      "content": "Grid"
+    },
+    {
+      "type": "range",
+      "id": "grid_large",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "label": "Desktop items in view",
+      "default": 1.2
+    },
+    {
+      "type": "range",
+      "id": "grid_medium",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Tablet items in view",
+      "default": 1.1
+    },
+    {
+      "type": "range",
+      "id": "grid_mobile",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Mobile items in view",
+      "default": 1
+    },
+    {
+      "type": "header",
       "content": "Style"
     },
     {
@@ -439,6 +470,7 @@
       "label": "Width",
       "default": "wrapper",
       "options": [
+        { "value": "wrapper--none", "label": "Full width" },
         { "value": "wrapper--full", "label": "Full width padded" },
         { "value": "wrapper", "label": "Page width" },
         { "value": "wrapper--narrow", "label": "Page width narrow" },
