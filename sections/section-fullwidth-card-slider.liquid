@@ -149,16 +149,6 @@
     overflow: hidden;
   }
 
-  /* Background Image Container */
-  #shopify-section-{{ section.id }} .fullwidth-card__background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-
   /* Desktop Image - Show by default */
   #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
     display: block;
@@ -272,11 +262,6 @@
       height: auto;
       display: flex;
       flex-direction: column;
-    }
-
-    #shopify-section-{{ section.id }} .fullwidth-card__background {
-      position: relative;
-      border-radius: 16px 16px 0 0;
     }
 
     /* Show mobile image, hide desktop image */
