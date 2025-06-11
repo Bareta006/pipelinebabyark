@@ -31,18 +31,18 @@
     <!-- Desktop Image -->
     {% if desktop_image != blank %}
       <div class="fullwidth-card__image-desktop">
-        {{ desktop_image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'fullwidth-card__image' }}
+        {% render 'image-parallax', img_object: desktop_image, img_object_mobile: mobile_image, frame_height_class: height, alt: 'Card Image' %}
       </div>
     {% endif %}
     
     <!-- Mobile Image -->
     {% if mobile_image != blank %}
       <div class="fullwidth-card__image-mobile">
-        {{ mobile_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'fullwidth-card__image' }}
+        {% render 'image-parallax', img_object: mobile_image, frame_height_class: height, alt: 'Card Mobile Image' %}
       </div>
     {% elsif desktop_image != blank %}
       <div class="fullwidth-card__image-mobile">
-        {{ desktop_image | image_url: width: 600 | image_tag: loading: 'lazy', class: 'fullwidth-card__image' }}
+        {% render 'image-parallax', img_object: desktop_image, frame_height_class: height, alt: 'Card Image' %}
       </div>
     {% endif %}
     
