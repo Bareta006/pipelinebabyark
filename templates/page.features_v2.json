@@ -115,6 +115,8 @@
         "card_gY73mX": {
           "type": "card",
           "settings": {
+            "desktop_image": "shopify://shop_images/Rectangle_1486127372.png",
+            "mobile_image": "shopify://shop_images/Rectangle_1486127372_1.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -145,29 +147,11 @@
             "button_color": "btn--primary",
             "button_style": "btn"
           }
-        },
-        "card_7gwfVg": {
-          "type": "card",
-          "settings": {
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "title": "Third Card",
-            "title_color": "#ffffff",
-            "description": "<p>This is the description for the third card showcasing more features.</p>",
-            "description_color": "#ffffff",
-            "text_align": "align--bottom-left",
-            "button_text": "Explore",
-            "button_link": "",
-            "button_color": "btn--primary",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
         "card_gY73mX",
-        "card_KemrPb",
-        "card_7gwfVg"
+        "card_KemrPb"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
@@ -181,8 +165,9 @@
         "grid_large": 1.1,
         "grid_medium": 1.1,
         "grid_mobile": 1,
+        "height": "use_image",
         "text_color": "text--neutral",
-        "width": "wrapper--full",
+        "width": "wrapper--none",
         "padding_top": 36,
         "padding_bottom": 36
       }
