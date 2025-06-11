@@ -19,11 +19,12 @@
     overlay_opacity: overlay_opacity,
     overlay_color: overlay_color,
     enable_overlay_text: enable_overlay_text,
+    height: height,
     block_id: block_id
   %}
 {% endcomment %}
 
-<div class="fullwidth-card" data-block-id="{{ block_id }}">
+<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}">
   
   <!-- Background Image -->
   <div class="fullwidth-card__background">
