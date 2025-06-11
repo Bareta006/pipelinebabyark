@@ -170,7 +170,7 @@
         "height": "use_image",
         "text_color": "text--neutral",
         "width": "wrapper--none",
-        "padding_top": 80,
+        "padding_top": 100,
         "padding_bottom": 80
       }
     }
