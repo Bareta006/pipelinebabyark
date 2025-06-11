@@ -2,7 +2,7 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
 
-<section class="section-fullwidth-card-slider {{ section.settings.text_color }}"
+<section class="section-fullwidth-card-slider {{ section.settings.text_color }} {{ section.settings.height }}"
   data-section-id="{{ section.id }}"
   data-section-type="fullwidth-card-slider"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
@@ -96,7 +96,7 @@
 
   #shopify-section-{{ section.id }} .fullwidth-card-slide {
     padding: 0 calc(var(--fullwidth-card-gap) / 2);
-    min-height: 500px;
+    height: 100%;
   }
 
   /* Force proper slide width for 1.2 items in view */
@@ -144,7 +144,7 @@
   #shopify-section-{{ section.id }} .fullwidth-card {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 100%;
     border-radius: 20px;
     overflow: hidden;
   }
@@ -496,6 +496,24 @@
       "unit": "px",
       "label": "Padding bottom",
       "default": 36
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "use_pixels_500",
+      "options": [
+        { "value": "use_screen_full", "label": "Full screen height"},
+        { "value": "use_screen_three_quarters", "label": "Three quarters of screen height"},
+        { "value": "use_screen_two_thirds", "label": "Two thirds of screen height"},
+        { "value": "use_screen_one_half", "label": "One half of screen height"},
+        { "value": "use_screen_one_third", "label": "One third of screen height"},
+        { "value": "use_screen_one_fifth", "label": "One fifth of screen height"},
+        { "value": "use_pixels_800", "label": "800px" },
+        { "value": "use_pixels_650", "label": "650px" },
+        { "value": "use_pixels_500", "label": "500px" },
+        { "value": "use_image", "label": "Image height"}
+      ]
     }
   ],
   "blocks": [
