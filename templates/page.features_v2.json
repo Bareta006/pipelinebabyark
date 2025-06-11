@@ -181,8 +181,9 @@
         "grid_large": 1.1,
         "grid_medium": 1.1,
         "grid_mobile": 1,
+        "height": "use_pixels_500",
         "text_color": "text--neutral",
-        "width": "wrapper--full",
+        "width": "wrapper--none",
         "padding_top": 36,
         "padding_bottom": 36
       }
