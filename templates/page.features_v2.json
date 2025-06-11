@@ -108,11 +108,87 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_fullwidth_card_slider_4HrzTw": {
+      "type": "section-fullwidth-card-slider",
+      "blocks": {
+        "card_gY73mX": {
+          "type": "card",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "title": "First Card",
+            "title_color": "#ffffff",
+            "description": "<p>This is the description for the first card in our fullwidth slider.</p>",
+            "description_color": "#ffffff",
+            "text_align": "align--bottom-left",
+            "button_text": "Learn More",
+            "button_link": "",
+            "button_color": "btn--primary",
+            "button_style": "btn"
+          }
+        },
+        "card_KemrPb": {
+          "type": "card",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "title": "Second Card",
+            "title_color": "#ffffff",
+            "description": "<p>This is the description for the second card with amazing content.</p>",
+            "description_color": "#ffffff",
+            "text_align": "align--bottom-left",
+            "button_text": "Discover",
+            "button_link": "",
+            "button_color": "btn--primary",
+            "button_style": "btn"
+          }
+        },
+        "card_7gwfVg": {
+          "type": "card",
+          "settings": {
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "title": "Third Card",
+            "title_color": "#ffffff",
+            "description": "<p>This is the description for the third card showcasing more features.</p>",
+            "description_color": "#ffffff",
+            "text_align": "align--bottom-left",
+            "button_text": "Explore",
+            "button_link": "",
+            "button_color": "btn--primary",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "card_gY73mX",
+        "card_KemrPb",
+        "card_7gwfVg"
+      ],
+      "name": "Fullwidth Card Slider",
+      "settings": {
+        "title": "Featured Cards",
+        "description": "<p>Explore our amazing collection of featured content.</p>",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "card_title_size": 9,
+        "card_description_size": 6,
+        "text_color": "text--neutral",
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
     "section_text_image_slider_BQqXVe",
-    "section_inline_cards_A4XHfV"
+    "section_inline_cards_A4XHfV",
+    "section_fullwidth_card_slider_4HrzTw"
   ]
 }
