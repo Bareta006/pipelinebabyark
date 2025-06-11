@@ -171,7 +171,7 @@
         "text_color": "text--neutral",
         "width": "wrapper--none",
         "padding_top": 80,
-        "padding_bottom": 36
+        "padding_bottom": 80
       }
     }
   },
