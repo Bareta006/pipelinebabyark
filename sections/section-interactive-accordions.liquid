@@ -580,42 +580,33 @@
       }
     }
 
-    // Mobile carousel video control
-    const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
-    if (mobileCarousel) {
-      // Wait for Flickity to initialize and try multiple methods
+    // Mobile carousel video control using theme's pattern
+    const mobileCarouselElement = section.querySelector('flickity-carousel');
+    if (mobileCarouselElement) {
+      // Wait for the flickity-carousel custom element to be initialized
       const initMobileVideoControl = () => {
-        let flickityInstance = null;
+        const carousel = mobileCarouselElement.querySelector('[data-carousel]');
         
-        // Try different ways to get Flickity instance
-        if (mobileCarousel.flickity) {
-          flickityInstance = mobileCarousel.flickity;
-        } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
-          flickityInstance = window.Flickity.data(mobileCarousel);
-        }
-        
-        console.log('Flickity instance found:', flickityInstance);
-        
-        if (flickityInstance) {
-          // Play video on active slide, pause others
-          const controlMobileVideos = () => {
-            const slides = mobileCarousel.querySelectorAll('.mobile-card');
-            console.log('Controlling mobile videos, active slide:', flickityInstance.selectedIndex);
+        if (carousel && mobileCarouselElement.carouselInstance) {
+          const flickityInstance = mobileCarouselElement.carouselInstance;
+          console.log('Flickity instance found via custom element:', flickityInstance);
+          
+          // Function to control mobile videos
+          const controlMobileVideos = (index) => {
+            const slides = carousel.querySelectorAll('.mobile-card');
+            console.log('Mobile video control - slide changed to:', index);
             
-            slides.forEach((slide, index) => {
+            slides.forEach((slide, slideIndex) => {
               const video = slide.querySelector('video, iframe');
-              const isActive = index === flickityInstance.selectedIndex;
-              
-              console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}`);
+              const isActive = slideIndex === index;
               
               if (video) {
                 if (isActive) {
                   // Play active slide video
+                  console.log(`Playing video on slide ${slideIndex}`);
                   if (video.tagName === 'VIDEO') {
-                    console.log('Playing native video on slide', index);
-                    video.play().catch(e => console.log('Mobile video play failed:', e));
+                    video.play().catch(e => console.log('Mobile native video play failed:', e));
                   } else if (video.tagName === 'IFRAME') {
-                    console.log('Playing iframe video on slide', index);
                     try {
                       if (video.src.includes('youtube')) {
                         video.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
@@ -628,6 +619,7 @@
                   }
                 } else {
                   // Pause inactive slide videos
+                  console.log(`Pausing video on slide ${slideIndex}`);
                   if (video.tagName === 'VIDEO') {
                     video.pause();
                   } else if (video.tagName === 'IFRAME') {
@@ -646,20 +638,20 @@
             });
           };
 
-          // Listen for slide change events
+          // Listen for slide change events using theme's pattern
           flickityInstance.on('change', controlMobileVideos);
           
           // Control videos on initial load
-          controlMobileVideos();
+          controlMobileVideos(flickityInstance.selectedIndex || 0);
+          
         } else {
-          console.log('Flickity instance not found, retrying...');
-          // Retry after longer delay
-          setTimeout(initMobileVideoControl, 1000);
+          console.log('Flickity not ready, retrying...');
+          setTimeout(initMobileVideoControl, 500);
         }
       };
       
-      // Start initialization
-      setTimeout(initMobileVideoControl, 500);
+      // Start initialization with a delay to ensure custom element is ready
+      setTimeout(initMobileVideoControl, 1000);
     }
   });
 </script>
