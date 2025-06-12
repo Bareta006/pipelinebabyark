@@ -437,13 +437,11 @@
     #shopify-section-{{ section.id }} .mobile-card__title {
       margin-bottom: 0.75rem;
       color: var(--color-text);
-      font-size: 32px;
     }
 
     #shopify-section-{{ section.id }} .mobile-card__description {
       margin-bottom: 1rem;
       color: var(--color-text);
-      font-size: 16px;
     }
 
     #shopify-section-{{ section.id }} .mobile-card__button {
@@ -582,126 +580,86 @@
       }
     }
 
-    // Mobile carousel video control - IMPROVED VERSION
+    // Mobile carousel video control
     const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
     if (mobileCarousel) {
-      let retryCount = 0;
-      const maxRetries = 10;
-      
-      const controlMobileVideos = (flickityInstance) => {
-        if (!flickityInstance) return;
-        
-        const slides = mobileCarousel.querySelectorAll('.mobile-card');
-        const activeIndex = flickityInstance.selectedIndex;
-        
-        console.log('🎥 Controlling mobile videos, active slide:', activeIndex);
-        
-        slides.forEach((slide, index) => {
-          const video = slide.querySelector('video');
-          const iframe = slide.querySelector('iframe');
-          const isActive = index === activeIndex;
-          
-          if (video) {
-            if (isActive) {
-              console.log('▶️ Playing native video on slide', index);
-              video.currentTime = 0; // Reset to beginning
-              video.play().catch(e => console.log('Mobile video play failed:', e));
-            } else {
-              console.log('⏸️ Pausing native video on slide', index);
-              video.pause();
-            }
-          }
-          
-          if (iframe) {
-            if (isActive) {
-              console.log('▶️ Playing iframe video on slide', index);
-              setTimeout(() => {
-                try {
-                  if (iframe.src.includes('youtube')) {
-                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                  } else if (iframe.src.includes('vimeo')) {
-                    iframe.contentWindow.postMessage('{"method":"play"}', '*');
-                  }
-                } catch (e) {
-                  console.log('Mobile external video play failed:', e);
-                }
-              }, 100);
-            } else {
-              console.log('⏸️ Pausing iframe video on slide', index);
-              try {
-                if (iframe.src.includes('youtube')) {
-                  iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                } else if (iframe.src.includes('vimeo')) {
-                  iframe.contentWindow.postMessage('{"method":"pause"}', '*');
-                }
-              } catch (e) {
-                console.log('Mobile external video pause failed:', e);
-              }
-            }
-          }
-        });
-      };
-      
+      // Wait for Flickity to initialize and try multiple methods
       const initMobileVideoControl = () => {
-        console.log(`🔄 Attempt ${retryCount + 1} to find Flickity instance...`);
-        
         let flickityInstance = null;
         
-        // Try multiple ways to get Flickity instance
+        // Try different ways to get Flickity instance
         if (mobileCarousel.flickity) {
           flickityInstance = mobileCarousel.flickity;
-          console.log('✅ Found Flickity via mobileCarousel.flickity');
         } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
           flickityInstance = window.Flickity.data(mobileCarousel);
-          console.log('✅ Found Flickity via Flickity.data()');
-        } else {
-          // Try finding the parent flickity element
-          const flickityParent = mobileCarousel.closest('[data-flickity]') || mobileCarousel.closest('.flickity-enabled');
-          if (flickityParent && flickityParent.flickity) {
-            flickityInstance = flickityParent.flickity;
-            console.log('✅ Found Flickity via parent element');
-          }
         }
         
+        console.log('Flickity instance found:', flickityInstance);
+        
         if (flickityInstance) {
-          console.log('🎯 Flickity instance found!', flickityInstance);
-          
+          // Play video on active slide, pause others
+          const controlMobileVideos = () => {
+            const slides = mobileCarousel.querySelectorAll('.mobile-card');
+            console.log('Controlling mobile videos, active slide:', flickityInstance.selectedIndex);
+            
+            slides.forEach((slide, index) => {
+              const video = slide.querySelector('video, iframe');
+              const isActive = index === flickityInstance.selectedIndex;
+              
+              console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}`);
+              
+              if (video) {
+                if (isActive) {
+                  // Play active slide video
+                  if (video.tagName === 'VIDEO') {
+                    console.log('Playing native video on slide', index);
+                    video.play().catch(e => console.log('Mobile video play failed:', e));
+                  } else if (video.tagName === 'IFRAME') {
+                    console.log('Playing iframe video on slide', index);
+                    try {
+                      if (video.src.includes('youtube')) {
+                        video.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                      } else if (video.src.includes('vimeo')) {
+                        video.contentWindow.postMessage('{"method":"play"}', '*');
+                      }
+                    } catch (e) {
+                      console.log('Mobile external video play failed:', e);
+                    }
+                  }
+                } else {
+                  // Pause inactive slide videos
+                  if (video.tagName === 'VIDEO') {
+                    video.pause();
+                  } else if (video.tagName === 'IFRAME') {
+                    try {
+                      if (video.src.includes('youtube')) {
+                        video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                      } else if (video.src.includes('vimeo')) {
+                        video.contentWindow.postMessage('{"method":"pause"}', '*');
+                      }
+                    } catch (e) {
+                      console.log('Mobile external video pause failed:', e);
+                    }
+                  }
+                }
+              }
+            });
+          };
+
           // Listen for slide change events
-          flickityInstance.on('change', () => {
-            console.log('📱 Slide changed to:', flickityInstance.selectedIndex);
-            controlMobileVideos(flickityInstance);
-          });
-          
-          flickityInstance.on('settle', () => {
-            console.log('📱 Slide settled on:', flickityInstance.selectedIndex);
-            controlMobileVideos(flickityInstance);
-          });
+          flickityInstance.on('change', controlMobileVideos);
           
           // Control videos on initial load
-          setTimeout(() => {
-            controlMobileVideos(flickityInstance);
-          }, 200);
-          
+          controlMobileVideos();
         } else {
-          retryCount++;
-          if (retryCount < maxRetries) {
-            console.log(`❌ Flickity instance not found, retrying in ${retryCount * 500}ms...`);
-            setTimeout(initMobileVideoControl, retryCount * 500);
-          } else {
-            console.log('❌ Max retries reached, Flickity instance not found');
-          }
+          console.log('Flickity instance not found, retrying...');
+          // Retry after longer delay
+          setTimeout(initMobileVideoControl, 1000);
         }
       };
       
-      // Start initialization with multiple fallbacks
-      setTimeout(initMobileVideoControl, 100);
+      // Start initialization
       setTimeout(initMobileVideoControl, 500);
-      setTimeout(initMobileVideoControl, 1000);
-      
-      // Also try when window loads
-      window.addEventListener('load', () => {
-        setTimeout(initMobileVideoControl, 100);
-      });
     }
   });
 </script>
