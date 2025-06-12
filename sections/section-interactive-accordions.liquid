@@ -42,16 +42,6 @@
               {{ block.settings.title }}
             </button>
 
-            <input type="checkbox"
-              name="accordion-{{ block_id }}--{{ forloop.index }}"
-              id="accordion-{{ block_id }}--{{ forloop.index }}-checkbox"
-              class="no-js no-js-checkbox"
-              {% if is_first %}checked{% endif %}>
-
-            <label for="accordion-{{ block_id }}--{{ forloop.index }}-checkbox" class="accordion__title no-js">
-              {{ block.settings.title }}
-            </label>
-
             <div class="accordion__body no-js-accordion rte body-size-{{ section.settings.accordion_text_size }}"
               data-accordion-body
               id="accordion-{{ block_id }}">
