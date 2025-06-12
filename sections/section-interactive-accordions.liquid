@@ -60,7 +60,20 @@
                data-media-item="{{ block.id }}"
                {{ block.shopify_attributes }}>
             
-            {% if block.settings.video_url != blank %}
+            {% if block.settings.video_file != blank %}
+              <!-- Native Video Content -->
+              <div class="media-video">
+                {{ block.settings.video_file | video_tag: 
+                  controls: true, 
+                  autoplay: false, 
+                  loop: block.settings.video_loop, 
+                  muted: block.settings.video_muted,
+                  playsinline: true,
+                  preload: 'metadata',
+                  class: 'media-video__native'
+                }}
+              </div>
+            {% elsif block.settings.video_url != blank %}
               <!-- Video Content -->
               <div class="media-video">
                 {% if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' %}
@@ -277,6 +290,12 @@
     width: 100%;
     height: 100%;
     aspect-ratio: 16/9;
+  }
+
+  #shopify-section-{{ section.id }} .media-video__native {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   #shopify-section-{{ section.id }} .media-placeholder {
@@ -633,6 +652,26 @@
           "content": "Desktop Media"
         },
         {
+          "type": "video",
+          "id": "video_file",
+          "label": "Upload Video",
+          "info": "Upload your own video file. Takes priority over Video URL if both are provided."
+        },
+        {
+          "type": "checkbox",
+          "id": "video_loop",
+          "label": "Loop video",
+          "default": false,
+          "info": "Only applies to uploaded videos"
+        },
+        {
+          "type": "checkbox",
+          "id": "video_muted",
+          "label": "Mute video",
+          "default": false,
+          "info": "Only applies to uploaded videos"
+        },
+        {
           "type": "image_picker",
           "id": "image",
           "label": "Image",
@@ -642,7 +681,7 @@
           "type": "url",
           "id": "video_url",
           "label": "Video URL",
-          "info": "YouTube or Vimeo URL. Video takes priority over image if both are provided."
+          "info": "YouTube or Vimeo URL. Used only if no video file is uploaded above."
         },
         {
           "type": "header",
