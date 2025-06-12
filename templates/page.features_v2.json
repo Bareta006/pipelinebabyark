@@ -182,8 +182,8 @@
           "settings": {
             "title": "Magnetic Harness Straps",
             "description": "<p>Easier in, easier out! babyark car seats feature two sets of magnets to align with corresponding magnets on the upper and lower parts of the harness, so the straps stay out of the way when placing your child in to get on your way. <br/></p>",
-            "video_loop": false,
-            "video_muted": false,
+            "video_loop": true,
+            "video_muted": true,
             "image": "shopify://shop_images/Rectangle_1486126747.png",
             "video_url": "",
             "mobile_image": "shopify://shop_images/Rectangle_1486126747_1.png",
