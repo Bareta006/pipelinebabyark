@@ -250,7 +250,7 @@
     width: 100%;
     text-align: left;
     cursor: pointer;
-    color: var(--color-text);
+    color: rgba(0, 0, 0, 0.40);
     transition: color 0.3s ease;
     display: flex;
     justify-content: space-between;
@@ -261,8 +261,9 @@
     line-height: 120%;
   }
 
-  #shopify-section-{{ section.id }} .accordion__title:hover {
-    color: var(--color-primary);
+  #shopify-section-{{ section.id }} .accordion__title:hover,
+  #shopify-section-{{ section.id }} .accordion-is-open .accordion__title {
+    color: #000;
   }
 
   #shopify-section-{{ section.id }} .accordion__title::after {
