@@ -51,6 +51,9 @@
         "slide_qKKN88",
         "slide_6GLXAx"
       ],
+      "custom_css": [
+        "@media (max-width: 480px) {.wrapper--full {padding-left: 0; padding-right: 0; } .text-image-slider-content{border-radius: 0; }}"
+      ],
       "name": "Text Image Slider",
       "settings": {
         "title": "Safety First. Always.",
