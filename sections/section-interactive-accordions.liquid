@@ -2,6 +2,23 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
 
+{%- liquid
+  assign tallest_height = 0
+  
+  for block in section.blocks
+    if block.settings.image != blank
+      assign image_height = block.settings.image.height
+      if image_height > tallest_height
+        assign tallest_height = image_height
+      endif
+    endif
+  endfor
+  
+  if tallest_height == 0
+    assign tallest_height = 400
+  endif
+-%}
+
 <section class="section-interactive-accordions {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="page-faq"
@@ -259,7 +276,7 @@
   /* Media Column */
   #shopify-section-{{ section.id }} .media-column {
     position: relative;
-    min-height: 400px;
+    min-height: {{ tallest_height }}px;
   }
 
   #shopify-section-{{ section.id }} .media-item {
