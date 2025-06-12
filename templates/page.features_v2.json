@@ -39,6 +39,9 @@
       "block_order": [
         "image_dqnf4b"
       ],
+      "custom_css": [
+        "@media (max-width: 480px) {.hero__content{text-align: center;}}"
+      ],
       "name": "Slideshow",
       "settings": {
         "autoplay": false,
