@@ -9,49 +9,79 @@
  */
 {
   "sections": {
-    "section_slideshow_rrXQNC": {
-      "type": "section-slideshow",
+    "section_hero_wz9Ltp": {
+      "type": "section-hero",
       "blocks": {
-        "image_dqnf4b": {
-          "type": "image",
+        "kicker_PJ4Jgz": {
+          "type": "kicker",
           "settings": {
-            "image": "shopify://shop_images/Rectangle_1486127372.png",
-            "mobile_image": "shopify://shop_images/Rectangle_1486127366.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
             "kicker": "Safe. Smart. Beautiful.",
+            "enable_line": false,
+            "text_size": 4
+          }
+        },
+        "heading_hCyRx4": {
+          "type": "heading",
+          "settings": {
             "title": "Features to Give You Peace of Mind",
+            "text_size": 9
+          }
+        },
+        "text_zYRrii": {
+          "type": "text",
+          "settings": {
             "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_align": "align--bottom-left",
-            "text_color": "text--white",
-            "link_text": "SHOP BABYARK",
-            "link": "shopify://products/babyark-convertible-car-seat-smart",
-            "button_color": "btn--white",
-            "button_style": "btn",
+            "text_size": 6
+          }
+        },
+        "button_PXcLeB": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "shop babyark",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--long",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
             "link_text_2": "",
             "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
             "button_color_2": "btn--white",
-            "button_style_2": "btn"
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
           }
         }
       },
       "block_order": [
-        "image_dqnf4b"
+        "kicker_PJ4Jgz",
+        "heading_hCyRx4",
+        "text_zYRrii",
+        "button_PXcLeB"
       ],
       "custom_css": [
         "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__cta__wrapper {align-items: center; }}"
       ],
-      "name": "Slideshow",
+      "name": "Image banner",
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "preload_first_image": true,
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Rectangle_1486127365_dcef8a67-7e31-46ec-b527-d886f3647f80.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127366_deb5d89a-e9fb-4a67-8c10-5fb7f3fe487a.png",
         "height": "use_image",
-        "color_bg": "palette--light bg--neutral",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--bottom-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "main": {
@@ -348,7 +378,7 @@
     }
   },
   "order": [
-    "section_slideshow_rrXQNC",
+    "section_hero_wz9Ltp",
     "main",
     "section_text_image_slider_BQqXVe",
     "section_inline_cards_A4XHfV",
