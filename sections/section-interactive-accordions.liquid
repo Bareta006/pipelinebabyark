@@ -569,6 +569,65 @@
         showMediaItem(firstBlock);
       }
     }
+
+    // Mobile carousel video control
+    const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
+    if (mobileCarousel) {
+      // Wait for Flickity to initialize
+      setTimeout(() => {
+        const flickityInstance = mobileCarousel.flickity;
+        if (flickityInstance) {
+          // Play video on active slide, pause others
+          const controlMobileVideos = () => {
+            const slides = mobileCarousel.querySelectorAll('.mobile-card');
+            slides.forEach((slide, index) => {
+              const video = slide.querySelector('video, iframe');
+              const isActive = index === flickityInstance.selectedIndex;
+              
+              if (video) {
+                if (isActive) {
+                  // Play active slide video
+                  if (video.tagName === 'VIDEO') {
+                    video.play().catch(e => console.log('Mobile video play failed:', e));
+                  } else if (video.tagName === 'IFRAME') {
+                    try {
+                      if (video.src.includes('youtube')) {
+                        video.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                      } else if (video.src.includes('vimeo')) {
+                        video.contentWindow.postMessage('{"method":"play"}', '*');
+                      }
+                    } catch (e) {
+                      console.log('Mobile external video play failed:', e);
+                    }
+                  }
+                } else {
+                  // Pause inactive slide videos
+                  if (video.tagName === 'VIDEO') {
+                    video.pause();
+                  } else if (video.tagName === 'IFRAME') {
+                    try {
+                      if (video.src.includes('youtube')) {
+                        video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                      } else if (video.src.includes('vimeo')) {
+                        video.contentWindow.postMessage('{"method":"pause"}', '*');
+                      }
+                    } catch (e) {
+                      console.log('Mobile external video pause failed:', e);
+                    }
+                  }
+                }
+              }
+            });
+          };
+
+          // Listen for slide change events
+          flickityInstance.on('change', controlMobileVideos);
+          
+          // Control videos on initial load
+          controlMobileVideos();
+        }
+      }, 500);
+    }
   });
 </script>
 
