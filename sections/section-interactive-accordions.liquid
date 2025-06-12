@@ -437,12 +437,13 @@
     #shopify-section-{{ section.id }} .mobile-card__title {
       margin-bottom: 0.75rem;
       color: var(--color-text);
+      font-size: 32px;
     }
 
     #shopify-section-{{ section.id }} .mobile-card__description {
       margin-bottom: 1rem;
-      color: var(--color-text);
-    }
+      color: var(--color-text); 
+      font-size: 16px;
 
     #shopify-section-{{ section.id }} .mobile-card__button {
       margin-bottom: 1rem;
@@ -583,83 +584,123 @@
     // Mobile carousel video control
     const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
     if (mobileCarousel) {
-      // Wait for Flickity to initialize and try multiple methods
-      const initMobileVideoControl = () => {
-        let flickityInstance = null;
+      console.log('Mobile carousel found, setting up video control');
+      
+      // Function to control mobile videos
+      const controlMobileVideos = (activeIndex = 0) => {
+        const slides = mobileCarousel.querySelectorAll('.mobile-card');
+        console.log(`Controlling mobile videos, active slide: ${activeIndex}, total slides: ${slides.length}`);
         
-        // Try different ways to get Flickity instance
-        if (mobileCarousel.flickity) {
-          flickityInstance = mobileCarousel.flickity;
-        } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
-          flickityInstance = window.Flickity.data(mobileCarousel);
-        }
-        
-        console.log('Flickity instance found:', flickityInstance);
-        
-        if (flickityInstance) {
-          // Play video on active slide, pause others
-          const controlMobileVideos = () => {
-            const slides = mobileCarousel.querySelectorAll('.mobile-card');
-            console.log('Controlling mobile videos, active slide:', flickityInstance.selectedIndex);
-            
-            slides.forEach((slide, index) => {
-              const video = slide.querySelector('video, iframe');
-              const isActive = index === flickityInstance.selectedIndex;
-              
-              console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}`);
-              
-              if (video) {
-                if (isActive) {
-                  // Play active slide video
-                  if (video.tagName === 'VIDEO') {
-                    console.log('Playing native video on slide', index);
-                    video.play().catch(e => console.log('Mobile video play failed:', e));
-                  } else if (video.tagName === 'IFRAME') {
-                    console.log('Playing iframe video on slide', index);
-                    try {
-                      if (video.src.includes('youtube')) {
-                        video.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-                      } else if (video.src.includes('vimeo')) {
-                        video.contentWindow.postMessage('{"method":"play"}', '*');
-                      }
-                    } catch (e) {
-                      console.log('Mobile external video play failed:', e);
-                    }
-                  }
-                } else {
-                  // Pause inactive slide videos
-                  if (video.tagName === 'VIDEO') {
-                    video.pause();
-                  } else if (video.tagName === 'IFRAME') {
-                    try {
-                      if (video.src.includes('youtube')) {
-                        video.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-                      } else if (video.src.includes('vimeo')) {
-                        video.contentWindow.postMessage('{"method":"pause"}', '*');
-                      }
-                    } catch (e) {
-                      console.log('Mobile external video pause failed:', e);
-                    }
-                  }
-                }
-              }
-            });
-          };
-
-          // Listen for slide change events
-          flickityInstance.on('change', controlMobileVideos);
+        slides.forEach((slide, index) => {
+          const video = slide.querySelector('video');
+          const iframe = slide.querySelector('iframe');
+          const isActive = index === activeIndex;
           
-          // Control videos on initial load
-          controlMobileVideos();
-        } else {
-          console.log('Flickity instance not found, retrying...');
-          // Retry after longer delay
-          setTimeout(initMobileVideoControl, 1000);
-        }
+          console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}, hasIframe: ${!!iframe}`);
+          
+          if (isActive) {
+            // Play active slide video
+            if (video) {
+              console.log('Playing native video on slide', index);
+              video.currentTime = 0; // Reset to start
+              video.play().catch(e => console.log('Mobile video play failed:', e));
+            } else if (iframe) {
+              console.log('Playing iframe video on slide', index);
+              setTimeout(() => {
+                try {
+                  if (iframe.src.includes('youtube')) {
+                    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+                  } else if (iframe.src.includes('vimeo')) {
+                    iframe.contentWindow.postMessage('{"method":"play"}', '*');
+                  }
+                } catch (e) {
+                  console.log('Mobile external video play failed:', e);
+                }
+              }, 300);
+            }
+          } else {
+            // Pause inactive slide videos
+            if (video) {
+              video.pause();
+            } else if (iframe) {
+              try {
+                if (iframe.src.includes('youtube')) {
+                  iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+                } else if (iframe.src.includes('vimeo')) {
+                  iframe.contentWindow.postMessage('{"method":"pause"}', '*');
+                }
+              } catch (e) {
+                console.log('Mobile external video pause failed:', e);
+              }
+            }
+          }
+        });
+      };
+
+      // Multiple methods to detect Flickity and set up listeners
+      const setupFlickityListeners = () => {
+        let flickityInstance = null;
+        let attempts = 0;
+        const maxAttempts = 10;
+        
+        const findFlickity = () => {
+          attempts++;
+          console.log(`Attempt ${attempts} to find Flickity`);
+          
+          // Try multiple ways to get Flickity instance
+          if (mobileCarousel.flickity) {
+            flickityInstance = mobileCarousel.flickity;
+          } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
+            flickityInstance = window.Flickity.data(mobileCarousel);
+          } else if (mobileCarousel._flickity) {
+            flickityInstance = mobileCarousel._flickity;
+          }
+          
+          if (flickityInstance) {
+            console.log('Flickity instance found!', flickityInstance);
+            
+            // Set up change listener
+            flickityInstance.on('change', (index) => {
+              console.log('Flickity change event fired, new index:', index);
+              controlMobileVideos(index);
+            });
+            
+            // Set up settle listener for more reliable detection
+            flickityInstance.on('settle', (index) => {
+              console.log('Flickity settle event fired, index:', index);
+              controlMobileVideos(index);
+            });
+            
+            // Control videos on initial load
+            setTimeout(() => {
+              controlMobileVideos(flickityInstance.selectedIndex || 0);
+            }, 500);
+            
+          } else if (attempts < maxAttempts) {
+            console.log('Flickity not found, retrying...');
+            setTimeout(findFlickity, 500);
+          } else {
+            console.log('Flickity not found after max attempts, trying fallback');
+            // Fallback: control first video
+            controlMobileVideos(0);
+          }
+        };
+        
+        findFlickity();
       };
       
-      // Start initialization
-      setTimeout(initMobileVideoControl, 500);
+      // Start setup
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setupFlickityListeners);
+      } else {
+        setupFlickityListeners();
+      }
+      
+      // Also listen for theme events
+      document.addEventListener('theme:carousel:loaded', () => {
+        console.log('Theme carousel loaded event detected');
+        setTimeout(setupFlickityListeners, 200);
+      });
     }
   });
 </script>
