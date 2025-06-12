@@ -40,7 +40,7 @@
         "image_dqnf4b"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.hero__content{text-align: center;}}"
+        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__cta__wrapper{align-items: center; }}"
       ],
       "name": "Slideshow",
       "settings": {
