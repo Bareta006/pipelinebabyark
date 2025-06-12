@@ -471,6 +471,16 @@
       right: 1rem;
     }
   }
+
+  /* Single slide in view on mobile */
+  #shopify-section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / {{ section.settings.mobile_cards_in_view }}) !important;
+  }
+
+  #shopify-section-{{ section.id }} .accordion-mobile .accordion-card {
+    max-width: 100%;
+    min-height: auto;
+  }
 </style>
 
 <script>
@@ -573,23 +583,39 @@
     // Mobile carousel video control
     const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
     if (mobileCarousel) {
-      // Wait for Flickity to initialize
-      setTimeout(() => {
-        const flickityInstance = mobileCarousel.flickity;
+      // Wait for Flickity to initialize and try multiple methods
+      const initMobileVideoControl = () => {
+        let flickityInstance = null;
+        
+        // Try different ways to get Flickity instance
+        if (mobileCarousel.flickity) {
+          flickityInstance = mobileCarousel.flickity;
+        } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
+          flickityInstance = window.Flickity.data(mobileCarousel);
+        }
+        
+        console.log('Flickity instance found:', flickityInstance);
+        
         if (flickityInstance) {
           // Play video on active slide, pause others
           const controlMobileVideos = () => {
             const slides = mobileCarousel.querySelectorAll('.mobile-card');
+            console.log('Controlling mobile videos, active slide:', flickityInstance.selectedIndex);
+            
             slides.forEach((slide, index) => {
               const video = slide.querySelector('video, iframe');
               const isActive = index === flickityInstance.selectedIndex;
+              
+              console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}`);
               
               if (video) {
                 if (isActive) {
                   // Play active slide video
                   if (video.tagName === 'VIDEO') {
+                    console.log('Playing native video on slide', index);
                     video.play().catch(e => console.log('Mobile video play failed:', e));
                   } else if (video.tagName === 'IFRAME') {
+                    console.log('Playing iframe video on slide', index);
                     try {
                       if (video.src.includes('youtube')) {
                         video.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
@@ -625,8 +651,15 @@
           
           // Control videos on initial load
           controlMobileVideos();
+        } else {
+          console.log('Flickity instance not found, retrying...');
+          // Retry after longer delay
+          setTimeout(initMobileVideoControl, 1000);
         }
-      }, 500);
+      };
+      
+      // Start initialization
+      setTimeout(initMobileVideoControl, 500);
     }
   });
 </script>
@@ -723,6 +756,16 @@
       "step": 1,
       "label": "Mobile Text Size",
       "default": 5
+    },
+    {
+      "type": "range",
+      "id": "mobile_cards_in_view",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Mobile cards in view",
+      "default": 1.1,
+      "info": "1.1 shows one full card plus a peek of the next"
     },
     {
       "type": "header",
