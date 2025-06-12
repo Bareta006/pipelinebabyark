@@ -236,7 +236,7 @@
         "accordion_item_FpXWfd"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {{background: #FAFAFA; }}"
+        "@media (max-width: 480px) {{background: #fafafa; }}"
       ],
       "name": "Interactive Accordions",
       "settings": {
@@ -279,6 +279,9 @@
       "block_order": [
         "card_jKNtqU",
         "card_XeBh7f"
+      ],
+      "custom_css": [
+        "@media (max-width: 480px) {.wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
       ],
       "name": "Inline Cards",
       "settings": {
