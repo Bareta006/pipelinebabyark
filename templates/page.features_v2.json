@@ -15,7 +15,7 @@
         "image_dqnf4b": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/b2fbcb018ca54efda3e1f0ecbbfd3ef0_thumbnail_0000000000_1100x_jpg_068cfb2c-9066-4cdd-b1b7-b86b8066d99b.png",
+            "image": "shopify://shop_images/Rectangle_1486127372.png",
             "mobile_image": "shopify://shop_images/Rectangle_1486127366.png",
             "overlay_opacity": 15,
             "overlay_color": "#000",
@@ -40,7 +40,7 @@
         "image_dqnf4b"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__cta__wrapper{align-items: center; }}"
+        "@media (max-width: 480px) {.hero__content {text-align: center; } .hero__cta__wrapper {align-items: center; }}"
       ],
       "name": "Slideshow",
       "settings": {
