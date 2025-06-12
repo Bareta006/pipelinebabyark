@@ -1,0 +1,732 @@
+<!-- /sections/section-interactive-accordions.liquid -->
+
+{%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
+
+<section class="section-interactive-accordions {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="interactive-accordions"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    
+    <!-- Section Header -->
+    {% if section.settings.title != blank %}
+      <div class="section__header {{ section.settings.title_alignment }}">
+        <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+          {{ section.settings.title }}
+        </h2>
+        {% if section.settings.description != blank %}
+          <div class="section__description rte body-size-{{ section.settings.description_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <!-- Desktop Two-Column Layout -->
+    <div class="interactive-accordions-wrapper">
+      
+      <!-- Left Column: Accordions -->
+      <div class="accordions-column" data-accordion-group>
+        {% for block in section.blocks %}
+          {% assign block_id = block.id %}
+          {% assign is_first = forloop.first %}
+          
+          <div class="accordion__wrapper" {{ block.shopify_attributes }}>
+            <button class="accordion__title js heading-size-{{ section.settings.accordion_title_size }} {% if is_first %}accordion-is-open{% endif %}"
+              data-accordion-trigger="accordion-{{ block_id }}"
+              data-interactive-accordion-trigger="{{ block_id }}"
+              aria-controls="accordion-{{ block_id }}"
+              aria-haspopup="true"
+              aria-expanded="{% if is_first %}true{% else %}false{% endif %}">
+              {{ block.settings.title }}
+            </button>
+
+            <div class="accordion__body no-js-accordion rte body-size-{{ section.settings.accordion_text_size }}"
+              data-accordion-body
+              id="accordion-{{ block_id }}"
+              {% unless is_first %}style="display: none;"{% endunless %}>
+              {{ block.settings.description }}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Right Column: Media -->
+      <div class="media-column">
+        {% for block in section.blocks %}
+          {% assign is_first = forloop.first %}
+          <div class="media-item {% unless is_first %}media-item--hidden{% endunless %}" 
+               data-media-item="{{ block.id }}"
+               {{ block.shopify_attributes }}>
+            
+            {% if block.settings.video_url != blank %}
+              <!-- Video Content -->
+              <div class="media-video">
+                {% if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' %}
+                  {% assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first %}
+                  {% if block.settings.video_url contains 'youtu.be' %}
+                    {% assign video_id = block.settings.video_url | split: '.be/' | last | split: '?' | first %}
+                  {% endif %}
+                  <iframe 
+                    src="https://www.youtube.com/embed/{{ video_id }}"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    class="media-video__iframe">
+                  </iframe>
+                {% elsif block.settings.video_url contains 'vimeo' %}
+                  {% assign video_id = block.settings.video_url | split: 'vimeo.com/' | last | split: '?' | first %}
+                  <iframe 
+                    src="https://player.vimeo.com/video/{{ video_id }}"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                    class="media-video__iframe">
+                  </iframe>
+                {% endif %}
+              </div>
+            {% elsif block.settings.image != blank %}
+              <!-- Image Content -->
+              <div class="media-image">
+                {% render 'image', 
+                  img_object: block.settings.image, 
+                  wh_ratio: block.settings.image.aspect_ratio,
+                  sizes: '50vw',
+                  cover: true,
+                  alt: block.settings.image.alt | default: block.settings.title
+                %}
+              </div>
+            {% else %}
+              <!-- Placeholder -->
+              <div class="media-placeholder">
+                <p>{{ 'general.onboarding.no_content' | t }}</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- Mobile Carousel Layout -->
+    <div class="mobile-carousel-wrapper">
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-grid
+          data-grid-large
+          data-grid-medium
+          data-grid-small
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          class="mobile-carousel"
+          style="--grid-large-items: 1; --grid-medium-items: 1; --grid-small-items: 1;">
+          
+          {% for block in section.blocks %}
+            <div class="mobile-card" data-carousel-slide {{ block.shopify_attributes }}>
+              
+              <!-- Mobile Card Image -->
+              <div class="mobile-card__image">
+                {% if block.settings.mobile_image != blank %}
+                  {% render 'image', 
+                    img_object: block.settings.mobile_image, 
+                    wh_ratio: block.settings.mobile_image.aspect_ratio,
+                    sizes: '90vw',
+                    cover: true,
+                    alt: block.settings.mobile_image.alt | default: block.settings.title
+                  %}
+                {% elsif block.settings.image != blank %}
+                  {% render 'image', 
+                    img_object: block.settings.image, 
+                    wh_ratio: block.settings.image.aspect_ratio,
+                    sizes: '90vw',
+                    cover: true,
+                    alt: block.settings.image.alt | default: block.settings.title
+                  %}
+                {% else %}
+                  <div class="mobile-card__placeholder">
+                    <p>{{ 'general.onboarding.no_content' | t }}</p>
+                  </div>
+                {% endif %}
+              </div>
+
+              <!-- Mobile Card Content -->
+              <div class="mobile-card__content">
+                <h3 class="mobile-card__title heading-size-{{ section.settings.mobile_title_size }}">
+                  {{ block.settings.title }}
+                </h3>
+                
+                <div class="mobile-card__description rte body-size-{{ section.settings.mobile_text_size }}">
+                  {{ block.settings.description }}
+                </div>
+
+                {% if block.settings.button_text != blank and block.settings.button_url != blank %}
+                  <div class="mobile-card__button">
+                    <a href="{{ block.settings.button_url }}" 
+                       class="btn {{ block.settings.button_style }} {{ block.settings.button_color }} btn--long">
+                      {{ block.settings.button_text }}
+                    </a>
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+          
+        </div>
+      </flickity-carousel>
+    </div>
+    
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .section__header {
+    margin-bottom: 2rem;
+  }
+  
+  #shopify-section-{{ section.id }} .section__title {
+    margin-bottom: 1rem;
+  }
+
+  /* Desktop Two-Column Layout */
+  #shopify-section-{{ section.id }} .interactive-accordions-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: flex-start;
+  }
+
+  /* Accordions Column */
+  #shopify-section-{{ section.id }} .accordions-column {
+    position: sticky;
+    top: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .accordion__wrapper {
+    border-bottom: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+  }
+
+  #shopify-section-{{ section.id }} .accordion__wrapper:first-child {
+    padding-top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .accordion__title {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .accordion__title:hover {
+    color: var(--color-primary);
+  }
+
+  #shopify-section-{{ section.id }} .accordion__title::after {
+    content: '+';
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .accordion__title.accordion-is-open::after {
+    content: '−';
+    transform: rotate(180deg);
+  }
+
+  #shopify-section-{{ section.id }} .accordion__body {
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  /* Media Column */
+  #shopify-section-{{ section.id }} .media-column {
+    position: relative;
+    min-height: 400px;
+  }
+
+  #shopify-section-{{ section.id }} .media-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  #shopify-section-{{ section.id }} .media-item--hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ section.id }} .media-image,
+  #shopify-section-{{ section.id }} .media-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section.id }} .media-video__iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+  }
+
+  #shopify-section-{{ section.id }} .media-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-bg-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    color: var(--color-text-accent);
+  }
+
+  /* Hide Mobile Carousel on Desktop */
+  #shopify-section-{{ section.id }} .mobile-carousel-wrapper {
+    display: none;
+  }
+
+  /* Mobile Styles */
+  @media screen and (max-width: 749px) {
+    /* Hide Desktop Layout */
+    #shopify-section-{{ section.id }} .interactive-accordions-wrapper {
+      display: none;
+    }
+
+    /* Show Mobile Carousel */
+    #shopify-section-{{ section.id }} .mobile-carousel-wrapper {
+      display: block;
+      margin: 0 -1rem;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-carousel {
+      padding-left: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card {
+      padding: 0 0.5rem;
+      height: auto;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__placeholder {
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-bg-accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--color-text-accent);
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__content {
+      padding: 0 0.5rem;
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__title {
+      margin-bottom: 0.75rem;
+      color: var(--color-text);
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__description {
+      margin-bottom: 1rem;
+      color: var(--color-text);
+    }
+
+    #shopify-section-{{ section.id }} .mobile-card__button {
+      margin-bottom: 1rem;
+    }
+
+    /* Flickity button positioning */
+    #shopify-section-{{ section.id }} .flickity-button {
+      position: absolute;
+      bottom: -3rem;
+      top: auto;
+      z-index: 10;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      color: var(--color-text);
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+      right: 4rem;
+      left: auto;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+      right: 1rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sectionId = '{{ section.id }}';
+    const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+    
+    if (!section) return;
+
+    const accordionTriggers = section.querySelectorAll('[data-interactive-accordion-trigger]');
+    const mediaItems = section.querySelectorAll('[data-media-item]');
+
+    // Function to show specific media item
+    function showMediaItem(blockId) {
+      mediaItems.forEach(item => {
+        if (item.dataset.mediaItem === blockId) {
+          item.classList.remove('media-item--hidden');
+        } else {
+          item.classList.add('media-item--hidden');
+        }
+      });
+    }
+
+    // Function to close all accordions except the target
+    function closeOtherAccordions(targetId) {
+      accordionTriggers.forEach(trigger => {
+        const blockId = trigger.dataset.interactiveAccordionTrigger;
+        const accordionBody = document.getElementById(`accordion-${blockId}`);
+        
+        if (blockId !== targetId) {
+          trigger.classList.remove('accordion-is-open');
+          trigger.setAttribute('aria-expanded', 'false');
+          if (accordionBody) {
+            accordionBody.style.display = 'none';
+          }
+        }
+      });
+    }
+
+    // Add click event listeners to accordion triggers
+    accordionTriggers.forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const blockId = this.dataset.interactiveAccordionTrigger;
+        const accordionBody = document.getElementById(`accordion-${blockId}`);
+        const isOpen = this.classList.contains('accordion-is-open');
+
+        if (isOpen) {
+          // Don't close if it's already open (keep one always open)
+          return;
+        }
+
+        // Close other accordions
+        closeOtherAccordions(blockId);
+
+        // Open this accordion
+        this.classList.add('accordion-is-open');
+        this.setAttribute('aria-expanded', 'true');
+        if (accordionBody) {
+          accordionBody.style.display = 'block';
+        }
+
+        // Show corresponding media
+        showMediaItem(blockId);
+      });
+    });
+
+    // Initialize: Show first media item
+    if (mediaItems.length > 0) {
+      const firstBlock = accordionTriggers[0]?.dataset.interactiveAccordionTrigger;
+      if (firstBlock) {
+        showMediaItem(firstBlock);
+      }
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Interactive Accordions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Interactive Content"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description",
+      "default": "<p>Explore our interactive content with detailed information and media.</p>"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Centered" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Title Size",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Description Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Desktop Accordion Settings"
+    },
+    {
+      "type": "range",
+      "id": "accordion_title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Accordion Title Size",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "accordion_text_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Accordion Text Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Mobile Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Mobile Title Size",
+      "default": 7
+    },
+    {
+      "type": "range",
+      "id": "mobile_text_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Mobile Text Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>This is the content that appears in the accordion on desktop and below the image on mobile carousel.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Desktop Media"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Recommended: 600x400px or similar aspect ratio"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video URL",
+          "info": "YouTube or Vimeo URL. Video takes priority over image if both are provided."
+        },
+        {
+          "type": "header",
+          "content": "Mobile Card"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image",
+          "info": "Optional: Different image for mobile. If not provided, desktop image will be used."
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button Text",
+          "info": "Optional button for mobile cards"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        },
+        {
+          "type": "select",
+          "id": "button_style",
+          "label": "Button Style",
+          "default": "btn",
+          "options": [
+            { "value": "btn-text-thick-line", "label": "Capitalized text" },
+            { "value": "btn", "label": "Solid button"},
+            { "value": "btn--soft", "label": "Soft button"},
+            { "value": "btn--outline", "label": "Outlined button"}
+          ]
+        },
+        {
+          "type": "select",
+          "id": "button_color",
+          "label": "Button Color",
+          "default": "btn--primary",
+          "options": [
+            { "value": "btn--primary", "label": "Bright accent" },
+            { "value": "btn--secondary", "label": "Secondary accent" },
+            { "value": "btn--neutral", "label": "Text color" },
+            { "value": "btn--black", "label": "Black" },
+            { "value": "btn--white", "label": "White" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Interactive Accordions",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "First Feature",
+            "description": "<p>Discover the amazing features and benefits of our first offering. This content shows on desktop in the accordion and on mobile below the image.</p>",
+            "button_text": "Learn More"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Second Feature",
+            "description": "<p>Explore our second feature with detailed information and compelling content that engages your audience.</p>",
+            "button_text": "Discover"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Third Feature",
+            "description": "<p>Learn about our third amazing feature that sets us apart from the competition with innovative solutions.</p>",
+            "button_text": "Explore"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
+  }
+}
+{% endschema %} 
