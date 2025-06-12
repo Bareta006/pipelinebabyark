@@ -240,10 +240,11 @@
         "accordion_text_size": 6,
         "mobile_title_size": 7,
         "mobile_text_size": 5,
+        "mobile_cards_in_view": 1.1,
         "text_color": "text--neutral",
         "width": "wrapper--full",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     }
   },
