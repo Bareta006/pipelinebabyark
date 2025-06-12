@@ -246,6 +246,48 @@
         "padding_top": 80,
         "padding_bottom": 80
       }
+    },
+    "section_inline_cards_NiNbxh": {
+      "type": "section-inline-cards",
+      "blocks": {
+        "card_jKNtqU": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/Rectangle_1486127365.png",
+            "card_title": "No Expiration Date",
+            "card_description": "<p>With babyark’s durable materials and steel construction, there’s no expiration date. The seats are built to last through multiple children, saving you money in the long run.<br/></p>"
+          }
+        },
+        "card_XeBh7f": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/b2fbcb018ca54efda3e1f0ecbbfd3ef0_thumbnail_0000000000_1100x_jpg.png",
+            "card_title": "Extra Bases",
+            "card_description": "<p>An extra base means you can easily transfer your little one across cars and caretakers without the stress of a new install, or wondering if everything fits together properly. <br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "card_jKNtqU",
+        "card_XeBh7f"
+      ],
+      "name": "Inline Cards",
+      "settings": {
+        "title": "A Lifetime of Value",
+        "description": "<p>Intelligent design goes beyond safety-driven technology. It means a one-time spend that pays for itself with a lifetime of use. And the convenience of the same car seat across multiple vehicles, for years to come.</p>",
+        "title_alignment": "text-center",
+        "title_size": 10,
+        "description_size": 6,
+        "cards_desktop": 2,
+        "cards_tablet": "2",
+        "card_title_size": 9,
+        "card_description_size": 6,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -253,6 +295,7 @@
     "section_text_image_slider_BQqXVe",
     "section_inline_cards_A4XHfV",
     "section_fullwidth_card_slider_4HrzTw",
-    "section_interactive_accordions_JhXTyK"
+    "section_interactive_accordions_JhXTyK",
+    "section_inline_cards_NiNbxh"
   ]
 }
