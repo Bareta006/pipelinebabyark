@@ -581,29 +581,35 @@
     }
 
     // Mobile carousel video control using theme's pattern
-    const mobileCarouselElement = section.querySelector('flickity-carousel');
+    const mobileCarouselElement = section.querySelector('.mobile-carousel-wrapper flickity-carousel');
+    console.log('Section ID:', sectionId);
+    console.log('Mobile carousel element found:', mobileCarouselElement);
+    
     if (mobileCarouselElement) {
       // Wait for the flickity-carousel custom element to be initialized
       const initMobileVideoControl = () => {
         const carousel = mobileCarouselElement.querySelector('[data-carousel]');
+        console.log('Data carousel found:', carousel);
+        console.log('Carousel instance available:', mobileCarouselElement.carouselInstance);
         
         if (carousel && mobileCarouselElement.carouselInstance) {
           const flickityInstance = mobileCarouselElement.carouselInstance;
-          console.log('Flickity instance found via custom element:', flickityInstance);
+          console.log('SUCCESS: Flickity instance found for section', sectionId, flickityInstance);
           
           // Function to control mobile videos
           const controlMobileVideos = (index) => {
             const slides = carousel.querySelectorAll('.mobile-card');
-            console.log('Mobile video control - slide changed to:', index);
+            console.log(`VIDEO CONTROL: Section ${sectionId} - slide changed to:`, index, 'total slides:', slides.length);
             
             slides.forEach((slide, slideIndex) => {
               const video = slide.querySelector('video, iframe');
               const isActive = slideIndex === index;
               
               if (video) {
+                console.log(`VIDEO FOUND: Slide ${slideIndex}, active: ${isActive}, video type: ${video.tagName}`);
                 if (isActive) {
                   // Play active slide video
-                  console.log(`Playing video on slide ${slideIndex}`);
+                  console.log(`PLAYING VIDEO on slide ${slideIndex}`);
                   if (video.tagName === 'VIDEO') {
                     video.play().catch(e => console.log('Mobile native video play failed:', e));
                   } else if (video.tagName === 'IFRAME') {
@@ -619,7 +625,7 @@
                   }
                 } else {
                   // Pause inactive slide videos
-                  console.log(`Pausing video on slide ${slideIndex}`);
+                  console.log(`PAUSING VIDEO on slide ${slideIndex}`);
                   if (video.tagName === 'VIDEO') {
                     video.pause();
                   } else if (video.tagName === 'IFRAME') {
@@ -634,24 +640,32 @@
                     }
                   }
                 }
+              } else {
+                console.log(`NO VIDEO: Slide ${slideIndex} has no video`);
               }
             });
           };
 
           // Listen for slide change events using theme's pattern
           flickityInstance.on('change', controlMobileVideos);
+          console.log('EVENT LISTENER ADDED: change event bound to section', sectionId);
           
           // Control videos on initial load
-          controlMobileVideos(flickityInstance.selectedIndex || 0);
+          const initialIndex = flickityInstance.selectedIndex || 0;
+          console.log('INITIAL LOAD: Starting with slide', initialIndex);
+          controlMobileVideos(initialIndex);
           
         } else {
-          console.log('Flickity not ready, retrying...');
+          console.log('RETRY: Flickity not ready for section', sectionId, 'carousel:', !!carousel, 'instance:', !!mobileCarouselElement.carouselInstance);
           setTimeout(initMobileVideoControl, 500);
         }
       };
       
       // Start initialization with a delay to ensure custom element is ready
+      console.log('INITIALIZING mobile video control for section', sectionId);
       setTimeout(initMobileVideoControl, 1000);
+    } else {
+      console.log('ERROR: No mobile carousel element found for section', sectionId);
     }
   });
 </script>
