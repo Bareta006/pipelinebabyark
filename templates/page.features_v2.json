@@ -182,6 +182,8 @@
           "settings": {
             "title": "Magnetic Harness Straps",
             "description": "<p>Easier in, easier out! babyark car seats feature two sets of magnets to align with corresponding magnets on the upper and lower parts of the harness, so the straps stay out of the way when placing your child in to get on your way. <br/></p>",
+            "video_loop": false,
+            "video_muted": false,
             "image": "shopify://shop_images/Rectangle_1486126747.png",
             "video_url": "",
             "mobile_image": "shopify://shop_images/Rectangle_1486126747_1.png",
@@ -196,6 +198,8 @@
           "settings": {
             "title": "Zip On and Off Fabric Covers",
             "description": "<p>There’ll be mess, but our machine washable seat covers mean less stress. They easily zip on and off, and you can buy extra (in your choice of color) to always have a clean one on hand.</p>",
+            "video_loop": false,
+            "video_muted": false,
             "image": "shopify://shop_images/image_68.png",
             "video_url": "",
             "button_text": "Discover",
@@ -209,6 +213,9 @@
           "settings": {
             "title": "Flip-Forward Buckle",
             "description": "<p>A buckle that automatically flips forward and out of the way means getting your child in and out faster, smoother and without any digging around underneath them.</p>",
+            "video_file": "shopify://files/videos/Installingthecupholder(1).mp4",
+            "video_loop": false,
+            "video_muted": false,
             "video_url": "",
             "button_text": "Explore",
             "button_url": "",
