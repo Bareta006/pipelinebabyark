@@ -461,8 +461,24 @@
     accordionTriggers.forEach(trigger => {
       trigger.addEventListener('click', function(e) {
         const blockId = this.dataset.interactiveAccordionTrigger;
+        const isCurrentlyOpen = this.classList.contains('accordion-is-open');
         
-        // Small delay to allow theme's accordion to process first
+        if (isCurrentlyOpen) {
+          // Prevent closing if it's already open (keep one always open)
+          e.preventDefault();
+          e.stopPropagation();
+          return false;
+        }
+        
+        // Close all other accordions first
+        accordionTriggers.forEach(otherTrigger => {
+          if (otherTrigger !== this && otherTrigger.classList.contains('accordion-is-open')) {
+            // Trigger click on other open accordions to close them
+            otherTrigger.click();
+          }
+        });
+        
+        // Small delay to allow theme's accordion to process first, then handle media switching
         setTimeout(() => {
           showMediaItem(blockId);
         }, 100);
