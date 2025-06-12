@@ -237,7 +237,7 @@
 
   #shopify-section-{{ section.id }} .accordion__wrapper {
     border-bottom: 1px solid var(--color-border);
-    padding: 1.5rem 0;
+    padding:0;
   }
 
   #shopify-section-{{ section.id }} .accordion__wrapper:first-child {
@@ -255,7 +255,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
     font-size: 48px;
     max-width: 540px;
     line-height: 120%;
@@ -277,6 +276,7 @@
   #shopify-section-{{ section.id }} .accordion__body {
     overflow: hidden;
     transition: all 0.3s ease;
+    padding-bottom: 0px;
   }
 
   /* Media Column */
