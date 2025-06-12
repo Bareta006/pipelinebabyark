@@ -442,8 +442,9 @@
 
     #shopify-section-{{ section.id }} .mobile-card__description {
       margin-bottom: 1rem;
-      color: var(--color-text); 
+      color: var(--color-text);
       font-size: 16px;
+    }
 
     #shopify-section-{{ section.id }} .mobile-card__button {
       margin-bottom: 1rem;
@@ -581,31 +582,39 @@
       }
     }
 
-    // Mobile carousel video control
+    // Mobile carousel video control - IMPROVED VERSION
     const mobileCarousel = section.querySelector('.mobile-carousel [data-carousel]');
     if (mobileCarousel) {
-      console.log('Mobile carousel found, setting up video control');
+      let retryCount = 0;
+      const maxRetries = 10;
       
-      // Function to control mobile videos
-      const controlMobileVideos = (activeIndex = 0) => {
+      const controlMobileVideos = (flickityInstance) => {
+        if (!flickityInstance) return;
+        
         const slides = mobileCarousel.querySelectorAll('.mobile-card');
-        console.log(`Controlling mobile videos, active slide: ${activeIndex}, total slides: ${slides.length}`);
+        const activeIndex = flickityInstance.selectedIndex;
+        
+        console.log('🎥 Controlling mobile videos, active slide:', activeIndex);
         
         slides.forEach((slide, index) => {
           const video = slide.querySelector('video');
           const iframe = slide.querySelector('iframe');
           const isActive = index === activeIndex;
           
-          console.log(`Slide ${index}, isActive: ${isActive}, hasVideo: ${!!video}, hasIframe: ${!!iframe}`);
-          
-          if (isActive) {
-            // Play active slide video
-            if (video) {
-              console.log('Playing native video on slide', index);
-              video.currentTime = 0; // Reset to start
+          if (video) {
+            if (isActive) {
+              console.log('▶️ Playing native video on slide', index);
+              video.currentTime = 0; // Reset to beginning
               video.play().catch(e => console.log('Mobile video play failed:', e));
-            } else if (iframe) {
-              console.log('Playing iframe video on slide', index);
+            } else {
+              console.log('⏸️ Pausing native video on slide', index);
+              video.pause();
+            }
+          }
+          
+          if (iframe) {
+            if (isActive) {
+              console.log('▶️ Playing iframe video on slide', index);
               setTimeout(() => {
                 try {
                   if (iframe.src.includes('youtube')) {
@@ -616,13 +625,9 @@
                 } catch (e) {
                   console.log('Mobile external video play failed:', e);
                 }
-              }, 300);
-            }
-          } else {
-            // Pause inactive slide videos
-            if (video) {
-              video.pause();
-            } else if (iframe) {
+              }, 100);
+            } else {
+              console.log('⏸️ Pausing iframe video on slide', index);
               try {
                 if (iframe.src.includes('youtube')) {
                   iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
@@ -636,70 +641,66 @@
           }
         });
       };
-
-      // Multiple methods to detect Flickity and set up listeners
-      const setupFlickityListeners = () => {
+      
+      const initMobileVideoControl = () => {
+        console.log(`🔄 Attempt ${retryCount + 1} to find Flickity instance...`);
+        
         let flickityInstance = null;
-        let attempts = 0;
-        const maxAttempts = 10;
         
-        const findFlickity = () => {
-          attempts++;
-          console.log(`Attempt ${attempts} to find Flickity`);
-          
-          // Try multiple ways to get Flickity instance
-          if (mobileCarousel.flickity) {
-            flickityInstance = mobileCarousel.flickity;
-          } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
-            flickityInstance = window.Flickity.data(mobileCarousel);
-          } else if (mobileCarousel._flickity) {
-            flickityInstance = mobileCarousel._flickity;
+        // Try multiple ways to get Flickity instance
+        if (mobileCarousel.flickity) {
+          flickityInstance = mobileCarousel.flickity;
+          console.log('✅ Found Flickity via mobileCarousel.flickity');
+        } else if (window.Flickity && window.Flickity.data(mobileCarousel)) {
+          flickityInstance = window.Flickity.data(mobileCarousel);
+          console.log('✅ Found Flickity via Flickity.data()');
+        } else {
+          // Try finding the parent flickity element
+          const flickityParent = mobileCarousel.closest('[data-flickity]') || mobileCarousel.closest('.flickity-enabled');
+          if (flickityParent && flickityParent.flickity) {
+            flickityInstance = flickityParent.flickity;
+            console.log('✅ Found Flickity via parent element');
           }
+        }
+        
+        if (flickityInstance) {
+          console.log('🎯 Flickity instance found!', flickityInstance);
           
-          if (flickityInstance) {
-            console.log('Flickity instance found!', flickityInstance);
-            
-            // Set up change listener
-            flickityInstance.on('change', (index) => {
-              console.log('Flickity change event fired, new index:', index);
-              controlMobileVideos(index);
-            });
-            
-            // Set up settle listener for more reliable detection
-            flickityInstance.on('settle', (index) => {
-              console.log('Flickity settle event fired, index:', index);
-              controlMobileVideos(index);
-            });
-            
-            // Control videos on initial load
-            setTimeout(() => {
-              controlMobileVideos(flickityInstance.selectedIndex || 0);
-            }, 500);
-            
-          } else if (attempts < maxAttempts) {
-            console.log('Flickity not found, retrying...');
-            setTimeout(findFlickity, 500);
+          // Listen for slide change events
+          flickityInstance.on('change', () => {
+            console.log('📱 Slide changed to:', flickityInstance.selectedIndex);
+            controlMobileVideos(flickityInstance);
+          });
+          
+          flickityInstance.on('settle', () => {
+            console.log('📱 Slide settled on:', flickityInstance.selectedIndex);
+            controlMobileVideos(flickityInstance);
+          });
+          
+          // Control videos on initial load
+          setTimeout(() => {
+            controlMobileVideos(flickityInstance);
+          }, 200);
+          
+        } else {
+          retryCount++;
+          if (retryCount < maxRetries) {
+            console.log(`❌ Flickity instance not found, retrying in ${retryCount * 500}ms...`);
+            setTimeout(initMobileVideoControl, retryCount * 500);
           } else {
-            console.log('Flickity not found after max attempts, trying fallback');
-            // Fallback: control first video
-            controlMobileVideos(0);
+            console.log('❌ Max retries reached, Flickity instance not found');
           }
-        };
-        
-        findFlickity();
+        }
       };
       
-      // Start setup
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', setupFlickityListeners);
-      } else {
-        setupFlickityListeners();
-      }
+      // Start initialization with multiple fallbacks
+      setTimeout(initMobileVideoControl, 100);
+      setTimeout(initMobileVideoControl, 500);
+      setTimeout(initMobileVideoControl, 1000);
       
-      // Also listen for theme events
-      document.addEventListener('theme:carousel:loaded', () => {
-        console.log('Theme carousel loaded event detected');
-        setTimeout(setupFlickityListeners, 200);
+      // Also try when window loads
+      window.addEventListener('load', () => {
+        setTimeout(initMobileVideoControl, 100);
       });
     }
   });
