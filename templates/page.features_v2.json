@@ -194,8 +194,9 @@
         "accordion_item_Dgz4Jx": {
           "type": "accordion_item",
           "settings": {
-            "title": "Second Feature",
-            "description": "<p>Explore our second feature with detailed information and compelling content that engages your audience.</p>",
+            "title": "Zip On and Off Fabric Covers",
+            "description": "<p>There’ll be mess, but our machine washable seat covers mean less stress. They easily zip on and off, and you can buy extra (in your choice of color) to always have a clean one on hand.</p>",
+            "image": "shopify://shop_images/image_68.png",
             "video_url": "",
             "button_text": "Discover",
             "button_url": "",
@@ -206,8 +207,8 @@
         "accordion_item_FpXWfd": {
           "type": "accordion_item",
           "settings": {
-            "title": "Third Feature",
-            "description": "<p>Learn about our third amazing feature that sets us apart from the competition with innovative solutions.</p>",
+            "title": "Flip-Forward Buckle",
+            "description": "<p>A buckle that automatically flips forward and out of the way means getting your child in and out faster, smoother and without any digging around underneath them.</p>",
             "video_url": "",
             "button_text": "Explore",
             "button_url": "",
