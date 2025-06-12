@@ -235,13 +235,13 @@
         "description": "<p>Zip-off fabric seat covers,  a quick-lock chest clip, and a buckle that automatically flips forward are some of the features that simply make your life easier without compromising on safety.  <br/></p>",
         "title_alignment": "text-center",
         "title_size": 8,
-        "description_size": 5,
-        "accordion_title_size": 6,
-        "accordion_text_size": 5,
+        "description_size": 6,
+        "accordion_title_size": 8,
+        "accordion_text_size": 6,
         "mobile_title_size": 7,
         "mobile_text_size": 5,
         "text_color": "text--neutral",
-        "width": "wrapper",
+        "width": "wrapper--full",
         "padding_top": 36,
         "padding_bottom": 36
       }
