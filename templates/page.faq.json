@@ -496,6 +496,13 @@
             "title": "Can I buy an additional Smart base for my Classic seat?",
             "content": "<p>Absolutely! Classic and Smart bases fit both Smart and Classic car seats. Smart connectivity features sync up with the Smart base, so even if you originally purchased a Classic car seat, you can buy an additional Smart base and benefit from smart app connectivity.</p>"
           }
+        },
+        "text_63ckJg": {
+          "type": "text",
+          "settings": {
+            "title": "Does babyark offer bundles?",
+            "content": "<p> Yes, babyark currently offers multiple bundle packages (Foodie, Family, Bases) for buying products together, at a discount. Check out the options on our <a href=\"https://babyark.com/collections/bundles\"><span style=\"text-decoration:underline\">bundles and accessories page.</span></a></p>"
+          }
         }
       },
       "block_order": [
@@ -504,7 +511,8 @@
         "accordion_block_4_2",
         "accordion_block_4_3",
         "text_9HaBA8",
-        "text_TECHVd"
+        "text_TECHVd",
+        "text_63ckJg"
       ],
       "custom_css": [
         ".section-faq {background-color: #fafafa;}"
