@@ -501,7 +501,7 @@
           "type": "text",
           "settings": {
             "title": "Does babyark offer bundles?",
-            "content": "<p> Yes, babyark currently offers multiple bundle packages (Foodie, Family, Bases) for buying products together, at a discount. Check out the options on our <a href=\"https://babyark.com/collections/bundles\"><span style=\"text-decoration:underline\">bundles and accessories page.</span></a></p>"
+            "content": "<p>Yes, babyark currently offers multiple bundle packages (Foodie, Family, Bases) for buying products together, at a discount. Check out the options on our <a href=\"https://babyark.com/collections/bundles\"><span style=\"text-decoration:underline\">bundles and accessories page.</span></a></p>"
           }
         }
       },
