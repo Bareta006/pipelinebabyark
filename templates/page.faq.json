@@ -405,13 +405,6 @@
             "title": "What makes babyark easy to install?",
             "content": "<p>babyark guides you step-by-step through installation with a smart app, built-in sensors, and visual and auditory cues to confirm a correct, secure fit. No second guessing. No sweat.</p>"
           }
-        },
-        "text_jWNmJQ": {
-          "type": "text",
-          "settings": {
-            "title": "Frequently asked question",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
-          }
         }
       },
       "block_order": [
@@ -425,8 +418,7 @@
         "text_FqaWwV",
         "text_LGbrWb",
         "text_HgMbwT",
-        "text_ApmXtB",
-        "text_jWNmJQ"
+        "text_ApmXtB"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
@@ -481,6 +473,13 @@
             "title": "Can I buy an additional Classic base for my Smart seat?",
             "content": "<p>Yes, the Smart seat is compatible with Classic bases, but keep in mind that app connectivity features are only available when using the Smart base.  </p><p>You can purchase a Smart Base, even for a Classic car seat, and will then have access to all the smart features for either seat when the Smart Base is used. Classic and Smart car seats fit on both bases.</p>"
           }
+        },
+        "text_TECHVd": {
+          "type": "text",
+          "settings": {
+            "title": "Can I buy an additional Smart base for my Classic seat?",
+            "content": "<p>Absolutely! Classic and Smart bases fit both Smart and Classic car seats. Smart connectivity features sync up with the Smart base, so even if you originally purchased a Classic car seat, you can buy an additional Smart base and benefit from smart app connectivity.</p>"
+          }
         }
       },
       "block_order": [
@@ -488,7 +487,8 @@
         "accordion_block_4_1",
         "accordion_block_4_2",
         "accordion_block_4_3",
-        "text_9HaBA8"
+        "text_9HaBA8",
+        "text_TECHVd"
       ],
       "custom_css": [
         ".section-faq {background-color: #fafafa;}"
