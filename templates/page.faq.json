@@ -397,6 +397,21 @@
             "title": "What should I check if my vehicle seat belt has a webbing loop?",
             "content": "<p>Webbing loops (also called convenience loops) on some vehicle seat belts may affect the proper installation of the babyark car seat, depending on their position within the base’s belt path. To determine if your webbing loop is interfering with the tensioner on your babyark base, check out our <a href=\"https://babyark.com/pages/webbing-loop\" target=\"_blank\" title=\"https://babyark.com/pages/webbing-loop\">troubleshooting page</a>, or <a href=\"https://babyark.com/pages/get-in-touch\" target=\"_blank\" title=\"Contact Us\"><strong>contact us</strong></a> for assistance.</p>"
           }
+        },
+        "text_ApmXtB": {
+          "type": "text",
+          "name": "Text block",
+          "settings": {
+            "title": "What makes babyark easy to install?",
+            "content": "<p>babyark guides you step-by-step through installation with a smart app, built-in sensors, and visual and auditory cues to confirm a correct, secure fit. No second guessing. No sweat.</p>"
+          }
+        },
+        "text_jWNmJQ": {
+          "type": "text",
+          "settings": {
+            "title": "Frequently asked question",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
         }
       },
       "block_order": [
@@ -409,7 +424,9 @@
         "text_8MWfzL",
         "text_FqaWwV",
         "text_LGbrWb",
-        "text_HgMbwT"
+        "text_HgMbwT",
+        "text_ApmXtB",
+        "text_jWNmJQ"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
