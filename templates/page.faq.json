@@ -173,6 +173,13 @@
             "title": "What is the weight limit for the infant insert?",
             "content": "<p>The infant insert cushions are designed to help achieve a proper harness fit for smaller children in the rear-facing position, where the harness should be at or just below the child’s shoulders.</p><p>These cushions can be used as needed to provide a snug fit and should be removed once a snug fit can be achieved without them, typically around 11 lbs. (5 kg). </p><p>If a child exceeds the recommended 11 lbs. weight limit but still requires the cushion for a correct harness fit, the infant cushion can continue to be used. Be sure to remove the cushions when they are no longer needed. Infant inserts must be removed when the child weighs more than 22 lbs (10 kg).</p><p>The infant insert consists of two parts: a head support and a body support. These can be used independently, depending on your child's needs, as some may require only the body support.</p><p>Make sure that all elements of the car seat and harness are connected and functioning properly with the position of your infant insert cushion, and as always, don’t connect anything else to the car seat or its pieces that is not meant to be there, as this can interfere in the event of a crash.</p>"
           }
+        },
+        "text_pJH3tL": {
+          "type": "text",
+          "settings": {
+            "title": "Can I clean the car seat cover?",
+            "content": "<p>The fabric seat covers zip off and can be washed in the washing machine. Extra seat covers can also be purchased for use on laundry day.</p>"
+          }
         }
       },
       "block_order": [
@@ -189,7 +196,8 @@
         "text_T8RdaB",
         "text_kQQL4N",
         "text_LDBfJf",
-        "text_pCJxTx"
+        "text_pCJxTx",
+        "text_pJH3tL"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
