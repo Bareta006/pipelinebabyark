@@ -111,6 +111,13 @@
             "content": "<p>Yes. babyark uses only naturally flame-resistant fabrics that are unbelievably soft to the touch. No added chemicals, just pure comfort.</p>"
           }
         },
+        "text_ADrF9d": {
+          "type": "text",
+          "settings": {
+            "title": "Does babyark contain flame retardants?",
+            "content": "<p>Nope. babyark uses only naturally flame-resistant materials and contains <strong>no added flame retardants</strong>. Nothing hidden, nothing extraneous.</p>"
+          }
+        },
         "text_yB3aTd": {
           "type": "text",
           "settings": {
@@ -188,6 +195,7 @@
         "accordion_block_1_4",
         "text_fzLycb",
         "text_hGwQEr",
+        "text_ADrF9d",
         "text_yB3aTd",
         "text_iPwQC6",
         "text_mWWqeH",
