@@ -179,33 +179,10 @@
           "type": "icon-delivery",
           "settings": {
             "icon_name_delivery": "icon-award",
-            "image-delivery": "shopify://shop_images/Frame_11_1.png",
             "icon_size_delivery": 42,
             "icon_color_delivery": "#4b4b4b",
             "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "padding_bottom_delivery": 8
-          }
-        },
-        "icon_EC9RhA": {
-          "type": "icon",
-          "settings": {
-            "icon_name": "icon-truck",
-            "image": "shopify://shop_images/Frame_12_1.png",
-            "icon_size": 42,
-            "icon_color": "#4b4b4b",
-            "text": "<p><strong>100 Day free trial</strong></p>",
-            "padding_bottom": 20
-          }
-        },
-        "icon_Eafi8h": {
-          "type": "icon",
-          "settings": {
-            "icon_name": "icon-truck",
-            "image": "shopify://shop_images/Frame_13_1.png",
-            "icon_size": 42,
-            "icon_color": "#4b4b4b",
-            "text": "<p><strong>MEChanical, soft goods & ELectronicS warranty included. </strong><span style=\"text-decoration:underline\"><strong>LEARN MORE</strong></span><strong>.</strong></p>",
-            "padding_bottom": 20
           }
         },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
@@ -259,8 +236,6 @@
         "liquid_3azAi3",
         "buttons",
         "icon_delivery_Dg86V6",
-        "icon_EC9RhA",
-        "icon_Eafi8h",
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK",
         "upsell",
         "pickup",
