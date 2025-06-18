@@ -2994,7 +2994,8 @@
   
   .icon-list-wrapper {
     display: flex;
-    gap: 20px;
+     gap: 0px;
+    justify-content: space-evenly;
   }
   
   /* Row layout (horizontal) */
@@ -3005,7 +3006,6 @@
   
   .product__block__icon-list.icon-list-row .icon-list-item {
     flex: 1;
-    min-width: 150px;
   }
   
   /* Stack layout (vertical) */
@@ -3020,8 +3020,8 @@
   /* Icon positioning - Left of text */
   .product__block__icon-list.icon-left .icon-list-item {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
+    align-items: center;
+    gap: 7px;
   }
   
   .product__block__icon-list.icon-left .icon-holder {
@@ -3072,7 +3072,6 @@
   
   .product__block__icon-list .icon-text {
     font-size: 14px;
-    line-height: 1.4;
   }
   
   /* Mobile responsiveness */
