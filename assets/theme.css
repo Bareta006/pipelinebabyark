@@ -16970,15 +16970,24 @@ html.js
 .product-tabs .tab-link:last-child {
   margin-right: 0;
 }
+/*.product-tabs .tab-link.current {
+  border-bottom-color: currentcolor;
+}*/
 .product-tabs .tab-link.current {
   border-bottom-color: currentcolor;
+  border-bottom:none;
 }
 .product-tabs .tabs__arrow {
   overflow: hidden;
 }
-.product-tabs__head {
+/*.product-tabs__head {
   padding-bottom: 16px;
   margin-bottom: -13px;
+}*/
+.product-tabs__head {
+    padding-bottom: 10px;
+    margin-bottom: 0px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
 }
 /* Tabs Collections */
 .tabs-collections .tabs,
