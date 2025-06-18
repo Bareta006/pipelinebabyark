@@ -71,6 +71,7 @@
         },
         "liquid_TaxeUj": {
           "type": "liquid",
+          "disabled": true,
           "settings": {
             "custom_liquid": "{% render 'product-page-bullets',\n  title: 'PEACE OF MIND, EVERY RIDE.',\n  bullet_1: 'Where comfort meets convenience - your baby will love it.',\n  bullet_2: 'Guided step-by-step installation',\n  bullet_3: 'Life-saving real-time alerts'\n%}"
           }
@@ -91,7 +92,7 @@
             "enable_custom_first": true,
             "custom_first_title": "Overview",
             "custom_first_icon": "",
-            "custom_first_content": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
+            "custom_first_content": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p><ul><li>A happy child, every ride with soothing comfort.</li><li>Guided step-by-step installation</li><li>Life-saving real-time alerts</li></ul>",
             "enable_description": true,
             "read_more": false,
             "icon_description": "",
@@ -111,6 +112,13 @@
             "title_5": "",
             "icon_name_5": "",
             "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "text_y8iJL4": {
+          "type": "text",
+          "settings": {
+            "title": "<p>Product text</p>",
             "padding_bottom": 20
           }
         },
@@ -228,6 +236,7 @@
         "liquid_TaxeUj",
         "variants",
         "description",
+        "text_y8iJL4",
         "outofstock_message_Kjz6w3",
         "subscriptions",
         "quantity",
