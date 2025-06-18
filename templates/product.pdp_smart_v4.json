@@ -115,6 +115,29 @@
             "padding_bottom": 20
           }
         },
+        "icon_list_W8WCcy": {
+          "type": "icon-list",
+          "settings": {
+            "layout_style": "icon-list-row",
+            "icon_position": "icon-left",
+            "icon_size": 26,
+            "icon_color": "#4b4b4b",
+            "icon_name_1": "icon-award",
+            "image_1": "shopify://shop_images/Group_29613095_1.svg",
+            "text_1": "<p>Free Delivery</p>",
+            "icon_name_2": "",
+            "image_2": "shopify://shop_images/Group_29613100_1.svg",
+            "text_2": "<p>Free Trial</p>",
+            "icon_name_3": "",
+            "image_3": "shopify://shop_images/Group_29613097_1.svg",
+            "text_3": "<p>Free Warranty</p>",
+            "icon_name_4": "",
+            "text_4": "",
+            "icon_name_5": "",
+            "text_5": "",
+            "padding_bottom": 20
+          }
+        },
         "outofstock_message_Kjz6w3": {
           "type": "outofstock-message",
           "settings": {
@@ -229,6 +252,7 @@
         "liquid_TaxeUj",
         "variants",
         "description",
+        "icon_list_W8WCcy",
         "outofstock_message_Kjz6w3",
         "subscriptions",
         "quantity",
