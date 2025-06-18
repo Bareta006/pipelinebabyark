@@ -115,13 +115,6 @@
             "padding_bottom": 20
           }
         },
-        "text_y8iJL4": {
-          "type": "text",
-          "settings": {
-            "title": "<p>Product text</p>",
-            "padding_bottom": 20
-          }
-        },
         "outofstock_message_Kjz6w3": {
           "type": "outofstock-message",
           "settings": {
@@ -236,7 +229,6 @@
         "liquid_TaxeUj",
         "variants",
         "description",
-        "text_y8iJL4",
         "outofstock_message_Kjz6w3",
         "subscriptions",
         "quantity",
