@@ -165,6 +165,10 @@
           "type": "description",
           "settings": {
             "style": "accordions",
+            "enable_custom_first": true,
+            "custom_first_title": "Custom Section",
+            "custom_first_icon": "",
+            "custom_first_content": "<p>This is a custom section that appears first in your tabs or accordions.</p>",
             "enable_description": true,
             "read_more": false,
             "icon_description": "",
