@@ -163,6 +163,63 @@
       {%- endif -%}
     {%- endif -%}
 
+    {%- comment -%} Add product description after custom first section {%- endcomment -%}
+    {%- if product_description_content != blank and block.settings.enable_description -%}
+      {% assign block_id = block.id | append: '-main' %}
+      {%- assign should_open_description = false -%}
+      {%- if block.settings.description_expanded -%}
+        {%- comment -%} Only open description if custom first section is not enabled {%- endcomment -%}
+        {%- if block.settings.enable_custom_first == false -%}
+          {%- assign should_open_description = true -%}
+        {%- endif -%}
+      {%- endif -%}
+      
+      {%- capture accordion_blocks_html -%}
+        {{ accordion_blocks_html }}
+        <div class="accordion__wrapper">
+          <button class="accordion__title js {% if should_open_description %} accordion-is-open{% endif %}"
+            data-accordion-trigger="{{ block_id }}"
+            aria-controls="{{ block_id }}"
+            aria-haspopup="true"
+            aria-expanded="{{ should_open_description }}">
+            {%- render 'icon-setting', filename: block.settings.icon_description -%}
+            {{ 'products.general.description' | t }}
+          </button>
+
+          <input type="checkbox"
+            name="accordion-{{ block_id }}"
+            id="accordion-{{ block_id }}-checkbox"
+            class="no-js no-js-checkbox"
+            {% if should_open_description %}checked{% endif %}>
+
+          <label for="accordion-{{ block_id }}-checkbox" class="accordion__title no-js">
+            {%- render 'icon-setting', filename: block.settings.icon_description -%}
+            {{ 'products.general.description' | t }}
+          </label>
+
+          <div class="accordion__body no-js-accordion" id="{{ block_id }}" data-accordion-body>
+            <div class="accordion-content__holder {% if block.settings.read_more %}accordion-content__holder--truncate{% endif %}" {% if block.settings.read_more %}data-truncated-holder{% endif %}>
+              <div class="accordion-content__inner">
+                <div class="accordion-content__entry" {% if block.settings.read_more %}data-truncated-content="accordion-content__entry--truncate"{% endif %}>
+                  {% if block.settings.read_more %}
+                    {{ product_description_content }}
+                  {% else %}
+                    {{ product.description }}
+                  {% endif %}
+                </div>
+              </div>
+
+              {% if block.settings.read_more %}
+                <div class="accordion-content__actions">
+                  {{ truncate_html }}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {%- endcapture -%}
+    {%- endif -%}
+
     {%- for i in (1..5) -%}
       {%- assign _title = 'title_' | append: forloop.index -%}
       {%- assign _title = block.settings[_title] -%}
@@ -207,59 +264,6 @@
         {%- endcapture -%}
       {%- endif -%}
     {%- endfor -%}
-
-    {%- if product_description_content != blank and block.settings.enable_description -%}
-      {% assign block_id = block.id | append: '-main' %}
-      {%- assign should_open_description = false -%}
-      {%- if block.settings.description_expanded -%}
-        {%- comment -%} Only open description if custom first section is not enabled {%- endcomment -%}
-        {%- if block.settings.enable_custom_first == false -%}
-          {%- assign should_open_description = true -%}
-        {%- endif -%}
-      {%- endif -%}
-      
-      <div class="accordion__wrapper">
-        <button class="accordion__title js {% if should_open_description %} accordion-is-open{% endif %}"
-          data-accordion-trigger="{{ block_id }}"
-          aria-controls="{{ block_id }}"
-          aria-haspopup="true"
-          aria-expanded="{{ should_open_description }}">
-          {%- render 'icon-setting', filename: block.settings.icon_description -%}
-          {{ 'products.general.description' | t }}
-        </button>
-
-        <input type="checkbox"
-          name="accordion-{{ block_id }}"
-          id="accordion-{{ block_id }}-checkbox"
-          class="no-js no-js-checkbox"
-          {% if should_open_description %}checked{% endif %}>
-
-        <label for="accordion-{{ block_id }}-checkbox" class="accordion__title no-js">
-          {%- render 'icon-setting', filename: block.settings.icon_description -%}
-          {{ 'products.general.description' | t }}
-        </label>
-
-        <div class="accordion__body no-js-accordion" id="{{ block_id }}" data-accordion-body>
-          <div class="accordion-content__holder {% if block.settings.read_more %}accordion-content__holder--truncate{% endif %}" {% if block.settings.read_more %}data-truncated-holder{% endif %}>
-            <div class="accordion-content__inner">
-              <div class="accordion-content__entry" {% if block.settings.read_more %}data-truncated-content="accordion-content__entry--truncate"{% endif %}>
-                {% if block.settings.read_more %}
-                  {{ product_description_content }}
-                {% else %}
-                  {{ product.description }}
-                {% endif %}
-              </div>
-            </div>
-
-            {% if block.settings.read_more %}
-              <div class="accordion-content__actions">
-                {{ truncate_html }}
-              </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    {%- endif -%}
 
     {{ accordion_blocks_html }}
   </div>
