@@ -51,13 +51,6 @@
             "padding_bottom": 0
           }
         },
-        "text_awD4cw": {
-          "type": "text",
-          "settings": {
-            "title": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
-            "padding_bottom": 20
-          }
-        },
         "price": {
           "type": "price",
           "settings": {
@@ -96,9 +89,9 @@
           "settings": {
             "style": "tabs",
             "enable_custom_first": true,
-            "custom_first_title": "Custom Section",
+            "custom_first_title": "Overview",
             "custom_first_icon": "",
-            "custom_first_content": "<p>This is a custom section that appears first in your tabs or accordions.</p>",
+            "custom_first_content": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p>",
             "enable_description": true,
             "read_more": false,
             "icon_description": "",
@@ -230,7 +223,6 @@
         "title",
         "judge_me_reviews_preview_badge_VYMFNW",
         "custom_buttons_nDM4gY",
-        "text_awD4cw",
         "price",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "liquid_TaxeUj",
