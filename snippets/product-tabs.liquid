@@ -11,16 +11,39 @@
   {%- assign tab_contents_html = '' -%}
   {%- assign count = 0 -%}
 
+  {%- comment -%} Add custom first section if enabled {%- endcomment -%}
+  {%- if block.settings.enable_custom_first and block.settings.custom_first_title != blank -%}
+    {%- assign custom_first_content_stripped = block.settings.custom_first_content | strip_html | strip -%}
+    {%- if custom_first_content_stripped != blank -%}
+      {%- capture tab_links_html -%}
+        <button type="button" class="tab-link tab-link-0" data-block-id="{{ section.id | append: '-custom-first' }}" data-focus-element data-tab="0" tabindex="0" data-attributes-placeholder>
+          {%- render 'icon-setting', filename: block.settings.custom_first_icon -%}
+          {{ block.settings.custom_first_title }}
+        </button>
+      {%- endcapture -%}
+
+      {%- capture tab_contents_html -%}
+        <div class="tab-content tab-content-0">
+          {{ block.settings.custom_first_content }}
+        </div>
+      {%- endcapture -%}
+
+      {%- assign count = 1 -%}
+    {%- endif -%}
+  {%- endif -%}
+
   {%- if product_description_content != blank and block.settings.enable_description -%}
     {%- capture tab_links_html -%}
-      <button type="button" class="tab-link tab-link-0" data-block-id="{{ section.id | append: '-0' }}" data-focus-element data-tab="0" tabindex="0" data-attributes-placeholder>
+      {{ tab_links_html }}
+      <button type="button" class="tab-link tab-link-{{ count }}" data-block-id="{{ section.id | append: '-0' }}" data-focus-element data-tab="{{ count }}" tabindex="0" data-attributes-placeholder>
         {%- render 'icon-setting', filename: block.settings.icon_description -%}
         {{ 'products.general.description' | t }}
       </button>
     {%- endcapture -%}
 
     {%- capture tab_contents_html -%}
-      <div class="tab-content tab-content-0">
+      {{ tab_contents_html }}
+      <div class="tab-content tab-content-{{ count }}">
         <div class="tab-content__holder {% if block.settings.read_more %}tab-content__holder--truncate{% endif %}" {% if block.settings.read_more %}data-truncated-holder{% endif %} >
           <div class="tab-content__inner">
             <div class="tab-content__entry" {% if block.settings.read_more %}data-truncated-content="tab-content__entry--truncate"{% endif %}>
@@ -41,7 +64,7 @@
       </div>
     {%- endcapture -%}
 
-    {%- assign count = 1 -%}
+    {%- assign count = count | plus: 1 -%}
   {%- endif -%}
 
   {%- for i in (1..5) -%}
@@ -97,6 +120,48 @@
 {%- elsif block.settings.style == 'accordions' -%}
   <div class="product-accordion" data-accordion-group>
     {%- assign accordion_blocks_html = '' -%}
+    
+    {%- comment -%} Add custom first section if enabled {%- endcomment -%}
+    {%- if block.settings.enable_custom_first and block.settings.custom_first_title != blank -%}
+      {%- assign custom_first_content_stripped = block.settings.custom_first_content | strip_html | strip -%}
+      {%- if custom_first_content_stripped != blank -%}
+        {% assign custom_block_id = block.id | append: '-custom-first' %}
+        {%- assign should_open_custom = false -%}
+        {%- if block.settings.description_expanded and block.settings.enable_description == false -%}
+          {%- assign should_open_custom = true -%}
+        {%- elsif block.settings.description_expanded and block.settings.enable_description == true -%}
+          {%- assign should_open_custom = true -%}
+        {%- endif -%}
+        
+        {%- capture accordion_blocks_html -%}
+          <div class="accordion__wrapper">
+            <button class="accordion__title js {% if should_open_custom %} accordion-is-open{% endif %}"
+              data-accordion-trigger="{{ custom_block_id }}"
+              aria-controls="{{ custom_block_id }}"
+              aria-haspopup="true"
+              aria-expanded="{{ should_open_custom }}">
+              {%- render 'icon-setting', filename: block.settings.custom_first_icon -%}
+              {{ block.settings.custom_first_title }}
+            </button>
+
+            <input type="checkbox"
+              name="accordion-{{ custom_block_id }}"
+              id="accordion-{{ custom_block_id }}-checkbox"
+              class="no-js no-js-checkbox"
+              {% if should_open_custom %}checked{% endif %}>
+
+            <label for="accordion-{{ custom_block_id }}-checkbox" class="accordion__title no-js">
+              {%- render 'icon-setting', filename: block.settings.custom_first_icon -%}
+              {{ block.settings.custom_first_title }}
+            </label>
+
+            <div class="accordion__body no-js-accordion" id="{{ custom_block_id }}" data-accordion-body>
+              {{ block.settings.custom_first_content }}
+            </div>
+          </div>
+        {%- endcapture -%}
+      {%- endif -%}
+    {%- endif -%}
 
     {%- for i in (1..5) -%}
       {%- assign _title = 'title_' | append: forloop.index -%}
@@ -145,12 +210,20 @@
 
     {%- if product_description_content != blank and block.settings.enable_description -%}
       {% assign block_id = block.id | append: '-main' %}
+      {%- assign should_open_description = false -%}
+      {%- if block.settings.description_expanded -%}
+        {%- comment -%} Only open description if custom first section is not enabled {%- endcomment -%}
+        {%- if block.settings.enable_custom_first == false -%}
+          {%- assign should_open_description = true -%}
+        {%- endif -%}
+      {%- endif -%}
+      
       <div class="accordion__wrapper">
-        <button class="accordion__title js {% if block.settings.description_expanded %} accordion-is-open{% endif %}"
+        <button class="accordion__title js {% if should_open_description %} accordion-is-open{% endif %}"
           data-accordion-trigger="{{ block_id }}"
           aria-controls="{{ block_id }}"
           aria-haspopup="true"
-          aria-expanded="{{ block.settings.description_expanded }}">
+          aria-expanded="{{ should_open_description }}">
           {%- render 'icon-setting', filename: block.settings.icon_description -%}
           {{ 'products.general.description' | t }}
         </button>
@@ -159,7 +232,7 @@
           name="accordion-{{ block_id }}"
           id="accordion-{{ block_id }}-checkbox"
           class="no-js no-js-checkbox"
-          {% if block.settings.description_expanded %}checked{% endif %}>
+          {% if should_open_description %}checked{% endif %}>
 
         <label for="accordion-{{ block_id }}-checkbox" class="accordion__title no-js">
           {%- render 'icon-setting', filename: block.settings.icon_description -%}
