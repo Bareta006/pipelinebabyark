@@ -16955,10 +16955,12 @@ html.js
 .product-tabs .tab-link {
   font-family: var(--FONT-STACK-BODY);
   font-style: var(--FONT-STYLE-ACCENT);
-  font-weight: var(--FONT-WEIGHT-ACCENT);
+  /*font-weight: var(--FONT-WEIGHT-ACCENT);*/
+  font-weight: 400;
   font-weight: var(--FONT-WEIGHT-ACCENT-BOLD);
   text-transform: var(--FONT-ACCENT-TRANSFORM);
-  letter-spacing: var(--FONT-ACCENT-LETTER-SPACING);
+  /*letter-spacing: var(--FONT-ACCENT-LETTER-SPACING);*/
+  letter-spacing: 0;
   font-size: calc(var(--font-3) * var(--FONT-ADJUST-ACCENT));
   line-height: var(--leading-normal);
   padding-bottom: 0;
