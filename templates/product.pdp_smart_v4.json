@@ -192,7 +192,7 @@
         "liquid_f6rMhg": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "<style>\n.affirm-as-low-as{\ndisplay:none;\n}\n</style>"
+            "custom_liquid": "<style>\n.affirm-as-low-as{\ndisplay:none;\n}\n</style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  document.querySelectorAll('a[href=\"#affirm\"]').forEach(function (anchor) {\n    anchor.addEventListener('click', function (e) {\n      e.preventDefault();\n      const trigger = document.querySelector('.affirm-modal-trigger');\n      if (trigger) trigger.click();\n    });\n  });\n});\n</script>"
           }
         }
       },
