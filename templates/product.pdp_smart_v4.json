@@ -181,7 +181,7 @@
             "icon_name_delivery": "icon-award",
             "icon_size_delivery": 42,
             "icon_color_delivery": "#4b4b4b",
-            "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong> </strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
+            "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
             "hide_icon_delivery": true,
             "alignment_delivery": "text-center",
             "padding_bottom_delivery": 8
