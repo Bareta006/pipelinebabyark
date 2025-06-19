@@ -191,6 +191,26 @@
             "padding_bottom": 10
           }
         },
+        "new_icon_text_r79Cyi": {
+          "type": "new-icon-text",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/449220883_485935087280419_493514387291092248_n_1.svg",
+            "hide_icon": false,
+            "icon_location": "icon-left",
+            "icon_size": 28,
+            "icon_color": "#4b4b4b",
+            "text": "<p>Pay with friends and family using <strong>Paysquad</strong></p>",
+            "text_align": "text-left",
+            "font_size_desktop": 14,
+            "font_size_mobile": 14,
+            "link_text": "",
+            "link_url": "",
+            "background_color": "#f6f6f6",
+            "border_radius": 10,
+            "padding_bottom": 10
+          }
+        },
         "liquid_f6rMhg": {
           "type": "liquid",
           "settings": {
@@ -213,6 +233,7 @@
         "icon_delivery_Dg86V6",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "new_icon_text_YyJqhw",
+        "new_icon_text_r79Cyi",
         "liquid_f6rMhg"
       ],
       "custom_css": [
