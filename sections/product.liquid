@@ -492,27 +492,29 @@
                 {% when 'icon-delivery' %}
                   {% assign image = block.settings.image-delivery %}
   
-                  <div class="product__block__icon delivery-info" style="--PB: {{ block.settings.padding_bottom_delivery }}px;" {{ block.shopify_attributes }}>
-                    <div class="icon-holder" style="--ICON-SIZE: {{ block.settings.icon_size_delivery }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color_delivery }};">
-                      {%- if image -%}
-                        {% liquid
-                          assign icon_size = block.settings.icon_size_delivery | default: 16
-                          assign icon_width = icon_size
-                          assign icon_width_retina = icon_width | times: 2
-                          assign icon_sizes = icon_width | append: 'px'
-                          assign icon_widths = icon_width | append: ', ' | append: icon_width_retina
-                        %}
-  
-                        {% capture srcset %}
-                          {{ image | image_url: width: icon_width_retina }} 2x,
-                          {{ image | image_url: width: icon_width }}
-                        {% endcapture %}
-  
-                        {%- render 'image' img_object: image, srcset: srcset, width: icon_width -%}
-                      {%- else -%}
-                        {%- render 'icon-setting', filename: block.settings.icon_name_delivery -%}
-                      {%- endif -%}
-                    </div>
+                  <div class="product__block__icon delivery-info {{ block.settings.alignment_delivery }}" style="--PB: {{ block.settings.padding_bottom_delivery }}px;" {{ block.shopify_attributes }}>
+                    {% unless block.settings.hide_icon_delivery %}
+                      <div class="icon-holder" style="--ICON-SIZE: {{ block.settings.icon_size_delivery }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color_delivery }};">
+                        {%- if image -%}
+                          {% liquid
+                            assign icon_size = block.settings.icon_size_delivery | default: 16
+                            assign icon_width = icon_size
+                            assign icon_width_retina = icon_width | times: 2
+                            assign icon_sizes = icon_width | append: 'px'
+                            assign icon_widths = icon_width | append: ', ' | append: icon_width_retina
+                          %}
+    
+                          {% capture srcset %}
+                            {{ image | image_url: width: icon_width_retina }} 2x,
+                            {{ image | image_url: width: icon_width }}
+                          {% endcapture %}
+    
+                          {%- render 'image' img_object: image, srcset: srcset, width: icon_width -%}
+                        {%- else -%}
+                          {%- render 'icon-setting', filename: block.settings.icon_name_delivery -%}
+                        {%- endif -%}
+                      </div>
+                    {% endunless %}
   
                     <p>{{ block.settings.text-delivery | remove: '<p>' | remove: '</p>' }}</p>
                   </div>
@@ -2008,6 +2010,28 @@
         },
         {
           "type": "header",
+          "content": "Display options"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_icon_delivery",
+          "label": "Hide icon",
+          "default": false,
+          "info": "Show only text without the icon"
+        },
+        {
+          "type": "select",
+          "id": "alignment_delivery",
+          "label": "Content alignment",
+          "default": "text-left",
+          "options": [
+            { "value": "text-left", "label": "Left" },
+            { "value": "text-center", "label": "Center" },
+            { "value": "text-right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "header",
           "content": "Block spacing"
         },
         {
@@ -3074,11 +3098,38 @@
   .product__block__icon-list .icon-text {
     font-size: 16px;
   }
+    /* Icon Delivery Alignment Styles */
+  .product__block__icon.delivery-info.text-left {
+    text-align: left;
+    justify-content: flex-start;
+  }
+  
+  .product__block__icon.delivery-info.text-center {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .product__block__icon.delivery-info.text-right {
+    text-align: right;
+    justify-content: flex-end;
+  }
+  
+  /* When icon is hidden, ensure proper text-only display */
+  .product__block__icon.delivery-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .product__block__icon.delivery-info p {
+    margin: 0;
+  }
+  
   /* Mobile responsiveness */
   @media (max-width: 749px) {
     .product__block__icon-list.icon-list-row .icon-list-wrapper {
       
-      gap: 15px;
+       gap: 15px;
     }
     
     .product__block__icon-list.icon-list-row .icon-list-item {
@@ -3091,8 +3142,8 @@
     }
      .product__block__icon-list .icon-text {
     font-size: 14px;
-  }
-  }
+   }
+   }
 </style>
 
 <script>
