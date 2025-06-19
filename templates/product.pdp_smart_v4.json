@@ -188,6 +188,12 @@
             "border_radius": 10,
             "padding_bottom": 10
           }
+        },
+        "liquid_f6rMhg": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<style>\n.affirm-as-low-as{\ndisplay:none;\n}\n</style>"
+          }
         }
       },
       "block_order": [
@@ -204,7 +210,8 @@
         "buttons",
         "icon_delivery_Dg86V6",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
-        "new_icon_text_YyJqhw"
+        "new_icon_text_YyJqhw",
+        "liquid_f6rMhg"
       ],
       "custom_css": [
         ".product__block__icon:nth-of-type(1) p {font-family: var(--FONT-STACK-HEADING);}"
