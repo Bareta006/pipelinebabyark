@@ -182,6 +182,8 @@
             "icon_color": "#4b4b4b",
             "text": "<p>Starting at $62/mo or 0% APR.</p>",
             "text_align": "text-left",
+            "font_size_desktop": 14,
+            "font_size_mobile": 14,
             "link_text": "Check your purchasing power",
             "link_url": "#affirim",
             "background_color": "#f6f6f6",
