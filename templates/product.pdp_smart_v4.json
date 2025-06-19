@@ -180,13 +180,19 @@
             "icon_location": "icon-left",
             "icon_size": 28,
             "icon_color": "#4b4b4b",
-            "text": "<p>Starting at $62/mo or 0% APR.<br/></p>",
+            "text": "<p>Starting at $62/mo or 0% APR.</p>",
             "text_align": "text-left",
             "link_text": "Check your purchasing power",
             "link_url": "#affirim",
             "background_color": "#f6f6f6",
             "border_radius": 10,
             "padding_bottom": 10
+          }
+        },
+        "liquid_f6rMhg": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<style>\n.affirm-as-low-as{\ndisplay:none;\n}\n</style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  document.querySelectorAll('a[href=\"#affirim\"]').forEach(function (anchor) {\n    anchor.addEventListener('click', function (e) {\n      e.preventDefault();\n      const trigger = document.querySelector('.affirm-modal-trigger');\n      if (trigger) trigger.click();\n    });\n  });\n});\n</script>"
           }
         }
       },
@@ -204,7 +210,8 @@
         "buttons",
         "icon_delivery_Dg86V6",
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
-        "new_icon_text_YyJqhw"
+        "new_icon_text_YyJqhw",
+        "liquid_f6rMhg"
       ],
       "custom_css": [
         ".product__block__icon:nth-of-type(1) p {font-family: var(--FONT-STACK-HEADING);}"
