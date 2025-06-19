@@ -518,6 +518,44 @@
   
                     <p>{{ block.settings.text-delivery | remove: '<p>' | remove: '</p>' }}</p>
                   </div>
+              {% when 'new-icon-text' %}
+                <div class="product__block__new-icon-text {{ block.settings.icon_location }} {{ block.settings.text_align }}" 
+                     style="--PB: {{ block.settings.padding_bottom }}px; --BG-COLOR: {{ block.settings.background_color }}; --BORDER-RADIUS: {{ block.settings.border_radius }}px; --ICON-SIZE: {{ block.settings.icon_size }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color }};" 
+                     {{ block.shopify_attributes }}>
+                  <div class="new-icon-text-content">
+                    {% unless block.settings.hide_icon %}
+                      <div class="icon-holder">
+                        {%- if block.settings.image -%}
+                          {% liquid
+                            assign icon_size = block.settings.icon_size | default: 16
+                            assign icon_width = icon_size
+                            assign icon_width_retina = icon_width | times: 2
+                            assign icon_sizes = icon_width | append: 'px'
+                            assign icon_widths = icon_width | append: ', ' | append: icon_width_retina
+                          %}
+
+                          {% capture srcset %}
+                            {{ block.settings.image | image_url: width: icon_width_retina }} 2x,
+                            {{ block.settings.image | image_url: width: icon_width }}
+                          {% endcapture %}
+
+                          {%- render 'image' img_object: block.settings.image, srcset: srcset, width: icon_width -%}
+                        {%- elsif block.settings.icon_name != blank -%}
+                          {%- render 'icon-setting', filename: block.settings.icon_name -%}
+                        {%- endif -%}
+                      </div>
+                    {% endunless %}
+                    
+                    <div class="text-content">
+                      {% if block.settings.text != blank %}
+                        <span class="main-text">{{ block.settings.text | remove: '<p>' | remove: '</p>' }}</span>
+                      {% endif %}
+                      {% if block.settings.link_text != blank and block.settings.link_url != blank %}
+                        <a href="{{ block.settings.link_url }}" class="inline-link">{{ block.settings.link_text }}</a>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
               {% when 'icon-list' %}
                 <div class="product__block__icon-list {{ block.settings.layout_style }} {{ block.settings.icon_position }}" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
                   <div class="icon-list-wrapper" style="--ICON-SIZE: {{ block.settings.icon_size }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color }};">
@@ -2138,6 +2176,170 @@
       ]
     },
     {
+      "type": "new-icon-text",
+      "name": "New icon text",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon settings"
+        },
+        {
+          "type": "select",
+          "id": "icon_name",
+          "label": "Icon",
+          "default": "icon-award",
+          "options": [
+            { "value": "", "label": "No icon" },
+            { "value": "icon-animal", "label": "Animal" },
+            { "value": "icon-animal-paw", "label": "Animal paw" },
+            { "value": "icon-award", "label": "Award" },
+            { "value": "icon-basket-like", "label": "Basket like" },
+            { "value": "icon-basket-return", "label": "Basket return" },
+            { "value": "icon-cart-check", "label": "Cart check" },
+            { "value": "icon-cart-message", "label": "Cart message" },
+            { "value": "icon-chat", "label": "Chat" },
+            { "value": "icon-dollar", "label": "Dollar" },
+            { "value": "icon-earth", "label": "Earth" },
+            { "value": "icon-email", "label": "Email" },
+            { "value": "icon-gluten-free", "label": "Gluten free" },
+            { "value": "icon-iron", "label": "Iron" },
+            { "value": "icon-leaf", "label": "Leaf" },
+            { "value": "icon-legal", "label": "Legal" },
+            { "value": "icon-lock-card", "label": "Lock card" },
+            { "value": "icon-lock-shield", "label": "Lock shield" },
+            { "value": "icon-lock-window", "label": "Lock window" },
+            { "value": "icon-payment", "label": "Payment" },
+            { "value": "icon-phone", "label": "Phone" },
+            { "value": "icon-rating", "label": "Rating" },
+            { "value": "icon-star-rating", "label": "Rating star" },
+            { "value": "icon-recycled", "label": "Recycled" },
+            { "value": "icon-ruler", "label": "Ruler" },
+            { "value": "icon-send", "label": "Send" },
+            { "value": "icon-sewing-machine", "label": "Sewing machine" },
+            { "value": "icon-shipment-world", "label": "Shipment world" },
+            { "value": "icon-shipment", "label": "Shipment" },
+            { "value": "icon-shoes", "label": "Shoes" },
+            { "value": "icon-store", "label": "Store" },
+            { "value": "icon-support-headphones", "label": "Support headphones" },
+            { "value": "icon-thread", "label": "Thread" },
+            { "value": "icon-truck", "label": "Truck" },
+            { "value": "icon-washer", "label": "Washer" },
+            { "value": "icon-water", "label": "Water" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Custom image",
+          "info": "If set, image overrides the icon above"
+        },
+        {
+          "type": "checkbox",
+          "id": "hide_icon",
+          "label": "Hide icon",
+          "default": false,
+          "info": "Show only text without the icon"
+        },
+        {
+          "type": "select",
+          "id": "icon_location",
+          "label": "Icon location",
+          "default": "icon-left",
+          "options": [
+            { "value": "icon-left", "label": "Left" },
+            { "value": "icon-right", "label": "Right" },
+            { "value": "icon-top", "label": "Top" }
+          ]
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "label": "Icon size",
+          "unit": "px",
+          "min": 16,
+          "max": 50,
+          "step": 2,
+          "default": 20
+        },
+        {
+          "type": "color",
+          "id": "icon_color",
+          "label": "Icon color",
+          "default": "#4B4B4B"
+        },
+        {
+          "type": "header",
+          "content": "Text settings"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text content",
+          "default": "<p>Your text content here</p>"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Text alignment",
+          "default": "text-left",
+          "options": [
+            { "value": "text-left", "label": "Left" },
+            { "value": "text-center", "label": "Center" },
+            { "value": "text-right", "label": "Right" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Link settings"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "info": "This will appear at the end of your main text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "header",
+          "content": "Styling"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#f8f8f8"
+        },
+        {
+          "type": "range",
+          "id": "border_radius",
+          "label": "Border radius",
+          "unit": "px",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "default": 8
+        },
+        {
+          "type": "header",
+          "content": "Block spacing"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Padding bottom",
+          "default": 20
+        }
+      ]
+    },
+    {
       "type": "icon-list",
       "name": "Icon list",
       "settings": [
@@ -3125,6 +3327,147 @@
     margin: 0;
   }
   
+  /* New Icon Text Block Styles */
+  .product__block__new-icon-text {
+    padding-bottom: var(--PB);
+    background-color: var(--BG-COLOR);
+    border-radius: var(--BORDER-RADIUS);
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .new-icon-text-content {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  /* Icon positioning - Left (default) */
+  .product__block__new-icon-text.icon-left .new-icon-text-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .product__block__new-icon-text.icon-left .icon-holder {
+    flex-shrink: 0;
+    order: 1;
+  }
+  
+  .product__block__new-icon-text.icon-left .text-content {
+    order: 2;
+    flex: 1;
+  }
+  
+  /* Icon positioning - Right */
+  .product__block__new-icon-text.icon-right .new-icon-text-content {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .product__block__new-icon-text.icon-right .icon-holder {
+    flex-shrink: 0;
+    order: 2;
+  }
+  
+  .product__block__new-icon-text.icon-right .text-content {
+    order: 1;
+    flex: 1;
+  }
+  
+  /* Icon positioning - Top */
+  .product__block__new-icon-text.icon-top .new-icon-text-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .product__block__new-icon-text.icon-top .icon-holder {
+    align-self: flex-start;
+  }
+  
+  .product__block__new-icon-text.icon-top .text-content {
+    width: 100%;
+  }
+  
+  /* Text alignment for icon-top layout */
+  .product__block__new-icon-text.icon-top.text-center .new-icon-text-content {
+    align-items: center;
+  }
+  
+  .product__block__new-icon-text.icon-top.text-center .icon-holder {
+    align-self: center;
+  }
+  
+  .product__block__new-icon-text.icon-top.text-right .new-icon-text-content {
+    align-items: flex-end;
+  }
+  
+  .product__block__new-icon-text.icon-top.text-right .icon-holder {
+    align-self: flex-end;
+  }
+  
+  /* Icon styling */
+  .product__block__new-icon-text .icon-holder {
+    width: var(--ICON-SIZE);
+    height: var(--ICON-SIZE);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ICON-STROKE-COLOR);
+  }
+  
+  .product__block__new-icon-text .icon-holder svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .product__block__new-icon-text .icon-holder img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  /* Text content styling */
+  .product__block__new-icon-text .text-content {
+    font-size: 16px;
+    line-height: 1.4;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  
+  .product__block__new-icon-text .main-text {
+    display: inline;
+  }
+  
+  .product__block__new-icon-text .inline-link {
+    display: inline;
+    color: inherit;
+    text-decoration: underline;
+  }
+  
+  .product__block__new-icon-text .inline-link:hover {
+    text-decoration: none;
+  }
+  
+  /* Text alignment classes */
+  .product__block__new-icon-text.text-left .text-content {
+    text-align: left;
+    justify-content: flex-start;
+  }
+  
+  .product__block__new-icon-text.text-center .text-content {
+    text-align: center;
+    justify-content: center;
+  }
+  
+  .product__block__new-icon-text.text-right .text-content {
+    text-align: right;
+    justify-content: flex-end;
+  }
+  
   /* Mobile responsiveness */
   @media (max-width: 749px) {
     .product__block__icon-list.icon-list-row .icon-list-wrapper {
@@ -3142,6 +3485,46 @@
     }
      .product__block__icon-list .icon-text {
     font-size: 14px;
+   }
+   
+   /* New Icon Text mobile styles */
+   .product__block__new-icon-text {
+     padding: 12px;
+   }
+   
+   .product__block__new-icon-text .text-content {
+     font-size: 14px;
+   }
+   
+   /* Stack icon and text on mobile for left/right layouts */
+   .product__block__new-icon-text.icon-left .new-icon-text-content,
+   .product__block__new-icon-text.icon-right .new-icon-text-content {
+     flex-direction: column;
+     align-items: flex-start;
+     gap: 8px;
+   }
+   
+   .product__block__new-icon-text.icon-left .icon-holder,
+   .product__block__new-icon-text.icon-right .icon-holder {
+     order: 1;
+     align-self: flex-start;
+   }
+   
+   .product__block__new-icon-text.icon-left .text-content,
+   .product__block__new-icon-text.icon-right .text-content {
+     order: 2;
+     width: 100%;
+   }
+   
+   /* Maintain text alignment on mobile */
+   .product__block__new-icon-text.text-center.icon-left .icon-holder,
+   .product__block__new-icon-text.text-center.icon-right .icon-holder {
+     align-self: center;
+   }
+   
+   .product__block__new-icon-text.text-right.icon-left .icon-holder,
+   .product__block__new-icon-text.text-right.icon-right .icon-holder {
+     align-self: flex-end;
    }
    }
 </style>
