@@ -520,7 +520,7 @@
                   </div>
               {% when 'new-icon-text' %}
                 <div class="product__block__new-icon-text {{ block.settings.icon_location }} {{ block.settings.text_align }}" 
-                     style="--PB: {{ block.settings.padding_bottom }}px; --BG-COLOR: {{ block.settings.background_color }}; --BORDER-RADIUS: {{ block.settings.border_radius }}px; --ICON-SIZE: {{ block.settings.icon_size }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color }};" 
+                     style="--PB: {{ block.settings.padding_bottom }}px; --BG-COLOR: {{ block.settings.background_color }}; --BORDER-RADIUS: {{ block.settings.border_radius }}px; --ICON-SIZE: {{ block.settings.icon_size }}px; --ICON-STROKE-COLOR: {{ block.settings.icon_color }}; --FONT-SIZE-DESKTOP: {{ block.settings.font_size_desktop }}px; --FONT-SIZE-MOBILE: {{ block.settings.font_size_mobile }}px;" 
                      {{ block.shopify_attributes }}>
                   <div class="new-icon-text-content">
                     {% unless block.settings.hide_icon %}
@@ -548,10 +548,16 @@
                     
                     <div class="text-content">
                       {% if block.settings.text != blank %}
-                        <span class="main-text">{{ block.settings.text | remove: '<p>' | remove: '</p>' }}</span>
-                      {% endif %}
-                      {% if block.settings.link_text != blank and block.settings.link_url != blank %}
-                        <a href="{{ block.settings.link_url }}" class="inline-link">{{ block.settings.link_text }}</a>
+                        <p>
+                          {{ block.settings.text | remove: '<p>' | remove: '</p>' }}
+                          {% if block.settings.link_text != blank and block.settings.link_url != blank %}
+                            <a href="{{ block.settings.link_url }}" class="inline-link">{{ block.settings.link_text }}</a>
+                          {% endif %}
+                        </p>
+                      {% elsif block.settings.link_text != blank and block.settings.link_url != blank %}
+                        <p>
+                          <a href="{{ block.settings.link_url }}" class="inline-link">{{ block.settings.link_text }}</a>
+                        </p>
                       {% endif %}
                     </div>
                   </div>
@@ -2289,6 +2295,26 @@
           ]
         },
         {
+          "type": "range",
+          "id": "font_size_desktop",
+          "label": "Font size (Desktop)",
+          "unit": "px",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "font_size_mobile",
+          "label": "Font size (Mobile)",
+          "unit": "px",
+          "min": 10,
+          "max": 28,
+          "step": 1,
+          "default": 14
+        },
+        {
           "type": "header",
           "content": "Link settings"
         },
@@ -3431,14 +3457,15 @@
   
   /* Text content styling */
   .product__block__new-icon-text .text-content {
-    font-size: 16px;
-    line-height: 1.4;
     display: flex;
     flex-wrap: wrap;
     gap: 4px;
   }
   
-  .product__block__new-icon-text .main-text {
+  .product__block__new-icon-text .text-content p {
+    font-size: var(--FONT-SIZE-DESKTOP);
+    line-height: 1.4;
+    margin: 0;
     display: inline;
   }
   
@@ -3492,8 +3519,8 @@
      padding: 12px;
    }
    
-   .product__block__new-icon-text .text-content {
-     font-size: 14px;
+   .product__block__new-icon-text .text-content p {
+     font-size: var(--FONT-SIZE-MOBILE);
    }
    
    /* Stack icon and text on mobile for left/right layouts */
