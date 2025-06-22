@@ -10,7 +10,7 @@
   <div class="related-card__content">
     <!-- Image Section (35% width) -->
     <div class="related-card__image">
-      {% if card_image != blank and card_image.url %}
+      {% if card_image != blank %}
         <a href="{{ product.url }}" class="related-card__image-link">
           <img src="{{ card_image | image_url: width: 400 }}" alt="{{ product.title }}" loading="lazy">
         </a>
