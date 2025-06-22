@@ -131,7 +131,9 @@
   #shopify-section-{{ section.id }} .icons-grid-carousel {
     position: relative;
   }
-
+  #shopify-section-{{ section.id }} [data-grid] {
+    margin: 0;
+  }
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .flickity-slider > * {
       width: calc(100% / {{ section.settings.mobile_icons_count }}) !important;
