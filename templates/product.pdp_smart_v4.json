@@ -391,7 +391,7 @@
             "icon_alt": "shopify://shop_images/Group_34860.svg",
             "icon_color": "#000000",
             "title": "",
-            "text": "<p>Crash tested according to FMVSS 213</p>",
+            "text": "<p>Crash tested according<br/>to FMVSS 213</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -403,7 +403,7 @@
             "icon_alt": "shopify://shop_images/Group_34864.svg",
             "icon_color": "#AAAAAA",
             "title": "",
-            "text": "<p>In accordance with ISO 16750 and more</p>",
+            "text": "<p>In accordance with ISO<br/>16750 and more</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -427,7 +427,7 @@
             "icon_alt": "shopify://shop_images/Vector_6.svg",
             "icon_color": "#000000",
             "title": "",
-            "text": "<p>FCC & EMC Compliance</p>",
+            "text": "<p>FCC & EMC<br/>Compliance</p>",
             "link_text": "",
             "link_url": ""
           }
