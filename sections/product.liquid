@@ -650,27 +650,26 @@
                     <h3 class="related-cards-title">{{ block.settings.title }}</h3>
                   {% endif %}
                   
-                                      <div class="related-cards-wrapper">
-                      {% if block.settings.product_1 != blank and block.settings.product_1.id %}
-                        {% render 'related-card', product: block.settings.product_1 %}
-                      {% endif %}
+                  <div class="related-cards-wrapper">
+                    {%- for i in (1..5) -%}
+                      {%- case i -%}
+                        {%- when 1 -%}
+                          {%- assign selected_product = block.settings.product_1 -%}
+                        {%- when 2 -%}
+                          {%- assign selected_product = block.settings.product_2 -%}
+                        {%- when 3 -%}
+                          {%- assign selected_product = block.settings.product_3 -%}
+                        {%- when 4 -%}
+                          {%- assign selected_product = block.settings.product_4 -%}
+                        {%- when 5 -%}
+                          {%- assign selected_product = block.settings.product_5 -%}
+                      {%- endcase -%}
                       
-                      {% if block.settings.product_2 != blank and block.settings.product_2.id %}
-                        {% render 'related-card', product: block.settings.product_2 %}
-                      {% endif %}
-                      
-                      {% if block.settings.product_3 != blank and block.settings.product_3.id %}
-                        {% render 'related-card', product: block.settings.product_3 %}
-                      {% endif %}
-                      
-                      {% if block.settings.product_4 != blank and block.settings.product_4.id %}
-                        {% render 'related-card', product: block.settings.product_4 %}
-                      {% endif %}
-                      
-                      {% if block.settings.product_5 != blank and block.settings.product_5.id %}
-                        {% render 'related-card', product: block.settings.product_5 %}
-                      {% endif %}
-                    </div>
+                      {%- if selected_product and selected_product.id -%}
+                        {% render 'related-card', product: selected_product %}
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
                 </div>
             {% endcase %}
           {% endfor %}
