@@ -915,7 +915,7 @@
     "section_liquid_jFhBqR": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.flickity-viewport{\nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.product__grid  .flickity-viewport{ \nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
       }
     }
   },
