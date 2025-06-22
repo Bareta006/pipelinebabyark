@@ -215,11 +215,11 @@
           "type": "related-cards",
           "settings": {
             "product_1": "the-foodie-bundle-1",
-            "product_2": "",
+            "product_2": "the-bases-bundle-1",
             "product_3": "",
             "product_4": "",
             "product_5": "",
-            "title": "Related Products",
+            "title": "Explore Bundles",
             "padding_bottom": 10
           }
         },
