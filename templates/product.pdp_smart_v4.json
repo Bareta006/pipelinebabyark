@@ -452,9 +452,16 @@
         "icon_block_De8Gid",
         "icon_block_bfL6ji"
       ],
+      "custom_css": [
+        "> div > .wrapper {background-color: #f6f6f6; padding: 90px 0;}",
+        ".kicker-flourished:after {display: none;}",
+        "h2 {font-family: \"centrano2\", sans-serif; color: #000; font-size: 34px; font-weight: 400; text-transform: none; letter-spacing: -1.5px;}",
+        "@media (min-width: 960px) {.grid__item {width: 20%; clear: none; } .clearfix {display: none; }}",
+        "@media (max-width: 480px) {> div > .wrapper {padding: 60px 0; }}"
+      ],
       "name": "Icon columns grid",
       "settings": {
-        "title": "",
+        "title": "Complies with the strictest standards",
         "bg": "palette--light bg--neutral",
         "icons_size": 72,
         "icon_alignment": "icon--top",
