@@ -644,6 +644,23 @@
                     </div>
                   </div>
                 </div>
+              {% when 'related-cards' %}
+                <div class="product__block__related-cards" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
+                  {% if block.settings.title != blank %}
+                    <h3 class="related-cards-title">{{ block.settings.title }}</h3>
+                  {% endif %}
+                  
+                  <div class="related-cards-wrapper">
+                    {% for i in (1..5) %}
+                      {% assign product_key = 'product_' | append: i %}
+                      {% assign selected_product = all_products[block.settings[product_key]] %}
+                      
+                      {% if selected_product != blank %}
+                        {% render 'related-card', product: selected_product %}
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
             {% endcase %}
           {% endfor %}
 
@@ -3023,6 +3040,62 @@
           "default": 20
         }
       ]
+    },
+    {
+      "type": "related-cards",
+      "name": "Related cards",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Related products"
+        },
+        {
+          "type": "paragraph",
+          "content": "Select up to 5 products to display in a card format."
+        },
+        {
+          "type": "product",
+          "id": "product_1",
+          "label": "Product 1"
+        },
+        {
+          "type": "product",
+          "id": "product_2",
+          "label": "Product 2"
+        },
+        {
+          "type": "product",
+          "id": "product_3",
+          "label": "Product 3"
+        },
+        {
+          "type": "product",
+          "id": "product_4",
+          "label": "Product 4"
+        },
+        {
+          "type": "product",
+          "id": "product_5",
+          "label": "Product 5"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Related Products"
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 100,
+          "step": 5,
+          "unit": "px",
+          "label": "Bottom spacing",
+          "default": 20
+        }
+      ]
     }
   ]
 }
@@ -3553,6 +3626,145 @@
    .product__block__new-icon-text.text-right.icon-right .icon-holder {
      align-self: flex-end;
    }
+   }
+   
+   /* Related Cards Styling */
+   .product__block__related-cards {
+     padding-bottom: var(--PB);
+   }
+   
+   .related-cards-title {
+     font-size: 24px;
+     font-weight: 600;
+     margin-bottom: 20px;
+     color: var(--color-text);
+   }
+   
+   .related-cards-wrapper {
+     display: flex;
+     flex-direction: column;
+     gap: 16px;
+   }
+   
+   .related-card {
+     background-color: #F6F6F6;
+     border-radius: 10px;
+     padding: 14px;
+     width: 100%;
+   }
+   
+   .related-card__content {
+     display: flex;
+     align-items: flex-start;
+     gap: 24px;
+   }
+   
+   .related-card__image {
+     width: 35%;
+     flex-shrink: 0;
+   }
+   
+   .related-card__image-link {
+     display: block;
+     width: 100%;
+     aspect-ratio: 1;
+     overflow: hidden;
+     border-radius: 6px;
+   }
+   
+   .related-card__image-link img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+   }
+   
+   .related-card__image-placeholder {
+     width: 100%;
+     aspect-ratio: 1;
+     background-color: #e5e5e5;
+     border-radius: 6px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+   }
+   
+   .related-card__text {
+     width: 65%;
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     gap: 8px;
+   }
+   
+   .related-card__title {
+     margin: 0;
+     font-size: 20px;
+     font-weight: 600;
+     line-height: 1.2;
+   }
+   
+   .related-card__title a {
+     color: var(--color-text);
+     text-decoration: none;
+   }
+   
+   .related-card__title a:hover {
+     text-decoration: underline;
+   }
+   
+   .related-card__price {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     font-size: 14px;
+     font-weight: 500;
+   }
+   
+   .related-card__price-compare {
+     color: #999;
+     text-decoration: line-through;
+   }
+   
+   .related-card__price-current {
+     color: var(--color-text);
+   }
+   
+   .related-card__detail {
+     font-size: 14px;
+     color: var(--color-text);
+     line-height: 1.4;
+   }
+   
+   /* Mobile styles for related cards */
+   @media (max-width: 749px) {
+     .related-cards-title {
+       font-size: 20px;
+       margin-bottom: 16px;
+     }
+     
+     .related-cards-wrapper {
+       gap: 12px;
+     }
+     
+     .related-card {
+       padding: 12px;
+     }
+     
+     .related-card__content {
+       gap: 16px;
+     }
+     
+     .related-card__title {
+       font-size: 16px;
+     }
+     
+     .related-card__price {
+       font-size: 12px;
+     }
+     
+     .related-card__detail {
+       font-size: 12px;
+     }
    }
 </style>
 

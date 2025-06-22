@@ -1,0 +1,61 @@
+<!-- /snippets/related-card.liquid -->
+<!-- Usage: {% render 'related-card', product: product_object %} -->
+
+{%- liquid
+  assign card_image = product.metafields.alt.cardimage
+  assign bundle_detail = product.metafields.alt.bundledetail
+-%}
+
+<div class="related-card">
+  <div class="related-card__content">
+    <!-- Image Section (35% width) -->
+    <div class="related-card__image">
+      {% if card_image != blank %}
+        <a href="{{ product.url }}" class="related-card__image-link">
+          {% render 'image',
+            img_object: card_image,
+            alt: product.title,
+            sizes: '200px',
+            loading: 'lazy'
+          %}
+        </a>
+      {% elsif product.featured_image %}
+        <a href="{{ product.url }}" class="related-card__image-link">
+          {% render 'image',
+            img_object: product.featured_image,
+            alt: product.title,
+            sizes: '200px',
+            loading: 'lazy'
+          %}
+        </a>
+      {% else %}
+        <div class="related-card__image-placeholder">
+          <svg width="100%" height="100%" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="#E5E5E5"/>
+            <path d="M20 20H80V80H20V20Z" stroke="#999" stroke-width="2" fill="none"/>
+          </svg>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Text Content Section (65% width) -->
+    <div class="related-card__text">
+      <h4 class="related-card__title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h4>
+      
+      <div class="related-card__price">
+        {% if product.compare_at_price > product.price %}
+          <span class="related-card__price-compare">{{ product.compare_at_price | money }}</span>
+        {% endif %}
+        <span class="related-card__price-current">{{ product.price | money }}</span>
+      </div>
+      
+      {% if bundle_detail != blank %}
+        <div class="related-card__detail">
+          {{ bundle_detail }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div> 
