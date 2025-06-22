@@ -651,14 +651,40 @@
                   {% endif %}
                   
                   <div class="related-cards-wrapper">
-                    {% for i in (1..5) %}
-                      {% assign product_key = 'product_' | append: i %}
-                      {% assign selected_product = all_products[block.settings[product_key]] %}
-                      
+                    {% if block.settings.product_1 != blank %}
+                      {% assign selected_product = all_products[block.settings.product_1] %}
                       {% if selected_product != blank %}
                         {% render 'related-card', product: selected_product %}
                       {% endif %}
-                    {% endfor %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_2 != blank %}
+                      {% assign selected_product = all_products[block.settings.product_2] %}
+                      {% if selected_product != blank %}
+                        {% render 'related-card', product: selected_product %}
+                      {% endif %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_3 != blank %}
+                      {% assign selected_product = all_products[block.settings.product_3] %}
+                      {% if selected_product != blank %}
+                        {% render 'related-card', product: selected_product %}
+                      {% endif %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_4 != blank %}
+                      {% assign selected_product = all_products[block.settings.product_4] %}
+                      {% if selected_product != blank %}
+                        {% render 'related-card', product: selected_product %}
+                      {% endif %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_5 != blank %}
+                      {% assign selected_product = all_products[block.settings.product_5] %}
+                      {% if selected_product != blank %}
+                        {% render 'related-card', product: selected_product %}
+                      {% endif %}
+                    {% endif %}
                   </div>
                 </div>
             {% endcase %}
