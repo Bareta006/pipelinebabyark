@@ -363,10 +363,11 @@
         "icon_block_wXBGEj"
       ],
       "custom_css": [
-        "> .wrapper {background-color: #d5d5d5;}",
+        "> div > .wrapper {background-color: #f6f6f6; padding: 90px 0;}",
         ".kicker-flourished:after {display: none;}",
-        "h2 {font-family: \"centrano2\", sans-serif; color: #848484; font-size: 45px; font-weight: 400; text-transform: none; letter-spacing: -1.35px;}",
-        "@media (min-width: 960px) {.grid__item {width: 20%; clear: none; } .clearfix {display: none; }}"
+        "h2 {font-family: \"centrano2\", sans-serif; color: #000; font-size: 34px; font-weight: 400; text-transform: none; letter-spacing: -1.5px;}",
+        "@media (min-width: 960px) {.grid__item {width: 20%; clear: none; } .clearfix {display: none; }}",
+        "@media (max-width: 480px) {> div > .wrapper {padding: 60px 0; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",
