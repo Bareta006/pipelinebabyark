@@ -27,13 +27,6 @@
             "text_size": 9
           }
         },
-        "text_zYRrii": {
-          "type": "text",
-          "settings": {
-            "richtext": "<p>Tell your brand's story through images.</p>",
-            "text_size": 6
-          }
-        },
         "button_PXcLeB": {
           "type": "button",
           "settings": {
@@ -58,7 +51,6 @@
       "block_order": [
         "kicker_PJ4Jgz",
         "heading_hCyRx4",
-        "text_zYRrii",
         "button_PXcLeB"
       ],
       "custom_css": [
