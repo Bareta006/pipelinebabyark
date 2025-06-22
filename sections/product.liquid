@@ -651,20 +651,25 @@
                   {% endif %}
                   
                   <div class="related-cards-wrapper">
-                    {%- liquid
-                      assign products_to_show = block.settings.product_1 | append: ',' | append: block.settings.product_2 | append: ',' | append: block.settings.product_3 | append: ',' | append: block.settings.product_4 | append: ',' | append: block.settings.product_5
-                      assign products_array = products_to_show | split: ','
-                      
-                      for product_handle in products_array
-                        assign product_handle = product_handle | strip
-                        if product_handle != blank and product_handle != empty
-                          assign selected_product = all_products[product_handle]
-                          if selected_product.id
-                            render 'related-card', product: selected_product
-                          endif
-                        endif
-                      endfor
-                    -%}
+                    {% if block.settings.product_1 %}
+                      {% render 'related-card', product: block.settings.product_1 %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_2 %}
+                      {% render 'related-card', product: block.settings.product_2 %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_3 %}
+                      {% render 'related-card', product: block.settings.product_3 %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_4 %}
+                      {% render 'related-card', product: block.settings.product_4 %}
+                    {% endif %}
+                    
+                    {% if block.settings.product_5 %}
+                      {% render 'related-card', product: block.settings.product_5 %}
+                    {% endif %}
                   </div>
                 </div>
             {% endcase %}
