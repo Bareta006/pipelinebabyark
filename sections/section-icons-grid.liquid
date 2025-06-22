@@ -189,28 +189,9 @@
     }
   {% endif %}
 
-  /* Desktop - hide arrows and carousel, show normal grid */
+  /* Desktop - hide arrows only */
   @media (min-width: 750px) {
     #shopify-section-{{ section.id }} .flickity-button {
-      display: none;
-    }
-    
-    #shopify-section-{{ section.id }} .icons-grid-carousel {
-      display: none;
-    }
-    
-    #shopify-section-{{ section.id }} .icons-grid-normal {
-      display: block;
-    }
-  }
-  
-  /* Mobile - show carousel with arrows, hide normal grid */
-  @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} .icons-grid-carousel {
-      display: block;
-    }
-    
-    #shopify-section-{{ section.id }} .icons-grid-normal {
       display: none;
     }
   }
