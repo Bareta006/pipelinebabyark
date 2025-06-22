@@ -651,23 +651,23 @@
                   {% endif %}
                   
                   <div class="related-cards-wrapper">
-                    {% if block.settings.product_1 %}
+                    {% if block.settings.product_1 != blank %}
                       {% render 'related-card', product: block.settings.product_1 %}
                     {% endif %}
                     
-                    {% if block.settings.product_2 %}
+                    {% if block.settings.product_2 != blank %}
                       {% render 'related-card', product: block.settings.product_2 %}
                     {% endif %}
                     
-                    {% if block.settings.product_3 %}
+                    {% if block.settings.product_3 != blank %}
                       {% render 'related-card', product: block.settings.product_3 %}
                     {% endif %}
                     
-                    {% if block.settings.product_4 %}
+                    {% if block.settings.product_4 != blank %}
                       {% render 'related-card', product: block.settings.product_4 %}
                     {% endif %}
                     
-                    {% if block.settings.product_5 %}
+                    {% if block.settings.product_5 != blank %}
                       {% render 'related-card', product: block.settings.product_5 %}
                     {% endif %}
                   </div>
