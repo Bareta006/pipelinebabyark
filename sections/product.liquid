@@ -645,7 +645,7 @@
                   </div>
                 </div>
               {% when 'related-cards' %}
-                <div class="product__block__related-cards" style="--PB: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
+                <div class="product__block__related-cards" style="--PB: {{ block.settings.padding_bottom }}px;--PT: {{ block.settings.padding_bottom }}px;" {{ block.shopify_attributes }}>
                   {% if block.settings.title != blank %}
                     <h3 class="related-cards-title">{{ block.settings.title }}</h3>
                   {% endif %}
@@ -3641,6 +3641,7 @@
    /* Related Cards Styling */
    .product__block__related-cards {
      padding-bottom: var(--PB);
+     padding-top: var(--PB);
    }
    
    .related-cards-title {
