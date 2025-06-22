@@ -381,6 +381,93 @@
         "padding_bottom": 60
       }
     },
+    "section_icons_grid_jwTBNP": {
+      "type": "section-icons-grid",
+      "blocks": {
+        "icon_block_mbmYVq": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/Group_34860.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Crash tested according to FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_NVBGhC": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_34864.svg",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_ViBgeV": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Group_34862.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>California Proposition <br/>65 & 12</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_De8Gid": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Vector_6.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>FCC & EMC Compliance</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_bfL6ji": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Vector_7.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_mbmYVq",
+        "icon_block_NVBGhC",
+        "icon_block_ViBgeV",
+        "icon_block_De8Gid",
+        "icon_block_bfL6ji"
+      ],
+      "name": "Icon columns grid",
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 72,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "mobile_carousel": true,
+        "mobile_icons_count": 3,
+        "arrow_position": "center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_double_new_U8Re4G": {
       "type": "section-double-new",
       "blocks": {
@@ -920,6 +1007,7 @@
     "main",
     "apps_hXV8Rb",
     "section_icons_3jALpN",
+    "section_icons_grid_jwTBNP",
     "section_double_new_U8Re4G",
     "image-with-text",
     "section_double_LJxgJN",
