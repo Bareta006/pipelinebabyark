@@ -211,6 +211,18 @@
             "padding_bottom": 10
           }
         },
+        "related_cards_ngzUMR": {
+          "type": "related-cards",
+          "settings": {
+            "product_1": "the-foodie-bundle",
+            "product_2": "",
+            "product_3": "",
+            "product_4": "",
+            "product_5": "",
+            "title": "Related Products",
+            "padding_bottom": 10
+          }
+        },
         "liquid_f6rMhg": {
           "type": "liquid",
           "settings": {
@@ -234,6 +246,7 @@
         "affirm_pay_over_time_messaging_product_block_cM8zAB",
         "new_icon_text_YyJqhw",
         "new_icon_text_r79Cyi",
+        "related_cards_ngzUMR",
         "liquid_f6rMhg"
       ],
       "custom_css": [
