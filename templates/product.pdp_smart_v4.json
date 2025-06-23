@@ -250,7 +250,9 @@
         "liquid_f6rMhg"
       ],
       "custom_css": [
-        ".product__block__icon:nth-of-type(1) p {font-family: var(--FONT-STACK-HEADING);}"
+        ".product__block__icon:nth-of-type(1) p {font-family: var(--FONT-STACK-HEADING);}",
+        ".radio__legend__label {display: none;}",
+        ".radio__legend span:not(.radio__legend__label) {padding-left: 0px; border-left: none; margin-left: 0px;}"
       ],
       "settings": {
         "layout": "none@columns",
