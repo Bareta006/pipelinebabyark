@@ -444,7 +444,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block__text__inner {width: 420px; } .brick__block__text {justify-content: center; } .section-padding > .brick__section {flex-direction: row-reverse; }}"
+        "@media (min-width: 960px) {.section-padding > .brick__section {flex-direction: row-reverse; }}"
       ],
       "settings": {
         "height": "use_screen_full",
