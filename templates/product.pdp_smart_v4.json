@@ -444,7 +444,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; padding: 10px 0; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
+        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; padding: 0px 0; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
         "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height {height: 90px; } .brick__block__text .text__standard {padding-top: 10px; padding-bottom: 10px; } .textLeft {font-size: 14px; }}"
       ],
       "settings": {
@@ -477,7 +477,7 @@
         "image": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Group_1597881173.png",
+            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
             "overlay_opacity": 0,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
