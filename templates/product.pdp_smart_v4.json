@@ -21,7 +21,7 @@
         "title": {
           "type": "title",
           "settings": {
-            "text_size": 8,
+            "text_size": 7,
             "product_show_cutline": true,
             "show_rating": false,
             "show_rating_count": false,
