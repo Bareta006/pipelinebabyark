@@ -24,7 +24,7 @@
           <span class="sticky-add-to-cart__price-label">Total: </span>
           <span class="sticky-add-to-cart__price-value">{{ current_variant.price | money }}</span>
         </div>
-        <button class="sticky-add-to-cart__button btn btn--primary btn--large" type="button">
+        <button class="sticky-add-to-cart__button btn btn--large" type="button">
           Add to Cart
         </button>
       </div>
@@ -3686,16 +3686,19 @@
      left: 0;
      right: 0;
      z-index: 1000;
-     background-color: var(--color-bg);
+     background-color: #fff;
      border-bottom: 1px solid var(--color-border);
      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
      transition: transform 0.3s ease-in-out;
    }
-   
+   .sticky-add-to-cart .swatch__button{
+    display: none;
+   }
+
    /* Desktop: stick to top under header */
    @media (min-width: 750px) {
      .sticky-add-to-cart[data-sticky-desktop="true"] {
-       top: var(--header-height, 60px);
+       top: var(--menu-height, 60px);
        transform: translateY(-100%);
      }
      
@@ -3732,7 +3735,6 @@
      align-items: center;
      justify-content: space-between;
      padding: 12px 20px;
-     max-width: 1200px;
      margin: 0 auto;
    }
    
@@ -3775,8 +3777,21 @@
      white-space: nowrap;
      padding: 12px 24px;
      font-size: 14px;
+     font-family: "centrano2", sans-serif;
+         font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0px;
+background-color: #22282D;
+    color: #fff;
+    border-color: #22282D;
+    transition: all 0.3s ease;
    }
-   
+   .sticky-add-to-cart__button:hover{
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+    transition: all 0.3s ease;
+   }
    /* Mobile responsive adjustments */
    @media (max-width: 749px) {
      .sticky-add-to-cart__content {
