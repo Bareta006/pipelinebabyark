@@ -8,6 +8,30 @@
   endif
 -%}
 
+<!-- Sticky Add to Cart Bar -->
+{% if section.settings.enable_sticky_desktop or section.settings.enable_sticky_mobile %}
+  <div id="sticky-add-to-cart" class="sticky-add-to-cart" 
+       data-sticky-desktop="{{ section.settings.enable_sticky_desktop }}"
+       data-sticky-mobile="{{ section.settings.enable_sticky_mobile }}"
+       style="display: none;">
+    <div class="sticky-add-to-cart__content">
+      <div class="sticky-add-to-cart__left">
+        <h3 class="sticky-add-to-cart__title">{{ product.title }}</h3>
+      </div>
+      <div class="sticky-add-to-cart__right">
+        <div class="sticky-add-to-cart__variants" id="stickyLabels"></div>
+        <div class="sticky-add-to-cart__price">
+          <span class="sticky-add-to-cart__price-label">Total: </span>
+          <span class="sticky-add-to-cart__price-value">{{ current_variant.price | money }}</span>
+        </div>
+        <button class="sticky-add-to-cart__button btn btn--primary btn--large" type="button">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
 <div class="product-section section-padding {{ section.settings.bg }}"
   data-product-handle="{{ product.handle }}"
   data-section-id="{{ section.id }}"
@@ -979,6 +1003,24 @@
       "unit": "px",
       "label": "Padding bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Sticky Add to Cart"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_desktop",
+      "label": "Enable sticky add to cart on desktop",
+      "default": false,
+      "info": "Shows sticky add to cart bar at top when main button is out of viewport"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_mobile",
+      "label": "Enable sticky add to cart on mobile",
+      "default": false,
+      "info": "Shows sticky add to cart bar at bottom when main button is out of viewport"
     }
   ],
   "blocks": [
@@ -3638,6 +3680,130 @@
    }
    }
    
+   /* Sticky Add to Cart Styling */
+   .sticky-add-to-cart {
+     position: fixed;
+     left: 0;
+     right: 0;
+     z-index: 1000;
+     background-color: var(--color-bg);
+     border-bottom: 1px solid var(--color-border);
+     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+     transition: transform 0.3s ease-in-out;
+   }
+   
+   /* Desktop: stick to top under header */
+   @media (min-width: 750px) {
+     .sticky-add-to-cart[data-sticky-desktop="true"] {
+       top: var(--header-height, 60px);
+       transform: translateY(-100%);
+     }
+     
+     .sticky-add-to-cart[data-sticky-desktop="true"].show {
+       transform: translateY(0);
+     }
+     
+     .sticky-add-to-cart[data-sticky-desktop="false"] {
+       display: none !important;
+     }
+   }
+   
+   /* Mobile: stick to bottom */
+   @media (max-width: 749px) {
+     .sticky-add-to-cart[data-sticky-mobile="true"] {
+       bottom: 0;
+       top: auto;
+       transform: translateY(100%);
+       border-top: 1px solid var(--color-border);
+       border-bottom: none;
+     }
+     
+     .sticky-add-to-cart[data-sticky-mobile="true"].show {
+       transform: translateY(0);
+     }
+     
+     .sticky-add-to-cart[data-sticky-mobile="false"] {
+       display: none !important;
+     }
+   }
+   
+   .sticky-add-to-cart__content {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     padding: 12px 20px;
+     max-width: 1200px;
+     margin: 0 auto;
+   }
+   
+   .sticky-add-to-cart__left {
+     flex: 1;
+   }
+   
+   .sticky-add-to-cart__title {
+     margin: 0;
+     font-size: 16px;
+     font-weight: 500;
+     line-height: 1.2;
+     color: var(--color-text);
+   }
+   
+   .sticky-add-to-cart__right {
+     display: flex;
+     align-items: center;
+     gap: 16px;
+   }
+   
+   .sticky-add-to-cart__variants {
+     display: flex;
+     gap: 8px;
+   }
+   
+   .sticky-add-to-cart__variants .radio__inputs {
+     pointer-events: none;
+   }
+   
+   .sticky-add-to-cart__price {
+     display: flex;
+     align-items: center;
+     gap: 4px;
+     font-weight: 600;
+     color: var(--color-text);
+   }
+   
+   .sticky-add-to-cart__button {
+     white-space: nowrap;
+     padding: 12px 24px;
+     font-size: 14px;
+   }
+   
+   /* Mobile responsive adjustments */
+   @media (max-width: 749px) {
+     .sticky-add-to-cart__content {
+       padding: 12px 16px;
+       gap: 12px;
+     }
+     
+     .sticky-add-to-cart__left {
+       display: none;
+     }
+     
+     .sticky-add-to-cart__right {
+       flex: 1;
+       justify-content: space-between;
+       gap: 12px;
+     }
+     
+     .sticky-add-to-cart__variants {
+       gap: 6px;
+     }
+     
+     .sticky-add-to-cart__button {
+       padding: 10px 20px;
+       font-size: 14px;
+     }
+   }
+
    /* Related Cards Styling */
    .product__block__related-cards {
      padding-bottom: var(--PB);
@@ -3878,5 +4044,118 @@
         }, 100);
       });
     }
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const stickyBar = document.getElementById('sticky-add-to-cart');
+    if (!stickyBar) return;
+    
+    const isDesktopEnabled = stickyBar.getAttribute('data-sticky-desktop') === 'true';
+    const isMobileEnabled = stickyBar.getAttribute('data-sticky-mobile') === 'true';
+    
+    if (!isDesktopEnabled && !isMobileEnabled) return;
+    
+    const mainAddToCartButton = document.querySelector('.product__submit__buttons button.btn--add-to-cart');
+    const stickyButton = stickyBar.querySelector('.sticky-add-to-cart__button');
+    const stickyVariants = stickyBar.querySelector('#stickyLabels');
+    const stickyPrice = stickyBar.querySelector('.sticky-add-to-cart__price-value');
+    
+    if (!mainAddToCartButton) return;
+    
+    // Copy variant swatches to sticky bar
+    function copyVariantSwatches() {
+      const originalSwatches = document.querySelector('.radio__inputs.radio__inputs--swatch');
+      if (originalSwatches && stickyVariants) {
+        const clonedSwatches = originalSwatches.cloneNode(true);
+        // Remove all input elements from the clone
+        const inputs = clonedSwatches.querySelectorAll('input');
+        inputs.forEach(input => input.remove());
+        
+        stickyVariants.innerHTML = '';
+        stickyVariants.appendChild(clonedSwatches);
+      }
+    }
+    
+    // Update sticky bar when variant changes
+    function updateStickyBar() {
+      // Update price
+      const currentPrice = document.querySelector('.product__price .price__current');
+      if (currentPrice && stickyPrice) {
+        stickyPrice.textContent = currentPrice.textContent;
+      }
+      
+      // Update variant display
+      copyVariantSwatches();
+      
+      // Update selected state in sticky swatches
+      const selectedSwatch = document.querySelector('.radio__inputs--swatch input:checked');
+      if (selectedSwatch) {
+        const swatchValue = selectedSwatch.value;
+        const stickySwatches = stickyVariants.querySelectorAll('.radio__button');
+        stickySwatches.forEach(swatch => {
+          const label = swatch.querySelector('.radio__label');
+          if (label && label.textContent.trim() === swatchValue) {
+            swatch.classList.add('is-checked');
+          } else {
+            swatch.classList.remove('is-checked');
+          }
+        });
+      }
+    }
+    
+    // Intersection Observer to show/hide sticky bar
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const isVisible = entry.isIntersecting;
+        
+        if (isVisible) {
+          stickyBar.classList.remove('show');
+        } else {
+          // Check if we should show based on device
+          const isMobile = window.innerWidth <= 749;
+          const shouldShow = (isMobile && isMobileEnabled) || (!isMobile && isDesktopEnabled);
+          
+          if (shouldShow) {
+            stickyBar.style.display = 'block';
+            stickyBar.classList.add('show');
+          }
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    
+    observer.observe(mainAddToCartButton);
+    
+    // Handle sticky button click
+    if (stickyButton) {
+      stickyButton.addEventListener('click', function() {
+        mainAddToCartButton.click();
+      });
+    }
+    
+    // Listen for variant changes
+    document.addEventListener('variant:change', updateStickyBar);
+    document.addEventListener('change', function(event) {
+      if (event.target.matches('input[data-swatch-input]')) {
+        setTimeout(updateStickyBar, 100);
+      }
+    });
+    
+    // Initial setup
+    copyVariantSwatches();
+    updateStickyBar();
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+      const isMobile = window.innerWidth <= 749;
+      const shouldShow = (isMobile && isMobileEnabled) || (!isMobile && isDesktopEnabled);
+      
+      if (!shouldShow) {
+        stickyBar.classList.remove('show');
+      }
+    });
   });
 </script>
