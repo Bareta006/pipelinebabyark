@@ -444,7 +444,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper,.brick__block__text {padding-left: 0; padding-right: 0; }}"
+        "@media (min-width: 960px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div{gap:100px; }}"
       ],
       "settings": {
         "height": "use_screen_full",
