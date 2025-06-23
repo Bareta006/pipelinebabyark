@@ -471,198 +471,27 @@
         "graphSide_heading": ""
       }
     },
-    "image-with-text": {
-      "type": "section-double",
-      "blocks": {
-        "video_8UFBFR": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Anchored in safety",
-            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "video_8UFBFR",
-        "text"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_double_LJxgJN": {
-      "type": "section-double",
-      "blocks": {
-        "text_hTMywk": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "SafeCoil™ shock absorbing system",
-            "text": "<p>The SafeCoil™ system significantly reduces the force and forward momentum during sudden stops. The system's steel coil elongates from its original mode upon impact, extending the stopping distance of the seat so less forces are transferred to the child’s body.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        },
-        "video_7g3amg": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "text_hTMywk",
-        "video_7g3amg"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "section_double_wMxLWV": {
-      "type": "section-double",
-      "blocks": {
-        "video_d96caf": {
-          "type": "video",
-          "settings": {
-            "video_bg": "shopify://files/videos/side impact.mp4",
-            "object_position": "center-center",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text_RLUN7h": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "BioArk™ side-impact protection system",
-            "text": "<p>babyark’s innovative side-impact protection system is designed with an energy absorbing element that mitigates the impact, diverting forces to the structure of the seat and away from the child’s head.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "video_d96caf",
-        "text_RLUN7h"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block:last-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 530px; max-width: 100%; }}"
-      ],
-      "settings": {
-        "height": "use_screen_full",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
     "image-with-text-2": {
       "type": "section-double",
       "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881173.png",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
         "text": {
           "type": "text",
           "settings": {
@@ -683,32 +512,14 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
-        },
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Frame_446.png",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
         }
       },
       "block_order": [
-        "text",
-        "image"
+        "image",
+        "text"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 43%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 57%; }}"
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 50%; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; }}"
       ],
       "settings": {
         "height": "use_image",
@@ -716,9 +527,9 @@
         "borders": false,
         "bg_color": "",
         "preload_image": false,
-        "width": "wrapper--none",
-        "padding_top": 0,
-        "padding_bottom": 0
+        "width": "wrapper",
+        "padding_top": 20,
+        "padding_bottom": 20
       }
     },
     "section_double_kUy7cV": {
@@ -926,9 +737,6 @@
     "apps_hXV8Rb",
     "section_icons_grid_jwTBNP",
     "section_double_new_U8Re4G",
-    "image-with-text",
-    "section_double_LJxgJN",
-    "section_double_wMxLWV",
     "image-with-text-2",
     "section_double_kUy7cV",
     "17388565930c97fe0d",
