@@ -444,7 +444,7 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; padding: 20px 0 0; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
+        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; padding: 20px 0 0; } .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
         "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height {height: 90px; } .brick__block__text .text__standard {padding-top: 10px; padding-bottom: 10px; } .textLeft {font-size: 14px; }}"
       ],
       "settings": {
@@ -519,7 +519,7 @@
         "text"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; }}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
       ],
       "settings": {
@@ -584,7 +584,7 @@
       ],
       "custom_css": [
         "img {border-radius: 20px;}",
-        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding-right: 60px; } .brick__block:last-child {width: 50%; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; }}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding-right: 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column; }}"
       ],
       "settings": {
