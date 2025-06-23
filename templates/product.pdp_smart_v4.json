@@ -447,7 +447,7 @@
         "@media (min-width: 960px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}"
       ],
       "settings": {
-        "height": "use_screen_full",
+        "height": "use_pixels_650",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "#ffffff",
