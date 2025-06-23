@@ -12,7 +12,7 @@
     "section_liquid_3BhB6X": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: #304545;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n} \n.product__inner .jdgm-preview-badge .jdgm-star.jdgm-star{\ncolor:#000;\n}\n\n.product__block__custom-buttons__text-link a{\nfont-weight:600;\n}\n.product__block__custom-buttons{\nborder-bottom:none !important;\n}\n.product__inner \n .product__block__text p{\ntext-align:center;}\n</style>"
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color: ##22282D;\n  color: #fff;\n  border-color: #304545;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n} \n.product__inner .jdgm-preview-badge .jdgm-star.jdgm-star{\ncolor:#000;\n}\n\n.product__block__custom-buttons__text-link a{\nfont-weight:600;\n}\n.product__block__custom-buttons{\nborder-bottom:none !important;\n}\n.product__inner \n .product__block__text p{\ntext-align:center;}\n</style>"
       }
     },
     "main": {
