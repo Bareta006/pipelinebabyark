@@ -4104,17 +4104,20 @@ background-color: #22282D;
       // Update variant display
       copyVariantSwatches();
       
-      // Update selected state in sticky swatches
+      // Show only selected variant swatch, hide others
       const selectedSwatch = document.querySelector('.radio__inputs--swatch input:checked');
       if (selectedSwatch) {
-        const swatchValue = selectedSwatch.value;
-        const stickySwatches = stickyVariants.querySelectorAll('.radio__button');
+        const selectedValue = selectedSwatch.value;
+        const stickySwatches = stickyVariants.querySelectorAll('.swatch__button');
+        
         stickySwatches.forEach(swatch => {
           const label = swatch.querySelector('.radio__label');
-          if (label && label.textContent.trim() === swatchValue) {
-            swatch.classList.add('is-checked');
+          if (label && label.textContent.trim() === selectedValue) {
+            swatch.style.display = 'block';
+            swatch.parentElement.classList.add('is-checked');
           } else {
-            swatch.classList.remove('is-checked');
+            swatch.style.display = 'none';
+            swatch.parentElement.classList.remove('is-checked');
           }
         });
       }
