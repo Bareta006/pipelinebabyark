@@ -4111,13 +4111,20 @@ background-color: #22282D;
         const stickySwatches = stickyVariants.querySelectorAll('.swatch__button');
         
         stickySwatches.forEach(swatch => {
-          const label = swatch.querySelector('.radio__label');
-          if (label && label.textContent.trim() === selectedValue) {
+          const label = swatch.querySelector('label');
+          const valueSpan = label ? label.querySelector('.value') : null;
+          const swatchData = label ? label.getAttribute('data-swatch') : null;
+          
+          // Try to match either by data-swatch attribute or value span text
+          const matchesValue = (valueSpan && valueSpan.textContent.trim() === selectedValue) || 
+                              (swatchData && swatchData === selectedValue);
+          
+          if (matchesValue) {
             swatch.style.display = 'block';
-            swatch.parentElement.classList.add('is-checked');
+            swatch.classList.add('is-checked');
           } else {
             swatch.style.display = 'none';
-            swatch.parentElement.classList.remove('is-checked');
+            swatch.classList.remove('is-checked');
           }
         });
       }
