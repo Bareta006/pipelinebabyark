@@ -3686,11 +3686,16 @@
      left: 0;
      right: 0;
      z-index: 1000;
-     background-color: #fff;
+     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    background-color: #fff0;
      border-bottom: 1px solid var(--color-border);
      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
      opacity: 0;
      transition: opacity 0.3s ease-in-out;
+     transition: background-color .8s cubic-bezier(.215,.61,.355,1), -webkit-backdrop-filter .5s cubic-bezier(.215,.61,.355,1);
+    transition: backdrop-filter .5s cubic-bezier(.215,.61,.355,1), background-color .8s cubic-bezier(.215,.61,.355,1);
+    transition: backdrop-filter .5s cubic-bezier(.215,.61,.355,1), background-color .8s cubic-bezier(.215,.61,.355,1), -webkit-backdrop-filter .5s cubic-bezier(.215,.61,.355,1);
    }
    .sticky-add-to-cart .swatch__button{
     display: none;
