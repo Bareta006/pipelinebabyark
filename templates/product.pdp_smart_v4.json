@@ -444,7 +444,8 @@
         "animated_graphs_HypByM"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}"
+        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
+        "@media (max-width: 768px) {}"
       ],
       "settings": {
         "height": "use_pixels_650",
@@ -467,7 +468,7 @@
         "button_style": "btn-text-thick-line",
         "text_color": "text--neutral",
         "bg_color_text": "#ffffff",
-        "graphSide_heading": "See the Numbers. Compare the Safety."
+        "graphSide_heading": ""
       }
     },
     "image-with-text": {
