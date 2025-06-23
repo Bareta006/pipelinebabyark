@@ -448,7 +448,7 @@
         "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height {height: 90px; } .brick__block__text .text__standard {padding-top: 10px; padding-bottom: 10px; } .textLeft {font-size: 14px; }}"
       ],
       "settings": {
-        "height": "use_pixels_650",
+        "height": "use_screen_two_thirds",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "#ffffff",
