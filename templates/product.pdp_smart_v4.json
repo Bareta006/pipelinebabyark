@@ -535,26 +535,6 @@
     "section_double_kUy7cV": {
       "type": "section-double",
       "blocks": {
-        "video_P9J8Vf": {
-          "type": "video",
-          "settings": {
-            "object_position": "center-center",
-            "image": "shopify://shop_images/desktop_M6_Babyark_Fabric_and_Hand_desktop_1_3_1_f3b07f31-ff8b-4b84-b10f-07e145eb70c9.png",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 15,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
         "text_7hmDhz": {
           "type": "text",
           "settings": {
@@ -575,14 +555,35 @@
             "text_color": "text--neutral",
             "bg_color": "#ffffff"
           }
+        },
+        "video_P9J8Vf": {
+          "type": "video",
+          "settings": {
+            "object_position": "center-center",
+            "image": "shopify://shop_images/Rectangle_1486127365_1.png",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
         }
       },
       "block_order": [
-        "video_P9J8Vf",
-        "text_7hmDhz"
+        "text_7hmDhz",
+        "video_P9J8Vf"
       ],
       "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 57%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {width: 420px; } .brick__block:last-child {width: 43%; }}"
+        "img {border-radius: 20px;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding-right:60px; } .brick__block:last-child {width: 50%; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; }}"
       ],
       "settings": {
         "height": "use_image",
