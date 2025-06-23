@@ -445,7 +445,7 @@
       ],
       "custom_css": [
         "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; } .section-padding.wrapper, .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
-        "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height{height:100px; }}"
+        "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height {height: 100px; } .brick__block__text .text__standard{padding-top:10px; padding-bottom:10px; }}"
       ],
       "settings": {
         "height": "use_pixels_650",
