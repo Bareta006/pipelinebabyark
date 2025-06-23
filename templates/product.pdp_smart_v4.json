@@ -269,7 +269,9 @@
         "product_breadcrumbs_list": [],
         "width": "wrapper",
         "padding_top": 24,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "enable_sticky_desktop": true,
+        "enable_sticky_mobile": true
       }
     },
     "apps_hXV8Rb": {
