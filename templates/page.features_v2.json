@@ -232,6 +232,11 @@
         "card_gY73mX",
         "card_KemrPb"
       ],
+      "custom_css": [
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; }}"
+      ],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Advanced Engineering",
@@ -308,7 +313,9 @@
         "accordion_item_FpXWfd"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {{background: #fafafa; }}"
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } {background: #fafafa; }}"
       ],
       "name": "Interactive Accordions",
       "settings": {
@@ -323,7 +330,7 @@
         "mobile_text_size": 5,
         "mobile_cards_in_view": 1.1,
         "text_color": "text--neutral",
-        "width": "wrapper--full",
+        "width": "wrapper",
         "padding_top": 80,
         "padding_bottom": 80
       }
@@ -353,7 +360,9 @@
         "card_XeBh7f"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } .wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -368,7 +377,7 @@
         "card_description_size": 6,
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "width": "wrapper--full",
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
