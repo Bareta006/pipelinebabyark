@@ -55,7 +55,7 @@
       {% if enable_add_to_cart %}
         <div class="related-card__add-to-cart-section">
           <div class="related-card__form-wrapper">
-            {%- form 'product', product, class: 'related-card-form', id: 'related-form-' | append: unique_id -%}
+            {%- form 'product', product, class: 'related-card-form', id: unique_id -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-related-product-select="{{ unique_id }}">
               
               {% comment %} Delivery info JSON for this specific product {% endcomment %}
