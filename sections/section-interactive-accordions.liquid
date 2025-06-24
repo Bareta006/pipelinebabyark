@@ -83,7 +83,7 @@
                   controls: true, 
                   autoplay: false, 
                   loop: block.settings.video_loop, 
-                  muted: block.settings.video_muted,
+                  muted: true,
                   playsinline: true,
                   preload: 'metadata',
                   class: 'media-video__native'
@@ -98,7 +98,7 @@
                     {% assign video_id = block.settings.video_url | split: '.be/' | last | split: '?' | first %}
                   {% endif %}
                   <iframe 
-                    src="https://www.youtube.com/embed/{{ video_id }}"
+                    src="https://www.youtube.com/embed/{{ video_id }}?mute=1&enablejsapi=1"
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowfullscreen
@@ -107,7 +107,7 @@
                 {% elsif block.settings.video_url contains 'vimeo' %}
                   {% assign video_id = block.settings.video_url | split: 'vimeo.com/' | last | split: '?' | first %}
                   <iframe 
-                    src="https://player.vimeo.com/video/{{ video_id }}"
+                    src="https://player.vimeo.com/video/{{ video_id }}?muted=1"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
@@ -161,7 +161,7 @@
                     controls: true, 
                     autoplay: false, 
                     loop: block.settings.video_loop, 
-                    muted: block.settings.video_muted,
+                    muted: true,
                     playsinline: true,
                     preload: 'metadata',
                     class: 'mobile-card__video'
@@ -175,7 +175,7 @@
                         {% assign video_id = block.settings.video_url | split: '.be/' | last | split: '?' | first %}
                       {% endif %}
                       <iframe 
-                        src="https://www.youtube.com/embed/{{ video_id }}"
+                        src="https://www.youtube.com/embed/{{ video_id }}?mute=1&enablejsapi=1"
                         frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen
@@ -184,7 +184,7 @@
                     {% elsif block.settings.video_url contains 'vimeo' %}
                       {% assign video_id = block.settings.video_url | split: 'vimeo.com/' | last | split: '?' | first %}
                       <iframe 
-                        src="https://player.vimeo.com/video/{{ video_id }}"
+                        src="https://player.vimeo.com/video/{{ video_id }}?muted=1"
                         frameborder="0"
                         allow="autoplay; fullscreen; picture-in-picture"
                         allowfullscreen
@@ -293,7 +293,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 48px;
+    font-size: 36px;
     max-width: 540px;
     line-height: 120%;
   }
@@ -316,7 +316,9 @@
     transition: all 0.3s ease;
     padding-bottom: 0px;
   }
-
+#shopify-section-{{ section.id }} .accordion__body p{
+  font-size: 20px;
+}
   /* Media Column */
   #shopify-section-{{ section.id }} .media-column {
     position: relative;
