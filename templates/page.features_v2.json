@@ -315,7 +315,7 @@
       "custom_css": [
         ".section__title {font-size: 46px;}",
         ".section__description p {font-size: 20px;}",
-        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; }}"
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } {background: #fafafa; }}"
       ],
       "name": "Interactive Accordions",
       "settings": {
@@ -330,7 +330,7 @@
         "mobile_text_size": 5,
         "mobile_cards_in_view": 1.1,
         "text_color": "text--neutral",
-        "width": "wrapper--full",
+        "width": "wrapper",
         "padding_top": 80,
         "padding_bottom": 80
       }
