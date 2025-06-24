@@ -4305,6 +4305,26 @@ background-color: #22282D;
     // Make functions globally available for related cards
     window.updateRelatedCardVariantDisplay = updateRelatedCardVariantDisplay;
     window.updateRelatedCardDeliveryInputs = updateRelatedCardDeliveryInputs;
+
+    // Debug cart popdown for related cards
+    document.addEventListener("theme:cart:popdown", function(e) {
+      console.log("🎯 Cart popdown event triggered:", e.detail);
+      
+      // Check if cart drawer element exists
+      const cartDrawerClickable = document.querySelector(".navlink--cart");
+      console.log("🛒 Cart drawer clickable element:", cartDrawerClickable);
+      
+      if (cartDrawerClickable) {
+        console.log("✅ Found cart drawer element, will click it");
+        // Add a small delay to ensure the click happens after the event
+        setTimeout(() => {
+          cartDrawerClickable.click();
+          console.log("🔥 Cart drawer clicked!");
+        }, 100);
+      } else {
+        console.error("❌ Cart drawer element not found!");
+      }
+    });
   });
 </script>
 
