@@ -690,7 +690,7 @@
                       {%- endcase -%}
                       
                       {%- if selected_product and selected_product.id -%}
-                        {% render 'related-card', product: selected_product %}
+                        {% render 'related-card', product: selected_product, enable_add_to_cart: block.settings.enable_add_to_cart %}
                       {%- endif -%}
                     {%- endfor -%}
                   </div>
@@ -3139,20 +3139,207 @@
         },
         {
           "type": "range",
-          "id": "padding_bottom",
-          "min": 0,
-          "max": 100,
-          "step": 5,
-          "unit": "px",
-          "label": "Bottom spacing",
-          "default": 20
-        }
-      ]
-    }
-  ]
+          "id":         "padding_bottom",
+        "min": 0,
+        "max": 100,
+        "step": 5,
+        "unit": "px",
+        "label": "Bottom spacing",
+        "default": 20
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_add_to_cart",
+        "label": "Enable add to cart functionality",
+        "default": false,
+        "info": "When enabled, each related product will have a checkbox to add an ATC button with variant selection"
+      }
+    ]
+  }
+]
 }
 
 {% endschema %}
+
+<script>
+  // Related Cards Enhanced ATC Functionality
+  function toggleRelatedCardATC(uniqueId) {
+    const checkbox = document.getElementById('enable-atc-' + uniqueId);
+    const atcForm = document.getElementById('atc-form-' + uniqueId);
+    
+    if (checkbox.checked) {
+      atcForm.style.display = 'block';
+    } else {
+      atcForm.style.display = 'none';
+    }
+  }
+
+  function updateRelatedVariantDisplay(selectElement, uniqueId) {
+    // Get the selected option
+    const selectedOption = selectElement.options[selectElement.selectedIndex];
+    
+    // Update image
+    const variantImage = selectedOption.getAttribute('data-variant-image');
+    if (variantImage) {
+      const currentImage = document.getElementById('related-variant-image-' + uniqueId);
+      if (currentImage) {
+        currentImage.src = variantImage;
+      }
+    }
+    
+    // Update price
+    const priceDisplay = document.getElementById('related-price-display-' + uniqueId);
+    if (priceDisplay) {
+      const variantPrice = selectedOption.getAttribute('data-variant-price');
+      const variantComparePrice = selectedOption.getAttribute('data-variant-compare-price');
+      const variantOnSale = selectedOption.getAttribute('data-variant-on-sale') === 'true';
+      
+      if (variantOnSale) {
+        priceDisplay.innerHTML = `
+          <span class="related-card__price-compare">${variantComparePrice}</span>
+          <span class="related-card__price-current">${variantPrice}</span>
+        `;
+      } else {
+        priceDisplay.innerHTML = `<span class="related-card__price-current">${variantPrice}</span>`;
+      }
+    }
+    
+    // Update delivery info based on selected variant
+    updateRelatedDeliveryInputs(selectElement, uniqueId);
+  }
+
+  function updateRelatedDeliveryInputs(selectElement, uniqueId) {
+    // Get JSON data from the script tag
+    const deliveryInfoElement = document.getElementById('related-delivery-info-' + uniqueId);
+    if (!deliveryInfoElement) {
+      console.log('Related delivery info JSON not found for unique ID ' + uniqueId);
+      return;
+    }
+    
+    let deliveryInfo;
+    try {
+      deliveryInfo = JSON.parse(deliveryInfoElement.textContent);
+    } catch (error) {
+      console.log('Error parsing related delivery info JSON:', error);
+      return;
+    }
+    
+    // Get selected variant ID
+    const variantId = parseInt(selectElement.value, 10);
+    
+    // Find variant data if available
+    const variantData = deliveryInfo.variants.find(variant => variant.id === variantId);
+    
+    // Determine which data to use (variant-specific or general product)
+    const deliveryData = variantData || deliveryInfo.product;
+    
+    // Get the form to work within
+    const form = selectElement.closest('form');
+    if (!form) {
+      console.log('Form not found for related card ' + uniqueId);
+      return;
+    }
+    
+    // Get existing delivery inputs
+    let deliveryTimeInputs = form.querySelectorAll('input[name="deliveryTime"]');
+    let deliveryDateInputs = form.querySelectorAll('input[name="deliveryDate"]');
+    
+    // Clear ALL existing delivery inputs
+    deliveryTimeInputs.forEach(input => input.remove());
+    deliveryDateInputs.forEach(input => input.remove());
+    
+    // Create new input based on available data (following same logic as main product page)
+    if (deliveryData.delivery_estimated_date) {
+      // Use variant-specific deliveryDate FIRST
+      const newInput = document.createElement('input');
+      newInput.type = 'hidden';
+      newInput.name = 'deliveryDate';
+      newInput.value = deliveryData.delivery_estimated_date;
+      newInput.setAttribute('data-related-delivery-date-input', uniqueId);
+      form.appendChild(newInput);
+    } else if (deliveryData.delivery_time) {
+      // Use product deliveryTime SECOND
+      const newInput = document.createElement('input');
+      newInput.type = 'hidden';
+      newInput.name = 'deliveryTime';
+      newInput.value = deliveryData.delivery_time;
+      newInput.setAttribute('data-related-delivery-time-input', uniqueId);
+      form.appendChild(newInput);
+    } else if (deliveryData.estimated_date) {
+      // Use product estimated_date THIRD
+      const newInput = document.createElement('input');
+      newInput.type = 'hidden';
+      newInput.name = 'deliveryDate';
+      newInput.value = deliveryData.estimated_date;
+      newInput.setAttribute('data-related-delivery-date-input', uniqueId);
+      form.appendChild(newInput);
+    }
+  }
+
+  async function handleRelatedCardATC(event, uniqueId) {
+    event.preventDefault();
+    
+    const form = event.target.closest('form');
+    const spinner = document.getElementById('spinner-' + uniqueId);
+    const button = event.target;
+    
+    // Show loading state
+    spinner.style.display = 'inline-block';
+    button.disabled = true;
+    
+    try {
+      const formData = new FormData(form);
+      
+      const response = await fetch('/cart/add.js', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (response.ok) {
+        const data = await response.json();
+        
+        // Show success feedback
+        const originalText = button.textContent;
+        button.textContent = 'Added!';
+        button.style.backgroundColor = '#28a745';
+        
+        // Reset button after 2 seconds
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '#22282D';
+        }, 2000);
+        
+        // Refresh cart drawer if it exists
+        if (typeof refreshCart === 'function') {
+          refreshCart();
+        }
+        
+        // Trigger cart update events
+        document.dispatchEvent(new CustomEvent('cart:updated'));
+        
+      } else {
+        throw new Error('Failed to add to cart');
+      }
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      
+      // Show error feedback
+      const originalText = button.textContent;
+      button.textContent = 'Error';
+      button.style.backgroundColor = '#dc3545';
+      
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.style.backgroundColor = '#22282D';
+      }, 2000);
+    } finally {
+      // Hide loading state
+      spinner.style.display = 'none';
+      button.disabled = false;
+    }
+  }
+</script>
 
 <script src="{{ 'variant-image-filter.js' | asset_url }}" defer="defer"></script>
 
@@ -3937,6 +4124,108 @@ background-color: #22282D;
      color: var(--color-text);
      line-height: 1.4;
    }
+
+   /* Enhanced Related Cards ATC Styling */
+   .related-card__add-to-cart-section {
+     margin-top: 12px;
+     padding-top: 12px;
+     border-top: 1px solid #e0e0e0;
+   }
+
+   .related-card__checkbox-wrapper {
+     display: flex;
+     align-items: center;
+     gap: 8px;
+     margin-bottom: 12px;
+   }
+
+   .related-card__enable-checkbox {
+     width: 16px;
+     height: 16px;
+     cursor: pointer;
+   }
+
+   .related-card__checkbox-label {
+     font-size: 14px;
+     cursor: pointer;
+     color: var(--color-text);
+   }
+
+   .related-card__atc-form {
+     border-top: 1px solid #ddd;
+     padding-top: 12px;
+     margin-top: 8px;
+   }
+
+   .related-card__form-wrapper {
+     display: flex;
+     flex-direction: column;
+     gap: 12px;
+   }
+
+   .related-card__variants {
+     margin-bottom: 8px;
+   }
+
+   .related-card__variant-select {
+     width: 100%;
+     padding: 8px 12px;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+     background-color: #fff;
+     font-size: 14px;
+     color: var(--color-text);
+   }
+
+   .related-card__variant-select:focus {
+     outline: none;
+     border-color: var(--color-primary);
+   }
+
+   .related-card__add-button {
+     width: 100%;
+     padding: 10px 16px;
+     background-color: #22282D;
+     color: #fff;
+     border: 1px solid #22282D;
+     border-radius: 4px;
+     font-size: 14px;
+     font-weight: 600;
+     text-transform: uppercase;
+     cursor: pointer;
+     transition: all 0.3s ease;
+     position: relative;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+   }
+
+   .related-card__add-button:hover {
+     background-color: #000;
+     border-color: #000;
+   }
+
+   .related-card__add-button:disabled {
+     background-color: #ccc;
+     border-color: #ccc;
+     cursor: not-allowed;
+   }
+
+   .related-card__spinner {
+     display: inline-block;
+     width: 16px;
+     height: 16px;
+     border: 2px solid transparent;
+     border-top: 2px solid currentColor;
+     border-radius: 50%;
+     animation: spin 1s linear infinite;
+   }
+
+   @keyframes spin {
+     0% { transform: rotate(0deg); }
+     100% { transform: rotate(360deg); }
+   }
    
    /* Mobile styles for related cards */
    @media (max-width: 749px) {
@@ -3967,6 +4256,20 @@ background-color: #22282D;
      
      .related-card__detail {
        font-size: 12px;
+     }
+
+     .related-card__checkbox-label {
+       font-size: 12px;
+     }
+
+     .related-card__variant-select {
+       font-size: 12px;
+       padding: 6px 10px;
+     }
+
+     .related-card__add-button {
+       font-size: 12px;
+       padding: 8px 12px;
      }
      .product-image-wrapper img{
       border-radius: 10px;
