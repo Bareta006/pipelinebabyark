@@ -1,0 +1,394 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_liquid_3BhB6X": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\nbutton[name=\"add\"] {\n  background-color:#22282D; \n  color: #fff;\n  border-color: #22282D;\nmargin-top:20px;\n}\nbutton[name=\"add\"]:hover{\n  background-color: #000000!important;\n  color: #fff;\n  border-color: #000000;\n}\n.shop-pay-terms {\n  display: none;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n} \n.product__inner .jdgm-preview-badge .jdgm-star.jdgm-star{\ncolor:#000;\n}\n\n.product__block__custom-buttons__text-link a{\nfont-weight:600;\n}\n.product__block__custom-buttons{\nborder-bottom:none !important;\n}\n.product__inner \n .product__block__text p{\ntext-align:center;}\n</style>"
+      }
+    },
+    "main": {
+      "type": "product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+            "text_size": 7,
+            "product_show_cutline": true,
+            "show_rating": false,
+            "show_rating_count": false,
+            "padding_bottom": 10
+          }
+        },
+        "judge_me_reviews_preview_badge_VYMFNW": {
+          "type": "shopify://apps/judge-me-reviews/blocks/preview_badge/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        },
+        "custom_buttons_nDM4gY": {
+          "type": "custom-buttons",
+          "disabled": true,
+          "settings": {
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--black",
+            "button_style": "btn",
+            "link_text_2": "",
+            "link_2": "",
+            "button_color_2": "btn--black",
+            "button_style_2": "btn--outline",
+            "text_link_text": "",
+            "text_link_url": "",
+            "enable_comparison_popup": true,
+            "product_1": "babyark-convertible-car-seat-smart",
+            "product_2": "babyark-convertible-car-seat-classic",
+            "padding_bottom": 0
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+            "price_size": 7,
+            "padding_bottom": 10
+          }
+        },
+        "liquid_TaxeUj": {
+          "type": "liquid",
+          "disabled": true,
+          "settings": {
+            "custom_liquid": "{% render 'product-page-bullets',\n  title: 'PEACE OF MIND, EVERY RIDE.',\n  bullet_1: 'Where comfort meets convenience - your baby will love it.',\n  bullet_2: 'Guided step-by-step installation',\n  bullet_3: 'Life-saving real-time alerts'\n%}"
+          }
+        },
+        "variants": {
+          "type": "variant-selectors",
+          "settings": {
+            "option_size_swatch": 40,
+            "option_size_radio": 50,
+            "option_space": 36,
+            "padding_bottom": 20
+          }
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "style": "tabs",
+            "enable_custom_first": true,
+            "custom_first_title": "Overview",
+            "custom_first_icon": "",
+            "custom_first_content": "<ul><li>Extra car? Buy only an extra base, save money.</li><li>Easily transfer a car seat across vehicles</li><li>SafeCoil ™ technology for superior safety</li></ul>",
+            "enable_description": true,
+            "read_more": false,
+            "icon_description": "",
+            "description_expanded": true,
+            "title_1": "Information",
+            "icon_name_1": "",
+            "raw_content_1": "",
+            "title_2": "FEATURES",
+            "icon_name_2": "",
+            "raw_content_2": "<p>SafeCoil impact-activated shock-absorbing technologyThe only convertible car seat with all three:</p><ol><li>Rigid Latch</li><li>Anti-Rebound Bar to prevent rebound rotation</li><li>Front Supporting Leg to prevent forward rotation.</li></ol><p>Same installation for both front and rear facing positions</p><p>No expiry date</p><p>Inside the box: Classic base, Lower Anchors Funnels (Guides</p>",
+            "title_3": "",
+            "icon_name_3": "",
+            "raw_content_3": "",
+            "title_4": "",
+            "icon_name_4": "",
+            "raw_content_4": "",
+            "title_5": "",
+            "icon_name_5": "",
+            "raw_content_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "icon_list_W8WCcy": {
+          "type": "icon-list",
+          "settings": {
+            "layout_style": "icon-list-row",
+            "icon_position": "icon-left",
+            "icon_size": 26,
+            "icon_color": "#4b4b4b",
+            "icon_name_1": "icon-award",
+            "image_1": "shopify://shop_images/Group_29613095_1.svg",
+            "text_1": "<p>Free Delivery</p>",
+            "icon_name_2": "",
+            "image_2": "shopify://shop_images/Group_29613100_1.svg",
+            "text_2": "<p>Free Trial</p>",
+            "icon_name_3": "",
+            "image_3": "shopify://shop_images/Group_29613097_1.svg",
+            "text_3": "<p>Free Warranty</p>",
+            "icon_name_4": "",
+            "text_4": "",
+            "icon_name_5": "",
+            "text_5": "",
+            "padding_bottom": 20
+          }
+        },
+        "outofstock_message_Kjz6w3": {
+          "type": "outofstock-message",
+          "settings": {
+            "message": "<p><a href=\"/pages/contact\" target=\"_blank\" title=\"Contact\">Contact customer service</a> to find a retail location near you with this color in stock</p>",
+            "padding_bottom": 20
+          }
+        },
+        "liquid_3azAi3": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<div id=\"refprog\"></div>"
+          }
+        },
+        "buttons": {
+          "type": "add-buttons",
+          "settings": {
+            "enable_payment_button": false,
+            "enable_gift_card_recipient": false,
+            "padding_bottom": 20
+          }
+        },
+        "icon_delivery_Dg86V6": {
+          "type": "icon-delivery",
+          "settings": {
+            "icon_name_delivery": "icon-award",
+            "icon_size_delivery": 42,
+            "icon_color_delivery": "#4b4b4b",
+            "text-delivery": "<p>ESTIMATED DELIVERY BETWEEN <strong>{{ product.metafields.delivery.delivery_time.value }}</strong><strong>{{ product.metafields.delivery.estimated_date.value }}</strong></p>",
+            "hide_icon_delivery": true,
+            "alignment_delivery": "text-center",
+            "padding_bottom_delivery": 8
+          }
+        },
+        "affirm_pay_over_time_messaging_product_block_cM8zAB": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
+        "new_icon_text_YyJqhw": {
+          "type": "new-icon-text",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/Layer_1.svg",
+            "hide_icon": false,
+            "icon_location": "icon-left",
+            "icon_size": 28,
+            "icon_color": "#4b4b4b",
+            "text": "<p>Starting at $27/mo or 0% APR.</p>",
+            "text_align": "text-left",
+            "font_size_desktop": 14,
+            "font_size_mobile": 14,
+            "link_text": "Check your purchasing power",
+            "link_url": "#affirim",
+            "background_color": "#f6f6f6",
+            "border_radius": 10,
+            "padding_bottom": 10
+          }
+        },
+        "new_icon_text_r79Cyi": {
+          "type": "new-icon-text",
+          "settings": {
+            "icon_name": "icon-award",
+            "image": "shopify://shop_images/449220883_485935087280419_493514387291092248_n_1.svg",
+            "hide_icon": false,
+            "icon_location": "icon-left",
+            "icon_size": 28,
+            "icon_color": "#4b4b4b",
+            "text": "<p>Pay with friends and family using <strong>Paysquad</strong></p>",
+            "text_align": "text-left",
+            "font_size_desktop": 14,
+            "font_size_mobile": 14,
+            "link_text": "",
+            "link_url": "",
+            "background_color": "#f6f6f6",
+            "border_radius": 10,
+            "padding_bottom": 10
+          }
+        },
+        "related_cards_ngzUMR": {
+          "type": "related-cards",
+          "settings": {
+            "product_1": "cup-holder",
+            "enable_add_to_cart_1": true,
+            "product_2": "car-seat-cover",
+            "enable_add_to_cart_2": true,
+            "product_3": "",
+            "enable_add_to_cart_3": false,
+            "product_4": "",
+            "enable_add_to_cart_4": false,
+            "product_5": "",
+            "enable_add_to_cart_5": false,
+            "title": "Explore Accessories",
+            "padding_bottom": 10
+          }
+        },
+        "liquid_f6rMhg": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<style>\n.affirm-as-low-as{\ndisplay:none;\n}\n</style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  document.querySelectorAll('a[href=\"#affirim\"]').forEach(function (anchor) {\n    anchor.addEventListener('click', function (e) {\n      e.preventDefault();\n      const trigger = document.querySelector('.affirm-modal-trigger');\n      if (trigger) trigger.click();\n    });\n  });\n});\n</script>"
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "judge_me_reviews_preview_badge_VYMFNW",
+        "custom_buttons_nDM4gY",
+        "price",
+        "liquid_TaxeUj",
+        "variants",
+        "description",
+        "icon_list_W8WCcy",
+        "outofstock_message_Kjz6w3",
+        "liquid_3azAi3",
+        "buttons",
+        "icon_delivery_Dg86V6",
+        "affirm_pay_over_time_messaging_product_block_cM8zAB",
+        "new_icon_text_YyJqhw",
+        "new_icon_text_r79Cyi",
+        "related_cards_ngzUMR",
+        "liquid_f6rMhg"
+      ],
+      "custom_css": [
+        ".product__block__icon:nth-of-type(1) p {font-family: var(--FONT-STACK-HEADING);}",
+        ".radio__legend__label {display: none;}",
+        ".radio__legend span:not(.radio__legend__label) {padding-left: 0px; border-left: none; margin-left: 0px;}"
+      ],
+      "settings": {
+        "layout": "none@columns",
+        "image_width": "wide",
+        "image_spacing": 10,
+        "align": "left",
+        "bg": "palette--light bg--neutral",
+        "mobile_layout": "carousel",
+        "enable_video_looping": true,
+        "zoom_enable": false,
+        "alt_text_enable": false,
+        "alt_text_icon": "icon-basket-like",
+        "product_breadcrumbs_enable": false,
+        "product_breadcrumbs_list": [],
+        "width": "wrapper",
+        "padding_top": 24,
+        "padding_bottom": 36,
+        "enable_sticky_desktop": true,
+        "enable_sticky_mobile": true
+      }
+    },
+    "apps_hXV8Rb": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_quiz_carousel_block_eFdFar": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "b8cvxgx5q69e1"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_quiz_carousel_block_eFdFar"
+      ],
+      "custom_css": [
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 32px !important; text-align: left; padding-left: 10px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "17388565930c97fe0d": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_ugc_carousel_block_GFtgXd": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "xv6zpinlwpm0j"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_ugc_carousel_block_GFtgXd"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "> div {padding-top: 60px; padding-bottom: 60px; padding-left: 0; padding-right: 0;}",
+        ".tolstoy-carousel-title {color: #304545 !important; font-size: 42px !important;}",
+        "> div {background-color: #fff;}",
+        "@media (max-width: 480px) {.tolstoy-carousel-title {font-size: 28px !important; } > div {padding-top: 40px; padding-bottom: 40px; }}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "1738783691b78546c1": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_MXkTRw": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_MXkTRw"
+      ],
+      "custom_css": [
+        "> div {background-color: #fff;}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--accent",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "related": {
+      "type": "related",
+      "disabled": true,
+      "settings": {
+        "heading": "You might also like",
+        "bg": "palette--light bg--neutral",
+        "grid_large": 4,
+        "grid_medium": 3,
+        "grid_small": 1.2,
+        "related_products_enable": true,
+        "limit": 6,
+        "product_recommendations_heading": "Related products",
+        "show_recently_viewed": true,
+        "product_recently_limit": 6,
+        "product_recently_minimum": 4,
+        "product_recently_heading": "Recently viewed",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_liquid_jFhBqR": {
+      "type": "section-liquid",
+      "settings": {
+        "custom_liquid": "<style>\n@media (max-width:480px){\n.brick__block__video.use_screen_full {\n    height: 300px;\n} \n.product__grid  .flickity-viewport{ \nmin-height:442px;\n}\n.flickity-viewport .product__media,.flickity-viewport .product__media >div,.flickity-viewport .product__media >div .product-image-wrapper,.flickity-viewport .product__media >div .product-image-wrapper img {\nheight:100%;}\n}\n</style>"
+      }
+    }
+  },
+  "order": [
+    "section_liquid_3BhB6X",
+    "main",
+    "apps_hXV8Rb",
+    "17388565930c97fe0d",
+    "1738783691b78546c1",
+    "related",
+    "section_liquid_jFhBqR"
+  ]
+}
