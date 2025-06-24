@@ -215,12 +215,12 @@
         "related_cards_ngzUMR": {
           "type": "related-cards",
           "settings": {
-            "product_1": "the-foodie-bundle-1",
-            "product_2": "the-bases-bundle-1",
-            "product_3": "the-family-bundle",
+            "product_1": "cup-holder",
+            "product_2": "the-babyark-smart-base",
+            "product_3": "",
             "product_4": "",
             "product_5": "",
-            "title": "Explore Bundles",
+            "title": "Explore Accessories",
             "padding_bottom": 10
           }
         },
