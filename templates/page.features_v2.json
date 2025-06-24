@@ -232,6 +232,10 @@
         "card_gY73mX",
         "card_KemrPb"
       ],
+      "custom_css": [
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}"
+      ],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Advanced Engineering",
