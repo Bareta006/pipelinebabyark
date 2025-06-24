@@ -164,7 +164,9 @@
         "card_Q4dx86"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } .wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -179,7 +181,7 @@
         "card_description_size": 6,
         "text_color": "text--neutral",
         "bg": "palette--light bg--accent",
-        "width": "wrapper--full",
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
