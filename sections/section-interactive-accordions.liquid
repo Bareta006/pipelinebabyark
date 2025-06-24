@@ -322,7 +322,8 @@
   /* Media Column */
   #shopify-section-{{ section.id }} .media-column {
     position: relative;
-    min-height: {{ tallest_height }}px;
+    height: {{ tallest_height }}px;
+    max-height: 480px;
   }
 
   #shopify-section-{{ section.id }} .media-item {
