@@ -3839,6 +3839,21 @@ background-color: #22282D;
     border-color: #000;
     transition: all 0.3s ease;
    }
+   
+   .sticky-add-to-cart__button:disabled,
+   .sticky-add-to-cart__button.disabled {
+    background-color: #ccc !important;
+    color: #999 !important;
+    border-color: #ccc !important;
+    cursor: not-allowed !important;
+   }
+   
+   .sticky-add-to-cart__button:disabled:hover,
+   .sticky-add-to-cart__button.disabled:hover {
+    background-color: #ccc !important;
+    color: #999 !important;
+    border-color: #ccc !important;
+   }
    /* Mobile responsive adjustments */
    @media (max-width: 749px) {
      .sticky-add-to-cart__content {
@@ -4349,6 +4364,22 @@ background-color: #22282D;
       const currentPrice = document.querySelector('.product__price .price__current');
       if (currentPrice && stickyPrice) {
         stickyPrice.textContent = currentPrice.textContent;
+      }
+      
+      // Update button text based on availability
+      const mainButton = document.querySelector('.btn--add-to-cart');
+      const mainButtonText = mainButton ? mainButton.querySelector('[data-add-to-cart-text]') : null;
+      if (mainButtonText && stickyButton) {
+        stickyButton.textContent = mainButtonText.textContent;
+        
+        // Copy disabled state from main button
+        if (mainButton.disabled) {
+          stickyButton.disabled = true;
+          stickyButton.classList.add('disabled');
+        } else {
+          stickyButton.disabled = false;
+          stickyButton.classList.remove('disabled');
+        }
       }
       
       // Update variant display
