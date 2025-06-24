@@ -53,9 +53,11 @@
 
       <!-- Enhanced Add to Cart Section -->
       {% if enable_add_to_cart %}
-        <div class="related-card__add-to-cart-section">
-          <div class="related-card__form-wrapper">
-{%- form 'product', product, class: 'related-card-form', id: unique_id -%}
+                <div class="related-card__add-to-cart-section" x-data="productAddButtonForm()">
+          <div class="related-card__form-wrapper" data-add-action-wrapper data-error-boundary>
+            <div data-error-display role='alert' class="add-action-errors"></div>
+            
+            {%- form 'product', product, class: 'related-card-form', id: unique_id -%}
               <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
               
               {% comment %} Delivery metafields as hidden inputs - same as main product page {% endcomment %}
@@ -93,15 +95,24 @@
                 </div>
               {% endif %}
               
-              <!-- Add to Cart Button - Regular form submission like main product page -->
+              <!-- Add to Cart Button - Exactly like main product page -->
               <button 
                 type="submit" 
                 name="add" 
                 class="related-card__add-button" 
                 {% unless product.available %}disabled{% endunless %}
                 data-add-to-cart
+                :class="{
+                  'has-success': isSuccess,
+                  'loading': isLoading
+                }"
               >
-                {{ 'products.product.add_to_cart' | t }}
+                <span class="btn-state-ready">
+                  {{ 'products.product.add_to_cart' | t }}
+                </span>
+                <span class="btn-state-loading">
+                  <span class="related-card__spinner" x-show="isLoading"></span>
+                </span>
               </button>
             {%- endform -%}
           </div>
