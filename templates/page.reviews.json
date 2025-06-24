@@ -31,6 +31,9 @@
         "heading_bFrFEQ",
         "text_RDM9wj"
       ],
+      "custom_css": [
+        "@media (max-width: 480px) {.image__hero__scale img {object-position: 20% 50% !important; }}"
+      ],
       "name": "Image banner",
       "settings": {
         "mobile_special_arrange": false,
