@@ -216,10 +216,15 @@
           "type": "related-cards",
           "settings": {
             "product_1": "cup-holder",
+            "enable_add_to_cart_1": true,
             "product_2": "the-babyark-smart-base",
+            "enable_add_to_cart_2": true,
             "product_3": "",
+            "enable_add_to_cart_3": false,
             "product_4": "",
+            "enable_add_to_cart_4": false,
             "product_5": "",
+            "enable_add_to_cart_5": false,
             "title": "Explore Accessories",
             "padding_bottom": 10
           }
