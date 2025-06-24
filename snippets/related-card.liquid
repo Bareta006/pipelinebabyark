@@ -54,100 +54,84 @@
       <!-- Enhanced Add to Cart Section -->
       {% if enable_add_to_cart %}
         <div class="related-card__add-to-cart-section">
-          <!-- Checkbox to enable add to cart -->
-          <div class="related-card__checkbox-wrapper">
-            <input 
-              type="checkbox" 
-              id="enable-atc-{{ unique_id }}" 
-              class="related-card__enable-checkbox"
-              onchange="toggleRelatedCardATC('{{ unique_id }}')"
-            >
-            <label for="enable-atc-{{ unique_id }}" class="related-card__checkbox-label">
-              Add ATC button
-            </label>
-          </div>
+          <div class="related-card__form-wrapper">
+            {%- form 'product', product, class: 'related-card-form', id: 'related-form-' | append: unique_id -%}
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-related-product-select="{{ unique_id }}">
+              
+              {% comment %} Delivery info JSON for this specific product {% endcomment %}
+              <script type="application/json" id="related-delivery-info-{{ unique_id }}">
+                {
+                  "product": {
+                    "id": {{ product.id }},
+                    "title": "{{ product.title | escape }}",
+                    "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
+                    "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
+                  },
+                  "variants": [
+                    {% assign valid_variants = false %}
+                    {% for variant in product.variants %}
+                      {% if variant.metafields.delivery.delivery_estimated_date != blank %}
+                        {% if valid_variants %},{% endif %}
+                        {% assign valid_variants = true %}
+                        {
+                          "id": {{ variant.id }},
+                          "title": "{{ variant.title | escape }}",
+                          "delivery_estimated_date": "{{ variant.metafields.delivery.delivery_estimated_date | escape }}"
+                        }
+                      {% endif %}
+                    {% endfor %}
+                  ]
+                }
+              </script>
 
-          <!-- Add to Cart Form (Initially Hidden) -->
-          <div class="related-card__atc-form" id="atc-form-{{ unique_id }}" style="display: none;">
-            <div class="related-card__form-wrapper">
-              {%- form 'product', product, class: 'related-card-form', id: 'related-form-' | append: unique_id -%}
-                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-related-product-select="{{ unique_id }}">
-                
-                {% comment %} Delivery info JSON for this specific product {% endcomment %}
-                <script type="application/json" id="related-delivery-info-{{ unique_id }}">
-                  {
-                    "product": {
-                      "id": {{ product.id }},
-                      "title": "{{ product.title | escape }}",
-                      "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
-                      "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
-                    },
-                    "variants": [
-                      {% assign valid_variants = false %}
-                      {% for variant in product.variants %}
-                        {% if variant.metafields.delivery.delivery_estimated_date != blank %}
-                          {% if valid_variants %},{% endif %}
-                          {% assign valid_variants = true %}
-                          {
-                            "id": {{ variant.id }},
-                            "title": "{{ variant.title | escape }}",
-                            "delivery_estimated_date": "{{ variant.metafields.delivery.delivery_estimated_date | escape }}"
-                          }
-                        {% endif %}
-                      {% endfor %}
-                    ]
-                  }
-                </script>
-
-                {% comment %} Set initial delivery inputs {% endcomment %}
-                {% assign current_variant = product.selected_or_first_available_variant %}
-                {% if current_variant.metafields.delivery.delivery_estimated_date != blank %}
-                  <input type="hidden" name="deliveryDate" value="{{ current_variant.metafields.delivery.delivery_estimated_date }}" data-related-delivery-date-input="{{ unique_id }}"/>
-                {% elsif product.metafields.delivery.delivery_time != blank %}
-                  <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-related-delivery-time-input="{{ unique_id }}"/>
-                {% elsif product.metafields.delivery.estimated_date != blank %}
-                  <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}" data-related-delivery-date-input="{{ unique_id }}"/>
-                {% endif %}
-                
-                {% comment %} Variant Selection Dropdown {% endcomment %}
-                {% if product.has_only_default_variant == false and product.variants.size > 1 %}
-                  <div class="related-card__variants">
-                    <select 
-                      name="id" 
-                      data-related-variant-select="{{ unique_id }}"
-                      class="related-card__variant-select"
-                      onchange="updateRelatedVariantDisplay(this, '{{ unique_id }}')">
-                      {% for variant in product.variants %}
-                        <option 
-                          value="{{ variant.id }}" 
-                          {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
-                          {% unless variant.available %}disabled="disabled"{% endunless %}
-                          data-variant-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 400 }}{% elsif card_image %}{{ card_image | image_url: width: 400 }}{% else %}{{ product.featured_image | image_url: width: 400 }}{% endif %}"
-                          data-variant-price="{{ variant.price | money }}"
-                          data-variant-compare-price="{{ variant.compare_at_price | money }}"
-                          data-variant-on-sale="{% if variant.compare_at_price > variant.price %}true{% else %}false{% endif %}"
-                        >
-                          {{ variant.title }} {% unless variant.available %}- {{ 'products.product.sold_out' | t }}{% endunless %}
-                        </option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                {% endif %}
-                
-                <!-- Add to Cart Button -->
-                <button 
-                  type="submit" 
-                  name="add" 
-                  class="related-card__add-button" 
-                  {% unless product.available %}disabled{% endunless %}
-                  data-related-add-to-cart="{{ unique_id }}"
-                  onclick="handleRelatedCardATC(event, '{{ unique_id }}')"
-                >
-                  {{ 'products.product.add_to_cart' | t }}
-                  <span class="related-card__spinner" id="spinner-{{ unique_id }}" style="display: none;"></span>
-                </button>
-              {%- endform -%}
-            </div>
+              {% comment %} Set initial delivery inputs {% endcomment %}
+              {% assign current_variant = product.selected_or_first_available_variant %}
+              {% if current_variant.metafields.delivery.delivery_estimated_date != blank %}
+                <input type="hidden" name="deliveryDate" value="{{ current_variant.metafields.delivery.delivery_estimated_date }}" data-related-delivery-date-input="{{ unique_id }}"/>
+              {% elsif product.metafields.delivery.delivery_time != blank %}
+                <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}" data-related-delivery-time-input="{{ unique_id }}"/>
+              {% elsif product.metafields.delivery.estimated_date != blank %}
+                <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}" data-related-delivery-date-input="{{ unique_id }}"/>
+              {% endif %}
+              
+              {% comment %} Variant Selection Dropdown {% endcomment %}
+              {% if product.has_only_default_variant == false and product.variants.size > 1 %}
+                <div class="related-card__variants">
+                  <select 
+                    name="id" 
+                    data-related-variant-select="{{ unique_id }}"
+                    class="related-card__variant-select"
+                    onchange="updateRelatedVariantDisplay(this, '{{ unique_id }}')">
+                    {% for variant in product.variants %}
+                      <option 
+                        value="{{ variant.id }}" 
+                        {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %}
+                        {% unless variant.available %}disabled="disabled"{% endunless %}
+                        data-variant-image="{% if variant.featured_image %}{{ variant.featured_image | image_url: width: 400 }}{% elsif card_image %}{{ card_image | image_url: width: 400 }}{% else %}{{ product.featured_image | image_url: width: 400 }}{% endif %}"
+                        data-variant-price="{{ variant.price | money }}"
+                        data-variant-compare-price="{{ variant.compare_at_price | money }}"
+                        data-variant-on-sale="{% if variant.compare_at_price > variant.price %}true{% else %}false{% endif %}"
+                      >
+                        {{ variant.title }} {% unless variant.available %}- {{ 'products.product.sold_out' | t }}{% endunless %}
+                      </option>
+                    {% endfor %}
+                  </select>
+                </div>
+              {% endif %}
+              
+              <!-- Add to Cart Button -->
+              <button 
+                type="submit" 
+                name="add" 
+                class="related-card__add-button" 
+                {% unless product.available %}disabled{% endunless %}
+                data-related-add-to-cart="{{ unique_id }}"
+                onclick="handleRelatedCardATC(event, '{{ unique_id }}')"
+              >
+                {{ 'products.product.add_to_cart' | t }}
+                <span class="related-card__spinner" id="spinner-{{ unique_id }}" style="display: none;"></span>
+              </button>
+            {%- endform -%}
           </div>
         </div>
       {% endif %}

@@ -679,18 +679,23 @@
                       {%- case i -%}
                         {%- when 1 -%}
                           {%- assign selected_product = block.settings.product_1 -%}
+                          {%- assign enable_atc = block.settings.enable_add_to_cart_1 -%}
                         {%- when 2 -%}
                           {%- assign selected_product = block.settings.product_2 -%}
+                          {%- assign enable_atc = block.settings.enable_add_to_cart_2 -%}
                         {%- when 3 -%}
                           {%- assign selected_product = block.settings.product_3 -%}
+                          {%- assign enable_atc = block.settings.enable_add_to_cart_3 -%}
                         {%- when 4 -%}
                           {%- assign selected_product = block.settings.product_4 -%}
+                          {%- assign enable_atc = block.settings.enable_add_to_cart_4 -%}
                         {%- when 5 -%}
                           {%- assign selected_product = block.settings.product_5 -%}
+                          {%- assign enable_atc = block.settings.enable_add_to_cart_5 -%}
                       {%- endcase -%}
                       
                       {%- if selected_product and selected_product.id -%}
-                        {% render 'related-card', product: selected_product, enable_add_to_cart: block.settings.enable_add_to_cart %}
+                        {% render 'related-card', product: selected_product, enable_add_to_cart: enable_atc %}
                       {%- endif -%}
                     {%- endfor -%}
                   </div>
@@ -3112,9 +3117,21 @@
           "label": "Product 1"
         },
         {
+          "type": "checkbox",
+          "id": "enable_add_to_cart_1",
+          "label": "Enable add to cart for Product 1",
+          "default": false
+        },
+        {
           "type": "product",
           "id": "product_2",
           "label": "Product 2"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_add_to_cart_2",
+          "label": "Enable add to cart for Product 2",
+          "default": false
         },
         {
           "type": "product",
@@ -3122,14 +3139,32 @@
           "label": "Product 3"
         },
         {
+          "type": "checkbox",
+          "id": "enable_add_to_cart_3",
+          "label": "Enable add to cart for Product 3",
+          "default": false
+        },
+        {
           "type": "product",
           "id": "product_4",
           "label": "Product 4"
         },
         {
+          "type": "checkbox",
+          "id": "enable_add_to_cart_4",
+          "label": "Enable add to cart for Product 4",
+          "default": false
+        },
+        {
           "type": "product",
           "id": "product_5",
           "label": "Product 5"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_add_to_cart_5",
+          "label": "Enable add to cart for Product 5",
+          "default": false
         },
         {
           "type": "text",
@@ -3146,13 +3181,6 @@
         "unit": "px",
         "label": "Bottom spacing",
         "default": 20
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_add_to_cart",
-        "label": "Enable add to cart functionality",
-        "default": false,
-        "info": "When enabled, each related product will have a checkbox to add an ATC button with variant selection"
       }
     ]
   }
@@ -3163,16 +3191,6 @@
 
 <script>
   // Related Cards Enhanced ATC Functionality
-  function toggleRelatedCardATC(uniqueId) {
-    const checkbox = document.getElementById('enable-atc-' + uniqueId);
-    const atcForm = document.getElementById('atc-form-' + uniqueId);
-    
-    if (checkbox.checked) {
-      atcForm.style.display = 'block';
-    } else {
-      atcForm.style.display = 'none';
-    }
-  }
 
   function updateRelatedVariantDisplay(selectElement, uniqueId) {
     // Get the selected option
@@ -4132,31 +4150,6 @@ background-color: #22282D;
      border-top: 1px solid #e0e0e0;
    }
 
-   .related-card__checkbox-wrapper {
-     display: flex;
-     align-items: center;
-     gap: 8px;
-     margin-bottom: 12px;
-   }
-
-   .related-card__enable-checkbox {
-     width: 16px;
-     height: 16px;
-     cursor: pointer;
-   }
-
-   .related-card__checkbox-label {
-     font-size: 14px;
-     cursor: pointer;
-     color: var(--color-text);
-   }
-
-   .related-card__atc-form {
-     border-top: 1px solid #ddd;
-     padding-top: 12px;
-     margin-top: 8px;
-   }
-
    .related-card__form-wrapper {
      display: flex;
      flex-direction: column;
@@ -4258,9 +4251,7 @@ background-color: #22282D;
        font-size: 12px;
      }
 
-     .related-card__checkbox-label {
-       font-size: 12px;
-     }
+
 
      .related-card__variant-select {
        font-size: 12px;
