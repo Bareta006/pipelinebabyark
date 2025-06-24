@@ -234,7 +234,8 @@
       ],
       "custom_css": [
         ".section__title {font-size: 46px;}",
-        ".section__description p {font-size: 20px;}"
+        ".section__description p {font-size: 20px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
