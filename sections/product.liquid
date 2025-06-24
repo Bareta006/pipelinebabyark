@@ -3988,9 +3988,6 @@ background-color: #22282D;
      gap: 12px;
    }
 
-   .related-card__variants {
-     margin-bottom: 8px;
-   }
 
    .related-card__variant-select {
      width: 100%;
@@ -4000,6 +3997,7 @@ background-color: #22282D;
      background-color: #fff;
      font-size: 14px;
      color: var(--color-text);
+     margin:0;
    }
 
    .related-card__variant-select:focus {
@@ -4024,6 +4022,7 @@ background-color: #22282D;
      align-items: center;
      justify-content: center;
      gap: 8px;
+     margin:0 !important;
    }
 
    .related-card__add-button:hover {
@@ -4051,7 +4050,11 @@ background-color: #22282D;
      0% { transform: rotate(0deg); }
      100% { transform: rotate(360deg); }
    }
-   
+   .related-card-form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
    /* Mobile styles for related cards */
    @media (max-width: 749px) {
      .related-cards-title {
