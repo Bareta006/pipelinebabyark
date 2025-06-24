@@ -9,6 +9,47 @@
  */
 {
   "sections": {
+    "section_hero_RzR76h": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_bFrFEQ": {
+          "type": "heading",
+          "settings": {
+            "title": "babyark Reviews",
+            "text_size": 10
+          }
+        },
+        "text_RDM9wj": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>Check out these babyark reviews and take a moment to share your own</p>",
+            "text_size": 6
+          }
+        }
+      },
+      "block_order": [
+        "heading_bFrFEQ",
+        "text_RDM9wj"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Rectangle_1486127372_2.png",
+        "height": "use_pixels_500",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": true,
+        "content_width": 550,
+        "text_align": "align--middle-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -48,6 +89,7 @@
     }
   },
   "order": [
+    "section_hero_RzR76h",
     "main",
     "174213148000ad8125"
   ]
