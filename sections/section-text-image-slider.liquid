@@ -218,14 +218,11 @@
   #shopify-section-{{ section.id }} .text-image-slider-wrapper{
     margin-bottom: 40px;
   }
-  #shopify-section-{{ section.id }} h2.section__title,#shopify-section-{{ section.id }} .slide-title{
+  #shopify-section-{{ section.id }} h2.section__title{
     font-size: 36px;
   }
-  #shopify-section-{{ section.id }} .section__description,#shopify-section-{{ section.id }} .slide-description{
+  #shopify-section-{{ section.id }} .section__description{
     font-size: 16px;
-  }
-  #shopify-section-{{ section.id }} .slide-image-side{
-    margin-bottom:12px;
   }
 
   /* Text Image Slide Styles - moved from snippet for proper scoping */
@@ -257,6 +254,10 @@
 
   #shopify-section-{{ section.id }} .slide-description {
     margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slide-image-side{
+    margin-bottom:12px;
   }
 
   #shopify-section-{{ section.id }} .custom-arrows {
@@ -364,7 +365,10 @@
     #shopify-section-{{ section.id }} .slide-image-side {
       order: 1;
       min-height: 250px;
+      margin-bottom:12px;
     }
+
+
   }
 </style>
 
