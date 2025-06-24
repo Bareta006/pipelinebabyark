@@ -66,7 +66,7 @@
         "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": false,
-        "content_width": 2000,
+        "content_width": 500,
         "text_align": "align--middle-left",
         "text_color": "text--white",
         "color_bg": "hero__content--transparent",
