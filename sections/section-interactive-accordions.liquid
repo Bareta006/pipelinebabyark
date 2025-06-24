@@ -500,6 +500,87 @@
 
     const accordionTriggers = section.querySelectorAll('[data-interactive-accordion-trigger]');
     const mediaItems = section.querySelectorAll('[data-media-item]');
+    let hasAutoPlayedOnce = false;
+
+    // Function to autoplay first video with mute when section comes into view
+    function autoplayFirstVideo() {
+      if (hasAutoPlayedOnce) return;
+      
+      // Desktop: Check first media item
+      const firstDesktopMediaItem = mediaItems[0];
+      if (firstDesktopMediaItem && !firstDesktopMediaItem.classList.contains('media-item--hidden')) {
+        const desktopVideo = firstDesktopMediaItem.querySelector('video, iframe');
+        if (desktopVideo) {
+          console.log('Autoplaying first desktop video');
+          if (desktopVideo.tagName === 'VIDEO') {
+            desktopVideo.muted = true;
+            desktopVideo.play().catch(e => console.log('Desktop autoplay failed:', e));
+          } else if (desktopVideo.tagName === 'IFRAME') {
+            try {
+              if (desktopVideo.src.includes('youtube')) {
+                // Enable autoplay and mute for YouTube
+                if (!desktopVideo.src.includes('autoplay=1')) {
+                  desktopVideo.src = desktopVideo.src + (desktopVideo.src.includes('?') ? '&' : '?') + 'autoplay=1&mute=1';
+                }
+              } else if (desktopVideo.src.includes('vimeo')) {
+                // Enable autoplay and mute for Vimeo
+                if (!desktopVideo.src.includes('autoplay=1')) {
+                  desktopVideo.src = desktopVideo.src + (desktopVideo.src.includes('?') ? '&' : '?') + 'autoplay=1&muted=1';
+                }
+              }
+            } catch (e) {
+              console.log('Desktop iframe autoplay setup failed:', e);
+            }
+          }
+        }
+      }
+      
+      // Mobile: Check first card
+      const firstMobileCard = section.querySelector('.mobile-card');
+      if (firstMobileCard) {
+        const mobileVideo = firstMobileCard.querySelector('video, iframe');
+        if (mobileVideo) {
+          console.log('Autoplaying first mobile video');
+          if (mobileVideo.tagName === 'VIDEO') {
+            mobileVideo.muted = true;
+            mobileVideo.play().catch(e => console.log('Mobile autoplay failed:', e));
+          } else if (mobileVideo.tagName === 'IFRAME') {
+            try {
+              if (mobileVideo.src.includes('youtube')) {
+                if (!mobileVideo.src.includes('autoplay=1')) {
+                  mobileVideo.src = mobileVideo.src + (mobileVideo.src.includes('?') ? '&' : '?') + 'autoplay=1&mute=1';
+                }
+              } else if (mobileVideo.src.includes('vimeo')) {
+                if (!mobileVideo.src.includes('autoplay=1')) {
+                  mobileVideo.src = mobileVideo.src + (mobileVideo.src.includes('?') ? '&' : '?') + 'autoplay=1&muted=1';
+                }
+              }
+            } catch (e) {
+              console.log('Mobile iframe autoplay setup failed:', e);
+            }
+          }
+        }
+      }
+      
+      hasAutoPlayedOnce = true;
+    }
+
+    // Intersection Observer to detect when section is 30% in view
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.3 // 30% of section in view
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
+          autoplayFirstVideo();
+        }
+      });
+    }, observerOptions);
+
+    observer.observe(section);
 
     // Function to show specific media item and handle video playback
     function showMediaItem(blockId) {
