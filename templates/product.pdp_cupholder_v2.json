@@ -181,7 +181,7 @@
             "icon_location": "icon-left",
             "icon_size": 28,
             "icon_color": "#4b4b4b",
-            "text": "<p>Starting at $27/mo or 0% APR.</p>",
+            "text": "<p>Pay within 30 days interest-free.</p>",
             "text_align": "text-left",
             "font_size_desktop": 14,
             "font_size_mobile": 14,
@@ -215,9 +215,9 @@
         "related_cards_ngzUMR": {
           "type": "related-cards",
           "settings": {
-            "product_1": "cup-holder",
+            "product_1": "car-seat-cover",
             "enable_add_to_cart_1": true,
-            "product_2": "car-seat-cover",
+            "product_2": "the-babyark-smart-base",
             "enable_add_to_cart_2": true,
             "product_3": "",
             "enable_add_to_cart_3": false,
