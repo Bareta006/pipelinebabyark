@@ -45,8 +45,8 @@
     "main-blog": {
       "type": "blog",
       "custom_css": [
-        ".blog__heading{font-size:46px;}",
-        "@media(max-width:480px){.blog__heading{font-size:36px;}}"
+        ".blog__heading {font-size: 46px;}",
+        "@media (max-width: 480px) {.blog__heading {font-size: 28px; }}"
       ],
       "settings": {
         "heading": "The babyark Blog",
