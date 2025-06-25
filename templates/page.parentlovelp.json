@@ -261,7 +261,7 @@
         "image_rAACfj"
       ],
       "custom_css": [
-        ".brick__section {padding: 3rem; border-radius: 30px; background-color: #fafafa;}",
+        ".brick__section {padding: 4rem; border-radius: 30px; background-color: #fafafa;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
       ],
