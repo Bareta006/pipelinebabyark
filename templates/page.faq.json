@@ -187,6 +187,13 @@
             "title": "Can I clean the car seat cover?",
             "content": "<p>The fabric seat covers zip off and can be washed in the washing machine. Extra seat covers can also be purchased for use on laundry day.</p>"
           }
+        },
+        "text_qQfL93": {
+          "type": "text",
+          "settings": {
+            "title": "Does babyark require 1\" of space above the child's head when they are rear facing?",
+            "content": "<p>No - babyark doesn't have the 1\" rule with the structure of the car seat itself strictly when a child is rear facing. Instead, the rear-facing head flap provides additional protection for the top of the child's head in case of a crash.</p>"
+          }
         }
       },
       "block_order": [
@@ -205,7 +212,8 @@
         "text_kQQL4N",
         "text_LDBfJf",
         "text_pCJxTx",
-        "text_pJH3tL"
+        "text_pJH3tL",
+        "text_qQfL93"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
