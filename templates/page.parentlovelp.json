@@ -261,7 +261,7 @@
         "image_rAACfj"
       ],
       "custom_css": [
-        ".section-padding {padding: 60px 80px; border-radius: 30px; background-color:#FAFAFA ;}",
+        ".brick__section {padding: 60px 80px; border-radius: 30px; background-color: #fafafa;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
       ],
