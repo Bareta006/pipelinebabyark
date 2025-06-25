@@ -76,7 +76,7 @@
         "image": "shopify://shop_images/Rectangle_1486127371.png",
         "mobile_image": "shopify://shop_images/Rectangle_1486127366_1.png",
         "height": "use_image",
-        "overlay_opacity": 15,
+        "overlay_opacity": 0,
         "overlay_color": "#000",
         "enable_overlay_text": false,
         "preload_image": false,
@@ -263,7 +263,7 @@
       "custom_css": [
         ".brick__section {padding: 4rem; border-radius: 30px; background-color: #fafafa;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
-        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; } .brick__section {padding: 2rem; border-radius: 30px; background-color: #fafafa;}}"
+        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; } .brick__section {padding: 2rem; border-radius: 30px; background-color: #fafafa; }}"
       ],
       "settings": {
         "height": "use_image",
@@ -275,6 +275,82 @@
         "padding_top": 0,
         "padding_bottom": 20
       }
+    },
+    "testimonials_carousel_pgLTqt": {
+      "type": "testimonials-carousel",
+      "blocks": {
+        "testimonial_diTy4A": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Trymore R.",
+            "testimonial_subject": "A great buy",
+            "testimonial_text": "This car seat is amazing. It looks and feels very comfortable for our young one. The safety features give us confidence and we travel with our young one worry free. Installation was easy with the short online videos they made. We love this car seat. It is worth the hype we heard before we purchased it.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_FMJLCg": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Ofelia Z.",
+            "testimonial_subject": "The best car seat",
+            "testimonial_text": "The seat is incredibly easy to set up. It seems comfortable for my 14 month old. He looks comfortable while sleeping too, as his head doesn’t bob forward. The side flap that is supposed to direct the force towards the back of the seat in case of a side impact gives me an extra sense of security. A nice plus is that the seat looks really nice and stylish. Overall I love it and will be getting another for my second child.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_TC8qQY": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the babyark has been a game changer. It’s unbelievable how much easier it’s been to get her in and out. The harness is simple to adjust with one hand and the magnetic buckles make it quick to strap her in. I also love how secure I feel knowing it’s built with side-impact protection and how it meets all the safety standards.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_Y8QHqN": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Erica M.",
+            "testimonial_subject": "We love this car seat!",
+            "testimonial_text": "We were on the fence if we needed to buy a new car seat for our daughter. But she kept screaming every time we put her in her infant seat. We pulled the plug and bought the babyark after hours of comparisons and reading blogs. First ride we got a huge smile in the rear view mirror. She even giggled for my husband as he started the car. She loves this seat and we love all the safety features and convenience of how it is designed. Thank you for making a seat that makes us feel safe!",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_bzTg6V": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Brittany W.",
+            "testimonial_subject": "Exactly what I wanted in a convertible car seat",
+            "testimonial_text": "After an exhausting search for convertible car seats and not being happy with anything on the market I found babyark. I wanted something that shared the features my infant car seat had and no other convertible car seats offered that.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_diTy4A",
+        "testimonial_FMJLCg",
+        "testimonial_TC8qQY",
+        "testimonial_Y8QHqN",
+        "testimonial_bzTg6V"
+      ],
+      "settings": {
+        "title": "What Our Customers Say",
+        "title_color": "#000000",
+        "title_alignment": "center",
+        "title_font_size": 40,
+        "title_font_size_mobile": 28,
+        "show_stars": true,
+        "star_count": 4.5,
+        "star_color": "#333333",
+        "review_count": "132",
+        "review_count_color": "#333333",
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
     }
   },
   "order": [
@@ -282,6 +358,7 @@
     "section_hero_eXtLAa",
     "section_interactive_accordions_M9GmJg",
     "section_inline_cards_TgwRyR",
-    "section_double_izxac3"
+    "section_double_izxac3",
+    "testimonials_carousel_pgLTqt"
   ]
 }
