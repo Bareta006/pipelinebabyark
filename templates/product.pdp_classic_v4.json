@@ -486,18 +486,20 @@
     "image-with-text-2": {
       "type": "section-double",
       "blocks": {
-        "image": {
-          "type": "image",
+        "video_BkCREw": {
+          "type": "video",
           "settings": {
-            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
-            "overlay_opacity": 0,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
+            "video_bg": "shopify://files/videos/Rigid latch_new_c3138733-cccc-4c93-b1db-4a0a6b406b2a.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
             "kicker": "",
             "title": "",
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -508,8 +510,8 @@
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>Never second-guess if your child is secured. <strong>Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.</strong></p>",
+            "title": "Anchored in safety",
+            "text": "<p>The babyark is the ONLY convertible car seat that includes these 3 key features for optimal anchoring and safety; the rigid LATCH, the stabilizing support leg and the anti-rebound bar.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -527,7 +529,7 @@
         }
       },
       "block_order": [
-        "image",
+        "video_BkCREw",
         "text"
       ],
       "custom_css": [
@@ -535,7 +537,7 @@
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
       ],
       "settings": {
-        "height": "use_image",
+        "height": "use_pixels_500",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
