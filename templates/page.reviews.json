@@ -38,9 +38,10 @@
       "settings": {
         "mobile_special_arrange": false,
         "image": "shopify://shop_images/Rectangle_1486127372_2.png",
-        "height": "use_pixels_500",
-        "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "mobile_image": "shopify://shop_images/Mobile_5.png",
+        "height": "use_image",
+        "overlay_opacity": 0,
+        "overlay_color": "#000000",
         "enable_overlay_text": false,
         "preload_image": true,
         "content_width": 550,
