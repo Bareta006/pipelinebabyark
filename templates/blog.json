@@ -26,7 +26,7 @@
       "settings": {
         "mobile_special_arrange": false,
         "image": "shopify://shop_images/image_373.png",
-        "height": "use_screen_two_thirds",
+        "height": "use_screen_one_third",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
         "enable_overlay_text": false,
