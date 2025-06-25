@@ -212,12 +212,75 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double_izxac3": {
+      "type": "section-double",
+      "blocks": {
+        "text_x3m8Yx": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical Alerts for Peace of Mind",
+            "text": "<p>Our connected app walks you through step by step, literally “green-lighting” your process. Peace of mind, right in your palm. Sensors and smart synching bring the reassurance of guided intelligent installation, real-time feedback and life-saving alerts such as “forgotten child” or “unbuckled.”</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "READ MORE",
+            "button_url": "",
+            "button_color": "btn--black",
+            "button_style": "btn btn--long",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        },
+        "image_rAACfj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_x3m8Yx",
+        "image_rAACfj"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
+        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
     }
   },
   "order": [
     "main",
     "section_hero_eXtLAa",
     "section_interactive_accordions_M9GmJg",
-    "section_inline_cards_TgwRyR"
+    "section_inline_cards_TgwRyR",
+    "section_double_izxac3"
   ]
 }
