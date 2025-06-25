@@ -36,11 +36,11 @@
           "type": "custom-buttons",
           "settings": {
             "link_text": "SMART",
-            "link": "#",
+            "link": "shopify://products/babyark-convertible-car-seat-smart",
             "button_color": "btn--black",
             "button_style": "btn",
             "link_text_2": "CLASSIC",
-            "link_2": "shopify://products/babyark-convertible-car-seat-classic",
+            "link_2": "#",
             "button_color_2": "btn--black",
             "button_style_2": "btn--outline",
             "text_link_text": "COMPARE MODELS",
@@ -534,7 +534,7 @@
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
-        ".video-autoplay-wrapper{border-radius: 20px;}",
+        ".video-autoplay-wrapper {border-radius: 20px;}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
       ],
       "settings": {
