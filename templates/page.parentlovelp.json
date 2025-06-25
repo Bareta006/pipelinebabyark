@@ -72,9 +72,9 @@
       ],
       "custom_css": [
         "img {border-radius: 20px;}",
-        ".hero__title{font-size:46px;}",
-        ".hero-description{font-size:20px;}",
-        "@media (max-width:480px){.hero__title{font-size:36px;}.hero-description{font-size:16px;}}"
+        ".hero__title {font-size: 46px;}",
+        ".hero-description {font-size: 20px;}",
+        "@media (max-width: 480px) {.hero__title {font-size: 36px; } .hero-description {font-size: 16px; } .hero__content__wrapper {align-items: end; }}"
       ],
       "name": "Image banner",
       "settings": {
