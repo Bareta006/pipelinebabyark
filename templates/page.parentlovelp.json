@@ -192,6 +192,7 @@
       "custom_css": [
         ".section__title {font-size: 46px;}",
         ".section__description p {font-size: 20px;}",
+        ".wrapper {background: #FAFAFA;}",
         "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } .wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
       ],
       "name": "Inline Cards",
