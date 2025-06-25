@@ -262,7 +262,7 @@
       ],
       "custom_css": [
         ".brick__section {padding: 4rem; border-radius: 30px; background-color: #fafafa;}",
-        "img{border-radius: 20px;}",
+        "img {border-radius: 20px;}",
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
         "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; } .brick__section {padding: 2rem; border-radius: 30px; background-color: #fafafa; }}"
       ],
@@ -352,6 +352,61 @@
         "padding_top": 30,
         "padding_bottom": 30
       }
+    },
+    "section_hero_7EJdPp": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_dUC4tp": {
+          "type": "heading",
+          "settings": {
+            "title": "Ready to join the community of confident caregivers?",
+            "text_size": 10
+          }
+        },
+        "button_pcpENd": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "shop babyark",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_dUC4tp",
+        "button_pcpENd"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Rectangle_1486127371_1.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127376.png",
+        "height": "use_image",
+        "overlay_opacity": 0,
+        "overlay_color": "#000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--middle-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
     }
   },
   "order": [
@@ -360,6 +415,7 @@
     "section_interactive_accordions_M9GmJg",
     "section_inline_cards_TgwRyR",
     "section_double_izxac3",
-    "testimonials_carousel_pgLTqt"
+    "testimonials_carousel_pgLTqt",
+    "section_hero_7EJdPp"
   ]
 }
