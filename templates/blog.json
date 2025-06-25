@@ -69,7 +69,7 @@
         "image_height": "use_screen_one_third",
         "text_color": "text--white",
         "width": "wrapper",
-        "padding_top": 100,
+        "padding_top": 36,
         "padding_bottom": 36
       }
     }
