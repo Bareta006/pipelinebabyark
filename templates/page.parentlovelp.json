@@ -70,6 +70,9 @@
         "text_pGhUmB",
         "button_hwMzKC"
       ],
+      "custom_css": [
+        "img{border-radius: 20px;}"
+      ],
       "name": "Image banner",
       "settings": {
         "mobile_special_arrange": false,
