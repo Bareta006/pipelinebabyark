@@ -74,7 +74,7 @@
         "img {border-radius: 20px;}",
         ".hero__title {font-size: 46px;}",
         ".hero-description {font-size: 20px;}",
-        "@media (max-width: 480px) {.hero__title {font-size: 36px; } .hero-description {font-size: 16px; } .hero__content__wrapper {align-items: end; } .hero__content {margin:0; }}"
+        "@media (max-width: 480px) {.hero__title {font-size: 34px; } .hero-description {font-size: 16px; } .hero__content__wrapper {align-items: end; } .hero__content {margin: 0; }}"
       ],
       "name": "Image banner",
       "settings": {
@@ -82,9 +82,9 @@
         "image": "shopify://shop_images/Rectangle_1486127371.png",
         "mobile_image": "shopify://shop_images/Rectangle_1486127366_1.png",
         "height": "use_image",
-        "overlay_opacity": 0,
+        "overlay_opacity": 30,
         "overlay_color": "#000",
-        "enable_overlay_text": false,
+        "enable_overlay_text": true,
         "preload_image": false,
         "content_width": 2000,
         "text_align": "align--middle-center",
