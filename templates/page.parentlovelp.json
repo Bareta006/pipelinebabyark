@@ -404,7 +404,7 @@
         "color_bg": "hero__content--transparent",
         "width": "wrapper--full",
         "padding_top": 0,
-        "padding_bottom": 40,
+        "padding_bottom": 80,
         "special_arrange": false
       }
     }
