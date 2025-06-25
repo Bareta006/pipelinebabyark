@@ -214,11 +214,16 @@
         "related_cards_ngzUMR": {
           "type": "related-cards",
           "settings": {
-            "product_1": "the-foodie-bundle-classic",
+            "product_1": "the-foodie-bundle-smart",
+            "enable_add_to_cart_1": false,
             "product_2": "the-bases-bundle-smart",
+            "enable_add_to_cart_2": false,
             "product_3": "the-family-bundle-smart",
+            "enable_add_to_cart_3": false,
             "product_4": "",
+            "enable_add_to_cart_4": false,
             "product_5": "",
+            "enable_add_to_cart_5": false,
             "title": "Explore Bundles",
             "padding_bottom": 10
           }
