@@ -250,69 +250,11 @@
     </div>
   {% endif %}
 
-{% comment %} JSON-LD VideoObject Schema for Video Slides {% endcomment %}
-{% assign video_slides = section.blocks | where: 'type', 'video_slide' %}
-{% if video_slides.size > 0 %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "VideoObject",
-    {% if video_slides.size == 1 %}
-      {% assign video_block = video_slides.first %}
-      "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-      "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
-      {% if video_block.settings.video_bg %}
-        "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
-        "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
-        {% if video_block.settings.video_bg.preview_image %}
-          "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.fallback_image %}
-          "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
-        {% endif %}
-      {% elsif video_block.settings.mobile_video_bg %}
-        "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
-        "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
-        {% if video_block.settings.mobile_video_bg.preview_image %}
-          "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.fallback_image %}
-          "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
-        {% endif %}
-      {% endif %}
-      "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
-      "embedUrl": "{{ request.origin }}{{ request.path }}#{{ section.id }}"
-    {% else %}
-      "@graph": [
-        {% for video_block in video_slides %}
-          {
-            "@type": "VideoObject",
-            "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-            "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
-            {% if video_block.settings.video_bg %}
-              "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
-              "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
-              {% if video_block.settings.video_bg.preview_image %}
-                "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.fallback_image %}
-                "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
-              {% endif %}
-            {% elsif video_block.settings.mobile_video_bg %}
-              "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
-              "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
-              {% if video_block.settings.mobile_video_bg.preview_image %}
-                "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.fallback_image %}
-                "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
-              {% endif %}
-            {% endif %}
-            "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
-            "embedUrl": "{{ request.origin }}{{ request.path }}#{{ section.id }}-{{ forloop.index }}"
-          }{% unless forloop.last %},{% endunless %}
-        {% endfor %}
-      ]
-    {% endif %}
-  }
-  </script>
-{% endif %}
+{% comment %} Generate JSON-LD VideoObject Schema for Video Slides {% endcomment %}
+{% render 'video-json-ld', 
+  video_slides: section.blocks | where: 'type', 'video_slide',
+  section_id: section.id
+%}
 
 <style>
   #shopify-section-{{ section.id }} .video-wrapper {
