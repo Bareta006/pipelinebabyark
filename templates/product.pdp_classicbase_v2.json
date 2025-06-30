@@ -34,17 +34,18 @@
         },
         "custom_buttons_nDM4gY": {
           "type": "custom-buttons",
+          "disabled": true,
           "settings": {
-            "link_text": "SMART",
-            "link": "#",
+            "link_text": "",
+            "link": "",
             "button_color": "btn--black",
             "button_style": "btn",
-            "link_text_2": "CLASSIC",
-            "link_2": "shopify://products/babyark-convertible-car-seat-classic",
+            "link_text_2": "",
+            "link_2": "",
             "button_color_2": "btn--black",
             "button_style_2": "btn--outline",
-            "text_link_text": "COMPARE MODELS",
-            "text_link_url": "#",
+            "text_link_text": "",
+            "text_link_url": "",
             "enable_comparison_popup": true,
             "product_1": "babyark-convertible-car-seat-smart",
             "product_2": "babyark-convertible-car-seat-classic",
@@ -81,7 +82,7 @@
             "enable_custom_first": true,
             "custom_first_title": "Overview",
             "custom_first_icon": "",
-            "custom_first_content": "<p>Intelligent app connection and smart sensors simplify and reassure for your peace of mind.</p><ul><li>A happy child, every ride with soothing comfort.</li><li>Guided step-by-step installation</li><li>Life-saving real-time alerts</li></ul>",
+            "custom_first_content": "<ul><li>Extra car? Buy only an extra base, save money.</li><li>Easily transfer a car seat across vehicles</li><li>SafeCoil ™ technology for superior safety</li></ul>",
             "enable_description": true,
             "read_more": false,
             "icon_description": "",
@@ -91,10 +92,10 @@
             "raw_content_1": "",
             "title_2": "FEATURES",
             "icon_name_2": "",
-            "raw_content_2": "<ul><li>SafeCoil™ and BioArk™ energy absorption technology</li><li>App-guided installation</li><li>Forgotten child alerts and buckle confirmation</li><li>Fabric covers with magnetic straps for easy access</li><li>Easy zip on & off fabric covers, machine wash</li><li>Adjustable JoltFree™ headrest</li><li>Adjustable recline position</li><li>No expiration date</li></ul><p></p><p><strong>Inside the box:</strong></p><ul><li>Seat and ACTV8™ smart base</li><li>Removable infant insert</li><li>Charging cable</li><li>Lower anchor funnels</li></ul>",
-            "title_3": "SPECIFICATIONS",
+            "raw_content_2": "<p>SafeCoil impact-activated shock-absorbing technologyThe only convertible car seat with all three:</p><ol><li>Rigid Latch</li><li>Anti-Rebound Bar to prevent rebound rotation</li><li>Front Supporting Leg to prevent forward rotation.</li></ol><p>Same installation for both front and rear facing positions</p><p>No expiry date</p><p>Inside the box: Classic base, Lower Anchors Funnels (Guides</p>",
+            "title_3": "",
             "icon_name_3": "",
-            "raw_content_3": "<p><strong>Dimensions Seat + Base</strong></p><p>Rear-facing: L 30 x H 27.5 x W 17 in / 75 x 70 x 44 cm<br/>Forward-facing: L 27 x H 30 x W 17 in / L 68.5 x H 75 x W 44 cm</p><p><strong>Weight</strong></p><p>Base 18 lbs. / 8.2 kg<br/>Seat 27 lbs. / 12.5 kg</p><p><strong>Connection Features</strong></p><p>Rigid LATCH, Seat belt, Top tether</p><p><strong>Child Height</strong></p><p>Up to 49 in / 124 cm</p><p><strong>Child Weight</strong></p><p>Rear-facing 4-50 lbs / 1.8-22.7 kg<br/>Forward-facing 26.5-65 lbs / 12-29.5 kg</p><p><strong>Fabrics</strong><br/>Free of any added Flame Retardants.<br/>PFOA-Free/ PFOS-Free/ PFC-Free/ PFAS-free. Fluorine-Free</p>",
+            "raw_content_3": "",
             "title_4": "",
             "icon_name_4": "",
             "raw_content_4": "",
@@ -180,7 +181,7 @@
             "icon_location": "icon-left",
             "icon_size": 28,
             "icon_color": "#4b4b4b",
-            "text": "<p>Starting at $62/mo or 0% APR.</p>",
+            "text": "<p>Starting at $27/mo or 0% APR.</p>",
             "text_align": "text-left",
             "font_size_desktop": 14,
             "font_size_mobile": 14,
@@ -214,17 +215,17 @@
         "related_cards_ngzUMR": {
           "type": "related-cards",
           "settings": {
-            "product_1": "the-foodie-bundle-smart",
-            "enable_add_to_cart_1": false,
-            "product_2": "the-bases-bundle-smart",
-            "enable_add_to_cart_2": false,
-            "product_3": "the-family-bundle-smart",
+            "product_1": "cup-holder",
+            "enable_add_to_cart_1": true,
+            "product_2": "car-seat-cover",
+            "enable_add_to_cart_2": true,
+            "product_3": "",
             "enable_add_to_cart_3": false,
             "product_4": "",
             "enable_add_to_cart_4": false,
             "product_5": "",
             "enable_add_to_cart_5": false,
-            "title": "Explore Bundles",
+            "title": "Explore Accessories",
             "padding_bottom": 10
           }
         },
@@ -301,313 +302,6 @@
         "width": "wrapper--none",
         "padding_top": 0,
         "padding_bottom": 0
-      }
-    },
-    "section_icons_grid_jwTBNP": {
-      "type": "section-icons-grid",
-      "blocks": {
-        "icon_block_mbmYVq": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/Group_34860.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>Crash tested according<br/>to FMVSS 213</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_NVBGhC": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/Group_34864.svg",
-            "icon_color": "#aaaaaa",
-            "title": "",
-            "text": "<p>In accordance with ISO 16750 and more</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_ViBgeV": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Group_34862.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>California Proposition <br/>65 & 12</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_De8Gid": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Vector_6.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>FCC & EMC<br/>Compliance</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_bfL6ji": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Vector_7.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_block_mbmYVq",
-        "icon_block_NVBGhC",
-        "icon_block_ViBgeV",
-        "icon_block_De8Gid",
-        "icon_block_bfL6ji"
-      ],
-      "custom_css": [
-        "> div > .wrapper {background-color: #f6f6f6; padding-top: 90px; padding-bottom: 90px; max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2)); border-radius: 10px;}",
-        ".kicker-flourished:after {display: none;}",
-        "h2 {font-family: \"centrano2\", sans-serif; font-size: 34px; font-weight: 400; text-transform: none; letter-spacing: -1.5px;}",
-        "@media (min-width: 960px) {.carousel-slide {width: 20%; clear: none; } .clearfix {display: none; }}",
-        "@media (max-width: 480px) {> div > .wrapper {padding: 30px 0; margin-bottom: 60px; } h2 {font-size: 30px; padding: 0 20px; }}"
-      ],
-      "name": "Icon columns grid",
-      "settings": {
-        "title": "Complies with the strictest standards",
-        "bg": "palette--light bg--neutral",
-        "icons_size": 72,
-        "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
-        "align_text": "text-center",
-        "mobile_carousel": true,
-        "mobile_icons_count": 3,
-        "arrow_position": "center",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 0
-      }
-    },
-    "section_double_new_U8Re4G": {
-      "type": "section-double-new",
-      "blocks": {
-        "animated_graphs_gpw4q3": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Rear-Facing",
-            "text_left": "1-yr old",
-            "text_right": 1000,
-            "text_right_after": "Federal maximum limit",
-            "number_field": 247,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_jEirzM": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Rear-Facing",
-            "text_left": "3-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 236,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_Gb4AtA": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Forward-Facing",
-            "text_left": "3-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 279,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        },
-        "animated_graphs_HypByM": {
-          "type": "AnimatedGraphs",
-          "settings": {
-            "block_title": "Forward-Facing",
-            "text_left": "6-yr old",
-            "text_right": 1000,
-            "text_right_after": "",
-            "number_field": 321,
-            "competitor_number": 0,
-            "competitor": ""
-          }
-        }
-      },
-      "block_order": [
-        "animated_graphs_gpw4q3",
-        "animated_graphs_jEirzM",
-        "animated_graphs_Gb4AtA",
-        "animated_graphs_HypByM"
-      ],
-      "custom_css": [
-        "@media (min-width: 769px) {.section-padding > .brick__section {flex-direction: row-reverse; padding: 20px 0 0; } .brick__block__text {padding-left: 0; padding-right: 0; } .w-427, .w-573 {width: 50%; } .section-padding.wrapper > div {gap: 60px; }}",
-        "@media (max-width: 768px) {.section-padding.wrapper > div {flex-direction: column-reverse; } h2.standard__heading {font-size: 30px; } .adjust_height {height: 90px; } .brick__block__text .text__standard {padding-top: 10px; padding-bottom: 10px; } .textLeft {font-size: 14px; }}"
-      ],
-      "settings": {
-        "height": "use_pixels_500",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "#ffffff",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "kicker": "",
-        "title": "We publish what others don’t",
-        "text": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1000, but <strong>not all seats perform the same</strong>. We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
-        "font_size": 5,
-        "text_columns": 1,
-        "align_text": "text-left",
-        "button_text": "",
-        "button_url": "",
-        "button_color": "btn--neutral",
-        "button_style": "btn-text-thick-line",
-        "text_color": "text--neutral",
-        "bg_color_text": "#ffffff",
-        "graphSide_heading": ""
-      }
-    },
-    "image-with-text-2": {
-      "type": "section-double",
-      "blocks": {
-        "image": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
-            "overlay_opacity": 0,
-            "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        },
-        "text": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>Never second-guess if your child is secured. <strong>Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.</strong></p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        }
-      },
-      "block_order": [
-        "image",
-        "text"
-      ],
-      "custom_css": [
-        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
-        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
-      ],
-      "settings": {
-        "height": "use_image",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 0,
-        "padding_bottom": 20
-      }
-    },
-    "section_double_kUy7cV": {
-      "type": "section-double",
-      "blocks": {
-        "text_7hmDhz": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Comfort that keeps them happy, every ride.",
-            "text": "<ul><li>All-day coziness – Soft fabric keeps your baby calm and happy.<br/></li><li>Messes? Handled. – Machine-washable and zip-off for easy cleanup.<br/></li><li>Buckle up, stress-free. – Magnetic straps make every ride smoother.</li></ul>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#ffffff"
-          }
-        },
-        "video_P9J8Vf": {
-          "type": "video",
-          "settings": {
-            "object_position": "center-center",
-            "image": "shopify://shop_images/Rectangle_1486127365_1.png",
-            "video_link": "",
-            "popup_text": "",
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "overlay_opacity": 0,
-            "overlay_color": "#000000",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "text_7hmDhz",
-        "video_P9J8Vf"
-      ],
-      "custom_css": [
-        "img {border-radius: 20px;}",
-        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding-right: 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
-        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column; }}"
-      ],
-      "settings": {
-        "height": "use_image",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 20,
-        "padding_bottom": 20
       }
     },
     "17388565930c97fe0d": {
@@ -692,10 +386,6 @@
     "section_liquid_3BhB6X",
     "main",
     "apps_hXV8Rb",
-    "section_icons_grid_jwTBNP",
-    "section_double_new_U8Re4G",
-    "image-with-text-2",
-    "section_double_kUy7cV",
     "17388565930c97fe0d",
     "1738783691b78546c1",
     "related",

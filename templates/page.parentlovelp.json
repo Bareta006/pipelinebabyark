@@ -1,0 +1,433 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_hero_eXtLAa": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_PniN6t": {
+          "type": "heading",
+          "settings": {
+            "title": "Top Car Seat Features Parents Love",
+            "text_size": 10
+          }
+        },
+        "text_pGhUmB": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>The babyark was designed to make your life as parents easier, bringing you comfort, convenience, and peace of mind that baby is buckled in safely and ready to roll. These are the top car seat features that parents love about the babyark car seat.</p>",
+            "text_size": 6
+          }
+        },
+        "button_hwMzKC": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "shop babyark",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_PniN6t",
+        "text_pGhUmB",
+        "button_hwMzKC"
+      ],
+      "custom_css": [
+        "img {border-radius: 20px;}",
+        ".hero__title {font-size: 46px;}",
+        ".hero-description {font-size: 20px;}",
+        "@media (max-width: 480px) {.hero__title {font-size: 34px; } .hero-description {font-size: 16px; } .hero__content__wrapper {align-items: end; } .hero__content {margin: 0; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Rectangle_1486127371.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127366_1.png",
+        "height": "use_image",
+        "overlay_opacity": 30,
+        "overlay_color": "#000000",
+        "enable_overlay_text": true,
+        "preload_image": false,
+        "content_width": 2000,
+        "text_align": "align--middle-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--full",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
+    "section_interactive_accordions_M9GmJg": {
+      "type": "section-interactive-accordions",
+      "blocks": {
+        "accordion_item_76B8pX": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Magnetic Harness Straps",
+            "description": "<p>Easier in, easier out! babyark car seats feature two sets of magnets to align with corresponding magnets on the upper and lower parts of the harness, so the straps stay out of the way when placing your child in to get on your way. <br/></p>",
+            "video_file": "shopify://files/videos/Video-Feature copy.mp4",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Rectangle_1486126747.png",
+            "video_url": "",
+            "mobile_image": "shopify://shop_images/Rectangle_1486126747_1.png",
+            "button_text": "Learn More",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_mXQ8A9": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Zip On and Off Fabric Covers",
+            "description": "<p>There’ll be mess, but our machine washable seat covers mean less stress. They easily zip on and off, and you can buy extra (in your choice of color) to always have a clean one on hand.</p>",
+            "video_file": "shopify://files/videos/Feature copy.mp4",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/image_68.png",
+            "video_url": "",
+            "button_text": "Discover",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_aV3cwn": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Flip-Forward Buckle",
+            "description": "<p>A buckle that automatically flips forward and out of the way means getting your child in and out faster, smoother and without any digging around underneath them.</p>",
+            "video_file": "shopify://files/videos/Sequence 01.mp4",
+            "video_loop": true,
+            "video_muted": true,
+            "video_url": "",
+            "button_text": "Explore",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_76B8pX",
+        "accordion_item_mXQ8A9",
+        "accordion_item_aV3cwn"
+      ],
+      "name": "Interactive Accordions",
+      "settings": {
+        "title": "",
+        "description": "",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 6,
+        "accordion_title_size": 8,
+        "accordion_text_size": 6,
+        "mobile_title_size": 7,
+        "mobile_text_size": 5,
+        "mobile_cards_in_view": 1.1,
+        "text_color": "text--neutral",
+        "width": "wrapper",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "section_inline_cards_TgwRyR": {
+      "type": "section-inline-cards",
+      "blocks": {
+        "card_fyEDdT": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/Hero_Images_Desktope_1.png",
+            "card_title": "Extra Bases",
+            "card_description": "<p>Multiple cars, multiple drivers, multiple caretakers? Add an extra base, and enjoy seamless transfers. Getting ready to grow the family? Even smarter to buy an extra base! Round to home, and score with bundle discounts — so you’re always ready, even for baby number two (or three).</p>"
+          }
+        },
+        "card_ACitJn": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/Rectangle_1486127365_2.png",
+            "card_title": "Extra Seat Covers",
+            "card_description": "<p>Snag extra seat covers to vary up color combos or make transitions even easier. babyark cup holders can snap into either side for convenient self-service and access, every ride.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "card_fyEDdT",
+        "card_ACitJn"
+      ],
+      "custom_css": [
+        ".section__title {font-size: 46px;}",
+        ".section__description p {font-size: 20px;}",
+        ".inline-cards-content {background: #fafafa;}",
+        "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } .wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
+      ],
+      "name": "Inline Cards",
+      "settings": {
+        "title": "Smart Accessorizing",
+        "description": "",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "cards_desktop": 3,
+        "cards_tablet": "2",
+        "card_title_size": 6,
+        "card_description_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_izxac3": {
+      "type": "section-double",
+      "blocks": {
+        "text_x3m8Yx": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical Alerts for Peace of Mind",
+            "text": "<p>Our connected app walks you through step by step, literally “green-lighting” your process. Peace of mind, right in your palm. Sensors and smart synching bring the reassurance of guided intelligent installation, real-time feedback and life-saving alerts such as “forgotten child” or “unbuckled.”</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "READ MORE",
+            "button_url": "https://babyark.com/blogs/holistic-approach-to-safety/smart-monitoring",
+            "button_color": "btn--black",
+            "button_style": "btn btn--long",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_rAACfj": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881186.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_x3m8Yx",
+        "image_rAACfj"
+      ],
+      "custom_css": [
+        ".brick__section {padding: 4rem; border-radius: 30px; background-color: #fafafa;}",
+        "img {border-radius: 20px;}",
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
+        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; } .brick__section {padding: 2rem; border-radius: 30px; background-color: #fafafa; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 20
+      }
+    },
+    "testimonials_carousel_pgLTqt": {
+      "type": "testimonials-carousel",
+      "blocks": {
+        "testimonial_diTy4A": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Trymore R.",
+            "testimonial_subject": "A great buy",
+            "testimonial_text": "This car seat is amazing. It looks and feels very comfortable for our young one. The safety features give us confidence and we travel with our young one worry free. Installation was easy with the short online videos they made. We love this car seat. It is worth the hype we heard before we purchased it.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_FMJLCg": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Ofelia Z.",
+            "testimonial_subject": "The best car seat",
+            "testimonial_text": "The seat is incredibly easy to set up. It seems comfortable for my 14 month old. He looks comfortable while sleeping too, as his head doesn’t bob forward. The side flap that is supposed to direct the force towards the back of the seat in case of a side impact gives me an extra sense of security. A nice plus is that the seat looks really nice and stylish. Overall I love it and will be getting another for my second child.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_TC8qQY": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the babyark has been a game changer. It’s unbelievable how much easier it’s been to get her in and out. The harness is simple to adjust with one hand and the magnetic buckles make it quick to strap her in. I also love how secure I feel knowing it’s built with side-impact protection and how it meets all the safety standards.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_Y8QHqN": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Erica M.",
+            "testimonial_subject": "We love this car seat!",
+            "testimonial_text": "We were on the fence if we needed to buy a new car seat for our daughter. But she kept screaming every time we put her in her infant seat. We pulled the plug and bought the babyark after hours of comparisons and reading blogs. First ride we got a huge smile in the rear view mirror. She even giggled for my husband as he started the car. She loves this seat and we love all the safety features and convenience of how it is designed. Thank you for making a seat that makes us feel safe!",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_bzTg6V": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Brittany W.",
+            "testimonial_subject": "Exactly what I wanted in a convertible car seat",
+            "testimonial_text": "After an exhausting search for convertible car seats and not being happy with anything on the market I found babyark. I wanted something that shared the features my infant car seat had and no other convertible car seats offered that.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_diTy4A",
+        "testimonial_FMJLCg",
+        "testimonial_TC8qQY",
+        "testimonial_Y8QHqN",
+        "testimonial_bzTg6V"
+      ],
+      "settings": {
+        "title": "What Our Customers Say",
+        "title_color": "#000000",
+        "title_alignment": "center",
+        "title_font_size": 40,
+        "title_font_size_mobile": 28,
+        "show_stars": true,
+        "star_count": 4.5,
+        "star_color": "#333333",
+        "review_count": "132",
+        "review_count_color": "#333333",
+        "padding_top": 30,
+        "padding_bottom": 30
+      }
+    },
+    "section_hero_7EJdPp": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_dUC4tp": {
+          "type": "heading",
+          "settings": {
+            "title": "Ready to join the community of confident caregivers?",
+            "text_size": 10
+          }
+        },
+        "button_pcpENd": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "shop babyark",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_dUC4tp",
+        "button_pcpENd"
+      ],
+      "custom_css": [
+        "img {border-radius: 20px;}",
+        ".hero__title {font-size: 46px;}",
+        ".hero-description {font-size: 20px;}",
+        "@media (max-width: 480px) {.hero__title {font-size: 30px; } .hero-description {font-size: 16px; } .hero__content {margin: 0; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Rectangle_1486127371_1.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127376.png",
+        "height": "use_image",
+        "overlay_opacity": 0,
+        "overlay_color": "#000000",
+        "enable_overlay_text": false,
+        "preload_image": false,
+        "content_width": 900,
+        "text_align": "align--middle-center",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--full",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "special_arrange": false
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_hero_eXtLAa",
+    "section_interactive_accordions_M9GmJg",
+    "section_inline_cards_TgwRyR",
+    "section_double_izxac3",
+    "testimonials_carousel_pgLTqt",
+    "section_hero_7EJdPp"
+  ]
+}
