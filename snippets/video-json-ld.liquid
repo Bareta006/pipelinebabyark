@@ -15,15 +15,23 @@
   %}
 {% endcomment %}
 
-{% if video_slides.size > 0 %}
+{% comment %} Filter for blocks that actually have video content {% endcomment %}
+{% assign actual_video_blocks = '' | split: '' %}
+{% for block in video_slides %}
+  {% if block.settings.video_file != blank or block.settings.video_url != blank or block.settings.video_bg != blank or block.settings.mobile_video_bg != blank %}
+    {% assign actual_video_blocks = actual_video_blocks | concat: block %}
+  {% endif %}
+{% endfor %}
+
+{% if actual_video_blocks.size > 0 %}
   {%- assign page_url = page_path | default: request.path -%}
   
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    {% if video_slides.size == 1 %}
+    {% if actual_video_blocks.size == 1 %}
       "@type": "VideoObject",
-      {% assign video_block = video_slides.first %}
+      {% assign video_block = actual_video_blocks.first %}
       "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
       "description": "{{ video_block.settings.richtext | default: video_block.settings.description | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content' | escape }}",
       {% if video_block.settings.video_file %}
@@ -45,16 +53,16 @@
         "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
         {% if video_block.settings.video_bg.preview_image %}
           "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.fallback_image %}
-          "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
+        {% elsif video_block.settings.image %}
+          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
         {% endif %}
       {% elsif video_block.settings.mobile_video_bg %}
         "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
         "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
         {% if video_block.settings.mobile_video_bg.preview_image %}
           "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.fallback_image %}
-          "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
+        {% elsif video_block.settings.image %}
+          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
         {% endif %}
       {% endif %}
       "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
@@ -62,7 +70,8 @@
     {% else %}
       "@type": "ItemList",
       "itemListElement": [
-        {% for video_block in video_slides %}
+        {% for video_block in actual_video_blocks %}
+          {% if video_block.settings.video_file != blank or video_block.settings.video_url != blank or video_block.settings.video_bg != blank or video_block.settings.mobile_video_bg != blank %}
           {
             "@type": "VideoObject",
             "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
@@ -86,21 +95,22 @@
               "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
               {% if video_block.settings.video_bg.preview_image %}
                 "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.fallback_image %}
-                "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
+              {% elsif video_block.settings.image %}
+                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
               {% endif %}
             {% elsif video_block.settings.mobile_video_bg %}
               "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
               "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
               {% if video_block.settings.mobile_video_bg.preview_image %}
                 "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.fallback_image %}
-                "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
+              {% elsif video_block.settings.image %}
+                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
               {% endif %}
             {% endif %}
             "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
             "embedUrl": "{{ request.origin }}{{ page_url }}#{{ section_id }}-{{ forloop.index }}"
           }{% unless forloop.last %},{% endunless %}
+          {% endif %}
         {% endfor %}
       ]
     {% endif %}
