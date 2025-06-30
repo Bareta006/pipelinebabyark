@@ -251,6 +251,7 @@
     {% endif %}
   {% endfor %}
   
+  <!-- DEBUG: Found {{ video_blocks.size }} video blocks -->
   {% render 'video-json-ld', 
     video_slides: video_blocks,
     section_id: section.id
