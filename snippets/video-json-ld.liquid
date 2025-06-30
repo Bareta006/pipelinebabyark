@@ -24,9 +24,23 @@
     {% if video_slides.size == 1 %}
       "@type": "VideoObject",
       {% assign video_block = video_slides.first %}
-      "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-      "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
-      {% if video_block.settings.video_bg %}
+      "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
+      "description": "{{ video_block.settings.richtext | default: video_block.settings.description | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content' | escape }}",
+      {% if video_block.settings.video_file %}
+        "contentUrl": "{{ video_block.settings.video_file.sources[0].url }}",
+        "duration": "PT{{ video_block.settings.video_file.duration | default: 30 }}S",
+        {% if video_block.settings.video_file.preview_image %}
+          "thumbnailUrl": "{{ video_block.settings.video_file.preview_image | image_url: width: 1200 }}",
+        {% elsif video_block.settings.image %}
+          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+        {% endif %}
+      {% elsif video_block.settings.video_url %}
+        "contentUrl": "{{ video_block.settings.video_url }}",
+        "duration": "PT30S",
+        {% if video_block.settings.image %}
+          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+        {% endif %}
+      {% elsif video_block.settings.video_bg %}
         "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
         "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
         {% if video_block.settings.video_bg.preview_image %}
@@ -51,9 +65,23 @@
         {% for video_block in video_slides %}
           {
             "@type": "VideoObject",
-            "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-            "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
-            {% if video_block.settings.video_bg %}
+            "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
+            "description": "{{ video_block.settings.richtext | default: video_block.settings.description | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content' | escape }}",
+            {% if video_block.settings.video_file %}
+              "contentUrl": "{{ video_block.settings.video_file.sources[0].url }}",
+              "duration": "PT{{ video_block.settings.video_file.duration | default: 30 }}S",
+              {% if video_block.settings.video_file.preview_image %}
+                "thumbnailUrl": "{{ video_block.settings.video_file.preview_image | image_url: width: 1200 }}",
+              {% elsif video_block.settings.image %}
+                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+              {% endif %}
+            {% elsif video_block.settings.video_url %}
+              "contentUrl": "{{ video_block.settings.video_url }}",
+              "duration": "PT30S",
+              {% if video_block.settings.image %}
+                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+              {% endif %}
+            {% elsif video_block.settings.video_bg %}
               "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
               "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
               {% if video_block.settings.video_bg.preview_image %}
