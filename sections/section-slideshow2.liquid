@@ -260,7 +260,7 @@
     {% if video_slides.size == 1 %}
       {% assign video_block = video_slides.first %}
       "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-      "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | escape }}",
+      "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
       {% if video_block.settings.video_bg %}
         "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
         "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
@@ -278,7 +278,7 @@
           "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
         {% endif %}
       {% endif %}
-      "uploadDate": "{{ 'now' | date: '%Y-%m-%d' }}",
+      "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
       "embedUrl": "{{ request.origin }}{{ request.path }}#{{ section.id }}"
     {% else %}
       "@graph": [
@@ -286,7 +286,7 @@
           {
             "@type": "VideoObject",
             "name": "{{ video_block.settings.title | default: 'Video Slideshow' | strip_html | escape }}",
-            "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | escape }}",
+            "description": "{{ video_block.settings.richtext | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content from slideshow' | escape }}",
             {% if video_block.settings.video_bg %}
               "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
               "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
@@ -304,7 +304,7 @@
                 "thumbnailUrl": "{{ video_block.settings.fallback_image | image_url: width: 1200 }}",
               {% endif %}
             {% endif %}
-            "uploadDate": "{{ 'now' | date: '%Y-%m-%d' }}",
+            "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
             "embedUrl": "{{ request.origin }}{{ request.path }}#{{ section.id }}-{{ forloop.index }}"
           }{% unless forloop.last %},{% endunless %}
         {% endfor %}
