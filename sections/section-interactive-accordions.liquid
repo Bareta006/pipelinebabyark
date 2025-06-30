@@ -244,16 +244,8 @@
   </div>
 
   {% comment %} Video JSON-LD Schema {% endcomment %}
-  {% assign video_blocks = '' | split: '' %}
-  {% for block in section.blocks %}
-    {% if block.settings.video_file != blank or block.settings.video_url != blank %}
-      {% assign video_blocks = video_blocks | concat: block %}
-    {% endif %}
-  {% endfor %}
-  
-  <!-- DEBUG: Found {{ video_blocks.size }} video blocks -->
   {% render 'video-json-ld', 
-    video_slides: video_blocks,
+    video_slides: section.blocks,
     section_id: section.id
   %}
 
