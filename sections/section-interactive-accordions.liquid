@@ -242,6 +242,23 @@
     </div>
     
   </div>
+
+  {% comment %} Video JSON-LD Schema {% endcomment %}
+  {% assign video_blocks = section.blocks | where: 'settings.video_file', true | concat: section.blocks | where: 'settings.video_url', true %}
+  {% if video_blocks.size == 0 %}
+    {% assign video_blocks = '' | split: '' %}
+    {% for block in section.blocks %}
+      {% if block.settings.video_file != blank or block.settings.video_url != blank %}
+        {% assign video_blocks = video_blocks | concat: block %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  
+  {% render 'video-json-ld', 
+    video_slides: video_blocks,
+    section_id: section.id
+  %}
+
 </section>
 
 <style>
