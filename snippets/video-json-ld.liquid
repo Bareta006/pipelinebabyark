@@ -15,101 +15,77 @@
   %}
 {% endcomment %}
 
-{% comment %} Filter for blocks that actually have video content {% endcomment %}
-{% assign actual_video_blocks = '' | split: '' %}
+{% comment %} Simple filter for video blocks {% endcomment %}
+{% assign video_count = 0 %}
 {% for block in video_slides %}
-  {% if block.settings.video_file != blank or block.settings.video_url != blank or block.settings.video_bg != blank or block.settings.mobile_video_bg != blank %}
-    {% assign actual_video_blocks = actual_video_blocks | concat: block %}
+  {% if block.settings.video_file or block.settings.video_url or block.settings.video_bg or block.settings.mobile_video_bg %}
+    {% assign video_count = video_count | plus: 1 %}
   {% endif %}
 {% endfor %}
 
-{% if actual_video_blocks.size > 0 %}
+{% if video_count > 0 %}
   {%- assign page_url = page_path | default: request.path -%}
   
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    {% if actual_video_blocks.size == 1 %}
+    {% if video_count == 1 %}
       "@type": "VideoObject",
-      {% assign video_block = actual_video_blocks.first %}
-      "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
-      "description": "{{ video_block.settings.richtext | default: video_block.settings.description | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content' | escape }}",
-      {% if video_block.settings.video_file %}
-        "contentUrl": "{{ video_block.settings.video_file.sources[0].url }}",
-        "duration": "PT{{ video_block.settings.video_file.duration | default: 30 }}S",
-        {% if video_block.settings.video_file.preview_image %}
-          "thumbnailUrl": "{{ video_block.settings.video_file.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.image %}
-          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+      {% for block in video_slides %}
+        {% if block.settings.video_file or block.settings.video_url or block.settings.video_bg or block.settings.mobile_video_bg %}
+          "name": "{{ block.settings.title | default: 'Video Content' | strip_html | escape }}",
+          "description": "{{ block.settings.richtext | default: block.settings.description | strip_html | truncate: 160 | default: block.settings.title | default: 'Video content' | escape }}",
+          {% if block.settings.video_file %}
+            "contentUrl": "{{ block.settings.video_file.sources[0].url }}",
+            "duration": "PT{{ block.settings.video_file.duration | default: 30 }}S",
+          {% elsif block.settings.video_url %}
+            "contentUrl": "{{ block.settings.video_url }}",
+            "duration": "PT30S",
+          {% elsif block.settings.video_bg %}
+            "contentUrl": "{{ block.settings.video_bg.sources[0].url }}",
+            "duration": "PT{{ block.settings.video_bg.duration | default: 30 }}S",
+          {% elsif block.settings.mobile_video_bg %}
+            "contentUrl": "{{ block.settings.mobile_video_bg.sources[0].url }}",
+            "duration": "PT{{ block.settings.mobile_video_bg.duration | default: 30 }}S",
+          {% endif %}
+          {% if block.settings.image %}
+            "thumbnailUrl": "{{ block.settings.image | image_url: width: 1200 }}",
+          {% endif %}
+          "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+          "embedUrl": "{{ request.origin }}{{ page_url }}#{{ section_id }}"
+          {% break %}
         {% endif %}
-      {% elsif video_block.settings.video_url %}
-        "contentUrl": "{{ video_block.settings.video_url }}",
-        "duration": "PT30S",
-        {% if video_block.settings.image %}
-          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
-        {% endif %}
-      {% elsif video_block.settings.video_bg %}
-        "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
-        "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
-        {% if video_block.settings.video_bg.preview_image %}
-          "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.image %}
-          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
-        {% endif %}
-      {% elsif video_block.settings.mobile_video_bg %}
-        "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
-        "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
-        {% if video_block.settings.mobile_video_bg.preview_image %}
-          "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-        {% elsif video_block.settings.image %}
-          "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
-        {% endif %}
-      {% endif %}
-      "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
-      "embedUrl": "{{ request.origin }}{{ page_url }}#{{ section_id }}"
+      {% endfor %}
     {% else %}
       "@type": "ItemList",
       "itemListElement": [
-        {% for video_block in actual_video_blocks %}
-          {% if video_block.settings.video_file != blank or video_block.settings.video_url != blank or video_block.settings.video_bg != blank or video_block.settings.mobile_video_bg != blank %}
-          {
-            "@type": "VideoObject",
-            "name": "{{ video_block.settings.title | default: 'Video Content' | strip_html | escape }}",
-            "description": "{{ video_block.settings.richtext | default: video_block.settings.description | strip_html | truncate: 160 | default: video_block.settings.title | default: 'Video content' | escape }}",
-            {% if video_block.settings.video_file %}
-              "contentUrl": "{{ video_block.settings.video_file.sources[0].url }}",
-              "duration": "PT{{ video_block.settings.video_file.duration | default: 30 }}S",
-              {% if video_block.settings.video_file.preview_image %}
-                "thumbnailUrl": "{{ video_block.settings.video_file.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.image %}
-                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+        {% assign item_index = 0 %}
+        {% for block in video_slides %}
+          {% if block.settings.video_file or block.settings.video_url or block.settings.video_bg or block.settings.mobile_video_bg %}
+            {% assign item_index = item_index | plus: 1 %}
+            {
+              "@type": "VideoObject",
+              "name": "{{ block.settings.title | default: 'Video Content' | strip_html | escape }}",
+              "description": "{{ block.settings.richtext | default: block.settings.description | strip_html | truncate: 160 | default: block.settings.title | default: 'Video content' | escape }}",
+              {% if block.settings.video_file %}
+                "contentUrl": "{{ block.settings.video_file.sources[0].url }}",
+                "duration": "PT{{ block.settings.video_file.duration | default: 30 }}S",
+              {% elsif block.settings.video_url %}
+                "contentUrl": "{{ block.settings.video_url }}",
+                "duration": "PT30S",
+              {% elsif block.settings.video_bg %}
+                "contentUrl": "{{ block.settings.video_bg.sources[0].url }}",
+                "duration": "PT{{ block.settings.video_bg.duration | default: 30 }}S",
+              {% elsif block.settings.mobile_video_bg %}
+                "contentUrl": "{{ block.settings.mobile_video_bg.sources[0].url }}",
+                "duration": "PT{{ block.settings.mobile_video_bg.duration | default: 30 }}S",
               {% endif %}
-            {% elsif video_block.settings.video_url %}
-              "contentUrl": "{{ video_block.settings.video_url }}",
-              "duration": "PT30S",
-              {% if video_block.settings.image %}
-                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
+              {% if block.settings.image %}
+                "thumbnailUrl": "{{ block.settings.image | image_url: width: 1200 }}",
               {% endif %}
-            {% elsif video_block.settings.video_bg %}
-              "contentUrl": "{{ video_block.settings.video_bg.sources[0].url }}",
-              "duration": "PT{{ video_block.settings.video_bg.duration | default: 30 }}S",
-              {% if video_block.settings.video_bg.preview_image %}
-                "thumbnailUrl": "{{ video_block.settings.video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.image %}
-                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
-              {% endif %}
-            {% elsif video_block.settings.mobile_video_bg %}
-              "contentUrl": "{{ video_block.settings.mobile_video_bg.sources[0].url }}",
-              "duration": "PT{{ video_block.settings.mobile_video_bg.duration | default: 30 }}S",
-              {% if video_block.settings.mobile_video_bg.preview_image %}
-                "thumbnailUrl": "{{ video_block.settings.mobile_video_bg.preview_image | image_url: width: 1200 }}",
-              {% elsif video_block.settings.image %}
-                "thumbnailUrl": "{{ video_block.settings.image | image_url: width: 1200 }}",
-              {% endif %}
-            {% endif %}
-            "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
-            "embedUrl": "{{ request.origin }}{{ page_url }}#{{ section_id }}-{{ forloop.index }}"
-          }{% unless forloop.last %},{% endunless %}
+              "uploadDate": "{{ 'now' | date: '%Y-%m-%dT%H:%M:%S%z' }}",
+              "embedUrl": "{{ request.origin }}{{ page_url }}#{{ section_id }}-{{ item_index }}"
+            }{% unless item_index == video_count %},{% endunless %}
           {% endif %}
         {% endfor %}
       ]
