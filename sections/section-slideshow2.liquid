@@ -249,13 +249,6 @@
       <div class="image-overlay" style="--bg: #000; opacity:0.15;"></div>
     </div>
   {% endif %}
-
-{% comment %} Generate JSON-LD VideoObject Schema for Video Slides {% endcomment %}
-{% render 'video-json-ld', 
-  video_slides: section.blocks | where: 'type', 'video_slide',
-  section_id: section.id
-%}
-
 <style>
   #shopify-section-{{ section.id }} .video-wrapper {
     height: 100%;
