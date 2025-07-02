@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Now available at Dillards.com!</p>",
+            "text": "<p>Now available at Bloomingdales.com & Dillards.com!</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
@@ -31,7 +31,7 @@
         "announce_text"
       ],
       "custom_css": [
-        "p{text-transform:none; letter-spacing:0;}"
+        "p {text-transform: none; letter-spacing: 0;}"
       ],
       "settings": {
         "text_size": 3,
