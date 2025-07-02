@@ -101,7 +101,8 @@
         "text_wrYFgC"
       ],
       "custom_css": [
-        "h2{font-size:40px;}"
+        "h2 {font-size: 40px;}",
+        "@media (max-width:480px){h2 {font-size: 36px;}}"
       ],
       "name": "Rich text",
       "settings": {
