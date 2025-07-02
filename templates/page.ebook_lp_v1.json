@@ -33,9 +33,9 @@
         "text_WqHMbb": {
           "type": "text",
           "settings": {
-            "kicker": "Image with text",
-            "title": "",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "kicker": "",
+            "title": "Introducing a New Baby to Older Siblings",
+            "text": "<p>No matter how you grow your family, preparing big siblings ahead of baby’s arrival can ease the transition for everyone. Sign up to download our ebook.<br/></p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -47,7 +47,7 @@
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
+            "text_color": "text--white",
             "bg_color": ""
           }
         },
