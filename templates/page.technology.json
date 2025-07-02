@@ -433,7 +433,8 @@
         "text_LViWiF"
       ],
       "custom_css": [
-        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.6); border-radius: 33px; margin-left: 0px;}"
+        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.6); border-radius: 33px; margin-left: 0px;}",
+        "@media (max-width:768px){{display:none; }}"
       ],
       "name": "Image with text no2",
       "settings": {
