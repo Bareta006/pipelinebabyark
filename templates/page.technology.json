@@ -98,9 +98,9 @@
         "text_4AdqET": {
           "type": "text",
           "settings": {
-            "kicker": "Image with text",
-            "title": "",
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "kicker": "",
+            "title": "Built-In Sensors for Real-Time Protection",
+            "text": "<p>babyark’s connected car seat features 14 smart sensors embedded in the seat and base, monitoring buckle status, seat orientation (rear-facing vs. forward-facing) installation accuracy, and more.</p><p>Unlike smart car seat accessories or clip-on tech, these sensors form a <strong>closed safety loop</strong> — always active, always accurate, and never reliant on user query or additional components. The result? Continuous feedback. Zero guesswork.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -108,12 +108,12 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
-            "button_text_2": "Read more",
+            "button_text_2": "",
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
             "text_color": "text--neutral",
-            "bg_color": ""
+            "bg_color": "#fafafa"
           }
         }
       },
