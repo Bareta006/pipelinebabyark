@@ -63,7 +63,8 @@
         "powerful_form_builder_app_block_xMYYzV"
       ],
       "custom_css": [
-        ".brick__block__text {background-color: transparent;}"
+        ".brick__block__text {background-color: transparent;}",
+        ".wrapper {border-radius: 20px;}"
       ],
       "name": "Image with text no2",
       "settings": {
