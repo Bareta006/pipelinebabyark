@@ -68,7 +68,7 @@
         " {padding: 40px 10px;}",
         ".standard__heading {font-size: 50px;}",
         ".rte p {font-size: 20px;}",
-        ".globo-description{margin: 20px 0;}",
+        ".globo-description {margin: 20px 0;}",
         "@media (max-width: 768px) {.standard__heading {font-size: 36px; } .rte p {font-size: 16px; }}"
       ],
       "name": "Image with text no2",
@@ -83,7 +83,7 @@
         "bg_size_mobile": "cover",
         "bg_position_desktop": "center center",
         "bg_position_mobile": "center center",
-        "preload_image": false,
+        "preload_image": true,
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
