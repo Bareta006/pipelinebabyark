@@ -130,7 +130,7 @@
       ],
       "name": "Image with text",
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
@@ -196,7 +196,7 @@
       ],
       "name": "Image with text",
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_image",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
