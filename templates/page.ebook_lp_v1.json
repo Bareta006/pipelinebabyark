@@ -102,7 +102,7 @@
       ],
       "custom_css": [
         "h2 {font-size: 40px;}",
-        "@media (max-width:480px){h2 {font-size: 36px;}}"
+        "@media (max-width: 480px) {h2 {font-size: 36px; }}"
       ],
       "name": "Rich text",
       "settings": {
@@ -186,7 +186,9 @@
         ".icon__column {background-color: #f6f6f6; border-radius: 10px; padding: 60px 30px;}",
         ".icon__column__heading {font-family: \"centrano2\"; font-weight: 400; text-transform: none; letter-spacing: unset; font-size: 35px; line-height: 120%;}",
         ".rte p {font-size: 20px; color: #000; line-height: 130%; min-height: 104px;}",
-        "@media (min-width: 768px) {.clearfix {display: none; } .grid__item {width: 20%; }}"
+        " .clearfix {display: none; }",
+        "@media (min-width: 768px) {.grid__item {width: 20%; }}",
+        "@media (max-width: 768px) {.grid__item {margin-bottom: 20px; } .icon__column{padding:40px 15px; text-align: center; }}"
       ],
       "name": "Icon columns",
       "settings": {
