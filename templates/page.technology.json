@@ -206,72 +206,6 @@
         "padding_bottom": 36
       }
     },
-    "section_double_NpWDJt": {
-      "type": "section-double",
-      "blocks": {
-        "text_i7GnFa": {
-          "type": "text",
-          "settings": {
-            "kicker": "",
-            "title": "Smart Alerts, Engineered to Save Lives",
-            "text": "<p>babyark’s alert system is designed to respond in real time to high-risk scenarios, with precision and urgency. Instant notifications are triggered in the event of an unbuckled harness, a child left behind in the seat (“forgotten child”), and if impact is detected, even if it occurs when you are out of the car. </p><p>These alerts are not dependent on third-party devices and are delivered directly to the primary caretaker’s number so the right people know immediately and can act fast.</p>",
-            "font_size": 5,
-            "text_columns": 1,
-            "align_text": "text-left",
-            "button_text": "",
-            "button_url": "",
-            "button_color": "btn--neutral",
-            "button_style": "btn-text-thick-line",
-            "button_text_2": "",
-            "button_link_2": "",
-            "button_color_2": "btn--neutral",
-            "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
-            "bg_color": "#fafafa"
-          }
-        },
-        "image_TBVH3K": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/Group_1597881209.png",
-            "overlay_opacity": 0,
-            "overlay_color": "#000",
-            "enable_overlay_text": false,
-            "kicker": "",
-            "title": "",
-            "richtext": "",
-            "text_align": "align--middle-center",
-            "text_color": "text--white",
-            "link_text": "",
-            "link": "",
-            "button_color": "btn--white",
-            "button_style": "btn"
-          }
-        }
-      },
-      "block_order": [
-        "text_i7GnFa",
-        "image_TBVH3K"
-      ],
-      "custom_css": [
-        ".wrapper > .brick__section {gap: 30px;}",
-        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
-        ".standard__heading {font-size: 34px;}",
-        ".rte {font-size: 20px;}",
-        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
-      ],
-      "name": "Image with text",
-      "settings": {
-        "height": "use_image",
-        "brick_gutter": 0,
-        "borders": false,
-        "bg_color": "",
-        "preload_image": false,
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "section_double_hbrdaQ": {
       "type": "section-double",
       "blocks": {
@@ -337,6 +271,138 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double_9h4J7L": {
+      "type": "section-double",
+      "blocks": {
+        "image_mpJejY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-06-24_at_17.14.14_1.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_mp9Jxh": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Advanced Features That Go Beyond Basics",
+            "text": "<p>babyark’s intelligent design anticipates the complexities of modern parenting. Beyond core alerts and monitoring, the system includes <strong>seat orientation tracking</strong> to help track correct usage by age, <strong>activity logs</strong> to monitor usage, and <strong>caregiver sharing</strong> to extend alerts and seat status to trusted adults in your circle. </p><p>The result is a car seat that grows with your child and adapts to your family’s dynamic needs — with technology doing the heavy lifting in the background.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        }
+      },
+      "block_order": [
+        "image_mpJejY",
+        "text_mp9Jxh"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_NpWDJt": {
+      "type": "section-double",
+      "blocks": {
+        "text_i7GnFa": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Smart Alerts, Engineered to Save Lives",
+            "text": "<p>babyark’s alert system is designed to respond in real time to high-risk scenarios, with precision and urgency. Instant notifications are triggered in the event of an unbuckled harness, a child left behind in the seat (“forgotten child”), and if impact is detected, even if it occurs when you are out of the car. </p><p>These alerts are not dependent on third-party devices and are delivered directly to the primary caretaker’s number so the right people know immediately and can act fast.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_TBVH3K": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881209.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_i7GnFa",
+        "image_TBVH3K"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -345,6 +411,7 @@
     "section_double_XzHBrY",
     "section_double_ndbHG3",
     "section_double_hbrdaQ",
-    "section_double_NpWDJt"
+    "section_double_NpWDJt",
+    "section_double_9h4J7L"
   ]
 }
