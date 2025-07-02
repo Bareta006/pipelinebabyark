@@ -178,8 +178,7 @@
         "icon_block_e4Czhy"
       ],
       "custom_css": [
-        ".clearfix {display: none;}",
-        ".grid__item {width: 20%;}"
+        "@media (min-width:768px){.clearfix {display: none;}.grid__item {width: 20%;}}"
       ],
       "name": "Icon columns",
       "settings": {
