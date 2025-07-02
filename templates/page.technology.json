@@ -125,7 +125,8 @@
         ".wrapper > .brick__section {gap: 30px;}",
         ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
         ".standard__heading {font-size: 34px;}",
-        ".rte {font-size:20px ;}"
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
       ],
       "name": "Image with text",
       "settings": {
