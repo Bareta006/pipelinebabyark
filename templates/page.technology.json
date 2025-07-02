@@ -453,7 +453,7 @@
       ],
       "custom_css": [
         ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
-        "@media (mןמ-width: 769px){{display:none;}}",
+        "@media (min-width: 769px) {{display: none; }}",
         "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
       ],
       "name": "Image with text",
