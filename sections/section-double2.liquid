@@ -626,7 +626,7 @@
 
   /* Desktop background */
   @media (min-width: 750px) {
-    #shopify-section-{{section.id}} .wrapper > .brick__section {
+    #shopify-section-{{section.id}} .wrapper  {
       {% if section.settings.bg_image_desktop %}
         background-image: url('{{ section.settings.bg_image_desktop | image_url: width: 1920 }}');
         background-size: {{ section.settings.bg_size_desktop }};
@@ -638,7 +638,7 @@
 
   /* Mobile background */
   @media (max-width: 749px) {
-    #shopify-section-{{section.id}} .wrapper > .brick__section {
+    #shopify-section-{{section.id}} .wrapper  {
       {% if section.settings.bg_image_mobile %}
         background-image: url('{{ section.settings.bg_image_mobile | image_url: width: 750 }}');
         background-size: {{ section.settings.bg_size_mobile }};
