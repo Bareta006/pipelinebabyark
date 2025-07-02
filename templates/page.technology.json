@@ -126,7 +126,7 @@
         ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
         ".standard__heading {font-size: 34px;}",
         ".rte {font-size: 20px;}",
-        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
       ],
       "name": "Image with text",
       "settings": {
@@ -192,7 +192,7 @@
         ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
         ".standard__heading {font-size: 34px;}",
         ".rte {font-size: 20px;}",
-        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
       ],
       "name": "Image with text",
       "settings": {
