@@ -622,7 +622,30 @@
     #shopify-section-{{section.id}} .rte p{
       font-size: 16px;
     }
+  }
 
+  /* Desktop background */
+  @media (min-width: 750px) {
+    #shopify-section-{{section.id}} .wrapper > .brick__section {
+      {% if section.settings.bg_image_desktop %}
+        background-image: url('{{ section.settings.bg_image_desktop | image_url: width: 1920 }}');
+        background-size: {{ section.settings.bg_size_desktop }};
+        background-position: {{ section.settings.bg_position_desktop }};
+        background-repeat: no-repeat;
+      {% endif %}
+    }
+  }
+
+  /* Mobile background */
+  @media (max-width: 749px) {
+    #shopify-section-{{section.id}} .wrapper > .brick__section {
+      {% if section.settings.bg_image_mobile %}
+        background-image: url('{{ section.settings.bg_image_mobile | image_url: width: 750 }}');
+        background-size: {{ section.settings.bg_size_mobile }};
+        background-position: {{ section.settings.bg_position_mobile }};
+        background-repeat: no-repeat;
+      {% endif %}
+    }
   }
 </style>
 
@@ -669,6 +692,76 @@
     "type": "color",
     "id": "bg_color",
     "label": "Background"
+  },
+  {
+    "type": "header",
+    "content": "Background Image"
+  },
+  {
+    "type": "image_picker",
+    "id": "bg_image_desktop",
+    "label": "Desktop background image"
+  },
+  {
+    "type": "image_picker",
+    "id": "bg_image_mobile",
+    "label": "Mobile background image"
+  },
+  {
+    "type": "select",
+    "id": "bg_size_desktop",
+    "label": "Desktop background size",
+    "default": "cover",
+    "options": [
+      { "value": "cover", "label": "Cover" },
+      { "value": "contain", "label": "Contain" },
+      { "value": "auto", "label": "Auto" }
+    ]
+  },
+  {
+    "type": "select",
+    "id": "bg_size_mobile",
+    "label": "Mobile background size",
+    "default": "cover",
+    "options": [
+      { "value": "cover", "label": "Cover" },
+      { "value": "contain", "label": "Contain" },
+      { "value": "auto", "label": "Auto" }
+    ]
+  },
+  {
+    "type": "select",
+    "id": "bg_position_desktop",
+    "label": "Desktop background position",
+    "default": "center center",
+    "options": [
+      { "value": "left top", "label": "Left Top" },
+      { "value": "center top", "label": "Center Top" },
+      { "value": "right top", "label": "Right Top" },
+      { "value": "left center", "label": "Left Center" },
+      { "value": "center center", "label": "Center Center" },
+      { "value": "right center", "label": "Right Center" },
+      { "value": "left bottom", "label": "Left Bottom" },
+      { "value": "center bottom", "label": "Center Bottom" },
+      { "value": "right bottom", "label": "Right Bottom" }
+    ]
+  },
+  {
+    "type": "select",
+    "id": "bg_position_mobile",
+    "label": "Mobile background position",
+    "default": "center center",
+    "options": [
+      { "value": "left top", "label": "Left Top" },
+      { "value": "center top", "label": "Center Top" },
+      { "value": "right top", "label": "Right Top" },
+      { "value": "left center", "label": "Left Center" },
+      { "value": "center center", "label": "Center Center" },
+      { "value": "right center", "label": "Right Center" },
+      { "value": "left bottom", "label": "Left Bottom" },
+      { "value": "center bottom", "label": "Center Bottom" },
+      { "value": "right bottom", "label": "Right Bottom" }
+    ]
   },
   {
     "type": "checkbox",
