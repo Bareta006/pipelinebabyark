@@ -68,7 +68,8 @@
         " {padding: 40px 10px;}",
         ".standard__heading {font-size: 50px;}",
         ".rte p {font-size: 20px;}",
-        "@media (max-width: 768px) {.standard__heading {font-size: 36px;}.rte p {font-size: 16px;}}"
+        ".globo-description{margin: 20px 0;}",
+        "@media (max-width: 768px) {.standard__heading {font-size: 36px; } .rte p {font-size: 16px; }}"
       ],
       "name": "Image with text no2",
       "settings": {
