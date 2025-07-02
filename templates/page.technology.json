@@ -121,6 +121,10 @@
         "image_nBwpdV",
         "text_4AdqET"
       ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block{border-radius:20px;}"
+      ],
       "name": "Image with text",
       "settings": {
         "height": "use_screen_one_half",
