@@ -34,7 +34,7 @@
       "custom_css": [
         ".hero__title {font-size: 60px;}",
         ".hero__description {font-size: 24px;}",
-        "@media (max-width: 768px) {.hero__title {font-size: 36px; } .hero__description {font-size: 16px; }}"
+        "@media (max-width: 768px) {.hero__title {font-size: 36px; } .hero__description {font-size: 16px; } .hero__content__wrapper {align-items: end; padding: 0; text-align: center; }}"
       ],
       "name": "Image banner",
       "settings": {
