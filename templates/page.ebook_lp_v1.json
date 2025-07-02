@@ -177,6 +177,10 @@
         "icon_block_fAwq9J",
         "icon_block_e4Czhy"
       ],
+      "custom_css": [
+        ".clearfix {display: none;}",
+        ".grid__item {width: 20%;}"
+      ],
       "name": "Icon columns",
       "settings": {
         "title": "",
