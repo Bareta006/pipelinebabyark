@@ -100,6 +100,9 @@
       "block_order": [
         "text_wrYFgC"
       ],
+      "custom_css": [
+        "h2{font-size:40px;}"
+      ],
       "name": "Rich text",
       "settings": {
         "align_text": "text-center",
