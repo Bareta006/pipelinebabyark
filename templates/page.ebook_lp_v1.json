@@ -65,7 +65,7 @@
       "custom_css": [
         ".brick__block__text {background-color: transparent;}",
         ".wrapper {border-radius: 20px;}",
-        " {padding: 40px 0;}"
+        " {padding: 40px 10px;}"
       ],
       "name": "Image with text no2",
       "settings": {
