@@ -43,7 +43,7 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
-            "button_text_2": "Read more",
+            "button_text_2": "",
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
@@ -65,7 +65,10 @@
       "custom_css": [
         ".brick__block__text {background-color: transparent;}",
         ".wrapper {border-radius: 20px;}",
-        " {padding: 40px 10px;}"
+        " {padding: 40px 10px;}",
+        ".standard__heading {font-size: 50px;}",
+        ".rte p {font-size: 20px;}",
+        "@media (max-width: 768px) {.standard__heading {font-size: 36px;}.rte p {font-size: 16px;}}"
       ],
       "name": "Image with text no2",
       "settings": {
