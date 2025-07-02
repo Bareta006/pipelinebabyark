@@ -62,6 +62,9 @@
         "text_WqHMbb",
         "powerful_form_builder_app_block_xMYYzV"
       ],
+      "custom_css": [
+        ".brick__block__text {background-color: transparent;}"
+      ],
       "name": "Image with text no2",
       "settings": {
         "height": "use_screen_one_third",
