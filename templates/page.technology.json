@@ -420,7 +420,7 @@
             "button_url": "",
             "button_color": "btn--neutral",
             "button_style": "btn-text-thick-line",
-            "button_text_2": "Read more",
+            "button_text_2": "",
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
@@ -433,7 +433,7 @@
         "text_LViWiF"
       ],
       "custom_css": [
-        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.60); border-radius: 33px;}"
+        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.6); border-radius: 33px; margin-left: 0px;}"
       ],
       "name": "Image with text no2",
       "settings": {
