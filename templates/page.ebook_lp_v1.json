@@ -84,10 +84,117 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_richtext_8KjH7F": {
+      "type": "section-richtext",
+      "blocks": {
+        "text_wrYFgC": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Download our Guide for <br/>Practical Advice On:</h2>",
+            "text_size": 3,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "text_wrYFgC"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_icons_BTa7Ad": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_cWLVp4": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Sharing the News",
+            "text": "<p>The who what when where how’s for a joyful announcement.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_9zAKJW": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Pregnancy Practices",
+            "text": "<p>Simple rituals and 1‑on‑1 moments to build excitement and belonging.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_79pyKN": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Love Is Not Cake",
+            "text": "<p>How to convey that adding a baby adds love, and everyone can still have a piece.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_fAwq9J": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Transition Tips",
+            "text": "<p>Preparing routines, roles, and responsibilities before baby arrives.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_e4Czhy": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "First Meetings",
+            "text": "<p>Creative ways to celebrate the big sibling–baby introduction.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_cWLVp4",
+        "icon_block_9zAKJW",
+        "icon_block_79pyKN",
+        "icon_block_fAwq9J",
+        "icon_block_e4Czhy"
+      ],
+      "name": "Icon columns",
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 40,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-left",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "main",
-    "section_double2_KpVQ6Y"
+    "section_double2_KpVQ6Y",
+    "section_richtext_8KjH7F",
+    "section_icons_BTa7Ad"
   ]
 }
