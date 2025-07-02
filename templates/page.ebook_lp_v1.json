@@ -179,7 +179,8 @@
       ],
       "custom_css": [
         ".icon__column__icon {display: none;}",
-        ".icon__column {background-color: #F6F6F6; border-radius: 10px; padding: 60px 30px;}",
+        ".icon__column {background-color: #f6f6f6; border-radius: 10px; padding: 60px 30px;}",
+        ".icon__column__heading {font-family: 'centrano2'; font-weight: 400; text-transform: none; letter-spacing: unset; font-size: 35px; line-height: 120%;}",
         "@media (min-width: 768px) {.clearfix {display: none; } .grid__item {width: 20%; }}"
       ],
       "name": "Icon columns",
