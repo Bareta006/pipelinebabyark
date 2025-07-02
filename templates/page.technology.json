@@ -404,6 +404,70 @@
         "padding_bottom": 36
       }
     },
+    "section_double_gApEkp": {
+      "type": "section-double",
+      "blocks": {
+        "image_k6qTML": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-06-24_at_17.14.14_1.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_w4LjVK": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Why a Connected Car Seat Changes Everything",
+            "text": "<p><strong>Smart car seat technology is helping pave the path to a next-generation standard for intelligent child passenger safety. </strong></p><p>By integrating sensors into the seat combined with BLE connectivity,  babyark facilitates a new layer of reassurance with real-time, data-driven alerts and guidance. This isn’t tech for tech’s sake. It’s <strong>technology that eliminates ambiguity</strong>, enforces consistency, and helps <strong>prevent life-threatening errors. </strong></p><p>babyark smart car seats brings safety that is not just active, but proactive.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--white",
+            "bg_color": "#22282d"
+          }
+        }
+      },
+      "block_order": [
+        "image_k6qTML",
+        "text_w4LjVK"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        "@media (mןמ-width: 769px){{display:none;}}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_double2_3wUJyb": {
       "type": "section-double2",
       "blocks": {
@@ -434,7 +498,7 @@
       ],
       "custom_css": [
         ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.6); border-radius: 33px; margin-left: 0px;}",
-        "@media (max-width:768px){{display:none; }}"
+        "@media (max-width: 768px) {{display: none; }}"
       ],
       "name": "Image with text no2",
       "settings": {
@@ -462,6 +526,7 @@
     "section_double_hbrdaQ",
     "section_double_NpWDJt",
     "section_double_9h4J7L",
+    "section_double_gApEkp",
     "section_double2_3wUJyb"
   ]
 }
