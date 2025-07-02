@@ -432,6 +432,9 @@
       "block_order": [
         "text_LViWiF"
       ],
+      "custom_css": [
+        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.60); border-radius: 33px;}"
+      ],
       "name": "Image with text no2",
       "settings": {
         "height": "use_screen_full",
