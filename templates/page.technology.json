@@ -139,11 +139,78 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double_ndbHG3": {
+      "type": "section-double",
+      "blocks": {
+        "text_KJ3Wpw": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Guided Installation, Verified by Technology",
+            "text": "<p>Installation is no longer trial and error — it’s sensor-verified and app-confirmed. </p><p>babyark’s connected car seat technology walks you through each step of installation with <strong>visual and audio guidance via the companion app</strong>, using real-time data from the built-in sensors.</p><p> The app provides feedback if steps are not completed successfully, proceeding to trigger the next stage or indicating corrections needed.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_gq3rCL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881202.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_KJ3Wpw",
+        "image_gq3rCL"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_QmYkxd",
     "main",
-    "section_double_XzHBrY"
+    "section_double_XzHBrY",
+    "section_double_ndbHG3"
   ]
 }
