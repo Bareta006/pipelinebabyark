@@ -62,12 +62,21 @@
         "text_WqHMbb",
         "powerful_form_builder_app_block_xMYYzV"
       ],
+      "custom_css": [
+        ".brick__block__text {background-color: transparent;}"
+      ],
       "name": "Image with text no2",
       "settings": {
-        "height": "use_screen_one_half",
+        "height": "use_pixels_500",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
+        "bg_image_desktop": "shopify://shop_images/Rectangle_1486127371_2.png",
+        "bg_image_mobile": "shopify://shop_images/Rectangle_1486127371_3.png",
+        "bg_size_desktop": "cover",
+        "bg_size_mobile": "cover",
+        "bg_position_desktop": "center center",
+        "bg_position_mobile": "center center",
         "preload_image": false,
         "width": "wrapper",
         "padding_top": 36,
