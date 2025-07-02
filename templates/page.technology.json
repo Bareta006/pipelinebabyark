@@ -73,10 +73,70 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double_XzHBrY": {
+      "type": "section-double",
+      "blocks": {
+        "image_nBwpdV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1486127345_1.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_4AdqET": {
+          "type": "text",
+          "settings": {
+            "kicker": "Image with text",
+            "title": "",
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "Read more",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_nBwpdV",
+        "text_4AdqET"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_QmYkxd",
-    "main"
+    "main",
+    "section_double_XzHBrY"
   ]
 }
