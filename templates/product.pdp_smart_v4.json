@@ -483,13 +483,13 @@
         "graphSide_heading": ""
       }
     },
-    "image-with-text-2": {
+    "section_double_FjBDGa": {
       "type": "section-double",
       "blocks": {
-        "image": {
+        "image_nDBLWB": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
+            "image": "shopify://shop_images/Rectangle_1486127365_3.png",
             "overlay_opacity": 0,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -504,12 +504,12 @@
             "button_style": "btn"
           }
         },
-        "text": {
+        "text_CqCkKX": {
           "type": "text",
           "settings": {
             "kicker": "",
-            "title": "Critical alerts",
-            "text": "<p>Never second-guess if your child is secured. <strong>Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.</strong></p>",
+            "title": "A lifetime of value",
+            "text": "<p>Engineered with advanced materials and patented design, babyark has no expiration, giving you safety that lasts as long as you need it. The option to purchase extra bases means no need to buy multiple car seats for multiple vehicles, bringing premium protection wherever your family goes.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
@@ -527,8 +527,8 @@
         }
       },
       "block_order": [
-        "image",
-        "text"
+        "image_nDBLWB",
+        "text_CqCkKX"
       ],
       "custom_css": [
         "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
@@ -607,6 +607,68 @@
         "preload_image": false,
         "width": "wrapper",
         "padding_top": 20,
+        "padding_bottom": 20
+      }
+    },
+    "image-with-text-2": {
+      "type": "section-double",
+      "blocks": {
+        "image": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/3179e83a-73f1-4a88-8567-ba10a5469882.jpg",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Critical alerts",
+            "text": "<p>Never second-guess if your child is secured. <strong>Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.</strong></p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "image",
+        "text"
+      ],
+      "custom_css": [
+        "@media (min-width: 960px) {.brick__block:first-child {width: 50%; } .brick__block__text {justify-content: center; } .brick__block__text__inner {padding: 0 60px; } .brick__block:last-child {width: 50%; } .brick__block__text {padding-left: 0; padding-right: 0; }}",
+        "@media (max-width: 480px) {.section-padding.wrapper > div {flex-direction: column-reverse; }}"
+      ],
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 0,
         "padding_bottom": 20
       }
     },
@@ -694,8 +756,9 @@
     "apps_hXV8Rb",
     "section_icons_grid_jwTBNP",
     "section_double_new_U8Re4G",
-    "image-with-text-2",
+    "section_double_FjBDGa",
     "section_double_kUy7cV",
+    "image-with-text-2",
     "17388565930c97fe0d",
     "1738783691b78546c1",
     "related",
