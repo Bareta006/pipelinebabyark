@@ -1,0 +1,534 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_hero_QmYkxd": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_A3xx8b": {
+          "type": "heading",
+          "settings": {
+            "title": "Smart Car Seat Technology",
+            "text_size": 10
+          }
+        },
+        "text_Xxajtt": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>babyark is the <strong>only car seat with smart technology fully integrated into both the seat and the base</strong>. Our patented system of 14 embedded sensors, paired with a <strong>Bluetooth-connected app</strong>, delivers real-time installation feedback, in-car safety tracking, and<strong> life-saving alerts — all in one intelligent car seat.</strong></p>",
+            "text_size": 6
+          }
+        }
+      },
+      "block_order": [
+        "heading_A3xx8b",
+        "text_Xxajtt"
+      ],
+      "custom_css": [
+        ".hero__title {font-size: 60px;}",
+        ".hero__description {font-size: 24px;}",
+        "@media (max-width: 768px) {.hero__title {font-size: 36px; } .hero__description {font-size: 16px; } .hero__content__wrapper {align-items: end; padding: 0; text-align: center; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Frame_24_6.png",
+        "mobile_image": "shopify://shop_images/Frame_24_5_1.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000000",
+        "enable_overlay_text": true,
+        "preload_image": true,
+        "content_width": 1000,
+        "text_align": "align--middle-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_hbrdaQ": {
+      "type": "section-double",
+      "blocks": {
+        "text_TWmUE9": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Companion App: The Hub of Your Connected Car Seat",
+            "text": "<p>The babyark app turns your smartphone into a safety command center. Paired with your Smart car seat via Bluetooth (BLE), the babyark companion app gives you access to safety alerts, installation guidance, live status updates, seat usage history, and more. </p><p>This app connects the <strong>entire caregiver network</strong> to the same safety information, ensuring everyone has the same visibility, whether they’re behind the wheel or not. And with crucial information like time in seat (especially pertinent for newborns) and life-saving alerts, babyark helps your phone become an extra layer of security.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_wpYyWH": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Rectangle_1486127347.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_TWmUE9",
+        "image_wpYyWH"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_XzHBrY": {
+      "type": "section-double",
+      "blocks": {
+        "image_nBwpdV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/BABYARK_film-1-final_NO_SUBS_1102024_1.gif",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_4AdqET": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Built-In Sensors for Real-Time Protection",
+            "text": "<p>babyark’s connected car seat features 14 smart sensors embedded in the seat and base, monitoring buckle status, seat orientation (rear-facing vs. forward-facing) installation accuracy, and more.</p><p>Unlike smart car seat accessories or clip-on tech, these sensors form a <strong>closed safety loop</strong> — always active, always accurate, and never reliant on user query or additional components. The result? Continuous feedback. Zero guesswork.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        }
+      },
+      "block_order": [
+        "image_nBwpdV",
+        "text_4AdqET"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_ndbHG3": {
+      "type": "section-double",
+      "blocks": {
+        "text_KJ3Wpw": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Guided Installation, Verified by Technology",
+            "text": "<p>Installation is no longer trial and error — it’s sensor-verified and app-confirmed. </p><p>babyark’s connected car seat technology walks you through each step of installation with <strong>visual and audio guidance via the companion app</strong>, using real-time data from the built-in sensors.</p><p> The app provides feedback if steps are not completed successfully, proceeding to trigger the next stage or indicating corrections needed.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_gq3rCL": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881202.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_KJ3Wpw",
+        "image_gq3rCL"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_NpWDJt": {
+      "type": "section-double",
+      "blocks": {
+        "image_TBVH3K": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881209.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_i7GnFa": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Smart Alerts, Engineered to Save Lives",
+            "text": "<p>babyark’s alert system is designed to respond in real time to high-risk scenarios, with precision and urgency. Instant notifications are triggered in the event of an unbuckled harness, a child left behind in the seat (“forgotten child”), and if impact is detected, even if it occurs when you are out of the car. </p><p>These alerts are not dependent on third-party devices and are delivered directly to the primary caretaker’s number so the right people know immediately and can act fast.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        }
+      },
+      "block_order": [
+        "image_TBVH3K",
+        "text_i7GnFa"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_9h4J7L": {
+      "type": "section-double",
+      "blocks": {
+        "text_mp9Jxh": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Advanced Features That Go Beyond Basics",
+            "text": "<p>babyark’s intelligent design anticipates the complexities of modern parenting. Beyond core alerts and monitoring, the system includes <strong>seat orientation tracking</strong> to help track correct usage by age, <strong>activity logs</strong> to monitor usage, and <strong>caregiver sharing</strong> to extend alerts and seat status to trusted adults in your circle. </p><p>The result is a car seat that grows with your child and adapts to your family’s dynamic needs — with technology doing the heavy lifting in the background.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "#fafafa"
+          }
+        },
+        "image_mpJejY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Screenshot_2025-06-24_at_17.14.14_1.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_mp9Jxh",
+        "image_mpJejY"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section {gap: 30px;}",
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        ".standard__heading {font-size: 34px;}",
+        ".rte {font-size: 20px;}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double_gApEkp": {
+      "type": "section-double",
+      "blocks": {
+        "image_k6qTML": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Frame_1597881094_1.png",
+            "overlay_opacity": 0,
+            "overlay_color": "#000000",
+            "enable_overlay_text": false,
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        },
+        "text_w4LjVK": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Why a Connected Car Seat Changes Everything",
+            "text": "<p><strong>Smart car seat technology is helping pave the path to a next-generation standard for intelligent child passenger safety. </strong></p><p>By integrating sensors into the seat combined with BLE connectivity,  babyark facilitates a new layer of reassurance with real-time, data-driven alerts and guidance. This isn’t tech for tech’s sake. It’s <strong>technology that eliminates ambiguity</strong>, enforces consistency, and helps <strong>prevent life-threatening errors. </strong></p><p>babyark smart car seats brings safety that is not just active, but proactive.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--white",
+            "bg_color": "#22282d"
+          }
+        }
+      },
+      "block_order": [
+        "image_k6qTML",
+        "text_w4LjVK"
+      ],
+      "custom_css": [
+        ".wrapper > .brick__section > .brick__block {border-radius: 20px; overflow: hidden;}",
+        "@media (min-width: 769px) {{display: none; }}",
+        "@media (max-width: 768px) {.wrapper > .brick__section {gap: 15px; flex-direction: column-reverse; } .text__standard {text-align: center !important; } .standard__heading {font-size: 30px; } .rte {font-size: 16px; }}"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double2_3wUJyb": {
+      "type": "section-double2",
+      "blocks": {
+        "text_LViWiF": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Why a Connected Car Seat Changes Everything",
+            "text": "<p><strong>Smart car seat technology is helping pave the path to a next-generation standard for intelligent child passenger safety. </strong></p><p>By integrating sensors into the seat combined with BLE connectivity,  babyark facilitates a new layer of reassurance with real-time, data-driven alerts and guidance. This isn’t tech for tech’s sake. It’s <strong>technology that eliminates ambiguity</strong>, enforces consistency, and helps <strong>prevent life-threatening errors. </strong></p><p>babyark smart car seats brings safety that is not just active, but proactive.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--white",
+            "bg_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_LViWiF"
+      ],
+      "custom_css": [
+        ".text__standard {max-width: 100%; width: 600px; padding: 80px 60px; background-color: rgba(34, 40, 45, 0.6); border-radius: 33px; margin-left: 0px;}",
+        ".wrapper {max-width: calc(var(--LAYOUT-WIDTH) - 100px); border-radius: 20px;}",
+        " {padding: 40px 0 80px;}",
+        "@media (max-width: 768px) {{display: none; }}"
+      ],
+      "name": "Image with text no2",
+      "settings": {
+        "height": "use_screen_full",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "bg_image_desktop": "shopify://shop_images/Frame_1597881094.png",
+        "bg_size_desktop": "cover",
+        "bg_size_mobile": "cover",
+        "bg_position_desktop": "center center",
+        "bg_position_mobile": "center center",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "section_hero_QmYkxd",
+    "main",
+    "section_double_hbrdaQ",
+    "section_double_XzHBrY",
+    "section_double_ndbHG3",
+    "section_double_NpWDJt",
+    "section_double_9h4J7L",
+    "section_double_gApEkp",
+    "section_double2_3wUJyb"
+  ]
+}

@@ -264,6 +264,7 @@
         },
         "accordion_block_2_4": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Does the babyark app have a forgotten child alert?",
             "content": "<p>Yes, the babyark app includes a forgotten child alert. Sensors within the car seat, connected to the mobile app, detect if your child remains seated while you move away from the vehicle, and will promptly notify you.</p><p>Please note, when using the infant insert cushions, the forgotten child alert activates only when the child is buckled.</p>"
@@ -286,8 +287,8 @@
         "text_PYmA8r": {
           "type": "text",
           "settings": {
-            "title": "Can the babyark app also prevent me from forgetting my child?",
-            "content": "<p>Yes. The sensors in the car seat that are connected to the mobile app identify if your baby is still in the seat and will notify you immediately. The forgotten child feature does not work with an infant insert at this stage.</p>"
+            "title": "Does the babyark app have a forgotten child alert?",
+            "content": "<p>Yes.<br/><br/>The Forgotten Child Alert system is designed with two independent triggers to provide redundancy and enhanced safety:<br/><br/>Child presence sensor – activated by the child’s weight when seated.<br/>Buckle sensor – activated when the harness buckle is rotated toward the child (i.e., when buckled).<br/><br/>Under normal use, both sensors work independently, meaning either one can trigger the alert.<br/><br/>When the infant insert is used, the combination of low child weight and soft padding might not trigger the presence sensor. In this case, for a buckled child, the buckle sensor will still trigger the Forgotten Child Alert.<br/><br/>The connection between the seat and the babyark app is established via Bluetooth Low Energy (BLE).<br/><br/>This connection allows the system to monitor the distance between the caregiver’s phone and the seat. If the phone moves beyond a predefined range and the BLE connection is lost while a trigger is active, the system interprets it as a potential forgotten child scenario and sends an alert to the caregiver’s phone.</p>"
           }
         },
         "text_za8D7h": {
