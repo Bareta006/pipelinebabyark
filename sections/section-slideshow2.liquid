@@ -1322,10 +1322,16 @@ document.addEventListener('DOMContentLoaded', function() {
 {% assign video_slides = blank %}
 {% for block in section.blocks %}
   {% if block.type == 'video_slide' %}
-    {% assign videos = block.settings.video_bg,block.settings.mobile_video_bg | compact %}
-    {% assign video_slides = video_slides | concat: videos %}
+    {% if block.settings.video_bg != blank %}
+      {% assign video_slides = video_slides | concat: block.settings.video_bg %}
+    {% endif %}
+    {% if block.settings.mobile_video_bg != blank %}
+      {% assign video_slides = video_slides | concat: block.settings.mobile_video_bg %}
+    {% endif %}
   {% endif %}
 {% endfor %}
+
+<!-- DEBUG: Video count: {{ video_slides.size }} -->
 {% if video_slides.size > 0 %}
   {% render 'video-json-ld', video_slides: video_slides %}
 {% endif %}
