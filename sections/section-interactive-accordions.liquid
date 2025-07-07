@@ -244,6 +244,19 @@
   </div>
 </section>
 
+{% comment %} Video JSON-LD for SEO {% endcomment %}
+{% for block in section.blocks %}
+  {% if block.settings.video_file != blank %}
+    {% render 'video-json-ld', 
+      video: block.settings.video_file,
+      video_name: block.settings.title,
+      video_description: block.settings.description,
+      section_id: section.id,
+      page_url: canonical_url
+    %}
+  {% endif %}
+{% endfor %}
+
 <style>
   #shopify-section-{{ section.id }} .section__header {
     margin-bottom: 2rem;
