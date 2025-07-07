@@ -249,6 +249,30 @@
       <div class="image-overlay" style="--bg: #000; opacity:0.15;"></div>
     </div>
   {% endif %}
+
+  {% comment %} Video JSON-LD for SEO {% endcomment %}
+  {% for block in section.blocks %}
+    {% if block.type == 'video_slide' %}
+      {% if block.settings.video_bg != blank %}
+        {% render 'video-json-ld', 
+          video: block.settings.video_bg,
+          video_name: block.settings.title,
+          video_description: block.settings.richtext,
+          section_id: section.id,
+          page_url: canonical_url
+        %}
+      {% endif %}
+      {% if block.settings.mobile_video_bg != blank %}
+        {% render 'video-json-ld', 
+          video: block.settings.mobile_video_bg,
+          video_name: block.settings.title,
+          video_description: block.settings.richtext,
+          section_id: section.id,
+          page_url: canonical_url
+        %}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
 <style>
   #shopify-section-{{ section.id }} .video-wrapper {
     height: 100%;

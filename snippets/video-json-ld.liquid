@@ -1,19 +1,16 @@
 {% comment %}
   /snippets/video-json-ld.liquid
   
-  Generates VideoObject JSON-LD structured data
+  Generates VideoObject JSON-LD structured data for a single video
   
   Parameters:
-  - video: Single Shopify video object (for single video)
-  - videos: Array of Shopify video objects (for multiple videos)  
+  - video: Shopify video object (required)
   - video_name: Video title/name (required)
-  - video_names: Array of video titles (for multiple videos)
   - video_description: Video description (optional)
-  - video_descriptions: Array of video descriptions (for multiple videos)
   - section_id: Unique section identifier (required)
   - page_url: Current page URL (required)
   
-  Usage (single video):
+  Usage:
   {% render 'video-json-ld', 
     video: block.settings.video_bg,
     video_name: block.settings.title,
@@ -21,101 +18,41 @@
     section_id: section.id,
     page_url: canonical_url
   %}
-  
-  Usage (multiple videos):
-  {% render 'video-json-ld', 
-    videos: video_array,
-    video_names: name_array,
-    video_descriptions: description_array,
-    section_id: section.id,
-    page_url: page_url
-  %}
 {% endcomment %}
 
+{%- if video != blank and video_name != blank -%}
 {%- liquid
   assign site_name = shop.name
   assign current_date = 'now' | date: '%Y-%m-%dT%H:%M:%S%z'
-  
-  if videos != blank
-    assign video_count = videos.size
-    assign is_multiple = true
-  elsif video != blank
-    assign video_count = 1
-    assign is_multiple = false
-  else
-    assign video_count = 0
-  endif
 -%}
-
-{%- if video_count > 0 -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  {%- if is_multiple == false -%}
-    "@type": "VideoObject",
-    "@id": "{{ page_url }}#video-{{ section_id }}-1",
-    "name": "{{ video_name | strip_html | escape }}",
-    {%- if video_description != blank -%}
-    "description": "{{ video_description | strip_html | truncate: 160 | escape }}",
-    {%- endif -%}
-    "url": "{{ page_url }}",
-    "contentUrl": "{{ video.sources[0].url }}",
-    {%- if video.preview_image -%}
-    "thumbnailUrl": "{{ video.preview_image | image_url: width: 1200 }}",
-    {%- endif -%}
-    {%- if video.duration -%}
-    "duration": "PT{{ video.duration }}S",
-    {%- endif -%}
-    "encodingFormat": "{{ video.sources[0].mime_type }}",
-    {%- if video.sources[0].width and video.sources[0].height -%}
-    "width": "{{ video.sources[0].width }}",
-    "height": "{{ video.sources[0].height }}",
-    {%- endif -%}
-    "datePublished": "{{ current_date }}",
-    "uploadDate": "{{ current_date }}",
-    "publisher": {
-      "@type": "Organization",
-      "name": "{{ site_name }}",
-      "url": "{{ shop.url }}"
-    }
-  {%- else -%}
-    "@type": "ItemList",
-    "name": "Videos",
-    "numberOfItems": {{ video_count }},
-    "itemListElement": [
-      {%- for video in videos -%}
-        {%- assign video_index = forloop.index0 -%}
-        {
-          "@type": "VideoObject",
-          "@id": "{{ page_url }}#video-{{ section_id }}-{{ forloop.index }}",
-          "name": "{{ video_names[video_index] | strip_html | escape }}",
-          {%- if video_descriptions[video_index] != blank -%}
-          "description": "{{ video_descriptions[video_index] | strip_html | truncate: 160 | escape }}",
-          {%- endif -%}
-          "url": "{{ page_url }}",
-          "contentUrl": "{{ video.sources[0].url }}",
-          {%- if video.preview_image -%}
-          "thumbnailUrl": "{{ video.preview_image | image_url: width: 1200 }}",
-          {%- endif -%}
-          {%- if video.duration -%}
-          "duration": "PT{{ video.duration }}S",
-          {%- endif -%}
-          "encodingFormat": "{{ video.sources[0].mime_type }}",
-          {%- if video.sources[0].width and video.sources[0].height -%}
-          "width": "{{ video.sources[0].width }}",
-          "height": "{{ video.sources[0].height }}",
-          {%- endif -%}
-          "datePublished": "{{ current_date }}",
-          "uploadDate": "{{ current_date }}",
-          "publisher": {
-            "@type": "Organization",
-            "name": "{{ site_name }}",
-            "url": "{{ shop.url }}"
-          }
-        }{%- unless forloop.last -%},{%- endunless -%}
-      {%- endfor -%}
-    ]
+  "@type": "VideoObject",
+  "name": "{{ video_name | strip_html | escape }}",
+  {%- if video_description != blank -%}
+  "description": "{{ video_description | strip_html | truncate: 160 | escape }}",
   {%- endif -%}
+  "url": "{{ page_url }}",
+  "contentUrl": "{{ video.sources[0].url }}",
+  {%- if video.preview_image -%}
+  "thumbnailUrl": "{{ video.preview_image | image_url: width: 1200 }}",
+  {%- endif -%}
+  {%- if video.duration -%}
+  "duration": "PT{{ video.duration }}S",
+  {%- endif -%}
+  "encodingFormat": "{{ video.sources[0].mime_type }}",
+  {%- if video.sources[0].width and video.sources[0].height -%}
+  "width": "{{ video.sources[0].width }}",
+  "height": "{{ video.sources[0].height }}",
+  {%- endif -%}
+  "datePublished": "{{ current_date }}",
+  "uploadDate": "{{ current_date }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site_name }}",
+    "url": "{{ shop.url }}"
+  }
 }
 </script>
 {%- endif -%} 
