@@ -1318,3 +1318,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
+{% comment %} Video JSON-LD structured data {% endcomment %}
+{% assign video_slides = blank %}
+{% for block in section.blocks %}
+  {% if block.type == 'video_slide' %}
+    {% assign videos = block.settings.video_bg,block.settings.mobile_video_bg | compact %}
+    {% assign video_slides = video_slides | concat: videos %}
+  {% endif %}
+{% endfor %}
+{% if video_slides.size > 0 %}
+  {% render 'video-json-ld', video_slides: video_slides %}
+{% endif %}
+

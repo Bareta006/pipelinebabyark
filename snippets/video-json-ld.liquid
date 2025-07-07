@@ -1,0 +1,103 @@
+{% comment %}
+  /snippets/video-json-ld.liquid
+  
+  Generates VideoObject JSON-LD structured data for videos
+  
+  Parameters:
+  - video_slides: Array of video objects (required)
+  - section_id: Unique section identifier (optional - for multiple videos)
+  - page_path: Current page URL (optional - defaults to canonical_url)
+  
+  Usage Examples:
+  Single video:
+  {% render 'video-json-ld', video_slides: video_array, section_id: section.id %}
+  
+  Multiple videos:  
+  {% assign video_array = section.blocks | where: 'type', 'video' %}
+  {% render 'video-json-ld', video_slides: video_array, section_id: section.id %}
+  
+  Manual array:
+  {% assign videos = block.settings.video_bg,block.settings.mobile_video_bg | compact %}
+  {% render 'video-json-ld', video_slides: videos %}
+{% endcomment %}
+
+{%- liquid
+  assign page_path = page_path | default: canonical_url
+  assign site_name = shop.name
+  assign current_date = 'now' | date: '%Y-%m-%dT%H:%M:%S%z'
+  assign video_count = 0
+  
+  # Count valid videos
+  for video in video_slides
+    if video != blank and video.url != blank
+      assign video_count = video_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if video_count > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  {%- if video_count == 1 -%}
+    {%- for video in video_slides -%}
+      {%- if video != blank and video.url != blank -%}
+        "@type": "VideoObject",
+        "name": "{{ video.alt | default: page.title | strip_html | escape }}",
+        {%- if video.preview_image.alt != blank -%}
+        "description": "{{ video.preview_image.alt | strip_html | truncate: 160 | escape }}",
+        {%- endif -%}
+        "url": "{{ page_path }}",
+        "contentUrl": "{{ video.url }}",
+        {%- if video.preview_image -%}
+        "thumbnailUrl": "{{ video.preview_image | image_url: width: 1200 }}",
+        {%- endif -%}
+        {%- if video.duration -%}
+        "duration": "PT{{ video.duration }}S",
+        {%- endif -%}
+        "datePublished": "{{ current_date }}",
+        "uploadDate": "{{ current_date }}",
+        "publisher": {
+          "@type": "Organization",
+          "name": "{{ site_name }}"
+        }
+        {%- break -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- else -%}
+    "@type": "ItemList",
+    "name": "{{ page.title | strip_html | escape }} Videos",
+    "numberOfItems": {{ video_count }},
+    "itemListElement": [
+      {%- assign video_index = 0 -%}
+      {%- for video in video_slides -%}
+        {%- if video != blank and video.url != blank -%}
+          {%- assign video_index = video_index | plus: 1 -%}
+          {
+            "@type": "VideoObject",
+            "name": "{{ video.alt | default: page.title | strip_html | escape }}",
+            {%- if video.preview_image.alt != blank -%}
+            "description": "{{ video.preview_image.alt | strip_html | truncate: 160 | escape }}",
+            {%- endif -%}
+            "url": "{{ page_path }}",
+            "contentUrl": "{{ video.url }}",
+            {%- if video.preview_image -%}
+            "thumbnailUrl": "{{ video.preview_image | image_url: width: 1200 }}",
+            {%- endif -%}
+            {%- if video.duration -%}
+            "duration": "PT{{ video.duration }}S",
+            {%- endif -%}
+            "datePublished": "{{ current_date }}",
+            "uploadDate": "{{ current_date }}",
+            "publisher": {
+              "@type": "Organization",
+              "name": "{{ site_name }}"
+            }
+          }{%- unless forloop.last -%},{%- endunless -%}
+        {%- endif -%}
+      {%- endfor -%}
+    ]
+  {%- endif -%}
+}
+</script>
+{%- endif -%} 
