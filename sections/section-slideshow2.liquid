@@ -1319,16 +1319,26 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 {% comment %} Video JSON-LD structured data {% endcomment %}
-{% assign all_videos = '' | split: ',' %}
 {% for block in section.blocks %}
   {% if block.type == 'video_slide' %}
     {% if block.settings.video_bg %}
-      {% assign all_videos = all_videos | push: block.settings.video_bg %}
+      {% render 'video-json-ld', 
+        video_url: block.settings.video_bg.url,
+        video_name: block.settings.title,
+        video_description: block.settings.richtext,
+        thumbnail_url: block.settings.video_bg.preview_image,
+        duration: block.settings.video_bg.duration
+      %}
     {% endif %}
     {% if block.settings.mobile_video_bg %}
-      {% assign all_videos = all_videos | push: block.settings.mobile_video_bg %}
+      {% render 'video-json-ld', 
+        video_url: block.settings.mobile_video_bg.url,
+        video_name: block.settings.title,
+        video_description: block.settings.richtext,
+        thumbnail_url: block.settings.mobile_video_bg.preview_image,
+        duration: block.settings.mobile_video_bg.duration
+      %}
     {% endif %}
   {% endif %}
 {% endfor %}
-{% render 'video-json-ld', video_slides: all_videos %}
 
