@@ -61,7 +61,7 @@
         "liquid_gcqieK": {
           "type": "liquid",
           "settings": {
-            "custom_liquid": "<script>\n(function tryUpdatePaymentText(attempt = 1) {\n  var priceElem = document.querySelector('.affirm-ala-price');\n  var price = priceElem ? priceElem.textContent.trim() : '';\n\n  if (price) {\n    var paymentsElem = document.querySelector('.flexible-payments-text');\n    if (paymentsElem) {\n      paymentsElem.textContent = `or ${price}/month`;\n      paymentsElem.style.display = \"block\"; // Show the element\n    }\n  } else if (attempt < 5) {\n    setTimeout(function() {\n      tryUpdatePaymentText(attempt + 1);\n    }, 1000);\n  }\n})();\n</script>"
+            "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function() {\n  function tryUpdatePaymentText(attempt = 1) { \n    var priceElem = document.querySelector('.affirm-ala-price');\n    var price = priceElem ? priceElem.textContent.trim() : '';\n\n    if (price) {\n      var paymentsElem = document.querySelector('.flexible-payments-text');\n      if (paymentsElem) {\n        paymentsElem.textContent = `or ${price}/month`;\n        paymentsElem.style.display = \"block\"; // Optional: show if hidden\n      }\n    } else if (attempt < 5) {\n      setTimeout(function() {\n        tryUpdatePaymentText(attempt + 1);\n      }, 1000);\n    }\n  }\n  tryUpdatePaymentText();\n});\n</script>"
           }
         },
         "liquid_TaxeUj": {
