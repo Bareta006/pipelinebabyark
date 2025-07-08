@@ -16,7 +16,8 @@
         "img {margin: 20px auto 10px;}",
         "h2 {font-size: 24px; font-weight: 700; letter-spacing: 0.24px; margin-bottom: 10px;}",
         "h3 {font-size: 20px; font-weight: 500; letter-spacing: -0.16px; margin-bottom: 10px;}",
-        "p {font-size: 16px;}"
+        "p {font-size: 16px;}",
+        "@media (min-width:992px){.grid__item {width: 85%; left: 50%; transform: translateX(-50%);}}"
       ],
       "settings": {
         "blog_show_meta": true,
