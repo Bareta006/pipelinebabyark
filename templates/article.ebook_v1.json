@@ -12,7 +12,11 @@
     "main": {
       "type": "article",
       "custom_css": [
-        ".mobile--show .image__hero__frame {max-height: 360px;}"
+        ".mobile--show .image__hero__frame {max-height: 360px;}",
+        "img {margin: 20px auto 10px;}",
+        "h2 {font-size: 24px; font-weight: 700; letter-spacing: 0.24px; margin-bottom: 10px;}",
+        "h3 {font-size: 20px; font-weight: 500; letter-spacing: -0.16px; margin-bottom: 10px;}",
+        "p {font-size: 16px;}"
       ],
       "settings": {
         "blog_show_meta": true,
@@ -20,12 +24,12 @@
         "color_bg": "palette--light bg--neutral",
         "social": false,
         "share_label": "Share",
-        "show_featured_image": true,
-        "image_height": "use_screen_two_thirds",
+        "show_featured_image": false,
+        "image_height": "use_pixels_500",
         "bg_position": "center-center",
         "sidebar_tags": false,
-        "recent": true,
-        "wh_ratio": 1.7,
+        "recent": false,
+        "wh_ratio": 0.5,
         "show_author": true,
         "show_tags": true,
         "show_date": true,
