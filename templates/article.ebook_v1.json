@@ -24,7 +24,7 @@
         "color_bg": "palette--light bg--neutral",
         "social": false,
         "share_label": "Share",
-        "show_featured_image": false,
+        "show_featured_image": true,
         "image_height": "use_pixels_500",
         "bg_position": "center-center",
         "sidebar_tags": false,
