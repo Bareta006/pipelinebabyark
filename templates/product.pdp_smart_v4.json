@@ -58,6 +58,12 @@
             "padding_bottom": 10
           }
         },
+        "liquid_gcqieK": {
+          "type": "liquid",
+          "settings": {
+            "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function() {\n  // Get the price text from .affirm-ala-price\n  var priceElem = document.querySelector('.affirm-ala-price');\n  var price = priceElem ? priceElem.textContent.trim() : '';\n\n  if (price) {\n    // Update .flexible-payments-text\n    var paymentsElem = document.querySelector('.flexible-payments-text');\n    if (paymentsElem) {\n      paymentsElem.textContent = `or ${price}/month`;\n    }\n  }\n});\n</script>"
+          }
+        },
         "liquid_TaxeUj": {
           "type": "liquid",
           "disabled": true,
@@ -240,6 +246,7 @@
         "judge_me_reviews_preview_badge_VYMFNW",
         "custom_buttons_nDM4gY",
         "price",
+        "liquid_gcqieK",
         "liquid_TaxeUj",
         "variants",
         "description",
