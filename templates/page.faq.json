@@ -737,7 +737,7 @@
         ".section-faq {background-color: #efefef;}"
       ],
       "settings": {
-        "title": "Payment FAQs - Affirm, Klarna, and Paysquad",
+        "title": "Payment Options",
         "title_align": "text-left",
         "title_size": 6,
         "heading_size": 5,
