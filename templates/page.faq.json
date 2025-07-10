@@ -720,7 +720,7 @@
           "type": "text",
           "settings": {
             "title": "Can Paysquad be used to purchase a babyark car seat?",
-            "content": "<p>We offer Paysquad as a payment option for babyark car seats, making them a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
+            "content": "<p>We offer <a href=\"https://www.paysquad.co/\" target=\"_blank\" title=\"https://www.paysquad.co/\">Paysquad</a> as a payment option for babyark car seats, making them a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
           }
         }
       },
