@@ -685,28 +685,28 @@
           "type": "text",
           "settings": {
             "title": "How do I make my payments?",
-            "content": "<p>You can make or schedule payments at affirm.com or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p>"
+            "content": "<p>For Affirm, you can make or schedule payments at affirm.com or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p><p>For Klarna, you can pay off through their system similarly.</p>"
           }
         },
         "text_pNKG98": {
           "type": "text",
           "settings": {
-            "title": "Can I return an item I bought with Affirm?",
-            "content": "<p>Yes—you can return an item you bought with Affirm by initiating the return process with the store.</p>"
+            "title": "Can I return an item I bought through a payment plan option?",
+            "content": "<p>Yes—you can return an item you bought with Affirm, Klarna, or Paysquad by initiating the return process with the store.</p>"
           }
         },
         "text_gVqXWy": {
           "type": "text",
           "settings": {
             "title": "Does checking my eligibility affect my credit score?",
-            "content": "<p>No—your credit score won’t be affected when you create an Affirm account or check your eligibility. If you decide to buy with Affirm, this may impact your credit score. You can find more information in <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center.</a></p>"
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm or Klarna account or check your eligibility. If you decide to buy with Affirm or Klarna, this may impact your credit score. You can find more information in <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" title=\"Klarna FAQ section\">Klarna's FAQ section</a> or <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center</a></p>"
           }
         },
         "text_qY7dar": {
           "type": "text",
           "settings": {
-            "title": "Where can I learn more about Affirm?",
-            "content": "<p>You can visit their website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com</a>.</p>"
+            "title": "Where can I learn more about Affirm or Klarna?",
+            "content": "<p>You can visit the <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" title=\"https://www.klarna.com/us/customer-service/#faq-categories-list\">Klarna FAQ section</a> or the Affirm website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com.</a></p>"
           }
         },
         "text_kwHcHt": {
@@ -714,6 +714,13 @@
           "settings": {
             "title": "Can I exchange a seat that has been used?",
             "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p>"
+          }
+        },
+        "text_LHcHBR": {
+          "type": "text",
+          "settings": {
+            "title": "Can Paysquad be used to purchase a babyark car seat?",
+            "content": "<p>We offer Paysquad as a payment option for babyark car seats, making them a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
           }
         }
       },
@@ -723,13 +730,14 @@
         "text_pNKG98",
         "text_gVqXWy",
         "text_qY7dar",
-        "text_kwHcHt"
+        "text_kwHcHt",
+        "text_LHcHBR"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
       ],
       "settings": {
-        "title": "Affirm FAQs",
+        "title": "Payment FAQs - Affirm, Klarna, and Paysquad",
         "title_align": "text-left",
         "title_size": 6,
         "heading_size": 5,
