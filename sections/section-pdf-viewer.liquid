@@ -45,6 +45,17 @@
             class="pdf-embed"
             aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
           />
+        {% elsif section.settings.display_method == 'object' %}
+          <object 
+            data="{{ section.settings.pdf_url }}#view=FitH&zoom=page-width"
+            type="application/pdf"
+            width="100%"
+            height="{{ section.settings.pdf_height }}px"
+            class="pdf-object"
+            aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
+          >
+            <p>Your browser does not support PDFs. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
+          </object>
         {% else %}
           <iframe 
             src="{{ section.settings.pdf_url }}#view=FitH&zoom=page-width"
@@ -94,7 +105,8 @@
 }
 
 #shopify-section-{{ section.id }} .pdf-embed,
-#shopify-section-{{ section.id }} .pdf-iframe {
+#shopify-section-{{ section.id }} .pdf-iframe,
+#shopify-section-{{ section.id }} .pdf-object {
   border: 1px solid var(--pdf-border-color);
   border-radius: var(--pdf-border-radius);
   box-shadow: var(--pdf-shadow);
@@ -123,7 +135,8 @@
 /* Mobile adjustments */
 @media (max-width: 749px) {
   #shopify-section-{{ section.id }} .pdf-embed,
-  #shopify-section-{{ section.id }} .pdf-iframe {
+  #shopify-section-{{ section.id }} .pdf-iframe,
+  #shopify-section-{{ section.id }} .pdf-object {
     height: 400px !important;
     min-height: 400px;
     /* iOS Safari iframe fix */
@@ -143,9 +156,10 @@
 /* Ensure proper aspect ratio on smaller screens */
 @media (max-width: 480px) {
   #shopify-section-{{ section.id }} .pdf-embed,
-  #shopify-section-{{ section.id }} .pdf-iframe {
-    height: 300px !important;
-    min-height: 300px;
+  #shopify-section-{{ section.id }} .pdf-iframe,
+  #shopify-section-{{ section.id }} .pdf-object {
+    height: 500px !important;
+    min-height: 500px;
   }
 }
 
@@ -182,9 +196,10 @@
       "type": "select",
       "id": "display_method",
       "label": "Display Method",
-      "default": "iframe",
+      "default": "object",
       "options": [
-        { "value": "iframe", "label": "Iframe (Recommended)" },
+        { "value": "iframe", "label": "Iframe" },
+        { "value": "object", "label": "Object (Recommended for iOS)" },
         { "value": "embed", "label": "Embed Tag" }
       ],
       "info": "Iframe works better across different browsers"
