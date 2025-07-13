@@ -36,18 +36,19 @@
     {% comment %} PDF Viewer {% endcomment %}
     {% if section.settings.pdf_url != blank %}
       <div class="pdf-viewer-container">
-        {% if section.settings.display_method == 'embed' %}
-          <embed 
-            src="{{ section.settings.pdf_url }}#view=FitH"
-            type="application/pdf"
-            width="100%"
-            height="{{ section.settings.pdf_height }}px"
-            class="pdf-embed"
-            aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
-          />
-        {% elsif section.settings.display_method == 'object' %}
+        <div class="pdf-wrapper">
+          {% if section.settings.display_method == 'embed' %}
+            <embed 
+              src="{{ section.settings.pdf_url }}"
+              type="application/pdf"
+              width="100%"
+              height="{{ section.settings.pdf_height }}px"
+              class="pdf-embed"
+              aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
+            />
+                  {% elsif section.settings.display_method == 'object' %}
           <object 
-            data="{{ section.settings.pdf_url }}#view=FitH&zoom=page-width"
+            data="{{ section.settings.pdf_url }}"
             type="application/pdf"
             width="100%"
             height="{{ section.settings.pdf_height }}px"
@@ -56,18 +57,30 @@
           >
             <p>Your browser does not support PDFs. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
           </object>
-        {% else %}
+        {% elsif section.settings.display_method == 'pdfjs' %}
           <iframe 
-            src="{{ section.settings.pdf_url }}#view=FitH&zoom=page-width"
+            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}"
             width="100%"
             height="{{ section.settings.pdf_height }}px"
-            class="pdf-iframe"
+            class="pdf-iframe pdf-js"
             frameborder="0"
             aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
           >
-            <p>Your browser does not support iframes. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
+            <p>Your browser does not support PDF.js. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
           </iframe>
-        {% endif %}
+          {% else %}
+            <iframe 
+              src="{{ section.settings.pdf_url }}"
+              width="100%"
+              height="{{ section.settings.pdf_height }}px"
+              class="pdf-iframe"
+              frameborder="0"
+              aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
+            >
+              <p>Your browser does not support iframes. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
+            </iframe>
+          {% endif %}
+        </div>
         
         {% if section.settings.show_download_link %}
           <div class="pdf-download-link">
@@ -114,6 +127,10 @@
   width: 100%;
 }
 
+#shopify-section-{{ section.id }} .pdf-js {
+  /* PDF.js is mobile-optimized, no special iOS hacks needed */
+}
+
 #shopify-section-{{ section.id }} .pdf-download-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -134,14 +151,31 @@
 
 /* Mobile adjustments */
 @media (max-width: 749px) {
+  #shopify-section-{{ section.id }} .pdf-wrapper {
+    width: 100%;
+    height: 400px;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border: 1px solid var(--pdf-border-color);
+    border-radius: var(--pdf-border-radius);
+    box-shadow: var(--pdf-shadow);
+  }
+  
   #shopify-section-{{ section.id }} .pdf-embed,
   #shopify-section-{{ section.id }} .pdf-iframe,
   #shopify-section-{{ section.id }} .pdf-object {
     height: 400px !important;
     min-height: 400px;
-    /* iOS Safari iframe fix */
-    width: 1px !important;
-    min-width: 100% !important;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+  #shopify-section-{{ section.id }} .pdf-js {
+    /* PDF.js handles mobile scaling automatically - no iOS hacks needed */
+    border: 1px solid var(--pdf-border-color);
+    border-radius: var(--pdf-border-radius);
+    box-shadow: var(--pdf-shadow);
   }
   
   #shopify-section-{{ section.id }} .pdf-download-link {
@@ -155,6 +189,10 @@
 
 /* Ensure proper aspect ratio on smaller screens */
 @media (max-width: 480px) {
+  #shopify-section-{{ section.id }} .pdf-wrapper {
+    height: 500px;
+  }
+  
   #shopify-section-{{ section.id }} .pdf-embed,
   #shopify-section-{{ section.id }} .pdf-iframe,
   #shopify-section-{{ section.id }} .pdf-object {
@@ -196,13 +234,14 @@
       "type": "select",
       "id": "display_method",
       "label": "Display Method",
-      "default": "object",
-      "options": [
-        { "value": "iframe", "label": "Iframe" },
-        { "value": "object", "label": "Object (Recommended for iOS)" },
-        { "value": "embed", "label": "Embed Tag" }
-      ],
-      "info": "Iframe works better across different browsers"
+      "default": "pdfjs",
+              "options": [
+          { "value": "iframe", "label": "Iframe" },
+          { "value": "object", "label": "Object" },
+          { "value": "embed", "label": "Embed Tag" },
+          { "value": "pdfjs", "label": "PDF.js (Mobile Optimized)" }
+        ],
+              "info": "PDF.js renders PDFs as HTML/JavaScript - perfect for mobile devices"
     },
     {
       "type": "range",
