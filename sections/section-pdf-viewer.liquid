@@ -59,7 +59,7 @@
           </object>
         {% elsif section.settings.display_method == 'pdfjs' %}
           <iframe 
-            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}"
+            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}#toolbar=0&navpanes=0&scrollbar=1&statusbar=0&messages=0&view=FitH"
             width="100%"
             height="{{ section.settings.pdf_height }}px"
             class="pdf-iframe pdf-js"
@@ -151,7 +151,10 @@
 
 /* Mobile adjustments */
 @media (max-width: 749px) {
-  #shopify-section-{{ section.id }} .pdf-wrapper {
+  /* Scrollable wrapper only for iframe/object/embed (not PDF.js) */
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-embed),
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-iframe:not(.pdf-js)),
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-object) {
     width: 100%;
     height: 400px;
     overflow: auto;
@@ -162,7 +165,7 @@
   }
   
   #shopify-section-{{ section.id }} .pdf-embed,
-  #shopify-section-{{ section.id }} .pdf-iframe,
+  #shopify-section-{{ section.id }} .pdf-iframe:not(.pdf-js),
   #shopify-section-{{ section.id }} .pdf-object {
     height: 400px !important;
     min-height: 400px;
@@ -171,8 +174,9 @@
     box-shadow: none;
   }
   
+  /* PDF.js gets normal styling - no wrapper scrolling needed */
   #shopify-section-{{ section.id }} .pdf-js {
-    /* PDF.js handles mobile scaling automatically - no iOS hacks needed */
+    height: 400px !important;
     border: 1px solid var(--pdf-border-color);
     border-radius: var(--pdf-border-radius);
     box-shadow: var(--pdf-shadow);
@@ -189,15 +193,21 @@
 
 /* Ensure proper aspect ratio on smaller screens */
 @media (max-width: 480px) {
-  #shopify-section-{{ section.id }} .pdf-wrapper {
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-embed),
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-iframe:not(.pdf-js)),
+  #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-object) {
     height: 500px;
   }
   
   #shopify-section-{{ section.id }} .pdf-embed,
-  #shopify-section-{{ section.id }} .pdf-iframe,
+  #shopify-section-{{ section.id }} .pdf-iframe:not(.pdf-js),
   #shopify-section-{{ section.id }} .pdf-object {
     height: 500px !important;
     min-height: 500px;
+  }
+  
+  #shopify-section-{{ section.id }} .pdf-js {
+    height: 500px !important;
   }
 }
 
