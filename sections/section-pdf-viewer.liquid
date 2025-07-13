@@ -1,0 +1,367 @@
+{% comment %}
+  /sections/section-pdf-viewer.liquid
+  
+  PDF Viewer Section
+  - Displays PDF files using HTML embed/iframe
+  - Configurable height and display options
+  - Mobile responsive design
+{% endcomment %}
+
+{%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
+
+<section class="section-pdf-viewer {{ section.settings.bg }} {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="section-pdf-viewer"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    
+    {% comment %} Section Header {% endcomment %}
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="section__header {{ section.settings.title_alignment }}">
+        {% if section.settings.title != blank %}
+          <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+          <div class="section__description rte body-size-{{ section.settings.description_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} PDF Viewer {% endcomment %}
+    {% if section.settings.pdf_url != blank %}
+      <div class="pdf-viewer-container">
+        {% if section.settings.display_method == 'embed' %}
+          <embed 
+            src="{{ section.settings.pdf_url }}"
+            type="application/pdf"
+            width="100%"
+            height="{{ section.settings.pdf_height }}px"
+            class="pdf-embed"
+            aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
+          />
+        {% else %}
+          <iframe 
+            src="{{ section.settings.pdf_url }}"
+            width="100%"
+            height="{{ section.settings.pdf_height }}px"
+            class="pdf-iframe"
+            frameborder="0"
+            aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
+          >
+            <p>Your browser does not support iframes. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
+          </iframe>
+        {% endif %}
+        
+        {% if section.settings.show_download_link %}
+          <div class="pdf-download-link">
+            <a href="{{ section.settings.pdf_url }}" 
+               target="_blank" 
+               class="btn {{ section.settings.button_style }} {{ section.settings.button_color }} {{ section.settings.button_size }}"
+               download>
+              {% if section.settings.download_text != blank %}
+                {{ section.settings.download_text }}
+              {% else %}
+                Download PDF
+              {% endif %}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="pdf-placeholder">
+        <p>Please add a PDF URL in the section settings to display the document.</p>
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<style>
+#shopify-section-{{ section.id }} {
+  --pdf-border-radius: 8px;
+  --pdf-border-color: var(--color-border);
+  --pdf-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#shopify-section-{{ section.id }} .pdf-viewer-container {
+  margin-top: 2rem;
+}
+
+#shopify-section-{{ section.id }} .pdf-embed,
+#shopify-section-{{ section.id }} .pdf-iframe {
+  border: 1px solid var(--pdf-border-color);
+  border-radius: var(--pdf-border-radius);
+  box-shadow: var(--pdf-shadow);
+  display: block;
+  width: 100%;
+}
+
+#shopify-section-{{ section.id }} .pdf-download-link {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+#shopify-section-{{ section.id }} .pdf-placeholder {
+  text-align: center;
+  padding: 3rem 1rem;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--pdf-border-radius);
+  background-color: var(--color-bg-light);
+}
+
+#shopify-section-{{ section.id }} .pdf-placeholder p {
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Mobile adjustments */
+@media (max-width: 749px) {
+  #shopify-section-{{ section.id }} .pdf-embed,
+  #shopify-section-{{ section.id }} .pdf-iframe {
+    height: 400px !important;
+    min-height: 400px;
+  }
+  
+  #shopify-section-{{ section.id }} .pdf-download-link {
+    margin-top: 1rem;
+  }
+  
+  #shopify-section-{{ section.id }} .section__header {
+    margin-bottom: 1rem;
+  }
+}
+
+/* Ensure proper aspect ratio on smaller screens */
+@media (max-width: 480px) {
+  #shopify-section-{{ section.id }} .pdf-embed,
+  #shopify-section-{{ section.id }} .pdf-iframe {
+    height: 300px !important;
+    min-height: 300px;
+  }
+}
+</style>
+
+{% schema %}
+{
+  "name": "PDF Viewer",
+  "class": "section-pdf-viewer",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "PDF Document"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description"
+    },
+    {
+      "type": "url",
+      "id": "pdf_url",
+      "label": "PDF URL",
+      "info": "Upload your PDF to Files in admin, then paste the URL here"
+    },
+    {
+      "type": "select",
+      "id": "display_method",
+      "label": "Display Method",
+      "default": "iframe",
+      "options": [
+        { "value": "iframe", "label": "Iframe (Recommended)" },
+        { "value": "embed", "label": "Embed Tag" }
+      ],
+      "info": "Iframe works better across different browsers"
+    },
+    {
+      "type": "range",
+      "id": "pdf_height",
+      "min": 300,
+      "max": 1000,
+      "step": 50,
+      "unit": "px",
+      "label": "PDF Height",
+      "default": 600
+    },
+    {
+      "type": "header",
+      "content": "Download Options"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_download_link",
+      "label": "Show Download Link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "download_text",
+      "label": "Download Button Text",
+      "default": "Download PDF"
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Button Style",
+      "default": "btn",
+      "options": [
+        { "value": "btn-text-thick-line", "label": "Capitalized text" },
+        { "value": "btn", "label": "Solid button"},
+        { "value": "btn--soft", "label": "Soft button"},
+        { "value": "btn--outline", "label": "Outlined button"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_color",
+      "label": "Button Color",
+      "default": "btn--primary",
+      "options": [
+        { "value": "btn--primary", "label": "Bright accent" },
+        { "value": "btn--secondary", "label": "Secondary accent" },
+        { "value": "btn--neutral", "label": "Text color" },
+        { "value": "btn--black", "label": "Black" },
+        { "value": "btn--white", "label": "White" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "button_size",
+      "label": "Button Size",
+      "default": "btn--medium",
+      "options": [
+        {"value": "btn--small", "label": "Small button"},
+        {"value": "btn--medium", "label": "Medium button"},
+        {"value": "btn--large", "label": "Large button"},
+        {"value": "btn--long", "label": "Long button"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Centered" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Title Size",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Description Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background Color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default"},
+        { "value": "palette--light bg--accent", "label": "Light"},
+        { "value": "palette--dark bg--invert", "label": "Dark"},
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+        { "value": "palette--bright bg--bright", "label": "Bright"},
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDF Viewer",
+      "category": "Custom"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
+  }
+}
+{% endschema %} 

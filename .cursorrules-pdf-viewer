@@ -1,0 +1,224 @@
+# PDF Viewer Section (.cursorrules)
+
+## File: sections/section-pdf-viewer.liquid
+
+### Section Overview
+- **Purpose**: Display PDF documents inline on webpages using HTML embed/iframe
+- **Category**: Custom content section
+- **Theme**: Pipeline Baby Ark Shopify theme
+- **Mobile**: Responsive design with adjusted heights for mobile devices
+
+### Key Features
+- HTML-only PDF display (no JavaScript required)
+- Dual display methods: iframe (recommended) and embed tag
+- Configurable PDF height (300px - 1000px)
+- Optional download button with customizable styling
+- Mobile-responsive with breakpoint adjustments
+- Accessibility features with proper ARIA labels
+
+### Schema Configuration
+
+#### Required Settings
+- `pdf_url` (type: url) - Main PDF file URL from Shopify Files
+- `display_method` (select) - Choose between iframe or embed tag
+- `pdf_height` (range) - Height in pixels (300-1000px, default: 600px)
+
+#### Optional Settings
+- `title` & `description` - Section header content
+- `show_download_link` - Toggle download button visibility
+- `download_text` - Custom download button text
+- `button_style`, `button_color`, `button_size` - Download button styling
+- Standard theme settings: width, padding, text color, background
+
+### HTML Structure
+
+#### Basic PDF Display
+```liquid
+{% if section.settings.pdf_url != blank %}
+  <div class="pdf-viewer-container">
+    {% if section.settings.display_method == 'embed' %}
+      <embed src="{{ section.settings.pdf_url }}" type="application/pdf" width="100%" height="{{ section.settings.pdf_height }}px" />
+    {% else %}
+      <iframe src="{{ section.settings.pdf_url }}" width="100%" height="{{ section.settings.pdf_height }}px" frameborder="0"></iframe>
+    {% endif %}
+  </div>
+{% endif %}
+```
+
+#### Download Link Pattern
+```liquid
+{% if section.settings.show_download_link %}
+  <div class="pdf-download-link">
+    <a href="{{ section.settings.pdf_url }}" target="_blank" download class="btn {{ section.settings.button_style }} {{ section.settings.button_color }} {{ section.settings.button_size }}">
+      {{ section.settings.download_text | default: "Download PDF" }}
+    </a>
+  </div>
+{% endif %}
+```
+
+### CSS Styling Patterns
+
+#### Container Styling
+```css
+#shopify-section-{{ section.id }} .pdf-viewer-container {
+  margin-top: 2rem;
+}
+
+#shopify-section-{{ section.id }} .pdf-embed,
+#shopify-section-{{ section.id }} .pdf-iframe {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: block;
+  width: 100%;
+}
+```
+
+#### Mobile Breakpoints
+```css
+@media (max-width: 749px) {
+  #shopify-section-{{ section.id }} .pdf-embed,
+  #shopify-section-{{ section.id }} .pdf-iframe {
+    height: 400px !important;
+    min-height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  #shopify-section-{{ section.id }} .pdf-embed,
+  #shopify-section-{{ section.id }} .pdf-iframe {
+    height: 300px !important;
+    min-height: 300px;
+  }
+}
+```
+
+### Development Guidelines
+
+#### PDF URL Handling
+- Always use Shopify's Files section to upload PDFs
+- Use the direct file URL from Shopify (e.g., `shop.shopify.com/cdn/shop/files/document.pdf`)
+- Include validation: `{% if section.settings.pdf_url != blank %}`
+- Provide fallback content for missing PDFs
+
+#### Browser Compatibility
+- **iframe**: Better cross-browser support, recommended default
+- **embed**: More direct but limited browser support
+- Always provide fallback content for unsupported browsers
+- Test on mobile devices as PDF support varies
+
+#### Accessibility Best Practices
+- Include `aria-label` with descriptive text
+- Provide download alternative for screen readers
+- Use semantic HTML structure
+- Ensure keyboard navigation works
+
+### Common Issues & Solutions
+
+#### PDF Not Displaying
+1. **Check URL format**: Ensure it's a direct link to PDF file
+2. **Verify file upload**: Confirm PDF is uploaded to Shopify Files
+3. **Test browser support**: Try different display methods
+4. **Check CORS**: Ensure PDF is from same domain or allows embedding
+
+#### Mobile Display Issues
+1. **Height adjustments**: Use media queries to set appropriate mobile heights
+2. **Touch scrolling**: Consider adding `-webkit-overflow-scrolling: touch`
+3. **Zoom controls**: Some browsers may not support PDF zoom on mobile
+
+#### Performance Optimization
+1. **PDF file size**: Keep PDFs under 10MB for better loading
+2. **Lazy loading**: Consider loading PDFs on user interaction
+3. **Caching**: Shopify CDN automatically caches PDF files
+
+### Testing Checklist
+
+#### Browser Testing
+- [ ] Chrome/Safari - iframe and embed methods
+- [ ] Firefox - iframe and embed methods  
+- [ ] Mobile Safari - responsive display
+- [ ] Mobile Chrome - responsive display
+
+#### Functionality Testing
+- [ ] PDF loads correctly in both display methods
+- [ ] Download button works and opens PDF in new tab
+- [ ] Responsive breakpoints adjust height properly
+- [ ] Fallback content shows when PDF URL is empty
+- [ ] Accessibility features work with screen readers
+
+#### Performance Testing
+- [ ] Large PDF files load without timeout
+- [ ] Section doesn't block page rendering
+- [ ] Mobile performance is acceptable
+
+### Schema Validation
+
+#### Required Schema Elements
+```json
+{
+  "name": "PDF Viewer",
+  "class": "section-pdf-viewer",
+  "settings": [
+    {
+      "type": "url",
+      "id": "pdf_url",
+      "label": "PDF URL",
+      "info": "Upload your PDF to Files in admin, then paste the URL here"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PDF Viewer",
+      "category": "Custom"
+    }
+  ]
+}
+```
+
+### Security Considerations
+
+#### Safe URL Handling
+- Only accept URLs from trusted domains
+- Validate PDF file extensions
+- Use Shopify's built-in URL validation
+- Avoid user-generated PDF URLs without validation
+
+#### Content Security Policy
+- Ensure PDF URLs are from allowed origins
+- Test with strict CSP headers
+- Consider iframe sandboxing for external PDFs
+
+### Future Enhancements
+
+#### Potential Features
+- PDF thumbnail preview
+- Multiple PDF tabs/carousel
+- PDF page navigation controls
+- Search within PDF functionality
+- PDF annotations/comments
+
+#### Technical Improvements
+- Progressive loading for large PDFs
+- PDF.js integration for better mobile support
+- Zoom and print controls
+- Full-screen viewing mode
+
+### Maintenance Notes
+
+#### Regular Updates
+- Test with new browser versions
+- Monitor PDF loading performance
+- Update mobile breakpoints as needed
+- Review accessibility standards compliance
+
+#### Shopify Updates
+- Check for new file upload limitations
+- Monitor CDN URL format changes
+- Test with theme updates
+- Verify schema compatibility
+
+---
+
+**Last Updated**: Created for Pipeline Baby Ark theme
+**Version**: 1.0
+**Compatibility**: Shopify 2.0 themes, Pipeline theme framework 
