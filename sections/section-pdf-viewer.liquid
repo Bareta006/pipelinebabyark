@@ -2,7 +2,7 @@
   /sections/section-pdf-viewer.liquid
   
   PDF Viewer Section
-  - Displays PDF files using HTML embed/iframe
+  - Displays PDF files using HTML embed/iframe/Google Docs viewer
   - Configurable height and display options
   - Mobile responsive design
 {% endcomment %}
@@ -59,15 +59,14 @@
           </object>
         {% elsif section.settings.display_method == 'pdfjs' %}
           <iframe 
-            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&view=FitH&zoom=page-fit"
+            src="https://docs.google.com/viewer?url={{ section.settings.pdf_url | url_encode }}&embedded=true"
             width="100%"
             height="{{ section.settings.pdf_height }}px"
             class="pdf-iframe pdf-js"
             frameborder="0"
-            scrolling="no"
             aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
           >
-            <p>Your browser does not support PDF.js. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
+            <p>Your browser does not support Google Docs viewer. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
           </iframe>
           {% else %}
             <iframe 
@@ -129,7 +128,7 @@
 }
 
 #shopify-section-{{ section.id }} .pdf-js {
-  /* PDF.js is mobile-optimized, no special iOS hacks needed */
+  /* Google Docs viewer is mobile-optimized, no special iOS hacks needed */
 }
 
 #shopify-section-{{ section.id }} .pdf-download-link {
@@ -152,7 +151,7 @@
 
 /* Mobile adjustments */
 @media (max-width: 749px) {
-  /* Scrollable wrapper only for iframe/object/embed (not PDF.js) */
+  /* Scrollable wrapper only for iframe/object/embed (not Google Docs viewer) */
   #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-embed),
   #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-iframe:not(.pdf-js)),
   #shopify-section-{{ section.id }} .pdf-wrapper:has(.pdf-object) {
@@ -175,7 +174,7 @@
     box-shadow: none;
   }
   
-  /* PDF.js gets normal styling - no wrapper scrolling needed */
+  /* Google Docs viewer gets normal styling - no wrapper scrolling needed */
   #shopify-section-{{ section.id }} .pdf-js {
     height: 400px !important;
     border: 1px solid var(--pdf-border-color);
@@ -253,9 +252,9 @@
           { "value": "iframe", "label": "Iframe" },
           { "value": "object", "label": "Object" },
           { "value": "embed", "label": "Embed Tag" },
-          { "value": "pdfjs", "label": "PDF.js (Mobile Optimized)" }
+          { "value": "pdfjs", "label": "Google Docs Viewer (Clean)" }
         ],
-              "info": "PDF.js renders PDFs as HTML/JavaScript - perfect for mobile devices"
+              "info": "Google Docs viewer displays PDFs without toolbars or controls"
     },
     {
       "type": "range",
