@@ -126,6 +126,9 @@
   #shopify-section-{{ section.id }} .pdf-iframe {
     height: 400px !important;
     min-height: 400px;
+    /* iOS Safari iframe fix */
+    width: 1px !important;
+    min-width: 100% !important;
   }
   
   #shopify-section-{{ section.id }} .pdf-download-link {
