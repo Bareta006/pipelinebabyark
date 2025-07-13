@@ -40,7 +40,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\nh1{\nfont-size: 46px\n}\nh2{\nfont-size: 36px\n}\nh3{\nfont-size: 30px\n}\nh4{\nfont-size: 26px\n}\np{\nfont-size: 20px\n}\n</style>"
+        "custom_liquid": "<style>\nh1{\nfont-size: 46px\n}\nh2{\nfont-size: 36px\n}\nh3{\nfont-size: 30px\n}\nh4{\nfont-size: 26px\n}\n[class*=heading-size-] p {\n    font-size: 20px;\n}\n</style>"
       }
     }
   },
