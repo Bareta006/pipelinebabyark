@@ -34,7 +34,7 @@
         "title": "PDF Document",
         "description": "",
         "pdf_url": "https://cdn.shopify.com/s/files/1/0552/2135/4567/files/E-Book-File_1.pdf",
-        "display_method": "iframe",
+        "display_method": "embed",
         "pdf_height": 600,
         "show_download_link": false,
         "download_text": "Download PDF",
