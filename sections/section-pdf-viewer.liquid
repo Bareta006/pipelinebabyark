@@ -59,11 +59,12 @@
           </object>
         {% elsif section.settings.display_method == 'pdfjs' %}
           <iframe 
-            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}#toolbar=0&navpanes=0&scrollbar=1&statusbar=0&messages=0&view=FitH"
+            src="https://mozilla.github.io/pdf.js/web/viewer.html?file={{ section.settings.pdf_url | url_encode }}#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&view=FitH&zoom=page-fit"
             width="100%"
             height="{{ section.settings.pdf_height }}px"
             class="pdf-iframe pdf-js"
             frameborder="0"
+            scrolling="no"
             aria-label="PDF Document{% if section.settings.title != blank %}: {{ section.settings.title }}{% endif %}"
           >
             <p>Your browser does not support PDF.js. <a href="{{ section.settings.pdf_url }}" target="_blank">Download the PDF</a>.</p>
