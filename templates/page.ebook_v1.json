@@ -1,0 +1,217 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_double2_KpVQ6Y": {
+      "type": "section-double2",
+      "blocks": {
+        "text_WqHMbb": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "Introducing a New Baby to Older Siblings",
+            "text": "<p>No matter how you grow your family, preparing big siblings ahead of baby’s arrival can ease the transition for everyone. Sign up to download our ebook.<br/></p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--white",
+            "bg_color": ""
+          }
+        },
+        "powerful_form_builder_app_block_xMYYzV": {
+          "type": "shopify://apps/powerful-form-builder/blocks/app-block/e4bcb1eb-35b2-42e6-bc37-bfe0e1542c9d",
+          "settings": {
+            "shortcode": "<div class=\"globo-formbuilder\" data-id=\"OTc0OTc=\"></div>"
+          }
+        }
+      },
+      "block_order": [
+        "text_WqHMbb",
+        "powerful_form_builder_app_block_xMYYzV"
+      ],
+      "custom_css": [
+        ".brick__block__text {background-color: transparent;}",
+        ".wrapper {border-radius: 20px;}",
+        " {padding: 40px 10px;}",
+        ".standard__heading {font-size: 50px;}",
+        ".rte p {font-size: 20px;}",
+        ".globo-description {margin: 20px 0;}",
+        "@media (max-width: 768px) {.standard__heading {font-size: 36px; } .rte p {font-size: 16px; } .text__standard {text-align: center !important; }}"
+      ],
+      "name": "Image with text no2",
+      "settings": {
+        "height": "use_pixels_500",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "bg_image_desktop": "shopify://shop_images/Rectangle_1486127371_2.png",
+        "bg_image_mobile": "shopify://shop_images/Rectangle_1486127371_3.png",
+        "bg_size_desktop": "cover",
+        "bg_size_mobile": "cover",
+        "bg_position_desktop": "center center",
+        "bg_position_mobile": "center center",
+        "preload_image": true,
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "section_richtext_8KjH7F": {
+      "type": "section-richtext",
+      "blocks": {
+        "text_wrYFgC": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Download our Guide for <br/>Practical Advice On:</h2>",
+            "text_size": 3,
+            "text_columns": 1
+          }
+        }
+      },
+      "block_order": [
+        "text_wrYFgC"
+      ],
+      "custom_css": [
+        "h2 {font-size: 40px;}",
+        "@media (max-width: 480px) {h2 {font-size: 28px; }}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_icons_BTa7Ad": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_cWLVp4": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Sharing the News",
+            "text": "<p>The who what when where how’s for a joyful announcement.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_9zAKJW": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Pregnancy Practices",
+            "text": "<p>Simple rituals and 1‑on‑1 moments to build excitement and belonging.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_79pyKN": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Love Is Not Cake",
+            "text": "<p>How to convey that adding a baby adds love, and everyone can still have a piece.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_fAwq9J": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "Transition Tips",
+            "text": "<p>Preparing routines, roles, and responsibilities before baby arrives.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_e4Czhy": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_color": "#000000",
+            "title": "First Meetings",
+            "text": "<p>Creative ways to celebrate the big sibling–baby introduction.</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_cWLVp4",
+        "icon_block_9zAKJW",
+        "icon_block_79pyKN",
+        "icon_block_fAwq9J",
+        "icon_block_e4Czhy"
+      ],
+      "custom_css": [],
+      "name": "Icon columns",
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 40,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-left",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_liquid_DRiY6m": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.section-icons .icon__column__icon {\n  display: none;\n}\n.section-icons .icon__column {\n  background-color: #f6f6f6;\n  border-radius: 10px;\n  padding: 60px 30px;\n}\n.section-icons .icon__column__heading {\n  font-family: \"centrano2\";\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: unset;\n  font-size: 35px;\n  line-height: 120%;\n}\n.section-icons .rte p {\n  font-size: 20px;\n  color: #000;\n  line-height: 130%;\n  min-height: 104px;\nmargin-top:15px;\n}\n.section-icons .clearfix {\n  display: none;\n}\n@media (min-width: 768px) {\n  .section-icons .grid__item {\n    width: 20%;\n  }\n}\n@media (max-width: 768px) {\n  .section-icons .grid__item {\n    margin-bottom: 20px;\n  }\n  .section-icons .icon__column {\n    padding: 40px 15px;\n    text-align: center;\n  }\n.section-icons .icon__column__heading{\nfont-size: 30px;\n}\n.section-icons .rte p{\nfont-size:16px;\n  min-height: 50px;}\n}\n</style>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "section_double2_KpVQ6Y",
+    "section_richtext_8KjH7F",
+    "section_icons_BTa7Ad",
+    "section_liquid_DRiY6m"
+  ]
+}
