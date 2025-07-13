@@ -40,7 +40,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\nh1,.blog__article__title {\nfont-size: 46px\n}\nh2,.blog__sidebar__title{\nfont-size: 36px\n}\nh3,h3.article__item-title{\nfont-size: 30px\n}\nh4{\nfont-size: 26px\n}\n[class*=heading-size-] p,.blog__article__content p {\n    font-size: 20px;\n}\n</style>"
+        "custom_liquid": "<style>\nh1,.blog__article__title {\nfont-size: 46px\n}\nh2,.blog__sidebar__title{\nfont-size: 36px\n}\nh3,h3.article__item-title{\nfont-size: 30px\n}\nh4{\nfont-size: 26px\n}\n[class*=heading-size-] p,.blog__article__content p,.rte:not([class*=body-size-],[class*=accent-size-],[class*=heading-size-]) p {\n    font-size: 20px;\n}\n</style>"
       }
     }
   },
