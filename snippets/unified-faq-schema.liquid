@@ -11,39 +11,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // Find all FAQ sections on the page
   const faqSections = document.querySelectorAll('[data-faq-section="true"]');
   
-  console.log('FAQ Sections found:', faqSections.length);
-  
   if (faqSections.length === 0) return; // No FAQ sections found
   
   // Collect all FAQ questions from all sections
   let allQuestions = [];
   
-  faqSections.forEach((section, index) => {
-    console.log(`Processing section ${index + 1}:`, section);
-    
+  faqSections.forEach((section) => {
     // Look for the JSON script tag within this section
     const jsonScript = section.querySelector('script[data-faq-data]');
-    console.log(`Section ${index + 1} script:`, jsonScript);
     
     if (jsonScript) {
       try {
         const questionsData = jsonScript.textContent;
-        console.log(`Section ${index + 1} data:`, questionsData);
-        
         const questions = JSON.parse(questionsData);
-        console.log(`Section ${index + 1} parsed questions:`, questions);
         allQuestions = allQuestions.concat(questions);
       } catch (e) {
-        console.warn(`Failed to parse FAQ questions for section ${index + 1}:`, e);
-        console.warn('Raw data was:', jsonScript.textContent);
+        // Silently skip sections with parsing errors
       }
-    } else {
-      console.warn(`No JSON script found for section ${index + 1}`);
     }
   });
-  
-  console.log('Total questions collected:', allQuestions.length);
-  console.log('All questions:', allQuestions);
   
   // Only generate schema if we have questions
   if (allQuestions.length === 0) return;
@@ -62,14 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }))
   };
   
-  console.log('Generated FAQ schema:', faqSchema);
-  
   // Create and append schema script tag
   const schemaScript = document.createElement('script');
   schemaScript.type = 'application/ld+json';
   schemaScript.textContent = JSON.stringify(faqSchema);
   document.head.appendChild(schemaScript);
-  
-  console.log('FAQ schema added to page');
 });
 </script> 
