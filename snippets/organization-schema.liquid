@@ -7,9 +7,13 @@
   - Global organization schema for SEO
 {% endcomment %}
 
+<!-- Debug: All metaobjects available -->
+<!-- Available metaobject types: {{ shop.metaobjects | map: 'system' | json }} -->
+
 {%- assign org_metaobject = shop.metaobjects.organization_schema_markup.values.first -%}
 
 <!-- Organization Schema Debug: {{ org_metaobject | json }} -->
+<!-- Metaobject collection: {{ shop.metaobjects.organization_schema_markup | json }} -->
 
 {% if org_metaobject %}
 <!-- Organization Schema Found - Rendering JSON-LD -->
@@ -83,4 +87,5 @@
 </script>
 {% else %}
 <!-- Organization Schema: No metaobject found with type 'organization_schema_markup' -->
+<!-- Debug: shop.metaobjects keys: {{ shop.metaobjects | json }} -->
 {% endif %} 
