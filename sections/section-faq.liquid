@@ -1,5 +1,29 @@
 <!-- /sections/section-faq.liquid-->
 
+<!-- FAQ Schema JSON-LD -->
+{% if section.blocks.size > 0 %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+      {%- if block.settings.title != blank and block.settings.content != blank -%}
+      {
+        "@type": "Question",
+        "name": {{ block.settings.title | json }},
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": {{ block.settings.content | strip_html | json }}
+        }
+      }{% unless forloop.last %},{% endunless %}
+      {%- endif -%}
+    {%- endfor -%}
+  ]
+}
+</script>
+{% endif %}
+
 <section class="section-faq {{ section.settings.text_color }} {{ section.settings.height }} {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="page-faq"
