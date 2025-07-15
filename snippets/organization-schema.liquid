@@ -10,8 +10,8 @@
 <!-- Debug: All metaobjects available -->
 <!-- Available metaobject types: {{ shop.metaobjects | map: 'system' | json }} -->
 
-{%- assign org_metaobject = shop.metaobjects.organization_schema_markup.values.first -%}
-{%- assign org_metaobject_alt = shop.metaobjects['organization_schema_markup'].values.first -%}
+{%- assign org_metaobject = metaobjects.organization_schema_markup.values.first -%}
+{%- assign org_metaobject_alt = metaobjects['organization_schema_markup'].values.first -%}
 
 <!-- Organization Schema Debug: {{ org_metaobject | json }} -->
 <!-- Alternative syntax: {{ org_metaobject_alt | json }} -->
