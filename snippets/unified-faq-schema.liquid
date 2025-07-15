@@ -1,0 +1,54 @@
+{% comment %}
+  /snippets/unified-faq-schema.liquid
+  
+  Unified FAQ Schema - Collects all FAQ sections on page
+  Generates single FAQPage schema to comply with Google guidelines
+  Place in theme.liquid before </body>
+{% endcomment %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all FAQ sections on the page
+  const faqSections = document.querySelectorAll('[data-faq-section="true"]');
+  
+  if (faqSections.length === 0) return; // No FAQ sections found
+  
+  // Collect all FAQ questions from all sections
+  let allQuestions = [];
+  
+  faqSections.forEach(section => {
+    const questionsData = section.getAttribute('data-faq-questions');
+    if (questionsData) {
+      try {
+        const questions = JSON.parse(questionsData);
+        allQuestions = allQuestions.concat(questions);
+      } catch (e) {
+        console.warn('Failed to parse FAQ questions:', e);
+      }
+    }
+  });
+  
+  // Only generate schema if we have questions
+  if (allQuestions.length === 0) return;
+  
+  // Create unified FAQ schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": allQuestions.map(item => ({
+      "@type": "Question",
+      "name": item.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.answer
+      }
+    }))
+  };
+  
+  // Create and append schema script tag
+  const schemaScript = document.createElement('script');
+  schemaScript.type = 'application/ld+json';
+  schemaScript.textContent = JSON.stringify(faqSchema);
+  document.head.appendChild(schemaScript);
+});
+</script> 
