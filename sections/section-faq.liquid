@@ -4,7 +4,11 @@
   data-section-id="{{ section.id }}"
   data-section-type="page-faq"
   data-faq-section="true"
-  data-faq-questions='[
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <!-- FAQ Data as JSON script -->
+  <script type="application/json" data-faq-data="{{ section.id }}">
+  [
     {%- for block in section.blocks -%}
       {%- if block.settings.title != blank and block.settings.content != blank -%}
       {
@@ -13,8 +17,9 @@
       }{% unless forloop.last %},{% endunless %}
       {%- endif -%}
     {%- endfor -%}
-  ]'
-  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  ]
+  </script>
+  
   <div class="{{ section.settings.width }} section-padding">
     <div class="text__standard" data-accordion-group>
       {% if section.settings.title != blank %}

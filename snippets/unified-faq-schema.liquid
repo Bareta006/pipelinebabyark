@@ -21,18 +21,24 @@ document.addEventListener('DOMContentLoaded', function() {
   faqSections.forEach((section, index) => {
     console.log(`Processing section ${index + 1}:`, section);
     
-    const questionsData = section.getAttribute('data-faq-questions');
-    console.log(`Section ${index + 1} data:`, questionsData);
+    // Look for the JSON script tag within this section
+    const jsonScript = section.querySelector('script[data-faq-data]');
+    console.log(`Section ${index + 1} script:`, jsonScript);
     
-    if (questionsData) {
+    if (jsonScript) {
       try {
+        const questionsData = jsonScript.textContent;
+        console.log(`Section ${index + 1} data:`, questionsData);
+        
         const questions = JSON.parse(questionsData);
         console.log(`Section ${index + 1} parsed questions:`, questions);
         allQuestions = allQuestions.concat(questions);
       } catch (e) {
         console.warn(`Failed to parse FAQ questions for section ${index + 1}:`, e);
-        console.warn('Raw data was:', questionsData);
+        console.warn('Raw data was:', jsonScript.textContent);
       }
+    } else {
+      console.warn(`No JSON script found for section ${index + 1}`);
     }
   });
   
