@@ -31,8 +31,19 @@
   {%- endif -%}
   {%- if org_metaobject.address.value != blank -%}
   ,"address": {
-    "@type": "PostalAddress",
-    "streetAddress": {{ org_metaobject.address.value | json }}
+    "@type": "PostalAddress"
+    {%- if org_metaobject.address.value != blank -%}
+    ,"streetAddress": {{ org_metaobject.address.value | json }}
+    {%- endif -%}
+    {%- if org_metaobject.postal_code.value != blank -%}
+    ,"postalCode": {{ org_metaobject.postal_code.value | json }}
+    {%- endif -%}
+    {%- if org_metaobject.address_country.value != blank -%}
+    ,"addressCountry": {{ org_metaobject.address_country.value | json }}
+    {%- endif -%}
+    {%- if org_metaobject.address_locality.value != blank -%}
+    ,"addressLocality": {{ org_metaobject.address_locality.value | json }}
+    {%- endif -%}
   }
   {%- endif -%}
   {%- if org_metaobject.business_type_industry.value != blank -%}
