@@ -6,9 +6,8 @@
   - Generates Schema.org compliant JSON-LD
   - Global organization schema for SEO
 {% endcomment %}
-{%- assign first_handle = metaobjects['organization_schema_markup'] | keys | first -%}
-{%- assign org = org_metaobject['organization_schema_markup'][first_handle] -%}
 
+{%- assign org_metaobject = metaobjects.organization_schema_markup.values | first -%}
 
 {% if org_metaobject %}
 <script type="application/ld+json">
