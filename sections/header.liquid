@@ -589,7 +589,7 @@
     </div>
   </div>
 </div>
-
+{%comment%}
 <script type="application/ld+json">
 {
   "@context": "http://schema.org",
@@ -613,7 +613,7 @@
   "url": {{ shop.url | append: page.url | json }}
 }
 </script>
-
+{%endcomment%}
 {% if template.name == 'index' %}
   {% assign potential_action_target = shop.url | append: "/search?q={search_term_string}" %}
   <script type="application/ld+json">
