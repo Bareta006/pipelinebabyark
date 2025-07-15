@@ -11,9 +11,12 @@
 <!-- Available metaobject types: {{ shop.metaobjects | map: 'system' | json }} -->
 
 {%- assign org_metaobject = shop.metaobjects.organization_schema_markup.values.first -%}
+{%- assign org_metaobject_alt = shop.metaobjects['organization_schema_markup'].values.first -%}
 
 <!-- Organization Schema Debug: {{ org_metaobject | json }} -->
+<!-- Alternative syntax: {{ org_metaobject_alt | json }} -->
 <!-- Metaobject collection: {{ shop.metaobjects.organization_schema_markup | json }} -->
+<!-- All metaobjects: {{ shop.metaobjects | json }} -->
 
 {% if org_metaobject %}
 <!-- Organization Schema Found - Rendering JSON-LD -->
