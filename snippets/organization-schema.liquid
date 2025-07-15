@@ -10,72 +10,75 @@
 {%- assign org_metaobject = metaobjects['organization_schema_markup']['babyark-inc'] -%}
 
 {% if org_metaobject %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    {% if org_metaobject.business_name.value != blank %}
-      "name": {{ org_metaobject.business_name.value | json }},
-    {% endif %}
-    {% if org_metaobject.description.value != blank %}
-      "description": {{ org_metaobject.description.value | json }},
-    {% endif %}
-    {% if org_metaobject.website_url.value != blank %}
-      "url": {{ org_metaobject.website_url.value | json }},
-    {% endif %}
-    {% if org_metaobject.phone_number.value != blank %}
-      "telephone": {{ org_metaobject.phone_number.value | json }},
-    {% endif %}
-    {% if org_metaobject.email.value != blank %}
-      "email": {{ org_metaobject.email.value | json }},
-    {% endif %}
-    {% if org_metaobject.address.value != blank %}
-      "address": {{ org_metaobject.address.value | json }},
-    {% endif %}
-    {% if org_metaobject.business_type_industry.value != blank %}
-      "industry": {{ org_metaobject.business_type_industry.value | json }},
-    {% endif %}
-    {% if org_metaobject.founded_date.value != blank %}
-      "foundingDate": {{ org_metaobject.founded_date.value | json }},
-    {% endif %}
-    {% if org_metaobject.logo.value != blank %}
-      "logo": {
-        "@type": "ImageObject",
-        "url": {{ org_metaobject.logo.value | image_url: width: 600 | json }},
-        "width": 600,
-        "height": 600
-      },
-    {% endif %}
-    {% if org_metaobject.social_media_profiles.value != blank %}
-      {%- assign social_profiles = org_metaobject.social_media_profiles.value | split: ',' -%}
-      "sameAs": [
-        {% for profile in social_profiles %}
-          {{ profile | strip | json }}{% unless forloop.last %},{% endunless %}
-        {% endfor %}
-      ],
-    {% endif %}
-    {% if org_metaobject.business_hours.value != blank %}
-      {%- assign hours_list = org_metaobject.business_hours.value | split: ',' -%}
-      "openingHours": [
-        {% for hours in hours_list %}
-          {{ hours | strip | json }}{% unless forloop.last %},{% endunless %}
-        {% endfor %}
-      ],
-    {% endif %}
-    "publisher": {
-      "@type": "Organization",
-      {% if org_metaobject.business_name.value != blank %}
-        "name": {{ org_metaobject.business_name.value | json }},
-      {% endif %}
-      {% if org_metaobject.logo.value != blank %}
-        "logo": {
-          "@type": "ImageObject",
-          "url": {{ org_metaobject.logo.value | image_url: width: 600 | json }},
-          "width": 600,
-          "height": 600
-        }
-      {% endif %}
-    }
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization"
+  {%- if org_metaobject.business_name.value != blank -%}
+  ,"name": {{ org_metaobject.business_name.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.description.value != blank -%}
+  ,"description": {{ org_metaobject.description.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.website_url.value != blank -%}
+  ,"url": {{ org_metaobject.website_url.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.phone_number.value != blank -%}
+  ,"telephone": {{ org_metaobject.phone_number.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.email.value != blank -%}
+  ,"email": {{ org_metaobject.email.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.address.value != blank -%}
+  ,"address": {
+    "@type": "PostalAddress",
+    "streetAddress": {{ org_metaobject.address.value | json }}
   }
-  </script>
+  {%- endif -%}
+  {%- if org_metaobject.business_type_industry.value != blank -%}
+  ,"industry": {{ org_metaobject.business_type_industry.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.founded_date.value != blank -%}
+  ,"foundingDate": {{ org_metaobject.founded_date.value | json }}
+  {%- endif -%}
+  {%- if org_metaobject.logo.value != blank -%}
+  ,"logo": {
+    "@type": "ImageObject",
+    "url": {{ org_metaobject.logo.value | image_url: width: 600 | json }},
+    "width": 600,
+    "height": 600
+  }
+  {%- endif -%}
+  {%- if org_metaobject.social_media_profiles.value != blank -%}
+  {%- assign social_profiles = org_metaobject.social_media_profiles.value | split: ',' -%}
+  ,"sameAs": [
+    {%- for profile in social_profiles -%}
+    {{ profile | strip | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+  {%- endif -%}
+  {%- if org_metaobject.business_hours.value != blank -%}
+  {%- assign hours_list = org_metaobject.business_hours.value | split: ',' -%}
+  ,"openingHours": [
+    {%- for hours in hours_list -%}
+    {{ hours | strip | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+  {%- endif -%}
+  ,"publisher": {
+    "@type": "Organization"
+    {%- if org_metaobject.business_name.value != blank -%}
+    ,"name": {{ org_metaobject.business_name.value | json }}
+    {%- endif -%}
+    {%- if org_metaobject.logo.value != blank -%}
+    ,"logo": {
+      "@type": "ImageObject",
+      "url": {{ org_metaobject.logo.value | image_url: width: 600 | json }},
+      "width": 600,
+      "height": 600
+    }
+    {%- endif -%}
+  }
+}
+</script>
 {% endif %} 
