@@ -9,7 +9,10 @@
 
 {%- assign org_metaobject = shop.metaobjects.organization_schema_markup.first -%}
 
+<!-- Organization Schema Debug: {{ org_metaobject | json }} -->
+
 {% if org_metaobject %}
+<!-- Organization Schema Found - Rendering JSON-LD -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -78,4 +81,6 @@
   }
 }
 </script>
+{% else %}
+<!-- Organization Schema: No metaobject found with type 'organization_schema_markup' -->
 {% endif %} 
