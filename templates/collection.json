@@ -89,7 +89,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<script>\nif (window.location.pathname.includes('/collections/all')) {\n  window.location.replace('https://example.com');\n}\n</script>"
+        "custom_liquid": "<script>\nif (window.location.pathname.includes('/collections/all')) {\n  window.location.replace('https://babyark.com/products/babyark-convertible-car-seat-smart');\n}\n</script>"
       }
     }
   },
