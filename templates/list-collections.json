@@ -76,7 +76,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  // Check if path is exactly '/collections/'\n  if (window.location.pathname === '/collections/') {\n    // Redirect to home page\n    window.location.href = 'https://babyark.com/';\n  }\n});\n</script>"
+        "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  // Check if path is exactly '/collections'\n  if (window.location.pathname === '/collections/') {\n    // Redirect to home page\n    window.location.href = 'https://babyark.com/';\n  }\n});\n</script>"
       }
     }
   },
