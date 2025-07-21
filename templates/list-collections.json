@@ -1,1 +1,88 @@
-{"sections":{"main":{"type":"section-list-collections","blocks":{"list-collection-block-0":{"type":"all_collections","settings":{"overlay_color":"#000000","overlay_opacity":15,"text_color":"text--white"}}},"block_order":["list-collection-block-0"],"settings":{"title":"Catalog","width":"wrapper","padding_top":36,"padding_bottom":108}},"secondary":{"type":"section-list-collections-products","blocks":{"list-collections-products-block-0":{"type":"all_collections","settings":{"link_text":"View all","enable_item":true,"item_link_text":"Shop all [name]","background_color":"#fcfaf7","text_color":"text--neutral"}}},"block_order":["list-collections-products-block-0"],"disabled":true,"settings":{"title":"Catalog","grid":3,"rows":2,"enable_scroll_mobile":true,"grid_small":1.2,"width":"wrapper","padding_top":36,"padding_bottom":108}}},"order":["main","secondary"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "section-list-collections",
+      "blocks": {
+        "list-collection-block-0": {
+          "type": "all_collections",
+          "settings": {
+            "overlay_color": "#000000",
+            "overlay_opacity": 15,
+            "text_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "list-collection-block-0"
+      ],
+      "settings": {
+        "title": "Catalog",
+        "bg": "palette--light bg--neutral",
+        "carousel_enabled_on": "mobile",
+        "wh_ratio": 1.5,
+        "grid_large": 2,
+        "grid_medium": 2,
+        "grid_mobile": 1.2,
+        "font_family": "body",
+        "title_size": 8,
+        "accent_size": 3,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 108
+      }
+    },
+    "secondary": {
+      "type": "section-list-collections-products",
+      "blocks": {
+        "list-collections-products-block-0": {
+          "type": "all_collections",
+          "settings": {
+            "title": "",
+            "link_text": "View all",
+            "enable_item": true,
+            "item_link_text": "Shop all [name]",
+            "background_color": "#fcfaf7",
+            "text_color": "text--neutral",
+            "link_size": 3
+          }
+        }
+      },
+      "block_order": [
+        "list-collections-products-block-0"
+      ],
+      "disabled": true,
+      "settings": {
+        "title": "Catalog",
+        "bg": "palette--light bg--neutral",
+        "grid": 3,
+        "rows": 2,
+        "enable_scroll_mobile": true,
+        "grid_small": 1.2,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 108
+      }
+    },
+    "section_liquid_YHMkA3": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  // Check if path is exactly '/collections/'\n  if (window.location.pathname === '/collections/') {\n    // Redirect to home page\n    window.location.href = 'https://babyark.com/';\n  }\n});\n</script>"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "secondary",
+    "section_liquid_YHMkA3"
+  ]
+}
