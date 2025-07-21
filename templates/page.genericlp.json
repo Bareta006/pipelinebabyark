@@ -73,7 +73,7 @@
       ],
       "name": "Image with text no2",
       "settings": {
-        "height": "use_pixels_500",
+        "height": "use_pixels_650",
         "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
