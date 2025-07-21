@@ -149,7 +149,7 @@
           "settings": {
             "kicker": "",
             "title": "The Bases Bundle",
-            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>$1,480</em> <strong>$1,350</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>$1,080$</em> <strong>$1,000</strong></h6>",
+            "text": "<h5><strong>Smart</strong></h5><p>Smart seat + Extra Smart base</p><h6><em>$1,480</em> <strong>$1,350</strong></h6><h5><strong>Classic</strong></h5><p>Classic seat + Extra Classic base</p><h6><em>$1,080</em> <strong>$1,000</strong></h6>",
             "font_size": 6,
             "text_columns": 1,
             "align_text": "text-left",
