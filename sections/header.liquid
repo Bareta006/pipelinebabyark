@@ -443,8 +443,13 @@
               {%- endif -%}
             {%- endform -%}
           {% endif %}
-      <div class="drawer__storelocator drawer__account">
-        <a href="https://babyark.com/a/store-locator/list">
+          {%- if shop.customer_accounts_enabled and section.settings.enable_account -%}
+            <a class="drawer__account" href="{{ routes.account_url }}">
+              {{ account_icon }}
+              <span class="visually-hidden">{{ 'customer.account.title' | t }}</span>
+            </a>
+          {%- endif -%}
+          <a href="https://babyark.com/a/store-locator/list" class="drawer__storelocator drawer__account">
         <svg width="20"  height="20" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.83496 0.499756C10.9216 0.84612 13.3213 5.51217 11.2295 9.35229L9.36914 12.4353L6.5 16.9998L3.63379 12.4353L1.57227 8.9646C-0.175373 5.21926 2.28279 0.779239 6.16895 0.499756H6.83496ZM10.5195 8.52905C12.1997 4.8971 9.24451 0.79779 5.47461 1.69116C2.64951 2.36093 1.16514 5.83115 2.49512 8.55151L6.46582 15.1892L6.53418 15.2107L10.5195 8.52905Z" fill="currentColor"/>
           <path d="M6.83496 0.499756C10.9216 0.84612 13.3213 5.51217 11.2295 9.35229L9.36914 12.4353L6.5 16.9998L3.63379 12.4353L1.57227 8.9646C-0.175373 5.21926 2.28279 0.779239 6.16895 0.499756H6.83496ZM10.5195 8.52905C12.1997 4.8971 9.24451 0.79779 5.47461 1.69116C2.64951 2.36093 1.16514 5.83115 2.49512 8.55151L6.46582 15.1892L6.53418 15.2107L10.5195 8.52905Z" stroke="transparent"/>
@@ -454,13 +459,6 @@
 
             <span class="visually-hidden">store locator</span>
         </a>
-      </div>
-          {%- if shop.customer_accounts_enabled and section.settings.enable_account -%}
-            <a class="drawer__account" href="{{ routes.account_url }}">
-              {{ account_icon }}
-              <span class="visually-hidden">{{ 'customer.account.title' | t }}</span>
-            </a>
-          {%- endif -%}
         </div>
 
         <button class="drawer__button drawer__close"
