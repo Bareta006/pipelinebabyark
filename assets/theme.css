@@ -15629,7 +15629,7 @@ html.js
   display: flex;
   align-items: center;
   padding: 0 20px;
-  margin-right: 20px;
+  margin-right: 0px;
 }
 .search-drawer predictive-search[open] .header__search__results {
   display: block;
