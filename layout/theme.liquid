@@ -393,8 +393,10 @@ if (checkCookie("RR_WCID")) { var bannerHeight = "80px";
   window.addEventListener("scroll", () => {
     applyStickyNavOffset();
   });
-
-  initBanner();
+  //dom ready
+  document.addEventListener("DOMContentLoaded", function() {
+    initBanner();
+  });
 }
 </script>
 <!--
