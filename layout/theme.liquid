@@ -268,17 +268,21 @@
     });
   }
 
+  function checkUrlParam(paramName) {
+    var urlParams = new URLSearchParams(window.location.search);
+    return urlParams.has(paramName);
+  }
+
   function initReferralBanner() {
-    // Debug: Log cookie check
-    console.log("RR Banner: Checking cookie RR_WCID...", document.cookie);
+    // Check both cookie and URL parameter
+    var hasCookie = checkCookie("RR_WCID");
+    var hasUrlParam = checkUrlParam("RR_WCID");
     
-    // Double check cookie exists
-    if (!checkCookie("RR_WCID")) {
-      console.log("RR Banner: Cookie not found, exiting");
-      return;
+    if (!hasCookie && !hasUrlParam) {
+      return; // Neither cookie nor URL param found
     }
     
-    console.log("RR Banner: Cookie found, initializing banner...");
+    console.log("RR Banner: RR_WCID found, initializing banner...");
 
     var bannerHeight = "80px";
     var couponCode = "REFERARK";
@@ -299,9 +303,6 @@
     var stickyNav = null;
     var bannerDismissed = false;
     var stickyNavAdjusted = false;
-    var bannerInitialized = false;
-    var retryCount = 0;
-    var maxRetries = 20; // Try for up to 2 seconds
 
     function getStickyNav() {
       if (!stickyNav) {
@@ -331,29 +332,11 @@
     }
 
     function initBanner() {
-      if (bannerInitialized) return; // Prevent double initialization
-      
-      console.log("RR Banner: Attempting to find header element... (attempt " + (retryCount + 1) + ")");
-      
       headerElement = document.getElementById(
         "shopify-section-sections--15902346543175__announcement"
       );
       
-      if (!headerElement) {
-        retryCount++;
-        console.log("RR Banner: Header element not found, retry " + retryCount + "/" + maxRetries);
-        
-        if (retryCount < maxRetries) {
-          setTimeout(initBanner, 100);
-          return;
-        } else {
-          console.log("RR Banner: Max retries reached, giving up");
-          return;
-        }
-      }
-
-      console.log("RR Banner: Header element found, creating banner...");
-      bannerInitialized = true;
+      if (!headerElement) return;
 
       headerElement.style.top = bannerHeight;
       document.body.style.paddingTop = bannerHeight;
@@ -421,7 +404,6 @@
         });
 
       applyStickyNavOffset();
-      console.log("RR Banner: Banner successfully created and displayed!");
     }
 
     // Initialize scroll event listener
@@ -433,48 +415,8 @@
     initBanner();
   }
 
-  // More aggressive initialization strategy
-  var initAttempts = 0;
-  var maxInitAttempts = 30; // Try for 3 seconds
-  var bannerAlreadyInitialized = false;
-  
-  function tryInitBanner() {
-    if (bannerAlreadyInitialized) return;
-    
-    console.log("RR Banner: Initialization attempt " + (initAttempts + 1) + "/" + maxInitAttempts);
-    
-    // Check if DOM and cookies are ready
-    if (document.body && document.cookie) {
-      console.log("RR Banner: DOM and cookies ready, attempting init...");
-      bannerAlreadyInitialized = true;
-      initReferralBanner();
-    } else {
-      initAttempts++;
-      if (initAttempts < maxInitAttempts) {
-        setTimeout(tryInitBanner, 100);
-      } else {
-        console.log("RR Banner: Max initialization attempts reached");
-      }
-    }
-  }
-
-  // Start immediate polling
-  tryInitBanner();
-
-  // Backup event listeners
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function() {
-      setTimeout(tryInitBanner, 100);
-    });
-  }
-
-  window.addEventListener('load', function() {
-    setTimeout(tryInitBanner, 100);
-  });
-
-  window.addEventListener('pageshow', function(event) {
-    setTimeout(tryInitBanner, 100);
-  });
+  // Simple approach - just wait a bit for other scripts to set the cookie
+  setTimeout(initReferralBanner, 500);
 </script>
 <!--
 <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
