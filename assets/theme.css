@@ -26567,4 +26567,9 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
   #viewCart {
     padding: 20px 12px;
   }
+  
+}
+@media (max-width: 480px){
+.jdgm-gallery-popup .jm-mfp-main{
+top:60px;}
 }
