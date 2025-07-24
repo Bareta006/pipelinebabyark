@@ -26571,5 +26571,6 @@ input:not(.sold-out):not(.unavailable):not(:disabled)
 }
 @media (max-width: 480px){
 body .jdgm-gallery-popup .jm-mfp-main{
-top:60px;}
+  top:60px;
+}
 }
