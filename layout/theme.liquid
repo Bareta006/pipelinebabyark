@@ -410,18 +410,18 @@
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', function() {
       // Add small delay to ensure everything is settled after redirect
-      setTimeout(initReferralBanner, 50);
+      setTimeout(initReferralBanner, 100);
     });
   } else {
     // DOM already loaded
-    setTimeout(initReferralBanner, 50);
+    setTimeout(initReferralBanner, 100);
   }
 
   // Also run on page show (handles back/forward navigation)
   window.addEventListener('pageshow', function(event) {
     // Only run if coming from cache/redirect
     if (event.persisted) {
-      setTimeout(initReferralBanner, 50);
+      setTimeout(initReferralBanner, 100);
     }
   });
 </script>
