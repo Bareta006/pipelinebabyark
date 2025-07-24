@@ -267,6 +267,9 @@
     return cookie.indexOf(cookieName + "=") === 0;
   });
 }
+//dom ready
+document.addEventListener("DOMContentLoaded", function() {
+
 
 if (checkCookie("RR_WCID")) { var bannerHeight = "80px";
   var couponCode = "REFERARK";
@@ -393,12 +396,10 @@ if (checkCookie("RR_WCID")) { var bannerHeight = "80px";
   window.addEventListener("scroll", () => {
     applyStickyNavOffset();
   });
-  //dom ready
 
+  initBanner();
 }
-  document.addEventListener("DOMContentLoaded", function() {
-    initBanner();
-  });
+});
 </script>
 <!--
 <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
