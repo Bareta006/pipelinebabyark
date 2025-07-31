@@ -10,21 +10,21 @@
 
 {% if component_refs != blank or is_bundle_title %}
 
-{% comment %} Component products for Smart Foodie Bundle {% endcomment %}
-{% assign component_handles = 'baby-ark-seat,baby-ark-base,baby-ark-accessories' | split: ',' %}
-
 <script>
-console.log("=== BUNDLE COMPONENTS ===");
+console.log("=== BUNDLE DATA DEBUG ===");
 console.log("Bundle Name:", "{{ product.title }}");
-console.log("Component Products:");
-{% for handle in component_handles %}
-  {% assign component_product = all_products[handle] %}
-  {% if component_product %}
-    console.log("- Product: {{ component_product.title }}");
-    console.log("  Handle: {{ handle }}");
-  {% else %}
-    console.log("- Handle '{{ handle }}' NOT FOUND");
-  {% endif %}
+console.log("Bundle Handle:", "{{ product.handle }}");
+console.log("Bundle Tags:", "{{ product.tags | join: ', ' }}");
+console.log("Bundle Type:", "{{ product.type }}");
+console.log("Bundle Vendor:", "{{ product.vendor }}");
+console.log("Bundle Description (first 300 chars):", "{{ product.description | strip_html | truncate: 300 }}");
+console.log("Bundle Collections:");
+{% for collection in product.collections %}
+console.log("- {{ collection.handle }} ({{ collection.title }})");
+{% endfor %}
+console.log("Bundle Product Options:");
+{% for option in product.options %}
+console.log("- {{ option.name }}: {{ option.values | join: ', ' }}");
 {% endfor %}
 </script>
 
