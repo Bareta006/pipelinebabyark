@@ -27,34 +27,15 @@
 
       {%- unless hidden -%}
         <div class="product__form__inner" data-form-inner>
-          
-          {% comment %} Bundle Detection {% endcomment %}
-          {% assign is_bundle = product.metafields.custom.bundle_components != blank %}
-
-          {% if is_bundle %}
-            {% comment %} BUNDLE PRODUCTS: Add bundle metafield data for JavaScript processing {% endcomment %}
-            <input type="hidden" id="bundle-metafield-data" value="{{ product.metafields.custom.bundle_components | escape }}"/>
-            <input type="hidden" id="bundle-delivery-info" name="properties[Bundle Delivery Info]" value="" data-bundle-delivery-target/>
-                            
-            {% comment %} JavaScript will handle the bundle processing and populate the delivery info {% endcomment %}
-            
-            {% comment %} Add compatible info if exists {% endcomment %}
-            {% if product.metafields.custom.compatible != blank %}
-              <input type="hidden" name="compatible" value="{{ product.metafields.custom.compatible }}"/>
-            {% endif %}
-            
-          {% else %}
-            {% comment %} REGULAR PRODUCTS: Keep existing logic UNCHANGED {% endcomment %}
-            {% if product.metafields.delivery.estimated_date != blank %}
-              <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}"/>
-            {% endif %}
-            {% if product.metafields.delivery.delivery_time != blank %}
-              <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}"/>
-            {% endif %}
-            {% if product.metafields.custom.compatible != blank %}
-              <input type="hidden" name="compatible" value="{{ product.metafields.custom.compatible }}"/>
-            {% endif %}
-          {% endif %}
+{% if product.metafields.delivery.estimated_date != blank%}
+                      <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
+                      {% endif %}
+                      {% if product.metafields.delivery.delivery_time != blank%}
+                      <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
+                      {% endif %}
+                      {% if product.metafields.custom.compatible != blank%}
+                        <input type="hidden" name="compatible" value="{{product.metafields.custom.compatible}}"/>
+                        {% endif %}
           {% comment %}
             Note: the gift card recipient form is controlled in Checkout and must contain these undocumented line item propeties:
             * properties[__shopify_send_gift_card_to_recipient] - Hidden - Toggles the feature on/off in checkout, following properties have no effect without it

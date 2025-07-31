@@ -123,16 +123,8 @@
   {% endcapture %}
 {% endif %}
 
-  <div class="product-page">
-    {% comment %} Conditional delivery info rendering {% endcomment %}
-    {% assign is_bundle = product.metafields.custom.bundle_components != blank %}
-    {% if is_bundle %}
-      {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
-      {% render 'bundle-delivery-info' %}
-    {% else %}
-      {% comment %} REGULAR PRODUCT: Render existing delivery info UNCHANGED {% endcomment %}
-      {% render 'delivery-info' %}
-    {% endif %}
+<div class="product-page">
+  {% render 'delivery-info' %}
   <div class="{{ wrapper_class }} {{ pad_title }} product__align-{{ section.settings.align }}">
 
     <div class="float-grid product-single" {{ data_thumbnails_left }}>

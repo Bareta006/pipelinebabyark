@@ -21412,31 +21412,19 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         // Check for custom properties and convert them to Shopify's format
         const customProperties = {};
 
-        // Check for bundle delivery info first (bundle products)
-        const bundleDeliveryInput = document.querySelector('[data-bundle-delivery-target]');
-        if (bundleDeliveryInput && bundleDeliveryInput.value) {
-          // Bundle product - use combined delivery info
-          customProperties["Bundle Delivery Info"] = bundleDeliveryInput.value;
-        } else if (formData.has("properties[Bundle Delivery Info]")) {
-          // Fallback: check form data directly
-          customProperties["Bundle Delivery Info"] = formData.get("properties[Bundle Delivery Info]");
-        } else {
-          // Regular product - check for individual delivery properties
-          
-          // Check for deliveryDate
-          if (formData.has("deliveryDate")) {
-            customProperties["Delivery Date"] = formData.get("deliveryDate");
-            formData.delete("deliveryDate");
-          }
-
-          // Check for deliveryTime
-          if (formData.has("deliveryTime")) {
-            customProperties["Delivery Time"] = formData.get("deliveryTime");
-            formData.delete("deliveryTime");
-          }
+        // Check for deliveryDate
+        if (formData.has("deliveryDate")) {
+          customProperties["Delivery Date"] = formData.get("deliveryDate");
+          formData.delete("deliveryDate");
         }
 
-        // Check for compatible (both bundle and regular products)
+        // Check for deliveryTime
+        if (formData.has("deliveryTime")) {
+          customProperties["Delivery Time"] = formData.get("deliveryTime");
+          formData.delete("deliveryTime");
+        }
+
+        // Check for compatible
         if (formData.has("compatible")) {
           customProperties["Compatibility"] = formData.get("compatible");
           formData.delete("compatible");
