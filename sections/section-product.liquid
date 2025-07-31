@@ -453,7 +453,7 @@
 
 {% render 'product-info', product: product %}
 {% comment %} Conditional delivery info rendering {% endcomment %}
-{% if product.selected_or_first_available_variant.components.size > 0 %}
+{% if product.selected_or_first_available_variant.bundle? %}
   {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
   {% render 'bundle-delivery-info' %}
 {% else %}
