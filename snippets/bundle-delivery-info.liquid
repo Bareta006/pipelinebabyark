@@ -10,24 +10,43 @@
 
 {% if component_refs != blank or is_bundle_title %}
 
-{% comment %} Smart Foodie Bundle components based on description {% endcomment %}
-{% assign component_handles = 'babyark-convertible-car-seat-smart,baby-ark-cupholder,baby-ark-extra-car-seat-cover' | split: ',' %}
+{% comment %} Smart Foodie Bundle components {% endcomment %}
+{% assign component_handles = 'babyark-convertible-car-seat-smart,cupholder,extra-car-seat-cover' | split: ',' %}
 
-<script>
-console.log("=== BUNDLE COMPONENTS ===");
-console.log("Bundle Name:", "{{ product.title }}");
-console.log("Component Products:");
-{% for handle in component_handles %}
-  {% assign component_product = all_products[handle] %}
-  {% if component_product %}
-    console.log("- Product: {{ component_product.title }}");
-    console.log("  Handle: {{ handle }}");
-    console.log("  Delivery Time: {{ component_product.metafields.delivery.delivery_time }}");
-    console.log("  Estimated Date: {{ component_product.metafields.delivery.estimated_date }}");
-  {% else %}
-    console.log("- Handle '{{ handle }}' NOT FOUND");
-  {% endif %}
-{% endfor %}
+<script type="application/json" id="bundle-delivery-info">
+{
+  "bundle": {
+    "id": {{ product.id }},
+    "title": {{ product.title | json }},
+    "components": [
+      {% for handle in component_handles %}
+        {% assign component_product = all_products[handle] %}
+        {% if component_product %}
+          {
+            "handle": {{ handle | json }},
+            "product_title": {{ component_product.title | json }},
+            "delivery_info": {
+              {% comment %} Priority 1: Check variant metafields {% endcomment %}
+              {% assign variant_delivery_time = component_product.selected_or_first_available_variant.metafields.delivery.delivery_time %}
+              {% assign variant_delivery_date = component_product.selected_or_first_available_variant.metafields.delivery.delivery_estimated_date %}
+              
+              {% comment %} Priority 2: Check product metafields {% endcomment %}
+              {% unless variant_delivery_time %}
+                {% assign variant_delivery_time = component_product.metafields.delivery.delivery_time %}
+              {% endunless %}
+              {% unless variant_delivery_date %}
+                {% assign variant_delivery_date = component_product.metafields.delivery.estimated_date %}
+              {% endunless %}
+              
+              "delivery_time": {{ variant_delivery_time | json }},
+              "estimated_date": {{ variant_delivery_date | json }}
+            }
+          }{% unless forloop.last %},{% endunless %}
+        {% endif %}
+      {% endfor %}
+    ]
+  }
+}
 </script>
 
 <script>
