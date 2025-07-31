@@ -1,0 +1,147 @@
+{% comment %} /snippets/bundle-delivery-info.liquid {% endcomment %}
+{% comment %} Bundle delivery info - completely separate from existing delivery-info.liquid {% endcomment %}
+
+{% comment %} Check for Shopify's official bundle structure {% endcomment %}
+{% assign component_refs = product.selected_or_first_available_variant.metafields.custom.component_reference %}
+{% assign is_bundle_title = false %}
+{% if product.title contains 'Bundle' or product.title contains 'bundle' %}
+  {% assign is_bundle_title = true %}
+{% endif %}
+
+{% if component_refs != blank or is_bundle_title %}
+
+{% comment %} Smart Foodie Bundle components {% endcomment %}
+{% assign component_handles = 'babyark-convertible-car-seat-smart,baby-ark-cupholder,baby-ark-extra-car-seat-cover' | split: ',' %}
+
+<script type="application/json" id="bundle-delivery-info">
+{
+  "bundle": {
+    "id": {{ product.id }},
+    "title": {{ product.title | json }},
+    "is_bundle": true
+  },
+  "components": [
+    {% for handle in component_handles %}
+      {% assign component_product = all_products[handle] %}
+      {% if component_product %}
+        {
+          "product": {
+            "id": {{ component_product.id }},
+            "title": {{ component_product.title | json }},
+            "handle": {{ handle | json }},
+            "delivery_time": {{ component_product.metafields.delivery.delivery_time | json }},
+            "estimated_date": {{ component_product.metafields.delivery.estimated_date | json }}
+          },
+          "variants": [
+            {% assign valid_variants = false %}
+            {% for variant in component_product.variants %}
+              {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
+              {% unless variant_delivery_date %}
+                {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
+              {% endunless %}
+              {% if variant_delivery_date != blank %}
+                {% if valid_variants %},{% endif %}
+                {% assign valid_variants = true %}
+                {
+                  "id": {{ variant.id }},
+                  "title": {{ variant.title | json }},
+                  "delivery_estimated_date": {{ variant_delivery_date | json }}
+                }
+              {% endif %}
+            {% endfor %}
+          ]
+        }{% unless forloop.last %},{% endunless %}
+      {% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
+  if (!bundleDeliveryElement) return;
+
+  let bundleDeliveryInfo;
+  try {
+    bundleDeliveryInfo = JSON.parse(bundleDeliveryElement.textContent);
+  } catch (error) {
+    return;
+  }
+
+  const deliveryInfoElement = document.querySelector(".delivery-info > p");
+  if (!deliveryInfoElement) return;
+
+  // Store original content for bundles
+  if (typeof window.OriginalBundleEstimateText === "undefined") {
+    window.OriginalBundleEstimateText = deliveryInfoElement.innerHTML;
+  }
+
+  function updateBundleDeliveryDisplay() {
+    const variantInput = document.querySelector('.product__main__content input[name="id"]');
+    if (!variantInput) return;
+
+    const variantId = parseInt(variantInput.value, 10);
+    const variantData = bundleDeliveryInfo.variants.find(variant => variant.id === variantId);
+    
+    if (variantData && variantData.has_bundle_data && variantData.component_delivery_info) {
+      let bundleHTML = "<strong>Estimated delivery</strong><br>";
+      
+      variantData.component_delivery_info.forEach(component => {
+        const deliveryText = component.estimated_date || component.delivery_time;
+        if (deliveryText) {
+          const quantityText = component.quantity > 1 ? ` (${component.quantity}x)` : '';
+          bundleHTML += `<strong>${component.product_title}${quantityText}:</strong> ${deliveryText}<br>`;
+        }
+      });
+      
+      deliveryInfoElement.innerHTML = bundleHTML;
+    } else {
+      deliveryInfoElement.innerHTML = window.OriginalBundleEstimateText;
+    }
+  }
+
+  function updateBundleHiddenInputs() {
+    const variantInput = document.querySelector('.product__main__content input[name="id"]');
+    if (!variantInput) return;
+
+    const variantId = parseInt(variantInput.value, 10);
+    const variantData = bundleDeliveryInfo.variants.find(variant => variant.id === variantId);
+    
+    // Clear existing bundle inputs
+    const existingBundleInputs = document.querySelectorAll('input[name^="bundle_delivery_"]');
+    existingBundleInputs.forEach(input => input.remove());
+
+    if (variantData && variantData.has_bundle_data && variantData.component_delivery_info) {
+      const form = document.querySelector('.product__main__content form');
+      
+      variantData.component_delivery_info.forEach((component, index) => {
+        const deliveryText = component.estimated_date || component.delivery_time;
+        if (deliveryText) {
+          const quantityText = component.quantity > 1 ? ` (${component.quantity}x)` : '';
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = `bundle_delivery_${index}`;
+          hiddenInput.value = `${component.product_title}${quantityText}|${deliveryText}`;
+          form.appendChild(hiddenInput);
+        }
+      });
+    }
+  }
+
+  // Initial updates
+  updateBundleDeliveryDisplay();
+  updateBundleHiddenInputs();
+
+  // Update on variant change
+  const variantInput = document.querySelector('.product__main__content input[name="id"]');
+  if (variantInput) {
+    variantInput.addEventListener("change", () => {
+      updateBundleDeliveryDisplay();
+      updateBundleHiddenInputs();
+    });
+  }
+});
+</script>
+
+{% endif %} 
