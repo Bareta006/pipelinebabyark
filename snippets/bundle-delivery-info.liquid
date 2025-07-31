@@ -10,52 +10,22 @@
 
 {% if component_refs != blank or is_bundle_title %}
 
-{% comment %} DEBUG: Check all possible bundle data storage methods {% endcomment %}
-<script>
-console.log("=== BUNDLE COMPONENT DEBUG ===");
-console.log("Product title:", "{{ product.title }}");
-console.log("Product handle:", "{{ product.handle }}");
-console.log("Product tags:", "{{ product.tags | join: ', ' }}");
-console.log("Product description:", "{{ product.description | strip_html | truncate: 200 }}");
-console.log("Product type:", "{{ product.type }}");
-console.log("Product vendor:", "{{ product.vendor }}");
-console.log("All collections:");
-{% for collection in product.collections %}
-console.log("- Collection: {{ collection.handle }}");
-{% endfor %}
-</script>
+{% comment %} Component products for Smart Foodie Bundle {% endcomment %}
+{% assign component_handles = 'baby-ark-seat,baby-ark-base,baby-ark-accessories' | split: ',' %}
 
-<script type="application/json" id="bundle-delivery-info">
-{
-  "product": {
-    "id": {{ product.id }},
-    "is_bundle": true
-  },
-  "variants": [
-    {% for variant in product.variants %}
-      {% assign variant_component_refs = variant.metafields.custom.component_reference %}
-      {
-        "id": {{ variant.id }},
-        "has_bundle_data": {% if variant_component_refs != blank %}true{% else %}false{% endif %},
-        {% if variant_component_refs != blank %}
-        "component_refs": {{ variant_component_refs | json }},
-        "component_delivery_info": [
-          {
-            "product_title": "Component 1",
-            "delivery_time": "5-7 Days",
-            "estimated_date": "September 10-14"
-          },
-          {
-            "product_title": "Component 2", 
-            "delivery_time": "3-5 Days",
-            "estimated_date": "September 8-12"
-          }
-        ]
-        {% endif %}
-      }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ]
-}
+<script>
+console.log("=== BUNDLE COMPONENTS ===");
+console.log("Bundle Name:", "{{ product.title }}");
+console.log("Component Products:");
+{% for handle in component_handles %}
+  {% assign component_product = all_products[handle] %}
+  {% if component_product %}
+    console.log("- Product: {{ component_product.title }}");
+    console.log("  Handle: {{ handle }}");
+  {% else %}
+    console.log("- Handle '{{ handle }}' NOT FOUND");
+  {% endif %}
+{% endfor %}
 </script>
 
 <script>
