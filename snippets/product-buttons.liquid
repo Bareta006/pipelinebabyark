@@ -37,7 +37,8 @@
                         {% comment %} BUNDLE PRODUCTS: Create hidden inputs for each component's delivery info {% endcomment %}
                         {% assign bundle_data = product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants %}
                         {% for component in bundle_data %}
-                          {% assign component_product = all_products[component.product_title | handleize] %}
+                          {% assign component_handle = component.product_title | handleize %}
+                          {% assign component_product = all_products[component_handle] %}
                           {% if component_product %}
                             {% assign delivery_value = component_product.metafields.delivery.estimated_date | default: component_product.metafields.delivery.delivery_time %}
                             {% if delivery_value != blank %}
