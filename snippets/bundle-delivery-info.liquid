@@ -10,6 +10,21 @@
 
 {% if component_refs != blank or is_bundle_title %}
 
+{% comment %} DEBUG: Show all metafields to find the correct bundle structure {% endcomment %}
+<script>
+console.log("=== BUNDLE METAFIELDS DEBUG ===");
+console.log("Product title:", "{{ product.title }}");
+console.log("Selected variant ID:", {{ product.selected_or_first_available_variant.id }});
+console.log("All variant metafields:");
+{% for metafield in product.selected_or_first_available_variant.metafields %}
+console.log("- {{ metafield.namespace }}.{{ metafield.key }}:", "{{ metafield.value | escape }}");
+{% endfor %}
+console.log("All product metafields:");
+{% for metafield in product.metafields %}
+console.log("- {{ metafield.namespace }}.{{ metafield.key }}:", "{{ metafield.value | escape }}");
+{% endfor %}
+</script>
+
 <script type="application/json" id="bundle-delivery-info">
 {
   "product": {
