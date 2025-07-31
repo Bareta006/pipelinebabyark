@@ -453,7 +453,8 @@
 
 {% render 'product-info', product: product %}
 {% comment %} Conditional delivery info rendering {% endcomment %}
-{% if product.selected_or_first_available_variant.bundle? %}
+{% assign is_bundle = product.metafields.custom.bundle_components != blank %}
+{% if is_bundle %}
   {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
   {% render 'bundle-delivery-info' %}
 {% else %}

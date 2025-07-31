@@ -2,11 +2,7 @@
 
 {% comment %} Bundle delivery info display for product page {% endcomment %}
 
-{% assign is_bundle = false %}
-{% assign bundle_metafield = product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants %}
-{% if bundle_metafield != blank %}
-  {% assign is_bundle = true %}
-{% endif %}
+{% assign is_bundle = product.metafields.custom.bundle_components != blank %}
 
 {% if is_bundle %}
   <div class="product__block__icon bundle-delivery-info text-left" style="--PB: 8px;" data-bundle-delivery-container>
@@ -27,7 +23,7 @@
       </ul>
       
       {% comment %} Store bundle metafield data for JavaScript {% endcomment %}
-      <script type="application/json" data-bundle-metafield>{{ bundle_metafield.value | json }}</script>
+      <script type="application/json" data-bundle-metafield>{{ product.metafields.custom.bundle_components | json }}</script>
       
       {% comment %} Store all products data for JavaScript access {% endcomment %}
       <script type="application/json" data-all-products>

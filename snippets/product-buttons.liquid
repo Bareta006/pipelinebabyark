@@ -29,15 +29,11 @@
         <div class="product__form__inner" data-form-inner>
           
           {% comment %} Bundle Detection {% endcomment %}
-          {% assign is_bundle = false %}
-          {% assign bundle_metafield = product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants %}
-          {% if bundle_metafield != blank %}
-            {% assign is_bundle = true %}
-          {% endif %}
+          {% assign is_bundle = product.metafields.custom.bundle_components != blank %}
 
           {% if is_bundle %}
             {% comment %} BUNDLE PRODUCTS: Add bundle metafield data for JavaScript processing {% endcomment %}
-            <input type="hidden" id="bundle-metafield-data" value="{{ bundle_metafield.value | escape }}"/>
+            <input type="hidden" id="bundle-metafield-data" value="{{ product.metafields.custom.bundle_components | escape }}"/>
             <input type="hidden" id="bundle-delivery-info" name="properties[Bundle Delivery Info]" value="" data-bundle-delivery-target/>
                             
             {% comment %} JavaScript will handle the bundle processing and populate the delivery info {% endcomment %}
