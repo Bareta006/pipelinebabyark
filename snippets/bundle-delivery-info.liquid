@@ -20,7 +20,8 @@
         "bundle_components": {{ variant_bundle_data | json }},
         "component_delivery_info": [
           {% for component in variant_bundle_data %}
-            {% assign component_product = all_products[component.product_title | handleize] %}
+            {% assign component_handle = component.product_title | handleize %}
+            {% assign component_product = all_products[component_handle] %}
             {% if component_product %}
               {
                 "product_title": {{ component.product_title | json }},
