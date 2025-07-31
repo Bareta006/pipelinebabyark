@@ -125,13 +125,11 @@
 
 <div class="product-page">
   {% comment %} Bundle Detection Test {% endcomment %}
-  <script>
-    {% if product.selected_or_first_available_variant.bundle? %}
-      console.log("bundle product: true");
-    {% else %}
-      console.log("bundle product: false");
-    {% endif %}
-  </script>
+  {% if product.selected_or_first_available_variant.bundle? %}
+    <p>Bundle Product: TRUE</p>
+  {% else %}
+    <p>Bundle Product: FALSE</p>
+  {% endif %}
   {% render 'delivery-info' %}
   <div class="{{ wrapper_class }} {{ pad_title }} product__align-{{ section.settings.align }}">
 
