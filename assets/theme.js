@@ -21409,40 +21409,28 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         e.preventDefault();
         this.state = STATES$1.LOADING;
         const formData = new FormData(this.form);
+        // Check for custom properties and convert them to Shopify's format
         const customProperties = {};
 
-        // Check if this is a bundle product
-        const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
-        const isBundle = bundleDeliveryElement !== null;
-
-        if (isBundle) {
-          // BUNDLE PRODUCTS: Process bundle delivery inputs
-          const bundleInputs = this.form.querySelectorAll('input[name^="bundle_delivery_"]');
-          bundleInputs.forEach(input => {
-            const [productInfo, deliveryInfo] = input.value.split('|');
-            customProperties[`${productInfo} Delivery`] = deliveryInfo;
-            formData.delete(input.name);
-          });
-        } else {
-          // REGULAR PRODUCTS: Existing delivery logic (UNCHANGED)
-          if (formData.has("deliveryDate")) {
-            customProperties["Delivery Date"] = formData.get("deliveryDate");
-            formData.delete("deliveryDate");
-          }
-
-          if (formData.has("deliveryTime")) {
-            customProperties["Delivery Time"] = formData.get("deliveryTime");
-            formData.delete("deliveryTime");
-          }
+        // Check for deliveryDate
+        if (formData.has("deliveryDate")) {
+          customProperties["Delivery Date"] = formData.get("deliveryDate");
+          formData.delete("deliveryDate");
         }
 
-        // EXISTING: Compatibility logic (UNCHANGED)
+        // Check for deliveryTime
+        if (formData.has("deliveryTime")) {
+          customProperties["Delivery Time"] = formData.get("deliveryTime");
+          formData.delete("deliveryTime");
+        }
+
+        // Check for compatible
         if (formData.has("compatible")) {
           customProperties["Compatibility"] = formData.get("compatible");
           formData.delete("compatible");
         }
 
-        // EXISTING: Add properties to formData (UNCHANGED)
+        // Add properties to formData in Shopify's format
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
         }

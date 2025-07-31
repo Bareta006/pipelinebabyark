@@ -452,18 +452,7 @@
 </div>
 
 {% render 'product-info', product: product %}
-{% comment %} Check if bundle, render appropriate delivery info {% endcomment %}
-{% assign component_refs = product.selected_or_first_available_variant.metafields.custom.component_reference %}
-{% assign is_bundle_title = false %}
-{% if product.title contains 'Bundle' or product.title contains 'bundle' %}
-  {% assign is_bundle_title = true %}
-{% endif %}
-
-{% if component_refs != blank or is_bundle_title %}
-  {% render 'bundle-delivery-info' %}
-{% else %}
-  {% render 'delivery-info' %}
-{% endif %}
+{% render 'delivery-info' %}
 {% if section.settings.zoom_enable %}
   {% render 'zoom-pswp' %}
 {% endif %}
