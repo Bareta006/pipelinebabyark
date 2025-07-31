@@ -124,7 +124,14 @@
 {% endif %}
 
 <div class="product-page">
-  {% render 'delivery-info' %}
+  {% comment %} Conditional delivery info rendering {% endcomment %}
+  {% if product.selected_or_first_available_variant.bundle? %}
+    {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
+    {% render 'bundle-delivery-info' %}
+  {% else %}
+    {% comment %} REGULAR PRODUCT: Render existing delivery info UNCHANGED {% endcomment %}
+    {% render 'delivery-info' %}
+  {% endif %}
   <div class="{{ wrapper_class }} {{ pad_title }} product__align-{{ section.settings.align }}">
 
     <div class="float-grid product-single" {{ data_thumbnails_left }}>

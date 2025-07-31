@@ -452,7 +452,14 @@
 </div>
 
 {% render 'product-info', product: product %}
-{% render 'delivery-info' %}
+{% comment %} Conditional delivery info rendering {% endcomment %}
+{% if product.selected_or_first_available_variant.bundle? %}
+  {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
+  {% render 'bundle-delivery-info' %}
+{% else %}
+  {% comment %} REGULAR PRODUCT: Render existing delivery info UNCHANGED {% endcomment %}
+  {% render 'delivery-info' %}
+{% endif %}
 {% if section.settings.zoom_enable %}
   {% render 'zoom-pswp' %}
 {% endif %}

@@ -27,15 +27,83 @@
 
       {%- unless hidden -%}
         <div class="product__form__inner" data-form-inner>
-{% if product.metafields.delivery.estimated_date != blank%}
-                      <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
-                      {% endif %}
-                      {% if product.metafields.delivery.delivery_time != blank%}
-                      <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
-                      {% endif %}
-                      {% if product.metafields.custom.compatible != blank%}
-                        <input type="hidden" name="compatible" value="{{product.metafields.custom.compatible}}"/>
-                        {% endif %}
+          
+          {% comment %} Bundle Detection {% endcomment %}
+          {% assign is_bundle = false %}
+          {% if product.selected_or_first_available_variant.bundle? %}
+            {% assign is_bundle = true %}
+            {% assign bundle = product.selected_or_first_available_variant.bundle %}
+          {% endif %}
+
+          {% if is_bundle %}
+            {% comment %} BUNDLE PRODUCTS: Create combined delivery info from all components {% endcomment %}
+            {% assign bundle_delivery_info = "" %}
+            {% for item in bundle.items %}
+              {% assign component_product = all_products[item.product.handle] %}
+              {% if component_product %}
+                
+                {% comment %} Apply hierarchy: Component Variant > Component Product > Bundle Product {% endcomment %}
+                {% assign component_delivery_value = "" %}
+                {% assign component_delivery_type = "" %}
+                
+                {% comment %} Check component variant metafields first (STRONGEST) {% endcomment %}
+                {% if component_product.selected_or_first_available_variant.metafields.delivery.delivery_time != blank %}
+                  {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.delivery_time %}
+                  {% assign component_delivery_type = "delivery time" %}
+                {% elsif component_product.selected_or_first_available_variant.metafields.delivery.estimated_date != blank %}
+                  {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.estimated_date %}
+                  {% assign component_delivery_type = "estimated date" %}
+                
+                {% comment %} Check component product metafields (MEDIUM) {% endcomment %}
+                {% elsif component_product.metafields.delivery.delivery_time != blank %}
+                  {% assign component_delivery_value = component_product.metafields.delivery.delivery_time %}
+                  {% assign component_delivery_type = "delivery time" %}
+                {% elsif component_product.metafields.delivery.estimated_date != blank %}
+                  {% assign component_delivery_value = component_product.metafields.delivery.estimated_date %}
+                  {% assign component_delivery_type = "estimated date" %}
+                
+                {% comment %} Fallback to bundle product metafields (WEAKEST) {% endcomment %}
+                {% elsif product.metafields.delivery.delivery_time != blank %}
+                  {% assign component_delivery_value = product.metafields.delivery.delivery_time %}
+                  {% assign component_delivery_type = "delivery time" %}
+                {% elsif product.metafields.delivery.estimated_date != blank %}
+                  {% assign component_delivery_value = product.metafields.delivery.estimated_date %}
+                  {% assign component_delivery_type = "estimated date" %}
+                {% endif %}
+                
+                {% comment %} Build component delivery string {% endcomment %}
+                {% if component_delivery_value != blank %}
+                  {% if bundle_delivery_info != blank %}
+                    {% assign bundle_delivery_info = bundle_delivery_info | append: ", " %}
+                  {% endif %}
+                  {% assign bundle_delivery_info = bundle_delivery_info | append: component_product.title | append: ": " | append: component_delivery_value %}
+                {% endif %}
+                
+              {% endif %}
+            {% endfor %}
+            
+            {% comment %} Add combined bundle delivery info as single property {% endcomment %}
+            {% if bundle_delivery_info != blank %}
+              <input type="hidden" name="properties[Bundle Delivery Info]" value="{{ bundle_delivery_info }}"/>
+            {% endif %}
+            
+            {% comment %} Add compatible info if exists {% endcomment %}
+            {% if product.metafields.custom.compatible != blank %}
+              <input type="hidden" name="compatible" value="{{ product.metafields.custom.compatible }}"/>
+            {% endif %}
+            
+          {% else %}
+            {% comment %} REGULAR PRODUCTS: Keep existing logic UNCHANGED {% endcomment %}
+            {% if product.metafields.delivery.estimated_date != blank %}
+              <input type="hidden" name="deliveryDate" value="{{ product.metafields.delivery.estimated_date }}"/>
+            {% endif %}
+            {% if product.metafields.delivery.delivery_time != blank %}
+              <input type="hidden" name="deliveryTime" value="{{ product.metafields.delivery.delivery_time }}"/>
+            {% endif %}
+            {% if product.metafields.custom.compatible != blank %}
+              <input type="hidden" name="compatible" value="{{ product.metafields.custom.compatible }}"/>
+            {% endif %}
+          {% endif %}
           {% comment %}
             Note: the gift card recipient form is controlled in Checkout and must contain these undocumented line item propeties:
             * properties[__shopify_send_gift_card_to_recipient] - Hidden - Toggles the feature on/off in checkout, following properties have no effect without it

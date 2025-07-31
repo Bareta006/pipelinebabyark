@@ -1,0 +1,104 @@
+{% comment %} /snippets/bundle-delivery-info.liquid {% endcomment %}
+
+{% comment %} Bundle delivery info display for product page {% endcomment %}
+
+{% assign is_bundle = false %}
+{% if product.selected_or_first_available_variant.bundle? %}
+  {% assign is_bundle = true %}
+  {% assign bundle = product.selected_or_first_available_variant.bundle %}
+{% endif %}
+
+{% if is_bundle %}
+  <div class="product__block__icon bundle-delivery-info text-left" style="--PB: 8px;" data-bundle-delivery-container>
+    <div class="icon-holder" style="--ICON-SIZE: 42px; --ICON-STROKE-COLOR: #4b4b4b;">
+      {% render 'image',
+        img_object: '/files/Group_29613095.svg',
+        alt: 'Delivery',
+        sizes: '42px',
+        loading: 'lazy'
+      %}
+    </div>
+    
+    <div class="bundle-delivery-content">
+      <p><strong>ESTIMATED DELIVERY:</strong></p>
+      <ul class="bundle-delivery-list" data-bundle-delivery-list>
+        {% for item in bundle.items %}
+          {% assign component_product = all_products[item.product.handle] %}
+          {% if component_product %}
+            
+            {% comment %} Apply same hierarchy as product-buttons {% endcomment %}
+            {% assign component_delivery_value = "" %}
+            {% assign component_delivery_type = "" %}
+            
+            {% comment %} Check component variant metafields first (STRONGEST) {% endcomment %}
+            {% if component_product.selected_or_first_available_variant.metafields.delivery.delivery_time != blank %}
+              {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.delivery_time %}
+              {% assign component_delivery_type = "delivery time" %}
+            {% elsif component_product.selected_or_first_available_variant.metafields.delivery.estimated_date != blank %}
+              {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.estimated_date %}
+              {% assign component_delivery_type = "estimated date" %}
+            
+            {% comment %} Check component product metafields (MEDIUM) {% endcomment %}
+            {% elsif component_product.metafields.delivery.delivery_time != blank %}
+              {% assign component_delivery_value = component_product.metafields.delivery.delivery_time %}
+              {% assign component_delivery_type = "delivery time" %}
+            {% elsif component_product.metafields.delivery.estimated_date != blank %}
+              {% assign component_delivery_value = component_product.metafields.delivery.estimated_date %}
+              {% assign component_delivery_type = "estimated date" %}
+            
+            {% comment %} Fallback to bundle product metafields (WEAKEST) {% endcomment %}
+            {% elsif product.metafields.delivery.delivery_time != blank %}
+              {% assign component_delivery_value = product.metafields.delivery.delivery_time %}
+              {% assign component_delivery_type = "delivery time" %}
+            {% elsif product.metafields.delivery.estimated_date != blank %}
+              {% assign component_delivery_value = product.metafields.delivery.estimated_date %}
+              {% assign component_delivery_type = "estimated date" %}
+            {% endif %}
+            
+            {% comment %} Display component delivery info {% endcomment %}
+            {% if component_delivery_value != blank %}
+              <li data-component-delivery="{{ component_product.handle }}">
+                <strong>{{ component_product.title }}:</strong> {{ component_delivery_value }}
+              </li>
+            {% endif %}
+            
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% comment %} JavaScript for handling variant changes {% endcomment %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const bundleDeliveryContainer = document.querySelector('[data-bundle-delivery-container]');
+      const bundleDeliveryList = document.querySelector('[data-bundle-delivery-list]');
+      
+      if (bundleDeliveryContainer && bundleDeliveryList) {
+        
+        // Function to update bundle delivery info when variants change
+        function updateBundleDeliveryInfo() {
+          // This will be called when bundle options change
+          // Re-fetch delivery info for each component based on selected variants
+          const components = bundleDeliveryList.querySelectorAll('[data-component-delivery]');
+          
+          components.forEach(function(component) {
+            const componentHandle = component.getAttribute('data-component-delivery');
+            // Update delivery info for this component if variant changed
+            // This would require additional logic to detect variant changes
+          });
+        }
+        
+        // Listen for variant change events (if your theme has them)
+        document.addEventListener('variant:change', updateBundleDeliveryInfo);
+        
+        // Also listen for form changes in bundle selectors
+        const bundleForms = document.querySelectorAll('[data-bundle-form]');
+        bundleForms.forEach(function(form) {
+          form.addEventListener('change', updateBundleDeliveryInfo);
+        });
+      }
+    });
+  </script>
+
+{% endif %} 
