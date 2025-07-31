@@ -10,18 +10,18 @@
 
 {% if component_refs != blank or is_bundle_title %}
 
-{% comment %} DEBUG: Show all metafields to find the correct bundle structure {% endcomment %}
+{% comment %} DEBUG: Check all possible bundle data storage methods {% endcomment %}
 <script>
-console.log("=== BUNDLE METAFIELDS DEBUG ===");
+console.log("=== BUNDLE COMPONENT DEBUG ===");
 console.log("Product title:", "{{ product.title }}");
-console.log("Selected variant ID:", {{ product.selected_or_first_available_variant.id }});
-console.log("All variant metafields:");
-{% for metafield in product.selected_or_first_available_variant.metafields %}
-console.log("- {{ metafield.namespace }}.{{ metafield.key }}:", "{{ metafield.value | escape }}");
-{% endfor %}
-console.log("All product metafields:");
-{% for metafield in product.metafields %}
-console.log("- {{ metafield.namespace }}.{{ metafield.key }}:", "{{ metafield.value | escape }}");
+console.log("Product handle:", "{{ product.handle }}");
+console.log("Product tags:", "{{ product.tags | join: ', ' }}");
+console.log("Product description:", "{{ product.description | strip_html | truncate: 200 }}");
+console.log("Product type:", "{{ product.type }}");
+console.log("Product vendor:", "{{ product.vendor }}");
+console.log("All collections:");
+{% for collection in product.collections %}
+console.log("- Collection: {{ collection.handle }}");
 {% endfor %}
 </script>
 
