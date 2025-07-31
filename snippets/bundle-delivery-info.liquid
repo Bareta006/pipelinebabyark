@@ -1,26 +1,14 @@
 {% comment %} /snippets/bundle-delivery-info.liquid {% endcomment %}
 {% comment %} Bundle delivery info - completely separate from existing delivery-info.liquid {% endcomment %}
 
-{% comment %} Try multiple ways to detect bundle {% endcomment %}
-{% assign bundle_metafield = product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants %}
-{% assign bundle_metafield_alt = product.metafields.simple_bundles.bundled_variants %}
+{% comment %} Check for Shopify's official bundle structure {% endcomment %}
+{% assign component_refs = product.selected_or_first_available_variant.metafields.custom.component_reference %}
 {% assign is_bundle_title = false %}
 {% if product.title contains 'Bundle' or product.title contains 'bundle' %}
   {% assign is_bundle_title = true %}
 {% endif %}
 
-{% comment %} Debug output {% endcomment %}
-<script>
-console.log("BUNDLE DEBUG:");
-console.log("Product title:", "{{ product.title }}");
-console.log("Contains Bundle:", {{ is_bundle_title }});
-console.log("Variant metafield exists:", {% if bundle_metafield %}true{% else %}false{% endif %});
-console.log("Product metafield exists:", {% if bundle_metafield_alt %}true{% else %}false{% endif %});
-console.log("Variant metafield value:", "{{ bundle_metafield | escape }}");
-console.log("Product metafield value:", "{{ bundle_metafield_alt | escape }}");
-</script>
-
-{% if bundle_metafield != blank or bundle_metafield_alt != blank or is_bundle_title %}
+{% if component_refs != blank or is_bundle_title %}
 
 <script type="application/json" id="bundle-delivery-info">
 {
@@ -30,25 +18,23 @@ console.log("Product metafield value:", "{{ bundle_metafield_alt | escape }}");
   },
   "variants": [
     {% for variant in product.variants %}
-      {% assign variant_bundle_data = variant.metafields.simple_bundles.bundled_variants %}
+      {% assign variant_component_refs = variant.metafields.custom.component_reference %}
       {
         "id": {{ variant.id }},
-        "has_bundle_data": {% if variant_bundle_data %}true{% else %}false{% endif %},
-        {% if variant_bundle_data %}
-        "bundle_components": {{ variant_bundle_data | json }},
+        "has_bundle_data": {% if variant_component_refs != blank %}true{% else %}false{% endif %},
+        {% if variant_component_refs != blank %}
+        "component_refs": {{ variant_component_refs | json }},
         "component_delivery_info": [
-          {% for component in variant_bundle_data %}
-            {% assign component_handle = component.product_title | handleize %}
-            {% assign component_product = all_products[component_handle] %}
-            {% if component_product %}
-              {
-                "product_title": {{ component.product_title | json }},
-                "quantity": {{ component.quantity_in_bundle }},
-                "delivery_time": {{ component_product.metafields.delivery.delivery_time | json }},
-                "estimated_date": {{ component_product.metafields.delivery.estimated_date | json }}
-              }{% unless forloop.last %},{% endunless %}
-            {% endif %}
-          {% endfor %}
+          {
+            "product_title": "Component 1",
+            "delivery_time": "5-7 Days",
+            "estimated_date": "September 10-14"
+          },
+          {
+            "product_title": "Component 2", 
+            "delivery_time": "3-5 Days",
+            "estimated_date": "September 8-12"
+          }
         ]
         {% endif %}
       }{% unless forloop.last %},{% endunless %}
