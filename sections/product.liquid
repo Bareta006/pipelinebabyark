@@ -125,7 +125,7 @@
 
 <div class="product-page">
   {% comment %} Conditional delivery info rendering {% endcomment %}
-  {% if product.selected_or_first_available_variant.bundle? %}
+  {% if product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants != blank %}
     {% comment %} BUNDLE: Render bundle delivery info {% endcomment %}
     {% render 'bundle-delivery-info' %}
   {% else %}

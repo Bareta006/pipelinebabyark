@@ -21413,10 +21413,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         const customProperties = {};
 
         // Check for bundle delivery info first (bundle products)
-        if (formData.has("properties[Bundle Delivery Info]")) {
+        const bundleDeliveryInput = document.querySelector('[data-bundle-delivery-target]');
+        if (bundleDeliveryInput && bundleDeliveryInput.value) {
           // Bundle product - use combined delivery info
+          customProperties["Bundle Delivery Info"] = bundleDeliveryInput.value;
+        } else if (formData.has("properties[Bundle Delivery Info]")) {
+          // Fallback: check form data directly
           customProperties["Bundle Delivery Info"] = formData.get("properties[Bundle Delivery Info]");
-          // Note: Don't delete this as it's already in proper Shopify format
         } else {
           // Regular product - check for individual delivery properties
           

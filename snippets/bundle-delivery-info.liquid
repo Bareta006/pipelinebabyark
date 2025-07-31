@@ -3,9 +3,9 @@
 {% comment %} Bundle delivery info display for product page {% endcomment %}
 
 {% assign is_bundle = false %}
-{% if product.selected_or_first_available_variant.bundle? %}
+{% assign bundle_metafield = product.selected_or_first_available_variant.metafields.simple_bundles.bundled_variants %}
+{% if bundle_metafield != blank %}
   {% assign is_bundle = true %}
-  {% assign bundle = product.selected_or_first_available_variant.bundle %}
 {% endif %}
 
 {% if is_bundle %}
@@ -22,81 +22,112 @@
     <div class="bundle-delivery-content">
       <p><strong>ESTIMATED DELIVERY:</strong></p>
       <ul class="bundle-delivery-list" data-bundle-delivery-list>
-        {% for item in bundle.items %}
-          {% assign component_product = all_products[item.product.handle] %}
-          {% if component_product %}
-            
-            {% comment %} Apply same hierarchy as product-buttons {% endcomment %}
-            {% assign component_delivery_value = "" %}
-            {% assign component_delivery_type = "" %}
-            
-            {% comment %} Check component variant metafields first (STRONGEST) {% endcomment %}
-            {% if component_product.selected_or_first_available_variant.metafields.delivery.delivery_time != blank %}
-              {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.delivery_time %}
-              {% assign component_delivery_type = "delivery time" %}
-            {% elsif component_product.selected_or_first_available_variant.metafields.delivery.estimated_date != blank %}
-              {% assign component_delivery_value = component_product.selected_or_first_available_variant.metafields.delivery.estimated_date %}
-              {% assign component_delivery_type = "estimated date" %}
-            
-            {% comment %} Check component product metafields (MEDIUM) {% endcomment %}
-            {% elsif component_product.metafields.delivery.delivery_time != blank %}
-              {% assign component_delivery_value = component_product.metafields.delivery.delivery_time %}
-              {% assign component_delivery_type = "delivery time" %}
-            {% elsif component_product.metafields.delivery.estimated_date != blank %}
-              {% assign component_delivery_value = component_product.metafields.delivery.estimated_date %}
-              {% assign component_delivery_type = "estimated date" %}
-            
-            {% comment %} Fallback to bundle product metafields (WEAKEST) {% endcomment %}
-            {% elsif product.metafields.delivery.delivery_time != blank %}
-              {% assign component_delivery_value = product.metafields.delivery.delivery_time %}
-              {% assign component_delivery_type = "delivery time" %}
-            {% elsif product.metafields.delivery.estimated_date != blank %}
-              {% assign component_delivery_value = product.metafields.delivery.estimated_date %}
-              {% assign component_delivery_type = "estimated date" %}
-            {% endif %}
-            
-            {% comment %} Display component delivery info {% endcomment %}
-            {% if component_delivery_value != blank %}
-              <li data-component-delivery="{{ component_product.handle }}">
-                <strong>{{ component_product.title }}:</strong> {{ component_delivery_value }}
-              </li>
-            {% endif %}
-            
-          {% endif %}
-        {% endfor %}
+        {% comment %} Bundle components will be populated by JavaScript {% endcomment %}
+        <li data-bundle-loading>Loading bundle delivery information...</li>
       </ul>
+      
+      {% comment %} Store bundle metafield data for JavaScript {% endcomment %}
+      <script type="application/json" data-bundle-metafield>{{ bundle_metafield.value | json }}</script>
+      
+      {% comment %} Store all products data for JavaScript access {% endcomment %}
+      <script type="application/json" data-all-products>
+        {
+          {% for product_item in collections.all.products limit: 1000 %}
+            "{{ product_item.handle }}": {
+              "title": {{ product_item.title | json }},
+              "delivery_time": {{ product_item.metafields.delivery.delivery_time | json }},
+              "estimated_date": {{ product_item.metafields.delivery.estimated_date | json }},
+              "variants": [
+                {% for variant in product_item.variants %}
+                  {
+                    "id": {{ variant.id }},
+                    "title": {{ variant.title | json }},
+                    "delivery_time": {{ variant.metafields.delivery.delivery_time | json }},
+                    "estimated_date": {{ variant.metafields.delivery.estimated_date | json }}
+                  }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+              ]
+            }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        }
+      </script>
     </div>
   </div>
 
-  {% comment %} JavaScript for handling variant changes {% endcomment %}
+  {% comment %} JavaScript for handling bundle delivery info display {% endcomment %}
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const bundleDeliveryContainer = document.querySelector('[data-bundle-delivery-container]');
       const bundleDeliveryList = document.querySelector('[data-bundle-delivery-list]');
+      const bundleMetafieldScript = document.querySelector('[data-bundle-metafield]');
+      const allProductsScript = document.querySelector('[data-all-products]');
       
-      if (bundleDeliveryContainer && bundleDeliveryList) {
-        
-        // Function to update bundle delivery info when variants change
-        function updateBundleDeliveryInfo() {
-          // This will be called when bundle options change
-          // Re-fetch delivery info for each component based on selected variants
-          const components = bundleDeliveryList.querySelectorAll('[data-component-delivery]');
+      if (bundleDeliveryList && bundleMetafieldScript && allProductsScript) {
+        try {
+          // Parse bundle metafield data
+          const bundleData = JSON.parse(bundleMetafieldScript.textContent);
+          const allProducts = JSON.parse(allProductsScript.textContent);
           
-          components.forEach(function(component) {
-            const componentHandle = component.getAttribute('data-component-delivery');
-            // Update delivery info for this component if variant changed
-            // This would require additional logic to detect variant changes
+          // Clear loading message
+          bundleDeliveryList.innerHTML = '';
+          
+          // Process each bundle component
+          bundleData.forEach(function(component) {
+            const productHandle = component.product_title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            const product = allProducts[productHandle];
+            
+            if (product) {
+              // Apply hierarchy: Component Variant > Component Product > Bundle Product
+              let deliveryValue = '';
+              let deliveryType = '';
+              
+              // Check if we have variant-specific delivery info
+              if (component.variant_title && component.variant_title !== 'Default Title') {
+                const variant = product.variants.find(v => v.title === component.variant_title);
+                if (variant) {
+                  if (variant.delivery_time) {
+                    deliveryValue = variant.delivery_time;
+                    deliveryType = 'delivery time';
+                  } else if (variant.estimated_date) {
+                    deliveryValue = variant.estimated_date;
+                    deliveryType = 'estimated date';
+                  }
+                }
+              }
+              
+              // Fallback to product-level delivery info
+              if (!deliveryValue) {
+                if (product.delivery_time) {
+                  deliveryValue = product.delivery_time;
+                  deliveryType = 'delivery time';
+                } else if (product.estimated_date) {
+                  deliveryValue = product.estimated_date;
+                  deliveryType = 'estimated date';
+                }
+              }
+              
+              // Create and append list item
+              if (deliveryValue) {
+                const li = document.createElement('li');
+                li.innerHTML = '<strong>' + product.title + ':</strong> ' + deliveryValue;
+                bundleDeliveryList.appendChild(li);
+              }
+            }
           });
+          
+          // Update cart delivery input if it exists
+          const cartDeliveryInput = document.querySelector('[data-bundle-delivery-target]');
+          if (cartDeliveryInput) {
+            const deliveryStrings = [];
+            bundleDeliveryList.querySelectorAll('li').forEach(function(li) {
+              deliveryStrings.push(li.textContent.replace(':', ''));
+            });
+            cartDeliveryInput.value = deliveryStrings.join(', ');
+          }
+          
+        } catch (error) {
+          console.error('Error parsing bundle delivery data:', error);
+          bundleDeliveryList.innerHTML = '<li>Error loading bundle delivery information</li>';
         }
-        
-        // Listen for variant change events (if your theme has them)
-        document.addEventListener('variant:change', updateBundleDeliveryInfo);
-        
-        // Also listen for form changes in bundle selectors
-        const bundleForms = document.querySelectorAll('[data-bundle-form]');
-        bundleForms.forEach(function(form) {
-          form.addEventListener('change', updateBundleDeliveryInfo);
-        });
       }
     });
   </script>
