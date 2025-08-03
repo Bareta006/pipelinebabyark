@@ -133,71 +133,38 @@
 </div>
 
 <script>
-// Fix missing form wrapper for protection plans
-function fixProtectionPlanForms() {
-  console.log('Running fixProtectionPlanForms...');
+// Simple fix for missing form on 2-year protection plan
+function fixProtectionForm() {
+  const button2Year = document.querySelector('.plan-2-years');
   
-  const protectionButtons = document.querySelectorAll('.protection-plan-button');
-  console.log('Found protection buttons:', protectionButtons.length);
-  
-  protectionButtons.forEach((button, index) => {
-    console.log(`Checking button ${index + 1}:`, button);
+  if (button2Year && !button2Year.closest('form')) {
+    const alpineDiv = button2Year.closest('[x-data="productAddButtonForm()"]');
     
-    // Check if button is not inside a form
-    const existingForm = button.closest('form');
-    console.log('Button has form?', !!existingForm);
-    
-    if (!existingForm) {
-      console.log('Button needs form wrapper, creating it...');
+    if (alpineDiv) {
+      // Create form
+      const form = document.createElement('form');
+      form.method = 'post';
+      form.action = '/cart/add';
+      form.className = 'shopify-product-form';
+      form.enctype = 'multipart/form-data';
       
-      // Get the Alpine.js wrapper div
-      const alpineWrapper = button.closest('[x-data="productAddButtonForm()"]');
-      console.log('Alpine wrapper found:', !!alpineWrapper);
+      // Get all content from alpine div
+      const content = alpineDiv.innerHTML;
       
-      if (alpineWrapper) {
-        // Create form element
-        const form = document.createElement('form');
-        form.method = 'post';
-        form.action = '/cart/add';
-        form.className = 'shopify-product-form';
-        form.enctype = 'multipart/form-data';
-        form.setAttribute('accept-charset', 'UTF-8');
-        
-        console.log('Created form element:', form);
-        
-        // Get all children of alpine wrapper
-        const children = Array.from(alpineWrapper.children);
-        console.log('Alpine wrapper children:', children.length);
-        
-        // Move all children into the form
-        children.forEach(child => {
-          console.log('Moving child to form:', child);
-          form.appendChild(child);
-        });
-        
-        // Add the form back to the Alpine wrapper
-        alpineWrapper.appendChild(form);
-        console.log('Form added to Alpine wrapper');
-      }
+      // Put content inside form
+      form.innerHTML = content;
+      
+      // Replace alpine div content with form
+      alpineDiv.innerHTML = '';
+      alpineDiv.appendChild(form);
     }
-  });
+  }
 }
 
-// Run on page load
-document.addEventListener('DOMContentLoaded', function() {
-  console.log('DOM loaded, running fix...');
-  fixProtectionPlanForms();
-});
-
-// Run after cart updates
+// Run the fix
+document.addEventListener('DOMContentLoaded', fixProtectionForm);
 document.addEventListener('theme:cart:reload', function() {
-  console.log('Cart reloaded, running fix...');
-  setTimeout(fixProtectionPlanForms, 100); // Small delay to ensure DOM is updated
-});
-
-document.addEventListener('cart:updated', function() {
-  console.log('Cart updated, running fix...');
-  setTimeout(fixProtectionPlanForms, 100); // Small delay to ensure DOM is updated
+  setTimeout(fixProtectionForm, 200);
 });
 </script>
 
