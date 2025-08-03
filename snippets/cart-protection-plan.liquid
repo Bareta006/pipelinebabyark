@@ -167,124 +167,73 @@
       <div class="cart-protection-options">
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              <form class="protection-plan-add-form" data-protection-form>
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-2-years"
-                  data-protection-btn
+                  @click.prevent="handleClickAddButton"
                 >
                   2 Years
                   <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
-              </form>
-            {% else %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_2year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-2-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    2 Years
-                    <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+              {%- endform -%}
+            </div>
           </div>
         {% endif %}
         
         {% if plan_3year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              <form class="protection-plan-add-form" data-protection-form>
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_3year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-3-years"
-                  data-protection-btn
+                  @click.prevent="handleClickAddButton"
                 >
                   3 Years
                   <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
-              </form>
-            {% else %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_3year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-3-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    3 Years
-                    <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+              {%- endform -%}
+            </div>
           </div>
         {% endif %}
         
         {% if plan_5year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              <form class="protection-plan-add-form" data-protection-form>
+            <div x-data="productAddButtonForm()">
+              {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_5year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-5-years"
-                  data-protection-btn
+                  @click.prevent="handleClickAddButton"
                 >
                   5 Years
                   <span class="protection-price">+{{ plan_5year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
-              </form>
-            {% else %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_5year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-5-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    5 Years
-                    <span class="protection-price">+{{ plan_5year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+              {%- endform -%}
+            </div>
           </div>
         {% endif %}
       </div>
@@ -396,61 +345,4 @@
       }
     </style>
   {% endif %}
-{% endif %} 
-
-{% if template.name == 'cart' %}
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const protectionForms = document.querySelectorAll('[data-protection-form]');
-  
-  protectionForms.forEach(form => {
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const button = form.querySelector('[data-protection-btn]');
-      const originalText = button.innerHTML;
-      
-      // Show loading state
-      button.disabled = true;
-      button.innerHTML = originalText + ' <span style="margin-left: 5px;">...</span>';
-      
-      try {
-        const formData = new FormData(form);
-        
-        // Add to cart via AJAX
-        const response = await fetch('/cart/add.js', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            id: formData.get('id'),
-            quantity: 1,
-            properties: {
-              '_protection_reference': formData.get('properties[_protection_reference]'),
-              '_protection_item_id': formData.get('properties[_protection_item_id]'),
-              '_protection_product': formData.get('properties[_protection_product]')
-            }
-          })
-        });
-        
-        if (response.ok) {
-          // Reload the page to show updated cart
-          window.location.reload();
-        } else {
-          throw new Error('Failed to add protection plan');
-        }
-        
-      } catch (error) {
-        console.error('Error adding protection plan:', error);
-        alert('Failed to add protection plan. Please try again.');
-      } finally {
-        // Reset button
-        button.disabled = false;
-        button.innerHTML = originalText;
-      }
-    });
-  });
-});
-</script>
 {% endif %} 
