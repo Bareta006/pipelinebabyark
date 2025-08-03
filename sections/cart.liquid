@@ -141,16 +141,16 @@ function fixProtectionForm() {
   console.log('Found 2-year button:', button2Year);
   
   if (button2Year) {
-    const existingForm = button2Year.closest('form');
-    console.log('2-year button has form already?', !!existingForm);
+    const alpineDiv = button2Year.closest('[x-data="productAddButtonForm()"]');
+    console.log('Found alpine div:', alpineDiv);
     
-    if (!existingForm) {
-      console.log('2-year button needs form wrapper');
+    if (alpineDiv) {
+      // Check if alpine div contains a direct form child
+      const directForm = alpineDiv.querySelector('form');
+      console.log('Alpine div has direct form child?', !!directForm);
       
-      const alpineDiv = button2Year.closest('[x-data="productAddButtonForm()"]');
-      console.log('Found alpine div:', alpineDiv);
-      
-      if (alpineDiv) {
+      if (!directForm) {
+        console.log('2-year button needs direct form wrapper');
         console.log('Alpine div content before:', alpineDiv.innerHTML);
         
         // Create form
@@ -176,10 +176,10 @@ function fixProtectionForm() {
         console.log('Alpine div content after:', alpineDiv.innerHTML);
         console.log('=== Form fix completed ===');
       } else {
-        console.log('ERROR: No alpine div found!');
+        console.log('2-year button already has direct form, skipping');
       }
     } else {
-      console.log('2-year button already has form, skipping');
+      console.log('ERROR: No alpine div found!');
     }
   } else {
     console.log('ERROR: No 2-year button found!');
