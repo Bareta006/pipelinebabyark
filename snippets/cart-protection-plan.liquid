@@ -178,6 +178,7 @@
                   type="submit" 
                   name="add"
                   class="protection-plan-button plan-2-years"
+                  onclick="console.log('2-YEAR CLICKED', this.closest('form'), {{ plan_2year.id }})"
                 >
                   2 Years
                   <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
@@ -221,6 +222,7 @@
                   type="submit" 
                   name="add"
                   class="protection-plan-button plan-3-years"
+                  onclick="console.log('3-YEAR CLICKED', this.closest('form'), {{ plan_3year.id }})"
                 >
                   3 Years
                   <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
