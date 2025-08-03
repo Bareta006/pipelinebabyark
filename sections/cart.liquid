@@ -19,7 +19,14 @@
     assign full_init = 'cart--hidden'
   endif
 -%}
-
+<style>
+  .cart__template .cart-protection-container {
+  grid-column: 1 / -1;  /* Span across all grid columns */
+  margin: 10px 0;       /* Proper spacing */
+  padding: 15px;        /* More breathing room */
+  max-width: none;      /* Full width */
+}
+</style>
 <div class="cart__template {{ no_ajax_class }} {{ hide_quantity }} {{ section.settings.bg }}"
   data-cart-message-container
   data-section-id="{{ section.id }}"
