@@ -170,6 +170,7 @@
         <!-- DEBUG: Template: {{ template }} -->
         <!-- DEBUG: Section Type: {{ section.type }} -->
         <!-- DEBUG: Section ID: {{ section.id }} -->
+        <!-- DEBUG: Settings Cart Type: {{ settings.cart_type }} -->
         {% if plan_2year != blank %}
           <!-- DEBUG: 2 Year Plan ID: {{ plan_2year.id }}, Title: {{ plan_2year.title }} -->
         {% endif %}
@@ -182,7 +183,7 @@
 
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
-            {% if section.type == 'cart' %}
+            {% if settings.cart_type == 'page' or settings.cart_type == 'compatible' %}
               {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
