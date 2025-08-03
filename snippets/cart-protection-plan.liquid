@@ -171,17 +171,6 @@
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                <button 
-                  type="submit" 
-                  name="add" 
-                  data-add-to-cart
-                  class="protection-plan-button plan-dummy-years"
-                  
-                >
-                  dummy Years
-                  <span class="protection-price">+1</span>
-                  
-                </button>
               {%- endform -%}
       </div>
       <div class="cart-protection-options">
