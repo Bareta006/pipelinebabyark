@@ -1,1 +1,75 @@
-{"sections":{"main":{"type":"cart","settings":{}}},"order":["main"]}
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "cart",
+      "blocks": {
+        "upsell_product_6gaTFx": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "cup-holder"
+          }
+        },
+        "upsell_product_fhydjg": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "car-seat-cover"
+          }
+        },
+        "upsell_product_iLqDRR": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "the-babyark-smart-base"
+          }
+        },
+        "upsell_product_iHmig4": {
+          "type": "upsell_product",
+          "settings": {
+            "product": "g01-classic-base"
+          }
+        }
+      },
+      "block_order": [
+        "upsell_product_6gaTFx",
+        "upsell_product_fhydjg",
+        "upsell_product_iLqDRR",
+        "upsell_product_iHmig4"
+      ],
+      "settings": {
+        "cart_shipping_enable": false,
+        "cart_show_quantity": true,
+        "cart_notes_enable": false,
+        "show_free_shipping_message": false,
+        "message": "Spend ||amount|| more for free shipping",
+        "cart_custom_message_enable": false,
+        "cart_custom_message_text": "<p>Use code <strong>TENOFF</strong> at checkout for 10% off</p>",
+        "show_upsell_carousel": true,
+        "upsell_title": "You may also like",
+        "desktop_items_per_view": 2.5,
+        "tablet_items_per_view": 2,
+        "mobile_items_per_view": 1.2,
+        "enable_autoplay": false,
+        "autoplay_speed": 5,
+        "enable_free_scroll": true,
+        "enable_wrap_around": false,
+        "cart_color_bg": "palette--light bg--neutral",
+        "cart_show_additional_buttons": false,
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
