@@ -168,7 +168,7 @@
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
             <div x-data="productAddButtonForm()">
-              {%- form 'product', protection_product -%}
+              {%- form 'product', protection_product, id: 'protection-2year-{{ line_item.key }}' -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
@@ -192,7 +192,7 @@
         {% if plan_3year != blank %}
           <div class="protection-plan-form">
             <div x-data="productAddButtonForm()">
-              {%- form 'product', protection_product -%}
+              {%- form 'product', protection_product, id: 'protection-3year-{{ line_item.key }}' -%}
                 <input type="hidden" name="id" value="{{ plan_3year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
@@ -216,7 +216,7 @@
         {% if plan_5year != blank %}
           <div class="protection-plan-form">
             <div x-data="productAddButtonForm()">
-              {%- form 'product', protection_product -%}
+              {%- form 'product', protection_product, id: 'protection-5year-{{ line_item.key }}' -%}
                 <input type="hidden" name="id" value="{{ plan_5year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
