@@ -167,8 +167,7 @@
       <div class="cart-protection-options">
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
+            <div x-data="productAddButtonForm()">
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -176,43 +175,23 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add"
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-2-years"
-                  onclick="console.log('2-YEAR CLICKED', this.closest('form'), {{ plan_2year.id }})"
+                  @click.prevent="handleClickAddButton"
                 >
                   2 Years
                   <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
               {%- endform -%}
-            {% else %}
-              {% comment %} Cart Drawer Pattern - UNCHANGED - DO NOT MODIFY {% endcomment %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_2year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-2-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    2 Years
-                    <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+            </div>
           </div>
         {% endif %}
         
         {% if plan_3year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
+            <div x-data="productAddButtonForm()">
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_3year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -220,43 +199,23 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add"
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-3-years"
-                  onclick="console.log('3-YEAR CLICKED', this.closest('form'), {{ plan_3year.id }})"
+                  @click.prevent="handleClickAddButton"
                 >
                   3 Years
                   <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
               {%- endform -%}
-            {% else %}
-              {% comment %} Cart Drawer Pattern - UNCHANGED - DO NOT MODIFY {% endcomment %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_3year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-3-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    3 Years
-                    <span class="protection-price">+{{ plan_3year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+            </div>
           </div>
         {% endif %}
         
         {% if plan_5year != blank %}
           <div class="protection-plan-form">
-            {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
+            <div x-data="productAddButtonForm()">
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_5year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -264,35 +223,17 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add"
+                  name="add" 
+                  data-add-to-cart
                   class="protection-plan-button plan-5-years"
+                  @click.prevent="handleClickAddButton"
                 >
                   5 Years
                   <span class="protection-price">+{{ plan_5year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
                 </button>
               {%- endform -%}
-            {% else %}
-              {% comment %} Cart Drawer Pattern - UNCHANGED - DO NOT MODIFY {% endcomment %}
-              <div x-data="productAddButtonForm()">
-                {%- form 'product', protection_product -%}
-                  <input type="hidden" name="id" value="{{ plan_5year.id }}">
-                  <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
-                  <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
-                  <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
-                  <button 
-                    type="submit" 
-                    name="add" 
-                    data-add-to-cart
-                    class="protection-plan-button plan-5-years"
-                    @click.prevent="handleClickAddButton"
-                  >
-                    5 Years
-                    <span class="protection-price">+{{ plan_5year.price | money_with_currency | replace: "USD", ""}}</span>
-                    <span class="spinner" x-show="isLoading"></span>
-                  </button>
-                {%- endform -%}
-              </div>
-            {% endif %}
+            </div>
           </div>
         {% endif %}
       </div>
