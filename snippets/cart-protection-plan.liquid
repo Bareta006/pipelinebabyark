@@ -166,8 +166,8 @@
       <p>Protect your purchase with additional coverage for complete peace of mind</p>
       {%comment%} dummy form for cart page {% endcomment%}
       <div style="display: none;">
-                    {%- form 'product' -%}
-                <input type="hidden" name="id" value="{{ plan_dummyyear.id }}">
+                    {%- form 'product', protection_product -%}
+                <input type="hidden" name="id" value="{{ plan_2year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
