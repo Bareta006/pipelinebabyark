@@ -132,6 +132,46 @@
   </div>
 </div>
 
+<script>
+// Fix missing form wrapper for protection plans
+function fixProtectionPlanForms() {
+  const protectionButtons = document.querySelectorAll('.protection-plan-button');
+  
+  protectionButtons.forEach(button => {
+    // Check if button is not inside a form
+    if (!button.closest('form')) {
+      console.log('Found protection plan button without form, wrapping it:', button);
+      
+      // Get the Alpine.js wrapper div
+      const alpineWrapper = button.closest('[x-data="productAddButtonForm()"]');
+      if (alpineWrapper) {
+        // Create form element
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/cart/add';
+        form.classList.add('shopify-product-form');
+        form.enctype = 'multipart/form-data';
+        
+        // Move all inputs and button into the form
+        const inputs = alpineWrapper.querySelectorAll('input[type="hidden"]');
+        inputs.forEach(input => form.appendChild(input));
+        form.appendChild(button);
+        
+        // Add the form back to the Alpine wrapper
+        alpineWrapper.appendChild(form);
+      }
+    }
+  });
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', fixProtectionPlanForms);
+
+// Run after cart updates
+document.addEventListener('theme:cart:reload', fixProtectionPlanForms);
+document.addEventListener('cart:updated', fixProtectionPlanForms);
+</script>
+
 {% schema %}
 {
   "settings": [
