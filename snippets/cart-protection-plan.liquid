@@ -166,11 +166,8 @@
       <p>Protect your purchase with additional coverage for complete peace of mind</p>
       <div class="cart-protection-options">
         {% comment %} DEBUG: Check plan variables {% endcomment %}
-        <!-- DEBUG: Template Name: "{{ template.name }}" -->
-        <!-- DEBUG: Template: {{ template }} -->
-        <!-- DEBUG: Section Type: {{ section.type }} -->
-        <!-- DEBUG: Section ID: {{ section.id }} -->
-        <!-- DEBUG: Settings Cart Type: {{ settings.cart_type }} -->
+        <!-- DEBUG: Request Path: {{ request.path }} -->
+        <!-- DEBUG: Canonical URL: {{ canonical_url }} -->
         {% if plan_2year != blank %}
           <!-- DEBUG: 2 Year Plan ID: {{ plan_2year.id }}, Title: {{ plan_2year.title }} -->
         {% endif %}
@@ -183,7 +180,7 @@
 
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
-            {% if settings.cart_type == 'page' or settings.cart_type == 'compatible' %}
+            {% if request.path == '/cart' %}
               {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
