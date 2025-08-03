@@ -168,7 +168,7 @@
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
             {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - Standard form submission ONLY {% endcomment %}
+              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_2year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -176,8 +176,7 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add" 
-                  data-add-to-cart
+                  name="add"
                   class="protection-plan-button plan-2-years"
                 >
                   2 Years
@@ -212,7 +211,7 @@
         {% if plan_3year != blank %}
           <div class="protection-plan-form">
             {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - Standard form submission ONLY {% endcomment %}
+              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_3year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -220,8 +219,7 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add" 
-                  data-add-to-cart
+                  name="add"
                   class="protection-plan-button plan-3-years"
                 >
                   3 Years
@@ -256,7 +254,7 @@
         {% if plan_5year != blank %}
           <div class="protection-plan-form">
             {% if template.name == 'cart' %}
-              {% comment %} Cart Page Pattern - Standard form submission ONLY {% endcomment %}
+              {% comment %} Cart Page Pattern - PLAIN HTML FORM - NO ALPINE.JS {% endcomment %}
               {%- form 'product', protection_product -%}
                 <input type="hidden" name="id" value="{{ plan_5year.id }}">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
@@ -264,8 +262,7 @@
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
                 <button 
                   type="submit" 
-                  name="add" 
-                  data-add-to-cart
+                  name="add"
                   class="protection-plan-button plan-5-years"
                 >
                   5 Years
