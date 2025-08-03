@@ -164,6 +164,26 @@
         
       </h4>
       <p>Protect your purchase with additional coverage for complete peace of mind</p>
+      {%comment%} dummy form for cart page {% endcomment%}
+      <div style="display: none;">
+                    {%- form 'product' -%}
+                <input type="hidden" name="id" value="{{ plan_dummyyear.id }}">
+                <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
+                <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
+                <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
+                <button 
+                  type="submit" 
+                  name="add" 
+                  data-add-to-cart
+                  class="protection-plan-button plan-dummy-years"
+                  @click.prevent="handleClickAddButton"
+                >
+                  2 Years
+                  <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
+                  <span class="spinner" x-show="isLoading"></span>
+                </button>
+              {%- endform -%}
+      </div>
       <div class="cart-protection-options">
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
