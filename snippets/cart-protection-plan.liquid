@@ -167,7 +167,7 @@
       {%comment%} dummy form for cart page {% endcomment%}
       <div style="display: none;">
                     {%- form 'product', protection_product -%}
-                <input type="hidden" name="id" value="{{ plan_2year.id }}">
+                <input type="hidden" name="id" value="dummyid">
                 <input type="hidden" name="properties[_protection_reference]" value="{{ line_item.key }}">
                 <input type="hidden" name="properties[_protection_item_id]" value="{{ line_item.id }}">
                 <input type="hidden" name="properties[_protection_product]" value="{{ line_item.product.title | escape }}">
@@ -178,8 +178,8 @@
                   class="protection-plan-button plan-dummy-years"
                   @click.prevent="handleClickAddButton"
                 >
-                  2 Years
-                  <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
+                  dummy Years
+                  <span class="protection-price">+1</span>
                   <span class="spinner" x-show="isLoading"></span>
                 </button>
               {%- endform -%}
