@@ -71,7 +71,9 @@
             {% render 'cart-line-items' %}
             </div>
         </div>
-
+                  <div class="cart__page__upsell">
+            {% render 'cart-upsell', section: section %}
+          </div>
         <div class="template__cart__footer{% if additional_checkout_buttons and section.settings.cart_show_additional_buttons %} template__cart__footer--additional_buttons{% endif %}" data-cart-bottom>
 
           <div class="cart__footer__notes">
@@ -109,10 +111,6 @@
               </span>
             </p>
             <p class="cart__footer__small">{{ 'cart.general.shipping_at_checkout' | t }}</p>
-          </div>
-
-          <div class="cart__page__upsell">
-            {% render 'cart-upsell', section: section %}
           </div>
 
           <div class="cart__footer__checkout">
