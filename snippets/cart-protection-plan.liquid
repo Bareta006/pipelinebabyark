@@ -165,6 +165,17 @@
       </h4>
       <p>Protect your purchase with additional coverage for complete peace of mind</p>
       <div class="cart-protection-options">
+        {% comment %} DEBUG: Check plan variables {% endcomment %}
+        {% if plan_2year != blank %}
+          <!-- DEBUG: 2 Year Plan ID: {{ plan_2year.id }}, Title: {{ plan_2year.title }} -->
+        {% endif %}
+        {% if plan_3year != blank %}
+          <!-- DEBUG: 3 Year Plan ID: {{ plan_3year.id }}, Title: {{ plan_3year.title }} -->
+        {% endif %}
+        {% if plan_5year != blank %}
+          <!-- DEBUG: 5 Year Plan ID: {{ plan_5year.id }}, Title: {{ plan_5year.title }} -->
+        {% endif %}
+
         {% if plan_2year != blank %}
           <div class="protection-plan-form">
             {% if template.name == 'cart' %}
@@ -178,6 +189,7 @@
                   type="submit" 
                   name="add"
                   class="protection-plan-button plan-2-years"
+                  onclick="console.log('2 Year Plan ID:', '{{ plan_2year.id }}', 'Form:', this.form)"
                 >
                   2 Years
                   <span class="protection-price">+{{ plan_2year.price | money_with_currency | replace: "USD", ""}}</span>
