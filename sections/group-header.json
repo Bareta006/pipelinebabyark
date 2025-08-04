@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Now available at Bloomingdales.com & Dillards.com!</p>",
+            "text": "<p>Now available at Nordstrom.com & Bloomingdales.com!</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
