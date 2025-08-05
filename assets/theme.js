@@ -21432,7 +21432,7 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
 
         // Check for bundleDelivery
         if (formData.has("bundleDelivery")) {
-          customProperties["Bundle Delivery Info"] = formData.get("bundleDelivery");
+          customProperties["Bundle Delivery Info"]  = formData.get("bundleDelivery");
           formData.delete("bundleDelivery");
         }
 
