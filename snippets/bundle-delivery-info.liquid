@@ -56,19 +56,36 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("🚀 BUNDLE DELIVERY DEBUG - Starting initialization");
+  
   // Get bundle delivery data
   const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
-  if (!bundleDeliveryElement) return;
+  console.log("📦 Bundle delivery element found:", bundleDeliveryElement);
+  
+  if (!bundleDeliveryElement) {
+    console.error("❌ Bundle delivery element not found!");
+    return;
+  }
 
   let bundleInfo;
   try {
     bundleInfo = JSON.parse(bundleDeliveryElement.textContent);
+    console.log("✅ Bundle info parsed successfully:", bundleInfo);
   } catch (error) {
-    console.error("Error parsing bundle delivery info:", error);
+    console.error("❌ Error parsing bundle delivery info:", error);
+    console.log("Raw JSON content:", bundleDeliveryElement.textContent);
     return;
   }
 
-  if (!bundleInfo.isBundle) return;
+  console.log("🔍 Is bundle?", bundleInfo.isBundle);
+  if (!bundleInfo.isBundle) {
+    console.log("⏭️ Not a bundle product, exiting");
+    return;
+  }
+  
+  console.log("📊 Bundle options:", bundleInfo.bundleOptions);
+  console.log("🧩 Component delivery data:", bundleInfo.componentDeliveryData);
+  console.log("📦 Bundle delivery data:", bundleInfo.bundleDeliveryData);
 
   // Fuzzy matching function
   function calculateMatchScore(optionName, productData) {
@@ -99,76 +116,134 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Apply 4-level hierarchy
   function getDeliveryInfo(matchingVariant, componentData, bundleInfo) {
+    console.log("🔍 DELIVERY HIERARCHY - Starting hierarchy check");
+    console.log("📦 Matching variant:", matchingVariant);
+    console.log("🧩 Component data:", componentData);
+    
     // Level 1: Component variant metafields (strongest)
+    console.log("🥇 Level 1 - Component variant metafields:");
+    console.log("   delivery_estimated_date:", matchingVariant?.delivery_estimated_date);
+    console.log("   delivery_time:", matchingVariant?.delivery_time);
+    console.log("   estimated_date:", matchingVariant?.estimated_date);
+    
     if (matchingVariant && matchingVariant.delivery_estimated_date) {
+      console.log("✅ Found at Level 1: delivery_estimated_date =", matchingVariant.delivery_estimated_date);
       return { type: 'estimated_date', value: matchingVariant.delivery_estimated_date, source: 'component_variant' };
     }
     if (matchingVariant && matchingVariant.delivery_time) {
+      console.log("✅ Found at Level 1: delivery_time =", matchingVariant.delivery_time);
       return { type: 'delivery_time', value: matchingVariant.delivery_time, source: 'component_variant' };
     }
     if (matchingVariant && matchingVariant.estimated_date) {
+      console.log("✅ Found at Level 1: estimated_date =", matchingVariant.estimated_date);
       return { type: 'estimated_date', value: matchingVariant.estimated_date, source: 'component_variant' };
     }
     
     // Level 2: Component product metafields
+    console.log("🥈 Level 2 - Component product metafields:");
+    console.log("   delivery_time:", componentData.product.delivery_time);
+    console.log("   estimated_date:", componentData.product.estimated_date);
+    
     if (componentData.product.delivery_time) {
+      console.log("✅ Found at Level 2: delivery_time =", componentData.product.delivery_time);
       return { type: 'delivery_time', value: componentData.product.delivery_time, source: 'component_product' };
     }
     if (componentData.product.estimated_date) {
+      console.log("✅ Found at Level 2: estimated_date =", componentData.product.estimated_date);
       return { type: 'estimated_date', value: componentData.product.estimated_date, source: 'component_product' };
     }
     
     // Level 3: Bundle variant metafields
+    console.log("🥉 Level 3 - Bundle variant metafields:");
+    console.log("   delivery_estimated_date:", bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date);
+    console.log("   delivery_time:", bundleInfo.bundleDeliveryData.bundleVariant.delivery_time);
+    console.log("   estimated_date:", bundleInfo.bundleDeliveryData.bundleVariant.estimated_date);
+    
     if (bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date) {
+      console.log("✅ Found at Level 3: delivery_estimated_date =", bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date);
       return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date, source: 'bundle_variant' };
     }
     if (bundleInfo.bundleDeliveryData.bundleVariant.delivery_time) {
+      console.log("✅ Found at Level 3: delivery_time =", bundleInfo.bundleDeliveryData.bundleVariant.delivery_time);
       return { type: 'delivery_time', value: bundleInfo.bundleDeliveryData.bundleVariant.delivery_time, source: 'bundle_variant' };
     }
     if (bundleInfo.bundleDeliveryData.bundleVariant.estimated_date) {
+      console.log("✅ Found at Level 3: estimated_date =", bundleInfo.bundleDeliveryData.bundleVariant.estimated_date);
       return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleVariant.estimated_date, source: 'bundle_variant' };
     }
     
     // Level 4: Bundle product metafields (weakest)
+    console.log("🏅 Level 4 - Bundle product metafields:");
+    console.log("   delivery_time:", bundleInfo.bundleDeliveryData.bundleProduct.delivery_time);
+    console.log("   estimated_date:", bundleInfo.bundleDeliveryData.bundleProduct.estimated_date);
+    
     if (bundleInfo.bundleDeliveryData.bundleProduct.delivery_time) {
+      console.log("✅ Found at Level 4: delivery_time =", bundleInfo.bundleDeliveryData.bundleProduct.delivery_time);
       return { type: 'delivery_time', value: bundleInfo.bundleDeliveryData.bundleProduct.delivery_time, source: 'bundle_product' };
     }
     if (bundleInfo.bundleDeliveryData.bundleProduct.estimated_date) {
+      console.log("✅ Found at Level 4: estimated_date =", bundleInfo.bundleDeliveryData.bundleProduct.estimated_date);
       return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleProduct.estimated_date, source: 'bundle_product' };
     }
     
+    console.log("❌ No delivery info found at any level");
     return { type: 'none', value: 'No delivery info', source: 'none' };
   }
 
   // Update bundle delivery display and hidden inputs
   function updateBundleDelivery() {
+    console.log("🔄 UPDATE BUNDLE DELIVERY - Starting update");
+    
     const variantInput = document.querySelector('.product__main__content input[name="id"]');
-    if (!variantInput) return;
+    console.log("🎯 Variant input found:", variantInput);
+    console.log("🎯 Variant input value:", variantInput?.value);
+    
+    if (!variantInput) {
+      console.error("❌ Variant input not found!");
+      return;
+    }
 
     const variantId = parseInt(variantInput.value, 10);
+    console.log("🆔 Variant ID:", variantId);
+    
+    console.log("🌍 Window productData:", window.productData);
     const bundleVariant = window.productData?.variants?.find(v => v.id === variantId);
-    if (!bundleVariant) return;
+    console.log("🎯 Bundle variant found:", bundleVariant);
+    
+    if (!bundleVariant) {
+      console.error("❌ Bundle variant not found!");
+      return;
+    }
 
     const currentSelection = bundleVariant.options || [];
+    console.log("🎮 Current selection:", currentSelection);
 
     // Do fuzzy matching for each bundle option
     const deliveryResults = [];
+    console.log("🧮 Starting fuzzy matching...");
     
     bundleInfo.bundleOptions.forEach((optionName, index) => {
+      console.log(`\n--- 🎯 Processing option ${index + 1}: ${optionName} ---`);
+      
       let bestMatch = null;
       let bestScore = 0;
       
       // Find best component match
       bundleInfo.componentDeliveryData.forEach(component => {
         const score = calculateMatchScore(optionName, component);
+        console.log(`🧮 Score for "${optionName}" vs "${component.product.title}": ${score}`);
         if (score > bestScore) {
           bestScore = score;
           bestMatch = component;
         }
       });
       
+      console.log(`🏆 Best match for "${optionName}": ${bestMatch?.product.title} (score: ${bestScore})`);
+      
       if (bestMatch) {
         const selectedValue = currentSelection[index];
+        console.log(`🎮 Selected value: "${selectedValue}"`);
+        console.log(`🎯 Available variants:`, bestMatch.variants.map(v => v.title));
         
         // Find matching variant
         const matchingVariant = bestMatch.variants.find(variant => 
@@ -176,9 +251,11 @@ document.addEventListener("DOMContentLoaded", () => {
           variant.title.includes(selectedValue) || 
           selectedValue.includes(variant.title)
         );
+        console.log(`✅ Matching variant found:`, matchingVariant);
         
         // Get delivery info using hierarchy
         const deliveryInfo = getDeliveryInfo(matchingVariant, bestMatch, bundleInfo);
+        console.log(`🎯 Delivery info result:`, deliveryInfo);
         
         if (deliveryInfo.type !== 'none') {
           deliveryResults.push({
@@ -187,12 +264,22 @@ document.addEventListener("DOMContentLoaded", () => {
             deliveryType: deliveryInfo.type,
             source: deliveryInfo.source
           });
+          console.log(`✅ Added to results: ${bestMatch.product.title}: ${deliveryInfo.value}`);
+        } else {
+          console.log(`❌ No delivery info found for ${bestMatch.product.title}`);
         }
+      } else {
+        console.log(`❌ No component match found for "${optionName}"`);
       }
     });
 
+    console.log("\n🎯 FINAL RESULTS:", deliveryResults);
+    console.log("📝 Total delivery results found:", deliveryResults.length);
+
     // Update frontend display
     const deliveryContainer = document.querySelector('.delivery-info p');
+    console.log("🎨 Delivery container found:", deliveryContainer);
+    
     if (deliveryContainer) {
       if (deliveryResults.length > 0) {
         const deliveryHTML = `
@@ -201,29 +288,46 @@ document.addEventListener("DOMContentLoaded", () => {
             `• <strong>${result.productTitle}:</strong> ${result.deliveryValue}`
           ).join('<br>')}
         `;
+        console.log("✅ Updating delivery container with:", deliveryHTML);
         deliveryContainer.innerHTML = deliveryHTML;
       } else {
+        console.log("⚠️ No delivery results, showing fallback message");
         deliveryContainer.innerHTML = '<strong>ESTIMATED DELIVERY BETWEEN</strong> <strong>Contact us for delivery information</strong>';
       }
+    } else {
+      console.error("❌ Delivery container not found!");
     }
 
     // Update hidden input for cart properties
     const bundleDeliveryInput = document.querySelector('input[name="bundleDelivery"]');
+    console.log("📝 Bundle delivery input found:", bundleDeliveryInput);
+    
     if (bundleDeliveryInput && deliveryResults.length > 0) {
       const combinedString = deliveryResults
         .map(result => `${result.productTitle}: ${result.deliveryValue}`)
         .join(', ');
+      console.log("✅ Setting bundle delivery input value:", combinedString);
       bundleDeliveryInput.value = combinedString;
+    } else if (bundleDeliveryInput) {
+      console.log("⚠️ Bundle delivery input found but no results to set");
+    } else {
+      console.error("❌ Bundle delivery input not found!");
     }
   }
 
   // Initial update
+  console.log("🚀 Running initial bundle delivery update...");
   updateBundleDelivery();
 
   // Listen for variant changes
   const variantInput = document.querySelector('.product__main__content input[name="id"]');
   if (variantInput) {
+    console.log("✅ Event listener attached to variant input");
     variantInput.addEventListener("change", updateBundleDelivery);
+  } else {
+    console.error("❌ Could not attach event listener - variant input not found");
   }
+  
+  console.log("🏁 Bundle delivery initialization complete");
 });
 </script> 
