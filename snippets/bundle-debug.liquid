@@ -1,11 +1,83 @@
-{% comment %} /snippets/bundle-debug.liquid - Simple bundle metafield debug {% endcomment %}
+{% comment %} /snippets/bundle-debug.liquid - Fuzzy matching test {% endcomment %}
 
 <script>
-// BUNDLE METAFIELD DEBUG - SIMPLE
-const bundleMetafield = {
-  "exists": {% if product.metafields.bundleinfo.bundleproducts %}true{% else %}false{% endif %},
-  "value": {{ product.metafields.bundleinfo.bundleproducts.value | json }},
-  "type": {{ product.metafields.bundleinfo.bundleproducts.type | json }},
-  "raw": "{{ product.metafields.bundleinfo.bundleproducts }}"
-};
+// FUZZY MATCHING TEST FOR BUNDLE COMPONENTS
+
+// Step 1: Check if this is a bundle
+const isBundle = {% if product.metafields.bundleinfo.bundleproducts.value %}true{% else %}false{% endif %};
+
+if (isBundle) {
+  // Step 2: Get bundle data
+  const bundleComponents = {{ product.metafields.bundleinfo.bundleproducts.value | json }};
+  const bundleOptions = {{ product.options | json }};
+  const currentVariant = {{ product.selected_or_first_available_variant | json }};
+  
+  // Step 3: Simple fuzzy matching function
+  function calculateMatchScore(optionName, productData) {
+    const optionWords = optionName.toLowerCase().split(/[\s\/]+/);
+    const titleWords = productData.title.toLowerCase().split(/[\s\/]+/);
+    const handleWords = productData.handle.toLowerCase().split(/[\-\_]+/);
+    
+    let score = 0;
+    
+    // Check title matches
+    optionWords.forEach(optionWord => {
+      titleWords.forEach(titleWord => {
+        if (optionWord === titleWord) score += 10; // Exact match
+        if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) score += 5; // Partial match
+      });
+    });
+    
+    // Check handle matches  
+    optionWords.forEach(optionWord => {
+      handleWords.forEach(handleWord => {
+        if (optionWord === handleWord) score += 8; // Exact match
+        if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) score += 3; // Partial match
+      });
+    });
+    
+    return score;
+  }
+  
+  // Step 4: Find best matches
+  const componentMatches = [];
+  
+  bundleOptions.forEach((optionName, index) => {
+    let bestMatch = null;
+    let bestScore = 0;
+    
+    bundleComponents.forEach(component => {
+      const score = calculateMatchScore(optionName, component);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = component;
+      }
+    });
+    
+    componentMatches.push({
+      bundleOption: optionName,
+      selectedValue: currentVariant.options[index],
+      matchedComponent: bestMatch ? {
+        title: bestMatch.title,
+        handle: bestMatch.handle
+      } : null,
+      matchScore: bestScore
+    });
+  });
+  
+  // Step 5: Output test results
+  const fuzzyTestResults = {
+    isBundle: true,
+    bundleOptions: bundleOptions,
+    currentSelection: currentVariant.options,
+    componentMatches: componentMatches
+  };
+  
+  // Easy copy output
+  console.log("=== FUZZY MATCHING TEST RESULTS ===");
+  console.log(JSON.stringify(fuzzyTestResults, null, 2));
+  
+} else {
+  console.log("Not a bundle product - fuzzy matching test skipped");
+}
 </script> 
