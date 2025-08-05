@@ -1,12 +1,12 @@
-{% comment %} /snippets/bundle-debug.liquid - COMPLETE 4-LEVEL HIERARCHY {% endcomment %}
+{% comment %} /snippets/bundle-debug.liquid - FIXED VARIANT MAPPING {% endcomment %}
 
 <script>
-// COMPLETE 4-LEVEL HIERARCHY - INCLUDING BUNDLE METAFIELDS
+// FIXED VARIANT MAPPING USING FUZZY MATCHING RESULTS
 
 const isBundle = {% if product.metafields.bundleinfo.bundleproducts.value %}true{% else %}false{% endif %};
 
 if (isBundle) {
-  console.log("=== COMPLETE 4-LEVEL HIERARCHY ===");
+  console.log("=== FIXED VARIANT MAPPING ===");
   
   // Build component delivery data using same pattern as delivery-info.liquid
   const componentDeliveryData = [
@@ -62,25 +62,78 @@ if (isBundle) {
   const bundleOptions = {{ product.options | json }};
   const currentVariant = {{ product.selected_or_first_available_variant | json }};
   
-  console.log("Component delivery data:", componentDeliveryData);
-  console.log("Bundle delivery data:", bundleDeliveryData);
+  // Step 1: Do fuzzy matching to get correct component mapping
+  function calculateMatchScore(optionName, productData) {
+    const optionWords = optionName.toLowerCase().split(/[\s\/]+/);
+    const titleWords = productData.product.title.toLowerCase().split(/[\s\/]+/);
+    const handleWords = productData.product.handle.toLowerCase().split(/[\-\_]+/);
+    
+    let score = 0;
+    
+    // Check title matches
+    optionWords.forEach(optionWord => {
+      titleWords.forEach(titleWord => {
+        if (optionWord === titleWord) score += 10; // Exact match
+        if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) score += 5; // Partial match
+      });
+    });
+    
+    // Check handle matches  
+    optionWords.forEach(optionWord => {
+      handleWords.forEach(handleWord => {
+        if (optionWord === handleWord) score += 8; // Exact match
+        if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) score += 3; // Partial match
+      });
+    });
+    
+    return score;
+  }
   
-  // Test the COMPLETE 4-level hierarchy for each component
-  componentDeliveryData.forEach((componentData, index) => {
-    console.log(`\n--- Component ${index + 1}: ${componentData.product.title} ---`);
-    console.log("Product delivery_time:", componentData.product.delivery_time);
-    console.log("Product estimated_date:", componentData.product.estimated_date);
-    console.log("Variants with delivery data:", componentData.variants);
+  // Step 2: Match each bundle option to the correct component using fuzzy matching
+  const correctMatches = [];
+  
+  bundleOptions.forEach((optionName, index) => {
+    let bestMatch = null;
+    let bestScore = 0;
+    let bestComponentIndex = -1;
     
-    // Find which variant matches the user's selection
+    // Find best component match
+    componentDeliveryData.forEach((component, componentIndex) => {
+      const score = calculateMatchScore(optionName, component);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = component;
+        bestComponentIndex = componentIndex;
+      }
+    });
+    
+    // Get the user's selected value for this option
     const selectedValue = currentVariant.options[index];
-    console.log("User selected:", selectedValue);
     
-    // Find matching variant
-    const matchingVariant = componentData.variants.find(variant => 
-      variant.title === selectedValue || 
-      variant.title.includes(selectedValue) || 
-      selectedValue.includes(variant.title)
+    correctMatches.push({
+      bundleOption: optionName,
+      selectedValue: selectedValue,
+      matchedComponent: bestMatch,
+      componentIndex: bestComponentIndex,
+      matchScore: bestScore
+    });
+  });
+  
+  console.log("Correct fuzzy matches:", correctMatches);
+  
+  // Step 3: Apply 4-level hierarchy using correct mapping
+  correctMatches.forEach((match, index) => {
+    console.log(`\n--- ${match.bundleOption}: ${match.matchedComponent.product.title} ---`);
+    console.log("Selected value:", match.selectedValue);
+    console.log("Product delivery_time:", match.matchedComponent.product.delivery_time);
+    console.log("Product estimated_date:", match.matchedComponent.product.estimated_date);
+    console.log("Available variants:", match.matchedComponent.variants);
+    
+    // Find matching variant using the correctly mapped selection
+    const matchingVariant = match.matchedComponent.variants.find(variant => 
+      variant.title === match.selectedValue || 
+      variant.title.includes(match.selectedValue) || 
+      match.selectedValue.includes(variant.title)
     );
     
     if (matchingVariant) {
@@ -102,17 +155,17 @@ if (isBundle) {
       };
     }
     // Level 2: Component product metafields
-    else if (componentData.product.delivery_time) {
+    else if (match.matchedComponent.product.delivery_time) {
       finalDeliveryInfo = {
         type: 'delivery_time', 
-        value: componentData.product.delivery_time,
+        value: match.matchedComponent.product.delivery_time,
         source: 'component_product'
       };
     }
-    else if (componentData.product.estimated_date) {
+    else if (match.matchedComponent.product.estimated_date) {
       finalDeliveryInfo = {
         type: 'estimated_date',
-        value: componentData.product.estimated_date,
+        value: match.matchedComponent.product.estimated_date,
         source: 'component_product'
       };
     }
@@ -161,8 +214,37 @@ if (isBundle) {
       };
     }
     
-    console.log("🎯 FINAL DELIVERY INFO (4-level):", finalDeliveryInfo);
+    console.log("🎯 FINAL DELIVERY INFO:", finalDeliveryInfo);
   });
+  
+  // Step 4: Build final combined delivery string
+  const deliveryParts = correctMatches
+    .map(match => {
+      // Apply same hierarchy logic to get final value for each component
+      const matchingVariant = match.matchedComponent.variants.find(variant => 
+        variant.title === match.selectedValue || 
+        variant.title.includes(match.selectedValue) || 
+        match.selectedValue.includes(variant.title)
+      );
+      
+      let deliveryValue = null;
+      if (matchingVariant && matchingVariant.delivery_estimated_date) {
+        deliveryValue = matchingVariant.delivery_estimated_date;
+      } else if (match.matchedComponent.product.delivery_time) {
+        deliveryValue = match.matchedComponent.product.delivery_time;
+      } else if (match.matchedComponent.product.estimated_date) {
+        deliveryValue = match.matchedComponent.product.estimated_date;
+      }
+      
+      return deliveryValue ? `${match.matchedComponent.product.title}: ${deliveryValue}` : null;
+    })
+    .filter(part => part !== null);
+  
+  const combinedDeliveryString = deliveryParts.length > 0 ? 
+    deliveryParts.join(', ') : 
+    'No delivery information available';
+    
+  console.log("\n🎯 COMBINED DELIVERY STRING:", combinedDeliveryString);
   
 } else {
   console.log("Not a bundle product");
