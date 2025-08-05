@@ -23,19 +23,19 @@ if (isBundle) {
         "variants": [
           {% assign valid_variants = false %}
           {% for variant in full_product.variants %}
+            {% if valid_variants %},{% endif %}
+            {% assign valid_variants = true %}
             {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
             {% unless variant_delivery_date %}
               {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
             {% endunless %}
-            {% if variant_delivery_date != blank %}
-              {% if valid_variants %},{% endif %}
-              {% assign valid_variants = true %}
-              {
-                "id": {{ variant.id }},
-                "title": "{{ variant.title | escape }}",
-                "delivery_estimated_date": "{{ variant_delivery_date | escape }}"
-              }
-            {% endif %}
+            {
+              "id": {{ variant.id }},
+              "title": "{{ variant.title | escape }}",
+              "delivery_estimated_date": "{{ variant_delivery_date | escape }}",
+              "delivery_time": "{{ variant.metafields.delivery.delivery_time | escape }}",
+              "estimated_date": "{{ variant.metafields.delivery.estimated_date | escape }}"
+            }
           {% endfor %}
         ]
       }{% unless forloop.last %},{% endunless %}
