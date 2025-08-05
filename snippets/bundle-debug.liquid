@@ -1,176 +1,61 @@
-{% comment %} /snippets/bundle-debug.liquid - Step 2: Variant Matching Test {% endcomment %}
+{% comment %} /snippets/bundle-debug.liquid - CORRECT APPROACH: Fetch full products {% endcomment %}
 
 <script>
-// STEP 2: VARIANT MATCHING TEST FOR BUNDLE COMPONENTS
+// CORRECT APPROACH: FETCH FULL COMPONENT PRODUCTS
 
-// Step 1: Check if this is a bundle
 const isBundle = {% if product.metafields.bundleinfo.bundleproducts.value %}true{% else %}false{% endif %};
 
 if (isBundle) {
-  // Step 2: Get bundle data
   const bundleComponents = {{ product.metafields.bundleinfo.bundleproducts.value | json }};
   const bundleOptions = {{ product.options | json }};
   const currentVariant = {{ product.selected_or_first_available_variant | json }};
-  const bundleProduct = {{ product | json }};
   
-  // Step 3: Simple fuzzy matching function
-  function calculateMatchScore(optionName, productData) {
-    const optionWords = optionName.toLowerCase().split(/[\s\/]+/);
-    const titleWords = productData.title.toLowerCase().split(/[\s\/]+/);
-    const handleWords = productData.handle.toLowerCase().split(/[\-\_]+/);
+  console.log("=== CORRECT APPROACH: FULL PRODUCT DATA ===");
+  
+  // Step 1: Get full product data for each component
+  const fullComponentProducts = [];
+  
+  {% for component in product.metafields.bundleinfo.bundleproducts.value %}
+    {% assign full_product = all_products[component.handle] %}
+    fullComponentProducts.push({{ full_product | json }});
+  {% endfor %}
+  
+  console.log("Bundle components count:", bundleComponents.length);
+  console.log("Full products count:", fullComponentProducts.length);
+  
+  // Debug each full component product
+  fullComponentProducts.forEach((fullProduct, index) => {
+    console.log(`\n--- FULL Component ${index + 1}: ${fullProduct.title} ---`);
+    console.log("Handle:", fullProduct.handle);
+    console.log("Full product metafields:", fullProduct.metafields || "UNDEFINED");
     
-    let score = 0;
-    
-    // Check title matches
-    optionWords.forEach(optionWord => {
-      titleWords.forEach(titleWord => {
-        if (optionWord === titleWord) score += 10; // Exact match
-        if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) score += 5; // Partial match
+    if (fullProduct.variants && fullProduct.variants.length > 0) {
+      console.log(`Variants count: ${fullProduct.variants.length}`);
+      
+      // Show delivery metafields for each variant
+      fullProduct.variants.forEach((variant, vIndex) => {
+        console.log(`\nVariant ${vIndex + 1}: "${variant.title}"`);
+        if (variant.metafields && variant.metafields.delivery) {
+          console.log("  ✅ HAS DELIVERY METAFIELDS:", variant.metafields.delivery);
+        } else {
+          console.log("  ❌ No delivery metafields");
+        }
       });
-    });
-    
-    // Check handle matches  
-    optionWords.forEach(optionWord => {
-      handleWords.forEach(handleWord => {
-        if (optionWord === handleWord) score += 8; // Exact match
-        if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) score += 3; // Partial match
-      });
-    });
-    
-    return score;
-  }
-  
-  // Step 4: Find variant that matches selected value
-  function findMatchingVariant(componentProduct, selectedValue) {
-    if (!componentProduct.variants) return null;
-    
-    // Try exact match first
-    let exactMatch = componentProduct.variants.find(variant => 
-      variant.title === selectedValue || 
-      variant.public_title === selectedValue ||
-      (variant.options && variant.options[0] === selectedValue)
-    );
-    
-    if (exactMatch) return exactMatch;
-    
-    // Try partial match
-    let partialMatch = componentProduct.variants.find(variant => 
-      variant.title.includes(selectedValue) || 
-      selectedValue.includes(variant.title) ||
-      (variant.public_title && (variant.public_title.includes(selectedValue) || selectedValue.includes(variant.public_title)))
-    );
-    
-    return partialMatch || componentProduct.variants[0]; // Fallback to first variant
-  }
-  
-  // Step 5: Apply 4-level delivery hierarchy
-  function getDeliveryInfo(componentVariant, componentProduct, bundleVariant, bundleProduct) {
-    // Level 1: Component variant metafields
-    if (componentVariant && componentVariant.metafields) {
-      if (componentVariant.metafields.delivery && componentVariant.metafields.delivery.delivery_time) {
-        return { type: 'delivery_time', value: componentVariant.metafields.delivery.delivery_time, source: 'component_variant' };
-      }
-      if (componentVariant.metafields.delivery && componentVariant.metafields.delivery.estimated_date) {
-        return { type: 'estimated_date', value: componentVariant.metafields.delivery.estimated_date, source: 'component_variant' };
-      }
     }
     
-    // Level 2: Component product metafields  
-    if (componentProduct && componentProduct.metafields) {
-      if (componentProduct.metafields.delivery && componentProduct.metafields.delivery.delivery_time) {
-        return { type: 'delivery_time', value: componentProduct.metafields.delivery.delivery_time, source: 'component_product' };
-      }
-      if (componentProduct.metafields.delivery && componentProduct.metafields.delivery.estimated_date) {
-        return { type: 'estimated_date', value: componentProduct.metafields.delivery.estimated_date, source: 'component_product' };
-      }
+    // Show product-level delivery metafields
+    if (fullProduct.metafields && fullProduct.metafields.delivery) {
+      console.log("Product-level delivery metafields:", fullProduct.metafields.delivery);
+    } else {
+      console.log("No product-level delivery metafields");
     }
-    
-    // Level 3: Bundle variant metafields
-    if (bundleVariant && bundleVariant.metafields) {
-      if (bundleVariant.metafields.delivery && bundleVariant.metafields.delivery.delivery_time) {
-        return { type: 'delivery_time', value: bundleVariant.metafields.delivery.delivery_time, source: 'bundle_variant' };
-      }
-      if (bundleVariant.metafields.delivery && bundleVariant.metafields.delivery.estimated_date) {
-        return { type: 'estimated_date', value: bundleVariant.metafields.delivery.estimated_date, source: 'bundle_variant' };
-      }
-    }
-    
-    // Level 4: Bundle product metafields
-    if (bundleProduct && bundleProduct.metafields) {
-      if (bundleProduct.metafields.delivery && bundleProduct.metafields.delivery.delivery_time) {
-        return { type: 'delivery_time', value: bundleProduct.metafields.delivery.delivery_time, source: 'bundle_product' };
-      }
-      if (bundleProduct.metafields.delivery && bundleProduct.metafields.delivery.estimated_date) {
-        return { type: 'estimated_date', value: bundleProduct.metafields.delivery.estimated_date, source: 'bundle_product' };
-      }
-    }
-    
-    return { type: 'none', value: 'No delivery info', source: 'none' };
-  }
-  
-  // Step 6: Process each bundle option
-  const componentMatches = [];
-  
-  bundleOptions.forEach((optionName, index) => {
-    let bestMatch = null;
-    let bestScore = 0;
-    
-    // Find best component match
-    bundleComponents.forEach(component => {
-      const score = calculateMatchScore(optionName, component);
-      if (score > bestScore) {
-        bestScore = score;
-        bestMatch = component;
-      }
-    });
-    
-    // Find matching variant for this component
-    const selectedValue = currentVariant.options[index];
-    const matchingVariant = bestMatch ? findMatchingVariant(bestMatch, selectedValue) : null;
-    
-    // Get delivery info using 4-level hierarchy
-    const deliveryInfo = getDeliveryInfo(matchingVariant, bestMatch, currentVariant, bundleProduct);
-    
-    componentMatches.push({
-      bundleOption: optionName,
-      selectedValue: selectedValue,
-      matchedComponent: bestMatch ? {
-        title: bestMatch.title,
-        handle: bestMatch.handle
-      } : null,
-      matchScore: bestScore,
-      matchingVariant: matchingVariant ? {
-        id: matchingVariant.id,
-        title: matchingVariant.title,
-        available: matchingVariant.available
-      } : null,
-      deliveryInfo: deliveryInfo
-    });
   });
   
-  // Step 7: Build combined delivery string
-  const deliveryParts = componentMatches
-    .filter(match => match.deliveryInfo.type !== 'none')
-    .map(match => `${match.matchedComponent.title}: ${match.deliveryInfo.value}`);
-  
-  const combinedDeliveryString = deliveryParts.length > 0 ? 
-    deliveryParts.join(', ') : 
-    'No delivery information available';
-  
-  // Step 8: Output complete test results
-  const variantMatchingResults = {
-    isBundle: true,
-    bundleOptions: bundleOptions,
-    currentSelection: currentVariant.options,
-    componentMatches: componentMatches,
-    combinedDeliveryString: combinedDeliveryString
-  };
-  
-  // Easy copy output
-  console.log("=== STEP 2: VARIANT MATCHING RESULTS ===");
-  console.log(JSON.stringify(variantMatchingResults, null, 2));
+  console.log("\n--- BUNDLE METAFIELDS ---");
+  console.log("Bundle product metafields:", {{ product.metafields | json }});
+  console.log("Bundle variant metafields:", currentVariant.metafields || "UNDEFINED");
   
 } else {
-  console.log("Not a bundle product - variant matching test skipped");
+  console.log("Not a bundle product");
 }
 </script> 
