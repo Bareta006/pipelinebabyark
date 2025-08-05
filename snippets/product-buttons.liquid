@@ -33,12 +33,12 @@
                         <input type="hidden" name="bundleDelivery" value=""/>
                       {% else %}
                         {% comment %} REGULAR PRODUCT: Add existing delivery inputs {% endcomment %}
-                        {% if product.metafields.delivery.estimated_date != blank%}
-                        <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
-                        {% endif %}
-                        {% if product.metafields.delivery.delivery_time != blank%}
-                        <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
-                        {% endif %}
+{% if product.metafields.delivery.estimated_date != blank%}
+                      <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
+                      {% endif %}
+                      {% if product.metafields.delivery.delivery_time != blank%}
+                      <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
+                      {% endif %}
                       {% endif %}
                       
                       {% if product.metafields.custom.compatible != blank%}

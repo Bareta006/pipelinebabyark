@@ -127,7 +127,7 @@
   <script>
   // Make productData globally available for bundle delivery script
   window.productData = {{ product | json }};
-  //console.log("🚀 Product Object Dump:", window.productData); 
+  console.log("🚀 Product Object Dump:", window.productData);
 </script>
   {% comment %} Conditional delivery info rendering {% endcomment %}
   {% if product.metafields.bundleinfo.bundleproducts.value %}
