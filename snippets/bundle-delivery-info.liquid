@@ -282,12 +282,29 @@ document.addEventListener("DOMContentLoaded", () => {
     
     if (deliveryContainer) {
       if (deliveryResults.length > 0) {
-        const deliveryHTML = `
-          <strong>ESTIMATED DELIVERY:</strong><br>
-          ${deliveryResults.map(result => 
-            `• <strong>${result.productTitle}:</strong> ${result.deliveryValue}`
-          ).join('<br>')}
-        `;
+        // Check if all products have the same delivery info
+        const uniqueDeliveryValues = [...new Set(deliveryResults.map(result => result.deliveryValue))];
+        console.log("🔍 Unique delivery values:", uniqueDeliveryValues);
+        
+        let deliveryHTML;
+        if (uniqueDeliveryValues.length === 1) {
+          // All products have same delivery info - show unified message
+          deliveryHTML = `
+            <strong>ESTIMATED DELIVERY:</strong><br>
+            <strong>All products:</strong> ${uniqueDeliveryValues[0]}
+          `;
+          console.log("✅ All products have same delivery info, showing unified message");
+        } else {
+          // Different delivery info - show individual lines
+          deliveryHTML = `
+            <strong>ESTIMATED DELIVERY:</strong><br>
+            ${deliveryResults.map(result => 
+              `• <strong>${result.productTitle}:</strong> ${result.deliveryValue}`
+            ).join('<br>')}
+          `;
+          console.log("✅ Products have different delivery info, showing individual lines");
+        }
+        
         console.log("✅ Updating delivery container with:", deliveryHTML);
         deliveryContainer.innerHTML = deliveryHTML;
       } else {
@@ -303,10 +320,22 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("📝 Bundle delivery input found:", bundleDeliveryInput);
     
     if (bundleDeliveryInput && deliveryResults.length > 0) {
-      const combinedString = deliveryResults
-        .map(result => `${result.productTitle}: ${result.deliveryValue}`)
-        .join(', ');
-      console.log("✅ Setting bundle delivery input value:", combinedString);
+      // Check if all products have the same delivery info for cart properties too
+      const uniqueDeliveryValues = [...new Set(deliveryResults.map(result => result.deliveryValue))];
+      
+      let combinedString;
+      if (uniqueDeliveryValues.length === 1) {
+        // All products have same delivery info - simplified cart property
+        combinedString = `All products: ${uniqueDeliveryValues[0]}`;
+        console.log("✅ Unified cart property (same delivery for all):", combinedString);
+      } else {
+        // Different delivery info - individual cart properties
+        combinedString = deliveryResults
+          .map(result => `${result.productTitle}: ${result.deliveryValue}`)
+          .join(', ');
+        console.log("✅ Individual cart property (different delivery):", combinedString);
+      }
+      
       bundleDeliveryInput.value = combinedString;
     } else if (bundleDeliveryInput) {
       console.log("⚠️ Bundle delivery input found but no results to set");
