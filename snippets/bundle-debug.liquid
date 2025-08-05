@@ -1,54 +1,11 @@
-{% comment %} /snippets/bundle-debug.liquid - Temporary debugging snippet {% endcomment %}
+{% comment %} /snippets/bundle-debug.liquid - Simple bundle metafield debug {% endcomment %}
 
 <script>
-// BUNDLE DEBUG DATA - COPY AND PASTE THIS JSON
-const bundleDebugData = {
-  "bundleMetafield": {{ product.metafields.bundleinfo.bundleproducts | json }},
-  "bundleMetafieldValue": {{ product.metafields.bundleinfo.bundleproducts.value | json }},
-  "bundleMetafieldType": {{ product.metafields.bundleinfo.bundleproducts.type | json }},
-  "productInfo": {
-    "handle": {{ product.handle | json }},
-    "title": {{ product.title | json }},
-    "type": {{ product.type | json }},
-    "tags": {{ product.tags | json }}
-  },
-  "currentVariant": {
-    "id": {{ product.selected_or_first_available_variant.id | json }},
-    "title": {{ product.selected_or_first_available_variant.title | json }},
-    "price": {{ product.selected_or_first_available_variant.price | json }}
-  },
-  "allVariants": [
-    {% for variant in product.variants %}
-    {
-      "id": {{ variant.id | json }},
-      "title": {{ variant.title | json }},
-      "available": {{ variant.available | json }},
-      "price": {{ variant.price | json }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ],
-  "productOptions": [
-    {% for option in product.options_with_values %}
-    {
-      "name": {{ option.name | json }},
-      "values": {{ option.values | json }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ],
-  "allBundleMetafields": {
-    {% for metafield in product.metafields.bundleinfo %}
-    {{ metafield[0] | json }}: {{ metafield[1] | json }}{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  },
-  "bundleMetafieldDetails": {
-    {% if product.metafields.bundleinfo.bundleproducts %}
-    "exists": true,
-    "value": {{ product.metafields.bundleinfo.bundleproducts.value | json }},
-    "type": {{ product.metafields.bundleinfo.bundleproducts.type | json }},
-    "rawOutput": "{{ product.metafields.bundleinfo.bundleproducts }}"
-    {% else %}
-    "exists": false
-    {% endif %}
-  }
+// BUNDLE METAFIELD DEBUG - SIMPLE
+const bundleMetafield = {
+  "exists": {% if product.metafields.bundleinfo.bundleproducts %}true{% else %}false{% endif %},
+  "value": {{ product.metafields.bundleinfo.bundleproducts.value | json }},
+  "type": {{ product.metafields.bundleinfo.bundleproducts.type | json }},
+  "raw": "{{ product.metafields.bundleinfo.bundleproducts }}"
 };
 </script> 
