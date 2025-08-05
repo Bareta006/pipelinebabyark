@@ -86,32 +86,80 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("📊 Bundle options:", bundleInfo.bundleOptions);
   console.log("🧩 Component delivery data:", bundleInfo.componentDeliveryData);
   console.log("📦 Bundle delivery data:", bundleInfo.bundleDeliveryData);
+  
+  // Debug: Show what components are available for matching
+  console.log("\n🎯 AVAILABLE COMPONENTS FOR MATCHING:");
+  bundleInfo.componentDeliveryData.forEach((component, index) => {
+    console.log(`   ${index + 1}. "${component.product.title}" (handle: ${component.product.handle})`);
+  });
+  
+  console.log("\n🎯 BUNDLE OPTIONS TO MATCH:");
+  bundleInfo.bundleOptions.forEach((option, index) => {
+    console.log(`   ${index + 1}. "${option}"`);
+  });
 
-  // Fuzzy matching function
+  // Improved fuzzy matching function with penalty scoring
   function calculateMatchScore(optionName, productData) {
     const optionWords = optionName.toLowerCase().split(/[\s\/]+/);
     const titleWords = productData.product.title.toLowerCase().split(/[\s\/]+/);
     const handleWords = productData.product.handle.toLowerCase().split(/[\-\_]+/);
     
     let score = 0;
+    let penaltyScore = 0;
     
-    // Check title matches
+    console.log(`🔍 Analyzing "${optionName}" vs "${productData.product.title}"`);
+    console.log(`   Option words: [${optionWords.join(', ')}]`);
+    console.log(`   Title words: [${titleWords.join(', ')}]`);
+    
+    // POSITIVE SCORING: Check title matches
     optionWords.forEach(optionWord => {
       titleWords.forEach(titleWord => {
-        if (optionWord === titleWord) score += 10;
-        if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) score += 5;
+        if (optionWord === titleWord) {
+          score += 10; // Exact match
+          console.log(`   ✅ Exact match: "${optionWord}" = +10`);
+        } else if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) {
+          score += 5; // Partial match
+          console.log(`   ✅ Partial match: "${optionWord}" ~ "${titleWord}" = +5`);
+        }
       });
     });
     
-    // Check handle matches  
+    // POSITIVE SCORING: Check handle matches  
     optionWords.forEach(optionWord => {
       handleWords.forEach(handleWord => {
-        if (optionWord === handleWord) score += 8;
-        if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) score += 3;
+        if (optionWord === handleWord) {
+          score += 8; // Exact match
+          console.log(`   ✅ Handle exact: "${optionWord}" = +8`);
+        } else if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) {
+          score += 3; // Partial match
+          console.log(`   ✅ Handle partial: "${optionWord}" ~ "${handleWord}" = +3`);
+        }
       });
     });
     
-    return score;
+    // NEGATIVE SCORING: Penalize misleading matches
+    // If looking for "cover" but title contains "seat" but not "cover" = penalty
+    if (optionWords.includes('cover') && !titleWords.includes('cover') && titleWords.includes('seat')) {
+      penaltyScore += 20;
+      console.log(`   ❌ Cover/Seat mismatch penalty = -20`);
+    }
+    
+    // If looking for "base" but title contains "seat" but not "base" = penalty
+    if (optionWords.includes('base') && !titleWords.includes('base') && titleWords.includes('seat')) {
+      penaltyScore += 20;
+      console.log(`   ❌ Base/Seat mismatch penalty = -20`);
+    }
+    
+    // If looking for specific product type but title has different type = penalty
+    if (optionWords.includes('holder') && !titleWords.includes('holder')) {
+      penaltyScore += 15;
+      console.log(`   ❌ Holder mismatch penalty = -15`);
+    }
+    
+    const finalScore = Math.max(0, score - penaltyScore);
+    console.log(`   🎯 Final score: ${score} - ${penaltyScore} = ${finalScore}`);
+    
+    return finalScore;
   }
 
   // Apply 4-level hierarchy
