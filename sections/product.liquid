@@ -129,6 +129,10 @@
   console.log("🚀 Product Object Dump:", productData);
 </script>
   {% render 'delivery-info' %}
+  
+  {% comment %} TEMPORARY DEBUG OUTPUT - REMOVE AFTER TESTING {% endcomment %}
+  {% render 'bundle-debug' %}
+  
   <div class="{{ wrapper_class }} {{ pad_title }} product__align-{{ section.settings.align }}">
 
     <div class="float-grid product-single" {{ data_thumbnails_left }}>
