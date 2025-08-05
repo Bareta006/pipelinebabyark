@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   //console.log("📦 Bundle delivery element found:", bundleDeliveryElement);
   
   if (!bundleDeliveryElement) {
-    console.error("❌ Bundle delivery element not found!");
+    //console.error("❌ Bundle delivery element not found!");
     return;
   }
 
@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     bundleInfo = JSON.parse(bundleDeliveryElement.textContent);
     //console.log("✅ Bundle info parsed successfully:", bundleInfo);
   } catch (error) {
-    console.error("❌ Error parsing bundle delivery info:", error);
+    //console.error("❌ Error parsing bundle delivery info:", error);
     //console.log("Raw JSON content:", bundleDeliveryElement.textContent);
     return;
   }
@@ -247,7 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //console.log("🎯 Variant input value:", variantInput?.value);
     
     if (!variantInput) {
-      console.error("❌ Variant input not found!");
+      //console.error("❌ Variant input not found!");
       return;
     }
 
@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //console.log("🎯 Bundle variant found:", bundleVariant);
     
     if (!bundleVariant) {
-      console.error("❌ Bundle variant not found!");
+      //console.error("❌ Bundle variant not found!");
       return;
     }
 
@@ -360,7 +360,7 @@ document.addEventListener("DOMContentLoaded", () => {
         deliveryContainer.innerHTML = '<strong>ESTIMATED DELIVERY BETWEEN</strong> <strong>Contact us for delivery information</strong>';
       }
     } else {
-      console.error("❌ Delivery container not found!");
+      //console.error("❌ Delivery container not found!");
     }
 
     // Update hidden input for cart properties
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else if (bundleDeliveryInput) {
       //console.log("⚠️ Bundle delivery input found but no results to set");
     } else {
-      console.error("❌ Bundle delivery input not found!");
+      //console.error("❌ Bundle delivery input not found!");
     }
   }
 
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //console.log("✅ Event listener attached to variant input");
     variantInput.addEventListener("change", updateBundleDelivery);
   } else {
-    console.error("❌ Could not attach event listener - variant input not found");
+    //console.error("❌ Could not attach event listener - variant input not found");
   }
   
   //console.log("🏁 Bundle delivery initialization complete");
