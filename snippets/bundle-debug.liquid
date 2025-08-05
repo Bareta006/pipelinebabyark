@@ -1,59 +1,168 @@
-{% comment %} /snippets/bundle-debug.liquid - CORRECT APPROACH: Fetch full products {% endcomment %}
+{% comment %} /snippets/bundle-debug.liquid - COMPLETE 4-LEVEL HIERARCHY {% endcomment %}
 
 <script>
-// CORRECT APPROACH: FETCH FULL COMPONENT PRODUCTS
+// COMPLETE 4-LEVEL HIERARCHY - INCLUDING BUNDLE METAFIELDS
 
 const isBundle = {% if product.metafields.bundleinfo.bundleproducts.value %}true{% else %}false{% endif %};
 
 if (isBundle) {
-  const bundleComponents = {{ product.metafields.bundleinfo.bundleproducts.value | json }};
+  console.log("=== COMPLETE 4-LEVEL HIERARCHY ===");
+  
+  // Build component delivery data using same pattern as delivery-info.liquid
+  const componentDeliveryData = [
+    {% for component in product.metafields.bundleinfo.bundleproducts.value %}
+      {% assign full_product = all_products[component.handle] %}
+      {
+        "product": {
+          "id": {{ full_product.id }},
+          "title": "{{ full_product.title | escape }}",
+          "handle": "{{ full_product.handle }}",
+          "delivery_time": "{{ full_product.metafields.delivery.delivery_time | escape }}",
+          "estimated_date": "{{ full_product.metafields.delivery.estimated_date | escape }}"
+        },
+        "variants": [
+          {% assign valid_variants = false %}
+          {% for variant in full_product.variants %}
+            {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
+            {% unless variant_delivery_date %}
+              {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
+            {% endunless %}
+            {% if variant_delivery_date != blank %}
+              {% if valid_variants %},{% endif %}
+              {% assign valid_variants = true %}
+              {
+                "id": {{ variant.id }},
+                "title": "{{ variant.title | escape }}",
+                "delivery_estimated_date": "{{ variant_delivery_date | escape }}"
+              }
+            {% endif %}
+          {% endfor %}
+        ]
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ];
+  
+  // Bundle delivery data (levels 3 & 4)
+  const bundleDeliveryData = {
+    "bundleProduct": {
+      "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
+      "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
+    },
+    "bundleVariant": {
+      {% assign bundle_variant_delivery_date = product.selected_or_first_available_variant.metafields.delivery.delivery_estimated_date %}
+      {% unless bundle_variant_delivery_date %}
+        {% assign bundle_variant_delivery_date = product.selected_or_first_available_variant.metafields.delivery.delivery_estimated_date.value %}
+      {% endunless %}
+      "delivery_estimated_date": "{{ bundle_variant_delivery_date | escape }}",
+      "delivery_time": "{{ product.selected_or_first_available_variant.metafields.delivery.delivery_time | escape }}",
+      "estimated_date": "{{ product.selected_or_first_available_variant.metafields.delivery.estimated_date | escape }}"
+    }
+  };
+  
   const bundleOptions = {{ product.options | json }};
   const currentVariant = {{ product.selected_or_first_available_variant | json }};
   
-  console.log("=== CORRECT APPROACH: FULL PRODUCT DATA ===");
+  console.log("Component delivery data:", componentDeliveryData);
+  console.log("Bundle delivery data:", bundleDeliveryData);
   
-  // Step 1: Get full product data for each component
-  const fullComponentProducts = [];
-  
-  {% for component in product.metafields.bundleinfo.bundleproducts.value %}
-    {% assign full_product = all_products[component.handle] %}
-    fullComponentProducts.push({{ full_product | json }});
-  {% endfor %}
-  
-  console.log("Bundle components count:", bundleComponents.length);
-  console.log("Full products count:", fullComponentProducts.length);
-  
-  // Debug each full component product
-  fullComponentProducts.forEach((fullProduct, index) => {
-    console.log(`\n--- FULL Component ${index + 1}: ${fullProduct.title} ---`);
-    console.log("Handle:", fullProduct.handle);
-    console.log("Full product metafields:", fullProduct.metafields || "UNDEFINED");
+  // Test the COMPLETE 4-level hierarchy for each component
+  componentDeliveryData.forEach((componentData, index) => {
+    console.log(`\n--- Component ${index + 1}: ${componentData.product.title} ---`);
+    console.log("Product delivery_time:", componentData.product.delivery_time);
+    console.log("Product estimated_date:", componentData.product.estimated_date);
+    console.log("Variants with delivery data:", componentData.variants);
     
-    if (fullProduct.variants && fullProduct.variants.length > 0) {
-      console.log(`Variants count: ${fullProduct.variants.length}`);
-      
-      // Show delivery metafields for each variant
-      fullProduct.variants.forEach((variant, vIndex) => {
-        console.log(`\nVariant ${vIndex + 1}: "${variant.title}"`);
-        if (variant.metafields && variant.metafields.delivery) {
-          console.log("  ✅ HAS DELIVERY METAFIELDS:", variant.metafields.delivery);
-        } else {
-          console.log("  ❌ No delivery metafields");
-        }
-      });
-    }
+    // Find which variant matches the user's selection
+    const selectedValue = currentVariant.options[index];
+    console.log("User selected:", selectedValue);
     
-    // Show product-level delivery metafields
-    if (fullProduct.metafields && fullProduct.metafields.delivery) {
-      console.log("Product-level delivery metafields:", fullProduct.metafields.delivery);
+    // Find matching variant
+    const matchingVariant = componentData.variants.find(variant => 
+      variant.title === selectedValue || 
+      variant.title.includes(selectedValue) || 
+      selectedValue.includes(variant.title)
+    );
+    
+    if (matchingVariant) {
+      console.log("✅ Found matching variant:", matchingVariant.title);
+      console.log("   Variant delivery date:", matchingVariant.delivery_estimated_date);
     } else {
-      console.log("No product-level delivery metafields");
+      console.log("❌ No matching variant found");
     }
+    
+    // Apply COMPLETE 4-level hierarchy
+    let finalDeliveryInfo = null;
+    
+    // Level 1: Component variant metafields (strongest)
+    if (matchingVariant && matchingVariant.delivery_estimated_date) {
+      finalDeliveryInfo = {
+        type: 'estimated_date',
+        value: matchingVariant.delivery_estimated_date,
+        source: 'component_variant'
+      };
+    }
+    // Level 2: Component product metafields
+    else if (componentData.product.delivery_time) {
+      finalDeliveryInfo = {
+        type: 'delivery_time', 
+        value: componentData.product.delivery_time,
+        source: 'component_product'
+      };
+    }
+    else if (componentData.product.estimated_date) {
+      finalDeliveryInfo = {
+        type: 'estimated_date',
+        value: componentData.product.estimated_date,
+        source: 'component_product'
+      };
+    }
+    // Level 3: Bundle variant metafields
+    else if (bundleDeliveryData.bundleVariant.delivery_estimated_date) {
+      finalDeliveryInfo = {
+        type: 'estimated_date',
+        value: bundleDeliveryData.bundleVariant.delivery_estimated_date,
+        source: 'bundle_variant'
+      };
+    }
+    else if (bundleDeliveryData.bundleVariant.delivery_time) {
+      finalDeliveryInfo = {
+        type: 'delivery_time',
+        value: bundleDeliveryData.bundleVariant.delivery_time,
+        source: 'bundle_variant'
+      };
+    }
+    else if (bundleDeliveryData.bundleVariant.estimated_date) {
+      finalDeliveryInfo = {
+        type: 'estimated_date',
+        value: bundleDeliveryData.bundleVariant.estimated_date,
+        source: 'bundle_variant'
+      };
+    }
+    // Level 4: Bundle product metafields (weakest)
+    else if (bundleDeliveryData.bundleProduct.delivery_time) {
+      finalDeliveryInfo = {
+        type: 'delivery_time',
+        value: bundleDeliveryData.bundleProduct.delivery_time,
+        source: 'bundle_product'
+      };
+    }
+    else if (bundleDeliveryData.bundleProduct.estimated_date) {
+      finalDeliveryInfo = {
+        type: 'estimated_date',
+        value: bundleDeliveryData.bundleProduct.estimated_date,
+        source: 'bundle_product'
+      };
+    }
+    else {
+      finalDeliveryInfo = {
+        type: 'none',
+        value: 'No delivery info',
+        source: 'none'
+      };
+    }
+    
+    console.log("🎯 FINAL DELIVERY INFO (4-level):", finalDeliveryInfo);
   });
-  
-  console.log("\n--- BUNDLE METAFIELDS ---");
-  console.log("Bundle product metafields:", {{ product.metafields | json }});
-  console.log("Bundle variant metafields:", currentVariant.metafields || "UNDEFINED");
   
 } else {
   console.log("Not a bundle product");
