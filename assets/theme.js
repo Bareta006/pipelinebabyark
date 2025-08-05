@@ -21430,6 +21430,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("compatible");
         }
 
+        // Check for bundleDelivery
+        if (formData.has("bundleDelivery")) {
+          customProperties["Bundle Delivery"] = formData.get("bundleDelivery");
+          formData.delete("bundleDelivery");
+        }
+
         // Add properties to formData in Shopify's format
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
