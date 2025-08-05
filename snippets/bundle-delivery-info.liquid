@@ -1,0 +1,229 @@
+{% comment %} /snippets/bundle-delivery-info.liquid - Bundle delivery information display and logic {% endcomment %}
+
+<script type="application/json" id="bundle-delivery-info">
+  {
+    "isBundle": {% if product.metafields.bundleinfo.bundleproducts.value %}true{% else %}false{% endif %},
+    "bundleOptions": {{ product.options | json }},
+    "componentDeliveryData": [
+      {% for component in product.metafields.bundleinfo.bundleproducts.value %}
+        {% assign full_product = all_products[component.handle] %}
+        {
+          "product": {
+            "id": {{ full_product.id }},
+            "title": "{{ full_product.title | escape }}",
+            "handle": "{{ full_product.handle }}",
+            "delivery_time": "{{ full_product.metafields.delivery.delivery_time | escape }}",
+            "estimated_date": "{{ full_product.metafields.delivery.estimated_date | escape }}"
+          },
+          "variants": [
+            {% assign valid_variants = false %}
+            {% for variant in full_product.variants %}
+              {% if valid_variants %},{% endif %}
+              {% assign valid_variants = true %}
+              {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
+              {% unless variant_delivery_date %}
+                {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
+              {% endunless %}
+              {
+                "id": {{ variant.id }},
+                "title": "{{ variant.title | escape }}",
+                "delivery_estimated_date": "{{ variant_delivery_date | escape }}",
+                "delivery_time": "{{ variant.metafields.delivery.delivery_time | escape }}",
+                "estimated_date": "{{ variant.metafields.delivery.estimated_date | escape }}"
+              }
+            {% endfor %}
+          ]
+        }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ],
+    "bundleDeliveryData": {
+      "bundleProduct": {
+        "delivery_time": "{{ product.metafields.delivery.delivery_time | escape }}",
+        "estimated_date": "{{ product.metafields.delivery.estimated_date | escape }}"
+      },
+      "bundleVariant": {
+        {% assign bundle_variant_delivery_date = product.selected_or_first_available_variant.metafields.delivery.delivery_estimated_date %}
+        {% unless bundle_variant_delivery_date %}
+          {% assign bundle_variant_delivery_date = product.selected_or_first_available_variant.metafields.delivery.delivery_estimated_date.value %}
+        {% endunless %}
+        "delivery_estimated_date": "{{ bundle_variant_delivery_date | escape }}",
+        "delivery_time": "{{ product.selected_or_first_available_variant.metafields.delivery.delivery_time | escape }}",
+        "estimated_date": "{{ product.selected_or_first_available_variant.metafields.delivery.estimated_date | escape }}"
+      }
+    }
+  }
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // Get bundle delivery data
+  const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
+  if (!bundleDeliveryElement) return;
+
+  let bundleInfo;
+  try {
+    bundleInfo = JSON.parse(bundleDeliveryElement.textContent);
+  } catch (error) {
+    console.error("Error parsing bundle delivery info:", error);
+    return;
+  }
+
+  if (!bundleInfo.isBundle) return;
+
+  // Fuzzy matching function
+  function calculateMatchScore(optionName, productData) {
+    const optionWords = optionName.toLowerCase().split(/[\s\/]+/);
+    const titleWords = productData.product.title.toLowerCase().split(/[\s\/]+/);
+    const handleWords = productData.product.handle.toLowerCase().split(/[\-\_]+/);
+    
+    let score = 0;
+    
+    // Check title matches
+    optionWords.forEach(optionWord => {
+      titleWords.forEach(titleWord => {
+        if (optionWord === titleWord) score += 10;
+        if (titleWord.includes(optionWord) || optionWord.includes(titleWord)) score += 5;
+      });
+    });
+    
+    // Check handle matches  
+    optionWords.forEach(optionWord => {
+      handleWords.forEach(handleWord => {
+        if (optionWord === handleWord) score += 8;
+        if (handleWord.includes(optionWord) || optionWord.includes(handleWord)) score += 3;
+      });
+    });
+    
+    return score;
+  }
+
+  // Apply 4-level hierarchy
+  function getDeliveryInfo(matchingVariant, componentData, bundleInfo) {
+    // Level 1: Component variant metafields (strongest)
+    if (matchingVariant && matchingVariant.delivery_estimated_date) {
+      return { type: 'estimated_date', value: matchingVariant.delivery_estimated_date, source: 'component_variant' };
+    }
+    if (matchingVariant && matchingVariant.delivery_time) {
+      return { type: 'delivery_time', value: matchingVariant.delivery_time, source: 'component_variant' };
+    }
+    if (matchingVariant && matchingVariant.estimated_date) {
+      return { type: 'estimated_date', value: matchingVariant.estimated_date, source: 'component_variant' };
+    }
+    
+    // Level 2: Component product metafields
+    if (componentData.product.delivery_time) {
+      return { type: 'delivery_time', value: componentData.product.delivery_time, source: 'component_product' };
+    }
+    if (componentData.product.estimated_date) {
+      return { type: 'estimated_date', value: componentData.product.estimated_date, source: 'component_product' };
+    }
+    
+    // Level 3: Bundle variant metafields
+    if (bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date) {
+      return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleVariant.delivery_estimated_date, source: 'bundle_variant' };
+    }
+    if (bundleInfo.bundleDeliveryData.bundleVariant.delivery_time) {
+      return { type: 'delivery_time', value: bundleInfo.bundleDeliveryData.bundleVariant.delivery_time, source: 'bundle_variant' };
+    }
+    if (bundleInfo.bundleDeliveryData.bundleVariant.estimated_date) {
+      return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleVariant.estimated_date, source: 'bundle_variant' };
+    }
+    
+    // Level 4: Bundle product metafields (weakest)
+    if (bundleInfo.bundleDeliveryData.bundleProduct.delivery_time) {
+      return { type: 'delivery_time', value: bundleInfo.bundleDeliveryData.bundleProduct.delivery_time, source: 'bundle_product' };
+    }
+    if (bundleInfo.bundleDeliveryData.bundleProduct.estimated_date) {
+      return { type: 'estimated_date', value: bundleInfo.bundleDeliveryData.bundleProduct.estimated_date, source: 'bundle_product' };
+    }
+    
+    return { type: 'none', value: 'No delivery info', source: 'none' };
+  }
+
+  // Update bundle delivery display and hidden inputs
+  function updateBundleDelivery() {
+    const variantInput = document.querySelector('.product__main__content input[name="id"]');
+    if (!variantInput) return;
+
+    const variantId = parseInt(variantInput.value, 10);
+    const bundleVariant = window.productData?.variants?.find(v => v.id === variantId);
+    if (!bundleVariant) return;
+
+    const currentSelection = bundleVariant.options || [];
+
+    // Do fuzzy matching for each bundle option
+    const deliveryResults = [];
+    
+    bundleInfo.bundleOptions.forEach((optionName, index) => {
+      let bestMatch = null;
+      let bestScore = 0;
+      
+      // Find best component match
+      bundleInfo.componentDeliveryData.forEach(component => {
+        const score = calculateMatchScore(optionName, component);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMatch = component;
+        }
+      });
+      
+      if (bestMatch) {
+        const selectedValue = currentSelection[index];
+        
+        // Find matching variant
+        const matchingVariant = bestMatch.variants.find(variant => 
+          variant.title === selectedValue || 
+          variant.title.includes(selectedValue) || 
+          selectedValue.includes(variant.title)
+        );
+        
+        // Get delivery info using hierarchy
+        const deliveryInfo = getDeliveryInfo(matchingVariant, bestMatch, bundleInfo);
+        
+        if (deliveryInfo.type !== 'none') {
+          deliveryResults.push({
+            productTitle: bestMatch.product.title,
+            deliveryValue: deliveryInfo.value,
+            deliveryType: deliveryInfo.type,
+            source: deliveryInfo.source
+          });
+        }
+      }
+    });
+
+    // Update frontend display
+    const deliveryContainer = document.querySelector('.delivery-info p');
+    if (deliveryContainer) {
+      if (deliveryResults.length > 0) {
+        const deliveryHTML = `
+          <strong>ESTIMATED DELIVERY:</strong><br>
+          ${deliveryResults.map(result => 
+            `• <strong>${result.productTitle}:</strong> ${result.deliveryValue}`
+          ).join('<br>')}
+        `;
+        deliveryContainer.innerHTML = deliveryHTML;
+      } else {
+        deliveryContainer.innerHTML = '<strong>ESTIMATED DELIVERY BETWEEN</strong> <strong>Contact us for delivery information</strong>';
+      }
+    }
+
+    // Update hidden input for cart properties
+    const bundleDeliveryInput = document.querySelector('input[name="bundleDelivery"]');
+    if (bundleDeliveryInput && deliveryResults.length > 0) {
+      const combinedString = deliveryResults
+        .map(result => `${result.productTitle}: ${result.deliveryValue}`)
+        .join(', ');
+      bundleDeliveryInput.value = combinedString;
+    }
+  }
+
+  // Initial update
+  updateBundleDelivery();
+
+  // Listen for variant changes
+  const variantInput = document.querySelector('.product__main__content input[name="id"]');
+  if (variantInput) {
+    variantInput.addEventListener("change", updateBundleDelivery);
+  }
+});
+</script> 

@@ -128,10 +128,16 @@
   const productData = {{ product | json }};
   console.log("🚀 Product Object Dump:", productData);
 </script>
-  {% render 'delivery-info' %}
+  {% comment %} Conditional delivery info rendering {% endcomment %}
+  {% if product.metafields.bundleinfo.bundleproducts.value %}
+    {% comment %} BUNDLE PRODUCT: Render bundle delivery info {% endcomment %}
+    {% render 'bundle-delivery-info' %}
+  {% else %}
+    {% comment %} REGULAR PRODUCT: Render existing delivery info {% endcomment %}
+    {% render 'delivery-info' %}
+  {% endif %}
   
-  {% comment %} TEMPORARY DEBUG OUTPUT - REMOVE AFTER TESTING {% endcomment %}
-  {% render 'bundle-debug' %}
+
   
   <div class="{{ wrapper_class }} {{ pad_title }} product__align-{{ section.settings.align }}">
 

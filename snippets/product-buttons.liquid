@@ -27,12 +27,20 @@
 
       {%- unless hidden -%}
         <div class="product__form__inner" data-form-inner>
-{% if product.metafields.delivery.estimated_date != blank%}
-                      <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
+{% comment %} Bundle vs Regular Product Delivery Inputs {% endcomment %}
+                      {% if product.metafields.bundleinfo.bundleproducts.value %}
+                        {% comment %} BUNDLE PRODUCT: Add bundle delivery input {% endcomment %}
+                        <input type="hidden" name="bundleDelivery" value=""/>
+                      {% else %}
+                        {% comment %} REGULAR PRODUCT: Add existing delivery inputs {% endcomment %}
+                        {% if product.metafields.delivery.estimated_date != blank%}
+                        <input type="hidden" name="deliveryDate" value="{{product.metafields.delivery.estimated_date}}"/>
+                        {% endif %}
+                        {% if product.metafields.delivery.delivery_time != blank%}
+                        <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
+                        {% endif %}
                       {% endif %}
-                      {% if product.metafields.delivery.delivery_time != blank%}
-                      <input type="hidden" name="deliveryTime" value="{{product.metafields.delivery.delivery_time}}"/>
-                      {% endif %}
+                      
                       {% if product.metafields.custom.compatible != blank%}
                         <input type="hidden" name="compatible" value="{{product.metafields.custom.compatible}}"/>
                         {% endif %}
