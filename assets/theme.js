@@ -22296,3 +22296,68 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
   themeVendor.FlickitySync,
   themeVendor.themeAddresses
 );
+
+// BUNDLE ATTRIBUTE CLEANUP FUNCTION
+window.cleanupBundleAttributes = function() {
+  console.log('🧹 CLEANING UP BUNDLE ATTRIBUTES...');
+  
+  fetch('/cart.js', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(cart => {
+      console.log('📊 Current cart items:', cart.items.length);
+      console.log('📊 Current cart attributes:', cart.attributes);
+      
+      // Get current bundle variant IDs in cart
+      const currentBundleVariants = cart.items
+        .filter(item => item.properties && item.properties['Bundle Delivery Info'])
+        .map(item => item.variant_id);
+      
+      console.log('📦 Bundle variants in cart:', currentBundleVariants);
+      
+      // Find orphaned bundle delivery attributes
+      const orphanedKeys = {};
+      Object.keys(cart.attributes).forEach(key => {
+        if (key.startsWith('Bundle_Delivery_')) {
+          const variantId = parseInt(key.split('_')[2]);
+          console.log(`🔍 Checking attribute ${key} for variant ${variantId}`);
+          
+          if (!currentBundleVariants.includes(variantId)) {
+            orphanedKeys[key] = ''; // Empty string removes attribute
+            console.log('🗑️ MARKING FOR REMOVAL:', key);
+          }
+        }
+      });
+      
+      console.log('🗑️ Orphaned keys to remove:', orphanedKeys);
+      
+      // Remove orphaned attributes
+      if (Object.keys(orphanedKeys).length > 0) {
+        return fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({attributes: orphanedKeys})
+        }).then(() => {
+          console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
+          
+          // Log final state
+          return fetch('/cart.js', { cache: 'no-store' })
+            .then(r => r.json())
+            .then(finalCart => {
+              console.log('🛒 FINAL CART ATTRIBUTES AFTER CLEANUP:', finalCart.attributes);
+            });
+        });
+      } else {
+        console.log('✅ NO ORPHANED ATTRIBUTES FOUND');
+      }
+    })
+    .catch(error => {
+      console.error('❌ CLEANUP ERROR:', error);
+    });
+};
+
+// AUTO-RUN CLEANUP ON PAGE LOAD
+document.addEventListener('DOMContentLoaded', function() {
+  setTimeout(() => {
+    window.cleanupBundleAttributes();
+  }, 1000);
+});
