@@ -21475,6 +21475,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                 console.log("✅ Cart attributes updated successfully");
                 console.log("🎯 Cart now has attributes:", cart.attributes);
                 
+                // DEBUG: Show all Bundle_Delivery_* attributes specifically
+                const bundleAttributes = {};
+                for (const [key, value] of Object.entries(cart.attributes || {})) {
+                  if (key.startsWith('Bundle_Delivery_')) {
+                    bundleAttributes[key] = value;
+                  }
+                }
+                console.log("📦 BUNDLE ATTRIBUTES ONLY:", bundleAttributes);
+                console.log("🔢 Total bundle attributes:", Object.keys(bundleAttributes).length);
+                
                 // Dispatch cart updated event for cleanup system
                 document.dispatchEvent(new CustomEvent('cart:updated'));
               }).catch((error) => {
@@ -22318,3 +22328,23 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log("🚀 Page loaded, running initial bundle attributes cleanup");
   setTimeout(cleanupBundleAttributes, 2000); // Delay to ensure cart is loaded
 });
+
+// DEBUG HELPER: Add global function to check cart attributes manually
+window.checkCartAttributes = function() {
+  fetch('/cart.js?t=' + Date.now(), { cache: 'no-store' })
+    .then(response => response.json())
+    .then(cart => {
+      console.log("🛒 FULL CART ATTRIBUTES:", cart.attributes);
+      
+      const bundleAttributes = {};
+      for (const [key, value] of Object.entries(cart.attributes || {})) {
+        if (key.startsWith('Bundle_Delivery_')) {
+          bundleAttributes[key] = value;
+        }
+      }
+      console.log("📦 BUNDLE ATTRIBUTES ONLY:", bundleAttributes);
+      console.log("🔢 Total bundle attributes:", Object.keys(bundleAttributes).length);
+      
+      return cart.attributes;
+    });
+};
