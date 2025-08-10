@@ -21436,6 +21436,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("bundleDelivery");
         }
 
+        // Mark as bundle if bundle delivery exists
+        if (window.currentBundleDelivery) {
+          customProperties["Is Bundle"] = "true";
+        }
+
         // Add properties to formData in Shopify's format
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
@@ -21446,7 +21451,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         if (window.currentBundleDelivery) {
           bundleDeliveryForCart = {
             key: `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`,
-            value: window.currentBundleDelivery.deliveryInfo
+            value: typeof window.currentBundleDelivery.deliveryInfo === 'object' 
+              ? JSON.stringify(window.currentBundleDelivery.deliveryInfo)
+              : String(window.currentBundleDelivery.deliveryInfo)
           };
           console.log("🏪 Prepared bundle delivery for cart attribute:", bundleDeliveryForCart);
         }
@@ -21467,6 +21474,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
               }).then(response => response.json()).then(cart => {
                 console.log("✅ Cart attributes updated successfully");
                 console.log("🎯 Cart now has attributes:", cart.attributes);
+                
+                // Dispatch cart updated event for cleanup system
+                document.dispatchEvent(new CustomEvent('cart:updated'));
               }).catch((error) => {
                 console.error("❌ Cart attribute update failed:", error);
               });
@@ -22241,18 +22251,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
 function cleanupBundleAttributes() {
   console.log("🧹 Checking for orphaned bundle attributes...");
   
-  fetch('/cart.js')
+  fetch('/cart.js?t=' + Date.now(), { cache: 'no-store' })
     .then(response => response.json())
     .then(cart => {
       // Get all current bundle variant IDs in cart
-      // We'll identify bundles by checking if they have bundleinfo metafields
       const currentBundleVariants = [];
       
       cart.items.forEach(item => {
-        // Check if this item is from a bundle product
-        // You may need to adjust this logic based on how you identify bundle products
-        if (item.properties && item.properties['Bundle Delivery Info']) {
-          currentBundleVariants.push(item.variant_id);
+        // Check if this item is from a bundle product (using new marker)
+        if (item.properties && (item.properties['Is Bundle'] === 'true' || item.properties['Bundle Delivery Info'])) {
+          currentBundleVariants.push(parseInt(item.variant_id));
         }
       });
       
