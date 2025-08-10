@@ -56,7 +56,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("🚀 BUNDLE DELIVERY DEBUG - Starting initialization");
+  //console.log("🚀 BUNDLE DELIVERY DEBUG - Starting initialization");
   
   // Get bundle delivery data
   const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let bundleInfo;
   try {
     bundleInfo = JSON.parse(bundleDeliveryElement.textContent);
-    console.log("✅ Bundle info parsed successfully:", bundleInfo);
+    //console.log("✅ Bundle info parsed successfully:", bundleInfo);
   } catch (error) {
     //console.error("❌ Error parsing bundle delivery info:", error);
     //console.log("Raw JSON content:", bundleDeliveryElement.textContent);
@@ -385,14 +385,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       bundleDeliveryInput.value = combinedString;
-      
-      // Store bundle info globally for cart attributes
-      window.currentBundleDelivery = {
-        variantId: window.productData.selected_or_first_available_variant.id,
-        deliveryInfo: combinedString
-      };
-      console.log('💾 Stored bundle delivery info globally:', window.currentBundleDelivery);
-      
     } else if (bundleDeliveryInput) {
       //console.log("⚠️ Bundle delivery input found but no results to set");
     } else {
@@ -401,16 +393,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initial update
-  console.log("🚀 Running initial bundle delivery update...");
+  //console.log("🚀 Running initial bundle delivery update...");
   updateBundleDelivery();
-  
-  // Show current cart attributes on page load
-  fetch('/cart.js', { cache: 'no-store' })
-    .then(r => r.json())
-    .then(cart => {
-      console.log('📋 CART ATTRIBUTES ON PAGE LOAD:', cart.attributes);
-    })
-    .catch(error => console.error('❌ Error fetching cart:', error));
 
   // Listen for variant changes
   const variantInput = document.querySelector('.product__main__content input[name="id"]');
@@ -423,4 +407,38 @@ document.addEventListener("DOMContentLoaded", () => {
   
   //console.log("🏁 Bundle delivery initialization complete");
 });
+
+// ALWAYS LOG CART ATTRIBUTES - NO MATTER WHAT
+function logCartAttributes(action) {
+  fetch('/cart.js', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(cart => {
+      console.log(`🛒 CART ATTRIBUTES [${action}]:`, cart.attributes);
+      
+      // Show bundle attributes specifically
+      const bundleAttrs = Object.entries(cart.attributes).filter(([key]) => key.startsWith('Bundle_Delivery_'));
+      if (bundleAttrs.length > 0) {
+        console.log('📦 BUNDLE ATTRIBUTES:', bundleAttrs);
+      } else {
+        console.log('📦 NO BUNDLE ATTRIBUTES FOUND');
+      }
+    });
+}
+
+// LOG ON PAGE LOAD
+document.addEventListener('DOMContentLoaded', () => logCartAttributes('PAGE_LOAD'));
+
+// LOG AFTER EVERY CART UPDATE
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+  const result = originalFetch(...args);
+  
+  if (args[0] && (args[0].includes('/cart/add.js') || args[0].includes('/cart/update.js'))) {
+    result.then(() => {
+      setTimeout(() => logCartAttributes('AFTER_CART_ACTION'), 200);
+    });
+  }
+  
+  return result;
+};
 </script> 
