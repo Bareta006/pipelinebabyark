@@ -22317,17 +22317,37 @@ function cleanupBundleAttributes() {
     });
 }
 
-// Run cleanup when cart is updated
+// SMART cleanup - only when cart changes or is empty
 document.addEventListener('cart:updated', function() {
-  console.log("🔄 Cart updated, triggering bundle attributes cleanup");
-  setTimeout(cleanupBundleAttributes, 1000); // Small delay to ensure cart is fully updated
+  console.log("🔄 Cart updated, checking if cleanup needed");
+  setTimeout(cleanupBundleAttributes, 500); // Quick check after cart changes
 });
 
-// Run cleanup when page loads (in case cart was updated externally)
-document.addEventListener('DOMContentLoaded', function() {
-  console.log("🚀 Page loaded, running initial bundle attributes cleanup");
-  setTimeout(cleanupBundleAttributes, 2000); // Delay to ensure cart is loaded
-});
+// Monitor for cart clear/empty
+const originalFetch = window.fetch;
+window.fetch = function(...args) {
+  const url = args[0];
+  if (url && url.includes('/cart/clear.js')) {
+    console.log("🗑️ Cart cleared, removing all bundle attributes");
+    // Clear all bundle attributes when cart is emptied
+    fetch('/cart.js').then(r => r.json()).then(cart => {
+      const bundleAttributes = {};
+      for (const key of Object.keys(cart.attributes || {})) {
+        if (key.startsWith('Bundle_Delivery_')) {
+          bundleAttributes[key] = '';
+        }
+      }
+      if (Object.keys(bundleAttributes).length > 0) {
+        fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({attributes: bundleAttributes})
+        });
+      }
+    });
+  }
+  return originalFetch(...args);
+};
 
 // DEBUG HELPER: Add global function to check cart attributes manually
 window.checkCartAttributes = function() {
