@@ -21436,16 +21436,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("bundleDelivery");
         }
 
-        // NEW: Add cart attribute for bundles (for email persistence)
-        if (window.currentBundleDelivery) {
-          const uniqueKey = `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`;
-          customProperties[uniqueKey] = window.currentBundleDelivery.deliveryInfo;
-          console.log("🏪 Added cart attribute:", uniqueKey, "=", window.currentBundleDelivery.deliveryInfo);
-        }
-
         // Add properties to formData in Shopify's format
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
+        }
+
+        // NEW: Add cart attribute for bundles (for email persistence)
+        if (window.currentBundleDelivery) {
+          const uniqueKey = `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`;
+          formData.append(`attributes[${uniqueKey}]`, window.currentBundleDelivery.deliveryInfo);
+          console.log("🏪 Added cart attribute:", uniqueKey, "=", window.currentBundleDelivery.deliveryInfo);
         }
         this.addToCart(formData)
           .then(this.handleSuccess.bind(this))
