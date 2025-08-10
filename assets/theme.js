@@ -21430,10 +21430,11 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("compatible");
         }
 
-        // Check for bundleDelivery
+        // Check for bundleDelivery - ADD TO CART ATTRIBUTES AFTER SUCCESS
+        let bundleDeliveryInfo = null;
         if (formData.has("bundleDelivery")) {
-          customProperties["Bundle Delivery Info"]  = formData.get("bundleDelivery");
-          formData.delete("bundleDelivery");
+          bundleDeliveryInfo = formData.get("bundleDelivery");
+          formData.delete("bundleDelivery"); // Don't add as line item property
         }
 
         // Add properties to formData in Shopify's format
@@ -21441,7 +21442,42 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.append(`properties[${key}]`, value);
         }
         this.addToCart(formData)
-          .then(this.handleSuccess.bind(this))
+          .then(async (response) => {
+            // Add cart attributes for bundle delivery AFTER successful cart add
+            if (bundleDeliveryInfo) {
+              const uniqueKey = `Bundle_Delivery_${response.data.variant_id}_${Date.now()}`;
+              console.log('📦 ADDING BUNDLE CART ATTRIBUTE:', uniqueKey, bundleDeliveryInfo);
+              
+              try {
+                await fetch('/cart/update.js', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                  },
+                  body: JSON.stringify({
+                    attributes: {
+                      [uniqueKey]: bundleDeliveryInfo
+                    }
+                  })
+                });
+                console.log('✅ BUNDLE CART ATTRIBUTE ADDED');
+                
+                // Log final cart state
+                setTimeout(() => {
+                  fetch('/cart.js', { cache: 'no-store' })
+                    .then(r => r.json())
+                    .then(cart => {
+                      console.log('🛒 FINAL CART ATTRIBUTES:', cart.attributes);
+                    });
+                }, 200);
+              } catch (error) {
+                console.error('❌ FAILED TO ADD BUNDLE CART ATTRIBUTE:', error);
+              }
+            }
+            
+            return this.handleSuccess(response);
+          })
           .catch(this.handleError.bind(this));
       },
       handleSuccess(response) {
