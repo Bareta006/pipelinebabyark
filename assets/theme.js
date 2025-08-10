@@ -21459,42 +21459,47 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         }
         this.addToCart(formData)
           .then((response) => {
-            // Update cart attributes for bundles after successful add-to-cart
-            if (bundleDeliveryForCart) {
-              console.log("🔄 Updating cart attributes...");
-              
-              fetch(window.Shopify.routes.root + 'cart/update.js', {
-                method: 'POST',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({
-                  attributes: {
-                    [bundleDeliveryForCart.key]: bundleDeliveryForCart.value
-                  }
-                })
-              }).then(response => response.json()).then(cart => {
-                console.log("✅ Cart attributes updated successfully");
-                console.log("🎯 Cart now has attributes:", cart.attributes);
-                
-                // DEBUG: Show all Bundle_Delivery_* attributes specifically
-                const bundleAttributes = {};
-                for (const [key, value] of Object.entries(cart.attributes || {})) {
-                  if (key.startsWith('Bundle_Delivery_')) {
-                    bundleAttributes[key] = value;
-                  }
-                }
-                console.log("📦 BUNDLE ATTRIBUTES ONLY:", bundleAttributes);
-                console.log("🔢 Total bundle attributes:", Object.keys(bundleAttributes).length);
-                
-                // Dispatch cart updated event for cleanup system
-                document.dispatchEvent(new CustomEvent('cart:updated'));
-              }).catch((error) => {
-                console.error("❌ Cart attribute update failed:", error);
-              });
-            }
+            if (!bundleDeliveryForCart) return response;
+
+            console.log("🔄 Updating cart attributes...");
             
-            return this.handleSuccess(response);
+            // Ensure string value
+            const value = typeof bundleDeliveryForCart.value === 'string'
+              ? bundleDeliveryForCart.value
+              : JSON.stringify(bundleDeliveryForCart.value);
+
+            return fetch(`${window.Shopify.routes.root}cart/update.js`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                attributes: { [bundleDeliveryForCart.key]: value }
+              })
+            })
+            .then(r => r.json())
+            .then(cart => {
+              console.log('✅ Cart attributes updated successfully');
+              console.log('🎯 Cart now has attributes:', cart.attributes);
+
+              // DEBUG: Show all Bundle_Delivery_* attributes specifically
+              const bundleAttributes = {};
+              for (const [k, v] of Object.entries(cart.attributes || {})) {
+                if (k.startsWith('Bundle_Delivery_')) bundleAttributes[k] = v;
+              }
+              console.log('📦 BUNDLE ATTRIBUTES ONLY:', bundleAttributes);
+              console.log('🔢 Total bundle attributes:', Object.keys(bundleAttributes).length);
+
+              document.dispatchEvent(new CustomEvent('cart:updated'));
+              return response; // pass original add-to-cart response down the chain
+            });
           })
-          .catch(this.handleError.bind(this));
+          .then((response) => this.handleSuccess(response))
+          .catch((error) => {
+            console.error('❌ Cart operation failed:', error);
+            this.handleError(error);
+          });
       },
       handleSuccess(response) {
         const variant = response.data;
