@@ -385,10 +385,21 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       bundleDeliveryInput.value = combinedString;
+      
+      // NEW: Store for cart attribute sync
+      window.currentBundleDelivery = {
+        variantId: window.productData.selected_or_first_available_variant.id,
+        deliveryInfo: combinedString
+      };
+      //console.log("🏪 Stored bundle delivery for cart attribute:", window.currentBundleDelivery);
     } else if (bundleDeliveryInput) {
       //console.log("⚠️ Bundle delivery input found but no results to set");
+      // Clear stored delivery info if no results
+      window.currentBundleDelivery = null;
     } else {
       //console.error("❌ Bundle delivery input not found!");
+      // Clear stored delivery info if input not found
+      window.currentBundleDelivery = null;
     }
   }
 

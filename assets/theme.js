@@ -21436,6 +21436,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("bundleDelivery");
         }
 
+        // NEW: Add cart attribute for bundles (for email persistence)
+        if (window.currentBundleDelivery) {
+          const uniqueKey = `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`;
+          customProperties[uniqueKey] = window.currentBundleDelivery.deliveryInfo;
+          console.log("🏪 Added cart attribute:", uniqueKey, "=", window.currentBundleDelivery.deliveryInfo);
+        }
+
         // Add properties to formData in Shopify's format
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
@@ -22204,3 +22211,77 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
   themeVendor.FlickitySync,
   themeVendor.themeAddresses
 );
+
+// NEW: Bundle Cart Attribute Cleanup System
+function cleanupBundleAttributes() {
+  console.log("🧹 Checking for orphaned bundle attributes...");
+  
+  fetch('/cart.js')
+    .then(response => response.json())
+    .then(cart => {
+      // Get all current bundle variant IDs in cart
+      // We'll identify bundles by checking if they have bundleinfo metafields
+      const currentBundleVariants = [];
+      
+      cart.items.forEach(item => {
+        // Check if this item is from a bundle product
+        // You may need to adjust this logic based on how you identify bundle products
+        if (item.properties && item.properties['Bundle Delivery Info']) {
+          currentBundleVariants.push(item.variant_id);
+        }
+      });
+      
+      console.log("🎯 Current bundle variants in cart:", currentBundleVariants);
+      
+      // Find orphaned bundle delivery attributes
+      const orphanedKeys = [];
+      Object.keys(cart.attributes).forEach(key => {
+        if (key.startsWith('Bundle_Delivery_')) {
+          const parts = key.split('_');
+          if (parts.length >= 3) {
+            const variantId = parseInt(parts[2]);
+            if (!currentBundleVariants.includes(variantId)) {
+              orphanedKeys.push(key);
+              console.log("🗑️ Found orphaned attribute:", key);
+            }
+          }
+        }
+      });
+      
+      // Remove orphaned attributes
+      if (orphanedKeys.length > 0) {
+        console.log("🧹 Cleaning up", orphanedKeys.length, "orphaned bundle attributes");
+        const cleanupAttributes = {};
+        orphanedKeys.forEach(key => {
+          cleanupAttributes[key] = '';
+        });
+        
+        fetch('/cart/update.js', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({attributes: cleanupAttributes})
+        }).then(() => {
+          console.log("✅ Bundle attributes cleanup completed");
+        }).catch(error => {
+          console.error("❌ Error during bundle attributes cleanup:", error);
+        });
+      } else {
+        console.log("✅ No orphaned bundle attributes found");
+      }
+    })
+    .catch(error => {
+      console.error("❌ Error fetching cart for cleanup:", error);
+    });
+}
+
+// Run cleanup when cart is updated
+document.addEventListener('cart:updated', function() {
+  console.log("🔄 Cart updated, triggering bundle attributes cleanup");
+  setTimeout(cleanupBundleAttributes, 1000); // Small delay to ensure cart is fully updated
+});
+
+// Run cleanup when page loads (in case cart was updated externally)
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("🚀 Page loaded, running initial bundle attributes cleanup");
+  setTimeout(cleanupBundleAttributes, 2000); // Delay to ensure cart is loaded
+});
