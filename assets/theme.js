@@ -21442,10 +21442,13 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         }
 
         // NEW: Add cart attribute for bundles (for email persistence)
+        console.log("🔍 Checking for bundle delivery:", window.currentBundleDelivery);
         if (window.currentBundleDelivery) {
           const uniqueKey = `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`;
           formData.append(`attributes[${uniqueKey}]`, window.currentBundleDelivery.deliveryInfo);
           console.log("🏪 Added cart attribute:", uniqueKey, "=", window.currentBundleDelivery.deliveryInfo);
+        } else {
+          console.log("❌ No bundle delivery found - either not a bundle or no delivery info");
         }
         this.addToCart(formData)
           .then(this.handleSuccess.bind(this))
