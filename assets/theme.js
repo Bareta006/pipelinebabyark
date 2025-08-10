@@ -22368,3 +22368,11 @@ window.checkCartAttributes = function() {
       return cart.attributes;
     });
 };
+
+// SHOW CART ATTRIBUTES ON PAGE LOAD
+document.addEventListener('DOMContentLoaded', function() {
+  console.log("🚀 PAGE LOADED - CHECKING CART ATTRIBUTES");
+  setTimeout(() => {
+    window.checkCartAttributes();
+  }, 1000);
+});
