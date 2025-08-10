@@ -21440,8 +21440,39 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
         for (const [key, value] of Object.entries(customProperties)) {
           formData.append(`properties[${key}]`, value);
         }
+        
+        // Store bundle info for cart attributes
+        const bundleDeliveryInfo = window.currentBundleDelivery;
+        console.log('🎯 ADD TO CART - Bundle info:', bundleDeliveryInfo);
+        
         this.addToCart(formData)
-          .then(this.handleSuccess.bind(this))
+          .then(async (response) => {
+            // If bundle, add cart attribute
+            if (bundleDeliveryInfo) {
+              const uniqueKey = `Bundle_Delivery_${bundleDeliveryInfo.variantId}_${Date.now()}`;
+              console.log('📦 Adding cart attribute:', uniqueKey, '=', bundleDeliveryInfo.deliveryInfo);
+              
+              try {
+                await fetch('/cart/update.js', {
+                  method: 'POST',
+                  headers: {'Content-Type': 'application/json'},
+                  body: JSON.stringify({
+                    attributes: { [uniqueKey]: bundleDeliveryInfo.deliveryInfo }
+                  })
+                });
+                
+                // Log cart attributes after update
+                const cartResponse = await fetch('/cart.js', { cache: 'no-store' });
+                const cart = await cartResponse.json();
+                console.log('🛒 CART ATTRIBUTES AFTER ADD:', cart.attributes);
+                
+              } catch (error) {
+                console.error('❌ Error adding cart attribute:', error);
+              }
+            }
+            
+            return this.handleSuccess(response);
+          })
           .catch(this.handleError.bind(this));
       },
       handleSuccess(response) {

@@ -56,7 +56,7 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  //console.log("🚀 BUNDLE DELIVERY DEBUG - Starting initialization");
+  console.log("🚀 BUNDLE DELIVERY DEBUG - Starting initialization");
   
   // Get bundle delivery data
   const bundleDeliveryElement = document.getElementById("bundle-delivery-info");
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let bundleInfo;
   try {
     bundleInfo = JSON.parse(bundleDeliveryElement.textContent);
-    //console.log("✅ Bundle info parsed successfully:", bundleInfo);
+    console.log("✅ Bundle info parsed successfully:", bundleInfo);
   } catch (error) {
     //console.error("❌ Error parsing bundle delivery info:", error);
     //console.log("Raw JSON content:", bundleDeliveryElement.textContent);
@@ -385,6 +385,14 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       
       bundleDeliveryInput.value = combinedString;
+      
+      // Store bundle info globally for cart attributes
+      window.currentBundleDelivery = {
+        variantId: window.productData.selected_or_first_available_variant.id,
+        deliveryInfo: combinedString
+      };
+      console.log('💾 Stored bundle delivery info globally:', window.currentBundleDelivery);
+      
     } else if (bundleDeliveryInput) {
       //console.log("⚠️ Bundle delivery input found but no results to set");
     } else {
@@ -393,8 +401,16 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initial update
-  //console.log("🚀 Running initial bundle delivery update...");
+  console.log("🚀 Running initial bundle delivery update...");
   updateBundleDelivery();
+  
+  // Show current cart attributes on page load
+  fetch('/cart.js', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(cart => {
+      console.log('📋 CART ATTRIBUTES ON PAGE LOAD:', cart.attributes);
+    })
+    .catch(error => console.error('❌ Error fetching cart:', error));
 
   // Listen for variant changes
   const variantInput = document.querySelector('.product__main__content input[name="id"]');
