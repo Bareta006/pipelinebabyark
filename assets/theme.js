@@ -21454,18 +21454,21 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           .then((response) => {
             // Update cart attributes for bundles after successful add-to-cart
             if (bundleDeliveryForCart) {
-              console.log("🔄 Updating cart attributes after add-to-cart...");
-              const attributeData = {};
-              attributeData[bundleDeliveryForCart.key] = bundleDeliveryForCart.value;
+              console.log("🔄 Updating cart attributes...");
               
               fetch(window.Shopify.routes.root + 'cart/update.js', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({attributes: attributeData})
-              }).then(() => {
-                console.log("✅ Cart attribute updated:", bundleDeliveryForCart.key, "=", bundleDeliveryForCart.value);
+                body: JSON.stringify({
+                  attributes: {
+                    [bundleDeliveryForCart.key]: bundleDeliveryForCart.value
+                  }
+                })
+              }).then(response => response.json()).then(cart => {
+                console.log("✅ Cart attributes updated successfully");
+                console.log("🎯 Cart now has attributes:", cart.attributes);
               }).catch((error) => {
-                console.error("❌ Failed to update cart attribute:", error);
+                console.error("❌ Cart attribute update failed:", error);
               });
             }
             
