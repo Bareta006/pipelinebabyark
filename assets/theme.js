@@ -21430,11 +21430,12 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.delete("compatible");
         }
 
-        // Check for bundleDelivery - ADD TO CART ATTRIBUTES AFTER SUCCESS
+        // Check for bundleDelivery - ADD BOTH LINE ITEM PROPERTY AND CART ATTRIBUTE
         let bundleDeliveryInfo = null;
         if (formData.has("bundleDelivery")) {
           bundleDeliveryInfo = formData.get("bundleDelivery");
-          formData.delete("bundleDelivery"); // Don't add as line item property
+          customProperties["Bundle Delivery Info"] = bundleDeliveryInfo; // Keep line item property for cart display
+          formData.delete("bundleDelivery");
         }
 
         // Add properties to formData in Shopify's format
