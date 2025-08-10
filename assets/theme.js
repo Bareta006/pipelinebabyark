@@ -21464,14 +21464,69 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                 });
                 console.log('✅ BUNDLE CART ATTRIBUTE ADDED');
                 
-                // Log final cart state
-                setTimeout(() => {
-                  fetch('/cart.js', { cache: 'no-store' })
-                    .then(r => r.json())
-                    .then(cart => {
-                      console.log('🛒 FINAL CART ATTRIBUTES:', cart.attributes);
-                    });
-                }, 200);
+                                 // Log final cart state
+                 setTimeout(() => {
+                   fetch('/cart.js', { cache: 'no-store' })
+                     .then(r => r.json())
+                     .then(cart => {
+                       console.log('🛒 FINAL CART ATTRIBUTES:', cart.attributes);
+                     });
+                 }, 200);
+                 
+                 // Set up cleanup monitoring for this bundle
+                 window.setupBundleCleanup = window.setupBundleCleanup || function() {
+                   // Monitor cart changes for cleanup
+                   const originalFetch = window.fetch;
+                   window.fetch = function(...args) {
+                     const result = originalFetch(...args);
+                     
+                     if (args[0] && (args[0].includes('/cart/change.js') || args[0].includes('/cart/clear.js'))) {
+                       result.then(() => {
+                         setTimeout(() => {
+                           fetch('/cart.js', { cache: 'no-store' })
+                             .then(r => r.json())
+                             .then(cart => {
+                               // Get current bundle variant IDs in cart
+                               const currentBundleVariants = cart.items
+                                 .filter(item => item.properties && item.properties['Bundle Delivery Info'])
+                                 .map(item => item.variant_id);
+                               
+                               // Find orphaned bundle delivery attributes
+                               const orphanedKeys = {};
+                               Object.keys(cart.attributes).forEach(key => {
+                                 if (key.startsWith('Bundle_Delivery_')) {
+                                   const variantId = parseInt(key.split('_')[2]);
+                                   if (!currentBundleVariants.includes(variantId)) {
+                                     orphanedKeys[key] = ''; // Empty string removes attribute
+                                     console.log('🗑️ REMOVING ORPHANED BUNDLE ATTRIBUTE:', key);
+                                   }
+                                 }
+                               });
+                               
+                               // Remove orphaned attributes
+                               if (Object.keys(orphanedKeys).length > 0) {
+                                 fetch('/cart/update.js', {
+                                   method: 'POST',
+                                   headers: {'Content-Type': 'application/json'},
+                                   body: JSON.stringify({attributes: orphanedKeys})
+                                 }).then(() => {
+                                   console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
+                                 });
+                               }
+                             });
+                         }, 300);
+                       });
+                     }
+                     
+                     return result;
+                   };
+                 };
+                 
+                 // Initialize cleanup monitoring
+                 if (!window.bundleCleanupInitialized) {
+                   window.setupBundleCleanup();
+                   window.bundleCleanupInitialized = true;
+                 }
               } catch (error) {
                 console.error('❌ FAILED TO ADD BUNDLE CART ATTRIBUTE:', error);
               }
