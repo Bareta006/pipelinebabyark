@@ -21441,17 +21441,36 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           formData.append(`properties[${key}]`, value);
         }
 
-        // NEW: Add cart attribute for bundles (for email persistence)
-        console.log("🔍 Checking for bundle delivery:", window.currentBundleDelivery);
+        // Store bundle delivery for cart attribute update after add-to-cart
+        let bundleDeliveryForCart = null;
         if (window.currentBundleDelivery) {
-          const uniqueKey = `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`;
-          formData.append(`attributes[${uniqueKey}]`, window.currentBundleDelivery.deliveryInfo);
-          console.log("🏪 Added cart attribute:", uniqueKey, "=", window.currentBundleDelivery.deliveryInfo);
-        } else {
-          console.log("❌ No bundle delivery found - either not a bundle or no delivery info");
+          bundleDeliveryForCart = {
+            key: `Bundle_Delivery_${window.currentBundleDelivery.variantId}_${Date.now()}`,
+            value: window.currentBundleDelivery.deliveryInfo
+          };
+          console.log("🏪 Prepared bundle delivery for cart attribute:", bundleDeliveryForCart);
         }
         this.addToCart(formData)
-          .then(this.handleSuccess.bind(this))
+          .then((response) => {
+            // Update cart attributes for bundles after successful add-to-cart
+            if (bundleDeliveryForCart) {
+              console.log("🔄 Updating cart attributes after add-to-cart...");
+              const attributeData = {};
+              attributeData[bundleDeliveryForCart.key] = bundleDeliveryForCart.value;
+              
+              fetch(window.Shopify.routes.root + 'cart/update.js', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({attributes: attributeData})
+              }).then(() => {
+                console.log("✅ Cart attribute updated:", bundleDeliveryForCart.key, "=", bundleDeliveryForCart.value);
+              }).catch((error) => {
+                console.error("❌ Failed to update cart attribute:", error);
+              });
+            }
+            
+            return this.handleSuccess(response);
+          })
           .catch(this.handleError.bind(this));
       },
       handleSuccess(response) {
