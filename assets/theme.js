@@ -21446,8 +21446,8 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
           .then(async (response) => {
             // Add cart attributes for bundle delivery AFTER successful cart add
             if (bundleDeliveryInfo) {
-              const uniqueKey = `Bundle_Delivery_${response.data.variant_id}_${Date.now()}`;
-              console.log('📦 ADDING BUNDLE CART ATTRIBUTE:', uniqueKey, bundleDeliveryInfo);
+                             const uniqueKey = `Bundle_Delivery_${response.data.variant_id}_${Date.now()}`;
+               // console.log('📦 ADDING BUNDLE CART ATTRIBUTE:', uniqueKey, bundleDeliveryInfo);
               
               try {
                 await fetch('/cart/update.js', {
@@ -21462,16 +21462,16 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                     }
                   })
                 });
-                console.log('✅ BUNDLE CART ATTRIBUTE ADDED');
-                
-                                 // Log final cart state
-                 setTimeout(() => {
-                   fetch('/cart.js', { cache: 'no-store' })
-                     .then(r => r.json())
-                     .then(cart => {
-                       console.log('🛒 FINAL CART ATTRIBUTES:', cart.attributes);
-                     });
-                 }, 200);
+                                 // console.log('✅ BUNDLE CART ATTRIBUTE ADDED');
+                 
+                 // Log final cart state
+                 // setTimeout(() => {
+                 //   fetch('/cart.js', { cache: 'no-store' })
+                 //     .then(r => r.json())
+                 //     .then(cart => {
+                 //       console.log('🛒 FINAL CART ATTRIBUTES:', cart.attributes);
+                 //     });
+                 // }, 200);
                  
                  // Set up cleanup monitoring for this bundle
                  window.setupBundleCleanup = window.setupBundleCleanup || function() {
@@ -21496,10 +21496,10 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                                Object.keys(cart.attributes).forEach(key => {
                                  if (key.startsWith('Bundle_Delivery_')) {
                                    const variantId = parseInt(key.split('_')[2]);
-                                   if (!currentBundleVariants.includes(variantId)) {
-                                     orphanedKeys[key] = ''; // Empty string removes attribute
-                                     console.log('🗑️ REMOVING ORPHANED BUNDLE ATTRIBUTE:', key);
-                                   }
+                                                                       if (!currentBundleVariants.includes(variantId)) {
+                                      orphanedKeys[key] = ''; // Empty string removes attribute
+                                      // console.log('🗑️ REMOVING ORPHANED BUNDLE ATTRIBUTE:', key);
+                                    }
                                  }
                                });
                                
@@ -21509,9 +21509,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                                    method: 'POST',
                                    headers: {'Content-Type': 'application/json'},
                                    body: JSON.stringify({attributes: orphanedKeys})
-                                 }).then(() => {
-                                   console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
-                                 });
+                                                                   }).then(() => {
+                                    // console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
+                                  });
                                }
                              });
                          }, 300);
@@ -21527,9 +21527,9 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
                    window.setupBundleCleanup();
                    window.bundleCleanupInitialized = true;
                  }
-              } catch (error) {
-                console.error('❌ FAILED TO ADD BUNDLE CART ATTRIBUTE:', error);
-              }
+                               } catch (error) {
+                   // console.error('❌ FAILED TO ADD BUNDLE CART ATTRIBUTE:', error);
+                 }
             }
             
             return this.handleSuccess(response);
@@ -22299,36 +22299,36 @@ ${expression ? 'Expression: "' + expression + '"\n\n' : ""}`,
 
 // BUNDLE ATTRIBUTE CLEANUP FUNCTION
 window.cleanupBundleAttributes = function() {
-  console.log('🧹 CLEANING UP BUNDLE ATTRIBUTES...');
+  // console.log('🧹 CLEANING UP BUNDLE ATTRIBUTES...');
   
   fetch('/cart.js', { cache: 'no-store' })
     .then(r => r.json())
     .then(cart => {
-      console.log('📊 Current cart items:', cart.items.length);
-      console.log('📊 Current cart attributes:', cart.attributes);
+      // console.log('📊 Current cart items:', cart.items.length);
+      // console.log('📊 Current cart attributes:', cart.attributes);
       
       // Get current bundle variant IDs in cart
       const currentBundleVariants = cart.items
         .filter(item => item.properties && item.properties['Bundle Delivery Info'])
         .map(item => item.variant_id);
       
-      console.log('📦 Bundle variants in cart:', currentBundleVariants);
+      // console.log('📦 Bundle variants in cart:', currentBundleVariants);
       
       // Find orphaned bundle delivery attributes
       const orphanedKeys = {};
       Object.keys(cart.attributes).forEach(key => {
         if (key.startsWith('Bundle_Delivery_')) {
           const variantId = parseInt(key.split('_')[2]);
-          console.log(`🔍 Checking attribute ${key} for variant ${variantId}`);
+          // console.log(`🔍 Checking attribute ${key} for variant ${variantId}`);
           
           if (!currentBundleVariants.includes(variantId)) {
             orphanedKeys[key] = ''; // Empty string removes attribute
-            console.log('🗑️ MARKING FOR REMOVAL:', key);
+            // console.log('🗑️ MARKING FOR REMOVAL:', key);
           }
         }
       });
       
-      console.log('🗑️ Orphaned keys to remove:', orphanedKeys);
+      // console.log('🗑️ Orphaned keys to remove:', orphanedKeys);
       
       // Remove orphaned attributes
       if (Object.keys(orphanedKeys).length > 0) {
@@ -22337,21 +22337,21 @@ window.cleanupBundleAttributes = function() {
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({attributes: orphanedKeys})
         }).then(() => {
-          console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
+          // console.log('✅ CLEANED UP ORPHANED BUNDLE ATTRIBUTES');
           
           // Log final state
-          return fetch('/cart.js', { cache: 'no-store' })
-            .then(r => r.json())
-            .then(finalCart => {
-              console.log('🛒 FINAL CART ATTRIBUTES AFTER CLEANUP:', finalCart.attributes);
-            });
+          // return fetch('/cart.js', { cache: 'no-store' })
+          //   .then(r => r.json())
+          //   .then(finalCart => {
+          //     console.log('🛒 FINAL CART ATTRIBUTES AFTER CLEANUP:', finalCart.attributes);
+          //   });
         });
       } else {
-        console.log('✅ NO ORPHANED ATTRIBUTES FOUND');
+        // console.log('✅ NO ORPHANED ATTRIBUTES FOUND');
       }
     })
     .catch(error => {
-      console.error('❌ CLEANUP ERROR:', error);
+      // console.error('❌ CLEANUP ERROR:', error);
     });
 };
 
