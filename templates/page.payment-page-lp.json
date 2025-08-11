@@ -217,10 +217,9 @@
             "icon_color": "#4B4B4B",
             "icon_size": 24,
             "icon_name_1": "icon-animal",
-            "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
+            "icon_image_1": "shopify://shop_images/paysquad.CU-fqJVN_1.svg",
             "icon_kicker_1": "",
-            "icon_name_2": "icon-animal-paw",
-            "icon_image_2": "shopify://shop_images/klarna.DBYYkMwk_1.svg",
+            "icon_name_2": "none",
             "icon_kicker_2": "",
             "icon_name_3": "none",
             "icon_kicker_3": "",
@@ -235,14 +234,14 @@
         "heading_c966PY": {
           "type": "heading",
           "settings": {
-            "heading": "Buy Now Pay Later",
+            "heading": "Buy Now Pay Together",
             "text_size": 7
           }
         },
         "text_LGatXi": {
           "type": "text",
           "settings": {
-            "text": "<p>With Affirm or Klarna, enter a few key details about yourself and the length of time and level of installment you prefer. You can then select the monthly payment schedule that works for you from the options you are given. Pay as you go, take home safety features that last a lifetime. Checking your eligibility does not impact your credit score.</p>",
+            "text": "<p>Parenting takes a village, so why not pay with your squad? Split the payments among multiple parties, making babyark a great choice for a group purchase or shower gift. Allow as many or as few as you want to pool together and give a present that makes a true quality-of-life and peace of mind impact. Paysquad brings you safety you can count on, from friends and family you always have. </p>",
             "text_size": 5,
             "text_columns": 1
           }
@@ -273,10 +272,10 @@
             "timeline_color": "#000000",
             "text_color_timeline": "#ffffff",
             "text_alignment": "text-center",
-            "step_text_1": "Fill Your Cart and Go to Checkout",
-            "step_text_2": "Select Payment Method",
-            "step_text_3": "Check Eligibility",
-            "step_text_4": "Select Your Plan",
+            "step_text_1": "Fill Your Cartwith babyark",
+            "step_text_2": "Select Paysquad at Checkout",
+            "step_text_3": "Invite Others to Contribute",
+            "step_text_4": "At 100%, it's Done!",
             "step_text_5": ""
           }
         }
