@@ -61,7 +61,7 @@
         "button_JUAMpJ"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; } .hero__cta__wrapper{align-items: center; }}"
+        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size:36px }}"
       ],
       "name": "Image banner",
       "settings": {
