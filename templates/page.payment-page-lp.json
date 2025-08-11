@@ -106,14 +106,6 @@
     "section_richtext_hjXJ86": {
       "type": "section-richtext",
       "blocks": {
-        "kicker_X9pjV4": {
-          "type": "kicker",
-          "settings": {
-            "kicker": "Introducing",
-            "enable_line": true,
-            "text_size": 4
-          }
-        },
         "icon_PN67LG": {
           "type": "icon",
           "settings": {
@@ -174,11 +166,14 @@
         }
       },
       "block_order": [
-        "kicker_X9pjV4",
         "icon_PN67LG",
         "heading_pTDjHx",
         "text_zFzFhk",
         "button_UhrMay"
+      ],
+      "custom_css": [
+        ".standard__icon {flex: 0 0;}",
+        ".standard__icon{display:flex; justify-content: center; align-items: center;}"
       ],
       "name": "Rich text",
       "settings": {
