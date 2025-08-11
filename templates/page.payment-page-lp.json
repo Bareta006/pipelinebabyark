@@ -189,7 +189,8 @@
         ".standard__icon {flex: 0 0; margin-bottom: 0;}",
         ".standard__icons {display: flex; justify-content: center; align-items: center;}",
         ".standard__icon__holder {width: 78px; height: 48px;}",
-        ".wrapper--full .text__standard >div {width:800px; max-width:100%; margin:0 auto;}"
+        ".wrapper--full .text__standard {border-radius: 30px;background-color: #FAFAFA;}",
+        ".wrapper--full .text__standard > div {width: 800px; max-width: 100%; margin: 0 auto;}"
       ],
       "name": "Rich text",
       "settings": {
