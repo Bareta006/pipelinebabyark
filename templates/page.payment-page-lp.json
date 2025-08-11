@@ -132,14 +132,14 @@
         "heading_pTDjHx": {
           "type": "heading",
           "settings": {
-            "heading": "Rich text",
-            "text_size": 8
+            "heading": "Buy Now Pay Later",
+            "text_size": 6
           }
         },
         "text_zFzFhk": {
           "type": "text",
           "settings": {
-            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text": "<p>With Affirm or Klarna, enter a few key details about yourself and the length of time and level of installment you prefer. You can then select the monthly payment schedule that works for you from the options you are given. Pay as you go, take home safety features that last a lifetime. Checking your eligibility does not impact your credit score.</p>",
             "text_size": 4,
             "text_columns": 1
           }
@@ -147,12 +147,12 @@
         "button_UhrMay": {
           "type": "button",
           "settings": {
-            "link_text_1": "Shop all",
-            "link_1": "shopify://collections/all",
-            "button_size_1": "btn--medium",
-            "button_style_1": "btn-text-thick-line",
+            "link_text_1": "START SHOPPING",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
             "button_color_1": "btn--neutral",
-            "link_text_2": "Learn more",
+            "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--medium",
             "button_style_2": "btn-text-thick-line",
@@ -178,10 +178,10 @@
       ],
       "name": "Rich text",
       "settings": {
-        "align_text": "text-left",
+        "align_text": "text-center",
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
-        "content_width": 2000,
+        "content_width": 800,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
