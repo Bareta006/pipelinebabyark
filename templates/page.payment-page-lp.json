@@ -191,7 +191,110 @@
         ".standard__icon__holder {width: 78px; height: 48px;}",
         ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}",
         ".wrapper--full .text__standard > div {width: 800px; max-width: 100%; margin: 0 auto;}",
-        "@media (max-width:480px){.wrapper--full .text__standard {padding:30px 10px; }}"
+        "@media (max-width: 480px) {.wrapper--full .text__standard {padding: 30px 10px; }}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_ckpPVW": {
+      "type": "section-richtext",
+      "blocks": {
+        "icon_HeLmij": {
+          "type": "icon",
+          "settings": {
+            "kicker_size": 3,
+            "items_per_row": "2",
+            "icon_color": "#4B4B4B",
+            "icon_size": 24,
+            "icon_name_1": "icon-animal",
+            "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
+            "icon_kicker_1": "",
+            "icon_name_2": "icon-animal-paw",
+            "icon_image_2": "shopify://shop_images/klarna.DBYYkMwk_1.svg",
+            "icon_kicker_2": "",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": ""
+          }
+        },
+        "heading_c966PY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Buy Now Pay Later",
+            "text_size": 7
+          }
+        },
+        "text_LGatXi": {
+          "type": "text",
+          "settings": {
+            "text": "<p>With Affirm or Klarna, enter a few key details about yourself and the length of time and level of installment you prefer. You can then select the monthly payment schedule that works for you from the options you are given. Pay as you go, take home safety features that last a lifetime. Checking your eligibility does not impact your credit score.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "button_xpL7CM": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "START SHOPPING",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        },
+        "timeline_UzfGER": {
+          "type": "timeline",
+          "settings": {
+            "timeline_color": "#000000",
+            "text_color_timeline": "#ffffff",
+            "text_alignment": "text-center",
+            "step_text_1": "Fill Your Cart and Go to Checkout",
+            "step_text_2": "Select Payment Method",
+            "step_text_3": "Check Eligibility",
+            "step_text_4": "Select Your Plan",
+            "step_text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_HeLmij",
+        "heading_c966PY",
+        "text_LGatXi",
+        "button_xpL7CM",
+        "timeline_UzfGER"
+      ],
+      "custom_css": [
+        ".standard__icon {flex: 0 0; margin-bottom: 0;}",
+        ".standard__icons {display: flex; justify-content: center; align-items: center;}",
+        ".standard__icon__holder {width: 78px; height: 48px;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}",
+        ".wrapper--full .text__standard > div {width: 800px; max-width: 100%; margin: 0 auto;}",
+        ".standard__heading {font-size: 36px;}",
+        ".rte p{font-size:20px;}",
+        "@media (max-width: 480px) {.standard__heading {font-size: 30px; } .wrapper--full .text__standard {padding: 30px 10px; }}"
       ],
       "name": "Rich text",
       "settings": {
@@ -208,6 +311,7 @@
   "order": [
     "section_hero_Jgc9Wy",
     "main",
-    "section_richtext_hjXJ86"
+    "section_richtext_hjXJ86",
+    "section_richtext_ckpPVW"
   ]
 }
