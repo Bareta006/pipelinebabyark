@@ -194,7 +194,7 @@
       "settings": {
         "align_text": "text-center",
         "text_color": "text--black",
-        "bg": "palette--light bg--accent",
+        "bg": "palette--light bg--neutral",
         "content_width": 800,
         "width": "wrapper--full",
         "padding_top": 36,
