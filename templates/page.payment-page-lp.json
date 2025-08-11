@@ -382,13 +382,7 @@
         "text_block_GLMGPb",
         "text_block_FyVPqn"
       ],
-      "custom_css": [
-        ".kicker-flourished {font-family: \"centrano2\"; font-style: normal; font-weight: 400; text-transform: none; font-size: 40px; letter-spacing: -0.4px;}",
-        ".index__column {background-color: #2f2d2d; color: #fff; border-radius: 30px; padding: 40px 30px !important;}",
-        ".column__image {display: none;}",
-        "div[data-grid]{gap:28px; flex-wrap:nowrap;}",
-        "@media (max-width: 480px) {.kicker-flourished {font-size: 30px; }}"
-      ],
+      "custom_css": [],
       "name": "Text columns with images",
       "settings": {
         "title": "Payment Plans You Can Trust",
@@ -404,6 +398,13 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_liquid_fwkRiP": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<style>\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 40px 30px !important;\n}\n.section-columns .column__image {\n  display: none;\n}\n.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns .rte p{\n  font-size: 20px;\n}\n@media (max-width: 480px) {\n  .section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns .rte p{\n  font-size: 1px;\n}\n}\n</style>"
+      }
     }
   },
   "order": [
@@ -411,6 +412,7 @@
     "main",
     "section_richtext_hjXJ86",
     "section_richtext_ckpPVW",
-    "section_columns_6XCpjt"
+    "section_columns_6XCpjt",
+    "section_liquid_fwkRiP"
   ]
 }
