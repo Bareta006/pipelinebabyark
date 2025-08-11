@@ -173,7 +173,8 @@
       ],
       "custom_css": [
         ".standard__icon {flex: 0 0;}",
-        ".standard__icon{display:flex; justify-content: center; align-items: center;}"
+        ".standard__icon {display: flex; justify-content: center; align-items: center;}",
+        ".standard__icon img{height:48px; width:78px; width:auto; }"
       ],
       "name": "Rich text",
       "settings": {
