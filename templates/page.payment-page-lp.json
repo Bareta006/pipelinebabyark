@@ -382,6 +382,10 @@
         "text_block_GLMGPb",
         "text_block_FyVPqn"
       ],
+      "custom_css": [
+        ".kicker-flourished {font-family: \"centrano2\"; font-style: normal; font-weight: 400; text-transform: none; font-size: 40px; letter-spacing: -0.4px;}",
+        "@media (max-width: 480px) {.kicker-flourished {font-size: 30px; }}"
+      ],
       "name": "Text columns with images",
       "settings": {
         "title": "Payment Plans You Can Trust",
