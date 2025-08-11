@@ -163,13 +163,27 @@
             "button_style_3": "btn-text-thick-line",
             "button_color_3": "btn--white"
           }
+        },
+        "timeline_dB4JWc": {
+          "type": "timeline",
+          "settings": {
+            "timeline_color": "#000000",
+            "text_color_timeline": "#ffffff",
+            "text_alignment": "text-center",
+            "step_text_1": "Fill Your Cart and Go to Checkout",
+            "step_text_2": "Select Payment Method",
+            "step_text_3": "Check Eligibility",
+            "step_text_4": "Select Your Plan",
+            "step_text_5": ""
+          }
         }
       },
       "block_order": [
         "icon_PN67LG",
         "heading_pTDjHx",
         "text_zFzFhk",
-        "button_UhrMay"
+        "button_UhrMay",
+        "timeline_dB4JWc"
       ],
       "custom_css": [
         ".standard__icon {flex: 0 0; margin-bottom: 0;}",
