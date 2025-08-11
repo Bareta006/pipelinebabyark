@@ -384,6 +384,8 @@
       ],
       "custom_css": [
         ".kicker-flourished {font-family: \"centrano2\"; font-style: normal; font-weight: 400; text-transform: none; font-size: 40px; letter-spacing: -0.4px;}",
+        ".index__column {background-color: #2f2d2d; color: #fff; border-radius: 30px; padding: 40px 30px !important;}",
+        ".column__image{display:none;}",
         "@media (max-width: 480px) {.kicker-flourished {font-size: 30px; }}"
       ],
       "name": "Text columns with images",
