@@ -188,7 +188,8 @@
       "custom_css": [
         ".standard__icon {flex: 0 0; margin-bottom: 0;}",
         ".standard__icons {display: flex; justify-content: center; align-items: center;}",
-        ".standard__icon__holder {width: 78px; height: 48px;}"
+        ".standard__icon__holder {width: 78px; height: 48px;}",
+        ".wrapper--full .text__standard {background-color: #FAFAFA; border-radius: 30px;}"
       ],
       "name": "Rich text",
       "settings": {
