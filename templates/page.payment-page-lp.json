@@ -307,12 +307,103 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_columns_6XCpjt": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_DazCfx": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Flexible",
+            "text": "<p>Choose the payment schedule that works for you. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_8d6TLX": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Transparent",
+            "text": "<p>Know what you’ll pay and for <br/>how long. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_GLMGPb": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Fair",
+            "text": "<p>No hidden or late fees, no surprises. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_FyVPqn": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Secure",
+            "text": "<p>We only work with approved vendors, and value your privacy and security.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_DazCfx",
+        "text_block_8d6TLX",
+        "text_block_GLMGPb",
+        "text_block_FyVPqn"
+      ],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Payment Plans You Can Trust",
+        "bg": "palette--light bg--neutral",
+        "align_text": "text-center",
+        "scale_image": false,
+        "wh_ratio": 1,
+        "grid_large": 4,
+        "grid_medium": 2,
+        "grid_mobile": 2,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_Jgc9Wy",
     "main",
     "section_richtext_hjXJ86",
-    "section_richtext_ckpPVW"
+    "section_richtext_ckpPVW",
+    "section_columns_6XCpjt"
   ]
 }
