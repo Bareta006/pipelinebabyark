@@ -1,0 +1,196 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_hero_Jgc9Wy": {
+      "type": "section-hero",
+      "blocks": {
+        "heading_6WJzqV": {
+          "type": "heading",
+          "settings": {
+            "title": "The Car Seat You Want.",
+            "text_size": 8
+          }
+        },
+        "heading_cxNA4p": {
+          "type": "heading",
+          "settings": {
+            "title": "The Payment Options You Need.",
+            "text_size": 8
+          }
+        },
+        "text_ycGmrn": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>Premium car seat safety you can afford - payment options to make peace of mind a part of any budget. </p>",
+            "text_size": 6
+          }
+        },
+        "button_JUAMpJ": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "SHOP BABYARK",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_6WJzqV",
+        "heading_cxNA4p",
+        "text_ycGmrn",
+        "button_JUAMpJ"
+      ],
+      "custom_css": [
+        ".hero__title {font-size: 50px;}",
+        ".hero__description {font-size: 24px;}",
+        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; } .hero__description {font-size: 20px; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/045A9091_1_2.png",
+        "mobile_image": "shopify://shop_images/Rectangle_1486127358_2.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000",
+        "enable_overlay_text": true,
+        "preload_image": true,
+        "content_width": 900,
+        "text_align": "align--middle-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_hjXJ86": {
+      "type": "section-richtext",
+      "blocks": {
+        "icon_PN67LG": {
+          "type": "icon",
+          "settings": {
+            "kicker_size": 3,
+            "items_per_row": "2",
+            "icon_color": "#4B4B4B",
+            "icon_size": 24,
+            "icon_name_1": "icon-animal",
+            "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
+            "icon_kicker_1": "",
+            "icon_name_2": "icon-animal-paw",
+            "icon_image_2": "shopify://shop_images/klarna.DBYYkMwk_1.svg",
+            "icon_kicker_2": "",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": ""
+          }
+        },
+        "heading_pTDjHx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Buy Now Pay Later",
+            "text_size": 6
+          }
+        },
+        "text_zFzFhk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>With Affirm or Klarna, enter a few key details about yourself and the length of time and level of installment you prefer. You can then select the monthly payment schedule that works for you from the options you are given. Pay as you go, take home safety features that last a lifetime. Checking your eligibility does not impact your credit score.</p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "button_UhrMay": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "START SHOPPING",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "icon_PN67LG",
+        "heading_pTDjHx",
+        "text_zFzFhk",
+        "button_UhrMay"
+      ],
+      "custom_css": [
+        ".standard__icon {flex: 0 0; margin-bottom: 0;}",
+        ".standard__icons {display: flex; justify-content: center; align-items: center;}",
+        ".standard__icon__holder {width: 78px; height: 48px;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "content_width": 800,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "section_hero_Jgc9Wy",
+    "main",
+    "section_richtext_hjXJ86"
+  ]
+}
