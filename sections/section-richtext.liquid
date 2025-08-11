@@ -40,7 +40,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   position: relative;
   width: 100%;
 }
@@ -77,8 +77,8 @@
 }
 
 #shopify-section-{{ section.id }} .timeline__text {
-  font-size: 24px;
-  line-height: 1.4;
+  font-size: 18px;
+  line-height: 1.2;
   text-align: center;
   max-width: 150px;
   word-wrap: break-word;
@@ -100,7 +100,8 @@
 @media (max-width: 749px) {
   #shopify-section-{{ section.id }} .timeline__container {
     max-width: 100%;
-    padding: 0 1rem;
+    padding: 0 0rem;
+    margin-top: 10px;
   }
   
   #shopify-section-{{ section.id }} .timeline__circle {
