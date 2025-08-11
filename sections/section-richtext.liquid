@@ -20,27 +20,29 @@
 <style>
 #shopify-section-{{ section.id }} .timeline__container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
-  gap: 0;
   position: relative;
   width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 #shopify-section-{{ section.id }} .timeline__item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 1;
   position: relative;
+  flex: 1;
 }
 
 #shopify-section-{{ section.id }} .timeline__step {
   display: flex;
   align-items: center;
-  margin-bottom: 1rem;
-  width: 100%;
   justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+  width: 100%;
 }
 
 #shopify-section-{{ section.id }} .timeline__circle {
@@ -60,17 +62,27 @@
 }
 
 #shopify-section-{{ section.id }} .timeline__line {
-  flex: 1;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 30px);
+  right: calc(-50% + 30px);
   height: 4px;
   background-color: var(--timeline-bg);
-  margin-left: 1rem;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+#shopify-section-{{ section.id }} .timeline__item:last-child .timeline__line {
+  display: none;
 }
 
 #shopify-section-{{ section.id }} .timeline__text {
   font-size: 24px;
   line-height: 1.4;
-  max-width: 200px;
+  text-align: center;
+  max-width: 150px;
   word-wrap: break-word;
+  margin-top: 0.5rem;
 }
 
 #shopify-section-{{ section.id }} .timeline__item.text-left .timeline__text {
@@ -86,6 +98,11 @@
 }
 
 @media (max-width: 749px) {
+  #shopify-section-{{ section.id }} .timeline__container {
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+  
   #shopify-section-{{ section.id }} .timeline__circle {
     width: 40px;
     height: 40px;
@@ -94,9 +111,12 @@
   
   #shopify-section-{{ section.id }} .timeline__text {
     font-size: 16px;
+    max-width: 120px;
   }
   
   #shopify-section-{{ section.id }} .timeline__line {
+    left: calc(50% + 20px);
+    right: calc(-50% + 20px);
     height: 2px;
   }
 }
@@ -263,9 +283,7 @@
                       <div class="timeline__item {{ block.settings.text_alignment }}">
                         <div class="timeline__step">
                           <div class="timeline__circle">{{ current_item }}</div>
-                          {%- unless current_item == timeline_items -%}
-                            <div class="timeline__line"></div>
-                          {%- endunless -%}
+                          <div class="timeline__line"></div>
                         </div>
                         <div class="timeline__text">{{ block.settings[step_text] }}</div>
                       </div>
