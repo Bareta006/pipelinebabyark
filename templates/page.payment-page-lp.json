@@ -61,8 +61,9 @@
         "button_JUAMpJ"
       ],
       "custom_css": [
-        ".hero__title {font-size: 50px; }",
-        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; }}"
+        ".hero__title {font-size: 50px;}",
+        ".hero__description {font-size: 24px;}",
+        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; } .hero__description {font-size: 20px; }}"
       ],
       "name": "Image banner",
       "settings": {
@@ -74,7 +75,7 @@
         "overlay_color": "#000",
         "enable_overlay_text": true,
         "preload_image": true,
-        "content_width": 800,
+        "content_width": 900,
         "text_align": "align--middle-left",
         "text_color": "text--white",
         "color_bg": "hero__content--transparent",
