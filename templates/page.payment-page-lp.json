@@ -102,10 +102,99 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_richtext_hjXJ86": {
+      "type": "section-richtext",
+      "blocks": {
+        "kicker_X9pjV4": {
+          "type": "kicker",
+          "settings": {
+            "kicker": "Introducing",
+            "enable_line": true,
+            "text_size": 4
+          }
+        },
+        "icon_PN67LG": {
+          "type": "icon",
+          "settings": {
+            "kicker_size": 3,
+            "items_per_row": "2",
+            "icon_color": "#4B4B4B",
+            "icon_size": 24,
+            "icon_name_1": "icon-animal",
+            "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
+            "icon_kicker_1": "",
+            "icon_name_2": "icon-animal-paw",
+            "icon_image_2": "shopify://shop_images/klarna.DBYYkMwk_1.svg",
+            "icon_kicker_2": "",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": ""
+          }
+        },
+        "heading_pTDjHx": {
+          "type": "heading",
+          "settings": {
+            "heading": "Rich text",
+            "text_size": 8
+          }
+        },
+        "text_zFzFhk": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Use this text to share information about your brand with your customers. Describe a product, share announcements, or welcome customers to your store.</p>",
+            "text_size": 4,
+            "text_columns": 1
+          }
+        },
+        "button_UhrMay": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Shop all",
+            "link_1": "shopify://collections/all",
+            "button_size_1": "btn--medium",
+            "button_style_1": "btn-text-thick-line",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "Learn more",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "kicker_X9pjV4",
+        "icon_PN67LG",
+        "heading_pTDjHx",
+        "text_zFzFhk",
+        "button_UhrMay"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-left",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_Jgc9Wy",
-    "main"
+    "main",
+    "section_richtext_hjXJ86"
   ]
 }
