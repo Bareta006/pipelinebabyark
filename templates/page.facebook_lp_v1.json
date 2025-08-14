@@ -12,21 +12,14 @@
     "section_hero_Jgc9Wy": {
       "type": "section-hero",
       "blocks": {
-        "heading_6WJzqV": {
-          "type": "heading",
-          "settings": {
-            "title": "Meet babyark,",
-            "text_size": 8
-          }
-        },
-        "heading_Cxd7Nd": {
-          "type": "heading",
-          "settings": {
-            "title": "For When You Want It All",
-            "text_size": 8
-          }
-        },
         "text_ycGmrn": {
+          "type": "text",
+          "settings": {
+            "richtext": "<h2>Meet babyark,<br/>For When You Want It All</h2>",
+            "text_size": 6
+          }
+        },
+        "text_w7ACB7": {
           "type": "text",
           "settings": {
             "richtext": "<p>The world’s most advanced car seat, combining patented performance engineering, protective design, smart connectivity and the highest-grade materials. Safety, reimagined.</p>",
@@ -55,9 +48,8 @@
         }
       },
       "block_order": [
-        "heading_6WJzqV",
-        "heading_Cxd7Nd",
         "text_ycGmrn",
+        "text_w7ACB7",
         "button_JUAMpJ"
       ],
       "custom_css": [
