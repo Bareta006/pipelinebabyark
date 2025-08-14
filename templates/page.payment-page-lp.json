@@ -512,7 +512,7 @@
             "title": "The Family Bundle",
             "text": "<p><em>$1,980</em> <strong>$1,800</strong></p>",
             "button_label": "SHOP BUNDLES",
-            "button_link": "shopify://products/the-foodie-bundle-smart",
+            "button_link": "shopify://products/the-family-bundle-smart",
             "button_color": "btn--neutral",
             "button_style": "btn--soft",
             "enable_video": false,
