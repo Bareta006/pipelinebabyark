@@ -285,7 +285,7 @@
     //console.log("RR Banner: RR_WCID found, initializing banner...");
 
     var bannerHeight = "80px";
-    var couponCode = "REFERARK";
+    var couponCode = checkUrlParam("couponCode") ? new URLSearchParams(window.location.search).get('couponCode') : "REFERARK";
     var fontFamily = "Montserrat";
     var fontSize = "14px";
     var bannerBackgroundColor = "#fff";
