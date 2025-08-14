@@ -461,7 +461,8 @@
         "card_m3BFUM"
       ],
       "custom_css": [
-        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}"
+        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}",
+        "@media (min-width:1024px){.card-with-buttons {padding-bottom: 83%;}}"
       ],
       "settings": {}
     }
