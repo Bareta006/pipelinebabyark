@@ -608,7 +608,8 @@
         "text_qkMkUA"
       ],
       "custom_css": [
-        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}"
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}",
+        ".wrapper--full .text__standard > *{width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;padding:0 10px;}"
       ],
       "name": "Accordion group",
       "settings": {
