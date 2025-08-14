@@ -403,7 +403,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n/*colum section*/\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns .column__image {\n  display: none;\n}\n.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns .kicker-flourished:after{\ndisplay:none;}\n@media (max-width: 480px) {\n  .section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n[data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>"
+        "custom_liquid": "<style>\n/*colum section*/\n.section-columns.palette--light.bg--neutral .kicker-flourished,\n.section-columns.palette--light.bg--neutral.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns .column__image {\n  display: none;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .kicker-flourished:after{\ndisplay:none;}\n@media (max-width: 480px) {\n  .section-columns.palette--light.bg--neutral.section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n.section-columns.palette--light.bg--neutral [data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>"
       }
     },
     "two_cards_section_rPrg7n": {
@@ -462,9 +462,82 @@
       ],
       "custom_css": [
         ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}",
-        "@media (min-width:1024px){.card-with-buttons {padding-bottom: 83%;}}"
+        "@media (min-width: 1024px) {.card-with-buttons {padding-bottom: 83%; }}"
       ],
       "settings": {}
+    },
+    "section_columns_xxPMmw": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_WidMRb": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add a video popup link to show a play button.  Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_zV37qD": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add a video popup link to show a play button.  Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_y4wtem": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add a video popup link to show a play button.  Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_WidMRb",
+        "text_block_zV37qD",
+        "text_block_y4wtem"
+      ],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Text columns with images",
+        "bg": "palette--light bg--accent",
+        "align_text": "text-center",
+        "scale_image": true,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.2,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -474,6 +547,7 @@
     "section_richtext_ckpPVW",
     "section_columns_6XCpjt",
     "section_liquid_fwkRiP",
-    "two_cards_section_rPrg7n"
+    "two_cards_section_rPrg7n",
+    "section_columns_xxPMmw"
   ]
 }
