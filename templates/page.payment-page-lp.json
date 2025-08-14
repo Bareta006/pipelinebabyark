@@ -72,7 +72,7 @@
         "mobile_image": "shopify://shop_images/Rectangle_1486127358_2.png",
         "height": "use_image",
         "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": true,
         "preload_image": true,
         "content_width": 900,
@@ -111,7 +111,7 @@
           "settings": {
             "kicker_size": 3,
             "items_per_row": "2",
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "icon_size": 24,
             "icon_name_1": "icon-animal",
             "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
@@ -214,7 +214,7 @@
           "settings": {
             "kicker_size": 3,
             "items_per_row": "2",
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "icon_size": 24,
             "icon_name_1": "icon-animal",
             "icon_image_1": "shopify://shop_images/paysquad.CU-fqJVN_1.svg",
@@ -405,6 +405,62 @@
       "settings": {
         "custom_liquid": "<style>\n/*colum section*/\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns .column__image {\n  display: none;\n}\n.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns .kicker-flourished:after{\ndisplay:none;}\n@media (max-width: 480px) {\n  .section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n[data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>"
       }
+    },
+    "two_cards_section_rPrg7n": {
+      "type": "two-cards-section",
+      "blocks": {
+        "card_6HDke8": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881146.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881122.png",
+            "title": "Shop Smart",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP SMART",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        },
+        "card_m3BFUM": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881147.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881143.png",
+            "title": "Shop Classic",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP CLASSIC",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-classic",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        }
+      },
+      "block_order": [
+        "card_6HDke8",
+        "card_m3BFUM"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -413,6 +469,7 @@
     "section_richtext_hjXJ86",
     "section_richtext_ckpPVW",
     "section_columns_6XCpjt",
-    "section_liquid_fwkRiP"
+    "section_liquid_fwkRiP",
+    "two_cards_section_rPrg7n"
   ]
 }
