@@ -61,7 +61,7 @@
         "button_JUAMpJ"
       ],
       "custom_css": [
-        ".hero__title {font-size: 50px;}",
+        ".hero__title {font-size: 38px;}",
         ".hero__description {font-size: 24px;}",
         "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; } .hero__description {font-size: 20px; }}"
       ],
@@ -72,10 +72,10 @@
         "mobile_image": "shopify://shop_images/Rectangle_1486127358_2.png",
         "height": "use_image",
         "overlay_opacity": 15,
-        "overlay_color": "#000",
+        "overlay_color": "#000000",
         "enable_overlay_text": true,
         "preload_image": true,
-        "content_width": 900,
+        "content_width": 800,
         "text_align": "align--middle-left",
         "text_color": "text--white",
         "color_bg": "hero__content--transparent",
@@ -111,7 +111,7 @@
           "settings": {
             "kicker_size": 3,
             "items_per_row": "2",
-            "icon_color": "#4B4B4B",
+            "icon_color": "#4b4b4b",
             "icon_size": 24,
             "icon_name_1": "icon-animal",
             "icon_image_1": "shopify://shop_images/affirm.CXRQDwwj_1.svg",
@@ -188,23 +188,531 @@
       "custom_css": [
         ".standard__icon {flex: 0 0; margin-bottom: 0;}",
         ".standard__icons {display: flex; justify-content: center; align-items: center;}",
-        ".standard__icon__holder {width: 78px; height: 48px;}"
+        ".standard__icon__holder {width: 78px; height: 48px;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}",
+        ".wrapper--full .text__standard > div {width: 800px; max-width: 100%; margin: 0 auto;}",
+        ".standard__heading {font-size: 36px;}",
+        ".rte p {font-size: 20px;}",
+        "@media (max-width: 480px) {.standard__heading {font-size: 30px; } .wrapper--full .text__standard {padding: 30px 10px; }}"
       ],
       "name": "Rich text",
       "settings": {
         "align_text": "text-center",
         "text_color": "text--black",
         "bg": "palette--light bg--neutral",
-        "content_width": 800,
+        "content_width": 2000,
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_ckpPVW": {
+      "type": "section-richtext",
+      "blocks": {
+        "icon_HeLmij": {
+          "type": "icon",
+          "settings": {
+            "kicker_size": 3,
+            "items_per_row": "2",
+            "icon_color": "#4b4b4b",
+            "icon_size": 24,
+            "icon_name_1": "icon-animal",
+            "icon_image_1": "shopify://shop_images/paysquad.CU-fqJVN_1.svg",
+            "icon_kicker_1": "",
+            "icon_name_2": "none",
+            "icon_kicker_2": "",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": ""
+          }
+        },
+        "heading_c966PY": {
+          "type": "heading",
+          "settings": {
+            "heading": "Buy Now Pay Together",
+            "text_size": 7
+          }
+        },
+        "text_LGatXi": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Parenting takes a village, so why not pay with your squad? Split the payments among multiple parties, making babyark a great choice for a group purchase or shower gift. Allow as many or as few as you want to pool together and give a present that makes a true quality-of-life and peace of mind impact. Paysquad brings you safety you can count on, from friends and family you always have. </p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "button_xpL7CM": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "START SHOPPING",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        },
+        "timeline_UzfGER": {
+          "type": "timeline",
+          "settings": {
+            "timeline_color": "#000000",
+            "text_color_timeline": "#ffffff",
+            "text_alignment": "text-center",
+            "step_text_1": "Fill Your Cartwith babyark",
+            "step_text_2": "Select Paysquad at Checkout",
+            "step_text_3": "Invite Others to Contribute",
+            "step_text_4": "At 100%, it's Done!",
+            "step_text_5": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_HeLmij",
+        "heading_c966PY",
+        "text_LGatXi",
+        "button_xpL7CM",
+        "timeline_UzfGER"
+      ],
+      "custom_css": [
+        ".standard__icon {flex: 0 0; margin-bottom: 0;}",
+        ".standard__icons {display: flex; justify-content: center; align-items: center;}",
+        ".standard__icon__holder {width: 78px; height: 48px;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 0px;}",
+        ".wrapper--full .text__standard > div {width: 800px; max-width: 100%; margin: 0 auto;}",
+        ".standard__heading {font-size: 36px;}",
+        ".rte p {font-size: 20px;}",
+        "@media (max-width: 480px) {.standard__heading {font-size: 30px; } .wrapper--full .text__standard {padding: 30px 10px; }}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_columns_6XCpjt": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_DazCfx": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Flexible",
+            "text": "<p>Choose the payment schedule that works for you. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_8d6TLX": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Transparent",
+            "text": "<p>Know what you’ll pay and for <br/>how long. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_GLMGPb": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Fair",
+            "text": "<p>No hidden or late fees, no surprises. </p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_FyVPqn": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Secure",
+            "text": "<p>We only work with approved vendors, and value your privacy and security.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_DazCfx",
+        "text_block_8d6TLX",
+        "text_block_GLMGPb",
+        "text_block_FyVPqn"
+      ],
+      "custom_css": [],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Payment Plans You Can Trust",
+        "bg": "palette--light bg--neutral",
+        "align_text": "text-center",
+        "scale_image": false,
+        "wh_ratio": 1,
+        "grid_large": 4,
+        "grid_medium": 2,
+        "grid_mobile": 2,
+        "progress_bar_mobile": false,
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "section_liquid_fwkRiP": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<style>\n/*colum section*/\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns.palette--light.bg--accent .accent-title-large {\n  font-size: 24px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns .column__image {\n  display: none;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns .kicker-flourished:after{\ndisplay:none;}\n.section-columns.palette--light.bg--accent .grid__item .rte p *:not(strong),.section-columns.palette--light.bg--accent .grid__item .rte p em{\ntext-decoration:line-through;font-style:normal;\n}\n@media (max-width: 480px) {\n.section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n.section-columns.palette--light.bg--neutral [data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>\n<style>\n.section-faq .standard__kicker {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 36px;\n  letter-spacing: -0.4px;\n}\n@media (max-width:480px){\n.section-faq .standard__kicker {\n  font-size: 30px;\n}}\n</style>"
+      }
+    },
+    "two_cards_section_rPrg7n": {
+      "type": "two-cards-section",
+      "blocks": {
+        "card_6HDke8": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881146.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881122.png",
+            "title": "Shop Smart",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP SMART",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        },
+        "card_m3BFUM": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881147.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881143.png",
+            "title": "Shop Classic",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP CLASSIC",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-classic",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        }
+      },
+      "block_order": [
+        "card_6HDke8",
+        "card_m3BFUM"
+      ],
+      "custom_css": [
+        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}",
+        "@media (min-width: 1024px) {.card-with-buttons {padding-bottom: 83%; }}"
+      ],
+      "settings": {}
+    },
+    "section_columns_xxPMmw": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_WidMRb": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127345_2.png",
+            "shape_class": "",
+            "title": "The Foodie Bundle",
+            "text": "<p><em>$1,168</em> <strong>$1,050</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-foodie-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_QfE4kG": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127373.png",
+            "shape_class": "",
+            "title": "The Bases Bundle",
+            "text": "<p><em>$1,480</em> <strong>$1,350</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-bases-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_qycfnw": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127374.png",
+            "shape_class": "",
+            "title": "The Family Bundle",
+            "text": "<p><em>$1,980</em> <strong>$1,800</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-family-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_WidMRb",
+        "text_block_QfE4kG",
+        "text_block_qycfnw"
+      ],
+      "custom_css": [
+        ".section-columns.palette--light.bg--accent {background-color: #fff;}"
+      ],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Bundle More For Less",
+        "bg": "palette--light bg--accent",
+        "align_text": "text-center",
+        "scale_image": false,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.1,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_faq_PTdhKC": {
+      "type": "section-faq",
+      "blocks": {
+        "text_X6eWcA": {
+          "type": "text",
+          "settings": {
+            "title": "Can I pay off my purchase early?",
+            "content": "<p>Yes! There’s no penalty for paying early.</p>"
+          }
+        },
+        "text_U98G3f": {
+          "type": "text",
+          "settings": {
+            "title": "How do I make my payments?",
+            "content": "<p>For Affirm, you can make or schedule payments at <a href=\"http://affirm.com/\" target=\"_blank\">affirm.com</a> or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p><p>For Klarna, you can pay off through their system similarly.</p>"
+          }
+        },
+        "text_WRKVF7": {
+          "type": "text",
+          "settings": {
+            "title": "Can I return an item I bought through a payment plan option?",
+            "content": "<p>Yes—you can return an item you bought with Affirm, Klarna, or Paysquad by initiating the return process with the store.<br/><br/></p>"
+          }
+        },
+        "text_rqd3PF": {
+          "type": "text",
+          "settings": {
+            "title": "Does checking my eligibility affect my credit score?",
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm or Klarna account or check your eligibility. If you decide to buy with Affirm or Klarna, this may impact your credit score. You can find more information in <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" target=\"_blank\" title=\"Klarna FAQ section\">Klarna's FAQ section</a> or <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center</a></p>"
+          }
+        },
+        "text_MraCcF": {
+          "type": "text",
+          "settings": {
+            "title": "Where can I learn more about Affirm or Klarna?",
+            "content": "<p>You can visit the <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" target=\"_blank\" title=\"https://www.klarna.com/us/customer-service/#faq-categories-list\">Klarna FAQ section</a> or the Affirm website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com.</a></p>"
+          }
+        },
+        "text_6BVerh": {
+          "type": "text",
+          "settings": {
+            "title": "Can I exchange a seat that has been used?",
+            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange. If you are still within the 100-day trial window, you are eligible for an exchange. Exchanges are treated as a return and repurchase process. </p><p>Here’s how it works:</p><p>Initiate a Return: Start the return process for your original purchase by contacting us at <a href=\"mailto:contact@babyark.com\" target=\"_blank\">contact@babyark.com</a> within 100 days of delivery.</p><p>Place a New Order: Order the replacement item you want directly through our website.</p>"
+          }
+        },
+        "text_qkMkUA": {
+          "type": "text",
+          "settings": {
+            "title": "Can Paysquad be used to purchase a babyark car seat?",
+            "content": "<p>We offer <a href=\"https://www.paysquad.co/\" target=\"_blank\" title=\"https://www.paysquad.co/\">Paysquad</a> as a payment option for babyark car seats, making them a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_X6eWcA",
+        "text_U98G3f",
+        "text_WRKVF7",
+        "text_rqd3PF",
+        "text_MraCcF",
+        "text_6BVerh",
+        "text_qkMkUA"
+      ],
+      "custom_css": [
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
+        ".wrapper--full .text__standard > * {width: 100%; max-width: 900px; margin: 0 auto; padding: 0 10px;}",
+        ".standard__kicker {margin-bottom: 40px !important;}"
+      ],
+      "name": "Accordion group",
+      "settings": {
+        "title": "babyark Payment Options FAQs",
+        "title_align": "text-center",
+        "title_size": 4,
+        "heading_size": 5,
+        "text_size": 5,
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "testimonials_carousel_EycE3j": {
+      "type": "testimonials-carousel",
+      "blocks": {
+        "testimonial_DgJRyU": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Trymore R.",
+            "testimonial_subject": "A great buy",
+            "testimonial_text": "This car seat is amazing. It looks and feels very comfortable for our young one. The safety features give us confidence and we travel with our young one worry free. Installation was easy with the short online videos they made. We love this car seat. It is worth the hype we heard before we purchased it.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_rfDFrK": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Ofelia Z.",
+            "testimonial_subject": "The best car seat",
+            "testimonial_text": "The seat is incredibly easy to set up. It seems comfortable for my 14 month old. He looks comfortable while sleeping too, as his head doesn’t bob forward. The side flap that is supposed to direct the force towards the back of the seat in case of a side impact gives me an extra sense of security. A nice plus is that the seat looks really nice and stylish. Overall I love it and will be getting another for my second child.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_7EAmN7": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Jennifer P.",
+            "testimonial_subject": "Stylish & Safe Car Seat!",
+            "testimonial_text": "As a first-time mom, finding the right car seat for my little one was a big decision, and the babyark has been a game changer. It’s unbelievable how much easier it’s been to get her in and out. The harness is simple to adjust with one hand and the magnetic buckles make it quick to strap her in. I also love how secure I feel knowing it’s built with side-impact protection and how it meets all the safety standards.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_faHGEj": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Erica M.",
+            "testimonial_subject": "We love this car seat!",
+            "testimonial_text": "We were on the fence if we needed to buy a new car seat for our daughter. But she kept screaming every time we put her in her infant seat. We pulled the plug and bought the babyark after hours of comparisons and reading blogs. First ride we got a huge smile in the rear view mirror. She even giggled for my husband as he started the car. She loves this seat and we love all the safety features and convenience of how it is designed. Thank you for making a seat that makes us feel safe!",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        },
+        "testimonial_M93m7m": {
+          "type": "testimonial",
+          "settings": {
+            "author_name": "Brittany W.",
+            "testimonial_subject": "Exactly what I wanted in a convertible car seat",
+            "testimonial_text": "After an exhausting search for convertible car seats and not being happy with anything on the market I found babyark. I wanted something that shared the features my infant car seat had and no other convertible car seats offered that.",
+            "review_link_text": "Read full review",
+            "review_link_url": "https://babyark.com/pages/reviews"
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_DgJRyU",
+        "testimonial_rfDFrK",
+        "testimonial_7EAmN7",
+        "testimonial_faHGEj",
+        "testimonial_M93m7m"
+      ],
+      "settings": {
+        "title": "What Our Customers Say",
+        "title_color": "#000000",
+        "title_alignment": "center",
+        "title_font_size": 40,
+        "title_font_size_mobile": 28,
+        "show_stars": true,
+        "star_count": 4.5,
+        "star_color": "#333333",
+        "review_count": "132",
+        "review_count_color": "#333333",
+        "padding_top": 30,
+        "padding_bottom": 30
       }
     }
   },
   "order": [
     "section_hero_Jgc9Wy",
     "main",
-    "section_richtext_hjXJ86"
+    "section_richtext_hjXJ86",
+    "section_richtext_ckpPVW",
+    "section_columns_6XCpjt",
+    "section_liquid_fwkRiP",
+    "two_cards_section_rPrg7n",
+    "section_columns_xxPMmw",
+    "section_faq_PTdhKC",
+    "testimonials_carousel_EycE3j"
   ]
 }
