@@ -277,15 +277,15 @@
     // Check both cookie and URL parameter
     var hasCookie = checkCookie("RR_WCID");
     var hasUrlParam = checkUrlParam("RR_WCID");
+    var hasCouponCode = checkUrlParam("couponCode");
     
-    if (!hasCookie && !hasUrlParam) {
-      return; // Neither cookie nor URL param found
+    if ((!hasCookie && !hasUrlParam) || !hasCouponCode) {
+      return; // Neither RR_WCID found or no couponCode
     }
     
     //console.log("RR Banner: RR_WCID found, initializing banner...");
 
     var bannerHeight = "80px";
-    var couponCode = checkUrlParam("couponCode") ? new URLSearchParams(window.location.search).get('couponCode') : "REFERARK";
     var fontFamily = "Montserrat";
     var fontSize = "14px";
     var bannerBackgroundColor = "#fff";
@@ -332,6 +332,8 @@
     }
 
     function initBanner() {
+      var couponCode = new URLSearchParams(window.location.search).get('couponCode');
+      
       headerElement = document.getElementById(
         "shopify-section-sections--15902346543175__announcement"
       );
