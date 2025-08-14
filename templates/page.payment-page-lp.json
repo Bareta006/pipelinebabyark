@@ -544,6 +544,82 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_faq_PTdhKC": {
+      "type": "section-faq",
+      "blocks": {
+        "text_X6eWcA": {
+          "type": "text",
+          "settings": {
+            "title": "Can I pay off my purchase early?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_U98G3f": {
+          "type": "text",
+          "settings": {
+            "title": "How do I make my payments?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_WRKVF7": {
+          "type": "text",
+          "settings": {
+            "title": "Can I return an item I bought through a payment plan option?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_rqd3PF": {
+          "type": "text",
+          "settings": {
+            "title": "Does checking my eligibility affect my credit score?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_MraCcF": {
+          "type": "text",
+          "settings": {
+            "title": "Where can I learn more about Affirm or Klarna?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_6BVerh": {
+          "type": "text",
+          "settings": {
+            "title": "Can I exchange a seat that has been used?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        },
+        "text_qkMkUA": {
+          "type": "text",
+          "settings": {
+            "title": "Can Paysquad be used to purchase a babyark car seat?",
+            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_X6eWcA",
+        "text_U98G3f",
+        "text_WRKVF7",
+        "text_rqd3PF",
+        "text_MraCcF",
+        "text_6BVerh",
+        "text_qkMkUA"
+      ],
+      "name": "Accordion group",
+      "settings": {
+        "title": "babyark Payment Options FAQs",
+        "title_align": "text-center",
+        "title_size": 4,
+        "heading_size": 5,
+        "text_size": 5,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -554,6 +630,7 @@
     "section_columns_6XCpjt",
     "section_liquid_fwkRiP",
     "two_cards_section_rPrg7n",
-    "section_columns_xxPMmw"
+    "section_columns_xxPMmw",
+    "section_faq_PTdhKC"
   ]
 }
