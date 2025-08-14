@@ -460,6 +460,9 @@
         "card_6HDke8",
         "card_m3BFUM"
       ],
+      "custom_css": [
+        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}"
+      ],
       "settings": {}
     }
   },
