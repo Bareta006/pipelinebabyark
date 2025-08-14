@@ -523,6 +523,9 @@
         "text_block_zV37qD",
         "text_block_y4wtem"
       ],
+      "custom_css": [
+        ".section-columns.palette--light.bg--accent{background-color:#fff;}"
+      ],
       "name": "Text columns with images",
       "settings": {
         "title": "Text columns with images",
