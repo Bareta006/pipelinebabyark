@@ -473,9 +473,10 @@
           "type": "text_block",
           "settings": {
             "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127345_2.png",
             "shape_class": "",
-            "title": "Feature images or videos",
-            "text": "<p>Add a video popup link to show a play button.  Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "title": "The Foodie Bundle",
+            "text": "<p>$1,168 $1,050</p>",
             "button_label": "",
             "button_link": "",
             "button_color": "btn--neutral",
@@ -524,14 +525,14 @@
         "text_block_y4wtem"
       ],
       "custom_css": [
-        ".section-columns.palette--light.bg--accent{background-color:#fff;}"
+        ".section-columns.palette--light.bg--accent {background-color: #fff;}"
       ],
       "name": "Text columns with images",
       "settings": {
         "title": "Text columns with images",
         "bg": "palette--light bg--accent",
         "align_text": "text-center",
-        "scale_image": true,
+        "scale_image": false,
         "wh_ratio": 1,
         "grid_large": 3,
         "grid_medium": 3,
