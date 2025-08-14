@@ -552,49 +552,49 @@
           "type": "text",
           "settings": {
             "title": "Can I pay off my purchase early?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>Yes! There’s no penalty for paying early.</p>"
           }
         },
         "text_U98G3f": {
           "type": "text",
           "settings": {
             "title": "How do I make my payments?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>For Affirm, you can make or schedule payments at <a href=\"http://affirm.com/\" target=\"_blank\">affirm.com</a> or in the Affirm app for iOS or Android. Affirm will send you email and text reminders before payments are due.</p><p>For Klarna, you can pay off through their system similarly.</p>"
           }
         },
         "text_WRKVF7": {
           "type": "text",
           "settings": {
             "title": "Can I return an item I bought through a payment plan option?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>Yes—you can return an item you bought with Affirm, Klarna, or Paysquad by initiating the return process with the store.<br/><br/></p>"
           }
         },
         "text_rqd3PF": {
           "type": "text",
           "settings": {
             "title": "Does checking my eligibility affect my credit score?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>No—your credit score won’t be affected when you create an Affirm or Klarna account or check your eligibility. If you decide to buy with Affirm or Klarna, this may impact your credit score. You can find more information in <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" target=\"_blank\" title=\"Klarna FAQ section\">Klarna's FAQ section</a> or <a href=\"https://helpcenter.affirm.com/s/\" target=\"_blank\" title=\"https://helpcenter.affirm.com/s/\">Affirm’s Help Center</a></p>"
           }
         },
         "text_MraCcF": {
           "type": "text",
           "settings": {
             "title": "Where can I learn more about Affirm or Klarna?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>You can visit the <a href=\"https://www.klarna.com/us/customer-service/#faq-categories-list\" target=\"_blank\" title=\"https://www.klarna.com/us/customer-service/#faq-categories-list\">Klarna FAQ section</a> or the Affirm website at <a href=\"https://www.affirm.com/\" target=\"_blank\" title=\"https://www.affirm.com/\">affirm.com.</a></p>"
           }
         },
         "text_6BVerh": {
           "type": "text",
           "settings": {
             "title": "Can I exchange a seat that has been used?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange. If you are still within the 100-day trial window, you are eligible for an exchange. Exchanges are treated as a return and repurchase process. </p><p>Here’s how it works:</p><p>Initiate a Return: Start the return process for your original purchase by contacting us at <a href=\"mailto:contact@babyark.com\" target=\"_blank\">contact@babyark.com</a> within 100 days of delivery.</p><p>Place a New Order: Order the replacement item you want directly through our website.</p>"
           }
         },
         "text_qkMkUA": {
           "type": "text",
           "settings": {
             "title": "Can Paysquad be used to purchase a babyark car seat?",
-            "content": "<p>Share details about your shipping policies, item returns, or customer service.</p>"
+            "content": "<p>We offer <a href=\"https://www.paysquad.co/\" target=\"_blank\" title=\"https://www.paysquad.co/\">Paysquad</a> as a payment option for babyark car seats, making them a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
           }
         }
       },
