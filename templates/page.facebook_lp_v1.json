@@ -77,6 +77,78 @@
         "special_arrange": false
       }
     },
+    "section_interactive_accordions_CtzQkw": {
+      "type": "section-interactive-accordions",
+      "blocks": {
+        "accordion_item_pbQAcj": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Smart Car Seat Technology",
+            "description": "<p>babyark is the only car seat with smart technology fully integrated into both the seat and the base. Our patented system of 14 embedded sensors, paired with a Bluetooth-connected app, delivers real-time installation feedback, in-car safety tracking, and life-saving alerts — all in one intelligent car seat.</p>",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Group_1597881147_1.png",
+            "video_url": "",
+            "button_text": "Learn More",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_zDnqhc": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "We Publish What Others Don’t",
+            "description": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1,000, but not all seats perform the same. We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Group_1597881150.png",
+            "video_url": "",
+            "button_text": "Discover",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_U9rYQi": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Third FeatureComfort and Convenience for Peace of Mind",
+            "description": "<p>Zip-off fabric seat covers, magnetic harness straps, and a buckle that automatically flips forward are some of the features that simply make your life easier without compromising on safety.</p>",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Rectangle_1486126747_2.png",
+            "video_url": "",
+            "button_text": "Explore",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_pbQAcj",
+        "accordion_item_zDnqhc",
+        "accordion_item_U9rYQi"
+      ],
+      "name": "Interactive Accordions",
+      "settings": {
+        "title": "Why is babyark Different?",
+        "description": "",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "accordion_title_size": 6,
+        "accordion_text_size": 5,
+        "mobile_title_size": 7,
+        "mobile_text_size": 5,
+        "mobile_cards_in_view": 1.1,
+        "text_color": "text--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_faq_PTdhKC": {
       "type": "section-faq",
       "blocks": {
@@ -812,6 +884,7 @@
   },
   "order": [
     "section_hero_Jgc9Wy",
+    "section_interactive_accordions_CtzQkw",
     "section_faq_PTdhKC",
     "two_cards_section_qVeKzf",
     "section_columns_jKNBNB",
