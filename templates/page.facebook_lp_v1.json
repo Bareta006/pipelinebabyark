@@ -122,7 +122,7 @@
       ],
       "name": "Accordion group",
       "settings": {
-        "title": "babyark Payment Options FAQs",
+        "title": "babyark FAQs:",
         "title_align": "text-center",
         "title_size": 4,
         "heading_size": 5,
@@ -130,6 +130,145 @@
         "text_color": "text--black",
         "bg": "palette--light bg--neutral",
         "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "two_cards_section_qVeKzf": {
+      "type": "two-cards-section",
+      "blocks": {
+        "card_Ywt4xk": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881146.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881122.png",
+            "title": "Shop Smart",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP SMART",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        },
+        "card_HPAgte": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881147.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881143.png",
+            "title": "Shop Classic",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP CLASSIC",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-classic",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        }
+      },
+      "block_order": [
+        "card_Ywt4xk",
+        "card_HPAgte"
+      ],
+      "custom_css": [
+        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}",
+        "@media (min-width: 1024px) {.card-with-buttons {padding-bottom: 83%; }}"
+      ],
+      "settings": {}
+    },
+    "section_columns_jKNBNB": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_yDVtmm": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127345_2.png",
+            "shape_class": "",
+            "title": "The Foodie Bundle",
+            "text": "<p><em>$1,168</em> <strong>$1,050</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-foodie-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_VLfKmN": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127373.png",
+            "shape_class": "",
+            "title": "The Bases Bundle",
+            "text": "<p><em>$1,480</em> <strong>$1,350</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-bases-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_9z4zTT": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127374.png",
+            "shape_class": "",
+            "title": "The Family Bundle",
+            "text": "<p><em>$1,980</em> <strong>$1,800</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-family-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_yDVtmm",
+        "text_block_VLfKmN",
+        "text_block_9z4zTT"
+      ],
+      "custom_css": [
+        ".section-columns.palette--light.bg--accent {background-color: #fff;}"
+      ],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Bundle More For Less",
+        "bg": "palette--light bg--accent",
+        "align_text": "text-center",
+        "scale_image": false,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.1,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -674,6 +813,8 @@
   "order": [
     "section_hero_Jgc9Wy",
     "section_faq_PTdhKC",
+    "two_cards_section_qVeKzf",
+    "section_columns_jKNBNB",
     "main",
     "section_richtext_hjXJ86",
     "section_richtext_ckpPVW",
