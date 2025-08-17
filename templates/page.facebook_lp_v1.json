@@ -443,7 +443,8 @@
       "custom_css": [
         "a {text-decoration: none;}",
         ".standard__icon__holder img {object-fit: contain;}",
-        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}"
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
+        ".text__standard >div{margin:0 auto; max-width:100%; width:800px;}"
       ],
       "name": "Rich text",
       "settings": {
