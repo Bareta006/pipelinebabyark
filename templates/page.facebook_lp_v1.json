@@ -349,6 +349,70 @@
         "padding_bottom": 36
       }
     },
+    "section_richtext_FbeTVj": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_BhmBQn": {
+          "type": "heading",
+          "settings": {
+            "heading": "Got Questions? ",
+            "text_size": 8
+          }
+        },
+        "text_GB88H3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "text_UtfJnm": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Take advantage of a free 1-on-1 call with one of our car seat experts  and Child Passenger Safety Technicians. No pressure, just answers.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "button_PR8U6D": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Book Your Spot",
+            "link_1": "shopify://collections/all",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BhmBQn",
+        "text_GB88H3",
+        "text_UtfJnm",
+        "button_PR8U6D"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "content_width": 800,
+        "width": "wrapper",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -381,6 +445,7 @@
     "section_faq_PTdhKC",
     "two_cards_section_qVeKzf",
     "section_columns_jKNBNB",
+    "section_richtext_FbeTVj",
     "main",
     "section_liquid_fwkRiP"
   ]
