@@ -55,7 +55,7 @@
       "custom_css": [
         ".hero__title {font-size: 38px;}",
         ".hero__description {font-size: 24px;}",
-        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; } .hero__description {font-size: 20px; }}"
+        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; display:flex; height:100%; align-items: end; } .hero__description {font-size: 20px; }}"
       ],
       "name": "Image banner",
       "settings": {
