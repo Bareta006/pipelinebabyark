@@ -135,7 +135,7 @@
         ".media-image img {object-fit: contain;}",
         ".accordion__title {font-size: 34px;}",
         ".section__title {font-size: 60px;}",
-        "@media (max-width: 480px) {.section__title {font-size: 30px; } .mobile-card__title{fonnt-size:30px; }}"
+        "@media (max-width: 480px) {.section__title {font-size: 30px; } .mobile-card__title {font-size: 30px; }}"
       ],
       "name": "Interactive Accordions",
       "settings": {
@@ -210,6 +210,114 @@
         "width": "wrapper--full",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "section_richtext_FbeTVj": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_BhmBQn": {
+          "type": "heading",
+          "settings": {
+            "heading": "Got Questions? ",
+            "text_size": 8
+          }
+        },
+        "text_GB88H3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "icon_text_YEPCX3": {
+          "type": "icon-text",
+          "settings": {
+            "kicker_size": 3,
+            "heading_size": 8,
+            "text_size": 5,
+            "items_per_row": "2",
+            "icon_color": "#000000",
+            "icon_size": 26,
+            "icon_name_1": "icon-basket-return",
+            "icon_image_1": "shopify://shop_images/Vector_7.png",
+            "icon_kicker_1": "",
+            "icon_heading_1": "",
+            "icon_text_1": "<p><a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>",
+            "icon_name_2": "icon-shipment-world",
+            "icon_image_2": "shopify://shop_images/Vector_6.png",
+            "icon_kicker_2": "",
+            "icon_heading_2": "",
+            "icon_text_2": "<p><a href=\"tel:(888) 922-2927\" title=\"tel:(888) 922-2927\">(888) 922-2927</a></p>",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_heading_3": "",
+            "icon_text_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_heading_4": "",
+            "icon_text_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_heading_5": "",
+            "icon_text_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": "",
+            "icon_heading_6": "",
+            "icon_text_6": ""
+          }
+        },
+        "text_UtfJnm": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Take advantage of a free 1-on-1 call with one of our car seat experts  and Child Passenger Safety Technicians. No pressure, just answers.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "button_PR8U6D": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Book Your Spot",
+            "link_1": "shopify://collections/all",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BhmBQn",
+        "text_GB88H3",
+        "icon_text_YEPCX3",
+        "text_UtfJnm",
+        "button_PR8U6D"
+      ],
+      "custom_css": [
+        "a {text-decoration: none;}",
+        ".standard__icon__holder img {object-fit: contain;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
+        ".text__standard > div {margin: 0 auto; max-width: 100%; width: 800px;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper--full",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "two_cards_section_qVeKzf": {
@@ -351,114 +459,6 @@
         "padding_bottom": 36
       }
     },
-    "section_richtext_FbeTVj": {
-      "type": "section-richtext",
-      "blocks": {
-        "heading_BhmBQn": {
-          "type": "heading",
-          "settings": {
-            "heading": "Got Questions? ",
-            "text_size": 8
-          }
-        },
-        "text_GB88H3": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
-            "text_size": 5,
-            "text_columns": 1
-          }
-        },
-        "icon_text_YEPCX3": {
-          "type": "icon-text",
-          "settings": {
-            "kicker_size": 3,
-            "heading_size": 8,
-            "text_size": 5,
-            "items_per_row": "2",
-            "icon_color": "#000000",
-            "icon_size": 26,
-            "icon_name_1": "icon-basket-return",
-            "icon_image_1": "shopify://shop_images/Vector_7.png",
-            "icon_kicker_1": "",
-            "icon_heading_1": "",
-            "icon_text_1": "<p><a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>",
-            "icon_name_2": "icon-shipment-world",
-            "icon_image_2": "shopify://shop_images/Vector_6.png",
-            "icon_kicker_2": "",
-            "icon_heading_2": "",
-            "icon_text_2": "<p><a href=\"tel:(888) 922-2927\" title=\"tel:(888) 922-2927\">(888) 922-2927</a></p>",
-            "icon_name_3": "none",
-            "icon_kicker_3": "",
-            "icon_heading_3": "",
-            "icon_text_3": "",
-            "icon_name_4": "none",
-            "icon_kicker_4": "",
-            "icon_heading_4": "",
-            "icon_text_4": "",
-            "icon_name_5": "none",
-            "icon_kicker_5": "",
-            "icon_heading_5": "",
-            "icon_text_5": "",
-            "icon_name_6": "none",
-            "icon_kicker_6": "",
-            "icon_heading_6": "",
-            "icon_text_6": ""
-          }
-        },
-        "text_UtfJnm": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Take advantage of a free 1-on-1 call with one of our car seat experts  and Child Passenger Safety Technicians. No pressure, just answers.</p>",
-            "text_size": 5,
-            "text_columns": 1
-          }
-        },
-        "button_PR8U6D": {
-          "type": "button",
-          "settings": {
-            "link_text_1": "Book Your Spot",
-            "link_1": "shopify://collections/all",
-            "button_size_1": "btn--large",
-            "button_style_1": "btn",
-            "button_color_1": "btn--neutral",
-            "link_text_2": "",
-            "link_2": "",
-            "button_size_2": "btn--medium",
-            "button_style_2": "btn-text-thick-line",
-            "button_color_2": "btn--neutral",
-            "link_text_3": "",
-            "link_3": "",
-            "button_size_3": "btn--long",
-            "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
-          }
-        }
-      },
-      "block_order": [
-        "heading_BhmBQn",
-        "text_GB88H3",
-        "icon_text_YEPCX3",
-        "text_UtfJnm",
-        "button_PR8U6D"
-      ],
-      "custom_css": [
-        "a {text-decoration: none;}",
-        ".standard__icon__holder img {object-fit: contain;}",
-        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
-        ".text__standard > div {margin: 0 auto; max-width: 100%; width: 800px;}"
-      ],
-      "name": "Rich text",
-      "settings": {
-        "align_text": "text-center",
-        "text_color": "text--black",
-        "bg": "palette--light bg--neutral",
-        "content_width": 2000,
-        "width": "wrapper--full",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
     "main": {
       "type": "page",
       "disabled": true,
@@ -489,9 +489,9 @@
     "section_hero_Jgc9Wy",
     "section_interactive_accordions_CtzQkw",
     "section_faq_PTdhKC",
+    "section_richtext_FbeTVj",
     "two_cards_section_qVeKzf",
     "section_columns_jKNBNB",
-    "section_richtext_FbeTVj",
     "main",
     "section_liquid_fwkRiP"
   ]
