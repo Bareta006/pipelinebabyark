@@ -359,6 +359,14 @@
             "text_size": 8
           }
         },
+        "text_GB88H3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
         "icon_text_YEPCX3": {
           "type": "icon-text",
           "settings": {
@@ -367,7 +375,7 @@
             "text_size": 5,
             "items_per_row": "2",
             "icon_color": "#4b4b4b",
-            "icon_size": 16,
+            "icon_size": 26,
             "icon_name_1": "icon-basket-return",
             "icon_image_1": "shopify://shop_images/Vector_7.png",
             "icon_kicker_1": "",
@@ -394,14 +402,6 @@
             "icon_kicker_6": "",
             "icon_heading_6": "",
             "icon_text_6": ""
-          }
-        },
-        "text_GB88H3": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
-            "text_size": 5,
-            "text_columns": 1
           }
         },
         "text_UtfJnm": {
@@ -435,13 +435,14 @@
       },
       "block_order": [
         "heading_BhmBQn",
-        "icon_text_YEPCX3",
         "text_GB88H3",
+        "icon_text_YEPCX3",
         "text_UtfJnm",
         "button_PR8U6D"
       ],
       "custom_css": [
-        "a{text-decoration:none;}"
+        "a {text-decoration: none;}",
+        ".standard__icon__holder img {object-fit: contain;}"
       ],
       "name": "Rich text",
       "settings": {
