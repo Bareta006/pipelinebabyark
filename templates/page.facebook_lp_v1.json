@@ -131,6 +131,9 @@
         "accordion_item_zDnqhc",
         "accordion_item_U9rYQi"
       ],
+      "custom_css": [
+        ".media-image img{object-fit: contain;}"
+      ],
       "name": "Interactive Accordions",
       "settings": {
         "title": "Why is babyark Different?",
