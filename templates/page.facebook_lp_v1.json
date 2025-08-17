@@ -450,7 +450,7 @@
         "align_text": "text-center",
         "text_color": "text--black",
         "bg": "palette--light bg--neutral",
-        "content_width": 800,
+        "content_width": 2000,
         "width": "wrapper--full",
         "padding_top": 60,
         "padding_bottom": 60
