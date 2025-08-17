@@ -132,7 +132,8 @@
         "accordion_item_U9rYQi"
       ],
       "custom_css": [
-        ".media-image img{object-fit: contain;}"
+        ".media-image img {object-fit: contain;}",
+        ".accordion__title {font-size: 34px;}"
       ],
       "name": "Interactive Accordions",
       "settings": {
