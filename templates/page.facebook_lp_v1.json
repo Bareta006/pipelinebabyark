@@ -442,15 +442,16 @@
       ],
       "custom_css": [
         "a {text-decoration: none;}",
-        ".standard__icon__holder img {object-fit: contain;}"
+        ".standard__icon__holder img {object-fit: contain;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}"
       ],
       "name": "Rich text",
       "settings": {
         "align_text": "text-center",
         "text_color": "text--black",
         "bg": "palette--light bg--neutral",
-        "content_width": 800,
-        "width": "wrapper",
+        "content_width": 2000,
+        "width": "wrapper--full",
         "padding_top": 60,
         "padding_bottom": 60
       }
