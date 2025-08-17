@@ -134,8 +134,8 @@
       "custom_css": [
         ".media-image img {object-fit: contain;}",
         ".accordion__title {font-size: 34px;}",
-        ".section__title{font-size:60px;}",
-        "@media (max-width:480px){.section__title {font-size:30px; }}"
+        ".section__title {font-size: 60px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 30px; } .mobile-card__title{fonnt-size:30px; }}"
       ],
       "name": "Interactive Accordions",
       "settings": {
