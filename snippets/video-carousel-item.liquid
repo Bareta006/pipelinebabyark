@@ -11,6 +11,7 @@
   - title_size: Title font size (default: 6)
   - description_size: Description font size (default: 4)
   - sizes: Image sizes attribute for responsive images
+  - show_play_icon: Whether to show play button overlay (default: true)
   
   Usage:
   {% render 'video-carousel-item',
@@ -20,13 +21,15 @@
     description: block.settings.description,
     title_size: section.settings.video_title_size,
     description_size: section.settings.video_description_size,
-    sizes: 'calc(100vw / 3)'
+    sizes: 'calc(100vw / 3)',
+    show_play_icon: section.settings.show_play_icons
   %}
 {% endcomment %}
 
 {%- assign title_size = title_size | default: 6 -%}
 {%- assign description_size = description_size | default: 4 -%}
 {%- assign sizes = sizes | default: '33vw' -%}
+{%- assign show_play_icon = show_play_icon | default: true -%}
 
 <div class="video-carousel__item">
   {% comment %} Video Container {% endcomment %}
@@ -61,6 +64,13 @@
               sizes: sizes,
               cover: true
             %}
+          </div>
+        {% endif %}
+        
+        {% comment %} Play button overlay {% endcomment %}
+        {% if show_play_icon %}
+          <div class="video-carousel__play-button">
+            {% render 'icon-fill-play' %}
           </div>
         {% endif %}
       </div>

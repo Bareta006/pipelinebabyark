@@ -51,7 +51,8 @@
                 description: block.settings.description,
                 title_size: section.settings.video_title_size,
                 description_size: section.settings.video_description_size,
-                sizes: 'calc(100vw / {{ section.settings.desktop_items }})'
+                sizes: 'calc(100vw / {{ section.settings.desktop_items }})',
+                show_play_icon: section.settings.show_play_icons
               %}
             </div>
           {% endfor %}
@@ -103,11 +104,12 @@
   #shopify-section-{{ section.id }} .video-carousel__media {
     position: relative;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 9 / 16;
     background-color: var(--color-bg-light);
     border-radius: 0.5rem;
     overflow: hidden;
     margin-bottom: 1rem;
+    cursor: pointer;
   }
 
   #shopify-section-{{ section.id }} .video-carousel__video-wrapper {
@@ -137,6 +139,59 @@
 
   #shopify-section-{{ section.id }} .video-carousel__placeholder--empty {
     color: var(--color-text-light);
+  }
+
+  /* Play button styling */
+  {% unless section.settings.show_play_icons %}
+  #shopify-section-{{ section.id }} .video-carousel__play-button {
+    display: none !important;
+  }
+  {% endunless %}
+  
+  #shopify-section-{{ section.id }} .video-carousel__play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 4rem;
+    height: 4rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__play-button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__play-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: white;
+    margin-left: 0.2rem; /* Center the triangle */
+  }
+
+  /* Hide play button when video is playing */
+  #shopify-section-{{ section.id }} .video-carousel__video-wrapper.playing .video-carousel__play-button {
+    display: none;
+  }
+
+  /* Hide video controls initially */
+  #shopify-section-{{ section.id }} .video-carousel__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__video[data-state="paused"] {
+    pointer-events: none;
   }
 
   #shopify-section-{{ section.id }} .video-carousel__content {
@@ -231,6 +286,77 @@
   {% endif %}
 </style>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const section = document.querySelector('#shopify-section-{{ section.id }}');
+  if (!section) return;
+
+  const videoWrappers = section.querySelectorAll('.video-carousel__video-wrapper');
+  
+  videoWrappers.forEach(wrapper => {
+    const video = wrapper.querySelector('.video-carousel__video');
+    const playButton = wrapper.querySelector('.video-carousel__play-button');
+    const placeholder = wrapper.querySelector('.video-carousel__placeholder');
+    
+    if (!video) return;
+
+    // Handle play button click
+    if (playButton) {
+      playButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        playVideo();
+      });
+    }
+
+    // Handle placeholder click
+    if (placeholder) {
+      placeholder.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        playVideo();
+      });
+    }
+
+    // Handle video wrapper click
+    wrapper.addEventListener('click', function(e) {
+      if (!wrapper.classList.contains('playing')) {
+        e.preventDefault();
+        e.stopPropagation();
+        playVideo();
+      }
+    });
+
+    function playVideo() {
+      // Hide placeholder and play button
+      if (placeholder) placeholder.style.display = 'none';
+      wrapper.classList.add('playing');
+      
+      // Show and play video
+      video.style.display = 'block';
+      video.controls = true;
+      video.play();
+      
+      // Handle video events
+      video.addEventListener('pause', function() {
+        wrapper.classList.remove('playing');
+        if (placeholder) placeholder.style.display = 'block';
+      });
+
+      video.addEventListener('ended', function() {
+        wrapper.classList.remove('playing');
+        if (placeholder) placeholder.style.display = 'block';
+        video.currentTime = 0;
+      });
+    }
+
+    // Initially hide video and show placeholder
+    video.style.display = 'none';
+    video.controls = false;
+  });
+});
+</script>
+
 {% schema %}
 {
   "name": "Video Carousel",
@@ -313,6 +439,17 @@
       "label": "Videos per view (Mobile)",
       "default": 1.6,
       "info": "Number of videos visible on mobile screens"
+    },
+    {
+      "type": "header",
+      "content": "Video Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_play_icons",
+      "label": "Show play icons on videos",
+      "default": true,
+      "info": "Display a play button overlay on each video"
     },
     {
       "type": "header",
