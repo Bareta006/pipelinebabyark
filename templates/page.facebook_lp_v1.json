@@ -1,0 +1,499 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "section_hero_Jgc9Wy": {
+      "type": "section-hero",
+      "blocks": {
+        "text_ycGmrn": {
+          "type": "text",
+          "settings": {
+            "richtext": "<h2>Meet babyark,<br/>For When You Want It All</h2>",
+            "text_size": 7
+          }
+        },
+        "text_w7ACB7": {
+          "type": "text",
+          "settings": {
+            "richtext": "<p>The world’s most advanced car seat, combining patented performance engineering, protective design, smart connectivity and the highest-grade materials. Safety, reimagined.</p>",
+            "text_size": 6
+          }
+        },
+        "button_JUAMpJ": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "SHOP BABYARK",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--white",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_ycGmrn",
+        "text_w7ACB7",
+        "button_JUAMpJ"
+      ],
+      "custom_css": [
+        ".hero__title {font-size: 38px;}",
+        ".hero__description {font-size: 24px;}",
+        "@media (max-width: 480px) {.hero__content__wrapper {align-items: end; text-align: center; padding-bottom: 20px; } .hero__cta__wrapper {align-items: center; } .hero__title {font-size: 32px; } .hero__content {padding: 0 10px; margin: 0 10px; display: flex; height: 100%; align-items: end; } .hero__description {font-size: 20px; } .text__standard {height: 100%; display: flex; flex-direction: column; justify-content: end; } .hero__description.body-size-7 {position: absolute; top: 20px; }}"
+      ],
+      "name": "Image banner",
+      "settings": {
+        "mobile_special_arrange": false,
+        "image": "shopify://shop_images/Frame_24_7_1.png",
+        "mobile_image": "shopify://shop_images/Group_1597881186_1.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000000",
+        "enable_overlay_text": true,
+        "preload_image": true,
+        "content_width": 800,
+        "text_align": "align--middle-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
+        "width": "wrapper--none",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "special_arrange": false
+      }
+    },
+    "section_interactive_accordions_CtzQkw": {
+      "type": "section-interactive-accordions",
+      "blocks": {
+        "accordion_item_pbQAcj": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Smart Car Seat Technology",
+            "description": "<p>babyark is the only car seat with smart technology fully integrated into both the seat and the base. Our patented system of 14 embedded sensors, paired with a Bluetooth-connected app, delivers real-time installation feedback, in-car safety tracking, and life-saving alerts — all in one intelligent car seat.</p>",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Group_1597881147_1.png",
+            "video_url": "",
+            "button_text": "Learn More",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_zDnqhc": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "We Publish What Others Don’t",
+            "description": "<p>Most brands don’t disclose their Head Injury Criterion (HIC) scores—we do. The maximum federal limit is 1,000, but not all seats perform the same. We believe parents deserve full transparency to make informed choices about their child’s safety.</p>",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Group_1597881150.png",
+            "video_url": "",
+            "button_text": "Discover",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        },
+        "accordion_item_U9rYQi": {
+          "type": "accordion_item",
+          "settings": {
+            "title": "Comfort and Convenience for Peace of Mind",
+            "description": "<p>Zip-off fabric seat covers, magnetic harness straps, and a buckle that automatically flips forward are some of the features that simply make your life easier without compromising on safety.</p>",
+            "video_file": "shopify://files/videos/Video-Feature copy_2.mp4",
+            "video_loop": false,
+            "video_muted": false,
+            "image": "shopify://shop_images/Rectangle_1486126747_2.png",
+            "video_url": "",
+            "button_text": "Explore",
+            "button_url": "",
+            "button_style": "btn",
+            "button_color": "btn--primary"
+          }
+        }
+      },
+      "block_order": [
+        "accordion_item_pbQAcj",
+        "accordion_item_zDnqhc",
+        "accordion_item_U9rYQi"
+      ],
+      "custom_css": [
+        ".media-image img {object-fit: contain;}",
+        ".accordion__title {font-size: 34px;}",
+        ".section__title {font-size: 60px;}",
+        "@media (max-width: 480px) {.section__title {font-size: 30px; } .mobile-card__title {font-size: 30px; }}"
+      ],
+      "name": "Interactive Accordions",
+      "settings": {
+        "title": "Why is babyark Different?",
+        "description": "",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "accordion_title_size": 6,
+        "accordion_text_size": 5,
+        "mobile_title_size": 7,
+        "mobile_text_size": 5,
+        "mobile_cards_in_view": 1.1,
+        "text_color": "text--black",
+        "width": "wrapper",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "section_faq_PTdhKC": {
+      "type": "section-faq",
+      "blocks": {
+        "text_X6eWcA": {
+          "type": "text",
+          "settings": {
+            "title": "Why is babyark so expensive?",
+            "content": "<ul><li>The frame is made of high-strength steel, meaning the seat won’t crack, degrade, or expire. It’s built to last through years of use.</li><li>It comes with Rigid LATCH, front load leg, and an anti-rebound bar, delivering advanced protection and peace of mind.</li><li>Our proprietary SafeCoil™ is crash protection technology that adds cost, but helps manage crash forces and protect your child.</li><li>We use D3O™ — the advanced material trusted in pro sports and racing helmets, to protect your child’s head and neck.</li><li>Our Smart seat has 14 sensors, giving parents confidence that their seat is correctly installed every time.</li></ul>"
+          }
+        },
+        "text_U98G3f": {
+          "type": "text",
+          "settings": {
+            "title": "Why doesn’t babyark have an expiration date?",
+            "content": "<ul><li>The main structure of our car seats and bases are constructed with premium materials such as high-strength steel. Plastics on the external elements are largely for aesthetic purposes and thus any exposure to sun or extreme conditions does not degrade the safety functions of the seat.</li><li>We can detect if the seat has experienced an impact that requires replacements and notify you via the app. The construction of the babyark also features visual signs that can be recognized to indicate it has been in a crash (shells of the base are not aligned – meaning the SafeCoil™ has been activated, or the SafeCoil™ has elongated, indicating it has been triggered by significant impact.)</li></ul>"
+          }
+        },
+        "text_WRKVF7": {
+          "type": "text",
+          "settings": {
+            "title": "What kind of payment options are available?",
+            "content": "<p>babyark can be purchased via payment plans from Affirm and Klarna. </p><p>We also offer <a href=\"https://www.paysquad.co/\"><span style=\"text-decoration:underline\">Paysquad</span></a> as a payment option, making our seats a phenomenal gift choice for baby showers, sprinkles, and beyond for groups of friends, family, or others looking to pool purchasing power together with impact!</p>"
+          }
+        },
+        "text_rqd3PF": {
+          "type": "text",
+          "settings": {
+            "title": "What about shipping and warranty policies?",
+            "content": "<p>Your babyark car seat will be shipped 1-2 business days after you place your order, unless otherwise indicated at the time of purchase. Standard shipping takes 3-5 business days and express shipping takes 1-2 business days. You will receive tracking details once your order has been shipped.</p><p>babyark offers a 100-day return policy from the date of purchase. If you are not 100% satisfied with your product or need to exchange for another reason, you can return it within this period for a refund. </p><p>Our standard warranty offers coverage as follows:</p><ul><li>Mechanical Parts: 36 months from the date of purchase.</li><li>Soft Goods and Electronic Parts: 12 months from the date of purchase.​</li></ul>"
+          }
+        }
+      },
+      "block_order": [
+        "text_X6eWcA",
+        "text_U98G3f",
+        "text_WRKVF7",
+        "text_rqd3PF"
+      ],
+      "custom_css": [
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
+        ".wrapper--full .text__standard > * {width: 100%; max-width: 900px; margin: 0 auto; padding: 0 10px;}",
+        ".standard__kicker {margin-bottom: 40px !important;}"
+      ],
+      "name": "Accordion group",
+      "settings": {
+        "title": "babyark FAQs:",
+        "title_align": "text-center",
+        "title_size": 4,
+        "heading_size": 5,
+        "text_size": 5,
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--full",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_richtext_FbeTVj": {
+      "type": "section-richtext",
+      "blocks": {
+        "heading_BhmBQn": {
+          "type": "heading",
+          "settings": {
+            "heading": "Got Questions? ",
+            "text_size": 8
+          }
+        },
+        "text_GB88H3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Get in touch with us and we'll get back to you as soon as we can.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "icon_text_YEPCX3": {
+          "type": "icon-text",
+          "settings": {
+            "kicker_size": 3,
+            "heading_size": 8,
+            "text_size": 5,
+            "items_per_row": "2",
+            "icon_color": "#000000",
+            "icon_size": 26,
+            "icon_name_1": "icon-basket-return",
+            "icon_image_1": "shopify://shop_images/Vector_7.png",
+            "icon_kicker_1": "",
+            "icon_heading_1": "",
+            "icon_text_1": "<p><a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>",
+            "icon_name_2": "icon-shipment-world",
+            "icon_image_2": "shopify://shop_images/Vector_6.png",
+            "icon_kicker_2": "",
+            "icon_heading_2": "",
+            "icon_text_2": "<p><a href=\"tel:(888) 922-2927\" title=\"tel:(888) 922-2927\">(888) 922-2927</a></p>",
+            "icon_name_3": "none",
+            "icon_kicker_3": "",
+            "icon_heading_3": "",
+            "icon_text_3": "",
+            "icon_name_4": "none",
+            "icon_kicker_4": "",
+            "icon_heading_4": "",
+            "icon_text_4": "",
+            "icon_name_5": "none",
+            "icon_kicker_5": "",
+            "icon_heading_5": "",
+            "icon_text_5": "",
+            "icon_name_6": "none",
+            "icon_kicker_6": "",
+            "icon_heading_6": "",
+            "icon_text_6": ""
+          }
+        },
+        "text_UtfJnm": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Take advantage of a free 1-on-1 call with one of our car seat experts and Child Passenger Safety Technicians. No pressure, just answers.</p>",
+            "text_size": 5,
+            "text_columns": 1
+          }
+        },
+        "button_PR8U6D": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Book Your Spot",
+            "link_1": "https://calendly.com/katie-babyark",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--neutral",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--medium",
+            "button_style_2": "btn-text-thick-line",
+            "button_color_2": "btn--neutral",
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
+          }
+        }
+      },
+      "block_order": [
+        "heading_BhmBQn",
+        "text_GB88H3",
+        "icon_text_YEPCX3",
+        "text_UtfJnm",
+        "button_PR8U6D"
+      ],
+      "custom_css": [
+        "a {text-decoration: none;}",
+        ".standard__icon__holder img {object-fit: contain;}",
+        ".wrapper--full .text__standard {border-radius: 30px; background-color: #fafafa; padding: 60px 20px;}",
+        ".text__standard > div {margin: 0 auto; max-width: 100%; width: 800px;}"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "align_text": "text-center",
+        "text_color": "text--black",
+        "bg": "palette--light bg--neutral",
+        "content_width": 2000,
+        "width": "wrapper--full",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "two_cards_section_qVeKzf": {
+      "type": "two-cards-section",
+      "blocks": {
+        "card_Ywt4xk": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881146.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881122.png",
+            "title": "Shop Smart",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP SMART",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        },
+        "card_HPAgte": {
+          "type": "card",
+          "settings": {
+            "background_image": "shopify://shop_images/Group_1597881147.png",
+            "mobile_background_image": "shopify://shop_images/Group_1597881143.png",
+            "title": "Shop Classic",
+            "title_color": "#ffffff",
+            "description": "",
+            "description_color": "#1a1b1d",
+            "text_alignment": "center",
+            "button_alignment": "center",
+            "button_1_text": "SHOP CLASSIC",
+            "button_1_link": "shopify://products/babyark-convertible-car-seat-classic",
+            "button_1_color": "btn--white",
+            "button_1_style": "btn",
+            "button_1_hide_mobile": false,
+            "button_2_text": "",
+            "button_2_link": "",
+            "button_2_color": "btn--white",
+            "button_2_style": "btn--outline",
+            "button_2_hide_mobile": true
+          }
+        }
+      },
+      "block_order": [
+        "card_Ywt4xk",
+        "card_HPAgte"
+      ],
+      "custom_css": [
+        ".two-cards-section {width: 100%; max-width: var(--LAYOUT-WIDTH); margin: 0 auto;}",
+        "@media (min-width: 1024px) {.card-with-buttons {padding-bottom: 83%; }}"
+      ],
+      "settings": {}
+    },
+    "section_columns_jKNBNB": {
+      "type": "section-columns",
+      "blocks": {
+        "text_block_yDVtmm": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127345_2.png",
+            "shape_class": "",
+            "title": "The Foodie Bundle",
+            "text": "<p><em>$1,168</em> <strong>$1,050</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-foodie-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_VLfKmN": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127373.png",
+            "shape_class": "",
+            "title": "The Bases Bundle",
+            "text": "<p><em>$1,480</em> <strong>$1,350</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-bases-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_9z4zTT": {
+          "type": "text_block",
+          "settings": {
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127374.png",
+            "shape_class": "",
+            "title": "The Family Bundle",
+            "text": "<p><em>$1,980</em> <strong>$1,800</strong></p>",
+            "button_label": "SHOP BUNDLES",
+            "button_link": "shopify://products/the-family-bundle-smart",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video": false,
+            "video_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_yDVtmm",
+        "text_block_VLfKmN",
+        "text_block_9z4zTT"
+      ],
+      "custom_css": [
+        ".section-columns.palette--light.bg--accent {background-color: #fff;}"
+      ],
+      "name": "Text columns with images",
+      "settings": {
+        "title": "Bundle More For Less",
+        "bg": "palette--light bg--accent",
+        "align_text": "text-center",
+        "scale_image": false,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.1,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "section_liquid_fwkRiP": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<style>\n/*colum section*/\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns.palette--light.bg--accent .accent-title-large {\n  font-size: 24px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns .column__image {\n  display: none;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns .kicker-flourished:after{\ndisplay:none;}\n.section-columns.palette--light.bg--accent .grid__item .rte p *:not(strong),.section-columns.palette--light.bg--accent .grid__item .rte p em{\ntext-decoration:line-through;font-style:normal;\n}\n@media (max-width: 480px) {\n.section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n.section-columns.palette--light.bg--neutral [data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>\n<style>\n.section-faq .standard__kicker {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 36px;\n  letter-spacing: -0.4px;\n}\n@media (max-width:480px){\n.section-faq .standard__kicker {\n  font-size: 30px;\n}}\n</style>"
+      }
+    }
+  },
+  "order": [
+    "section_hero_Jgc9Wy",
+    "section_interactive_accordions_CtzQkw",
+    "section_faq_PTdhKC",
+    "section_richtext_FbeTVj",
+    "two_cards_section_qVeKzf",
+    "section_columns_jKNBNB",
+    "main",
+    "section_liquid_fwkRiP"
+  ]
+}
