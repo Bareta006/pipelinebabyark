@@ -187,6 +187,9 @@
   {% assign btn_color = 'button_color_' | append: forloop.index %}
   {% assign btn_color = block.settings[btn_color] %}
 
+  {% assign btn_new_window = 'open_new_window_' | append: forloop.index %}
+  {% assign btn_new_window = block.settings[btn_new_window] %}
+
   {% if btn_text != blank %}
     {% assign elements_counter = elements_counter | plus: 1 %}
 
@@ -196,6 +199,7 @@
       <a
         class="standard__cta hero__btn {{ btn_style }} {{ btn_color }} {{ btn_size }}"
         href="{{ btn_link | default: '#' }}"
+        {% if btn_new_window %}target="_blank" rel="noopener noreferrer"{% endif %}
         data-aos="hero"
         data-aos-anchor="{{ animation_anchor }}"
         data-aos-order="{{ elements_counter }}">
@@ -557,6 +561,12 @@
       ]
     },
     {
+      "type": "checkbox",
+      "id": "open_new_window_1",
+      "label": "Open in new window",
+      "default": false
+    },
+    {
       "type": "header",
       "content": "Button 2"
     },
@@ -609,6 +619,12 @@
       ]
     },
     {
+      "type": "checkbox",
+      "id": "open_new_window_2",
+      "label": "Open in new window",
+      "default": false
+    },
+    {
       "type": "header",
       "content": "Button 3"
     },
@@ -658,6 +674,12 @@
         { "value": "btn--black", "label": "Black" },
         { "value": "btn--white", "label": "White" }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "open_new_window_3",
+      "label": "Open in new window",
+      "default": false
     }
   ]
 },
