@@ -499,6 +499,7 @@
         "video_Cfw8Lb": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/fdd6681a9b664338b674fa1cffdcacd2.HD-720p-1.6Mbps-46806166.mp4",
             "title": "",
             "description": ""
           }
@@ -506,6 +507,7 @@
         "video_cNtwLm": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/e5b117b934f04fd9a7a24d2924ddeaf7.HD-720p-1.6Mbps-26599018.mp4",
             "title": "",
             "description": ""
           }
@@ -513,6 +515,7 @@
         "video_pH7aVr": {
           "type": "video",
           "settings": {
+            "video": "shopify://files/videos/c714a94dd6684e2882ebbf40c246b8a7.HD-720p-1.6Mbps-26598966.mp4",
             "title": "",
             "description": ""
           }
