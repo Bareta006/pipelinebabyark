@@ -492,29 +492,37 @@
           "type": "video",
           "settings": {
             "video": "shopify://files/videos/6675cec310434221bfbbc39d56f46108.HD-720p-1.6Mbps-26599009.mp4",
-            "title": "Featured Video 1",
-            "description": "<p>This is your first video in the carousel.</p>"
+            "title": "",
+            "description": ""
           }
         },
         "video_Cfw8Lb": {
           "type": "video",
           "settings": {
-            "title": "Featured Video 2",
-            "description": "<p>This is your second video in the carousel.</p>"
+            "title": "",
+            "description": ""
           }
         },
         "video_cNtwLm": {
           "type": "video",
           "settings": {
-            "title": "Featured Video 3",
-            "description": "<p>This is your third video in the carousel.</p>"
+            "title": "",
+            "description": ""
+          }
+        },
+        "video_pH7aVr": {
+          "type": "video",
+          "settings": {
+            "title": "",
+            "description": ""
           }
         }
       },
       "block_order": [
         "video_QTKq3X",
         "video_Cfw8Lb",
-        "video_cNtwLm"
+        "video_cNtwLm",
+        "video_pH7aVr"
       ],
       "name": "Video Carousel",
       "settings": {
