@@ -321,6 +321,68 @@
         "padding_bottom": 60
       }
     },
+    "section_video_carousel_NwjKxw": {
+      "type": "section-video-carousel",
+      "blocks": {
+        "video_QTKq3X": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/6675cec310434221bfbbc39d56f46108.HD-720p-1.6Mbps-26599009.mp4",
+            "title": "",
+            "description": ""
+          }
+        },
+        "video_Cfw8Lb": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/fdd6681a9b664338b674fa1cffdcacd2.HD-720p-1.6Mbps-46806166.mp4",
+            "title": "",
+            "description": ""
+          }
+        },
+        "video_cNtwLm": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/e5b117b934f04fd9a7a24d2924ddeaf7.HD-720p-1.6Mbps-26599018.mp4",
+            "title": "",
+            "description": ""
+          }
+        },
+        "video_pH7aVr": {
+          "type": "video",
+          "settings": {
+            "video": "shopify://files/videos/c714a94dd6684e2882ebbf40c246b8a7.HD-720p-1.6Mbps-26598966.mp4",
+            "title": "",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "video_QTKq3X",
+        "video_Cfw8Lb",
+        "video_cNtwLm",
+        "video_pH7aVr"
+      ],
+      "name": "Video Carousel",
+      "settings": {
+        "title": "What Our Customers  Are Saying",
+        "description": "",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "desktop_items": 4,
+        "tablet_items": 3,
+        "mobile_items": 1.6,
+        "show_play_icons": true,
+        "video_title_size": 6,
+        "video_description_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "two_cards_section_qVeKzf": {
       "type": "two-cards-section",
       "blocks": {
@@ -484,78 +546,17 @@
       "settings": {
         "custom_liquid": "<style>\n/*colum section*/\n.section-columns .kicker-flourished,\n.section-columns  .accent-title-large {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 40px;\n  letter-spacing: -0.4px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n  font-size: 35px;\n}\n.section-columns.palette--light.bg--accent .accent-title-large {\n  font-size: 24px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column {\n  background-color: #2f2d2d;\n  color: #fff;\n  border-radius: 30px;\n  padding: 60px 30px !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns .column__image {\n  display: none;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 28px;\n  flex-wrap: nowrap;\n}\n.section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 20px;\n}\n.section-columns .kicker-flourished:after{\ndisplay:none;}\n.section-columns.palette--light.bg--accent .grid__item .rte p *:not(strong),.section-columns.palette--light.bg--accent .grid__item .rte p em{\ntext-decoration:line-through;font-style:normal;\n}\n@media (max-width: 480px) {\n.section-columns .kicker-flourished {\n    font-size: 30px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .accent-title-large {\n    font-size: 24px;\n  }\n  .section-columns.palette--light.bg--neutral.section-columns .rte p{\n  font-size: 16px;\n}\n.section-columns.palette--light.bg--neutral.section-columns .index__column{\npadding:30px 20px !important;\nmargin:0 !important;\n}\n.section-columns.palette--light.bg--neutral.section-columns div[data-grid] {\n  gap: 10px;\n  flex-wrap: wrap !important;\n        padding: 0 10px;\n}\n\n.section-columns.palette--light.bg--neutral [data-grid][data-grid-small] [data-item]{\nwidth:calc(50% - 5px)}\n}\n</style>\n<style>\n/*rich text sections*/\nsection[data-section-type=\"rich-text\"] .text__standard {\ndisplay: flex\n;\n    flex-direction: column;\n    gap: 20px;\n}\n</style>\n<style>\n.section-faq .standard__kicker {\n  font-family: \"centrano2\";\n  font-style: normal;\n  font-weight: 400;\n  text-transform: none;\n  font-size: 36px;\n  letter-spacing: -0.4px;\n}\n@media (max-width:480px){\n.section-faq .standard__kicker {\n  font-size: 30px;\n}}\n</style>"
       }
-    },
-    "section_video_carousel_NwjKxw": {
-      "type": "section-video-carousel",
-      "blocks": {
-        "video_QTKq3X": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/6675cec310434221bfbbc39d56f46108.HD-720p-1.6Mbps-26599009.mp4",
-            "title": "",
-            "description": ""
-          }
-        },
-        "video_Cfw8Lb": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/fdd6681a9b664338b674fa1cffdcacd2.HD-720p-1.6Mbps-46806166.mp4",
-            "title": "",
-            "description": ""
-          }
-        },
-        "video_cNtwLm": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/e5b117b934f04fd9a7a24d2924ddeaf7.HD-720p-1.6Mbps-26599018.mp4",
-            "title": "",
-            "description": ""
-          }
-        },
-        "video_pH7aVr": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/c714a94dd6684e2882ebbf40c246b8a7.HD-720p-1.6Mbps-26598966.mp4",
-            "title": "",
-            "description": ""
-          }
-        }
-      },
-      "block_order": [
-        "video_QTKq3X",
-        "video_Cfw8Lb",
-        "video_cNtwLm",
-        "video_pH7aVr"
-      ],
-      "name": "Video Carousel",
-      "settings": {
-        "title": "What Our Customers  Are Saying",
-        "description": "",
-        "title_alignment": "text-center",
-        "title_size": 8,
-        "description_size": 5,
-        "desktop_items": 4,
-        "tablet_items": 3,
-        "mobile_items": 1.6,
-        "video_title_size": 6,
-        "video_description_size": 4,
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
     }
   },
   "order": [
     "section_hero_Jgc9Wy",
     "section_interactive_accordions_CtzQkw",
     "section_faq_PTdhKC",
+    "section_video_carousel_NwjKxw",
     "section_richtext_FbeTVj",
     "two_cards_section_qVeKzf",
     "section_columns_jKNBNB",
     "main",
-    "section_liquid_fwkRiP",
-    "section_video_carousel_NwjKxw"
+    "section_liquid_fwkRiP"
   ]
 }
