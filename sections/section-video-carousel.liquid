@@ -319,11 +319,29 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function playVideo() {
-      // Hide placeholder and play button
+      // First, pause all other videos in this section
+      const allVideoWrappers = section.querySelectorAll('.video-carousel__video-wrapper');
+      allVideoWrappers.forEach(otherWrapper => {
+        if (otherWrapper !== wrapper) {
+          const otherVideo = otherWrapper.querySelector('.video-carousel__video');
+          const otherPlaceholder = otherWrapper.querySelector('.video-carousel__placeholder');
+          
+          if (otherVideo && !otherVideo.paused) {
+            otherVideo.pause();
+            otherVideo.currentTime = 0;
+            otherWrapper.classList.remove('playing');
+            otherVideo.style.display = 'none';
+            otherVideo.controls = false;
+            if (otherPlaceholder) otherPlaceholder.style.display = 'block';
+          }
+        }
+      });
+
+      // Hide placeholder and play button for current video
       if (placeholder) placeholder.style.display = 'none';
       wrapper.classList.add('playing');
       
-      // Show and play video
+      // Show and play current video
       video.style.display = 'block';
       video.controls = true;
       video.play();
@@ -332,12 +350,16 @@ document.addEventListener('DOMContentLoaded', function() {
       video.addEventListener('pause', function() {
         wrapper.classList.remove('playing');
         if (placeholder) placeholder.style.display = 'block';
+        video.style.display = 'none';
+        video.controls = false;
       });
 
       video.addEventListener('ended', function() {
         wrapper.classList.remove('playing');
         if (placeholder) placeholder.style.display = 'block';
         video.currentTime = 0;
+        video.style.display = 'none';
+        video.controls = false;
       });
     }
 
