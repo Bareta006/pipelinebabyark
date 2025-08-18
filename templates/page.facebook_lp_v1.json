@@ -293,7 +293,8 @@
             "link_3": "",
             "button_size_3": "btn--long",
             "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "button_color_3": "btn--white",
+            "open_new_window_1": true
           }
         }
       },
