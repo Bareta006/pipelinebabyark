@@ -1,0 +1,486 @@
+{% comment %}
+  /sections/section-video-carousel.liquid
+  
+  Video carousel section with responsive grid and video block support
+{% endcomment %}
+
+{%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
+
+<section class="section-video-carousel {{ section.settings.bg }} {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="section-video-carousel"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    {% comment %} Section Header {% endcomment %}
+    {% if section.settings.title != blank or section.settings.description != blank %}
+      <div class="section__header {{ section.settings.title_alignment }}">
+        {% if section.settings.title != blank %}
+          <h2 class="section__title heading-size-{{ section.settings.title_size }}">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+        
+        {% if section.settings.description != blank %}
+          <div class="section__description rte body-size-{{ section.settings.description_size }}">
+            {{ section.settings.description }}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% comment %} Video Carousel {% endcomment %}
+    {% if section.blocks.size > 0 %}
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-grid
+          data-grid-large
+          data-grid-medium
+          data-grid-small
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          class="video-carousel"
+          style="--grid-large-items: {{ section.settings.desktop_items }}; --grid-medium-items: {{ section.settings.tablet_items }}; --grid-small-items: {{ section.settings.mobile_items }};">
+          
+          {% for block in section.blocks %}
+            <div class="video-carousel__slide" data-carousel-slide {{ block.shopify_attributes }}>
+              {% render 'video-carousel-item',
+                video: block.settings.video,
+                placeholder_image: block.settings.placeholder_image,
+                title: block.settings.title,
+                description: block.settings.description,
+                title_size: section.settings.video_title_size,
+                description_size: section.settings.video_description_size,
+                sizes: 'calc(100vw / {{ section.settings.desktop_items }})'
+              %}
+            </div>
+          {% endfor %}
+        </div>
+      </flickity-carousel>
+    {% else %}
+      {% comment %} Empty state {% endcomment %}
+      <div class="video-carousel__empty">
+        <p>{{ 'general.onboarding.no_content' | t }}</p>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% comment %} Video JSON-LD for SEO {% endcomment %}
+{% for block in section.blocks %}
+  {% if block.settings.video != blank %}
+    {% render 'video-json-ld', 
+      video: block.settings.video,
+      video_name: block.settings.title,
+      video_description: block.settings.description,
+      section_id: section.id,
+      page_url: canonical_url
+    %}
+  {% endif %}
+{% endfor %}
+
+<style>
+  #shopify-section-{{ section.id }} .video-carousel {
+    margin-bottom: 2rem;
+  }
+
+  /* Force proper slide width based on grid items */
+  #shopify-section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / var(--grid-large-items)) !important;
+  }
+
+  /* Video carousel item styling */
+  #shopify-section-{{ section.id }} .video-carousel__slide {
+    padding: 0 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__item {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background-color: var(--color-bg-light);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    margin-bottom: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__video-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__placeholder--empty {
+    color: var(--color-text-light);
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__content {
+    flex: 1;
+    text-align: var(--content-alignment, left);
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__title {
+    margin-bottom: 0.5rem;
+  }
+
+  #shopify-section-{{ section.id }} .video-carousel__description {
+    margin: 0;
+  }
+
+  /* Navigation buttons positioning */
+  #shopify-section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -4rem;
+    top: auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    color: var(--color-text);
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button.previous {
+    left: 0;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button.next {
+    right: 0;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:hover:not(:disabled) {
+    background-color: var(--color-bg-accent);
+  }
+
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / var(--grid-medium-items)) !important;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / var(--grid-small-items)) !important;
+    }
+
+    #shopify-section-{{ section.id }} .video-carousel__slide {
+      padding: 0 0.25rem;
+    }
+
+    #shopify-section-{{ section.id }} .video-carousel__media {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Hide navigation buttons on mobile */
+    #shopify-section-{{ section.id }} .flickity-button {
+      display: none;
+    }
+  }
+
+  /* Hide carousel when items equal or exceed display count (no need for carousel) */
+  {% assign total_blocks = section.blocks.size %}
+  {% assign desktop_items = section.settings.desktop_items | floor %}
+  {% assign tablet_items = section.settings.tablet_items | floor %}
+  
+  {% if total_blocks <= desktop_items %}
+    @media screen and (min-width: 769px) {
+      #shopify-section-{{ section.id }} .flickity-button {
+        display: none;
+      }
+    }
+  {% endif %}
+
+  {% if total_blocks <= tablet_items %}
+    @media screen and (max-width: 768px) and (min-width: 750px) {
+      #shopify-section-{{ section.id }} .flickity-button {
+        display: none;
+      }
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Video Carousel",
+  "class": "section-video-carousel",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Video Gallery"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Section Description"
+    },
+    {
+      "type": "select",
+      "id": "title_alignment",
+      "label": "Title Alignment",
+      "default": "text-center",
+      "options": [
+        { "value": "text-left", "label": "Left" },
+        { "value": "text-center", "label": "Centered" },
+        { "value": "text-right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Title Size",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Description Size",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Carousel Settings"
+    },
+    {
+      "type": "range",
+      "id": "desktop_items",
+      "min": 1,
+      "max": 6,
+      "step": 0.1,
+      "label": "Videos per view (Desktop)",
+      "default": 3,
+      "info": "Number of videos visible on desktop screens"
+    },
+    {
+      "type": "range",
+      "id": "tablet_items",
+      "min": 1,
+      "max": 4,
+      "step": 0.1,
+      "label": "Videos per view (Tablet)",
+      "default": 2,
+      "info": "Number of videos visible on tablet screens"
+    },
+    {
+      "type": "range",
+      "id": "mobile_items",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Videos per view (Mobile)",
+      "default": 1.6,
+      "info": "Number of videos visible on mobile screens"
+    },
+    {
+      "type": "header",
+      "content": "Video Content Styling"
+    },
+    {
+      "type": "range",
+      "id": "video_title_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Video Title Size",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "video_description_size",
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "label": "Video Description Size",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+      ]
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default"},
+        { "value": "palette--light bg--accent", "label": "Light"},
+        { "value": "palette--dark bg--invert", "label": "Dark"},
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+        { "value": "palette--bright bg--bright", "label": "Bright"},
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Upload Video",
+          "info": "Upload your video file. Video preview image will be used as placeholder if no custom image is provided."
+        },
+        {
+          "type": "image_picker",
+          "id": "placeholder_image",
+          "label": "Custom Placeholder Image",
+          "info": "Optional: Custom image to show before video plays. If empty, video's preview image will be used."
+        },
+        {
+          "type": "header",
+          "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Video Title",
+          "default": "Video Title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Video Description",
+          "default": "<p>Describe your video content here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Video Carousel",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "video",
+          "settings": {
+            "title": "Featured Video 1",
+            "description": "<p>This is your first video in the carousel.</p>"
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "title": "Featured Video 2", 
+            "description": "<p>This is your second video in the carousel.</p>"
+          }
+        },
+        {
+          "type": "video",
+          "settings": {
+            "title": "Featured Video 3",
+            "description": "<p>This is your third video in the carousel.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header","footer","aside"]
+  }
+}
+{% endschema %} 

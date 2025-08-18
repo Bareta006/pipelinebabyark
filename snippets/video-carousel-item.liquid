@@ -1,0 +1,91 @@
+{% comment %}
+  /snippets/video-carousel-item.liquid
+  
+  Renders a single video item for the video carousel
+  
+  Parameters:
+  - video: Shopify video object
+  - placeholder_image: Custom placeholder image (optional)
+  - title: Video title (optional)
+  - description: Video description (optional)
+  - title_size: Title font size (default: 6)
+  - description_size: Description font size (default: 4)
+  - sizes: Image sizes attribute for responsive images
+  
+  Usage:
+  {% render 'video-carousel-item',
+    video: block.settings.video,
+    placeholder_image: block.settings.placeholder_image,
+    title: block.settings.title,
+    description: block.settings.description,
+    title_size: section.settings.video_title_size,
+    description_size: section.settings.video_description_size,
+    sizes: 'calc(100vw / 3)'
+  %}
+{% endcomment %}
+
+{%- assign title_size = title_size | default: 6 -%}
+{%- assign description_size = description_size | default: 4 -%}
+{%- assign sizes = sizes | default: '33vw' -%}
+
+<div class="video-carousel__item">
+  {% comment %} Video Container {% endcomment %}
+  <div class="video-carousel__media">
+    {% if video != blank %}
+      {% comment %} Use video with placeholder {% endcomment %}
+      <div class="video-carousel__video-wrapper">
+        {{ video | video_tag: 
+          image_size: '800x600',
+          autoplay: false,
+          loop: false,
+          controls: true,
+          muted: false,
+          class: 'video-carousel__video'
+        }}
+        
+        {% comment %} Custom placeholder image or video preview {% endcomment %}
+        {% if placeholder_image != blank %}
+          <div class="video-carousel__placeholder">
+            {% render 'image',
+              img_object: placeholder_image,
+              alt: placeholder_image.alt | default: title,
+              sizes: sizes,
+              cover: true
+            %}
+          </div>
+        {% elsif video.preview_image %}
+          <div class="video-carousel__placeholder">
+            {% render 'image',
+              img_object: video.preview_image,
+              alt: video.preview_image.alt | default: title,
+              sizes: sizes,
+              cover: true
+            %}
+          </div>
+        {% endif %}
+      </div>
+    {% else %}
+      {% comment %} Fallback placeholder when no video {% endcomment %}
+      <div class="video-carousel__placeholder video-carousel__placeholder--empty">
+        <p>{{ 'general.onboarding.no_content' | t }}</p>
+      </div>
+    {% endif %}
+  </div>
+
+  {% comment %} Video Content {% endcomment %}
+  {% if title != blank or description != blank %}
+    <div class="video-carousel__content">
+      {% if title != blank %}
+        <h3 class="video-carousel__title heading-size-{{ title_size }}">
+          {{ title }}
+        </h3>
+      {% endif %}
+      
+      {% if description != blank %}
+        <div class="video-carousel__description rte body-size-{{ description_size }}">
+          {{ description }}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+</div> 
