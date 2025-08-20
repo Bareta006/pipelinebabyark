@@ -52,7 +52,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n.globo-form-control[data-type=\"radio\"] > label > span,.globo-form-control:not([data-type=\"email\"]), .globo-label span.label-content{\nfont-size:1.4em !important;}\n.globo-form-control[data-type=\"radio\"] > label{\npadding:20px 0 !important;}\n</style>"
+        "custom_liquid": "<style>\n.globo-form-control[data-type=\"radio\"] > label > span,.globo-form-control:not([data-type=\"email\"]) .globo-label span.label-content{\nfont-size:1.4em !important;}\n.globo-form-control[data-type=\"radio\"] > label{\npadding:20px 0 !important;}\n</style>"
       }
     }
   },
