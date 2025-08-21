@@ -52,7 +52,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n.globo-form-control[data-type=\"radio\"] > label > span,.globo-form-control:not([data-type=\"email\"]) .globo-label span.label-content{\nfont-size:1.4em !important;}\n.globo-form-control[data-type=\"radio\"] > label{\npadding:20px 0 !important;}\n\ndiv:not([data-step=\"0\"]) > .globo-form-control{\n    display: flex;\n    flex-direction: column;\n}\n\ndiv:not([data-step=\"0\"]) > .globo-form-control > label{\norder:1}\ndiv:not([data-step=\"0\"]) > .globo-form-control > div.gfb__feedback{\norder:3;}\ndiv:not([data-step=\"0\"]) > .globo-form-control > .globo-description{\norder:2;}\n</style>"
+        "custom_liquid": "<style>\n.globo-form-control[data-type=\"radio\"] > label > span,.globo-form-control:not([data-type=\"email\"]) .globo-label span.label-content{\nfont-size:1.4em !important;}\n.globo-form-control[data-type=\"radio\"] > label{\npadding:20px 0 !important;}\n\ndiv:not([data-step=\"0\"]) > .globo-form-control{\n    display: flex;\n    flex-direction: column;\n}\n\ndiv:not([data-step=\"0\"]) > .globo-form-control > label{\norder:1}\ndiv:not([data-step=\"0\"]) > .globo-form-control > div.gfb__feedback{\norder:3;}\ndiv:not([data-step=\"0\"]) > .globo-form-control > .globo-description{\norder:2;}\n.gfb__feedback__thumb svg {\n    margin: 10px auto;\n}\n</style>"
       }
     }
   },
