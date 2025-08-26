@@ -151,6 +151,11 @@
         "type": "shopify://apps/black-crow-ai-that-delivers/blocks/blackcrow_ai_script/3e73f597-cb71-47a1-8a06-0c931482ecd2",
         "disabled": false,
         "settings": {}
+      },
+      "9685131899227788811": {
+        "type": "shopify://apps/appio-google-customer-reviews/blocks/integration/2cd926e4-a36d-402c-a9a5-ffe77be80384",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
