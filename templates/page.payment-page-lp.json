@@ -152,16 +152,19 @@
             "button_size_1": "btn--large",
             "button_style_1": "btn",
             "button_color_1": "btn--neutral",
+            "open_new_window_1": false,
             "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--medium",
             "button_style_2": "btn-text-thick-line",
             "button_color_2": "btn--neutral",
+            "open_new_window_2": false,
             "link_text_3": "",
             "link_3": "",
             "button_size_3": "btn--long",
             "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "button_color_3": "btn--white",
+            "open_new_window_3": false
           }
         },
         "timeline_dB4JWc": {
@@ -254,16 +257,19 @@
             "button_size_1": "btn--large",
             "button_style_1": "btn",
             "button_color_1": "btn--neutral",
+            "open_new_window_1": false,
             "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--medium",
             "button_style_2": "btn-text-thick-line",
             "button_color_2": "btn--neutral",
+            "open_new_window_2": false,
             "link_text_3": "",
             "link_3": "",
             "button_size_3": "btn--long",
             "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "button_color_3": "btn--white",
+            "open_new_window_3": false
           }
         },
         "timeline_UzfGER": {
@@ -272,7 +278,7 @@
             "timeline_color": "#000000",
             "text_color_timeline": "#ffffff",
             "text_alignment": "text-center",
-            "step_text_1": "Fill Your Cartwith babyark",
+            "step_text_1": "Fill Your Cart with babyark",
             "step_text_2": "Select Paysquad at Checkout",
             "step_text_3": "Invite Others to Contribute",
             "step_text_4": "At 100%, it's Done!",
