@@ -314,6 +314,13 @@
                         <a href="{{ item.url }}">{{ item.title }}</a>
                       </h3>
 
+                      <!-- Excerpt -->
+                      {% if item.description != blank %}
+                        <div class="rte body-size-4">
+                          <p>{{ item.description | strip_html | truncatewords: 25 }}</p>
+                        </div>
+                      {% endif %}
+
                       <!-- Price -->
                       <div class="product__item-price">
                         {%- assign on_sale = false -%}
