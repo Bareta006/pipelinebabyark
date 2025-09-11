@@ -133,7 +133,7 @@
         "mobile_menu_linklist": "",
         "full_width": true,
         "underline_current": true,
-        "enable_search": false,
+        "enable_search": true,
         "enable_account": true,
         "use_icons": true,
         "icons_type": "modern",
