@@ -2,6 +2,9 @@
 
 <main-search>
   <form action="{{ routes.search_url }}" method="get" class="search-bar search-bar--styled" role="search" id="main-search-form">
+    <!-- Hidden inputs for blog search parameters - added by JavaScript -->
+    <div id="blog-search-params"></div>
+    
     <input class="search-bar__input"
            type="search"
            name="q"

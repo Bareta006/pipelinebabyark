@@ -357,34 +357,50 @@
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('main-search-form');
+    const paramsContainer = document.getElementById('blog-search-params');
     
-    if (searchForm) {
+    if (searchForm && paramsContainer) {
       // Get current URL parameters
       const urlParams = new URLSearchParams(window.location.search);
       
-      // Parameters to preserve from blog searches
-      const blogSearchParams = [
-        'type',
-        'options[prefix]', 
-        'options[blog]'
-      ];
+      // Check if we have blog search parameters
+      const typeParam = urlParams.get('type');
+      const prefixParam = urlParams.get('options[prefix]');
+      const blogParam = urlParams.get('options[blog]');
       
-      // Check if we have blog-specific search parameters
-      blogSearchParams.forEach(paramName => {
-        const paramValue = urlParams.get(paramName);
-        
-        if (paramValue) {
-          // Create hidden input for this parameter
-          const hiddenInput = document.createElement('input');
-          hiddenInput.type = 'hidden';
-          hiddenInput.name = paramName;
-          hiddenInput.value = paramValue;
-          
-          // Add to form (before the search input)
-          const searchInput = searchForm.querySelector('.search-bar__input');
-          searchForm.insertBefore(hiddenInput, searchInput);
-        }
+      console.log('URL Params detected:', {
+        type: typeParam,
+        prefix: prefixParam,
+        blog: blogParam
       });
+      
+      // If we have blog search parameters, add the hidden inputs
+      if (typeParam === 'article' && prefixParam === 'last' && blogParam) {
+        // Add type=article
+        const typeInput = document.createElement('input');
+        typeInput.type = 'hidden';
+        typeInput.name = 'type';
+        typeInput.value = 'article';
+        paramsContainer.appendChild(typeInput);
+        
+        // Add options[prefix]=last
+        const prefixInput = document.createElement('input');
+        prefixInput.type = 'hidden';
+        prefixInput.name = 'options[prefix]';
+        prefixInput.value = 'last';
+        paramsContainer.appendChild(prefixInput);
+        
+        // Add options[blog]=blog-handle
+        const blogInput = document.createElement('input');
+        blogInput.type = 'hidden';
+        blogInput.name = 'options[blog]';
+        blogInput.value = blogParam;
+        paramsContainer.appendChild(blogInput);
+        
+        console.log('Blog search parameters added to form');
+      } else {
+        console.log('No blog search parameters detected');
+      }
     }
   });
 </script>
