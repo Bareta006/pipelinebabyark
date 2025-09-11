@@ -145,6 +145,8 @@
 
       <div class="collection__products" data-products-grid>
         {% paginate search.results by section.settings.pagination_count %}
+          {% comment %}
+            <!-- Old search structure - commented out -->
             {% for item in search.results %}
               <div class="search__item__generic">
                 {% if item.image or item.featured_media.preview_image %}
@@ -243,6 +245,108 @@
                 </div>
               {% unless forloop.last %}<hr>{% endunless %}
             {% endfor %}
+          {% endcomment %}
+
+          <!-- New card-based search results -->
+          <div class="search-results-grid float-grid grid--uniform">
+            {% for item in search.results %}
+              <div class="grid__item medium-up--one-third">
+                {% if item.object_type == 'article' %}
+                  <!-- Article Card -->
+                  <div class="article__item">
+                    <div class="article__item-image" data-grid-slide>
+                      <a href="{{ item.url }}">
+                        {%- assign article_image = item.image -%}
+                        {%- render 'image', 
+                          cover: true, 
+                          img_object: article_image, 
+                          wh_ratio: 1.7, 
+                          alt_default: item.title, 
+                          loading: 'lazy' -%}
+                      </a>
+                    </div>
+
+                    <div class="article__item-content">
+                      <!-- Date -->
+                      <div class="article__item-meta">
+                        <span class="article__item-date">
+                          <time>{{ item.published_at | date: format: 'month_day_year' }}</time>
+                        </span>
+                      </div>
+
+                      <!-- Title -->
+                      <h3 class="article__item-title heading-size-6 mb-0">
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                      </h3>
+
+                      <!-- Excerpt -->
+                      {% if item.excerpt_or_content != blank %}
+                        <div class="rte body-size-4">
+                          <p>{{ item.excerpt_or_content | strip_html | truncatewords: 25 }}</p>
+                        </div>
+                      {% endif %}
+
+                      <!-- Read Button -->
+                      <a href="{{ item.url }}" class="btn--black btn--outline hero__btn btn--blogread">Read</a>
+                    </div>
+                  </div>
+
+                {% elsif item.object_type == 'product' %}
+                  <!-- Product Card -->
+                  <div class="product__item">
+                    <div class="product__item-image" data-grid-slide>
+                      <a href="{{ item.url }}">
+                        {%- assign product_image = item.featured_media.preview_image | default: item.image -%}
+                        {%- render 'image', 
+                          cover: true, 
+                          img_object: product_image, 
+                          wh_ratio: 1.0, 
+                          alt_default: item.title, 
+                          loading: 'lazy' -%}
+                      </a>
+                    </div>
+
+                    <div class="product__item-content">
+                      <!-- Title -->
+                      <h3 class="product__item-title heading-size-6 mb-0">
+                        <a href="{{ item.url }}">{{ item.title }}</a>
+                      </h3>
+
+                      <!-- Price -->
+                      <div class="product__item-price">
+                        {%- assign on_sale = false -%}
+                        {%- if item.compare_at_price > item.price -%}
+                          {%- assign on_sale = true -%}
+                        {%- endif -%}
+
+                        <span class="price{% if on_sale %} on-sale{% endif %}">
+                          {% if item.price_varies %}{{ 'products.general.from' | t }} {% endif %}
+                          {% if settings.currency_code_enable %}
+                            {{ item.price | money_with_currency }}
+                          {% else %}
+                            {{ item.price | money }}
+                          {% endif %}
+                        </span>
+
+                        {% if on_sale %}
+                          <span class="compare-at">
+                            {% if settings.currency_code_enable %}
+                              {{ item.compare_at_price | money_with_currency }}
+                            {% else %}
+                              {{ item.compare_at_price | money }}
+                            {% endif %}
+                          </span>
+                        {% endif %}
+                      </div>
+
+                      <!-- Shop Now Button -->
+                      <a href="{{ item.url }}" class="btn--black btn--outline hero__btn">Shop Now</a>
+                    </div>
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
 
             {% if paginate.pages > 1 %}
               <div class="text-center pt-r11">
@@ -349,6 +453,60 @@
     #shopify-section-{{ section.id }} .search-bar--styled {
       max-width: 100%;
       width: 100%;
+    }
+  }
+  
+  /* Search results grid styling */
+  #shopify-section-{{ section.id }} .search-results-grid {
+    margin-top: 30px;
+  }
+  
+  /* Article and Product card consistency */
+  #shopify-section-{{ section.id }} .article__item,
+  #shopify-section-{{ section.id }} .product__item {
+    margin-bottom: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #shopify-section-{{ section.id }} .article__item-content,
+  #shopify-section-{{ section.id }} .product__item-content {
+    padding: 20px 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #shopify-section-{{ section.id }} .article__item-image,
+  #shopify-section-{{ section.id }} .product__item-image {
+    margin-bottom: 15px;
+  }
+  
+  /* Button spacing */
+  #shopify-section-{{ section.id }} .btn--blogread,
+  #shopify-section-{{ section.id }} .hero__btn {
+    margin-top: auto;
+    min-width: 120px;
+  }
+  
+  /* Product price styling */
+  #shopify-section-{{ section.id }} .product__item-price {
+    margin: 15px 0;
+    font-weight: 600;
+  }
+  
+  #shopify-section-{{ section.id }} .product__item-price .compare-at {
+    text-decoration: line-through;
+    opacity: 0.7;
+    margin-left: 10px;
+  }
+  
+  /* Mobile grid adjustments */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .grid__item {
+      width: 100% !important;
+      margin-bottom: 30px;
     }
   }
 </style>
