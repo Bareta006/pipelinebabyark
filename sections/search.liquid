@@ -353,6 +353,42 @@
   }
 </style>
 
+<!-- JavaScript to preserve blog search parameters -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchForm = document.getElementById('main-search-form');
+    
+    if (searchForm) {
+      // Get current URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      
+      // Parameters to preserve from blog searches
+      const blogSearchParams = [
+        'type',
+        'options[prefix]', 
+        'options[blog]'
+      ];
+      
+      // Check if we have blog-specific search parameters
+      blogSearchParams.forEach(paramName => {
+        const paramValue = urlParams.get(paramName);
+        
+        if (paramValue) {
+          // Create hidden input for this parameter
+          const hiddenInput = document.createElement('input');
+          hiddenInput.type = 'hidden';
+          hiddenInput.name = paramName;
+          hiddenInput.value = paramValue;
+          
+          // Add to form (before the search input)
+          const searchInput = searchForm.querySelector('.search-bar__input');
+          searchForm.insertBefore(hiddenInput, searchInput);
+        }
+      });
+    }
+  });
+</script>
+
 {% schema %}
 {
   "name": "Search",
