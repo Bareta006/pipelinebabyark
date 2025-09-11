@@ -257,12 +257,12 @@
                     <div class="article__item-image" data-grid-slide>
                       <a href="{{ item.url }}">
                         {%- assign article_image = item.image -%}
-                        {%- render 'image', 
-                          cover: true, 
-                          img_object: article_image, 
-                          wh_ratio: 1.7, 
-                          alt_default: item.title, 
-                          loading: 'lazy' -%}
+                                                 {%- render 'image', 
+                           cover: true, 
+                           img_object: article_image, 
+                           wh_ratio: 1.0, 
+                           alt_default: item.title, 
+                           loading: 'lazy' -%}
                       </a>
                     </div>
 
@@ -475,10 +475,10 @@
     flex-direction: column;
   }
   
-  /* Consistent image heights for all cards */
+  /* Consistent image aspect ratio for all cards */
   #shopify-section-{{ section.id }} .article__item-image,
   #shopify-section-{{ section.id }} .product__item-image {
-    height: 240px;
+    aspect-ratio: 1;
     overflow: hidden;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -577,11 +577,6 @@
       width: 100% !important;
       margin-bottom: 30px;
       padding: 0 10px;
-    }
-    
-    #shopify-section-{{ section.id }} .article__item-image,
-    #shopify-section-{{ section.id }} .product__item-image {
-      height: 200px;
     }
   }
 </style>
