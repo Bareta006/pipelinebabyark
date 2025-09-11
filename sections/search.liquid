@@ -315,9 +315,9 @@
                       </h3>
 
                       <!-- Excerpt -->
-                      {% if item.description != blank %}
+                      {% if item.content != blank %}
                         <div class="rte body-size-4">
-                          <p>{{ item.description | strip_html | truncatewords: 25 }}</p>
+                          <p>{{ item.content | strip_html | truncatewords: 25 }}</p>
                         </div>
                       {% endif %}
 
