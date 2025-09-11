@@ -265,7 +265,6 @@
     border-radius: 25px;
     padding: 0px 5px;
     border: 1px solid #e0e0e0;
-    max-width: 500px;
     margin: 0 auto;
     position: relative;
   }
@@ -342,7 +341,9 @@
   #shopify-section-{{ section.id }} .search-bar--styled:focus-within {
     border-color: #000;
   }
-  
+  #shopify-section-{{ section.id }} .search__page__heading .note{
+    border-radius: 50px;
+  }
   /* Mobile adjustments */
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .search-bar--styled {
