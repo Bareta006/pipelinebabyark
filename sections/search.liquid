@@ -247,22 +247,22 @@
             {% endfor %}
           {% endcomment %}
 
-          <!-- New card-based search results -->
+                    <!-- New card-based search results -->
           <div class="search-results-grid float-grid grid--uniform">
             {% for item in search.results %}
-              <div class="grid__item medium-up--one-third">
-                {% if item.object_type == 'article' %}
-                  <!-- Article Card -->
+              {% if item.object_type == 'article' %}
+                <!-- Article Card -->
+                <div class="grid__item medium-up--one-third">
                   <div class="article__item">
                     <div class="article__item-image" data-grid-slide>
                       <a href="{{ item.url }}">
                         {%- assign article_image = item.image -%}
-                                                 {%- render 'image', 
-                           cover: true, 
-                           img_object: article_image, 
-                           wh_ratio: 1.0, 
-                           alt_default: item.title, 
-                           loading: 'lazy' -%}
+                        {%- render 'image', 
+                          cover: true, 
+                          img_object: article_image, 
+                          wh_ratio: 1.0, 
+                          alt_default: item.title, 
+                          loading: 'lazy' -%}
                       </a>
                     </div>
 
@@ -290,9 +290,11 @@
                       <a href="{{ item.url }}" class="btn--black btn--outline hero__btn btn--blogread">Read</a>
                     </div>
                   </div>
+                </div>
 
-                {% elsif item.object_type == 'product' %}
-                  <!-- Product Card -->
+              {% elsif item.object_type == 'product' %}
+                <!-- Product Card -->
+                <div class="grid__item medium-up--one-third">
                   <div class="product__item">
                     <div class="product__item-image" data-grid-slide>
                       <a href="{{ item.url }}">
@@ -343,8 +345,8 @@
                       <a href="{{ item.url }}" class="btn--black btn--outline hero__btn">Shop Now</a>
                     </div>
                   </div>
-                {% endif %}
-              </div>
+                </div>
+              {% endif %}
             {% endfor %}
           </div>
 
@@ -568,7 +570,7 @@
     align-items: center;
     justify-content: center;
     width: auto !important;
-    max-width: 140px;
+    max-width: 160px;
   }
   
   /* Mobile grid adjustments */
