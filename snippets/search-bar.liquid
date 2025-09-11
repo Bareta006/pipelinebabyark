@@ -2,6 +2,33 @@
 
 <main-search>
   <form action="{{ routes.search_url }}" method="get" class="search-bar search-bar--styled" role="search">
+    {% comment %}
+      Preserve blog-specific search parameters from URL
+      These come from blog search forms that scope results to a specific blog
+    {% endcomment %}
+    {% assign url_params = request.url | split: '?' %}
+    {% if url_params.size > 1 %}
+      {% assign query_string = url_params[1] %}
+      {% assign params = query_string | split: '&' %}
+      
+      {% for param in params %}
+        {% assign param_parts = param | split: '=' %}
+        {% if param_parts.size == 2 %}
+          {% assign param_name = param_parts[0] | url_decode %}
+          {% assign param_value = param_parts[1] | url_decode %}
+          
+          {% comment %}Preserve blog-specific search parameters{% endcomment %}
+          {% if param_name == 'type' and param_value == 'article' %}
+            <input type="hidden" name="type" value="article">
+          {% elsif param_name == 'options[prefix]' and param_value == 'last' %}
+            <input type="hidden" name="options[prefix]" value="last">
+          {% elsif param_name contains 'options[blog]' %}
+            <input type="hidden" name="options[blog]" value="{{ param_value }}">
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    
     <input class="search-bar__input"
            type="search"
            name="q"
