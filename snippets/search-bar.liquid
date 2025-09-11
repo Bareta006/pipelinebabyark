@@ -1,26 +1,26 @@
 <!-- /snippets/search-bar.liquid -->
 
 <main-search>
-  <form action="{{ routes.search_url }}" method="get" class="search-bar" role="search">
-    <div class="input-group input-group--inner-button">
-      <input class="input-group-field"
-      type="search"
-      name="q"
-      value="{{ search.terms | escape }}"
-      placeholder="{{ 'general.search.placeholder' | t }}"
-      aria-label="{{ 'general.search.placeholder' | t }}">
-
-      <span class="input-group-button">
-        <div class="input-group-button__group">
-          <button type="reset" class="search-reset{% if search.terms == blank %} is-hidden{% endif %}" aria-label="{{ 'general.search.reset' | t }}">
-            {% render 'icon-core-x' %}
-          </button>
-
-          <button type="submit" class="btn btn--soft">
-            {{ 'general.search.submit' | t }}
-          </button>
-        </div>
-      </span>
-    </div>
+  <form action="{{ routes.search_url }}" method="get" class="search-bar search-bar--styled" role="search">
+    <input class="search-bar__input"
+           type="search"
+           name="q"
+           value="{{ search.terms | escape }}"
+           placeholder="{{ 'general.search.placeholder' | t }}"
+           aria-label="{{ 'general.search.placeholder' | t }}"
+           autocomplete="off">
+    
+    {% if search.terms != blank %}
+      <button type="reset" class="search-bar__reset" aria-label="{{ 'general.search.reset' | t }}">
+        {% render 'icon-core-x' %}
+      </button>
+    {% endif %}
+    
+    <button type="submit" class="search-bar__button">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 15L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10C17 13.866 13.866 17 10 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
   </form>
 </main-search>

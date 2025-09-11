@@ -255,6 +255,103 @@
   {% endif %}
 </section>
 
+<!-- Search bar styling to match blog search -->
+<style>
+  /* Search bar wrapper */
+  #shopify-section-{{ section.id }} .search-bar--styled {
+    display: flex;
+    align-items: center;
+    background: #f8f8f8;
+    border-radius: 25px;
+    padding: 0px 5px;
+    border: 1px solid #e0e0e0;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  /* Search input */
+  #shopify-section-{{ section.id }} .search-bar__input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    padding: 8px 12px;
+    font-size: 20px;
+    outline: none;
+    margin: 0px;
+    width: 252px;
+    max-width: 100%;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar__input::placeholder {
+    color: #888;
+  }
+  
+  /* Reset button */
+  #shopify-section-{{ section.id }} .search-bar__reset {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+    opacity: 0.6;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar__reset:hover {
+    opacity: 1;
+  }
+  
+  /* Search submit button */
+  #shopify-section-{{ section.id }} .search-bar__button {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background-color: #4D4D4D;
+    transition: all 0.3s ease;
+    justify-content: center;
+    width: 37px;
+    height: 37px;
+    border-radius: 50px;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar__button:hover {
+    background-color: #304040;
+    transition: all 0.3s ease;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar__button svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar__button svg path {
+    stroke: #fff !important;
+  }
+  
+  /* Focus handling */
+  #shopify-section-{{ section.id }} .search-bar__input:focus {
+    outline: none;
+  }
+  
+  #shopify-section-{{ section.id }} .search-bar--styled:focus-within {
+    border-color: #000;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .search-bar--styled {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+</style>
+
 {% schema %}
 {
   "name": "Search",
