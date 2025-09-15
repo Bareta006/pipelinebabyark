@@ -1,881 +1,414 @@
-  <!-- Add this to your theme.liquid in the <head> section -->
-<script src="https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js" 
-        data-api-host="https://cdn.growthbook.io"
-        data-client-key="sdk-Knbwv55oDrfYDuq"
-        data-enable-dev-mode>
+<!-- ============================ -->
+<!-- V10 GrowthBook + Shopify (FIXED ARCHITECTURE) -->
+<!-- ============================ -->
+
+<!-- 0) Anti-flicker: Hide gated elements until experiments are ready -->
+<style>
+  [data-gb-gate] { visibility: hidden; }
+  .gb-ready [data-gb-gate] { visibility: visible; }
+</style>
+
+<!-- 1) Configuration -->
+<script>
+  // ===== REPLACE WITH YOUR VALUES =====
+  const GB_CLIENT_KEY = "sdk-Knbwv55oDrfYDuq";  // Your public SDK client key
+  const GB_API_HOST = "https://cdn.growthbook.io";
+  const GB_ADMIN_KEY = "secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ"; // Your admin API key
+  const GB_API_URL = "https://api.growthbook.io/api/v1";
+
+  // Preview configuration for internal testing
+  const PREVIEW_CONFIG = {
+    enabled: true,
+    patterns: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/]
+  };
+
+  // Global config for GrowthBook auto bundle
+  window.growthbook_config = {
+    enableDevMode: false,
+    attributes: {
+      isStaff: !!(window.Shopify && (Shopify.designMode || /[?&]staff=1(&|$)/.test(location.search))),
+      themeEditor: !!(window.Shopify && Shopify.designMode),
+      url: location.href,
+      deviceType: /Mobile|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+      currentUrl: location.href,
+      path: location.pathname
+    },
+    trackingCallback: (experiment, result) => {
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: "gb_experiment_viewed",
+          experimentId: experiment.key,
+          variationId: result.key,
+          featureId: result.featureId || null
+        });
+      }
+    }
+  };
+</script>
+
+<!-- 2) GrowthBook auto bundle -->
+<script async
+  src="https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js"
+  data-api-host="%GB_API_HOST%"
+  data-client-key="%GB_CLIENT_KEY%"
+  data-use-sticky-bucket-service="cookie"
+  data-no-auto-cookies>
 </script>
 <script>
-  // Configuration
-  const GB_API_KEY = 'secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ';
-  const GB_API_URL = 'https://api.growthbook.io/api/v1';
-  
-  // Debug mode - set to true for detailed logging
-  const DEBUG_MODE = true;
-  
-  // Helper function for debug logging
-  function debugLog(message, data = null) {
-    if (DEBUG_MODE) {
-      if (data !== null) {
-        console.log(`[GB] ${message}`, data);
-      } else {
-        console.log(`[GB] ${message}`);
-      }
+  // Runtime replacement of placeholders
+  (function patchDataAttrs() {
+    const script = document.currentScript.previousElementSibling;
+    if (!script) return;
+    if (script.dataset.apiHost === "%GB_API_HOST%") script.dataset.apiHost = GB_API_HOST;
+    if (script.dataset.clientKey === "%GB_CLIENT_KEY%") script.dataset.clientKey = GB_CLIENT_KEY;
+  })();
+</script>
+
+<!-- 3) Simple experiment executor -->
+<script>
+(function() {
+  const previewOverrides = new Map();
+  let isExecutorReady = false;
+
+  function debug(message, data) {
+    if (/[?&]debug=1(&|$)/.test(location.search)) {
+      console.log(`[GB-Executor] ${message}`, data || '');
     }
-  }
-  
-  // NEW: Returning user functionality
-  function setReturningUserAttribute(gb) {
-    const isReturning = document.cookie.includes('gb_returning=true');
-    if (!isReturning) {
-      document.cookie = 'gb_returning=true; max-age=2592000; path=/';
-    }
-    gb.setAttributes({
-      ...gb.getAttributes(),
-      isReturningUser: isReturning
-    });
   }
 
-// NEW: Enhanced targeting condition evaluation
-function evaluateTargetingCondition(condition, attributes) {
-  if (!condition || Object.keys(condition).length === 0) {
-    return { passed: true, reason: 'No targeting conditions' };
-  }
-
-  try {
-    // Handle different condition formats
-    if (typeof condition === 'string') {
-      try {
-        condition = JSON.parse(condition);
-      } catch (e) {
-        return { passed: true, reason: 'Invalid JSON condition, defaulting to pass' };
-      }
-    }
-
-    // Check each condition
-    for (const [key, expectedValue] of Object.entries(condition)) {
-      const userValue = attributes[key];
-      
-      if (typeof expectedValue === 'object' && expectedValue !== null) {
-        // Handle operators like $in, $eq, $regex, etc.
-        if (expectedValue.$in && Array.isArray(expectedValue.$in)) {
-          if (!expectedValue.$in.includes(userValue)) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected one of [${expectedValue.$in.join(', ')}], got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$nin && Array.isArray(expectedValue.$nin)) {
-          if (expectedValue.$nin.includes(userValue)) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected NOT one of [${expectedValue.$nin.join(', ')}], got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$eq !== undefined) {
-          if (userValue !== expectedValue.$eq) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected "${expectedValue.$eq}", got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$ne !== undefined) {
-          if (userValue === expectedValue.$ne) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected NOT "${expectedValue.$ne}", but got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$regex) {
-          try {
-            const regex = new RegExp(expectedValue.$regex);
-            if (!regex.test(userValue)) {
-              return { 
-                passed: false, 
-                reason: `${key} targeting failed: Expected to match regex "${expectedValue.$regex}", got "${userValue}"` 
-              };
-            }
-          } catch (regexError) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Invalid regex pattern "${expectedValue.$regex}"` 
-            };
-          }
-        } else if (expectedValue.$not && expectedValue.$not.$regex) {
-          try {
-            const regex = new RegExp(expectedValue.$not.$regex);
-            if (regex.test(userValue)) {
-              return { 
-                passed: false, 
-                reason: `${key} targeting failed: Expected NOT to match regex "${expectedValue.$not.$regex}", but got "${userValue}"` 
-              };
-            }
-          } catch (regexError) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Invalid regex pattern "${expectedValue.$not.$regex}"` 
-            };
-          }
-        } else if (expectedValue.$gt !== undefined) {
-          const numUserValue = Number(userValue);
-          const numExpectedValue = Number(expectedValue.$gt);
-          if (isNaN(numUserValue) || numUserValue <= numExpectedValue) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected > ${expectedValue.$gt}, got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$gte !== undefined) {
-          const numUserValue = Number(userValue);
-          const numExpectedValue = Number(expectedValue.$gte);
-          if (isNaN(numUserValue) || numUserValue < numExpectedValue) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected >= ${expectedValue.$gte}, got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$lt !== undefined) {
-          const numUserValue = Number(userValue);
-          const numExpectedValue = Number(expectedValue.$lt);
-          if (isNaN(numUserValue) || numUserValue >= numExpectedValue) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected < ${expectedValue.$lt}, got "${userValue}"` 
-            };
-          }
-        } else if (expectedValue.$lte !== undefined) {
-          const numUserValue = Number(userValue);
-          const numExpectedValue = Number(expectedValue.$lte);
-          if (isNaN(numUserValue) || numUserValue > numExpectedValue) {
-            return { 
-              passed: false, 
-              reason: `${key} targeting failed: Expected <= ${expectedValue.$lte}, got "${userValue}"` 
-            };
-          }
-        }
-      } else {
-        // Simple equality check
-        if (userValue !== expectedValue) {
-          return { 
-            passed: false, 
-            reason: `${key} targeting failed: Expected "${expectedValue}", got "${userValue}"` 
-          };
-        }
-      }
-    }
-    
-    return { passed: true, reason: 'All targeting conditions passed' };
-  } catch (error) {
-    return { passed: true, reason: `Targeting evaluation error: ${error.message}` };
-  }
-}
-  
-  console.group('🚀 GrowthBook Script Initialization');
-  debugLog('Script initialization started');
-  
-  // Check for preview parameters in URL
+  // Simple preview system
   function getPreviewExperiments() {
+    if (!PREVIEW_CONFIG.enabled) return {};
+    
     const urlParams = new URLSearchParams(window.location.search);
     const previews = {};
     
     for (const [key, value] of urlParams) {
-      if (key.startsWith('EXP') || key.startsWith('exp_')) {
-        previews[key] = parseInt(value);
+      const isExperimentParam = PREVIEW_CONFIG.patterns.some(pattern => pattern.test(key));
+      if (isExperimentParam) {
+        const variantIndex = parseInt(value);
+        if (!isNaN(variantIndex)) {
+          previews[key] = variantIndex;
+        }
       }
     }
     
     return previews;
   }
-  
-  // Fetch feature flag from API for preview
-  async function fetchFeatureFlag(experimentId) {
-    const featureFlagId = `exp-${experimentId}`;
-    debugLog(`📡 Fetching feature flag for preview: ${featureFlagId}`);
-    
+
+  async function fetchPreviewConfig(experimentId) {
     try {
+      const featureFlagId = `exp-${experimentId}`;
       const response = await fetch(`${GB_API_URL}/features/${featureFlagId}`, {
         headers: {
-          'Authorization': `Bearer ${GB_API_KEY}`
+          'Authorization': `Bearer ${GB_ADMIN_KEY}`,
+          'Content-Type': 'application/json'
         }
       });
       
       if (!response.ok) {
-        throw new Error(`Failed to fetch: ${response.status}`);
+        throw new Error(`Failed to fetch feature flag: ${response.status}`);
       }
       
       const data = await response.json();
       return data.feature;
     } catch (error) {
-      debugLog(`❌ Error fetching feature flag ${featureFlagId}:`, error);
+      debug(`Error fetching preview config for ${experimentId}:`, error);
       return null;
     }
   }
-  
-  // Apply preview experiments (overrides SDK experiments)
-  async function applyPreviewExperiments() {
-    const previews = getPreviewExperiments();
-    
-    if (Object.keys(previews).length === 0) {
-      debugLog('No preview parameters found');
-      return;
-    }
-    
-    console.group(`🔬 Preview Mode - ${Object.keys(previews).length} experiment(s)`);
-    debugLog(`Active previews: ${Object.keys(previews).join(', ')}`);
-    
-    // Initialize test assignments if needed
-    if (!window.gbTestAssignments) {
-      window.gbTestAssignments = {};
-    }
-    
-    for (const [experimentId, variantIndex] of Object.entries(previews)) {
-      console.group(`📌 Preview: ${experimentId} → Variant ${variantIndex}`);
+
+  function extractVariationValue(featureConfig, variantIndex) {
+    try {
+      const productionRules = featureConfig.environments?.production?.rules || featureConfig.rules || [];
       
-      const feature = await fetchFeatureFlag(experimentId);
-      
-      if (!feature) {
-        debugLog(`❌ Could not fetch feature flag for ${experimentId}`);
-        console.groupEnd();
-        continue;
-      }
-      
-      const productionRules = feature.environments?.production?.rules || [];
-      const rule = productionRules.find(r => r.type === 'experiment-ref');
-      
-      if (!rule || !rule.variations || variantIndex >= rule.variations.length) {
-        debugLog(`❌ Invalid configuration for ${experimentId}`);
-        console.groupEnd();
-        continue;
-      }
-      
-      const variation = rule.variations[variantIndex];
-      const jsCode = variation.value;
-      
-      // Add to test assignments for pixel tracking - ALIGNED WITH DB EXPECTATIONS
-      window.gbTestAssignments[experimentId] = {
-        included: true,
-        variationId: variantIndex,
-        exclusion_reason: null,
-        experiment_name: `Preview: ${experimentId}`,  // Changed from 'name' to 'experiment_name'
-        hypothesis: null,
-        status: 'preview'
-      };
-      
-      if (jsCode && jsCode.trim()) {
-        debugLog(`🎯 Executing preview JavaScript for ${experimentId}`);
-        try {
-          // Execute immediately to override any SDK experiments
-          new Function(jsCode)();
-          debugLog(`✅ Preview override applied successfully`);
-        } catch (error) {
-          debugLog(`❌ Error executing preview:`, error);
+      // Look for experiment-ref rule first
+      const experimentRule = productionRules.find(rule => rule.type === 'experiment-ref');
+      if (experimentRule && experimentRule.variations) {
+        if (variantIndex >= experimentRule.variations.length) {
+          debug(`Variant index ${variantIndex} out of bounds for experiment-ref`);
+          return null;
         }
-      } else {
-        debugLog(`⚠️ No JavaScript code for variant ${variantIndex} (control group)`);
+        return experimentRule.variations[variantIndex].value || '';
       }
       
-      console.groupEnd(); // End individual preview
-    }
-    
-    // Dispatch variant:ready event after preview assignments
-    const event = new CustomEvent('variant:ready', {
-      detail: {
-        assignments: window.gbTestAssignments,
-        timestamp: new Date().toISOString()
+      // Handle force rules
+      const forceRule = productionRules.find(rule => rule.force !== undefined);
+      if (forceRule) {
+        if (variantIndex === 0) {
+          return '';
+        } else if (variantIndex === 1) {
+          return forceRule.force || '';
+        } else {
+          debug(`Force rule only supports variants 0 and 1, got ${variantIndex}`);
+          return null;
+        }
       }
-    });
-    document.dispatchEvent(event);
-    debugLog('📨 Dispatched variant:ready event with preview assignments');
-    
-    console.groupEnd(); // End preview mode group
+      
+      if (variantIndex === 0) {
+        return featureConfig.defaultValue || '';
+      }
+      
+      debug('No matching rule found for preview');
+      return null;
+    } catch (error) {
+      debug('Error extracting variation value:', error);
+      return null;
+    }
   }
-  
-  // Apply regular SDK experiments
-  function applySDKExperiments() {
-    const gb = window.growthbook || window._growthbook;
+
+  async function applyPreviewOverrides() {
+    const previews = getPreviewExperiments();
+    if (Object.keys(previews).length === 0) return;
     
-    if (!gb) {
-      debugLog('❌ GrowthBook not initialized');
+    debug(`Preview mode: ${Object.keys(previews).length} overrides`, previews);
+    
+    for (const [param, variantIndex] of Object.entries(previews)) {
+      let experimentId = param;
+      
+      if (param.startsWith('EXP')) {
+        experimentId = param.replace('EXP', '');
+      } else if (param.startsWith('test_')) {
+        experimentId = param.replace('test_', '');
+      } else if (param.startsWith('exp_')) {
+        experimentId = param.replace('exp_', '');
+      }
+      
+      const featureConfig = await fetchPreviewConfig(experimentId);
+      if (!featureConfig) {
+        debug(`Could not fetch config for experiment ${experimentId}`);
+        continue;
+      }
+      
+      const featureKey = `exp-${experimentId}`;
+      const previewValue = extractVariationValue(featureConfig, variantIndex);
+      if (previewValue !== null) {
+        previewOverrides.set(featureKey, previewValue);
+        debug(`Preview override: ${featureKey} -> variant ${variantIndex}`);
+      }
+    }
+  }
+
+  function executeJavaScript(code, experimentId) {
+    if (!code || typeof code !== 'string' || !code.trim()) {
+      debug(`No JavaScript code to execute for ${experimentId}`);
+      return false;
+    }
+
+    debug(`Executing JavaScript for ${experimentId}`, code.substring(0, 100) + '...');
+    
+    try {
+      new Function(code)();
+      debug(`Successfully executed ${experimentId}`);
+      return true;
+    } catch (error) {
+      debug(`Error executing ${experimentId}:`, error);
+      return false;
+    }
+  }
+
+  function runExperiments() {
+    debug('Running experiment evaluation...');
+    
+    const gb = window.growthbook || window._growthbook;
+    if (!gb || !gb.ready) {
+      debug('GrowthBook not ready, will retry...');
       return;
     }
-    
+
+    let experimentsExecuted = 0;
+
+    // Apply preview overrides first
+    for (const [featureKey, previewValue] of previewOverrides) {
+      if (executeJavaScript(previewValue, `${featureKey} (preview)`)) {
+        experimentsExecuted++;
+      }
+    }
+
+    // Get all experiments from GrowthBook
     const features = gb.getFeatures();
     const experiments = Object.keys(features).filter(key => key.startsWith('exp-'));
-    
-    console.group(`📦 SDK Experiments (${experiments.length} found)`);
-    debugLog(`Processing ${experiments.length} experiments from ${Object.keys(features).length} total features`);
-    
-    // Track what experiments are executed
-    const executedExperiments = [];
-    const skippedExperiments = [];
-    
-    // Initialize test assignments object
-    const testAssignments = {};
-    
-    experiments.forEach((featureKey, index) => {
-      const feature = features[featureKey];
-      
-      console.groupCollapsed(`📊 ${featureKey} (${index + 1}/${experiments.length})`);
-      
-      // Feature configuration
-      console.group('📋 Feature Configuration');
-      debugLog(`Default Value: "${feature.defaultValue || ''}"`);
-      debugLog(`Has Rules: ${feature.rules && feature.rules.length > 0 ? 'Yes' : 'No'}`);
-      debugLog(`Rule Count: ${feature.rules?.length || 0}`);
-      console.groupEnd();
-      
-      // Check if it has rules (active) or is draft
-      if (!feature.rules || feature.rules.length === 0) {
-        debugLog(`⏭️ STATUS: DRAFT (no rules) - Skipping`);
-        skippedExperiments.push({ key: featureKey, reason: 'draft' });
-        
-        // Add to test assignments as disabled - ALIGNED WITH DB EXPECTATIONS
-        const cleanId = featureKey.replace(/^exp-/, '');
-        testAssignments[cleanId] = {
-          included: false,
-          variationId: null,
-          exclusion_reason: 'experiment_disabled',
-          experiment_name: null,  // Changed from 'name' to 'experiment_name'
-          hypothesis: null,
-          status: 'draft'
-        };
-        
-        console.groupEnd();
-        return;
-      }
-      
-      // Rule details
-      const rule = feature.rules[0];
-      console.group('🎯 Rule Details');
-      debugLog(`Rule ID: ${rule.id || 'none'}`);
-      debugLog(`Rule Name: ${rule.name || 'Unnamed'}`);
-      debugLog(`Coverage: ${(rule.coverage * 100).toFixed(1)}%`);
-      debugLog(`Hash Attribute: ${rule.hashAttribute || 'default'}`);
-      debugLog(`Hash Version: ${rule.hashVersion || 'unknown'}`);
-      debugLog(`Seed: ${rule.seed || 'none'}`);
-      debugLog(`Phase: ${rule.phase || 'unknown'}`);
-      debugLog(`Variations: ${rule.variations?.length || 0}`);
-      debugLog(`Weights: [${rule.weights?.map(w => (w * 100).toFixed(1) + '%').join(', ') || 'equal'}]`);
-      console.groupEnd();
 
-      // NEW: Enhanced targeting analysis
-      console.group('🎯 Targeting Analysis');
-      const userAttributes = gb.getAttributes();
-      debugLog('Current User Attributes:', userAttributes);
-      
-      if (rule.condition) {
-        debugLog('Targeting Conditions:', rule.condition);
-        const targetingResult = evaluateTargetingCondition(rule.condition, userAttributes);
-        debugLog(`Targeting Result: ${targetingResult.passed ? '✅ PASSED' : '❌ FAILED'}`);
-        debugLog(`Targeting Reason: ${targetingResult.reason}`);
-      } else {
-        debugLog('Targeting Conditions: None (all users eligible)');
+    debug(`Found ${experiments.length} total experiments`);
+
+    for (const experimentKey of experiments) {
+      // Skip if we have a preview override
+      if (previewOverrides.has(experimentKey)) {
+        debug(`Skipping ${experimentKey} - preview override exists`);
+        continue;
       }
-      console.groupEnd();
-      
-      // Meta information
-      if (rule.meta && rule.meta.length > 0) {
-        console.group('📝 Variation Meta');
-        rule.meta.forEach((m, i) => {
-          debugLog(`Variation ${i}: ${m.name} (key: ${m.key})`);
-        });
-        console.groupEnd();
-      }
-      
-      // Evaluate the feature
-      const result = gb.evalFeature(featureKey);
-      
-      // User assignment details
-      console.group('🎲 User Assignment');
-      const inExp = result.inExperiment || (result.experimentResult && result.experimentResult.inExperiment);
-      const variantId = result.variationId !== undefined ? result.variationId : result.experimentResult?.variationId;
-      
-      debugLog(`In Experiment: ${inExp ? '✅ Yes' : '❌ No'}`);
-      debugLog(`Variant ID: ${variantId !== undefined ? variantId : 'none'}`);
-      debugLog(`Has Value: ${result.value ? '✅ Yes' : '❌ No'}`);
-      debugLog(`Source: ${result.source || 'unknown'}`);
-      debugLog(`Rule ID: ${result.ruleId || 'none'}`);
-      console.groupEnd();
-      
-      // Collect assignment for pixel tracking - ALIGNED WITH DB EXPECTATIONS
-      const cleanId = featureKey.replace(/^exp-/, '');
-      let exclusionReason = null;
-      let included = false;
-      
-      // Determine inclusion and exclusion reason
-      if (inExp && variantId !== undefined) {
-        // User is in experiment
-        included = true;
-        // Control group still counts as included but we can note it
-        if (variantId === 0) {
-          // Control group - still included but can be tracked separately
-          exclusionReason = null; // No exclusion for control group
+
+      const result = gb.evalFeature(experimentKey);
+      debug(`${experimentKey} evaluation:`, {
+        hasValue: !!result?.value,
+        valueLength: result?.value?.length || 0,
+        source: result?.source,
+        inExperiment: result?.inExperiment
+      });
+
+      if (result?.value && result.value.trim()) {
+        if (executeJavaScript(result.value, experimentKey)) {
+          experimentsExecuted++;
         }
-      } else if (!inExp) {
-        // User is NOT in experiment
-        included = false;
-        
-        // Determine why they're excluded
-        if (rule.condition) {
-          const targetingResult = evaluateTargetingCondition(rule.condition, userAttributes);
-          if (!targetingResult.passed) {
-            exclusionReason = 'targeting_failed';
-          } else {
-            exclusionReason = 'traffic_allocation';
-          }
-        } else {
-          exclusionReason = 'traffic_allocation';
-        }
-      } else {
-        // Edge case: no variant ID
-        included = false;
-        exclusionReason = 'no_variant';
       }
+    }
+
+    debug(`Executed ${experimentsExecuted} experiments`);
+    
+    // Always reveal content
+    document.documentElement.classList.add("gb-ready");
+    
+    // Store assignments for tracking
+    storeAssignments(gb, experiments);
+  }
+
+  function storeAssignments(gb, experiments) {
+    const assignments = {};
+    
+    for (const key of experiments) {
+      const result = gb.evalFeature(key);
+      const cleanId = key.replace(/^exp-/, '');
       
-      // Structure matching DB expectations exactly
-      testAssignments[cleanId] = {
-        included: included,
-        variationId: included ? variantId : null,  // Only set if included
-        exclusion_reason: exclusionReason,
-        experiment_name: rule.name || rule.meta?.[0]?.name || cleanId,  // Changed from 'name' to 'experiment_name'
-        hypothesis: null,
-        status: 'active'
+      assignments[cleanId] = {
+        included: result.inExperiment || false,
+        variationId: result.variationId || null,
+        experiment_name: key,
+        status: result.source || 'unknown'
       };
-      
-      // Experiment result details (hash calculation)
-      if (result.experimentResult) {
-        console.group('🔢 Hash Calculation');
-        debugLog(`Hash Attribute: ${result.experimentResult.hashAttribute}`);
-        debugLog(`Hash Value: ${result.experimentResult.hashValue}`);
-        debugLog(`Bucket: ${result.experimentResult.bucket?.toFixed(4) || 'unknown'}`);
-        debugLog(`In Experiment: ${result.experimentResult.inExperiment ? '✅' : '❌'}`);
-        debugLog(`Variation ID: ${result.experimentResult.variationId}`);
-        debugLog(`Key: ${result.experimentResult.key || 'none'}`);
-        debugLog(`Feature ID: ${result.experimentResult.featureId || featureKey}`);
-        
-        // Bucket range calculation
-        if (rule.weights && variantId !== undefined) {
-          let start = 0;
-          let end = 0;
-          for (let i = 0; i <= variantId; i++) {
-            end += rule.weights[i];
-            if (i < variantId) start += rule.weights[i];
-          }
-          console.group('📏 Bucket Range');
-          debugLog(`Variant ${variantId} Range: [${start.toFixed(3)} - ${end.toFixed(3)}]`);
-          debugLog(`User Bucket: ${result.experimentResult.bucket?.toFixed(4)}`);
-          debugLog(`Falls in Range: ${result.experimentResult.bucket >= start && result.experimentResult.bucket < end ? '✅ Yes' : '❌ No'}`);
-          console.groupEnd();
-        }
-        console.groupEnd();
-      }
-      
-      // Enhanced execution decision - UPDATED TO HANDLE FORCE RULES WITH TARGETING
-      console.group('⚡ Execution Decision');
-      
-      // Check if this is a force rule that needs targeting evaluation
-      let shouldExecute = true;
-      if (result.source === 'force' && rule.condition) {
-        const targetingResult = evaluateTargetingCondition(rule.condition, userAttributes);
-        if (!targetingResult.passed) {
-          shouldExecute = false;
-          debugLog(`Status: ❌ FORCE RULE TARGETING FAILED`);
-          debugLog(`Targeting Details: ${targetingResult.reason}`);
-          skippedExperiments.push({ 
-            key: featureKey, 
-            reason: 'force_targeting_failed',
-            details: targetingResult.reason 
-          });
-        }
-      }
-      
-      if (shouldExecute && result.value && typeof result.value === 'string' && result.value.trim()) {
-        debugLog(`Status: ✅ WILL EXECUTE`);
-        debugLog(`Variant: ${variantId}`);
-        debugLog(`Code Length: ${result.value.length} chars`);
-        debugLog(`Code Preview: ${result.value.substring(0, 80).replace(/\n/g, ' ')}...`);
-        
-        try {
-          new Function(result.value)();
-          executedExperiments.push({
-            key: featureKey,
-            variant: variantId,
-            name: rule.name || featureKey,
-            source: result.source
-          });
-          debugLog(`✅ EXECUTION RESULT: Success`);
-        } catch (error) {
-          debugLog(`❌ EXECUTION ERROR: ${error.message}`);
-          skippedExperiments.push({ key: featureKey, reason: 'error', error: error.message });
-        }
-      } else if (!shouldExecute) {
-        // Already handled above for force rule targeting
-      } else {
-        // Enhanced exclusion reason analysis
-        if (variantId === 0) {
-          debugLog(`Status: ⚪ CONTROL GROUP`);
-          debugLog(`Variant: 0 (Control)`);
-          debugLog(`Reason: No code for control group`);
-          skippedExperiments.push({ key: featureKey, reason: 'control', variant: 0 });
-        } else if (!inExp) {
-          debugLog(`Status: ❌ NOT IN EXPERIMENT`);
-          
-          // NEW: Enhanced exclusion analysis
-          if (rule.condition) {
-            const userAttributes = gb.getAttributes();
-            const targetingResult = evaluateTargetingCondition(rule.condition, userAttributes);
-            if (!targetingResult.passed) {
-              debugLog(`Exclusion Reason: 🎯 TARGETING FAILED`);
-              debugLog(`Targeting Details: ${targetingResult.reason}`);
-              skippedExperiments.push({ 
-                key: featureKey, 
-                reason: 'targeting_failed',
-                details: targetingResult.reason 
-              });
-            } else {
-              debugLog(`Exclusion Reason: 📊 TRAFFIC ALLOCATION`);
-              debugLog(`User's hash fell outside the ${(rule.coverage * 100).toFixed(1)}% coverage`);
-              skippedExperiments.push({ 
-                key: featureKey, 
-                reason: 'traffic_allocation',
-                coverage: rule.coverage * 100
-              });
-            }
-          } else {
-            debugLog(`Exclusion Reason: 📊 TRAFFIC ALLOCATION`);
-            debugLog(`User's hash fell outside the ${(rule.coverage * 100).toFixed(1)}% coverage`);
-            skippedExperiments.push({ 
-              key: featureKey, 
-              reason: 'traffic_allocation',
-              coverage: rule.coverage * 100
-            });
-          }
-        } else if (!result.value) {
-          debugLog(`Status: ❌ NO VALUE`);
-          debugLog(`Reason: No JavaScript code returned`);
-          skippedExperiments.push({ key: featureKey, reason: 'no_value' });
-        } else {
-          debugLog(`Status: ⚠️ UNKNOWN`);
-          debugLog(`Reason: Unable to determine`);
-          skippedExperiments.push({ key: featureKey, reason: 'unknown' });
-        }
-      }
-      console.groupEnd(); // End execution decision
-      
-      console.groupEnd(); // End individual experiment
-    });
+    }
     
-    // Store test assignments globally for pixel
-    window.gbTestAssignments = testAssignments;
+    window.gbTestAssignments = assignments;
     
-    // Store in localStorage
     try {
-      localStorage.setItem('gb_active_tests', JSON.stringify(testAssignments));
-      debugLog('✅ Stored test assignments in localStorage');
-    } catch(e) {
-      debugLog('⚠️ Could not store in localStorage:', e);
-    }
+      localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+    } catch (e) { /* ignore */ }
     
-    // Dispatch variant:ready event for pixel
-    const event = new CustomEvent('variant:ready', {
-      detail: {
-        assignments: testAssignments,
-        timestamp: new Date().toISOString()
-      }
+    document.dispatchEvent(new CustomEvent('variant:ready', {
+      detail: { assignments, timestamp: new Date().toISOString() }
+    }));
+  }
+
+  // Initialize when GrowthBook is ready
+  async function initialize() {
+    if (isExecutorReady) {
+      debug('Executor already initialized');
+      return;
+    }
+
+    debug('Initializing experiment executor...');
+    isExecutorReady = true;
+
+    // Apply preview overrides
+    await applyPreviewOverrides();
+
+    // Run experiments immediately
+    runExperiments();
+
+    // Set up section reload handler for Shopify
+    document.addEventListener("shopify:section:load", function() {
+      debug('Shopify section reloaded, re-running experiments...');
+      runExperiments();
     });
-    document.dispatchEvent(event);
-    debugLog('📨 Dispatched variant:ready event with assignments:', testAssignments);
-    
-    // Final summary
-    console.group('📊 Execution Summary');
-    debugLog(`✅ Executed: ${executedExperiments.length} experiments`);
-    if (executedExperiments.length > 0) {
-      console.group('Executed Experiments');
-      executedExperiments.forEach(exp => {
-        debugLog(`${exp.key} (variant ${exp.variant}) [${exp.source}]`);
-      });
-      console.groupEnd();
-    }
-    
-    debugLog(`⏭️ Skipped: ${skippedExperiments.length} experiments`);
-    if (skippedExperiments.length > 0) {
-      console.group('Skipped Experiments');
-      skippedExperiments.forEach(exp => {
-        if (exp.details) {
-          debugLog(`${exp.key} (${exp.reason}) - ${exp.details}`);
-        } else if (exp.coverage) {
-          debugLog(`${exp.key} (${exp.reason}) - ${exp.coverage}% coverage`);
-        } else {
-          debugLog(`${exp.key} (${exp.reason}${exp.variant !== undefined ? ` - variant ${exp.variant}` : ''})`);
-        }
-      });
-      console.groupEnd();
-    }
-    console.groupEnd(); // End execution summary
-    
-    console.groupEnd(); // End SDK experiments group
-    
-    // Store summary for debugging
-    window.__gbExecutionSummary = {
-      executed: executedExperiments,
-      skipped: skippedExperiments,
-      assignments: testAssignments,
-      timestamp: new Date().toISOString()
-    };
   }
+
+  // Multiple initialization strategies
   
-  // Main initialization sequence
-  async function initializeExperiments() {
-    console.group('🎬 Experiment Initialization Sequence');
-    
+  // Strategy 1: GrowthBook queue (primary)
+  window.growthbook_queue = window.growthbook_queue || [];
+  window.growthbook_queue.push(function(gb) {
+    debug('GrowthBook queue callback triggered');
+    setTimeout(initialize, 50); // Small delay to ensure data is loaded
+  });
+
+  // Strategy 2: Poll for GrowthBook readiness
+  let pollAttempts = 0;
+  const maxPollAttempts = 100; // 10 seconds max
+  
+  function pollForGrowthBook() {
+    pollAttempts++;
     const gb = window.growthbook || window._growthbook;
     
-    // Step 1: Apply SDK experiments first
-    if (gb) {
-      debugLog('Step 1: Applying SDK experiments');
-      applySDKExperiments();
-    } else {
-      debugLog('⚠️ GrowthBook not ready, will apply SDK experiments when ready');
-    }
-    
-    // Step 2: Apply preview overrides (if any)
-    const previews = getPreviewExperiments();
-    if (Object.keys(previews).length > 0) {
-      debugLog('Step 2: Applying preview overrides');
-      await applyPreviewExperiments();
-    }
-    
-    debugLog('✅ Initialization sequence complete');
-    console.groupEnd();
-  }
-  
-  // Wait for GrowthBook to be ready
-window.addEventListener('growthbookready', async function() {
-  console.group('🎉 GrowthBook Ready Event');
-  debugLog('GrowthBook ready event fired');
-  
-  const gb = window.growthbook || window._growthbook;
-  
-  if (gb) {
-    // Create alias if needed
-    if (!window.growthbook && window._growthbook) {
-      window.growthbook = window._growthbook;
-      debugLog('Created alias: window.growthbook = window._growthbook');
-    }
-    
-    debugLog('GrowthBook initialized successfully at:', window._growthbook ? 'window._growthbook' : 'window.growthbook');
-    
-    // Set returning user attribute
-    setReturningUserAttribute(gb);
-    
-    // Run the initialization sequence
-    await initializeExperiments();
-  }
-  console.groupEnd();
-});
-  
-  // Fallback: If GrowthBook is already ready when script loads
-  const existingGb = window.growthbook || window._growthbook;
-  if (existingGb && existingGb.ready) {
-    console.group('⚡ GrowthBook Already Ready');
-    debugLog('GrowthBook already initialized, running experiments');
-    if (!window.growthbook && window._growthbook) {
-      window.growthbook = window._growthbook;
-    }
-    
-    // Set returning user attribute
-    setReturningUserAttribute(existingGb);
-    
-    initializeExperiments();
-    console.groupEnd();
-  }
-  
-  // Additional fallback: DOM ready
-  document.addEventListener('DOMContentLoaded', function() {
-    // Check if we have preview params but haven't processed them yet
-    const previews = getPreviewExperiments();
-    if (Object.keys(previews).length > 0) {
-      console.group('📄 DOM Ready - Preview Check');
-      debugLog('DOM ready - ensuring preview overrides are applied');
-      
-      // Give SDK experiments time to load first
-      setTimeout(async () => {
-        const gb = window.growthbook || window._growthbook;
-        
-        // If GrowthBook is ready, reinitialize to ensure proper order
-        if (gb) {
-          // Set returning user attribute
-          setReturningUserAttribute(gb);
-          
-          await initializeExperiments();
-        } else {
-          // Just apply previews if GrowthBook isn't ready
-          debugLog('Applying preview overrides without SDK');
-          await applyPreviewExperiments();
-        }
-      }, 500);
-      console.groupEnd();
-    }
-  });
-  
-  // Window load fallback - final safety net
-  window.addEventListener('load', function() {
-    console.group('🏁 Window Load - Final Check');
-    debugLog('Window load event - final GrowthBook check');
-    
-    setTimeout(() => {
-      const gb = window.growthbook || window._growthbook;
-      if (gb && !window.growthbook) {
-        window.growthbook = gb;
-        debugLog('Created alias at window load: window.growthbook = window._growthbook');
-      }
-      
-      // If we haven't initialized yet, do it now
-      if (gb && !window.__gbInitialized) {
-        debugLog('Running initialization from window load');
-        window.__gbInitialized = true;
-        
-        // Set returning user attribute
-        setReturningUserAttribute(gb);
-        
-        initializeExperiments();
-      }
-    }, 1000);
-    console.groupEnd();
-  });
-  
-  // Enhanced debug helper
-  window.gbDebug = function() {
-    console.group('🔍 GROWTHBOOK DEBUG REPORT');
-    console.log('════════════════════════════════════════');
-    
-    const gb = window.growthbook || window._growthbook;
-    
-    if (!gb) {
-      console.log('❌ GrowthBook not initialized');
-      console.log('Checked locations:');
-      console.log('- window.growthbook:', window.growthbook);
-      console.log('- window._growthbook:', window._growthbook);
-      console.groupEnd();
+    if (gb && gb.ready && !isExecutorReady) {
+      debug(`GrowthBook ready detected on poll attempt ${pollAttempts}`);
+      initialize();
       return;
     }
     
-    console.group('📊 Status');
-    console.log('Location:', window._growthbook ? 'window._growthbook' : 'window.growthbook');
-    console.log('Ready:', gb.ready);
-    console.log('Features:', Object.keys(gb.getFeatures()).length);
-    console.log('Attributes:', gb.getAttributes());
-    console.groupEnd();
-    
-    console.group('🧪 All Experiments (exp-*)');
-    const features = gb.getFeatures();
-    const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
-    
-    experiments.forEach(key => {
-      const feature = features[key];
-      const result = gb.evalFeature(key);
-      const isActive = feature.rules && feature.rules.length > 0;
-      const inExperiment = result.inExperiment || (result.experimentResult && result.experimentResult.inExperiment);
-      const variantId = result.variationId !== undefined ? result.variationId : result.experimentResult?.variationId;
-      
-      console.group(key);
-      console.log('Status:', isActive ? 'ACTIVE' : 'DRAFT');
-      console.log('In Experiment:', inExperiment);
-      console.log('Variant:', variantId);
-      console.log('Has Value:', !!result.value);
-      console.log('Source:', result.source || 'unknown');
-      
-      if (isActive && feature.rules[0]) {
-        console.log('Coverage:', (feature.rules[0].coverage * 100) + '%');
-        console.log('Variations:', feature.rules[0].variations?.length || 0);
-        
-        // Enhanced targeting info
-        if (feature.rules[0].condition) {
-          console.log('Targeting Conditions:', feature.rules[0].condition);
-          const userAttributes = gb.getAttributes();
-          const targetingResult = evaluateTargetingCondition(feature.rules[0].condition, userAttributes);
-          console.log('Targeting Result:', targetingResult.passed ? '✅ PASSED' : '❌ FAILED');
-          console.log('Targeting Reason:', targetingResult.reason);
-        }
-      }
-      console.groupEnd();
-    });
-    console.groupEnd();
-    
-    console.group('📈 Execution Summary');
-    if (window.__gbExecutionSummary) {
-      console.log('Executed:', window.__gbExecutionSummary.executed.length, 'experiments');
-      if (window.__gbExecutionSummary.executed.length > 0) {
-        console.group('Executed List');
-        window.__gbExecutionSummary.executed.forEach(exp => {
-          console.log(`✅ ${exp.key} (variant ${exp.variant}) [${exp.source}]`);
-        });
-        console.groupEnd();
-      }
-      console.log('Skipped:', window.__gbExecutionSummary.skipped.length, 'experiments');
-      if (window.__gbExecutionSummary.skipped.length > 0) {
-        console.group('Skipped List');
-        window.__gbExecutionSummary.skipped.forEach(exp => {
-          if (exp.details) {
-            console.log(`⏭️ ${exp.key} (${exp.reason}) - ${exp.details}`);
-          } else if (exp.coverage) {
-            console.log(`⏭️ ${exp.key} (${exp.reason}) - ${exp.coverage}% coverage`);
-          } else {
-            console.log(`⏭️ ${exp.key} (${exp.reason})`);
-          }
-        });
-        console.groupEnd();
-      }
-      console.log('Timestamp:', window.__gbExecutionSummary.timestamp);
-      
-      // Show test assignments
-      if (window.__gbExecutionSummary.assignments) {
-        console.group('Test Assignments');
-        console.log('Total:', Object.keys(window.__gbExecutionSummary.assignments).length);
-        console.log('Assignments:', window.__gbExecutionSummary.assignments);
-        console.groupEnd();
-      }
+    if (pollAttempts < maxPollAttempts) {
+      setTimeout(pollForGrowthBook, 100);
     } else {
-      console.log('No execution summary available');
+      debug('Max poll attempts reached, GrowthBook may not be loading');
     }
-    console.groupEnd();
+  }
+
+  // Strategy 3: DOM ready fallback
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(pollForGrowthBook, 500);
+    });
+  } else {
+    setTimeout(pollForGrowthBook, 500);
+  }
+
+  // Strategy 4: Window load fallback
+  window.addEventListener('load', function() {
+    if (!isExecutorReady) {
+      debug('Window load fallback triggered');
+      setTimeout(initialize, 1000);
+    }
+  });
+
+  // Debug helper
+  window.gbDebug = function() {
+    console.group('GrowthBook Experiment Executor Debug');
+    const gb = window.growthbook || window._growthbook;
     
-    console.group('🔗 Preview Parameters');
-    console.log(getPreviewExperiments());
-    console.groupEnd();
+    console.log('Executor ready:', isExecutorReady);
+    console.log('GrowthBook instance:', !!gb);
+    console.log('GrowthBook ready:', gb?.ready);
+    console.log('Preview overrides:', Array.from(previewOverrides.keys()));
     
-    console.group('🎯 Target Element Check');
-    const heading = document.querySelector('.v-stack.justify-self-center h2.h2');
-    console.log(heading ? `Found: "${heading.textContent}"` : 'Not found');
-    console.groupEnd();
+    if (gb) {
+      const features = gb.getFeatures();
+      const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
+      console.log('Available experiments:', experiments);
+      
+      experiments.forEach(key => {
+        const result = gb.evalFeature(key);
+        console.log(`${key}:`, {
+          hasValue: !!result?.value,
+          valueLength: result?.value?.length || 0,
+          source: result.source
+        });
+      });
+    }
     
-    console.log('════════════════════════════════════════');
     console.groupEnd();
   };
-  
-  // Force preview helper
-  window.forcePreview = async function(experimentId, variantIndex) {
-    console.group(`🔧 Force Preview: ${experimentId}`);
-    console.log(`Forcing preview: ${experimentId} variant ${variantIndex}`);
-    const previews = {};
-    previews[experimentId] = variantIndex;
-    
-    for (const [expId, variant] of Object.entries(previews)) {
-      const feature = await fetchFeatureFlag(expId);
-      if (feature) {
-        const rule = feature.environments?.production?.rules?.find(r => r.type === 'experiment-ref');
-        if (rule && rule.variations[variant]) {
-          const jsCode = rule.variations[variant].value;
-          if (jsCode) {
-            new Function(jsCode)();
-            console.log('✅ Preview applied');
-          }
-        }
-      }
-    }
-    console.groupEnd();
+
+  // Manual re-run helper
+  window.gbRunExperiments = function() {
+    console.log('Manually running experiments...');
+    runExperiments();
   };
-  
-  debugLog('✅ GrowthBook integration loaded');
-  debugLog('💡 Use gbDebug() for status, forcePreview("EXP91264", 1) to test');
-  console.groupEnd(); // End initial script initialization group
+
+  debug('Experiment executor script loaded');
+})();
 </script>
+
+<!-- 4) Usage Examples -->
+<!--
+Gate content that should be hidden during loading:
+<div data-gb-gate>This content will be hidden until experiments load</div>
+
+Preview URLs:
+?EXP505=1     (force experiment 505, variant 1)  
+?test_home=0  (force home experiment, control)
+
+Debug mode:
+?debug=1      (enable debug logging)
+
+Manual helpers:
+gbDebug()           (show debug info)
+gbRunExperiments()  (manually re-run experiments)
+-->
