@@ -263,30 +263,45 @@
   }
 
   function storeAssignments(gb, experiments) {
-    const assignments = {};
+  const assignments = {};
+  const features = gb.getFeatures();
+  
+  for (const key of experiments) {
+    const result = gb.evalFeature(key);
+    const feature = features[key];
+    const cleanId = key.replace(/^exp-/, '');
     
-    for (const key of experiments) {
-      const result = gb.evalFeature(key);
-      const cleanId = key.replace(/^exp-/, '');
-      
-      assignments[cleanId] = {
-        included: result.inExperiment || false,
-        variationId: result.variationId || null,
-        experiment_name: key,
-        status: result.source || 'unknown'
-      };
+    // Determine if experiment is disabled (draft)
+    const isDisabled = !feature.rules || feature.rules.length === 0;
+    
+    // Determine exclusion reason
+    let exclusionReason = null;
+    if (isDisabled) {
+      exclusionReason = 'experiment_disabled';
+    } else if (!result.inExperiment) {
+      exclusionReason = 'traffic_allocation'; // Could be targeting or traffic
     }
     
-    window.gbTestAssignments = assignments;
-    
-    try {
-      localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-    } catch (e) { /* ignore */ }
-    
-    document.dispatchEvent(new CustomEvent('variant:ready', {
-      detail: { assignments, timestamp: new Date().toISOString() }
-    }));
+    assignments[cleanId] = {
+      included: result.inExperiment || false,
+      variationId: result.inExperiment ? result.variationId : null,
+      exclusion_reason: exclusionReason,
+      experiment_name: feature.rules?.[0]?.name || null, // Get actual name
+      hypothesis: null,
+      status: isDisabled ? 'draft' : 'active'
+    };
   }
+  
+  window.gbTestAssignments = assignments;
+  
+  try {
+    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+  } catch (e) { /* ignore */ }
+  
+  document.dispatchEvent(new CustomEvent('variant:ready', {
+    detail: { assignments, timestamp: new Date().toISOString() }
+  }));
+}
 
   // Initialize when GrowthBook is ready
   async function initialize() {
@@ -411,4 +426,4 @@ Debug mode:
 Manual helpers:
 gbDebug()           (show debug info)
 gbRunExperiments()  (manually re-run experiments)
--->
+-->>
