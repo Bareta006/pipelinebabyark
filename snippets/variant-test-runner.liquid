@@ -1,5 +1,5 @@
 <!-- ============================ -->
-<!-- V10 GrowthBook + Shopify (FIXED ARCHITECTURE) -->
+<!-- V11 GrowthBook + Shopify (FIXED TRACKING) -->
 <!-- ============================ -->
 
 <!-- 0) Anti-flicker: Hide gated elements until experiments are ready -->
@@ -64,7 +64,7 @@
   })();
 </script>
 
-<!-- 3) Simple experiment executor -->
+<!-- 3) Simple experiment executor with fixed tracking -->
 <script>
 (function() {
   const previewOverrides = new Map();
@@ -167,7 +167,7 @@
       let experimentId = param;
       
       if (param.startsWith('EXP')) {
-        experimentId = param.replace('EXP', '');
+        experimentId = param; // Keep the full ID including EXP prefix
       } else if (param.startsWith('test_')) {
         experimentId = param.replace('test_', '');
       } else if (param.startsWith('exp_')) {
@@ -183,7 +183,11 @@
       const featureKey = `exp-${experimentId}`;
       const previewValue = extractVariationValue(featureConfig, variantIndex);
       if (previewValue !== null) {
-        previewOverrides.set(featureKey, previewValue);
+        previewOverrides.set(featureKey, {
+          value: previewValue,
+          variantIndex: variantIndex,
+          experimentId: experimentId
+        });
         debug(`Preview override: ${featureKey} -> variant ${variantIndex}`);
       }
     }
@@ -219,8 +223,8 @@
     let experimentsExecuted = 0;
 
     // Apply preview overrides first
-    for (const [featureKey, previewValue] of previewOverrides) {
-      if (executeJavaScript(previewValue, `${featureKey} (preview)`)) {
+    for (const [featureKey, previewData] of previewOverrides) {
+      if (executeJavaScript(previewData.value, `${featureKey} (preview)`)) {
         experimentsExecuted++;
       }
     }
@@ -243,7 +247,7 @@
         hasValue: !!result?.value,
         valueLength: result?.value?.length || 0,
         source: result?.source,
-        inExperiment: result?.inExperiment
+        inExperiment: result?.experimentResult?.inExperiment
       });
 
       if (result?.value && result.value.trim()) {
@@ -263,45 +267,67 @@
   }
 
   function storeAssignments(gb, experiments) {
-  const assignments = {};
-  const features = gb.getFeatures();
-  
-  for (const key of experiments) {
-    const result = gb.evalFeature(key);
-    const feature = features[key];
-    const cleanId = key.replace(/^exp-/, '');
+    const assignments = {};
+    const features = gb.getFeatures();
+    const previews = getPreviewExperiments();
     
-    // Determine if experiment is disabled (draft)
-    const isDisabled = !feature.rules || feature.rules.length === 0;
-    
-    // Determine exclusion reason
-    let exclusionReason = null;
-    if (isDisabled) {
-      exclusionReason = 'experiment_disabled';
-    } else if (!result.inExperiment) {
-      exclusionReason = 'traffic_allocation'; // Could be targeting or traffic
+    for (const key of experiments) {
+      const result = gb.evalFeature(key);
+      const feature = features[key];
+      const cleanId = key.replace(/^exp-/, '');
+      
+      // Check if this experiment has a preview override
+      const previewData = previewOverrides.get(key);
+      if (previewData) {
+        // Preview override - mark as included with the preview variant
+        assignments[cleanId] = {
+          included: true,
+          variationId: previewData.variantIndex,
+          exclusion_reason: null,
+          experiment_name: feature.rules?.[0]?.name || `Preview: ${cleanId}`,
+          hypothesis: null,
+          status: 'preview'
+        };
+        continue;
+      }
+      
+      // Determine if experiment is disabled (draft)
+      const isDisabled = !feature.rules || feature.rules.length === 0;
+      
+      // FIXED: Check experimentResult for the actual inclusion status
+      const isIncluded = result.experimentResult?.inExperiment || false;
+      const variantId = result.experimentResult?.variationId ?? null;
+      
+      // Determine exclusion reason
+      let exclusionReason = null;
+      if (isDisabled) {
+        exclusionReason = 'experiment_disabled';
+      } else if (!isIncluded) {
+        exclusionReason = 'traffic_allocation'; // Could be targeting or traffic
+      }
+      
+      assignments[cleanId] = {
+        included: isIncluded,
+        variationId: isIncluded ? variantId : null,
+        exclusion_reason: exclusionReason,
+        experiment_name: feature.rules?.[0]?.name || null, // Get actual name from rule
+        hypothesis: null,
+        status: isDisabled ? 'draft' : 'active'
+      };
     }
     
-    assignments[cleanId] = {
-      included: result.inExperiment || false,
-      variationId: result.inExperiment ? result.variationId : null,
-      exclusion_reason: exclusionReason,
-      experiment_name: feature.rules?.[0]?.name || null, // Get actual name
-      hypothesis: null,
-      status: isDisabled ? 'draft' : 'active'
-    };
+    window.gbTestAssignments = assignments;
+    
+    try {
+      localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+    } catch (e) { /* ignore */ }
+    
+    document.dispatchEvent(new CustomEvent('variant:ready', {
+      detail: { assignments, timestamp: new Date().toISOString() }
+    }));
+    
+    debug('Stored assignments:', assignments);
   }
-  
-  window.gbTestAssignments = assignments;
-  
-  try {
-    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-  } catch (e) { /* ignore */ }
-  
-  document.dispatchEvent(new CustomEvent('variant:ready', {
-    detail: { assignments, timestamp: new Date().toISOString() }
-  }));
-}
 
   // Initialize when GrowthBook is ready
   async function initialize() {
@@ -393,10 +419,14 @@
         console.log(`${key}:`, {
           hasValue: !!result?.value,
           valueLength: result?.value?.length || 0,
-          source: result.source
+          source: result.source,
+          inExperiment: result.experimentResult?.inExperiment,
+          variationId: result.experimentResult?.variationId
         });
       });
     }
+    
+    console.log('Current assignments:', window.gbTestAssignments);
     
     console.groupEnd();
   };
@@ -426,4 +456,4 @@ Debug mode:
 Manual helpers:
 gbDebug()           (show debug info)
 gbRunExperiments()  (manually re-run experiments)
--->>
+-->
