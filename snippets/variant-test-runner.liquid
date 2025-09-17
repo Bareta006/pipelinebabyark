@@ -355,11 +355,13 @@
   // Multiple initialization strategies
   
   // Strategy 1: GrowthBook queue (primary)
-  window.growthbook_queue = window.growthbook_queue || [];
-  window.growthbook_queue.push(function(gb) {
-    debug('GrowthBook queue callback triggered');
-    setTimeout(initialize, 50); // Small delay to ensure data is loaded
-  });
+window.growthbook_queue.push(function(gb) {
+  debug('GrowthBook queue callback triggered');
+  setTimeout(() => {
+    debug('Delayed initialization after queue callback');
+    initialize();
+  }, 1000); // Give GrowthBook more time to be truly ready
+});
 
   // Strategy 2: Poll for GrowthBook readiness
   let pollAttempts = 0;
