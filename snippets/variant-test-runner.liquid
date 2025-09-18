@@ -773,38 +773,3 @@
   ExperimentExecutor.log('Executor loaded');
 })();
 </script>
-
-<!-- 
-================================================================
-USAGE GUIDE:
-
-1. Basic Setup:
-   - Replace GB_CONFIG values with your keys
-   - Add to theme.liquid before </head>
-
-2. Anti-flicker:
-   <div data-gb-gate>Hidden until ready</div>
-
-3. Preview Testing:
-   ?EXP505=1     (test experiment 505, variant 1)
-   ?test_home=2  (test home experiment, variant 2)
-   ?debug=1      (enable debug logging)
-
-4. Debug Commands:
-   gbDebug()  - Show complete debug info
-   gbRun()    - Manually run experiments
-   gbReset()  - Clear and re-run experiments
-
-5. Events:
-   Listen for 'variant:ready' event for assignments
-
-6. Attributes Available:
-   - deviceType: mobile/tablet/desktop
-   - browser: chrome/safari/firefox/edge
-   - pageType: Shopify page type
-   - isReturningUser: boolean
-   - sessionCount: number
-   - dayOfWeek: 0-6
-   - hourOfDay: 0-23
-================================================================
--->
