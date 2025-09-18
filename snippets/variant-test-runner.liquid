@@ -27,14 +27,29 @@
     ADMIN_KEY: "secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ",
     API_URL: "https://api.growthbook.io/api/v1",
     
+    // Debug mode - SET TO true TO ALWAYS SHOW DEBUG LOGS
+    // Can be overridden by URL parameter ?debug=1
+    FORCE_DEBUG: true,  // <-- Change this to true for permanent debug mode
+    
     // Feature flags
     ENABLE_PREVIEW: true,
-    ENABLE_DEBUG: /[?&]debug=1(&|$)/.test(location.search),
+    ENABLE_DEBUG: false, // Will be computed below
     TIMEOUT_MS: 3000,
     
     // Preview patterns
     PREVIEW_PATTERNS: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/]
   };
+  
+  // Compute debug mode: either hardcoded OR URL parameter
+  GB_CONFIG.ENABLE_DEBUG = GB_CONFIG.FORCE_DEBUG || /[?&]debug=1(&|$)/.test(location.search);
+  
+  // Log debug mode status
+  if (GB_CONFIG.ENABLE_DEBUG) {
+    console.log('🔍 [GrowthBook] Debug mode enabled', {
+      source: GB_CONFIG.FORCE_DEBUG ? 'hardcoded' : 'URL parameter',
+      url: location.href
+    });
+  }
 
   // Session and user tracking
   function getOrCreateSessionId() {
