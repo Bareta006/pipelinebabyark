@@ -39,7 +39,7 @@
   window.growthbook_config = {
     apiHost: "https://cdn.growthbook.io",
     clientKey: "sdk-Knbwv55oDrfYDuq",
-    enableDevMode: true, // Set to true for debugging
+    enableDevMode: /[?&]debug=1(&|$)/.test(location.search), // Enable with ?debug=1 in URL
     
     // Set initial attributes with our stable ID
     attributes: {
@@ -121,21 +121,35 @@
       const features = gb.getFeatures();
       const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
       
+      console.log('[GB] Found', experiments.length, 'experiments to evaluate');
+      
       experiments.forEach(function(key) {
         const result = gb.evalFeature(key);
+        const experimentId = key.replace('exp-', '');
+        
+        // Log evaluation details
+        if (result?.experimentResult) {
+          console.log('[GB] Experiment', experimentId, ':', {
+            included: result.experimentResult.inExperiment,
+            variation: result.experimentResult.variationId,
+            bucket: result.experimentResult.bucket
+          });
+        }
+        
         if (result?.value && typeof result.value === 'string' && result.value.trim()) {
           try {
             // Execute the experiment's JavaScript
             new Function(result.value)();
-            console.log('[GB] Executed experiment:', key);
+            console.log('[GB] ✅ Executed JavaScript for:', experimentId);
           } catch (error) {
-            console.error('[GB] Failed to execute experiment:', key, error);
+            console.error('[GB] ❌ Failed to execute JavaScript for:', experimentId, error);
           }
         }
       });
       
       // Mark page as ready
       document.documentElement.classList.add('gb-ready');
+      console.log('[GB] All experiments evaluated');
     }
     
     // Run experiments immediately
