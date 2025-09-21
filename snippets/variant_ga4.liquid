@@ -1,0 +1,328 @@
+<!-- Variant Analytics Pixel - GA4 Bridge Version -->
+<!-- Place this in theme.liquid AFTER your GrowthBook script -->
+
+<script>
+(function() {
+  'use strict';
+  
+  // ===== CONFIGURATION =====
+  const SHOP_ID = '0527f1ac-fabe-4afb-b72c-bff74d3366ae';  
+  const API_KEY = '96777694e1acbb3f593a2be3f597904375e5e8d97efa587e753978f7f1a6fc04'; 
+  const ANALYTICS_ENDPOINT = 'https://sessions-db-api.vercel.app/api/events_growth_book';
+  const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
+  const PIXEL_VERSION = '11.0.0-GA4';
+  
+  // State
+  let lastAssignments = {};
+  let userId = null;
+  let sessionId = null;
+  let eventsSent = new Set();
+  
+  // Logging helper
+  function log(...args) {
+    if (DEBUG) console.log('[Variant Pixel GA4]', ...args);
+  }
+  
+  // Generate UUIDs
+  function generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.random() * 16 | 0;
+      const v = c === 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+  }
+  
+  // Get or create IDs
+  function getUserId() {
+    if (!userId) {
+      userId = localStorage.getItem('gb_anonymous_id') || window.GB_STABLE_USER_ID || generateUUID();
+    }
+    return userId;
+  }
+  
+  function getSessionId() {
+    if (!sessionId) {
+      sessionId = sessionStorage.getItem('gb_session_id') || generateUUID();
+      try {
+        sessionStorage.setItem('gb_session_id', sessionId);
+      } catch(e) {}
+    }
+    return sessionId;
+  }
+  
+  // Strip shop prefix from experiment IDs
+  function stripShopPrefix(experimentId) {
+    const expMatch = experimentId.match(/EXP\d+$/);
+    return expMatch ? expMatch[0] : experimentId;
+  }
+  
+  // Get current experiment assignments
+  function getExperimentAssignments() {
+    const raw = window.gbTestAssignments || {};
+    const filtered = {};
+    
+    Object.entries(raw).forEach(([expId, assignment]) => {
+      if (assignment.exclusion_reason !== 'experiment_disabled') {
+        const cleanExpId = stripShopPrefix(expId);
+        filtered[cleanExpId] = {
+          ...assignment,
+          experimentId: cleanExpId
+        };
+      }
+    });
+    
+    return filtered;
+  }
+  
+  // Send event to your endpoint
+  function sendToVariant(eventType, eventName, eventData = {}) {
+    const experiments = getExperimentAssignments();
+    
+    log(`Sending ${eventName} with ${Object.keys(experiments).length} experiments`);
+    
+    const deviceInfo = {
+      userAgent: navigator.userAgent,
+      platform: navigator.platform,
+      screenWidth: window.screen.width,
+      screenHeight: window.screen.height,
+      viewportWidth: window.innerWidth || 0,
+      viewportHeight: window.innerHeight || 0,
+      isMobile: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)
+    };
+    
+    const payload = {
+      type: eventType,
+      data: {
+        event_name: eventName,
+        session_id: getSessionId(),
+        user_id: getUserId(),
+        client_timestamp: new Date().toISOString(),
+        timezone_offset: new Date().getTimezoneOffset(),
+        pixel_version: PIXEL_VERSION,
+        shop_domain: window.Shopify?.shop || window.location.hostname,
+        device_info: deviceInfo,
+        event_data: {
+          ...eventData,
+          device: deviceInfo,
+          test_assignments: experiments,
+          experiment_summary: {
+            total_experiments: Object.keys(experiments).length,
+            included_count: Object.values(experiments).filter(e => e.included === true).length,
+            excluded_count: Object.values(experiments).filter(e => e.included === false).length
+          }
+        }
+      }
+    };
+    
+    fetch(ANALYTICS_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Shop-ID': SHOP_ID,
+        'x-api-key': API_KEY
+      },
+      body: JSON.stringify(payload),
+      keepalive: true
+    })
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      log('✅ Event sent:', eventName);
+      return response.text();
+    })
+    .then(text => {
+      if (DEBUG) log('Response:', text);
+    })
+    .catch(error => {
+      console.error('[Variant Pixel GA4] Error:', error);
+    });
+  }
+  
+  // Map GA4 events to your event taxonomy
+  function handleGA4Event(event) {
+    const eventName = event.event;
+    
+    // Skip if we've already processed this exact event
+    const eventKey = `${eventName}_${Date.now()}`;
+    if (eventsSent.has(eventKey)) return;
+    eventsSent.add(eventKey);
+    
+    log('Processing GA4 event:', eventName, event);
+    
+    // Map GA4 events to your taxonomy
+    switch(eventName) {
+      case 'page_view':
+        sendToVariant('navigation', 'page_view', {
+          path: event.page_path || window.location.pathname,
+          url: event.page_location || window.location.href,
+          title: event.page_title || document.title,
+          referrer: event.page_referrer || document.referrer,
+          search_params: window.location.search,
+          page_event_id: generateUUID()
+        });
+        break;
+        
+      case 'view_item':
+        sendToVariant('product', 'product_view', {
+          product: {
+            id: event.ecommerce?.items?.[0]?.item_id || event.item_id,
+            title: event.ecommerce?.items?.[0]?.item_name || event.item_name,
+            variant_id: event.ecommerce?.items?.[0]?.item_variant,
+            price: event.ecommerce?.items?.[0]?.price || event.value,
+            currency: event.ecommerce?.currency || event.currency || 'USD'
+          }
+        });
+        break;
+        
+      case 'add_to_cart':
+        sendToVariant('cart', 'add_to_cart', {
+          cart_line: {
+            price: event.ecommerce?.items?.[0]?.price || event.value,
+            currency: event.ecommerce?.currency || event.currency || 'USD',
+            quantity: event.ecommerce?.items?.[0]?.quantity || 1,
+            variant_id: event.ecommerce?.items?.[0]?.item_variant
+          },
+          product_id: event.ecommerce?.items?.[0]?.item_id,
+          product_title: event.ecommerce?.items?.[0]?.item_name
+        });
+        break;
+        
+      case 'view_cart':
+        sendToVariant('cart', 'cart_viewed', {
+          total: event.ecommerce?.value || event.value,
+          currency: event.ecommerce?.currency || event.currency || 'USD',
+          item_count: event.ecommerce?.items?.length || 0
+        });
+        break;
+        
+      case 'begin_checkout':
+        sendToVariant('checkout', 'begin_checkout', {
+          checkout: {
+            total: event.ecommerce?.value || event.value,
+            currency: event.ecommerce?.currency || event.currency || 'USD',
+            itemCount: event.ecommerce?.items?.length || 0
+          }
+        });
+        break;
+        
+      case 'purchase':
+        sendToVariant('conversion', 'purchase', {
+          order: {
+            id: event.ecommerce?.transaction_id || event.transaction_id,
+            total: event.ecommerce?.value || event.value,
+            currency: event.ecommerce?.currency || event.currency || 'USD',
+            itemCount: event.ecommerce?.items?.length || 0
+          }
+        });
+        break;
+        
+      default:
+        // Log unhandled events in debug mode
+        if (DEBUG) log('Unhandled GA4 event:', eventName);
+    }
+  }
+  
+  // Override dataLayer.push to intercept all events
+  function interceptDataLayer() {
+    window.dataLayer = window.dataLayer || [];
+    const originalPush = window.dataLayer.push;
+    
+    window.dataLayer.push = function() {
+      // Call original push
+      const result = originalPush.apply(window.dataLayer, arguments);
+      
+      // Process each pushed item
+      for (let i = 0; i < arguments.length; i++) {
+        const item = arguments[i];
+        if (item && item.event) {
+          // Small delay to ensure GrowthBook data is ready
+          setTimeout(() => handleGA4Event(item), 10);
+        }
+      }
+      
+      return result;
+    };
+    
+    log('DataLayer interceptor installed');
+  }
+  
+  // Process any existing dataLayer events
+  function processExistingEvents() {
+    if (!window.dataLayer) return;
+    
+    window.dataLayer.forEach(item => {
+      if (item && item.event) {
+        handleGA4Event(item);
+      }
+    });
+    
+    log('Processed', window.dataLayer.length, 'existing dataLayer items');
+  }
+  
+  // Wait for GrowthBook to be ready
+  function waitForGrowthBook(callback) {
+    let attempts = 0;
+    const maxAttempts = 50; // 5 seconds
+    
+    const check = setInterval(() => {
+      attempts++;
+      
+      // Check if GrowthBook has evaluated experiments
+      if (window.gbTestAssignments !== undefined) {
+        clearInterval(check);
+        log('GrowthBook ready with', Object.keys(window.gbTestAssignments || {}).length, 'assignments');
+        callback();
+      } else if (attempts >= maxAttempts) {
+        clearInterval(check);
+        log('GrowthBook timeout, proceeding anyway');
+        callback();
+      }
+    }, 100);
+  }
+  
+  // Initialize
+  log('Initializing GA4 Bridge v11.0.0');
+  
+  // Set up interception immediately
+  interceptDataLayer();
+  
+  // Wait for GrowthBook then process existing events
+  waitForGrowthBook(() => {
+    log('Processing events with GrowthBook data ready');
+    processExistingEvents();
+    
+    // If no GA4 events yet, send at least a page view
+    if (!window.dataLayer || window.dataLayer.length === 0) {
+      log('No GA4 events found, sending manual page view');
+      handleGA4Event({
+        event: 'page_view',
+        page_path: window.location.pathname,
+        page_location: window.location.href,
+        page_title: document.title
+      });
+    }
+  });
+  
+  // Debug helper
+  window.debugVariantGA4 = function() {
+    const experiments = getExperimentAssignments();
+    console.group('[Variant GA4 Debug]');
+    console.log('Version:', PIXEL_VERSION);
+    console.log('User ID:', getUserId());
+    console.log('Session ID:', getSessionId());
+    console.log('DataLayer items:', window.dataLayer?.length || 0);
+    console.log('Events sent:', eventsSent.size);
+    console.log('Experiments:', Object.keys(experiments).length);
+    
+    if (Object.keys(experiments).length > 0) {
+      console.group('Active Experiments:');
+      Object.entries(experiments).forEach(([id, data]) => {
+        console.log(`${id}: variant ${data.variationId}`);
+      });
+      console.groupEnd();
+    }
+    
+    console.groupEnd();
+  };
+  
+})();
+</script>
