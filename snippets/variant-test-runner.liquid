@@ -1,4 +1,4 @@
-<!-- GrowthBook Auto-Bundle with Analytics Pixel Integration -->
+<!-- GrowthBook Auto-Bundle with PostMessage Bridge for Sandbox Communication -->
 <!-- Place this in your theme.liquid file -->
 
 <!-- Anti-flicker styles -->
@@ -22,8 +22,8 @@
 (function() {
   'use strict';
   
-  // Get or create stable user ID (shared with pixel)
-  const USER_ID_KEY = 'gb_anonymous_id'; // Matches pixel's expectation
+  // Get or create stable user ID
+  const USER_ID_KEY = 'gb_anonymous_id';
   let stableUserId = localStorage.getItem(USER_ID_KEY);
   
   if (!stableUserId) {
@@ -54,7 +54,7 @@
     enableDevMode: /[?&]debug=1(&|$)/.test(location.search),
     
     attributes: {
-      id: stableUserId, // Our stable ID
+      id: stableUserId,
       
       // Shopify attributes
       customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
@@ -109,7 +109,7 @@
 })();
 
 // ============================================  
-// EXPERIMENT HANDLER WITH ANALYTICS INTEGRATION
+// POSTMESSAGE BRIDGE FOR SANDBOX COMMUNICATION
 // ============================================
 (function() {
   const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
@@ -119,11 +119,89 @@
     ready: false,
     executed: new Set(),
     evaluations: {},
-    previews: new Map()
+    assignments: {},
+    sandboxRequests: []
   };
   
   // Initialize gbTestAssignments immediately as empty
   window.gbTestAssignments = {};
+  
+  // Set up PostMessage listener for sandbox requests
+  window.addEventListener('message', function(e) {
+    // Security check - only respond to our sandbox requests
+    if (e.data === 'gb_request_assignments') {
+      if (DEBUG) console.log('[GB] Sandbox requested assignments');
+      
+      // If assignments are ready, send them immediately
+      if (Object.keys(window.gbTestAssignments).length > 0) {
+        e.source.postMessage({
+          type: 'gb_assignments',
+          data: window.gbTestAssignments,
+          userId: window.GB_STABLE_USER_ID,
+          timestamp: Date.now()
+        }, '*');
+        
+        if (DEBUG) console.log('[GB] Sent assignments to sandbox:', window.gbTestAssignments);
+      } else {
+        // Queue the request if assignments aren't ready yet
+        window.GB_EXECUTION.sandboxRequests.push(e.source);
+        if (DEBUG) console.log('[GB] Queued sandbox request - assignments not ready yet');
+      }
+    } else if (e.data === 'gb_pixel_ready') {
+      // Sandbox pixel confirmed it's ready
+      if (DEBUG) console.log('[GB] Sandbox pixel confirmed ready');
+      
+      // If we have assignments, send them
+      if (Object.keys(window.gbTestAssignments).length > 0) {
+        e.source.postMessage({
+          type: 'gb_assignments',
+          data: window.gbTestAssignments,
+          userId: window.GB_STABLE_USER_ID,
+          timestamp: Date.now()
+        }, '*');
+      }
+    }
+  });
+  
+  // Function to broadcast assignments to all waiting sandboxes
+  function broadcastAssignments() {
+    const assignments = window.gbTestAssignments;
+    
+    if (Object.keys(assignments).length === 0) return;
+    
+    if (DEBUG) console.log('[GB] Broadcasting assignments to sandboxes');
+    
+    // Send to any queued requests
+    window.GB_EXECUTION.sandboxRequests.forEach(source => {
+      try {
+        source.postMessage({
+          type: 'gb_assignments',
+          data: assignments,
+          userId: window.GB_STABLE_USER_ID,
+          timestamp: Date.now()
+        }, '*');
+      } catch(e) {
+        // Source might be closed
+      }
+    });
+    
+    // Clear the queue
+    window.GB_EXECUTION.sandboxRequests = [];
+    
+    // Also broadcast to all iframes (in case they didn't request yet)
+    document.querySelectorAll('iframe').forEach(iframe => {
+      try {
+        iframe.contentWindow.postMessage({
+          type: 'gb_assignments',
+          data: assignments,
+          userId: window.GB_STABLE_USER_ID,
+          timestamp: Date.now()
+        }, '*');
+      } catch(e) {
+        // Might be cross-origin
+      }
+    });
+  }
   
   // Check for preview experiments in URL
   function getPreviewExperiments() {
@@ -143,67 +221,6 @@
     }
     
     return previews;
-  }
-  
-  // Apply preview overrides after normal execution
-  async function applyPreviewOverrides(gb) {
-    const previews = getPreviewExperiments();
-    if (Object.keys(previews).length === 0) return;
-    
-    console.log('[GB] Preview mode enabled:', previews);
-    
-    // Get all features to check variations
-    const features = gb.getFeatures();
-    
-    for (const [param, variantIndex] of Object.entries(previews)) {
-      let experimentKey = `exp-${param}`;
-      
-      // Handle different naming formats
-      if (param.startsWith('EXP')) {
-        experimentKey = `exp-${param}`;
-      } else if (param.startsWith('test_')) {
-        experimentKey = `exp-${param.replace('test_', '')}`;
-      } else if (param.startsWith('exp_')) {
-        experimentKey = `exp-${param.replace('exp_', '')}`;
-      }
-      
-      // Check if experiment exists
-      const feature = features[experimentKey];
-      if (!feature) {
-        console.warn(`[GB] Preview experiment ${experimentKey} not found`);
-        continue;
-      }
-      
-      // Find the rule with variations
-      let previewCode = '';
-      if (feature.rules && feature.rules.length > 0) {
-        for (const rule of feature.rules) {
-          if (rule.variations && variantIndex < rule.variations.length) {
-            previewCode = rule.variations[variantIndex] || '';
-            break;
-          }
-        }
-      }
-      
-      // If we found code for this variant, execute it
-      if (previewCode && typeof previewCode === 'string' && previewCode.trim()) {
-        try {
-          // First, clear any previously executed version of this experiment
-          const experimentId = experimentKey.replace('exp-', '');
-          if (window.GB_EXECUTION.executed.has(experimentId)) {
-            console.log(`[GB] Preview: Overriding previously executed ${experimentId}`);
-          }
-          
-          new Function(previewCode)();
-          window.GB_EXECUTION.previews.set(experimentId, variantIndex);
-          console.log(`[GB] ✅ Preview executed: ${experimentId} variant ${variantIndex}`);
-        } catch (error) {
-          console.error(`[GB] Preview execution failed for ${experimentKey}:`, error);
-        }
-      } else {
-        console.log(`[GB] Preview: No code for ${experimentKey} variant ${variantIndex}`);
-      }
-    }
   }
   
   // Wait for GrowthBook and execute experiments
@@ -237,27 +254,6 @@
       let executedCount = 0;
       let includedCount = 0;
       
-      // Helper function to check condition matching
-      function matchesCondition(attributes, condition) {
-        // Simplified condition checking - you might need to expand this
-        for (const [key, value] of Object.entries(condition)) {
-          if (key === '$and') {
-            return value.every(subCondition => matchesCondition(attributes, subCondition));
-          }
-          if (key === '$or') {
-            return value.some(subCondition => matchesCondition(attributes, subCondition));
-          }
-          if (typeof value === 'object' && value !== null && value.$regex) {
-            const regex = new RegExp(value.$regex);
-            return regex.test(attributes[key]);
-          }
-          if (attributes[key] !== value) {
-            return false;
-          }
-        }
-        return true;
-      }
-      
       experiments.forEach(key => {
         const experimentId = key.replace('exp-', '');
         const result = gb.evalFeature(key);
@@ -282,47 +278,6 @@
           isDisabled: isDisabled
         };
         
-        // Enhanced debug logging for ALL experiments
-        if (DEBUG) {
-          // Determine experiment type and status
-          let status = '';
-          let details = {};
-          
-          if (isDisabled) {
-            status = '⚠️ DISABLED/DRAFT';
-            details = { reason: 'No rules configured' };
-          } else if (isForceRule) {
-            status = '🔧 FORCE RULE';
-            details = {
-              hasCode: !!rule.force,
-              targeting: rule.condition || 'none'
-            };
-          } else if (isABTest) {
-            status = result?.experimentResult?.inExperiment ? '✅ A/B INCLUDED' : '❌ A/B EXCLUDED';
-            details = {
-              variation: result?.experimentResult?.variationId,
-              bucket: result?.experimentResult?.bucket?.toFixed(4),
-              coverage: (rule.coverage || 1) * 100 + '%',
-              targeting: rule.condition || 'none',
-              source: result?.source
-            };
-            
-            // Add exclusion reason if not included
-            if (!result?.experimentResult?.inExperiment) {
-              // Check targeting mismatch
-              if (rule.condition && !matchesCondition(gb.getAttributes(), rule.condition)) {
-                details.exclusionReason = 'targeting_mismatch';
-              } else if (result?.experimentResult?.bucket > (rule.coverage || 1)) {
-                details.exclusionReason = 'outside_coverage';
-              } else {
-                details.exclusionReason = result?.experimentResult?.reason || 'unknown';
-              }
-            }
-          }
-          
-          console.log(`[GB] ${experimentId} ${status}:`, details);
-        }
-        
         // Track if included in A/B test
         if (result?.experimentResult?.inExperiment) {
           includedCount++;
@@ -330,9 +285,7 @@
         
         // Execute JavaScript if present
         if (result?.value && typeof result.value === 'string' && result.value.trim()) {
-          // Skip if already executed
           if (window.GB_EXECUTION.executed.has(experimentId)) {
-            if (DEBUG) console.log(`[GB] ${experimentId} already executed, skipping`);
             return;
           }
           
@@ -356,7 +309,6 @@
       const assignments = {};
       Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
         // Only include actual A/B tests that the user is included in
-        // Skip force rules, disabled experiments, and excluded A/B tests
         if (data.isABTest && data.included) {
           assignments[expId] = {
             experimentId: expId,
@@ -365,7 +317,7 @@
             exclusion_reason: null,
             bucket: data.bucket,
             source: data.source,
-            experiment_name: null, // Would need to extract from feature metadata if available
+            experiment_name: null,
             hypothesis: null,
             status: 'active'
           };
@@ -374,49 +326,30 @@
       
       // Update global assignments
       window.gbTestAssignments = assignments;
+      window.GB_EXECUTION.assignments = assignments;
       
-      // Also store in localStorage for pixel fallback
+      // Also store in localStorage for fallback
       try {
         localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
       } catch (e) {
         console.warn('[GB] Could not store assignments in localStorage:', e);
       }
       
-      // Dispatch event for pixel with assignments
-      const eventDetail = { 
-        assignments: assignments,
-        summary: {
-          total_ab_tests_included: Object.keys(assignments).length,
-          total_experiments: experiments.length,
-          force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
-          disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
-        }
-      };
+      // Broadcast to any waiting sandboxes
+      broadcastAssignments();
       
-      // Dispatch the event
-      document.dispatchEvent(new CustomEvent('variant:ready', {
-        detail: eventDetail
-      }));
-      
-      console.log(`[GB] Analytics: Reporting ${Object.keys(assignments).length} included A/B tests to pixel`);
+      console.log(`[GB] Analytics: ${Object.keys(assignments).length} A/B tests ready for pixel`);
       if (DEBUG && Object.keys(assignments).length > 0) {
-        console.log('[GB] Assignments sent to pixel:', assignments);
+        console.log('[GB] Assignments ready for sandbox:', assignments);
       }
-      
-      // After normal execution, apply preview overrides
-      await applyPreviewOverrides(gb);
       
       window.GB_EXECUTION.ready = true;
       document.documentElement.classList.add('gb-ready');
       
-      // Dispatch a secondary event in case the pixel missed the first one
-      setTimeout(() => {
-        if (Object.keys(assignments).length > 0) {
-          document.dispatchEvent(new CustomEvent('gb:experiments:ready', {
-            detail: { assignments: assignments }
-          }));
-        }
-      }, 100);
+      // Broadcast again after a short delay in case sandbox wasn't ready
+      setTimeout(broadcastAssignments, 100);
+      setTimeout(broadcastAssignments, 500);
+      setTimeout(broadcastAssignments, 1000);
     }
     
     // Execute on load
@@ -425,24 +358,8 @@
     // Re-execute on Shopify section changes
     document.addEventListener('shopify:section:load', function() {
       console.log('[GB] Section reload detected');
-      window.GB_EXECUTION.executed.clear(); // Allow re-execution
+      window.GB_EXECUTION.executed.clear();
       executeExperiments();
-    });
-    
-    // Safe attribute updates for cart events  
-    function updateAttributes(newAttrs) {
-      gb.setAttributes({
-        ...gb.getAttributes(),
-        ...newAttrs,
-        id: window.GB_STABLE_USER_ID // Never change ID
-      });
-    }
-    
-    document.addEventListener('cart:updated', function() {
-      updateAttributes({
-        cartUpdated: Date.now(),
-        cartItemCount: window.Shopify?.cart?.item_count || 0
-      });
     });
     
     // Monitor ID stability
@@ -472,172 +389,41 @@ window.gbDebug = function() {
   console.log('Stable ID:', window.GB_STABLE_USER_ID);
   console.log('Current ID:', gb?.getAttributes()?.id);
   console.log('Match:', gb?.getAttributes()?.id === window.GB_STABLE_USER_ID ? '✅' : '❌');
-  
-  if (window.GB_EXECUTION.evaluations) {
-    const abTests = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isABTest);
-    const forceRules = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isForceRule);
-    const disabled = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isDisabled);
-    
-    console.group('A/B Tests');
-    abTests.forEach(([id, data]) => {
-      const status = data.included ? '✅ INCLUDED' : '❌ EXCLUDED';
-      const executed = window.GB_EXECUTION.executed.has(id) ? '🚀' : '';
-      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)} ${executed}`);
-    });
-    console.groupEnd();
-    
-    console.group('Force Rules (Feature Flags)');
-    forceRules.forEach(([id, data]) => {
-      const executed = window.GB_EXECUTION.executed.has(id) ? '🚀 EXECUTED' : '⭕ NOT EXECUTED';
-      console.log(`${id}: ${executed}`);
-    });
-    console.groupEnd();
-    
-    if (disabled.length > 0) {
-      console.group('Disabled/Draft');
-      disabled.forEach(([id]) => console.log(`⚠️ ${id}`));
-      console.groupEnd();
-    }
-  }
-  
-  console.log('Attributes:', gb?.getAttributes());
-  console.log('Analytics Assignments:', window.gbTestAssignments);
+  console.log('Assignments:', window.gbTestAssignments);
+  console.log('Sandbox Requests Pending:', window.GB_EXECUTION.sandboxRequests.length);
   console.groupEnd();
   
   return {
     stableId: window.GB_STABLE_USER_ID,
     currentId: gb?.getAttributes()?.id,
-    evaluations: window.GB_EXECUTION.evaluations,
-    analyticsAssignments: window.gbTestAssignments
+    assignments: window.gbTestAssignments,
+    sandboxPending: window.GB_EXECUTION.sandboxRequests.length
   };
 };
 
-window.gbTestBucket = function(experimentId) {
-  const gb = window.gb || window._growthbook;
-  const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
-  const result = gb?.evalFeature(key);
+window.gbTestBridge = function() {
+  // Manually trigger a broadcast to sandboxes
+  const assignments = window.gbTestAssignments;
   
-  console.log(`${experimentId}:`, {
-    included: result?.experimentResult?.inExperiment,
-    variation: result?.experimentResult?.variationId,  
-    bucket: result?.experimentResult?.bucket
+  if (Object.keys(assignments).length === 0) {
+    console.log('❌ No assignments available yet');
+    return;
+  }
+  
+  console.log('📤 Manually broadcasting to sandboxes:', assignments);
+  
+  document.querySelectorAll('iframe').forEach((iframe, index) => {
+    try {
+      iframe.contentWindow.postMessage({
+        type: 'gb_assignments',
+        data: assignments,
+        userId: window.GB_STABLE_USER_ID,
+        timestamp: Date.now()
+      }, '*');
+      console.log(`✅ Sent to iframe ${index}`);
+    } catch(e) {
+      console.log(`❌ Failed to send to iframe ${index}:`, e.message);
+    }
   });
-  
-  return result?.experimentResult?.bucket;
-};
-
-// Additional helper for detailed experiment analysis
-window.gbAnalyze = function(experimentId) {
-  const gb = window.gb || window._growthbook;
-  const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
-  const feature = gb?.getFeatures()?.[key];
-  const result = gb?.evalFeature(key);
-  const rule = feature?.rules?.[0];
-  
-  console.group(`🔍 Analysis: ${experimentId}`);
-  
-  if (!feature) {
-    console.log('❌ Experiment not found');
-  } else if (!rule) {
-    console.log('⚠️ No rules configured (draft/disabled)');
-  } else {
-    console.log('Rule Type:', rule.force !== undefined ? 'Force Rule' : 'A/B Test');
-    console.log('Targeting:', rule.condition || 'none');
-    
-    if (rule.variations) {
-      console.log('Coverage:', (rule.coverage || 1) * 100 + '%');
-      console.log('Variations:', rule.variations.length);
-      console.log('Weights:', rule.weights);
-    }
-    
-    console.log('Your Attributes:', gb.getAttributes());
-    console.log('Evaluation Result:', {
-      included: result?.experimentResult?.inExperiment,
-      variation: result?.experimentResult?.variationId,
-      bucket: result?.experimentResult?.bucket,
-      source: result?.source
-    });
-    
-    if (rule.condition) {
-      console.log('Targeting Match:', 
-        Object.entries(rule.condition).map(([k,v]) => {
-          const attrValue = gb.getAttributes()[k];
-          if (v && typeof v === 'object' && v.$regex) {
-            const regex = new RegExp(v.$regex);
-            return `${k}: "${attrValue}" matches ${v.$regex}? ${regex.test(attrValue)}`;
-          }
-          return `${k}: "${attrValue}" === ${JSON.stringify(v)}? ${attrValue === v}`;
-        })
-      );
-    }
-    
-    console.log('Will report to analytics?', 
-      rule.force === undefined && result?.experimentResult?.inExperiment ? 
-      '✅ YES - A/B test with inclusion' : 
-      '❌ NO - Force rule, disabled, or excluded from A/B test'
-    );
-  }
-  
-  console.groupEnd();
-};
-
-// Helper to verify pixel integration
-window.gbPixelStatus = function() {
-  console.group('📊 Pixel Integration Status');
-  console.log('Test Assignments Available:', window.gbTestAssignments ? 'YES' : 'NO');
-  
-  if (window.gbTestAssignments) {
-    const count = Object.keys(window.gbTestAssignments).length;
-    console.log(`Reporting ${count} A/B test${count !== 1 ? 's' : ''} to analytics`);
-    
-    if (count > 0) {
-      console.group('A/B Tests Being Tracked:');
-      Object.entries(window.gbTestAssignments).forEach(([id, data]) => {
-        console.log(`${id}: Variant ${data.variationId} (bucket: ${data.bucket?.toFixed(4)})`);
-      });
-      console.groupEnd();
-    }
-  }
-  
-  console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
-  console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
-  console.log('variant:ready Event Dispatched:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
-  console.log('localStorage backup:', localStorage.getItem('gb_active_tests') || 'Not set');
-  console.groupEnd();
-};
-
-// Force refresh assignments for pixel (useful for debugging)
-window.gbRefreshPixel = function() {
-  if (window.GB_EXECUTION?.evaluations) {
-    const assignments = {};
-    Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
-      if (data.isABTest && data.included) {
-        assignments[expId] = {
-          experimentId: expId,
-          variationId: data.variation,
-          included: true,
-          exclusion_reason: null,
-          bucket: data.bucket,
-          source: data.source,
-          experiment_name: null,
-          hypothesis: null,
-          status: 'active'
-        };
-      }
-    });
-    
-    window.gbTestAssignments = assignments;
-    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-    
-    document.dispatchEvent(new CustomEvent('variant:ready', {
-      detail: { assignments: assignments }
-    }));
-    
-    console.log('✅ Refreshed pixel assignments:', assignments);
-    return assignments;
-  } else {
-    console.log('❌ No evaluations available yet');
-    return null;
-  }
 };
 </script>
