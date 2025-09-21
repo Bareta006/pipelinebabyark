@@ -1,15 +1,15 @@
 <!-- ============================ -->
-<!-- V12 GrowthBook + Shopify (Enhanced) -->
+<!-- V12 GrowthBook + Shopify (Fixed) -->
 <!-- ============================ -->
 
 <!-- 0) Anti-flicker with timeout fallback -->
 <style>
-  [data-gb-gate] { 
+  [data-gb-gate] {
     visibility: hidden;
     transition: visibility 0.2s ease-in-out;
   }
-  .gb-ready [data-gb-gate] { 
-    visibility: visible; 
+  .gb-ready [data-gb-gate] {
+    visibility: visible;
   }
   /* Fallback: show content after 3 seconds even if GB fails */
   .gb-timeout [data-gb-gate] {
@@ -19,178 +19,210 @@
 
 <!-- 1) Enhanced Configuration -->
 <script>
-  // ===== CONFIGURATION =====
-  const GB_CONFIG = {
-    // API Keys (store these securely in production)
-    CLIENT_KEY: "sdk-Knbwv55oDrfYDuq",
-    API_HOST: "https://cdn.growthbook.io",
-    ADMIN_KEY: "secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ",
-    API_URL: "https://api.growthbook.io/api/v1",
-    
-    // Debug mode - SET TO true TO ALWAYS SHOW DEBUG LOGS
-    // Can be overridden by URL parameter ?debug=1
-    FORCE_DEBUG: true,  // <-- Change this to true for permanent debug mode
-    
-    // Feature flags
-    ENABLE_PREVIEW: true,
-    ENABLE_DEBUG: false, // Will be computed below
-    TIMEOUT_MS: 3000,
-    
-    // Preview patterns
-    PREVIEW_PATTERNS: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/]
+// ===== CONFIGURATION =====
+const GB_CONFIG = {
+  // API Keys (store these securely in production)
+  CLIENT_KEY: "sdk-Knbwv55oDrfYDuq",
+  API_HOST: "https://cdn.growthbook.io",
+  ADMIN_KEY: "secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ",
+  API_URL: "https://api.growthbook.io/api/v1",
+  
+  // Debug mode - SET TO true TO ALWAYS SHOW DEBUG LOGS
+  // Can be overridden by URL parameter ?debug=1
+  FORCE_DEBUG: true, // <-- Change this to false in production
+  
+  // Feature flags
+  ENABLE_PREVIEW: true,
+  ENABLE_DEBUG: false, // Will be computed below
+  TIMEOUT_MS: 3000,
+  
+  // Preview patterns
+  PREVIEW_PATTERNS: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/]
+};
+
+// Compute debug mode: either hardcoded OR URL parameter
+GB_CONFIG.ENABLE_DEBUG = GB_CONFIG.FORCE_DEBUG || /[?&]debug=1(&|$)/.test(location.search);
+
+// Log debug mode status
+if (GB_CONFIG.ENABLE_DEBUG) {
+  console.log('🔍 [GrowthBook] Debug mode enabled', {
+    source: GB_CONFIG.FORCE_DEBUG ? 'hardcoded' : 'URL parameter',
+    url: location.href
+  });
+}
+
+// Session and user tracking
+function getOrCreateSessionId() {
+  let sessionId = sessionStorage.getItem('gb_session_id');
+  if (!sessionId) {
+    sessionId = `gb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    sessionStorage.setItem('gb_session_id', sessionId);
+    sessionStorage.setItem('gb_session_start', new Date().toISOString());
+  }
+  return sessionId;
+}
+
+function getOrCreateDeviceId() {
+  let deviceId = localStorage.getItem('gb_device_id');
+  if (!deviceId) {
+    deviceId = `device_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('gb_device_id', deviceId);
+  }
+  return deviceId;
+}
+
+// Safe attribute updater - CRITICAL FIX
+function safeUpdateAttributes(gb, newAttributes) {
+  if (!gb) return;
+  
+  const currentAttributes = gb.getAttributes() || {};
+  const criticalFields = ['id', 'sessionId', 'deviceType', 'customerId'];
+  
+  // Merge new attributes with existing ones
+  const mergedAttributes = {
+    ...currentAttributes,
+    ...newAttributes
   };
   
-  // Compute debug mode: either hardcoded OR URL parameter
-  GB_CONFIG.ENABLE_DEBUG = GB_CONFIG.FORCE_DEBUG || /[?&]debug=1(&|$)/.test(location.search);
+  // Verify critical fields weren't accidentally removed
+  criticalFields.forEach(field => {
+    if (currentAttributes[field] && !mergedAttributes[field]) {
+      console.warn(`[GB] Critical field '${field}' would be removed! Preserving it.`);
+      mergedAttributes[field] = currentAttributes[field];
+    }
+  });
   
-  // Log debug mode status
+  // Apply the merged attributes
+  gb.setAttributes(mergedAttributes);
+  
   if (GB_CONFIG.ENABLE_DEBUG) {
-    console.log('🔍 [GrowthBook] Debug mode enabled', {
-      source: GB_CONFIG.FORCE_DEBUG ? 'hardcoded' : 'URL parameter',
-      url: location.href
+    console.log('[GB] Attributes updated safely:', {
+      before: currentAttributes,
+      update: newAttributes,
+      after: mergedAttributes
     });
   }
+}
 
-  // Session and user tracking
-  function getOrCreateSessionId() {
-    let sessionId = sessionStorage.getItem('gb_session_id');
-    if (!sessionId) {
-      sessionId = `gb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      sessionStorage.setItem('gb_session_id', sessionId);
-      sessionStorage.setItem('gb_session_start', new Date().toISOString());
-    }
-    return sessionId;
-  }
-  
-  function getOrCreateDeviceId() {
-    let deviceId = localStorage.getItem('gb_device_id');
-    if (!deviceId) {
-      deviceId = `device_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-      localStorage.setItem('gb_device_id', deviceId);
-    }
-    return deviceId;
-  }
-  
-  // Enhanced attributes with better device detection
-  window.growthbook_config = {
-    enableDevMode: GB_CONFIG.ENABLE_DEBUG,
-    attributes: {
-      // User identifiers
-      id: getOrCreateDeviceId(), // GrowthBook will use this for sticky bucketing
-      sessionId: getOrCreateSessionId(),
-      customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
-      
-      // Staff/admin detection
-      isStaff: !!(window.Shopify && (Shopify.designMode || /[?&]staff=1(&|$)/.test(location.search))),
-      themeEditor: !!(window.Shopify && Shopify.designMode),
-      
-      // URL attributes
-      url: location.href,
-      currentUrl: location.href,
-      path: location.pathname,
-      domain: location.hostname,
-      
-      // Enhanced device detection
-      deviceType: (function() {
-        const ua = navigator.userAgent;
-        if (/tablet|ipad|playbook|silk/i.test(ua)) return 'tablet';
-        if (/Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return 'mobile';
-        return 'desktop';
-      })(),
-      
-      // Browser detection
-      browser: (function() {
-        const ua = navigator.userAgent;
-        if (ua.includes('Chrome')) return 'chrome';
-        if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';
-        if (ua.includes('Firefox')) return 'firefox';
-        if (ua.includes('Edge')) return 'edge';
-        return 'other';
-      })(),
-      
-      // Shopify specific
-      pageType: window.ShopifyAnalytics?.meta?.page?.pageType || 'unknown',
-      customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
-      
-      // Time-based attributes
-      dayOfWeek: new Date().getDay(),
-      hourOfDay: new Date().getHours(),
-      
-      // User attributes (if available)
-      isReturningUser: localStorage.getItem('gb_returning_user') === 'true',
-      sessionCount: parseInt(localStorage.getItem('gb_session_count') || '0')
-    },
+// Enhanced attributes with better device detection
+window.growthbook_config = {
+  enableDevMode: GB_CONFIG.ENABLE_DEBUG,
+  attributes: {
+    // User identifiers - CRITICAL for sticky bucketing
+    id: getOrCreateDeviceId(), // This MUST remain stable
+    sessionId: getOrCreateSessionId(),
+    customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
     
-    // Enhanced tracking with error handling
-    trackingCallback: (experiment, result) => {
-      try {
-        // Google Analytics 4
-        if (window.dataLayer) {
-          window.dataLayer.push({
-            event: "gb_experiment_viewed",
+    // Staff/admin detection
+    isStaff: !!(window.Shopify && (Shopify.designMode || /[?&]staff=1(&|$)/.test(location.search))),
+    themeEditor: !!(window.Shopify && Shopify.designMode),
+    
+    // URL attributes
+    url: location.href,
+    currentUrl: location.href,
+    path: location.pathname,
+    domain: location.hostname,
+    
+    // Enhanced device detection
+    deviceType: (function() {
+      const ua = navigator.userAgent;
+      if (/tablet|ipad|playbook|silk/i.test(ua)) return 'tablet';
+      if (/Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return 'mobile';
+      return 'desktop';
+    })(),
+    
+    // Browser detection
+    browser: (function() {
+      const ua = navigator.userAgent;
+      if (ua.includes('Chrome')) return 'chrome';
+      if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';
+      if (ua.includes('Firefox')) return 'firefox';
+      if (ua.includes('Edge')) return 'edge';
+      return 'other';
+    })(),
+    
+    // Shopify specific
+    pageType: window.ShopifyAnalytics?.meta?.page?.pageType || 'unknown',
+    
+    // Time-based attributes
+    dayOfWeek: new Date().getDay(),
+    hourOfDay: new Date().getHours(),
+    
+    // User attributes (if available)
+    isReturningUser: localStorage.getItem('gb_returning_user') === 'true',
+    sessionCount: parseInt(localStorage.getItem('gb_session_count') || '0')
+  },
+  
+  // Enhanced tracking with error handling
+  trackingCallback: (experiment, result) => {
+    try {
+      // Google Analytics 4
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: "gb_experiment_viewed",
+          experimentId: experiment.key,
+          variationId: result.key,
+          featureId: result.featureId || null,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
+      // Shopify Analytics
+      if (window.Shopify?.analytics?.track) {
+        window.Shopify.analytics.track('Experiment Viewed', {
+          experimentId: experiment.key,
+          variationId: result.key
+        });
+      }
+      
+      // Custom tracking endpoint (optional)
+      if (window.gbTrackingEndpoint) {
+        fetch(window.gbTrackingEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
             experimentId: experiment.key,
             variationId: result.key,
-            featureId: result.featureId || null,
-            timestamp: new Date().toISOString()
-          });
-        }
-        
-        // Shopify Analytics
-        if (window.Shopify?.analytics?.track) {
-          window.Shopify.analytics.track('Experiment Viewed', {
-            experimentId: experiment.key,
-            variationId: result.key
-          });
-        }
-        
-        // Custom tracking endpoint (optional)
-        if (window.gbTrackingEndpoint) {
-          fetch(window.gbTrackingEndpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              experimentId: experiment.key,
-              variationId: result.key,
-              timestamp: Date.now()
-            })
-          }).catch(() => {}); // Silent fail
-        }
-      } catch (error) {
-        console.error('[GB] Tracking error:', error);
+            timestamp: Date.now()
+          })
+        }).catch(() => {}); // Silent fail
       }
+    } catch (error) {
+      console.error('[GB] Tracking error:', error);
     }
-  };
-  
-  // Set returning user flag
-  try {
-    localStorage.setItem('gb_returning_user', 'true');
-    const sessionCount = parseInt(localStorage.getItem('gb_session_count') || '0');
-    localStorage.setItem('gb_session_count', String(sessionCount + 1));
-  } catch (e) {}
+  }
+};
+
+// Set returning user flag
+try {
+  localStorage.setItem('gb_returning_user', 'true');
+  const sessionCount = parseInt(localStorage.getItem('gb_session_count') || '0');
+  localStorage.setItem('gb_session_count', String(sessionCount + 1));
+} catch (e) {}
 </script>
 
 <!-- 2) GrowthBook auto bundle with dynamic config -->
 <script>
-  (function loadGrowthBook() {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js';
-    script.dataset.apiHost = GB_CONFIG.API_HOST;
-    script.dataset.clientKey = GB_CONFIG.CLIENT_KEY;
-    script.dataset.useStickyBucketService = 'cookie';
-    script.dataset.noAutoCookies = 'true';
-    
-    // Add error handler
-    script.onerror = function() {
-      console.error('[GB] Failed to load GrowthBook script');
-      document.documentElement.classList.add('gb-timeout');
-    };
-    
-    document.head.appendChild(script);
-  })();
+(function loadGrowthBook() {
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js';
+  script.dataset.apiHost = GB_CONFIG.API_HOST;
+  script.dataset.clientKey = GB_CONFIG.CLIENT_KEY;
+  script.dataset.useStickyBucketService = 'cookie';
+  script.dataset.noAutoCookies = 'true';
+  
+  // Add error handler
+  script.onerror = function() {
+    console.error('[GB] Failed to load GrowthBook script');
+    document.documentElement.classList.add('gb-timeout');
+  };
+  
+  document.head.appendChild(script);
+})();
 </script>
 
-<!-- 3) Enhanced Experiment Executor -->
+<!-- 3) Enhanced Experiment Executor with Fix -->
 <script>
 (function() {
   const ExperimentExecutor = {
@@ -199,38 +231,7 @@
     isReady: false,
     initAttempts: 0,
     maxInitAttempts: 30,
-
-    // Helper function to safely update GrowthBook attributes without losing the user ID
-    updateAttributes(updates) {
-      const gb = window.growthbook || window._growthbook;
-      if (!gb) return;
-
-      const currentAttrs = gb.getAttributes() || {};
-      const newAttrs = { ...currentAttrs, ...updates };
-
-      // Safety check to ensure we never lose the device ID
-      if (!newAttrs.id && currentAttrs.id) {
-        console.error('[GB] CRITICAL: Device ID would be lost! Preserving it.');
-        newAttrs.id = currentAttrs.id;
-      }
-
-      // Additional check using the global device ID as fallback
-      if (!newAttrs.id && window.growthbook_config?.attributes?.id) {
-        console.warn('[GB] Restoring device ID from initial config');
-        newAttrs.id = window.growthbook_config.attributes.id;
-      }
-
-      gb.setAttributes(newAttrs);
-
-      if (GB_CONFIG.ENABLE_DEBUG) {
-        console.log('[GB] Attributes updated:', {
-          previous: currentAttrs,
-          updates: updates,
-          final: newAttrs
-        });
-      }
-    },
-
+    
     // Get user identifiers for logging
     getUserIdentifiers() {
       const gb = window.growthbook || window._growthbook;
@@ -439,7 +440,6 @@
     // Main experiment runner
     runExperiments() {
       const gb = window.growthbook || window._growthbook;
-      
       if (!gb?.ready) {
         this.log('GrowthBook not ready');
         return false;
@@ -471,7 +471,6 @@
         }
         
         const result = gb.evalFeature(experimentKey);
-        
         if (result?.value?.trim()) {
           if (this.executeJavaScript(result.value, experimentKey)) {
             executed++;
@@ -495,7 +494,8 @@
       const assignments = {};
       const features = gb.getFeatures();
       const gbAttributes = gb.getAttributes();
-      const stickyBucketAssignments = gb.getStickyBucketAssignments ? gb.getStickyBucketAssignments() : {};
+      const stickyBucketAssignments = gb.getStickyBucketAssignments ? 
+                                      gb.getStickyBucketAssignments() : {};
       
       for (const key of experiments) {
         const result = gb.evalFeature(key);
@@ -562,7 +562,6 @@
           experiments: experiments,
           timestamp: new Date().toISOString()
         };
-        
         this.log('Full debug info stored in window.gbDebugInfo');
       }
       
@@ -577,8 +576,8 @@
       
       // Dispatch event
       document.dispatchEvent(new CustomEvent('variant:ready', {
-        detail: { 
-          assignments, 
+        detail: {
+          assignments,
           timestamp: Date.now(),
           executedCount: this.executedExperiments.size,
           userIds: this.getUserIdentifiers()
@@ -611,14 +610,36 @@
           this.runExperiments();
         });
         
-        // Set up Shopify cart handlers
+        // CRITICAL FIX: Set up Shopify cart handlers with safe attribute updates
         document.addEventListener('cart:updated', () => {
-          this.log('Cart updated');
-          // Use safe attribute update helper to preserve device ID
-          this.updateAttributes({
-            cartUpdated: Date.now(),
-            cartTotal: window.Shopify?.checkout?.subtotal_price || null
-          });
+          this.log('Cart updated - safely updating attributes');
+          const gb = window.growthbook || window._growthbook;
+          if (gb) {
+            // Use the safe update function instead of directly calling setAttributes
+            safeUpdateAttributes(gb, {
+              cartUpdated: Date.now(),
+              cartItemCount: window.Shopify?.cart?.item_count || 0
+            });
+          }
+        });
+        
+        // Additional Shopify event handlers with safe updates
+        document.addEventListener('product:added', () => {
+          const gb = window.growthbook || window._growthbook;
+          if (gb) {
+            safeUpdateAttributes(gb, {
+              lastProductAdded: Date.now()
+            });
+          }
+        });
+        
+        document.addEventListener('checkout:started', () => {
+          const gb = window.growthbook || window._growthbook;
+          if (gb) {
+            safeUpdateAttributes(gb, {
+              checkoutStarted: Date.now()
+            });
+          }
         });
       }
       
@@ -790,7 +811,6 @@
     if (window.performance) {
       const perfEntries = performance.getEntriesByType('resource')
         .filter(e => e.name.includes('growthbook'));
-      
       if (perfEntries.length) {
         perfEntries.forEach(entry => {
           console.log(`${entry.name.split('/').pop()}: ${Math.round(entry.duration)}ms`);
@@ -816,41 +836,18 @@
     ExperimentExecutor.executedExperiments.clear();
     ExperimentExecutor.runExperiments();
   };
-
-  // Global helper for safe attribute updates (can be called from anywhere)
-  window.gbUpdateAttributes = (updates) => {
-    ExperimentExecutor.updateAttributes(updates);
-  };
-
-  // Verify device ID persistence helper
-  window.gbVerifyDeviceId = () => {
+  
+  // Helper function to manually update attributes (exposed for debugging)
+  window.gbUpdateAttributes = (newAttrs) => {
     const gb = window.growthbook || window._growthbook;
-    const deviceIdInGB = gb?.getAttributes()?.id;
-    const deviceIdInStorage = localStorage.getItem('gb_device_id');
-    const deviceIdInConfig = window.growthbook_config?.attributes?.id;
-
-    console.group('🔍 Device ID Verification');
-    console.log('GrowthBook Attributes ID:', deviceIdInGB);
-    console.log('LocalStorage ID:', deviceIdInStorage);
-    console.log('Initial Config ID:', deviceIdInConfig);
-
-    if (deviceIdInGB !== deviceIdInStorage) {
-      console.error('❌ MISMATCH: GrowthBook ID does not match localStorage!');
-    } else if (!deviceIdInGB) {
-      console.error('❌ MISSING: No device ID in GrowthBook attributes!');
+    if (gb) {
+      safeUpdateAttributes(gb, newAttrs);
+      console.log('[GB] Attributes manually updated');
     } else {
-      console.log('✅ Device ID is consistent');
+      console.error('[GB] GrowthBook instance not found');
     }
-    console.groupEnd();
-
-    return {
-      gb: deviceIdInGB,
-      storage: deviceIdInStorage,
-      config: deviceIdInConfig,
-      isConsistent: deviceIdInGB === deviceIdInStorage && deviceIdInGB === deviceIdInConfig
-    };
   };
-
+  
   ExperimentExecutor.log('Executor loaded');
 })();
 </script>
