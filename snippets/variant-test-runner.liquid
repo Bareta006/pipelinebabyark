@@ -1,4 +1,4 @@
-<!-- GrowthBook Auto-Bundle with Analytics Pixel Integration -->
+<!-- GrowthBook Auto-Bundle with Early localStorage Write -->
 <!-- Place this in your theme.liquid file -->
 
 <!-- Anti-flicker styles -->
@@ -109,7 +109,7 @@
 })();
 
 // ============================================  
-// EXPERIMENT HANDLER WITH ANALYTICS INTEGRATION
+// EXPERIMENT HANDLER WITH EARLY LOCALSTORAGE WRITE
 // ============================================
 (function() {
   const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
@@ -234,6 +234,45 @@
       
       console.log('[GB] Processing', experiments.length, 'experiments');
       
+      // EARLY EVALUATION PASS - Just evaluate, don't execute yet
+      // This ensures assignments are ready ASAP for the pixel
+      const earlyAssignments = {};
+      
+      experiments.forEach(key => {
+        const experimentId = key.replace('exp-', '');
+        const result = gb.evalFeature(key);
+        const feature = features[key];
+        const rule = feature?.rules?.[0];
+        
+        // Determine if this is a real A/B test
+        const isABTest = rule?.variations && rule?.force === undefined;
+        
+        // Only store A/B tests that user is included in
+        if (isABTest && result?.experimentResult?.inExperiment) {
+          earlyAssignments[experimentId] = {
+            experimentId: experimentId,
+            variationId: result.experimentResult.variationId,
+            included: true,
+            exclusion_reason: null,
+            bucket: result.experimentResult.bucket,
+            source: result.source,
+            experiment_name: null,
+            hypothesis: null,
+            status: 'active'
+          };
+        }
+      });
+      
+      // IMMEDIATELY write to localStorage before any other processing
+      try {
+        localStorage.setItem('gb_active_tests', JSON.stringify(earlyAssignments));
+        window.gbTestAssignments = earlyAssignments;
+        console.log(`[GB] Early write: ${Object.keys(earlyAssignments).length} A/B tests written to localStorage`);
+      } catch (e) {
+        console.warn('[GB] Could not write early assignments to localStorage:', e);
+      }
+      
+      // Now continue with normal processing
       let executedCount = 0;
       let includedCount = 0;
       
@@ -352,55 +391,38 @@
       
       console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
       
-      // Create assignments for the analytics pixel (ONLY A/B tests that are included)
-      const assignments = {};
+      // Final update of assignments (in case anything changed during execution)
+      const finalAssignments = {};
       Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
-        // Only include actual A/B tests that the user is included in
-        // Skip force rules, disabled experiments, and excluded A/B tests
         if (data.isABTest && data.included) {
-          assignments[expId] = {
+          finalAssignments[expId] = {
             experimentId: expId,
             variationId: data.variation,
             included: true,
             exclusion_reason: null,
             bucket: data.bucket,
             source: data.source,
-            experiment_name: null, // Would need to extract from feature metadata if available
+            experiment_name: null,
             hypothesis: null,
             status: 'active'
           };
         }
       });
       
-      // Update global assignments
-      window.gbTestAssignments = assignments;
-      
-      // Also store in localStorage for pixel fallback
-      try {
-        localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-      } catch (e) {
-        console.warn('[GB] Could not store assignments in localStorage:', e);
+      // Update if changed
+      if (JSON.stringify(finalAssignments) !== JSON.stringify(earlyAssignments)) {
+        window.gbTestAssignments = finalAssignments;
+        try {
+          localStorage.setItem('gb_active_tests', JSON.stringify(finalAssignments));
+          console.log('[GB] Updated assignments after execution');
+        } catch (e) {
+          console.warn('[GB] Could not update localStorage:', e);
+        }
       }
       
-      // Dispatch event for pixel with assignments
-      const eventDetail = { 
-        assignments: assignments,
-        summary: {
-          total_ab_tests_included: Object.keys(assignments).length,
-          total_experiments: experiments.length,
-          force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
-          disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
-        }
-      };
-      
-      // Dispatch the event
-      document.dispatchEvent(new CustomEvent('variant:ready', {
-        detail: eventDetail
-      }));
-      
-      console.log(`[GB] Analytics: Reporting ${Object.keys(assignments).length} included A/B tests to pixel`);
-      if (DEBUG && Object.keys(assignments).length > 0) {
-        console.log('[GB] Assignments sent to pixel:', assignments);
+      console.log(`[GB] Analytics: Reporting ${Object.keys(window.gbTestAssignments).length} included A/B tests to pixel`);
+      if (DEBUG && Object.keys(window.gbTestAssignments).length > 0) {
+        console.log('[GB] Assignments ready for pixel:', window.gbTestAssignments);
       }
       
       // After normal execution, apply preview overrides
@@ -408,15 +430,6 @@
       
       window.GB_EXECUTION.ready = true;
       document.documentElement.classList.add('gb-ready');
-      
-      // Dispatch a secondary event in case the pixel missed the first one
-      setTimeout(() => {
-        if (Object.keys(assignments).length > 0) {
-          document.dispatchEvent(new CustomEvent('gb:experiments:ready', {
-            detail: { assignments: assignments }
-          }));
-        }
-      }, 100);
     }
     
     // Execute on load
@@ -502,6 +515,7 @@ window.gbDebug = function() {
   
   console.log('Attributes:', gb?.getAttributes());
   console.log('Analytics Assignments:', window.gbTestAssignments);
+  console.log('localStorage gb_active_tests:', localStorage.getItem('gb_active_tests'));
   console.groupEnd();
   
   return {
@@ -526,7 +540,6 @@ window.gbTestBucket = function(experimentId) {
   return result?.experimentResult?.bucket;
 };
 
-// Additional helper for detailed experiment analysis
 window.gbAnalyze = function(experimentId) {
   const gb = window.gb || window._growthbook;
   const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
@@ -581,7 +594,6 @@ window.gbAnalyze = function(experimentId) {
   console.groupEnd();
 };
 
-// Helper to verify pixel integration
 window.gbPixelStatus = function() {
   console.group('📊 Pixel Integration Status');
   console.log('Test Assignments Available:', window.gbTestAssignments ? 'YES' : 'NO');
@@ -600,44 +612,8 @@ window.gbPixelStatus = function() {
   }
   
   console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
-  console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
-  console.log('variant:ready Event Dispatched:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
-  console.log('localStorage backup:', localStorage.getItem('gb_active_tests') || 'Not set');
+  console.log('localStorage gb_active_tests:', localStorage.getItem('gb_active_tests') || 'Not set');
+  console.log('GrowthBook Ready:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
   console.groupEnd();
-};
-
-// Force refresh assignments for pixel (useful for debugging)
-window.gbRefreshPixel = function() {
-  if (window.GB_EXECUTION?.evaluations) {
-    const assignments = {};
-    Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
-      if (data.isABTest && data.included) {
-        assignments[expId] = {
-          experimentId: expId,
-          variationId: data.variation,
-          included: true,
-          exclusion_reason: null,
-          bucket: data.bucket,
-          source: data.source,
-          experiment_name: null,
-          hypothesis: null,
-          status: 'active'
-        };
-      }
-    });
-    
-    window.gbTestAssignments = assignments;
-    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-    
-    document.dispatchEvent(new CustomEvent('variant:ready', {
-      detail: { assignments: assignments }
-    }));
-    
-    console.log('✅ Refreshed pixel assignments:', assignments);
-    return assignments;
-  } else {
-    console.log('❌ No evaluations available yet');
-    return null;
-  }
 };
 </script>
