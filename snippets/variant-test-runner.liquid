@@ -152,8 +152,19 @@
       console.log('[GB] All experiments evaluated');
     }
     
-    // Run experiments immediately
-    executeExperiments();
+    // Wait for features to load, then execute
+    if (gb.ready) {
+      // Features already loaded
+      executeExperiments();
+    } else {
+      // Wait for features to load
+      gb.loadFeatures().then(function() {
+        console.log('[GB] Features loaded');
+        executeExperiments();
+      }).catch(function(error) {
+        console.error('[GB] Failed to load features:', error);
+      });
+    }
     
     // Re-run experiments when Shopify sections reload (for theme editor)
     document.addEventListener('shopify:section:load', executeExperiments);
