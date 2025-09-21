@@ -1,8 +1,8 @@
 <!-- ============================ -->
-<!-- V12 GrowthBook + Shopify (Fixed) -->
+<!-- GrowthBook + Shopify Manual SDK Integration -->
 <!-- ============================ -->
 
-<!-- 0) Anti-flicker with timeout fallback -->
+<!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
     visibility: hidden;
@@ -11,843 +11,268 @@
   .gb-ready [data-gb-gate] {
     visibility: visible;
   }
-  /* Fallback: show content after 3 seconds even if GB fails */
   .gb-timeout [data-gb-gate] {
     visibility: visible;
   }
 </style>
 
-<!-- 1) Enhanced Configuration -->
+<!-- Load GrowthBook SDK (not auto-bundle) -->
+<script src="https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/index.min.js"></script>
+
 <script>
 // ===== CONFIGURATION =====
 const GB_CONFIG = {
-  // API Keys (store these securely in production)
   CLIENT_KEY: "sdk-Knbwv55oDrfYDuq",
   API_HOST: "https://cdn.growthbook.io",
-  ADMIN_KEY: "secret_admin_wnzHrHZzdNquNDZ6KguCj0576F1SU6cpu0eVgGk8JQ",
-  API_URL: "https://api.growthbook.io/api/v1",
-  
-  // Debug mode - SET TO true TO ALWAYS SHOW DEBUG LOGS
-  // Can be overridden by URL parameter ?debug=1
-  FORCE_DEBUG: true, // <-- Change this to false in production
-  
-  // Feature flags
-  ENABLE_PREVIEW: true,
-  ENABLE_DEBUG: false, // Will be computed below
-  TIMEOUT_MS: 3000,
-  
-  // Preview patterns
-  PREVIEW_PATTERNS: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/]
+  DEBUG: false // Set to false in production
 };
 
-// Compute debug mode: either hardcoded OR URL parameter
-GB_CONFIG.ENABLE_DEBUG = GB_CONFIG.FORCE_DEBUG || /[?&]debug=1(&|$)/.test(location.search);
-
-// Log debug mode status
-if (GB_CONFIG.ENABLE_DEBUG) {
-  console.log('🔍 [GrowthBook] Debug mode enabled', {
-    source: GB_CONFIG.FORCE_DEBUG ? 'hardcoded' : 'URL parameter',
-    url: location.href
-  });
-}
-
-// Session and user tracking
-function getOrCreateSessionId() {
-  let sessionId = sessionStorage.getItem('gb_session_id');
-  if (!sessionId) {
-    sessionId = `gb_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    sessionStorage.setItem('gb_session_id', sessionId);
-    sessionStorage.setItem('gb_session_start', new Date().toISOString());
-  }
-  return sessionId;
-}
-
-function getOrCreateDeviceId() {
-  let deviceId = localStorage.getItem('gb_device_id');
-  if (!deviceId) {
-    deviceId = `device_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem('gb_device_id', deviceId);
-  }
-  return deviceId;
-}
-
-// Safe attribute updater - CRITICAL FIX
-function safeUpdateAttributes(gb, newAttributes) {
-  if (!gb) return;
+// ===== STABLE ID MANAGEMENT =====
+function getStableUserId() {
+  const STORAGE_KEY = 'gb_stable_user_id';
+  let userId = localStorage.getItem(STORAGE_KEY);
   
-  const currentAttributes = gb.getAttributes() || {};
-  const criticalFields = ['id', 'sessionId', 'deviceType', 'customerId'];
-  
-  // Merge new attributes with existing ones
-  const mergedAttributes = {
-    ...currentAttributes,
-    ...newAttributes
-  };
-  
-  // Verify critical fields weren't accidentally removed
-  criticalFields.forEach(field => {
-    if (currentAttributes[field] && !mergedAttributes[field]) {
-      console.warn(`[GB] Critical field '${field}' would be removed! Preserving it.`);
-      mergedAttributes[field] = currentAttributes[field];
-    }
-  });
-  
-  // Apply the merged attributes
-  gb.setAttributes(mergedAttributes);
-  
-  if (GB_CONFIG.ENABLE_DEBUG) {
-    console.log('[GB] Attributes updated safely:', {
-      before: currentAttributes,
-      update: newAttributes,
-      after: mergedAttributes
-    });
-  }
-}
-
-// Enhanced attributes with better device detection
-window.growthbook_config = {
-  enableDevMode: GB_CONFIG.ENABLE_DEBUG,
-  attributes: {
-    // User identifiers - CRITICAL for sticky bucketing
-    id: getOrCreateDeviceId(), // This MUST remain stable
-    sessionId: getOrCreateSessionId(),
-    customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
-    
-    // Staff/admin detection
-    isStaff: !!(window.Shopify && (Shopify.designMode || /[?&]staff=1(&|$)/.test(location.search))),
-    themeEditor: !!(window.Shopify && Shopify.designMode),
-    
-    // URL attributes
-    url: location.href,
-    currentUrl: location.href,
-    path: location.pathname,
-    domain: location.hostname,
-    
-    // Enhanced device detection
-    deviceType: (function() {
-      const ua = navigator.userAgent;
-      if (/tablet|ipad|playbook|silk/i.test(ua)) return 'tablet';
-      if (/Mobile|Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua)) return 'mobile';
-      return 'desktop';
-    })(),
-    
-    // Browser detection
-    browser: (function() {
-      const ua = navigator.userAgent;
-      if (ua.includes('Chrome')) return 'chrome';
-      if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';
-      if (ua.includes('Firefox')) return 'firefox';
-      if (ua.includes('Edge')) return 'edge';
-      return 'other';
-    })(),
-    
-    // Shopify specific
-    pageType: window.ShopifyAnalytics?.meta?.page?.pageType || 'unknown',
-    
-    // Time-based attributes
-    dayOfWeek: new Date().getDay(),
-    hourOfDay: new Date().getHours(),
-    
-    // User attributes (if available)
-    isReturningUser: localStorage.getItem('gb_returning_user') === 'true',
-    sessionCount: parseInt(localStorage.getItem('gb_session_count') || '0')
-  },
-  
-  // Enhanced tracking with error handling
-  trackingCallback: (experiment, result) => {
-    try {
-      // Google Analytics 4
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          event: "gb_experiment_viewed",
-          experimentId: experiment.key,
-          variationId: result.key,
-          featureId: result.featureId || null,
-          timestamp: new Date().toISOString()
-        });
-      }
-      
-      // Shopify Analytics
-      if (window.Shopify?.analytics?.track) {
-        window.Shopify.analytics.track('Experiment Viewed', {
-          experimentId: experiment.key,
-          variationId: result.key
-        });
-      }
-      
-      // Custom tracking endpoint (optional)
-      if (window.gbTrackingEndpoint) {
-        fetch(window.gbTrackingEndpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            experimentId: experiment.key,
-            variationId: result.key,
-            timestamp: Date.now()
-          })
-        }).catch(() => {}); // Silent fail
-      }
-    } catch (error) {
-      console.error('[GB] Tracking error:', error);
-    }
-  }
-};
-
-// Set returning user flag
-try {
-  localStorage.setItem('gb_returning_user', 'true');
-  const sessionCount = parseInt(localStorage.getItem('gb_session_count') || '0');
-  localStorage.setItem('gb_session_count', String(sessionCount + 1));
-} catch (e) {}
-</script>
-
-<!-- 2) GrowthBook auto bundle with dynamic config -->
-<script>
-(function loadGrowthBook() {
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js';
-  script.dataset.apiHost = GB_CONFIG.API_HOST;
-  script.dataset.clientKey = GB_CONFIG.CLIENT_KEY;
-  script.dataset.useStickyBucketService = 'cookie';
-  script.dataset.noAutoCookies = 'true';
-  
-  // Add error handler
-  script.onerror = function() {
-    console.error('[GB] Failed to load GrowthBook script');
-    document.documentElement.classList.add('gb-timeout');
-  };
-  
-  document.head.appendChild(script);
-})();
-</script>
-
-<!-- 3) Enhanced Experiment Executor with Fix -->
-<script>
-(function() {
-  const ExperimentExecutor = {
-    previewOverrides: new Map(),
-    executedExperiments: new Set(),
-    isReady: false,
-    initAttempts: 0,
-    maxInitAttempts: 30,
-    
-    // Get user identifiers for logging
-    getUserIdentifiers() {
-      const gb = window.growthbook || window._growthbook;
-      return {
-        sessionId: sessionStorage.getItem('gb_session_id'),
-        deviceId: localStorage.getItem('gb_device_id'),
-        customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
-        gbUserId: gb?.getAttributes()?.id || null,
-        sessionStart: sessionStorage.getItem('gb_session_start'),
-        pageViews: parseInt(sessionStorage.getItem('gb_page_views') || '0')
-      };
-    },
-    
-    // Enhanced logging with session/user info
-    log(message, data) {
-      if (GB_CONFIG.ENABLE_DEBUG) {
-        const ids = this.getUserIdentifiers();
-        const prefix = `[GB-Executor | S:${ids.sessionId?.substr(-6) || 'none'} | U:${ids.customerId || ids.deviceId?.substr(-6) || 'none'}]`;
-        console.log(`${prefix} ${message}`, data || '');
-      }
-    },
-    
-    // Error handling utility
-    handleError(context, error) {
-      console.error(`[GB-Executor] Error in ${context}:`, error);
-      if (window.gbErrorHandler) {
-        window.gbErrorHandler(context, error);
-      }
-    },
-    
-    // Get preview experiments from URL
-    getPreviewExperiments() {
-      if (!GB_CONFIG.ENABLE_PREVIEW) return {};
-      
-      const urlParams = new URLSearchParams(window.location.search);
-      const previews = {};
-      
-      for (const [key, value] of urlParams) {
-        const isExperimentParam = GB_CONFIG.PREVIEW_PATTERNS.some(p => p.test(key));
-        if (isExperimentParam) {
-          const variantIndex = parseInt(value);
-          if (!isNaN(variantIndex) && variantIndex >= 0) {
-            previews[key] = variantIndex;
-          }
-        }
-      }
-      
-      return previews;
-    },
-    
-    // Fetch preview configuration with caching
-    async fetchPreviewConfig(experimentId) {
-      const cacheKey = `gb_preview_${experimentId}`;
-      
-      // Check session cache
-      try {
-        const cached = sessionStorage.getItem(cacheKey);
-        if (cached) {
-          const data = JSON.parse(cached);
-          if (Date.now() - data.timestamp < 300000) { // 5 min cache
-            this.log(`Using cached config for ${experimentId}`);
-            return data.config;
-          }
-        }
-      } catch (e) {}
-      
-      try {
-        const featureFlagId = `exp-${experimentId}`;
-        const response = await fetch(`${GB_CONFIG.API_URL}/features/${featureFlagId}`, {
-          headers: {
-            'Authorization': `Bearer ${GB_CONFIG.ADMIN_KEY}`,
-            'Content-Type': 'application/json'
-          }
-        });
-        
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}`);
-        }
-        
-        const data = await response.json();
-        
-        // Cache the result
-        try {
-          sessionStorage.setItem(cacheKey, JSON.stringify({
-            config: data.feature,
-            timestamp: Date.now()
-          }));
-        } catch (e) {}
-        
-        return data.feature;
-      } catch (error) {
-        this.handleError(`fetchPreviewConfig(${experimentId})`, error);
-        return null;
-      }
-    },
-    
-    // Extract variation value from feature config
-    extractVariationValue(featureConfig, variantIndex) {
-      try {
-        const rules = featureConfig?.environments?.production?.rules || 
-                     featureConfig?.rules || [];
-        
-        // Check experiment-ref rules
-        const experimentRule = rules.find(r => r.type === 'experiment-ref');
-        if (experimentRule?.variations) {
-          const variation = experimentRule.variations[variantIndex];
-          return variation?.value || (variantIndex === 0 ? '' : null);
-        }
-        
-        // Check force rules
-        const forceRule = rules.find(r => r.type === 'force');
-        if (forceRule) {
-          if (variantIndex === 0) return '';
-          if (variantIndex === 1) return forceRule.value || forceRule.force || '';
-          return null;
-        }
-        
-        // Default value for control
-        if (variantIndex === 0) {
-          return featureConfig.defaultValue || '';
-        }
-        
-        return null;
-      } catch (error) {
-        this.handleError('extractVariationValue', error);
-        return null;
-      }
-    },
-    
-    // Apply preview overrides
-    async applyPreviewOverrides() {
-      const previews = this.getPreviewExperiments();
-      const previewCount = Object.keys(previews).length;
-      
-      if (previewCount === 0) return;
-      
-      this.log(`Applying ${previewCount} preview overrides`, previews);
-      
-      // Process previews in parallel for speed
-      const promises = Object.entries(previews).map(async ([param, variantIndex]) => {
-        let experimentId = param;
-        
-        // Normalize experiment ID
-        if (param.startsWith('test_')) {
-          experimentId = param.substring(5);
-        } else if (param.startsWith('exp_')) {
-          experimentId = param.substring(4);
-        }
-        
-        const config = await this.fetchPreviewConfig(experimentId);
-        if (!config) return;
-        
-        const featureKey = `exp-${experimentId}`;
-        const value = this.extractVariationValue(config, variantIndex);
-        
-        if (value !== null) {
-          this.previewOverrides.set(featureKey, {
-            value,
-            variantIndex,
-            experimentId,
-            source: 'preview'
-          });
-          this.log(`Preview set: ${featureKey} -> variant ${variantIndex}`);
-        }
-      });
-      
-      await Promise.all(promises);
-    },
-    
-    // Execute JavaScript code safely
-    executeJavaScript(code, experimentId) {
-      if (!code || typeof code !== 'string' || !code.trim()) {
-        this.log(`No code for ${experimentId}`);
-        return false;
-      }
-      
-      // Prevent double execution
-      if (this.executedExperiments.has(experimentId)) {
-        this.log(`Already executed ${experimentId}`);
-        return false;
-      }
-      
-      this.log(`Executing ${experimentId} (${code.length} chars)`);
-      
-      try {
-        // Create isolated context with helpers
-        const context = {
-          experimentId,
-          log: (msg) => console.log(`[${experimentId}] ${msg}`),
-          querySelector: (sel) => document.querySelector(sel),
-          querySelectorAll: (sel) => document.querySelectorAll(sel)
-        };
-        
-        // Execute with context
-        new Function('context', `with(context) { ${code} }`)(context);
-        
-        this.executedExperiments.add(experimentId);
-        this.log(`Success: ${experimentId}`);
-        return true;
-      } catch (error) {
-        this.handleError(`execute(${experimentId})`, error);
-        return false;
-      }
-    },
-    
-    // Main experiment runner
-    runExperiments() {
-      const gb = window.growthbook || window._growthbook;
-      if (!gb?.ready) {
-        this.log('GrowthBook not ready');
-        return false;
-      }
-      
-      this.log('Running experiments...');
-      let executed = 0;
-      
-      // Execute preview overrides first
-      for (const [key, data] of this.previewOverrides) {
-        if (this.executeJavaScript(data.value, `${key}-preview`)) {
-          executed++;
-        }
-      }
-      
-      // Get all experiments
-      const features = gb.getFeatures();
-      const experiments = Object.keys(features)
-        .filter(k => k.startsWith('exp-'))
-        .sort(); // Consistent ordering
-      
-      this.log(`Found ${experiments.length} experiments`);
-      
-      // Execute regular experiments
-      for (const experimentKey of experiments) {
-        // Skip if preview override exists
-        if (this.previewOverrides.has(experimentKey)) {
-          continue;
-        }
-        
-        const result = gb.evalFeature(experimentKey);
-        if (result?.value?.trim()) {
-          if (this.executeJavaScript(result.value, experimentKey)) {
-            executed++;
-          }
-        }
-      }
-      
-      this.log(`Executed ${executed} total experiments`);
-      
-      // Mark as ready
-      document.documentElement.classList.add('gb-ready');
-      
-      // Store assignments
-      this.storeAssignments(gb, experiments);
-      
-      return true;
-    },
-    
-    // Store experiment assignments with enhanced debugging
-    storeAssignments(gb, experiments) {
-      const assignments = {};
-      const features = gb.getFeatures();
-      const gbAttributes = gb.getAttributes();
-      const stickyBucketAssignments = gb.getStickyBucketAssignments ? 
-                                      gb.getStickyBucketAssignments() : {};
-      
-      for (const key of experiments) {
-        const result = gb.evalFeature(key);
-        const feature = features[key];
-        const cleanId = key.replace(/^exp-/, '');
-        
-        // Check for preview override
-        const previewData = this.previewOverrides.get(key);
-        if (previewData) {
-          assignments[cleanId] = {
-            included: true,
-            variationId: previewData.variantIndex,
-            exclusion_reason: null,
-            status: 'preview',
-            source: 'preview_override',
-            bucket: null,
-            hash: null
-          };
-          continue;
-        }
-        
-        // Regular assignment
-        const isIncluded = result?.experimentResult?.inExperiment || false;
-        const variantId = result?.experimentResult?.variationId ?? null;
-        const bucket = result?.experimentResult?.bucket ?? null;
-        const hashUsed = result?.experimentResult?.hashUsed ?? null;
-        
-        let exclusionReason = null;
-        if (!feature?.rules?.length) {
-          exclusionReason = 'experiment_disabled';
-        } else if (!isIncluded) {
-          // More detailed exclusion reasons
-          if (result?.experimentResult?.reason) {
-            exclusionReason = result.experimentResult.reason;
-          } else if (bucket !== null && bucket > (feature.rules[0]?.coverage || 1)) {
-            exclusionReason = 'traffic_excluded';
-          } else {
-            exclusionReason = 'targeting_mismatch';
-          }
-        }
-        
-        assignments[cleanId] = {
-          included: isIncluded,
-          variationId: isIncluded ? variantId : null,
-          exclusion_reason: exclusionReason,
-          status: feature?.rules?.length ? 'active' : 'draft',
-          source: result?.source || 'unknown',
-          bucket: bucket,
-          hash: hashUsed,
-          sticky: stickyBucketAssignments[key] || null
-        };
-      }
-      
-      // Store globally and in localStorage
-      window.gbTestAssignments = assignments;
-      
-      // Enhanced debug info
-      if (GB_CONFIG.ENABLE_DEBUG) {
-        window.gbDebugInfo = {
-          userIds: this.getUserIdentifiers(),
-          attributes: gbAttributes,
-          assignments: assignments,
-          stickyBuckets: stickyBucketAssignments,
-          experiments: experiments,
-          timestamp: new Date().toISOString()
-        };
-        this.log('Full debug info stored in window.gbDebugInfo');
-      }
-      
-      try {
-        localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-        localStorage.setItem('gb_last_update', new Date().toISOString());
-        
-        // Track page views in session
-        const pageViews = parseInt(sessionStorage.getItem('gb_page_views') || '0');
-        sessionStorage.setItem('gb_page_views', String(pageViews + 1));
-      } catch (e) {}
-      
-      // Dispatch event
-      document.dispatchEvent(new CustomEvent('variant:ready', {
-        detail: {
-          assignments,
-          timestamp: Date.now(),
-          executedCount: this.executedExperiments.size,
-          userIds: this.getUserIdentifiers()
-        }
-      }));
-      
-      this.log('Assignments stored', assignments);
-    },
-    
-    // Initialize the executor
-    async initialize() {
-      if (this.isReady) return;
-      
-      this.log('Initializing...');
-      
-      // Apply preview overrides
-      await this.applyPreviewOverrides();
-      
-      // Run experiments
-      const success = this.runExperiments();
-      
-      if (success) {
-        this.isReady = true;
-        
-        // Set up Shopify section reload handler
-        document.addEventListener('shopify:section:load', () => {
-          this.log('Section reloaded');
-          // Clear executed set to allow re-execution
-          this.executedExperiments.clear();
-          this.runExperiments();
-        });
-        
-        // CRITICAL FIX: Set up Shopify cart handlers with safe attribute updates
-        document.addEventListener('cart:updated', () => {
-          this.log('Cart updated - safely updating attributes');
-          const gb = window.growthbook || window._growthbook;
-          if (gb) {
-            // Use the safe update function instead of directly calling setAttributes
-            safeUpdateAttributes(gb, {
-              cartUpdated: Date.now(),
-              cartItemCount: window.Shopify?.cart?.item_count || 0
-            });
-          }
-        });
-        
-        // Additional Shopify event handlers with safe updates
-        document.addEventListener('product:added', () => {
-          const gb = window.growthbook || window._growthbook;
-          if (gb) {
-            safeUpdateAttributes(gb, {
-              lastProductAdded: Date.now()
-            });
-          }
-        });
-        
-        document.addEventListener('checkout:started', () => {
-          const gb = window.growthbook || window._growthbook;
-          if (gb) {
-            safeUpdateAttributes(gb, {
-              checkoutStarted: Date.now()
-            });
-          }
-        });
-      }
-      
-      return success;
-    },
-    
-    // Retry initialization with exponential backoff
-    async retryInit() {
-      this.initAttempts++;
-      
-      if (this.initAttempts > this.maxInitAttempts) {
-        console.error('[GB] Max initialization attempts reached');
-        document.documentElement.classList.add('gb-timeout');
-        return;
-      }
-      
-      const success = await this.initialize();
-      
-      if (!success) {
-        const delay = Math.min(100 * Math.pow(1.5, this.initAttempts), 2000);
-        this.log(`Retry in ${delay}ms (attempt ${this.initAttempts})`);
-        setTimeout(() => this.retryInit(), delay);
-      }
-    }
-  };
-  
-  // Global reference
-  window.GBExecutor = ExperimentExecutor;
-  
-  // Initialize with multiple strategies
-  
-  // Strategy 1: GrowthBook queue
-  window.growthbook_queue = window.growthbook_queue || [];
-  window.growthbook_queue.push(async function(gb) {
-    ExperimentExecutor.log('Queue callback triggered');
-    await ExperimentExecutor.initialize();
-  });
-  
-  // Strategy 2: DOM ready with retry
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => ExperimentExecutor.retryInit(), 100);
-    });
+  if (!userId) {
+    // Create a new stable ID
+    userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(STORAGE_KEY, userId);
+    console.log('[GB] Created new stable user ID:', userId);
   } else {
-    setTimeout(() => ExperimentExecutor.retryInit(), 100);
+    console.log('[GB] Using existing stable user ID:', userId);
   }
   
-  // Strategy 3: Timeout fallback
-  setTimeout(() => {
-    if (!ExperimentExecutor.isReady) {
-      console.warn('[GB] Timeout reached, showing content');
-      document.documentElement.classList.add('gb-timeout');
-    }
-  }, GB_CONFIG.TIMEOUT_MS);
-  
-  // Debug utilities with enhanced user/session tracking
-  window.gbDebug = function() {
-    const gb = window.growthbook || window._growthbook;
-    const ids = ExperimentExecutor.getUserIdentifiers();
+  return userId;
+}
+
+// ===== INITIALIZE GROWTHBOOK =====
+(async function initializeGrowthBook() {
+  try {
+    // Get stable user ID
+    const stableUserId = getStableUserId();
     
-    console.group('🔬 GrowthBook Debug Info');
-    
-    // User & Session Info
-    console.group('👤 User & Session');
-    console.table({
-      'Session ID': ids.sessionId,
-      'Device ID': ids.deviceId,
-      'Customer ID': ids.customerId,
-      'GB User ID': ids.gbUserId,
-      'Session Start': ids.sessionStart,
-      'Page Views': ids.pageViews,
-      'Is Returning': localStorage.getItem('gb_returning_user') === 'true',
-      'Session Count': localStorage.getItem('gb_session_count')
-    });
-    console.groupEnd();
-    
-    // System Status
-    console.group('⚙️ System Status');
-    console.table({
-      'Executor Ready': ExperimentExecutor.isReady,
-      'GrowthBook Ready': gb?.ready || false,
-      'Preview Count': ExperimentExecutor.previewOverrides.size,
-      'Executed Count': ExperimentExecutor.executedExperiments.size,
-      'Init Attempts': ExperimentExecutor.initAttempts
-    });
-    console.groupEnd();
-    
-    // User Attributes
-    if (gb) {
-      console.group('🎯 Targeting Attributes');
-      const attrs = gb.getAttributes();
-      console.table(attrs);
-      console.groupEnd();
+    // Create GrowthBook instance with manual control
+    const gb = new window.GrowthBook.GrowthBook({
+      apiHost: GB_CONFIG.API_HOST,
+      clientKey: GB_CONFIG.CLIENT_KEY,
+      enableDevMode: GB_CONFIG.DEBUG,
       
-      // Experiments Detail
-      console.group('🧪 Experiments Detail');
-      const features = gb.getFeatures();
-      const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
+      // Set attributes with stable ID
+      attributes: {
+        id: stableUserId, // This is the critical part
+        
+        // Shopify specific
+        customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
+        pageType: window.ShopifyAnalytics?.meta?.page?.pageType || 'unknown',
+        isStaff: !!(window.Shopify?.designMode),
+        
+        // Device info
+        deviceType: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+        browser: (function() {
+          const ua = navigator.userAgent;
+          if (ua.includes('Chrome')) return 'chrome';
+          if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';
+          if (ua.includes('Firefox')) return 'firefox';
+          if (ua.includes('Edge')) return 'edge';
+          return 'other';
+        })(),
+        
+        // Page info
+        url: location.href,
+        path: location.pathname,
+        domain: location.hostname
+      },
       
-      experiments.forEach(key => {
-        const result = gb.evalFeature(key);
-        const feature = features[key];
-        const experimentResult = result?.experimentResult || {};
-        
-        console.group(`📊 ${key}`);
-        console.log('Status:', feature?.rules?.length ? '✅ Active' : '⏸️ Draft');
-        console.log('In Experiment:', experimentResult.inExperiment ? '✅ Yes' : '❌ No');
-        console.log('Variation ID:', experimentResult.variationId ?? 'N/A');
-        console.log('Bucket:', experimentResult.bucket ?? 'N/A');
-        console.log('Hash Used:', experimentResult.hashUsed ?? 'N/A');
-        console.log('Source:', result?.source || 'unknown');
-        
-        if (!experimentResult.inExperiment && experimentResult.reason) {
-          console.log('Exclusion Reason:', experimentResult.reason);
+      // Tracking callback
+      trackingCallback: (experiment, result) => {
+        if (GB_CONFIG.DEBUG) {
+          console.log('[GB] Experiment viewed:', {
+            experiment: experiment.key,
+            variation: result.key,
+            variationId: result.variationId
+          });
         }
         
-        if (result?.value) {
-          console.log('Code Length:', result.value.length, 'chars');
-          console.log('Code Preview:', result.value.substring(0, 100) + '...');
+        // Google Analytics
+        if (window.dataLayer) {
+          window.dataLayer.push({
+            event: 'gb_experiment_viewed',
+            experimentId: experiment.key,
+            variationId: result.key
+          });
         }
         
-        // Show rule details
-        if (feature?.rules?.[0]) {
-          const rule = feature.rules[0];
-          console.log('Coverage:', (rule.coverage || 0) * 100 + '%');
-          console.log('Rule Type:', rule.type);
-          if (rule.condition) {
-            console.log('Targeting:', rule.condition);
-          }
+        // Shopify Analytics
+        if (window.Shopify?.analytics?.track) {
+          window.Shopify.analytics.track('Experiment Viewed', {
+            experimentId: experiment.key,
+            variationId: result.key
+          });
         }
-        
-        console.groupEnd();
-      });
-      console.groupEnd();
-      
-      // Sticky Buckets
-      if (gb.getStickyBucketAssignments) {
-        console.group('🔒 Sticky Bucket Assignments');
-        console.table(gb.getStickyBucketAssignments());
-        console.groupEnd();
       }
-    }
-    
-    // Assignment Summary
-    console.group('📋 Assignment Summary');
-    const assignments = window.gbTestAssignments || {};
-    const summary = {
-      total: Object.keys(assignments).length,
-      included: Object.values(assignments).filter((a) => a.included).length,
-      excluded: Object.values(assignments).filter((a) => !a.included).length,
-      preview: Object.values(assignments).filter((a) => a.status === 'preview').length,
-      draft: Object.values(assignments).filter((a) => a.status === 'draft').length,
-      active: Object.values(assignments).filter((a) => a.status === 'active').length
-    };
-    console.table(summary);
-    
-    // Detailed assignments
-    console.group('Detailed Assignments');
-    Object.entries(assignments).forEach(([id, data]) => {
-      const icon = data.included ? '✅' : '❌';
-      const label = `${icon} ${id} (Variant: ${data.variationId ?? 'none'})`;
-      console.log(label, data);
     });
-    console.groupEnd();
-    console.groupEnd();
     
-    // Performance Metrics
-    console.group('⏱️ Performance');
-    if (window.performance) {
-      const perfEntries = performance.getEntriesByType('resource')
-        .filter(e => e.name.includes('growthbook'));
-      if (perfEntries.length) {
-        perfEntries.forEach(entry => {
-          console.log(`${entry.name.split('/').pop()}: ${Math.round(entry.duration)}ms`);
+    // Load features from API
+    await gb.loadFeatures({ timeout: 3000 });
+    
+    // Make globally available
+    window.gb = gb;
+    window.growthbook = gb;
+    
+    console.log('[GB] Initialized with stable ID:', gb.getAttributes().id);
+    
+    // ===== EXPERIMENT EXECUTOR =====
+    const ExperimentExecutor = {
+      executedExperiments: new Set(),
+      
+      // Safe attribute updater
+      updateAttributes(newAttrs) {
+        const currentAttrs = gb.getAttributes();
+        // Always preserve the stable ID
+        gb.setAttributes({
+          ...currentAttrs,
+          ...newAttrs,
+          id: stableUserId // Never change this
+        });
+      },
+      
+      // Execute experiment code
+      executeJavaScript(code, experimentId) {
+        if (!code || this.executedExperiments.has(experimentId)) return;
+        
+        try {
+          new Function(code)();
+          this.executedExperiments.add(experimentId);
+          if (GB_CONFIG.DEBUG) {
+            console.log('[GB] Executed:', experimentId);
+          }
+        } catch (error) {
+          console.error('[GB] Execution failed:', experimentId, error);
+        }
+      },
+      
+      // Run all experiments
+      runExperiments() {
+        const features = gb.getFeatures();
+        const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
+        
+        experiments.forEach(key => {
+          const result = gb.evalFeature(key);
+          if (result?.value?.trim()) {
+            this.executeJavaScript(result.value, key);
+          }
+        });
+        
+        document.documentElement.classList.add('gb-ready');
+        
+        // Store debug info
+        if (GB_CONFIG.DEBUG) {
+          const assignments = {};
+          experiments.forEach(key => {
+            const result = gb.evalFeature(key);
+            const cleanId = key.replace(/^exp-/, '');
+            assignments[cleanId] = {
+              included: result?.experimentResult?.inExperiment || false,
+              variationId: result?.experimentResult?.variationId ?? null,
+              bucket: result?.experimentResult?.bucket ?? null,
+              hashUsed: result?.experimentResult?.hashUsed ?? null
+            };
+          });
+          window.gbAssignments = assignments;
+          console.log('[GB] Experiment assignments:', assignments);
+        }
+      }
+    };
+    
+    // Run experiments
+    ExperimentExecutor.runExperiments();
+    
+    // Handle Shopify events
+    document.addEventListener('cart:updated', () => {
+      ExperimentExecutor.updateAttributes({
+        cartUpdated: Date.now(),
+        cartItemCount: window.Shopify?.cart?.item_count || 0
+      });
+    });
+    
+    document.addEventListener('shopify:section:load', () => {
+      ExperimentExecutor.executedExperiments.clear();
+      ExperimentExecutor.runExperiments();
+    });
+    
+    // Store executor globally
+    window.GBExecutor = ExperimentExecutor;
+    
+  } catch (error) {
+    console.error('[GB] Failed to initialize:', error);
+    document.documentElement.classList.add('gb-timeout');
+  }
+})();
+
+// ===== DEBUG UTILITIES =====
+window.gbDebug = function() {
+  const gb = window.gb || window.growthbook;
+  if (!gb) {
+    console.log('GrowthBook not loaded');
+    return null;
+  }
+  
+  const stableId = localStorage.getItem('gb_stable_user_id');
+  const currentId = gb.getAttributes()?.id;
+  
+  console.group('🔬 GrowthBook Debug');
+  console.log('Stable ID (localStorage):', stableId);
+  console.log('Current ID (GB):', currentId);
+  console.log('IDs Match:', currentId === stableId ? '✅ YES' : '❌ NO');
+  console.log('All Attributes:', gb.getAttributes());
+  console.log('Assignments:', window.gbAssignments);
+  console.groupEnd();
+  
+  return {
+    stable: stableId,
+    current: currentId,
+    match: currentId === stableId
+  };
+};
+
+// Test bucket stability
+window.gbTestStability = function() {
+  const gb = window.gb || window.growthbook;
+  if (!gb) {
+    console.log('GrowthBook not loaded');
+    return;
+  }
+  
+  const experiments = ['exp-EXP880657', 'exp-EXP880921'];
+  console.group('🧪 Bucket Stability Test');
+  
+  experiments.forEach(exp => {
+    const result = gb.evalFeature(exp);
+    console.log(`${exp}:`, {
+      bucket: result?.experimentResult?.bucket,
+      variant: result?.experimentResult?.variationId,
+      included: result?.experimentResult?.inExperiment
+    });
+  });
+  
+  console.log('User ID:', gb.getAttributes().id);
+  console.groupEnd();
+};
+
+// Auto-monitor in debug mode
+if (GB_CONFIG.DEBUG) {
+  setInterval(() => {
+    const gb = window.gb || window.growthbook;
+    if (gb) {
+      const stableId = localStorage.getItem('gb_stable_user_id');
+      const currentId = gb.getAttributes()?.id;
+      
+      if (currentId !== stableId) {
+        console.error('🚨 ID MISMATCH DETECTED!', {
+          expected: stableId,
+          current: currentId
         });
       }
     }
-    console.groupEnd();
-    
-    console.groupEnd();
-    
-    // Store complete debug snapshot
-    return {
-      userIds: ids,
-      assignments: assignments,
-      attributes: gb?.getAttributes(),
-      timestamp: new Date().toISOString()
-    };
-  };
-  
-  // Manual controls
-  window.gbRun = () => ExperimentExecutor.runExperiments();
-  window.gbReset = () => {
-    ExperimentExecutor.executedExperiments.clear();
-    ExperimentExecutor.runExperiments();
-  };
-  
-  // Helper function to manually update attributes (exposed for debugging)
-  window.gbUpdateAttributes = (newAttrs) => {
-    const gb = window.growthbook || window._growthbook;
-    if (gb) {
-      safeUpdateAttributes(gb, newAttrs);
-      console.log('[GB] Attributes manually updated');
-    } else {
-      console.error('[GB] GrowthBook instance not found');
-    }
-  };
-  
-  ExperimentExecutor.log('Executor loaded');
-})();
+  }, 5000);
+}
 </script>
