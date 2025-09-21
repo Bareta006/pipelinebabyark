@@ -1,5 +1,18 @@
 <!-- Complete GrowthBook and Analytics Pixel Integration for Theme.liquid -->
 <!-- Place this entire block in your theme.liquid file, preferably in the <head> section -->
+<script>
+// Force load Shopify analytics if not present
+if (!window.analytics) {
+  window.analytics = {
+    subscribe: function(event, callback) {
+      // Basic polyfill - wait for real analytics to load
+      console.log('[Analytics Polyfill] Queuing subscription for:', event);
+      window._analyticsQueue = window._analyticsQueue || [];
+      window._analyticsQueue.push({event: event, callback: callback});
+    }
+  };
+}
+</script>
 
 <!-- Anti-flicker styles for GrowthBook -->
 <style>
