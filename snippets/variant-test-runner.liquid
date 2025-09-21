@@ -1,3 +1,6 @@
+<!-- GrowthBook Manual SDK Integration with Complete Control and Debugging -->
+<!-- Place this in your theme.liquid file in the <head> section -->
+
 <!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
@@ -12,8 +15,8 @@
   }
 </style>
 
-<!-- Load GrowthBook SDK -->
-<script src="https://cdn.jsdelivr.net/npm/@growthbook/growthbook@latest/dist/bundles/index.js"></script>
+<!-- Load GrowthBook SDK (UMD build that exports to window) -->
+<script src="https://unpkg.com/@growthbook/growthbook/dist/bundles/index.js"></script>
 
 <script>
 // ============================================
