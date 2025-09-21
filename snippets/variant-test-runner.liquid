@@ -1,4 +1,4 @@
-<!-- GrowthBook Auto-Bundle with Stable ID and Debug Logging -->
+<!-- GrowthBook Auto-Bundle with Stable ID and Enhanced Debug Logging -->
 <!-- Place this in your theme.liquid file -->
 
 <!-- Anti-flicker styles -->
@@ -36,6 +36,13 @@
   
   // Store globally for debugging
   window.GB_STABLE_USER_ID = stableUserId;
+  
+  // Configuration for preview system
+  window.GB_PREVIEW_CONFIG = {
+    enabled: true,
+    patterns: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/],
+    overrides: new Map()
+  };
   
   // Pre-configure GrowthBook with stable ID
   window.growthbook_config = {
@@ -99,7 +106,7 @@
 })();
 
 // ============================================  
-// EXPERIMENT HANDLER
+// EXPERIMENT HANDLER WITH PREVIEW SYSTEM
 // ============================================
 (function() {
   const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
@@ -108,8 +115,90 @@
   window.GB_EXECUTION = {
     ready: false,
     executed: new Set(),
-    evaluations: {}
+    evaluations: {},
+    previews: new Map()
   };
+  
+  // Check for preview experiments in URL
+  function getPreviewExperiments() {
+    if (!window.GB_PREVIEW_CONFIG?.enabled) return {};
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const previews = {};
+    
+    for (const [key, value] of urlParams) {
+      const isExperimentParam = window.GB_PREVIEW_CONFIG.patterns.some(pattern => pattern.test(key));
+      if (isExperimentParam) {
+        const variantIndex = parseInt(value);
+        if (!isNaN(variantIndex)) {
+          previews[key] = variantIndex;
+        }
+      }
+    }
+    
+    return previews;
+  }
+  
+  // Apply preview overrides after normal execution
+  async function applyPreviewOverrides(gb) {
+    const previews = getPreviewExperiments();
+    if (Object.keys(previews).length === 0) return;
+    
+    console.log('[GB] Preview mode enabled:', previews);
+    
+    // Get all features to check variations
+    const features = gb.getFeatures();
+    
+    for (const [param, variantIndex] of Object.entries(previews)) {
+      let experimentKey = `exp-${param}`;
+      
+      // Handle different naming formats
+      if (param.startsWith('EXP')) {
+        experimentKey = `exp-${param}`;
+      } else if (param.startsWith('test_')) {
+        experimentKey = `exp-${param.replace('test_', '')}`;
+      } else if (param.startsWith('exp_')) {
+        experimentKey = `exp-${param.replace('exp_', '')}`;
+      }
+      
+      // Check if experiment exists
+      const feature = features[experimentKey];
+      if (!feature) {
+        console.warn(`[GB] Preview experiment ${experimentKey} not found`);
+        continue;
+      }
+      
+      // Find the rule with variations
+      let previewCode = '';
+      if (feature.rules && feature.rules.length > 0) {
+        for (const rule of feature.rules) {
+          if (rule.variations && variantIndex < rule.variations.length) {
+            previewCode = rule.variations[variantIndex] || '';
+            break;
+          }
+        }
+      }
+      
+      // If we found code for this variant, execute it
+      if (previewCode && typeof previewCode === 'string' && previewCode.trim()) {
+        try {
+          // First, clear any previously executed version of this experiment
+          const experimentId = experimentKey.replace('exp-', '');
+          if (window.GB_EXECUTION.executed.has(experimentId)) {
+            console.log(`[GB] Preview: Overriding previously executed ${experimentId}`);
+          }
+          
+          new Function(previewCode)();
+          window.GB_EXECUTION.previews.set(experimentId, variantIndex);
+          console.log(`[GB] ✅ Preview executed: ${experimentId} variant ${variantIndex}`);
+        } catch (error) {
+          console.error(`[GB] Preview execution failed for ${experimentKey}:`, error);
+        }
+      } else {
+        console.log(`[GB] Preview: No code for ${experimentKey} variant ${variantIndex}`);
+      }
+    }
+  }
   
   // Wait for GrowthBook and execute experiments
   window.growthbook_queue = window.growthbook_queue || [];
@@ -142,27 +231,88 @@
       let executedCount = 0;
       let includedCount = 0;
       
+      // Helper function to check condition matching (moved outside the loop)
+      function matchesCondition(attributes, condition) {
+        // Simplified condition checking - you might need to expand this
+        for (const [key, value] of Object.entries(condition)) {
+          if (key === '$and') {
+            return value.every(subCondition => matchesCondition(attributes, subCondition));
+          }
+          if (key === '$or') {
+            return value.some(subCondition => matchesCondition(attributes, subCondition));
+          }
+          if (typeof value === 'object' && value !== null && value.$regex) {
+            const regex = new RegExp(value.$regex);
+            return regex.test(attributes[key]);
+          }
+          if (attributes[key] !== value) {
+            return false;
+          }
+        }
+        return true;
+      }
+      
       experiments.forEach(key => {
         const experimentId = key.replace('exp-', '');
         const result = gb.evalFeature(key);
+        const feature = features[key];
         
         // Store evaluation details
         window.GB_EXECUTION.evaluations[experimentId] = {
           included: result?.experimentResult?.inExperiment || false,
           variation: result?.experimentResult?.variationId,
           bucket: result?.experimentResult?.bucket,
-          value: result?.value
+          value: result?.value,
+          source: result?.source,
+          reason: result?.experimentResult?.reason || null
         };
         
-        // Log if included
+        // Enhanced debug logging for ALL experiments
+        if (DEBUG) {
+          const rule = feature?.rules?.[0];
+          
+          // Determine experiment type and status
+          let status = '';
+          let details = {};
+          
+          if (!feature?.rules || feature.rules.length === 0) {
+            status = '⚠️ DISABLED/DRAFT';
+            details = { reason: 'No rules configured' };
+          } else if (rule?.force !== undefined) {
+            status = '🔧 FORCE RULE';
+            details = {
+              hasCode: !!rule.force,
+              targeting: rule.condition || 'none'
+            };
+          } else if (rule?.variations) {
+            status = result?.experimentResult?.inExperiment ? '✅ A/B INCLUDED' : '❌ A/B EXCLUDED';
+            details = {
+              variation: result?.experimentResult?.variationId,
+              bucket: result?.experimentResult?.bucket?.toFixed(4),
+              coverage: (rule.coverage || 1) * 100 + '%',
+              targeting: rule.condition || 'none',
+              source: result?.source
+            };
+            
+            // Add exclusion reason if not included
+            if (!result?.experimentResult?.inExperiment) {
+              // Check targeting mismatch
+              if (rule.condition && !matchesCondition(gb.getAttributes(), rule.condition)) {
+                details.exclusionReason = 'targeting_mismatch';
+              } else if (result?.experimentResult?.bucket > (rule.coverage || 1)) {
+                details.exclusionReason = 'outside_coverage';
+              } else {
+                details.exclusionReason = result?.experimentResult?.reason || 'unknown';
+              }
+            }
+          }
+          
+          console.log(`[GB] ${experimentId} ${status}:`, details);
+        }
+        
+        // Track if included in A/B test
         if (result?.experimentResult?.inExperiment) {
           includedCount++;
-          if (DEBUG) {
-            console.log(`[GB] ${experimentId} INCLUDED:`, {
-              variation: result.experimentResult.variationId,
-              bucket: result.experimentResult.bucket?.toFixed(4)
-            });
-          }
         }
         
         // Execute JavaScript if present
@@ -179,15 +329,19 @@
             executedCount++;
             
             if (DEBUG) {
-              console.log(`[GB] ✅ Executed ${experimentId} (variant ${result.experimentResult?.variationId})`);
+              console.log(`[GB] 🚀 ${experimentId} EXECUTED`);
             }
           } catch (error) {
-            console.error(`[GB] Failed to execute ${experimentId}:`, error.message);
+            console.error(`[GB] 💥 ${experimentId} EXECUTION FAILED:`, error.message);
           }
         }
       });
       
       console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
+      
+      // After normal execution, apply preview overrides
+      await applyPreviewOverrides(gb);
+      
       window.GB_EXECUTION.ready = true;
       document.documentElement.classList.add('gb-ready');
     }
@@ -249,20 +403,27 @@ window.gbDebug = function() {
   if (window.GB_EXECUTION.evaluations) {
     console.group('Experiments');
     Object.entries(window.GB_EXECUTION.evaluations).forEach(([id, data]) => {
-      const status = data.included ? '✅' : '⏭️';
+      const status = data.included ? '✅' : '❌';
       const executed = window.GB_EXECUTION.executed.has(id) ? '🚀' : '';
-      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)} ${executed}`);
+      const preview = window.GB_EXECUTION.previews.has(id) ? `📎 Preview V${window.GB_EXECUTION.previews.get(id)}` : '';
+      
+      // Show exclusion reason if excluded
+      const exclusionInfo = !data.included && data.reason ? ` (${data.reason})` : '';
+      
+      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)}, Source: ${data.source}${exclusionInfo} ${executed} ${preview}`);
     });
     console.groupEnd();
   }
   
   console.log('Attributes:', gb?.getAttributes());
+  console.log('Preview overrides:', Array.from(window.GB_EXECUTION.previews.entries()));
   console.groupEnd();
   
   return {
     stableId: window.GB_STABLE_USER_ID,
     currentId: gb?.getAttributes()?.id,
-    evaluations: window.GB_EXECUTION.evaluations
+    evaluations: window.GB_EXECUTION.evaluations,
+    previews: window.GB_EXECUTION.previews
   };
 };
 
@@ -278,5 +439,54 @@ window.gbTestBucket = function(experimentId) {
   });
   
   return result?.experimentResult?.bucket;
+};
+
+// Additional helper for detailed experiment analysis
+window.gbAnalyze = function(experimentId) {
+  const gb = window.gb || window._growthbook;
+  const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
+  const feature = gb?.getFeatures()?.[key];
+  const result = gb?.evalFeature(key);
+  const rule = feature?.rules?.[0];
+  
+  console.group(`🔍 Analysis: ${experimentId}`);
+  
+  if (!feature) {
+    console.log('❌ Experiment not found');
+  } else if (!rule) {
+    console.log('⚠️ No rules configured (draft/disabled)');
+  } else {
+    console.log('Rule Type:', rule.force !== undefined ? 'Force Rule' : 'A/B Test');
+    console.log('Targeting:', rule.condition || 'none');
+    
+    if (rule.variations) {
+      console.log('Coverage:', (rule.coverage || 1) * 100 + '%');
+      console.log('Variations:', rule.variations.length);
+      console.log('Weights:', rule.weights);
+    }
+    
+    console.log('Your Attributes:', gb.getAttributes());
+    console.log('Evaluation Result:', {
+      included: result?.experimentResult?.inExperiment,
+      variation: result?.experimentResult?.variationId,
+      bucket: result?.experimentResult?.bucket,
+      source: result?.source
+    });
+    
+    if (rule.condition) {
+      console.log('Targeting Match:', 
+        Object.entries(rule.condition).map(([k,v]) => {
+          const attrValue = gb.getAttributes()[k];
+          if (v && typeof v === 'object' && v.$regex) {
+            const regex = new RegExp(v.$regex);
+            return `${k}: "${attrValue}" matches ${v.$regex}? ${regex.test(attrValue)}`;
+          }
+          return `${k}: "${attrValue}" === ${JSON.stringify(v)}? ${attrValue === v}`;
+        })
+      );
+    }
+  }
+  
+  console.groupEnd();
 };
 </script>
