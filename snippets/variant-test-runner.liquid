@@ -199,7 +199,38 @@
     isReady: false,
     initAttempts: 0,
     maxInitAttempts: 30,
-    
+
+    // Helper function to safely update GrowthBook attributes without losing the user ID
+    updateAttributes(updates) {
+      const gb = window.growthbook || window._growthbook;
+      if (!gb) return;
+
+      const currentAttrs = gb.getAttributes() || {};
+      const newAttrs = { ...currentAttrs, ...updates };
+
+      // Safety check to ensure we never lose the device ID
+      if (!newAttrs.id && currentAttrs.id) {
+        console.error('[GB] CRITICAL: Device ID would be lost! Preserving it.');
+        newAttrs.id = currentAttrs.id;
+      }
+
+      // Additional check using the global device ID as fallback
+      if (!newAttrs.id && window.growthbook_config?.attributes?.id) {
+        console.warn('[GB] Restoring device ID from initial config');
+        newAttrs.id = window.growthbook_config.attributes.id;
+      }
+
+      gb.setAttributes(newAttrs);
+
+      if (GB_CONFIG.ENABLE_DEBUG) {
+        console.log('[GB] Attributes updated:', {
+          previous: currentAttrs,
+          updates: updates,
+          final: newAttrs
+        });
+      }
+    },
+
     // Get user identifiers for logging
     getUserIdentifiers() {
       const gb = window.growthbook || window._growthbook;
@@ -583,10 +614,11 @@
         // Set up Shopify cart handlers
         document.addEventListener('cart:updated', () => {
           this.log('Cart updated');
-          const gb = window.growthbook || window._growthbook;
-          if (gb) {
-            gb.setAttributes({ cartUpdated: Date.now() });
-          }
+          // Use safe attribute update helper to preserve device ID
+          this.updateAttributes({
+            cartUpdated: Date.now(),
+            cartTotal: window.Shopify?.checkout?.subtotal_price || null
+          });
         });
       }
       
@@ -784,7 +816,41 @@
     ExperimentExecutor.executedExperiments.clear();
     ExperimentExecutor.runExperiments();
   };
-  
+
+  // Global helper for safe attribute updates (can be called from anywhere)
+  window.gbUpdateAttributes = (updates) => {
+    ExperimentExecutor.updateAttributes(updates);
+  };
+
+  // Verify device ID persistence helper
+  window.gbVerifyDeviceId = () => {
+    const gb = window.growthbook || window._growthbook;
+    const deviceIdInGB = gb?.getAttributes()?.id;
+    const deviceIdInStorage = localStorage.getItem('gb_device_id');
+    const deviceIdInConfig = window.growthbook_config?.attributes?.id;
+
+    console.group('🔍 Device ID Verification');
+    console.log('GrowthBook Attributes ID:', deviceIdInGB);
+    console.log('LocalStorage ID:', deviceIdInStorage);
+    console.log('Initial Config ID:', deviceIdInConfig);
+
+    if (deviceIdInGB !== deviceIdInStorage) {
+      console.error('❌ MISMATCH: GrowthBook ID does not match localStorage!');
+    } else if (!deviceIdInGB) {
+      console.error('❌ MISSING: No device ID in GrowthBook attributes!');
+    } else {
+      console.log('✅ Device ID is consistent');
+    }
+    console.groupEnd();
+
+    return {
+      gb: deviceIdInGB,
+      storage: deviceIdInStorage,
+      config: deviceIdInConfig,
+      isConsistent: deviceIdInGB === deviceIdInStorage && deviceIdInGB === deviceIdInConfig
+    };
+  };
+
   ExperimentExecutor.log('Executor loaded');
 })();
 </script>
