@@ -1,20 +1,7 @@
-<!-- Complete GrowthBook and Analytics Pixel Integration for Theme.liquid -->
-<!-- Place this entire block in your theme.liquid file, preferably in the <head> section -->
-<script>
-// Force load Shopify analytics if not present
-if (!window.analytics) {
-  window.analytics = {
-    subscribe: function(event, callback) {
-      // Basic polyfill - wait for real analytics to load
-      console.log('[Analytics Polyfill] Queuing subscription for:', event);
-      window._analyticsQueue = window._analyticsQueue || [];
-      window._analyticsQueue.push({event: event, callback: callback});
-    }
-  };
-}
-</script>
+<!-- GrowthBook Auto-Bundle with Analytics Pixel Integration -->
+<!-- Place this in your theme.liquid file -->
 
-<!-- Anti-flicker styles for GrowthBook -->
+<!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
     visibility: hidden;
@@ -28,9 +15,6 @@ if (!window.analytics) {
   }
 </style>
 
-<!-- ============================================ -->
-<!-- GROWTHBOOK SCRIPT - MUST LOAD FIRST -->
-<!-- ============================================ -->
 <script>
 // ============================================
 // STABLE USER ID & CONFIGURATION
@@ -125,7 +109,7 @@ if (!window.analytics) {
 })();
 
 // ============================================  
-// EXPERIMENT HANDLER WITH EARLY LOCALSTORAGE WRITE
+// EXPERIMENT HANDLER WITH ANALYTICS INTEGRATION
 // ============================================
 (function() {
   const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
@@ -250,45 +234,6 @@ if (!window.analytics) {
       
       console.log('[GB] Processing', experiments.length, 'experiments');
       
-      // EARLY EVALUATION PASS - Just evaluate, don't execute yet
-      // This ensures assignments are ready ASAP for the pixel
-      const earlyAssignments = {};
-      
-      experiments.forEach(key => {
-        const experimentId = key.replace('exp-', '');
-        const result = gb.evalFeature(key);
-        const feature = features[key];
-        const rule = feature?.rules?.[0];
-        
-        // Determine if this is a real A/B test
-        const isABTest = rule?.variations && rule?.force === undefined;
-        
-        // Only store A/B tests that user is included in
-        if (isABTest && result?.experimentResult?.inExperiment) {
-          earlyAssignments[experimentId] = {
-            experimentId: experimentId,
-            variationId: result.experimentResult.variationId,
-            included: true,
-            exclusion_reason: null,
-            bucket: result.experimentResult.bucket,
-            source: result.source,
-            experiment_name: null,
-            hypothesis: null,
-            status: 'active'
-          };
-        }
-      });
-      
-      // IMMEDIATELY write to localStorage and window before any other processing
-      try {
-        localStorage.setItem('gb_active_tests', JSON.stringify(earlyAssignments));
-        window.gbTestAssignments = earlyAssignments;
-        console.log(`[GB] Early write: ${Object.keys(earlyAssignments).length} A/B tests written to localStorage and window`);
-      } catch (e) {
-        console.warn('[GB] Could not write early assignments to localStorage:', e);
-      }
-      
-      // Now continue with normal processing
       let executedCount = 0;
       let includedCount = 0;
       
@@ -407,38 +352,55 @@ if (!window.analytics) {
       
       console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
       
-      // Final update of assignments (in case anything changed during execution)
-      const finalAssignments = {};
+      // Create assignments for the analytics pixel (ONLY A/B tests that are included)
+      const assignments = {};
       Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
+        // Only include actual A/B tests that the user is included in
+        // Skip force rules, disabled experiments, and excluded A/B tests
         if (data.isABTest && data.included) {
-          finalAssignments[expId] = {
+          assignments[expId] = {
             experimentId: expId,
             variationId: data.variation,
             included: true,
             exclusion_reason: null,
             bucket: data.bucket,
             source: data.source,
-            experiment_name: null,
+            experiment_name: null, // Would need to extract from feature metadata if available
             hypothesis: null,
             status: 'active'
           };
         }
       });
       
-      // Update if changed
-      if (JSON.stringify(finalAssignments) !== JSON.stringify(earlyAssignments)) {
-        window.gbTestAssignments = finalAssignments;
-        try {
-          localStorage.setItem('gb_active_tests', JSON.stringify(finalAssignments));
-          console.log('[GB] Updated assignments after execution');
-        } catch (e) {
-          console.warn('[GB] Could not update localStorage:', e);
-        }
+      // Update global assignments
+      window.gbTestAssignments = assignments;
+      
+      // Also store in localStorage for pixel fallback
+      try {
+        localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+      } catch (e) {
+        console.warn('[GB] Could not store assignments in localStorage:', e);
       }
       
-      console.log(`[GB] Analytics: Reporting ${Object.keys(window.gbTestAssignments).length} included A/B tests to pixel`);
-      if (DEBUG && Object.keys(window.gbTestAssignments).length > 0) {
-        console.log('[GB] Assignments ready for pixel:', window.gbTestAssignments);
+      // Dispatch event for pixel with assignments
+      const eventDetail = { 
+        assignments: assignments,
+        summary: {
+          total_ab_tests_included: Object.keys(assignments).length,
+          total_experiments: experiments.length,
+          force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
+          disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
+        }
+      };
+      
+      // Dispatch the event
+      document.dispatchEvent(new CustomEvent('variant:ready', {
+        detail: eventDetail
+      }));
+      
+      console.log(`[GB] Analytics: Reporting ${Object.keys(assignments).length} included A/B tests to pixel`);
+      if (DEBUG && Object.keys(assignments).length > 0) {
+        console.log('[GB] Assignments sent to pixel:', assignments);
       }
       
       // After normal execution, apply preview overrides
@@ -446,6 +408,15 @@ if (!window.analytics) {
       
       window.GB_EXECUTION.ready = true;
       document.documentElement.classList.add('gb-ready');
+      
+      // Dispatch a secondary event in case the pixel missed the first one
+      setTimeout(() => {
+        if (Object.keys(assignments).length > 0) {
+          document.dispatchEvent(new CustomEvent('gb:experiments:ready', {
+            detail: { assignments: assignments }
+          }));
+        }
+      }, 100);
     }
     
     // Execute on load
@@ -531,7 +502,6 @@ window.gbDebug = function() {
   
   console.log('Attributes:', gb?.getAttributes());
   console.log('Analytics Assignments:', window.gbTestAssignments);
-  console.log('localStorage gb_active_tests:', localStorage.getItem('gb_active_tests'));
   console.groupEnd();
   
   return {
@@ -556,6 +526,7 @@ window.gbTestBucket = function(experimentId) {
   return result?.experimentResult?.bucket;
 };
 
+// Additional helper for detailed experiment analysis
 window.gbAnalyze = function(experimentId) {
   const gb = window.gb || window._growthbook;
   const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
@@ -610,6 +581,7 @@ window.gbAnalyze = function(experimentId) {
   console.groupEnd();
 };
 
+// Helper to verify pixel integration
 window.gbPixelStatus = function() {
   console.group('📊 Pixel Integration Status');
   console.log('Test Assignments Available:', window.gbTestAssignments ? 'YES' : 'NO');
@@ -628,344 +600,44 @@ window.gbPixelStatus = function() {
   }
   
   console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
-  console.log('localStorage gb_active_tests:', localStorage.getItem('gb_active_tests') || 'Not set');
-  console.log('GrowthBook Ready:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
+  console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
+  console.log('variant:ready Event Dispatched:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
+  console.log('localStorage backup:', localStorage.getItem('gb_active_tests') || 'Not set');
   console.groupEnd();
 };
-</script>
 
-<!-- ============================================ -->
-<!-- VARIANT ANALYTICS PIXEL - LOADS AFTER GROWTHBOOK -->
-<!-- ============================================ -->
-<script>
-// variant-analytics-pixel.js
-// Variant Analytics Pixel v9.0 - Direct Integration (No Sandbox)
-(function() {
- 'use strict';
- 
- // ===== CONFIGURATION - EDIT THESE VALUES =====
- const SHOP_ID = '0527f1ac-fabe-4afb-b72c-bff74d3366ae';  
- const API_KEY = '96777694e1acbb3f593a2be3f597904375e5e8d97efa587e753978f7f1a6fc04'; 
- const ANALYTICS_ENDPOINT = 'https://sessions-db-api.vercel.app/api/events_growth_book';
- const DEBUG = true;  // Set to true for debugging
- // ============================================
- 
- // Advanced Configuration
- const PIXEL_VERSION = '9.0.0';  // Major version: moved outside sandbox
- 
- // Helper Functions
- function log(...args) {
-   if (DEBUG) console.log('[Variant Pixel]', ...args);
- }
- 
- function generateUUID() {
-   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-     const r = Math.random() * 16 | 0;
-     const v = c === 'x' ? r : (r & 0x3 | 0x8);
-     return v.toString(16);
-   });
- }
- 
- // Storage management - now with direct localStorage access
- const storage = {
-   getUserId() {
-     // Use the same ID as GrowthBook for consistency
-     let userId = localStorage.getItem('gb_anonymous_id');
-     
-     if (!userId) {
-       userId = generateUUID();
-       localStorage.setItem('gb_anonymous_id', userId);
-     }
-     
-     return userId;
-   },
-   
-   getSessionId() {
-     let sessionId = sessionStorage.getItem('gb_session_id');
-     
-     if (!sessionId) {
-       sessionId = generateUUID();
-       sessionStorage.setItem('gb_session_id', sessionId);
-     }
-     
-     return sessionId;
-   }
- };
- 
- /**
-  * Get experiment assignments directly from window object
-  * No need for polling or delays since we're in the same context
-  */
- function getExperimentAssignments() {
-   // Direct access to window.gbTestAssignments
-   const assignments = window.gbTestAssignments || {};
-   
-   // Filter to only include active experiments (not disabled)
-   const filteredAssignments = {};
-   
-   Object.entries(assignments).forEach(([expId, assignment]) => {
-     // Only include experiments that are NOT disabled and are included
-     if (assignment.status === 'active' && assignment.included === true) {
-       filteredAssignments[expId] = {
-         ...assignment,
-         experimentId: expId,
-         experiment_name: assignment.experiment_name || null,
-         hypothesis: assignment.hypothesis || null,
-         status: assignment.status || 'active'
-       };
-     }
-   });
-   
-   if (DEBUG) {
-     const totalCount = Object.keys(assignments).length;
-     const activeCount = Object.keys(filteredAssignments).length;
-     
-     if (totalCount > 0) {
-       log(`Found ${totalCount} total experiments, ${activeCount} active and included`);
-     }
-   }
-   
-   return filteredAssignments;
- }
- 
- // Main tracking function
- function trackEvent(eventType, eventName, eventData = {}) {
-   const experiments = getExperimentAssignments();
-   
-   // Log summary of experiment assignments
-   if (DEBUG) {
-     const count = Object.keys(experiments).length;
-     log(`Tracking ${eventName} with ${count} active experiments`);
-   }
-   
-   const deviceInfo = {
-     userAgent: navigator.userAgent,
-     platform: navigator.platform,
-     screenWidth: window.screen.width,
-     screenHeight: window.screen.height,
-     viewportWidth: window.innerWidth || 0,
-     viewportHeight: window.innerHeight || 0,
-     isMobile: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)
-   };
-   
-   const payload = {
-     type: eventType,
-     data: {
-       event_name: eventName,
-       session_id: storage.getSessionId(),
-       user_id: storage.getUserId(),
-       client_timestamp: new Date().toISOString(),
-       timezone_offset: new Date().getTimezoneOffset(),
-       pixel_version: PIXEL_VERSION,
-       shop_domain: window.Shopify?.shop || window.location.hostname,
-       device_info: deviceInfo,
-       event_data: {
-         ...eventData,
-         device: deviceInfo,
-         test_assignments: experiments,
-         experiment_summary: {
-           total_experiments: Object.keys(experiments).length,
-           included_count: Object.keys(experiments).length, // All are included since we filter
-           excluded_count: 0,
-           exclusion_reasons: {}
-         }
-       }
-     }
-   };
-   
-   log('Sending event:', eventName, 'Experiments:', Object.keys(experiments));
-   
-   // Send event
-   fetch(ANALYTICS_ENDPOINT, {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json',
-       'X-Shop-ID': SHOP_ID,
-       'x-api-key': API_KEY
-     },
-     body: JSON.stringify(payload),
-     keepalive: true
-   })
-   .then(response => {
-     if (!response.ok) {
-       throw new Error(`HTTP ${response.status}`);
-     }
-     log('Event sent successfully:', eventName);
-     return response.text();
-   })
-   .then(text => {
-     if (DEBUG) log('Response:', text);
-   })
-   .catch(error => {
-     console.error('[Variant Pixel] Error sending event:', error);
-   });
- }
- 
- // Wait for both analytics and GrowthBook to be ready
- function initializePixel() {
-   // Check if analytics.subscribe is available
-   if (!window.analytics || !window.analytics.subscribe) {
-     log('Waiting for analytics API...');
-     setTimeout(initializePixel, 100);
-     return;
-   }
-   
-   // Check if GrowthBook has executed (optional - we can work without it)
-   if (!window.GB_EXECUTION || !window.GB_EXECUTION.ready) {
-     log('GrowthBook not ready yet, but continuing anyway');
-     // Don't wait - experiments might not be on this page
-   }
-   
-   log('Initializing pixel with Customer Events API');
-   
-   // Store page load time
-   window.pageLoadTime = Date.now();
-   
-   // Page View
-   analytics.subscribe('page_viewed', (event) => {
-     log('Page viewed event received');
-     
-     trackEvent('navigation', 'page_view', {
-       path: event.context.document.location.pathname,
-       url: event.context.document.location.href,
-       title: event.context.document.title,
-       referrer: event.context.document.referrer,
-       search_params: event.context.document.location.search,
-       page_event_id: generateUUID(),
-       template: window.Shopify?.pageType || 'unknown'
-     });
-   });
-   
-   // Product View
-   analytics.subscribe('product_viewed', (event) => {
-     log('Product viewed event received');
-     
-     trackEvent('product', 'product_view', {
-       product: {
-         id: event.data?.productVariant?.product?.id,
-         title: event.data?.productVariant?.product?.title,
-         variant_id: event.data?.productVariant?.id,
-         price: event.data?.productVariant?.price?.amount,
-         currency: event.data?.productVariant?.price?.currencyCode
-       }
-     });
-   });
-   
-   // Add to Cart
-   analytics.subscribe('product_added_to_cart', (event) => {
-     log('Product added to cart event received');
-     
-     trackEvent('cart', 'add_to_cart', {
-       cart_line: {
-         price: event.data?.cartLine?.merchandise?.price?.amount,
-         currency: event.data?.cartLine?.merchandise?.price?.currencyCode,
-         quantity: event.data?.cartLine?.quantity,
-         variant_id: event.data?.cartLine?.merchandise?.id
-       },
-       product_id: event.data?.cartLine?.merchandise?.product?.id,
-       product_title: event.data?.cartLine?.merchandise?.product?.title
-     });
-   });
-   
-   // Cart Viewed
-   analytics.subscribe('cart_viewed', (event) => {
-     log('Cart viewed event received');
-     
-     trackEvent('cart', 'cart_viewed', {
-       total: event.data?.cart?.cost?.totalAmount?.amount,
-       currency: event.data?.cart?.cost?.totalAmount?.currencyCode,
-       item_count: event.data?.cart?.lines?.length || 0
-     });
-   });
-   
-   // Checkout Started
-   analytics.subscribe('checkout_started', (event) => {
-     log('Checkout started event received');
-     
-     trackEvent('checkout', 'begin_checkout', {
-       checkout: {
-         total: event.data?.checkout?.totalPrice?.amount,
-         currency: event.data?.checkout?.totalPrice?.currencyCode,
-         itemCount: event.data?.checkout?.lineItems?.length || 0
-       }
-     });
-   });
-   
-   // Purchase/Checkout Completed
-   analytics.subscribe('checkout_completed', (event) => {
-     log('Checkout completed event received');
-     
-     trackEvent('conversion', 'purchase', {
-       order: {
-         id: event.data?.checkout?.order?.id,
-         total: event.data?.checkout?.totalPrice?.amount,
-         currency: event.data?.checkout?.totalPrice?.currencyCode,
-         itemCount: event.data?.checkout?.lineItems?.length || 0
-       }
-     });
-   });
-   
-   log('Customer Events subscriptions registered');
- }
- 
- // Debug utilities
- window.debugVariantPixel = function() {
-   const assignments = getExperimentAssignments();
-   
-   console.group('[Variant Pixel] Debug Info:');
-   console.log('- Version:', PIXEL_VERSION);
-   console.log('- Shop ID:', SHOP_ID);
-   console.log('- API Endpoint:', ANALYTICS_ENDPOINT);
-   console.log('- User ID:', storage.getUserId());
-   console.log('- Session ID:', storage.getSessionId());
-   console.log('- GrowthBook Ready:', window.GB_EXECUTION?.ready || false);
-   console.log('- Active Experiments:', Object.keys(assignments).length);
-   
-   if (Object.keys(assignments).length > 0) {
-     console.group('Active Experiments:');
-     Object.entries(assignments).forEach(([id, exp]) => {
-       console.log(`${id}: variant ${exp.variationId} (bucket: ${exp.bucket?.toFixed(4)})`);
-     });
-     console.groupEnd();
-   }
-   
-   // Check what's available
-   console.group('Data Sources:');
-   console.log('- window.gbTestAssignments:', window.gbTestAssignments ? Object.keys(window.gbTestAssignments).length + ' experiments' : 'Not set');
-   console.log('- localStorage gb_active_tests:', localStorage.getItem('gb_active_tests') ? 'Set' : 'Not set');
-   console.log('- Analytics API:', window.analytics?.subscribe ? 'Available' : 'Not available');
-   console.groupEnd();
-   
-   console.log('- Full Assignments:', assignments);
-   console.groupEnd();
-   
-   return assignments;
- };
- 
- // Quick status check
- window.pixelStatus = function() {
-   const experiments = getExperimentAssignments();
-   const status = {
-     ready: true,
-     experimentsFound: Object.keys(experiments).length,
-     userId: storage.getUserId(),
-     sessionId: storage.getSessionId()
-   };
-   console.table(status);
-   return status;
- };
- 
- // Initialize
- log('Pixel v' + PIXEL_VERSION + ' loading (non-sandboxed)');
- log('Running in main page context with direct access to GrowthBook data');
- 
- // Start initialization
- if (document.readyState === 'loading') {
-   document.addEventListener('DOMContentLoaded', initializePixel);
- } else {
-   // DOM already loaded, initialize immediately
-   initializePixel();
- }
- 
-})();
+// Force refresh assignments for pixel (useful for debugging)
+window.gbRefreshPixel = function() {
+  if (window.GB_EXECUTION?.evaluations) {
+    const assignments = {};
+    Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
+      if (data.isABTest && data.included) {
+        assignments[expId] = {
+          experimentId: expId,
+          variationId: data.variation,
+          included: true,
+          exclusion_reason: null,
+          bucket: data.bucket,
+          source: data.source,
+          experiment_name: null,
+          hypothesis: null,
+          status: 'active'
+        };
+      }
+    });
+    
+    window.gbTestAssignments = assignments;
+    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+    
+    document.dispatchEvent(new CustomEvent('variant:ready', {
+      detail: { assignments: assignments }
+    }));
+    
+    console.log('✅ Refreshed pixel assignments:', assignments);
+    return assignments;
+  } else {
+    console.log('❌ No evaluations available yet');
+    return null;
+  }
+};
 </script>
