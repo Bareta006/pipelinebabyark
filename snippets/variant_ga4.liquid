@@ -1,4 +1,4 @@
-<!-- GrowthBook Auto-Bundle with Stable ID and Enhanced Debug Logging -->
+<!-- GrowthBook Auto-Bundle with Analytics Pixel Integration -->
 <!-- Place this in your theme.liquid file -->
 
 <!-- Anti-flicker styles -->
@@ -22,8 +22,8 @@
 (function() {
   'use strict';
   
-  // Get or create stable user ID
-  const USER_ID_KEY = 'gb_stable_user_id';
+  // Get or create stable user ID (shared with pixel)
+  const USER_ID_KEY = 'gb_anonymous_id'; // Changed to match pixel's expectation
   let stableUserId = localStorage.getItem(USER_ID_KEY);
   
   if (!stableUserId) {
@@ -106,7 +106,7 @@
 })();
 
 // ============================================  
-// EXPERIMENT HANDLER WITH PREVIEW SYSTEM
+// EXPERIMENT HANDLER WITH ANALYTICS INTEGRATION
 // ============================================
 (function() {
   const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
@@ -231,7 +231,7 @@
       let executedCount = 0;
       let includedCount = 0;
       
-      // Helper function to check condition matching (moved outside the loop)
+      // Helper function to check condition matching
       function matchesCondition(attributes, condition) {
         // Simplified condition checking - you might need to expand this
         for (const [key, value] of Object.entries(condition)) {
@@ -256,6 +256,12 @@
         const experimentId = key.replace('exp-', '');
         const result = gb.evalFeature(key);
         const feature = features[key];
+        const rule = feature?.rules?.[0];
+        
+        // Determine if this is a real A/B test (not a force rule or disabled)
+        const isABTest = rule?.variations && rule?.force === undefined;
+        const isForceRule = rule?.force !== undefined;
+        const isDisabled = !feature?.rules || feature.rules.length === 0;
         
         // Store evaluation details
         window.GB_EXECUTION.evaluations[experimentId] = {
@@ -264,27 +270,28 @@
           bucket: result?.experimentResult?.bucket,
           value: result?.value,
           source: result?.source,
-          reason: result?.experimentResult?.reason || null
+          reason: result?.experimentResult?.reason || null,
+          isABTest: isABTest,
+          isForceRule: isForceRule,
+          isDisabled: isDisabled
         };
         
         // Enhanced debug logging for ALL experiments
         if (DEBUG) {
-          const rule = feature?.rules?.[0];
-          
           // Determine experiment type and status
           let status = '';
           let details = {};
           
-          if (!feature?.rules || feature.rules.length === 0) {
+          if (isDisabled) {
             status = '⚠️ DISABLED/DRAFT';
             details = { reason: 'No rules configured' };
-          } else if (rule?.force !== undefined) {
+          } else if (isForceRule) {
             status = '🔧 FORCE RULE';
             details = {
               hasCode: !!rule.force,
               targeting: rule.condition || 'none'
             };
-          } else if (rule?.variations) {
+          } else if (isABTest) {
             status = result?.experimentResult?.inExperiment ? '✅ A/B INCLUDED' : '❌ A/B EXCLUDED';
             details = {
               variation: result?.experimentResult?.variationId,
@@ -338,6 +345,44 @@
       });
       
       console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
+      
+      // Create assignments for the analytics pixel (ONLY A/B tests that are included)
+      const assignments = {};
+      Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
+        // Only include actual A/B tests that the user is included in
+        // Skip force rules, disabled experiments, and excluded A/B tests
+        if (data.isABTest && data.included) {
+          assignments[expId] = {
+            experimentId: expId,
+            variationId: data.variation,
+            included: true,
+            exclusion_reason: null,
+            bucket: data.bucket,
+            source: data.source,
+            experiment_name: null, // You'd need to get this from GrowthBook features if available
+            hypothesis: null,
+            status: 'active'
+          };
+        }
+      });
+      
+      // Store for pixel
+      window.gbTestAssignments = assignments;
+      
+      // Dispatch event for pixel with assignments
+      document.dispatchEvent(new CustomEvent('variant:ready', {
+        detail: { 
+          assignments: assignments,
+          summary: {
+            total_ab_tests_included: Object.keys(assignments).length,
+            total_experiments: experiments.length,
+            force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
+            disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
+          }
+        }
+      }));
+      
+      console.log(`[GB] Analytics: Reporting ${Object.keys(assignments).length} included A/B tests to pixel`);
       
       // After normal execution, apply preview overrides
       await applyPreviewOverrides(gb);
@@ -401,29 +446,41 @@ window.gbDebug = function() {
   console.log('Match:', gb?.getAttributes()?.id === window.GB_STABLE_USER_ID ? '✅' : '❌');
   
   if (window.GB_EXECUTION.evaluations) {
-    console.group('Experiments');
-    Object.entries(window.GB_EXECUTION.evaluations).forEach(([id, data]) => {
-      const status = data.included ? '✅' : '❌';
+    const abTests = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isABTest);
+    const forceRules = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isForceRule);
+    const disabled = Object.entries(window.GB_EXECUTION.evaluations).filter(([_, data]) => data.isDisabled);
+    
+    console.group('A/B Tests');
+    abTests.forEach(([id, data]) => {
+      const status = data.included ? '✅ INCLUDED' : '❌ EXCLUDED';
       const executed = window.GB_EXECUTION.executed.has(id) ? '🚀' : '';
-      const preview = window.GB_EXECUTION.previews.has(id) ? `📎 Preview V${window.GB_EXECUTION.previews.get(id)}` : '';
-      
-      // Show exclusion reason if excluded
-      const exclusionInfo = !data.included && data.reason ? ` (${data.reason})` : '';
-      
-      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)}, Source: ${data.source}${exclusionInfo} ${executed} ${preview}`);
+      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)} ${executed}`);
     });
     console.groupEnd();
+    
+    console.group('Force Rules (Feature Flags)');
+    forceRules.forEach(([id, data]) => {
+      const executed = window.GB_EXECUTION.executed.has(id) ? '🚀 EXECUTED' : '⭕ NOT EXECUTED';
+      console.log(`${id}: ${executed}`);
+    });
+    console.groupEnd();
+    
+    if (disabled.length > 0) {
+      console.group('Disabled/Draft');
+      disabled.forEach(([id]) => console.log(`⚠️ ${id}`));
+      console.groupEnd();
+    }
   }
   
   console.log('Attributes:', gb?.getAttributes());
-  console.log('Preview overrides:', Array.from(window.GB_EXECUTION.previews.entries()));
+  console.log('Analytics Assignments:', window.gbTestAssignments);
   console.groupEnd();
   
   return {
     stableId: window.GB_STABLE_USER_ID,
     currentId: gb?.getAttributes()?.id,
     evaluations: window.GB_EXECUTION.evaluations,
-    previews: window.GB_EXECUTION.previews
+    analyticsAssignments: window.gbTestAssignments
   };
 };
 
@@ -485,8 +542,38 @@ window.gbAnalyze = function(experimentId) {
         })
       );
     }
+    
+    console.log('Will report to analytics?', 
+      rule.force === undefined && result?.experimentResult?.inExperiment ? 
+      '✅ YES - A/B test with inclusion' : 
+      '❌ NO - Force rule, disabled, or excluded from A/B test'
+    );
   }
   
+  console.groupEnd();
+};
+
+// Helper to verify pixel integration
+window.gbPixelStatus = function() {
+  console.group('📊 Pixel Integration Status');
+  console.log('Test Assignments Available:', window.gbTestAssignments ? 'YES' : 'NO');
+  
+  if (window.gbTestAssignments) {
+    const count = Object.keys(window.gbTestAssignments).length;
+    console.log(`Reporting ${count} A/B test${count !== 1 ? 's' : ''} to analytics`);
+    
+    if (count > 0) {
+      console.group('A/B Tests Being Tracked:');
+      Object.entries(window.gbTestAssignments).forEach(([id, data]) => {
+        console.log(`${id}: Variant ${data.variationId} (bucket: ${data.bucket?.toFixed(4)})`);
+      });
+      console.groupEnd();
+    }
+  }
+  
+  console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
+  console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
+  console.log('variant:ready Event Dispatched:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
   console.groupEnd();
 };
 </script>
