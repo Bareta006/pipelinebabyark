@@ -59,9 +59,9 @@
   // ============================================
   
   // Configure the main script URL
-  // Update this URL to your Vercel deployment
-  const SCRIPT_URL = 'https://your-project.vercel.app/growthbook-bundle.js';
-  
+  // Change this line in your Shopify script:
+  const SCRIPT_URL = 'https://growthbook-scripts.vercel.app/growthbook-bundle.js';
+
   // Optional: Add version or cache busting
   const VERSION = '1.0.0'; // Update this when you deploy new versions
   const scriptSrc = `${SCRIPT_URL}?v=${VERSION}&shop=${window.Shopify?.shop || window.location.hostname}`;
