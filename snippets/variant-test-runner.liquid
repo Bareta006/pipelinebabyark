@@ -1,6 +1,3 @@
-<!-- GrowthBook Auto-Bundle with PostMessage Bridge for Sandbox Communication -->
-<!-- Place this in your theme.liquid file -->
-
 <!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
@@ -16,22 +13,38 @@
 </style>
 
 <script>
-// ============================================
-// STABLE USER ID & CONFIGURATION
-// ============================================
 (function() {
   'use strict';
   
-  // Get or create stable user ID
+  // ============================================
+  // CONFIGURATION FROM METAFIELD
+  // ============================================
+  
+  // Get SDK key from metafield - Shopify will replace this with the actual value
+  const SDK_KEY = '{{ shop.metafields.growthbook.sdk_key }}';
+  
+  // Validate SDK key exists
+  if (!SDK_KEY || SDK_KEY === '' || SDK_KEY.includes('{' + '{')) {
+    console.error('[GB Loader] No SDK key found in metafield growthbook.sdk_key');
+    return;
+  }
+  
+  console.log('[GB Loader] Initializing with SDK key:', SDK_KEY);
+  
+  // ============================================
+  // STABLE USER ID SETUP
+  // ============================================
+  
+  // Get or create stable user ID (shared with pixel)
   const USER_ID_KEY = 'gb_anonymous_id';
   let stableUserId = localStorage.getItem(USER_ID_KEY);
   
   if (!stableUserId) {
     stableUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     localStorage.setItem(USER_ID_KEY, stableUserId);
-    console.log('[GB] Created new stable user ID:', stableUserId);
+    console.log('[GB Loader] Created new stable user ID:', stableUserId);
   } else {
-    console.log('[GB] Using existing stable user ID:', stableUserId);
+    console.log('[GB Loader] Using existing stable user ID:', stableUserId);
   }
   
   // Also store as gb_stable_user_id for backward compatibility
@@ -39,18 +52,42 @@
   
   // Store globally for debugging
   window.GB_STABLE_USER_ID = stableUserId;
+  window.GB_SDK_KEY = SDK_KEY;
   
-  // Configuration for preview system
-  window.GB_PREVIEW_CONFIG = {
-    enabled: true,
-    patterns: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/],
-    overrides: new Map()
+  // ============================================
+  // LOAD EXTERNAL SCRIPT FROM VERCEL
+  // ============================================
+  
+  // Configure the main script URL
+  // Update this URL to your Vercel deployment
+  const SCRIPT_URL = 'https://your-project.vercel.app/growthbook-bundle.js';
+  
+  // Optional: Add version or cache busting
+  const VERSION = '1.0.0'; // Update this when you deploy new versions
+  const scriptSrc = `${SCRIPT_URL}?v=${VERSION}&shop=${window.Shopify?.shop || window.location.hostname}`;
+  
+  // Create and inject the script
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = scriptSrc;
+  script.dataset.sdkKey = SDK_KEY;
+  script.dataset.stableUserId = stableUserId;
+  
+  // Add error handling
+  script.onerror = function() {
+    console.error('[GB Loader] Failed to load GrowthBook script from:', scriptSrc);
+    // Optionally dispatch an event for the pixel to know GB failed
+    document.dispatchEvent(new CustomEvent('gb:load:failed'));
   };
   
-  // Pre-configure GrowthBook with stable ID
+  script.onload = function() {
+    console.log('[GB Loader] GrowthBook script loaded successfully');
+  };
+  
+  // Inject configuration into window before script loads
   window.growthbook_config = {
     apiHost: "https://cdn.growthbook.io",
-    clientKey: "sdk-Knbwv55oDrfYDuq",
+    clientKey: SDK_KEY,
     enableDevMode: /[?&]debug=1(&|$)/.test(location.search),
     
     attributes: {
@@ -96,334 +133,86 @@
       }
     }
   };
-})();
-
-// Load GrowthBook auto-bundle
-(function() {
-  const script = document.createElement('script');
-  script.async = true;
-  script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js';
-  script.dataset.apiHost = 'https://cdn.growthbook.io';
-  script.dataset.clientKey = 'sdk-Knbwv55oDrfYDuq';
-  document.head.appendChild(script);
-})();
-
-// ============================================  
-// POSTMESSAGE BRIDGE FOR SANDBOX COMMUNICATION
-// ============================================
-(function() {
-  const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
   
-  // Track execution state
-  window.GB_EXECUTION = {
-    ready: false,
-    executed: new Set(),
-    evaluations: {},
-    assignments: {},
-    sandboxRequests: []
+  // Preview configuration
+  window.GB_PREVIEW_CONFIG = {
+    enabled: true,
+    patterns: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/],
+    overrides: new Map()
   };
   
-  // Initialize gbTestAssignments immediately as empty
+  // Initialize empty test assignments
   window.gbTestAssignments = {};
   
-  // Set up PostMessage listener for sandbox requests
-  window.addEventListener('message', function(e) {
-    // Security check - only respond to our sandbox requests
-    if (e.data === 'gb_request_assignments') {
-      if (DEBUG) console.log('[GB] Sandbox requested assignments');
-      
-      // If assignments are ready, send them immediately
-      if (Object.keys(window.gbTestAssignments).length > 0) {
-        e.source.postMessage({
-          type: 'gb_assignments',
-          data: window.gbTestAssignments,
-          userId: window.GB_STABLE_USER_ID,
-          timestamp: Date.now()
-        }, '*');
-        
-        if (DEBUG) console.log('[GB] Sent assignments to sandbox:', window.gbTestAssignments);
-      } else {
-        // Queue the request if assignments aren't ready yet
-        window.GB_EXECUTION.sandboxRequests.push(e.source);
-        if (DEBUG) console.log('[GB] Queued sandbox request - assignments not ready yet');
-      }
-    } else if (e.data === 'gb_pixel_ready') {
-      // Sandbox pixel confirmed it's ready
-      if (DEBUG) console.log('[GB] Sandbox pixel confirmed ready');
-      
-      // If we have assignments, send them
-      if (Object.keys(window.gbTestAssignments).length > 0) {
-        e.source.postMessage({
-          type: 'gb_assignments',
-          data: window.gbTestAssignments,
-          userId: window.GB_STABLE_USER_ID,
-          timestamp: Date.now()
-        }, '*');
-      }
-    }
-  });
+  // Load the script
+  document.head.appendChild(script);
   
-  // Function to broadcast assignments to all waiting sandboxes
-  function broadcastAssignments() {
-    const assignments = window.gbTestAssignments;
-    
-    if (Object.keys(assignments).length === 0) return;
-    
-    if (DEBUG) console.log('[GB] Broadcasting assignments to sandboxes');
-    
-    // Send to any queued requests
-    window.GB_EXECUTION.sandboxRequests.forEach(source => {
-      try {
-        source.postMessage({
-          type: 'gb_assignments',
-          data: assignments,
-          userId: window.GB_STABLE_USER_ID,
-          timestamp: Date.now()
-        }, '*');
-      } catch(e) {
-        // Source might be closed
-      }
-    });
-    
-    // Clear the queue
-    window.GB_EXECUTION.sandboxRequests = [];
-    
-    // Also broadcast to all iframes (in case they didn't request yet)
-    document.querySelectorAll('iframe').forEach(iframe => {
-      try {
-        iframe.contentWindow.postMessage({
-          type: 'gb_assignments',
-          data: assignments,
-          userId: window.GB_STABLE_USER_ID,
-          timestamp: Date.now()
-        }, '*');
-      } catch(e) {
-        // Might be cross-origin
-      }
-    });
-  }
+  // ============================================
+  // DEBUG UTILITIES (Keep these locally)
+  // ============================================
   
-  // Check for preview experiments in URL
-  function getPreviewExperiments() {
-    if (!window.GB_PREVIEW_CONFIG?.enabled) return {};
+  window.gbDebug = function() {
+    const gb = window.gb || window._growthbook;
     
-    const urlParams = new URLSearchParams(window.location.search);
-    const previews = {};
+    console.group('🔬 GrowthBook Debug');
+    console.log('SDK Key:', SDK_KEY);
+    console.log('Stable ID:', window.GB_STABLE_USER_ID);
+    console.log('Current ID:', gb?.getAttributes()?.id);
+    console.log('Match:', gb?.getAttributes()?.id === window.GB_STABLE_USER_ID ? '✅' : '❌');
+    console.log('Script URL:', scriptSrc);
+    console.log('Config:', window.growthbook_config);
     
-    for (const [key, value] of urlParams) {
-      const isExperimentParam = window.GB_PREVIEW_CONFIG.patterns.some(pattern => pattern.test(key));
-      if (isExperimentParam) {
-        const variantIndex = parseInt(value);
-        if (!isNaN(variantIndex)) {
-          previews[key] = variantIndex;
-        }
-      }
+    if (window.GB_EXECUTION?.evaluations) {
+      console.log('Evaluations:', window.GB_EXECUTION.evaluations);
     }
     
-    return previews;
-  }
-  
-  // Wait for GrowthBook and execute experiments
-  window.growthbook_queue = window.growthbook_queue || [];
-  window.growthbook_queue.push(async function(gb) {
-    console.log('[GB] Auto-bundle initialized');
+    console.log('Analytics Assignments:', window.gbTestAssignments);
+    console.groupEnd();
     
-    // Verify our stable ID is being used
-    const currentId = gb.getAttributes()?.id;
-    if (currentId !== window.GB_STABLE_USER_ID) {
-      console.warn('[GB] Fixing ID from', currentId, 'to', window.GB_STABLE_USER_ID);
-      gb.setAttributes({
-        ...gb.getAttributes(),
-        id: window.GB_STABLE_USER_ID
-      });
-    }
-    
-    // Function to execute experiments
-    async function executeExperiments() {
-      // Ensure features are loaded
-      if (!gb.ready) {
-        console.log('[GB] Waiting for features...');
-        await gb.loadFeatures();
-      }
-      
-      const features = gb.getFeatures();
-      const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
-      
-      console.log('[GB] Processing', experiments.length, 'experiments');
-      
-      let executedCount = 0;
-      let includedCount = 0;
-      
-      experiments.forEach(key => {
-        const experimentId = key.replace('exp-', '');
-        const result = gb.evalFeature(key);
-        const feature = features[key];
-        const rule = feature?.rules?.[0];
-        
-        // Determine if this is a real A/B test (not a force rule or disabled)
-        const isABTest = rule?.variations && rule?.force === undefined;
-        const isForceRule = rule?.force !== undefined;
-        const isDisabled = !feature?.rules || feature.rules.length === 0;
-        
-        // Store evaluation details
-        window.GB_EXECUTION.evaluations[experimentId] = {
-          included: result?.experimentResult?.inExperiment || false,
-          variation: result?.experimentResult?.variationId,
-          bucket: result?.experimentResult?.bucket,
-          value: result?.value,
-          source: result?.source,
-          reason: result?.experimentResult?.reason || null,
-          isABTest: isABTest,
-          isForceRule: isForceRule,
-          isDisabled: isDisabled
-        };
-        
-        // Track if included in A/B test
-        if (result?.experimentResult?.inExperiment) {
-          includedCount++;
-        }
-        
-        // Execute JavaScript if present
-        if (result?.value && typeof result.value === 'string' && result.value.trim()) {
-          if (window.GB_EXECUTION.executed.has(experimentId)) {
-            return;
-          }
-          
-          try {
-            new Function(result.value)();
-            window.GB_EXECUTION.executed.add(experimentId);
-            executedCount++;
-            
-            if (DEBUG) {
-              console.log(`[GB] 🚀 ${experimentId} EXECUTED`);
-            }
-          } catch (error) {
-            console.error(`[GB] 💥 ${experimentId} EXECUTION FAILED:`, error.message);
-          }
-        }
-      });
-      
-      console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
-      
-      // Create assignments for the analytics pixel (ONLY A/B tests that are included)
-      const assignments = {};
-      Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
-        // Only include actual A/B tests that the user is included in
-        if (data.isABTest && data.included) {
-          assignments[expId] = {
-            experimentId: expId,
-            variationId: data.variation,
-            included: true,
-            exclusion_reason: null,
-            bucket: data.bucket,
-            source: data.source,
-            experiment_name: null,
-            hypothesis: null,
-            status: 'active'
-          };
-        }
-      });
-      
-      // Update global assignments
-      window.gbTestAssignments = assignments;
-      window.GB_EXECUTION.assignments = assignments;
-      
-      // Also store in localStorage for fallback
-      try {
-        localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
-      } catch (e) {
-        console.warn('[GB] Could not store assignments in localStorage:', e);
-      }
-      
-      // Broadcast to any waiting sandboxes
-      broadcastAssignments();
-      
-      console.log(`[GB] Analytics: ${Object.keys(assignments).length} A/B tests ready for pixel`);
-      if (DEBUG && Object.keys(assignments).length > 0) {
-        console.log('[GB] Assignments ready for sandbox:', assignments);
-      }
-      
-      window.GB_EXECUTION.ready = true;
-      document.documentElement.classList.add('gb-ready');
-      
-      // Broadcast again after a short delay in case sandbox wasn't ready
-      setTimeout(broadcastAssignments, 100);
-      setTimeout(broadcastAssignments, 500);
-      setTimeout(broadcastAssignments, 1000);
-    }
-    
-    // Execute on load
-    await executeExperiments();
-    
-    // Re-execute on Shopify section changes
-    document.addEventListener('shopify:section:load', function() {
-      console.log('[GB] Section reload detected');
-      window.GB_EXECUTION.executed.clear();
-      executeExperiments();
-    });
-    
-    // Monitor ID stability
-    setInterval(function() {
-      const currentId = gb.getAttributes()?.id;
-      if (currentId !== window.GB_STABLE_USER_ID) {
-        console.error('[GB] ID drift detected! Fixing...');
-        gb.setAttributes({
-          ...gb.getAttributes(),
-          id: window.GB_STABLE_USER_ID
-        });
-      }
-    }, 5000);
-    
-    // Store reference
-    window.gb = gb;
-  });
-})();
-
-// ============================================
-// DEBUG UTILITIES  
-// ============================================
-window.gbDebug = function() {
-  const gb = window.gb || window._growthbook;
-  
-  console.group('🔬 GrowthBook Debug');
-  console.log('Stable ID:', window.GB_STABLE_USER_ID);
-  console.log('Current ID:', gb?.getAttributes()?.id);
-  console.log('Match:', gb?.getAttributes()?.id === window.GB_STABLE_USER_ID ? '✅' : '❌');
-  console.log('Assignments:', window.gbTestAssignments);
-  console.log('Sandbox Requests Pending:', window.GB_EXECUTION.sandboxRequests.length);
-  console.groupEnd();
-  
-  return {
-    stableId: window.GB_STABLE_USER_ID,
-    currentId: gb?.getAttributes()?.id,
-    assignments: window.gbTestAssignments,
-    sandboxPending: window.GB_EXECUTION.sandboxRequests.length
+    return {
+      sdkKey: SDK_KEY,
+      stableId: window.GB_STABLE_USER_ID,
+      currentId: gb?.getAttributes()?.id,
+      scriptUrl: scriptSrc,
+      evaluations: window.GB_EXECUTION?.evaluations,
+      analyticsAssignments: window.gbTestAssignments
+    };
   };
-};
-
-window.gbTestBridge = function() {
-  // Manually trigger a broadcast to sandboxes
-  const assignments = window.gbTestAssignments;
   
-  if (Object.keys(assignments).length === 0) {
-    console.log('❌ No assignments available yet');
-    return;
-  }
+  // Additional debug helpers
+  window.gbTestBucket = function(experimentId) {
+    const gb = window.gb || window._growthbook;
+    const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
+    const result = gb?.evalFeature(key);
+    
+    console.log(`${experimentId}:`, {
+      included: result?.experimentResult?.inExperiment,
+      variation: result?.experimentResult?.variationId,  
+      bucket: result?.experimentResult?.bucket
+    });
+    
+    return result?.experimentResult?.bucket;
+  };
   
-  console.log('📤 Manually broadcasting to sandboxes:', assignments);
+  window.gbAnalyze = function(experimentId) {
+    console.log('Use gbDebug() for basic info.');
+    console.log('Full analysis available after script loads from Vercel.');
+  };
   
-  document.querySelectorAll('iframe').forEach((iframe, index) => {
-    try {
-      iframe.contentWindow.postMessage({
-        type: 'gb_assignments',
-        data: assignments,
-        userId: window.GB_STABLE_USER_ID,
-        timestamp: Date.now()
-      }, '*');
-      console.log(`✅ Sent to iframe ${index}`);
-    } catch(e) {
-      console.log(`❌ Failed to send to iframe ${index}:`, e.message);
+  window.gbPixelStatus = function() {
+    console.group('📊 Pixel Integration Status');
+    console.log('SDK Key:', SDK_KEY ? 'Set' : 'Missing');
+    console.log('Test Assignments Available:', window.gbTestAssignments ? 'YES' : 'NO');
+    
+    if (window.gbTestAssignments) {
+      const count = Object.keys(window.gbTestAssignments).length;
+      console.log(`Reporting ${count} A/B test${count !== 1 ? 's' : ''} to analytics`);
     }
-  });
-};
+    
+    console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
+    console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
+    console.groupEnd();
+  };
+  
+})();
 </script>
