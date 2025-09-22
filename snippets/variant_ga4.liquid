@@ -1,328 +1,492 @@
-<!-- Variant Analytics Pixel - GA4 Bridge Version -->
-<!-- Place this in theme.liquid AFTER your GrowthBook script -->
+<!-- GrowthBook Auto-Bundle with Stable ID and Enhanced Debug Logging -->
+<!-- Place this in your theme.liquid file -->
+
+<!-- Anti-flicker styles -->
+<style>
+  [data-gb-gate] {
+    visibility: hidden;
+    transition: visibility 0.2s ease-in-out;
+  }
+  .gb-ready [data-gb-gate] {
+    visibility: visible;
+  }
+  .gb-timeout [data-gb-gate] {
+    visibility: visible;
+  }
+</style>
 
 <script>
+// ============================================
+// STABLE USER ID & CONFIGURATION
+// ============================================
 (function() {
   'use strict';
   
-  // ===== CONFIGURATION =====
-  const SHOP_ID = '0527f1ac-fabe-4afb-b72c-bff74d3366ae';  
-  const API_KEY = '96777694e1acbb3f593a2be3f597904375e5e8d97efa587e753978f7f1a6fc04'; 
-  const ANALYTICS_ENDPOINT = 'https://sessions-db-api.vercel.app/api/events_growth_book';
-  const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
-  const PIXEL_VERSION = '11.0.0-GA4';
+  // Get or create stable user ID
+  const USER_ID_KEY = 'gb_stable_user_id';
+  let stableUserId = localStorage.getItem(USER_ID_KEY);
   
-  // State
-  let lastAssignments = {};
-  let userId = null;
-  let sessionId = null;
-  let eventsSent = new Set();
-  
-  // Logging helper
-  function log(...args) {
-    if (DEBUG) console.log('[Variant Pixel GA4]', ...args);
+  if (!stableUserId) {
+    stableUserId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(USER_ID_KEY, stableUserId);
+    console.log('[GB] Created new stable user ID:', stableUserId);
+  } else {
+    console.log('[GB] Using existing stable user ID:', stableUserId);
   }
   
-  // Generate UUIDs
-  function generateUUID() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      const r = Math.random() * 16 | 0;
-      const v = c === 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
-  }
+  // Store globally for debugging
+  window.GB_STABLE_USER_ID = stableUserId;
   
-  // Get or create IDs
-  function getUserId() {
-    if (!userId) {
-      userId = localStorage.getItem('gb_anonymous_id') || window.GB_STABLE_USER_ID || generateUUID();
-    }
-    return userId;
-  }
-  
-  function getSessionId() {
-    if (!sessionId) {
-      sessionId = sessionStorage.getItem('gb_session_id') || generateUUID();
-      try {
-        sessionStorage.setItem('gb_session_id', sessionId);
-      } catch(e) {}
-    }
-    return sessionId;
-  }
-  
-  // Strip shop prefix from experiment IDs
-  function stripShopPrefix(experimentId) {
-    const expMatch = experimentId.match(/EXP\d+$/);
-    return expMatch ? expMatch[0] : experimentId;
-  }
-  
-  // Get current experiment assignments
-  function getExperimentAssignments() {
-    const raw = window.gbTestAssignments || {};
-    const filtered = {};
-    
-    Object.entries(raw).forEach(([expId, assignment]) => {
-      if (assignment.exclusion_reason !== 'experiment_disabled') {
-        const cleanExpId = stripShopPrefix(expId);
-        filtered[cleanExpId] = {
-          ...assignment,
-          experimentId: cleanExpId
-        };
-      }
-    });
-    
-    return filtered;
-  }
-  
-  // Send event to your endpoint
-  function sendToVariant(eventType, eventName, eventData = {}) {
-    const experiments = getExperimentAssignments();
-    
-    log(`Sending ${eventName} with ${Object.keys(experiments).length} experiments`);
-    
-    const deviceInfo = {
-      userAgent: navigator.userAgent,
-      platform: navigator.platform,
-      screenWidth: window.screen.width,
-      screenHeight: window.screen.height,
-      viewportWidth: window.innerWidth || 0,
-      viewportHeight: window.innerHeight || 0,
-      isMobile: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent)
-    };
-    
-    const payload = {
-      type: eventType,
-      data: {
-        event_name: eventName,
-        session_id: getSessionId(),
-        user_id: getUserId(),
-        client_timestamp: new Date().toISOString(),
-        timezone_offset: new Date().getTimezoneOffset(),
-        pixel_version: PIXEL_VERSION,
-        shop_domain: window.Shopify?.shop || window.location.hostname,
-        device_info: deviceInfo,
-        event_data: {
-          ...eventData,
-          device: deviceInfo,
-          test_assignments: experiments,
-          experiment_summary: {
-            total_experiments: Object.keys(experiments).length,
-            included_count: Object.values(experiments).filter(e => e.included === true).length,
-            excluded_count: Object.values(experiments).filter(e => e.included === false).length
-          }
-        }
-      }
-    };
-    
-    fetch(ANALYTICS_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Shop-ID': SHOP_ID,
-        'x-api-key': API_KEY
-      },
-      body: JSON.stringify(payload),
-      keepalive: true
-    })
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP ${response.status}`);
-      log('✅ Event sent:', eventName);
-      return response.text();
-    })
-    .then(text => {
-      if (DEBUG) log('Response:', text);
-    })
-    .catch(error => {
-      console.error('[Variant Pixel GA4] Error:', error);
-    });
-  }
-  
-  // Map GA4 events to your event taxonomy
-  function handleGA4Event(event) {
-    const eventName = event.event;
-    
-    // Skip if we've already processed this exact event
-    const eventKey = `${eventName}_${Date.now()}`;
-    if (eventsSent.has(eventKey)) return;
-    eventsSent.add(eventKey);
-    
-    log('Processing GA4 event:', eventName, event);
-    
-    // Map GA4 events to your taxonomy
-    switch(eventName) {
-      case 'page_view':
-        sendToVariant('navigation', 'page_view', {
-          path: event.page_path || window.location.pathname,
-          url: event.page_location || window.location.href,
-          title: event.page_title || document.title,
-          referrer: event.page_referrer || document.referrer,
-          search_params: window.location.search,
-          page_event_id: generateUUID()
-        });
-        break;
-        
-      case 'view_item':
-        sendToVariant('product', 'product_view', {
-          product: {
-            id: event.ecommerce?.items?.[0]?.item_id || event.item_id,
-            title: event.ecommerce?.items?.[0]?.item_name || event.item_name,
-            variant_id: event.ecommerce?.items?.[0]?.item_variant,
-            price: event.ecommerce?.items?.[0]?.price || event.value,
-            currency: event.ecommerce?.currency || event.currency || 'USD'
-          }
-        });
-        break;
-        
-      case 'add_to_cart':
-        sendToVariant('cart', 'add_to_cart', {
-          cart_line: {
-            price: event.ecommerce?.items?.[0]?.price || event.value,
-            currency: event.ecommerce?.currency || event.currency || 'USD',
-            quantity: event.ecommerce?.items?.[0]?.quantity || 1,
-            variant_id: event.ecommerce?.items?.[0]?.item_variant
-          },
-          product_id: event.ecommerce?.items?.[0]?.item_id,
-          product_title: event.ecommerce?.items?.[0]?.item_name
-        });
-        break;
-        
-      case 'view_cart':
-        sendToVariant('cart', 'cart_viewed', {
-          total: event.ecommerce?.value || event.value,
-          currency: event.ecommerce?.currency || event.currency || 'USD',
-          item_count: event.ecommerce?.items?.length || 0
-        });
-        break;
-        
-      case 'begin_checkout':
-        sendToVariant('checkout', 'begin_checkout', {
-          checkout: {
-            total: event.ecommerce?.value || event.value,
-            currency: event.ecommerce?.currency || event.currency || 'USD',
-            itemCount: event.ecommerce?.items?.length || 0
-          }
-        });
-        break;
-        
-      case 'purchase':
-        sendToVariant('conversion', 'purchase', {
-          order: {
-            id: event.ecommerce?.transaction_id || event.transaction_id,
-            total: event.ecommerce?.value || event.value,
-            currency: event.ecommerce?.currency || event.currency || 'USD',
-            itemCount: event.ecommerce?.items?.length || 0
-          }
-        });
-        break;
-        
-      default:
-        // Log unhandled events in debug mode
-        if (DEBUG) log('Unhandled GA4 event:', eventName);
-    }
-  }
-  
-  // Override dataLayer.push to intercept all events
-  function interceptDataLayer() {
-    window.dataLayer = window.dataLayer || [];
-    const originalPush = window.dataLayer.push;
-    
-    window.dataLayer.push = function() {
-      // Call original push
-      const result = originalPush.apply(window.dataLayer, arguments);
-      
-      // Process each pushed item
-      for (let i = 0; i < arguments.length; i++) {
-        const item = arguments[i];
-        if (item && item.event) {
-          // Small delay to ensure GrowthBook data is ready
-          setTimeout(() => handleGA4Event(item), 10);
-        }
-      }
-      
-      return result;
-    };
-    
-    log('DataLayer interceptor installed');
-  }
-  
-  // Process any existing dataLayer events
-  function processExistingEvents() {
-    if (!window.dataLayer) return;
-    
-    window.dataLayer.forEach(item => {
-      if (item && item.event) {
-        handleGA4Event(item);
-      }
-    });
-    
-    log('Processed', window.dataLayer.length, 'existing dataLayer items');
-  }
-  
-  // Wait for GrowthBook to be ready
-  function waitForGrowthBook(callback) {
-    let attempts = 0;
-    const maxAttempts = 50; // 5 seconds
-    
-    const check = setInterval(() => {
-      attempts++;
-      
-      // Check if GrowthBook has evaluated experiments
-      if (window.gbTestAssignments !== undefined) {
-        clearInterval(check);
-        log('GrowthBook ready with', Object.keys(window.gbTestAssignments || {}).length, 'assignments');
-        callback();
-      } else if (attempts >= maxAttempts) {
-        clearInterval(check);
-        log('GrowthBook timeout, proceeding anyway');
-        callback();
-      }
-    }, 100);
-  }
-  
-  // Initialize
-  log('Initializing GA4 Bridge v11.0.0');
-  
-  // Set up interception immediately
-  interceptDataLayer();
-  
-  // Wait for GrowthBook then process existing events
-  waitForGrowthBook(() => {
-    log('Processing events with GrowthBook data ready');
-    processExistingEvents();
-    
-    // If no GA4 events yet, send at least a page view
-    if (!window.dataLayer || window.dataLayer.length === 0) {
-      log('No GA4 events found, sending manual page view');
-      handleGA4Event({
-        event: 'page_view',
-        page_path: window.location.pathname,
-        page_location: window.location.href,
-        page_title: document.title
-      });
-    }
-  });
-  
-  // Debug helper
-  window.debugVariantGA4 = function() {
-    const experiments = getExperimentAssignments();
-    console.group('[Variant GA4 Debug]');
-    console.log('Version:', PIXEL_VERSION);
-    console.log('User ID:', getUserId());
-    console.log('Session ID:', getSessionId());
-    console.log('DataLayer items:', window.dataLayer?.length || 0);
-    console.log('Events sent:', eventsSent.size);
-    console.log('Experiments:', Object.keys(experiments).length);
-    
-    if (Object.keys(experiments).length > 0) {
-      console.group('Active Experiments:');
-      Object.entries(experiments).forEach(([id, data]) => {
-        console.log(`${id}: variant ${data.variationId}`);
-      });
-      console.groupEnd();
-    }
-    
-    console.groupEnd();
+  // Configuration for preview system
+  window.GB_PREVIEW_CONFIG = {
+    enabled: true,
+    patterns: [/^EXP\d+$/, /^exp_\w+$/, /^test_\w+$/],
+    overrides: new Map()
   };
   
+  // Pre-configure GrowthBook with stable ID
+  window.growthbook_config = {
+    apiHost: "https://cdn.growthbook.io",
+    clientKey: "sdk-Knbwv55oDrfYDuq",
+    enableDevMode: /[?&]debug=1(&|$)/.test(location.search),
+    
+    attributes: {
+      id: stableUserId, // Our stable ID
+      
+      // Shopify attributes
+      customerId: window.ShopifyAnalytics?.meta?.page?.customerId || null,
+      pageType: window.ShopifyAnalytics?.meta?.page?.pageType || 'unknown',
+      
+      // Device detection  
+      deviceType: /Mobile|Android|iPhone|iPad/i.test(navigator.userAgent) ? 'mobile' : 'desktop',
+      browser: (function() {
+        const ua = navigator.userAgent;
+        if (ua.includes('Chrome') && !ua.includes('Edge')) return 'chrome';
+        if (ua.includes('Safari') && !ua.includes('Chrome')) return 'safari';  
+        if (ua.includes('Firefox')) return 'firefox';
+        if (ua.includes('Edge')) return 'edge';
+        return 'other';
+      })(),
+      
+      // Page attributes
+      url: location.href,
+      path: location.pathname,
+      domain: location.hostname
+    },
+    
+    trackingCallback: function(experiment, result) {
+      const debug = /[?&]debug=1(&|$)/.test(location.search);
+      if (debug) {
+        console.log('[GB] Experiment viewed:', experiment.key, {
+          variation: result.variationId,
+          bucket: result.experimentResult?.bucket
+        });
+      }
+      
+      // Analytics tracking
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          event: 'gb_experiment_viewed',
+          experimentId: experiment.key,
+          variationId: result.variationId
+        });
+      }
+    }
+  };
 })();
+
+// Load GrowthBook auto-bundle
+(function() {
+  const script = document.createElement('script');
+  script.async = true;
+  script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/auto.min.js';
+  script.dataset.apiHost = 'https://cdn.growthbook.io';
+  script.dataset.clientKey = 'sdk-Knbwv55oDrfYDuq';
+  document.head.appendChild(script);
+})();
+
+// ============================================  
+// EXPERIMENT HANDLER WITH PREVIEW SYSTEM
+// ============================================
+(function() {
+  const DEBUG = /[?&]debug=1(&|$)/.test(location.search);
+  
+  // Track execution state
+  window.GB_EXECUTION = {
+    ready: false,
+    executed: new Set(),
+    evaluations: {},
+    previews: new Map()
+  };
+  
+  // Check for preview experiments in URL
+  function getPreviewExperiments() {
+    if (!window.GB_PREVIEW_CONFIG?.enabled) return {};
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const previews = {};
+    
+    for (const [key, value] of urlParams) {
+      const isExperimentParam = window.GB_PREVIEW_CONFIG.patterns.some(pattern => pattern.test(key));
+      if (isExperimentParam) {
+        const variantIndex = parseInt(value);
+        if (!isNaN(variantIndex)) {
+          previews[key] = variantIndex;
+        }
+      }
+    }
+    
+    return previews;
+  }
+  
+  // Apply preview overrides after normal execution
+  async function applyPreviewOverrides(gb) {
+    const previews = getPreviewExperiments();
+    if (Object.keys(previews).length === 0) return;
+    
+    console.log('[GB] Preview mode enabled:', previews);
+    
+    // Get all features to check variations
+    const features = gb.getFeatures();
+    
+    for (const [param, variantIndex] of Object.entries(previews)) {
+      let experimentKey = `exp-${param}`;
+      
+      // Handle different naming formats
+      if (param.startsWith('EXP')) {
+        experimentKey = `exp-${param}`;
+      } else if (param.startsWith('test_')) {
+        experimentKey = `exp-${param.replace('test_', '')}`;
+      } else if (param.startsWith('exp_')) {
+        experimentKey = `exp-${param.replace('exp_', '')}`;
+      }
+      
+      // Check if experiment exists
+      const feature = features[experimentKey];
+      if (!feature) {
+        console.warn(`[GB] Preview experiment ${experimentKey} not found`);
+        continue;
+      }
+      
+      // Find the rule with variations
+      let previewCode = '';
+      if (feature.rules && feature.rules.length > 0) {
+        for (const rule of feature.rules) {
+          if (rule.variations && variantIndex < rule.variations.length) {
+            previewCode = rule.variations[variantIndex] || '';
+            break;
+          }
+        }
+      }
+      
+      // If we found code for this variant, execute it
+      if (previewCode && typeof previewCode === 'string' && previewCode.trim()) {
+        try {
+          // First, clear any previously executed version of this experiment
+          const experimentId = experimentKey.replace('exp-', '');
+          if (window.GB_EXECUTION.executed.has(experimentId)) {
+            console.log(`[GB] Preview: Overriding previously executed ${experimentId}`);
+          }
+          
+          new Function(previewCode)();
+          window.GB_EXECUTION.previews.set(experimentId, variantIndex);
+          console.log(`[GB] ✅ Preview executed: ${experimentId} variant ${variantIndex}`);
+        } catch (error) {
+          console.error(`[GB] Preview execution failed for ${experimentKey}:`, error);
+        }
+      } else {
+        console.log(`[GB] Preview: No code for ${experimentKey} variant ${variantIndex}`);
+      }
+    }
+  }
+  
+  // Wait for GrowthBook and execute experiments
+  window.growthbook_queue = window.growthbook_queue || [];
+  window.growthbook_queue.push(async function(gb) {
+    console.log('[GB] Auto-bundle initialized');
+    
+    // Verify our stable ID is being used
+    const currentId = gb.getAttributes()?.id;
+    if (currentId !== window.GB_STABLE_USER_ID) {
+      console.warn('[GB] Fixing ID from', currentId, 'to', window.GB_STABLE_USER_ID);
+      gb.setAttributes({
+        ...gb.getAttributes(),
+        id: window.GB_STABLE_USER_ID
+      });
+    }
+    
+    // Function to execute experiments
+    async function executeExperiments() {
+      // Ensure features are loaded
+      if (!gb.ready) {
+        console.log('[GB] Waiting for features...');
+        await gb.loadFeatures();
+      }
+      
+      const features = gb.getFeatures();
+      const experiments = Object.keys(features).filter(k => k.startsWith('exp-'));
+      
+      console.log('[GB] Processing', experiments.length, 'experiments');
+      
+      let executedCount = 0;
+      let includedCount = 0;
+      
+      // Helper function to check condition matching (moved outside the loop)
+      function matchesCondition(attributes, condition) {
+        // Simplified condition checking - you might need to expand this
+        for (const [key, value] of Object.entries(condition)) {
+          if (key === '$and') {
+            return value.every(subCondition => matchesCondition(attributes, subCondition));
+          }
+          if (key === '$or') {
+            return value.some(subCondition => matchesCondition(attributes, subCondition));
+          }
+          if (typeof value === 'object' && value !== null && value.$regex) {
+            const regex = new RegExp(value.$regex);
+            return regex.test(attributes[key]);
+          }
+          if (attributes[key] !== value) {
+            return false;
+          }
+        }
+        return true;
+      }
+      
+      experiments.forEach(key => {
+        const experimentId = key.replace('exp-', '');
+        const result = gb.evalFeature(key);
+        const feature = features[key];
+        
+        // Store evaluation details
+        window.GB_EXECUTION.evaluations[experimentId] = {
+          included: result?.experimentResult?.inExperiment || false,
+          variation: result?.experimentResult?.variationId,
+          bucket: result?.experimentResult?.bucket,
+          value: result?.value,
+          source: result?.source,
+          reason: result?.experimentResult?.reason || null
+        };
+        
+        // Enhanced debug logging for ALL experiments
+        if (DEBUG) {
+          const rule = feature?.rules?.[0];
+          
+          // Determine experiment type and status
+          let status = '';
+          let details = {};
+          
+          if (!feature?.rules || feature.rules.length === 0) {
+            status = '⚠️ DISABLED/DRAFT';
+            details = { reason: 'No rules configured' };
+          } else if (rule?.force !== undefined) {
+            status = '🔧 FORCE RULE';
+            details = {
+              hasCode: !!rule.force,
+              targeting: rule.condition || 'none'
+            };
+          } else if (rule?.variations) {
+            status = result?.experimentResult?.inExperiment ? '✅ A/B INCLUDED' : '❌ A/B EXCLUDED';
+            details = {
+              variation: result?.experimentResult?.variationId,
+              bucket: result?.experimentResult?.bucket?.toFixed(4),
+              coverage: (rule.coverage || 1) * 100 + '%',
+              targeting: rule.condition || 'none',
+              source: result?.source
+            };
+            
+            // Add exclusion reason if not included
+            if (!result?.experimentResult?.inExperiment) {
+              // Check targeting mismatch
+              if (rule.condition && !matchesCondition(gb.getAttributes(), rule.condition)) {
+                details.exclusionReason = 'targeting_mismatch';
+              } else if (result?.experimentResult?.bucket > (rule.coverage || 1)) {
+                details.exclusionReason = 'outside_coverage';
+              } else {
+                details.exclusionReason = result?.experimentResult?.reason || 'unknown';
+              }
+            }
+          }
+          
+          console.log(`[GB] ${experimentId} ${status}:`, details);
+        }
+        
+        // Track if included in A/B test
+        if (result?.experimentResult?.inExperiment) {
+          includedCount++;
+        }
+        
+        // Execute JavaScript if present
+        if (result?.value && typeof result.value === 'string' && result.value.trim()) {
+          // Skip if already executed
+          if (window.GB_EXECUTION.executed.has(experimentId)) {
+            if (DEBUG) console.log(`[GB] ${experimentId} already executed, skipping`);
+            return;
+          }
+          
+          try {
+            new Function(result.value)();
+            window.GB_EXECUTION.executed.add(experimentId);
+            executedCount++;
+            
+            if (DEBUG) {
+              console.log(`[GB] 🚀 ${experimentId} EXECUTED`);
+            }
+          } catch (error) {
+            console.error(`[GB] 💥 ${experimentId} EXECUTION FAILED:`, error.message);
+          }
+        }
+      });
+      
+      console.log(`[GB] Complete: ${includedCount} included, ${executedCount} executed`);
+      
+      // After normal execution, apply preview overrides
+      await applyPreviewOverrides(gb);
+      
+      window.GB_EXECUTION.ready = true;
+      document.documentElement.classList.add('gb-ready');
+    }
+    
+    // Execute on load
+    await executeExperiments();
+    
+    // Re-execute on Shopify section changes
+    document.addEventListener('shopify:section:load', function() {
+      console.log('[GB] Section reload detected');
+      window.GB_EXECUTION.executed.clear(); // Allow re-execution
+      executeExperiments();
+    });
+    
+    // Safe attribute updates for cart events  
+    function updateAttributes(newAttrs) {
+      gb.setAttributes({
+        ...gb.getAttributes(),
+        ...newAttrs,
+        id: window.GB_STABLE_USER_ID // Never change ID
+      });
+    }
+    
+    document.addEventListener('cart:updated', function() {
+      updateAttributes({
+        cartUpdated: Date.now(),
+        cartItemCount: window.Shopify?.cart?.item_count || 0
+      });
+    });
+    
+    // Monitor ID stability
+    setInterval(function() {
+      const currentId = gb.getAttributes()?.id;
+      if (currentId !== window.GB_STABLE_USER_ID) {
+        console.error('[GB] ID drift detected! Fixing...');
+        gb.setAttributes({
+          ...gb.getAttributes(),
+          id: window.GB_STABLE_USER_ID
+        });
+      }
+    }, 5000);
+    
+    // Store reference
+    window.gb = gb;
+  });
+})();
+
+// ============================================
+// DEBUG UTILITIES  
+// ============================================
+window.gbDebug = function() {
+  const gb = window.gb || window._growthbook;
+  
+  console.group('🔬 GrowthBook Debug');
+  console.log('Stable ID:', window.GB_STABLE_USER_ID);
+  console.log('Current ID:', gb?.getAttributes()?.id);
+  console.log('Match:', gb?.getAttributes()?.id === window.GB_STABLE_USER_ID ? '✅' : '❌');
+  
+  if (window.GB_EXECUTION.evaluations) {
+    console.group('Experiments');
+    Object.entries(window.GB_EXECUTION.evaluations).forEach(([id, data]) => {
+      const status = data.included ? '✅' : '❌';
+      const executed = window.GB_EXECUTION.executed.has(id) ? '🚀' : '';
+      const preview = window.GB_EXECUTION.previews.has(id) ? `📎 Preview V${window.GB_EXECUTION.previews.get(id)}` : '';
+      
+      // Show exclusion reason if excluded
+      const exclusionInfo = !data.included && data.reason ? ` (${data.reason})` : '';
+      
+      console.log(`${status} ${id}: Var ${data.variation}, Bucket ${data.bucket?.toFixed(4)}, Source: ${data.source}${exclusionInfo} ${executed} ${preview}`);
+    });
+    console.groupEnd();
+  }
+  
+  console.log('Attributes:', gb?.getAttributes());
+  console.log('Preview overrides:', Array.from(window.GB_EXECUTION.previews.entries()));
+  console.groupEnd();
+  
+  return {
+    stableId: window.GB_STABLE_USER_ID,
+    currentId: gb?.getAttributes()?.id,
+    evaluations: window.GB_EXECUTION.evaluations,
+    previews: window.GB_EXECUTION.previews
+  };
+};
+
+window.gbTestBucket = function(experimentId) {
+  const gb = window.gb || window._growthbook;
+  const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
+  const result = gb?.evalFeature(key);
+  
+  console.log(`${experimentId}:`, {
+    included: result?.experimentResult?.inExperiment,
+    variation: result?.experimentResult?.variationId,  
+    bucket: result?.experimentResult?.bucket
+  });
+  
+  return result?.experimentResult?.bucket;
+};
+
+// Additional helper for detailed experiment analysis
+window.gbAnalyze = function(experimentId) {
+  const gb = window.gb || window._growthbook;
+  const key = experimentId.startsWith('exp-') ? experimentId : `exp-${experimentId}`;
+  const feature = gb?.getFeatures()?.[key];
+  const result = gb?.evalFeature(key);
+  const rule = feature?.rules?.[0];
+  
+  console.group(`🔍 Analysis: ${experimentId}`);
+  
+  if (!feature) {
+    console.log('❌ Experiment not found');
+  } else if (!rule) {
+    console.log('⚠️ No rules configured (draft/disabled)');
+  } else {
+    console.log('Rule Type:', rule.force !== undefined ? 'Force Rule' : 'A/B Test');
+    console.log('Targeting:', rule.condition || 'none');
+    
+    if (rule.variations) {
+      console.log('Coverage:', (rule.coverage || 1) * 100 + '%');
+      console.log('Variations:', rule.variations.length);
+      console.log('Weights:', rule.weights);
+    }
+    
+    console.log('Your Attributes:', gb.getAttributes());
+    console.log('Evaluation Result:', {
+      included: result?.experimentResult?.inExperiment,
+      variation: result?.experimentResult?.variationId,
+      bucket: result?.experimentResult?.bucket,
+      source: result?.source
+    });
+    
+    if (rule.condition) {
+      console.log('Targeting Match:', 
+        Object.entries(rule.condition).map(([k,v]) => {
+          const attrValue = gb.getAttributes()[k];
+          if (v && typeof v === 'object' && v.$regex) {
+            const regex = new RegExp(v.$regex);
+            return `${k}: "${attrValue}" matches ${v.$regex}? ${regex.test(attrValue)}`;
+          }
+          return `${k}: "${attrValue}" === ${JSON.stringify(v)}? ${attrValue === v}`;
+        })
+      );
+    }
+  }
+  
+  console.groupEnd();
+};
 </script>
