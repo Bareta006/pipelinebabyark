@@ -23,7 +23,7 @@
   'use strict';
   
   // Get or create stable user ID (shared with pixel)
-  const USER_ID_KEY = 'gb_anonymous_id'; // Changed to match pixel's expectation
+  const USER_ID_KEY = 'gb_anonymous_id'; // Matches pixel's expectation
   let stableUserId = localStorage.getItem(USER_ID_KEY);
   
   if (!stableUserId) {
@@ -33,6 +33,9 @@
   } else {
     console.log('[GB] Using existing stable user ID:', stableUserId);
   }
+  
+  // Also store as gb_stable_user_id for backward compatibility
+  localStorage.setItem('gb_stable_user_id', stableUserId);
   
   // Store globally for debugging
   window.GB_STABLE_USER_ID = stableUserId;
@@ -118,6 +121,9 @@
     evaluations: {},
     previews: new Map()
   };
+  
+  // Initialize gbTestAssignments immediately as empty
+  window.gbTestAssignments = {};
   
   // Check for preview experiments in URL
   function getPreviewExperiments() {
@@ -359,36 +365,58 @@
             exclusion_reason: null,
             bucket: data.bucket,
             source: data.source,
-            experiment_name: null, // You'd need to get this from GrowthBook features if available
+            experiment_name: null, // Would need to extract from feature metadata if available
             hypothesis: null,
             status: 'active'
           };
         }
       });
       
-      // Store for pixel
+      // Update global assignments
       window.gbTestAssignments = assignments;
       
+      // Also store in localStorage for pixel fallback
+      try {
+        localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+      } catch (e) {
+        console.warn('[GB] Could not store assignments in localStorage:', e);
+      }
+      
       // Dispatch event for pixel with assignments
-      document.dispatchEvent(new CustomEvent('variant:ready', {
-        detail: { 
-          assignments: assignments,
-          summary: {
-            total_ab_tests_included: Object.keys(assignments).length,
-            total_experiments: experiments.length,
-            force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
-            disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
-          }
+      const eventDetail = { 
+        assignments: assignments,
+        summary: {
+          total_ab_tests_included: Object.keys(assignments).length,
+          total_experiments: experiments.length,
+          force_rules: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isForceRule).length,
+          disabled: Object.values(window.GB_EXECUTION.evaluations).filter(e => e.isDisabled).length
         }
+      };
+      
+      // Dispatch the event
+      document.dispatchEvent(new CustomEvent('variant:ready', {
+        detail: eventDetail
       }));
       
       console.log(`[GB] Analytics: Reporting ${Object.keys(assignments).length} included A/B tests to pixel`);
+      if (DEBUG && Object.keys(assignments).length > 0) {
+        console.log('[GB] Assignments sent to pixel:', assignments);
+      }
       
       // After normal execution, apply preview overrides
       await applyPreviewOverrides(gb);
       
       window.GB_EXECUTION.ready = true;
       document.documentElement.classList.add('gb-ready');
+      
+      // Dispatch a secondary event in case the pixel missed the first one
+      setTimeout(() => {
+        if (Object.keys(assignments).length > 0) {
+          document.dispatchEvent(new CustomEvent('gb:experiments:ready', {
+            detail: { assignments: assignments }
+          }));
+        }
+      }, 100);
     }
     
     // Execute on load
@@ -574,6 +602,42 @@ window.gbPixelStatus = function() {
   console.log('User ID for Analytics:', localStorage.getItem('gb_anonymous_id') || 'Not set');
   console.log('Session ID:', sessionStorage.getItem('gb_session_id') || 'Not set');
   console.log('variant:ready Event Dispatched:', window.GB_EXECUTION?.ready ? 'YES' : 'NO');
+  console.log('localStorage backup:', localStorage.getItem('gb_active_tests') || 'Not set');
   console.groupEnd();
+};
+
+// Force refresh assignments for pixel (useful for debugging)
+window.gbRefreshPixel = function() {
+  if (window.GB_EXECUTION?.evaluations) {
+    const assignments = {};
+    Object.entries(window.GB_EXECUTION.evaluations).forEach(([expId, data]) => {
+      if (data.isABTest && data.included) {
+        assignments[expId] = {
+          experimentId: expId,
+          variationId: data.variation,
+          included: true,
+          exclusion_reason: null,
+          bucket: data.bucket,
+          source: data.source,
+          experiment_name: null,
+          hypothesis: null,
+          status: 'active'
+        };
+      }
+    });
+    
+    window.gbTestAssignments = assignments;
+    localStorage.setItem('gb_active_tests', JSON.stringify(assignments));
+    
+    document.dispatchEvent(new CustomEvent('variant:ready', {
+      detail: { assignments: assignments }
+    }));
+    
+    console.log('✅ Refreshed pixel assignments:', assignments);
+    return assignments;
+  } else {
+    console.log('❌ No evaluations available yet');
+    return null;
+  }
 };
 </script>
