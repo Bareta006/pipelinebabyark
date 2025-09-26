@@ -1,4 +1,3 @@
-
 <!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
@@ -27,7 +26,7 @@
     localStorage.setItem('gb_stable_user_id', userId); // backward compatibility
   }
   
-  // Minimal configuration for Vercel script
+  // Configuration for Vercel script
   window.GB_CONFIG = {
     sdkKey: SDK_KEY,
     userId: userId,
@@ -37,21 +36,35 @@
       pageType: window.ShopifyAnalytics?.meta?.page?.pageType,
       cart: window.Shopify?.cart
     },
-    debug: /[?&]debug=1(&|$)/.test(location.search)
+    debug: /[?&]debug=1(&|$)/.test(location.search),
+    // Add preview API endpoint
+    previewApiUrl: 'https://growthbook-scripts.vercel.app/api/preview-experiments'
   };
   
   // Initialize empty test assignments for pixel
   window.gbTestAssignments = {};
   
+  // Add timeout fallback (3 seconds)
+  setTimeout(function() {
+    if (!document.documentElement.classList.contains('gb-ready')) {
+      document.documentElement.classList.add('gb-timeout');
+      console.warn('[GB] Timeout reached, revealing content');
+    }
+  }, 3000);
+  
   // Load Vercel script
-  const VERSION = '2.1.0'; // Update when deploying new versions
-  const script = document.createElement('script');
+   const VERSION = '2.4.0';
+   const script = document.createElement('script');
   script.src = `https://growthbook-scripts.vercel.app/growthbook-bundle.js?v=${VERSION}`;
-  script.onerror = () => {
+  script.async = true;
+  script.onerror = function() {
     console.error('[GB] Failed to load GrowthBook script');
+    document.documentElement.classList.add('gb-timeout');
     document.dispatchEvent(new CustomEvent('gb:load:failed'));
   };
-  script.onload = () => console.log('[GB] Script loaded from Vercel');
+  script.onload = function() {
+    console.log('[GB] Script loaded from Vercel v' + VERSION);
+  };
   document.head.appendChild(script);
 })();
 </script>
