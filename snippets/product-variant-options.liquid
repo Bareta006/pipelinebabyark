@@ -93,7 +93,7 @@
                         {%- endif -%}
                       {%- endfor -%}
                       
-                      <radio-swatch class="swatch__button swatch__button--image">
+                      <radio-swatch class="swatch__button swatch__button--image{% if settings.swatches_squares %} swatch__button--square{% endif %}">
                         <input type="radio"
                             data-swatch-input
                             name="options[{{ option.name | escape_once }}]"
@@ -101,7 +101,7 @@
                             id="{{ input_id }}"
                             form="{{ uniq_id }}"
                             {% if value == current_value -%}checked{%- endif %}>
-                        <label for="{{ input_id }}" data-swapper-hover="{{ value | escape_once }}" class="swatch__label--image">
+                        <label for="{{ input_id }}" data-swapper-hover="{{ value | escape_once }}">
                           {%- if variant_image -%}
                             <img src="{{ variant_image | image_url: width: 200 }}" 
                                  alt="{{ value | escape_once }}" 
