@@ -827,52 +827,62 @@
 </script>
 
 {% style %}
-  /* Image Swatch Styles */
-  .swatch__button--image {
+  /* Image Swatch Styles - Scoped to section */
+  #shopify-section-{{ section.id }} .swatch__button--image {
     display: inline-block;
   }
   
-  .swatch__button--image input[type="radio"] {
+  #shopify-section-{{ section.id }} .swatch__button--image,
+  #shopify-section-{{ section.id }} .swatch__button--image label {
+    border-radius: 0;
+  }
+  
+  #shopify-section-{{ section.id }} .swatch__button--image .swatch__checkmark {
+    border-radius: 50%;
+  }
+  
+  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
   }
   
-  .swatch__label--image {
+  #shopify-section-{{ section.id }} .swatch__label--image {
     position: relative;
     display: block;
     width: var(--IMAGE-SWATCH-WIDTH);
     cursor: pointer;
     overflow: hidden;
     border: 2px solid transparent;
+    border-radius: 0;
     transition: all 0.2s ease;
   }
   
   /* Aspect Ratios */
-  .swatch__label--image {
-    aspect-ratio: 1 / 1; /* Default 1:1 */
+  #shopify-section-{{ section.id }} .swatch__label--image {
+    aspect-ratio: 1 / 1;
   }
   
-  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 16:9"] .swatch__label--image {
+  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 16:9"] .swatch__label--image {
     aspect-ratio: 16 / 9;
   }
   
-  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 9:16"] .swatch__label--image {
+  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 9:16"] .swatch__label--image {
     aspect-ratio: 9 / 16;
   }
   
-  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 4:3"] .swatch__label--image {
+  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 4:3"] .swatch__label--image {
     aspect-ratio: 4 / 3;
   }
   
-  .swatch__image {
+  #shopify-section-{{ section.id }} .swatch__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
   }
   
-  .swatch__no-image {
+  #shopify-section-{{ section.id }} .swatch__no-image {
     width: 100%;
     height: 100%;
     display: flex;
@@ -887,7 +897,7 @@
   }
   
   /* Checkmark - hidden by default */
-  .swatch__checkmark {
+  #shopify-section-{{ section.id }} .swatch__checkmark {
     position: absolute;
     top: 4px;
     right: 4px;
@@ -903,34 +913,34 @@
     transition: all 0.2s ease;
   }
   
-  .swatch__checkmark svg {
+  #shopify-section-{{ section.id }} .swatch__checkmark svg {
     width: 14px;
     height: 14px;
     fill: white;
   }
   
   /* Hover State */
-  .swatch__button--image:hover .swatch__label--image {
+  #shopify-section-{{ section.id }} .swatch__button--image:hover .swatch__label--image {
     border-color: var(--color-primary);
   }
   
   /* Checked State */
-  .swatch__button--image input[type="radio"]:checked + .swatch__label--image {
+  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"]:checked + .swatch__label--image {
     border-color: var(--color-primary);
   }
   
-  .swatch__button--image input[type="radio"]:checked + .swatch__label--image .swatch__checkmark {
+  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"]:checked + .swatch__label--image .swatch__checkmark {
     opacity: 1;
     transform: scale(1);
   }
   
   /* Disabled/Sold Out State */
-  .swatch__button--image input[type="radio"]:disabled + .swatch__label--image {
+  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"]:disabled + .swatch__label--image {
     opacity: 0.5;
     cursor: not-allowed;
   }
   
-  .swatch__button--image input[type="radio"]:disabled + .swatch__label--image::after {
+  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"]:disabled + .swatch__label--image::after {
     content: '';
     position: absolute;
     top: 50%;
