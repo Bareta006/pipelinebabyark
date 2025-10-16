@@ -286,6 +286,109 @@
                 {% render 'product-quantity' product: product, uniq_id: product_form_id, block: block %}
               {% when 'variant-selectors' %}
                 {% render 'product-variant-options' product: product, uniq_id: product_form_id, block: block %}
+                
+                {% comment %} Image swatch CSS - only if enabled {% endcomment %}
+                {%- if block.settings.use_variant_image_swatches -%}
+                  {% liquid
+                    assign aspect_height_multiplier = 1
+                    case block.settings.image_swatch_aspect_ratio
+                      when '1/1'
+                        assign aspect_height_multiplier = 1
+                      when '16/9'
+                        assign aspect_height_multiplier = 0.5625
+                      when '9/16'
+                        assign aspect_height_multiplier = 1.7778
+                      when '4/3'
+                        assign aspect_height_multiplier = 0.75
+                    endcase
+                  %}
+                  
+                  <style>
+                  /* Image Swatch Styles - Scoped to Section */
+                  #shopify-section-{{ section.id }} .swatch__button--image .swatch__label--image {
+                    width: var(--IMAGE-SWATCH-WIDTH);
+                    height: calc(var(--IMAGE-SWATCH-WIDTH) * {{ aspect_height_multiplier }});
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    border: 2px solid var(--border);
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    border-radius: 8px;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__button--image label:hover {
+                    border-color: var(--text-dark);
+                    cursor: pointer;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image {
+                    border-color: var(--text-dark);
+                    border-width: 2px;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image:before {
+                    content: "";
+                    position: absolute;
+                    top: 4px;
+                    right: 4px;
+                    width: 18px;
+                    height: 18px;
+                    background-color: var(--text-dark);
+                    border-radius: 50%;
+                    z-index: 2;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image:after {
+                    content: "";
+                    position: absolute;
+                    top: 8px;
+                    right: 8px;
+                    width: 10px;
+                    height: 10px;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke-linecap='square' stroke-linejoin='arcs' viewBox='0 0 24 24'%3E%3Cpath d='m20 6.5-11 11-5-5' stroke='white' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    z-index: 3;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__no-image {
+                    font-family: var(--FONT-STACK-ACCENT);
+                    font-size: calc(var(--font-2) * var(--FONT-ADJUST-ACCENT));
+                    color: var(--text-light);
+                    text-align: center;
+                    padding: 4px;
+                    display: block;
+                    line-height: 1.2;
+                  }
+
+                  #shopify-section-{{ section.id }} .swatch__button--image input:disabled ~ .swatch__label--image:before,
+                  #shopify-section-{{ section.id }} .swatch__button--image input.sold-out ~ .swatch__label--image:before,
+                  #shopify-section-{{ section.id }} .swatch__button--image input.unavailable ~ .swatch__label--image:before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    z-index: 4;
+                    width: 2px;
+                    height: 110%;
+                    border-radius: 0;
+                    background: var(--bg);
+                    transform: translate(-50%, -50%) rotate(45deg);
+                  }
+
+                  @media only screen and (max-width: 767px) {
+                    #shopify-section-{{ section.id }} .swatch__button--image .swatch__label--image {
+                      width: calc(var(--IMAGE-SWATCH-WIDTH) - 8px);
+                      height: calc((var(--IMAGE-SWATCH-WIDTH) - 8px) * {{ aspect_height_multiplier }});
+                    }
+                  }
+                  </style>
+                {%- endif -%}
               {% when 'siblings' %}
                 {% render 'product-siblings' product: product, uniq_id: product_form_id, block: block %}
               {% when 'custom-buttons' %}
@@ -4513,109 +4616,3 @@ background-color: #22282D;
     });
   });
 </script>
-
-{% liquid
-  assign aspect_height_multiplier = 1
-  case block.settings.image_swatch_aspect_ratio
-    when '1/1'
-      assign aspect_height_multiplier = 1
-    when '16/9'
-      assign aspect_height_multiplier = 0.5625
-    when '9/16'
-      assign aspect_height_multiplier = 1.7778
-    when '4/3'
-      assign aspect_height_multiplier = 0.75
-  endcase
-%}
-
-<style>
-/* Image Swatch Styles - Scoped to Section */
-#shopify-section-{{ section.id }} .swatch__button--image .swatch__label--image {
-  width: var(--IMAGE-SWATCH-WIDTH);
-  height: calc(var(--IMAGE-SWATCH-WIDTH) * {{ aspect_height_multiplier }});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border: 2px solid var(--border);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  border-radius: 8px;
-}
-
-/* Hover effect */
-#shopify-section-{{ section.id }} .swatch__button--image label:hover {
-  border-color: var(--text-dark);
-  cursor: pointer;
-}
-
-/* Selected state - border */
-#shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image {
-  border-color: var(--text-dark);
-  border-width: 2px;
-}
-
-/* Selected state - checkmark on top right */
-#shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image:before {
-  content: "";
-  position: absolute;
-  top: 4px;
-  right: 4px;
-  width: 18px;
-  height: 18px;
-  background-color: var(--text-dark);
-  border-radius: 50%;
-  z-index: 2;
-}
-
-#shopify-section-{{ section.id }} .swatch__button--image input:checked ~ .swatch__label--image:after {
-  content: "";
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 10px;
-  height: 10px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke-linecap='square' stroke-linejoin='arcs' viewBox='0 0 24 24'%3E%3Cpath d='m20 6.5-11 11-5-5' stroke='white' stroke-width='3' fill='none'/%3E%3C/svg%3E");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 3;
-}
-
-/* No Image fallback */
-#shopify-section-{{ section.id }} .swatch__no-image {
-  font-family: var(--FONT-STACK-ACCENT);
-  font-size: calc(var(--font-2) * var(--FONT-ADJUST-ACCENT));
-  color: var(--text-light);
-  text-align: center;
-  padding: 4px;
-  display: block;
-  line-height: 1.2;
-}
-
-/* Disabled/sold out state */
-#shopify-section-{{ section.id }} .swatch__button--image input:disabled ~ .swatch__label--image:before,
-#shopify-section-{{ section.id }} .swatch__button--image input.sold-out ~ .swatch__label--image:before,
-#shopify-section-{{ section.id }} .swatch__button--image input.unavailable ~ .swatch__label--image:before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: 4;
-  width: 2px;
-  height: 110%;
-  border-radius: 0;
-  background: var(--bg);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-/* Mobile adjustments */
-@media only screen and (max-width: 767px) {
-  #shopify-section-{{ section.id }} .swatch__button--image .swatch__label--image {
-    width: calc(var(--IMAGE-SWATCH-WIDTH) - 8px);
-    height: calc((var(--IMAGE-SWATCH-WIDTH) - 8px) * {{ aspect_height_multiplier }});
-  }
-}
-</style>
