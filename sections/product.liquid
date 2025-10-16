@@ -826,91 +826,6 @@
 }
 </script>
 
-{% style %}
-  /* Image Swatch Styles - Works with existing theme swatch system */
-  #shopify-section-{{ section.id }} .swatch__button--image label {
-    position: relative;
-    width: var(--IMAGE-SWATCH-WIDTH);
-    padding: 0;
-    background: transparent;
-  }
-  
-  /* Aspect Ratios */
-  #shopify-section-{{ section.id }} .swatch__button--image label {
-    aspect-ratio: 1 / 1;
-  }
-  
-  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 16:9"] .swatch__button--image label {
-    aspect-ratio: 16 / 9;
-  }
-  
-  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 9:16"] .swatch__button--image label {
-    aspect-ratio: 9 / 16;
-  }
-  
-  #shopify-section-{{ section.id }} .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 4:3"] .swatch__button--image label {
-    aspect-ratio: 4 / 3;
-  }
-  
-  /* Image inside label */
-  #shopify-section-{{ section.id }} .swatch__button--image .swatch__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: inherit;
-  }
-  
-  /* No image fallback */
-  #shopify-section-{{ section.id }} .swatch__button--image .swatch__no-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--color-bg-light);
-    color: var(--color-text-light);
-    font-size: 11px;
-    text-align: center;
-    border-radius: inherit;
-  }
-  
-  /* Checkmark overlay */
-  #shopify-section-{{ section.id }} .swatch__button--image .swatch__checkmark {
-    position: absolute;
-    top: 3px;
-    right: 3px;
-    width: 18px;
-    height: 18px;
-    background-color: var(--color-primary);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.15s ease;
-    z-index: 2;
-  }
-  
-  #shopify-section-{{ section.id }} .swatch__button--image .swatch__checkmark svg {
-    width: 12px;
-    height: 12px;
-    fill: white;
-  }
-  
-  /* Show checkmark when checked */
-  #shopify-section-{{ section.id }} .swatch__button--image input[type="radio"]:checked + label .swatch__checkmark {
-    opacity: 1;
-    transform: scale(1);
-  }
-{% endstyle %}
 
 {% schema %}
 {
@@ -1152,39 +1067,6 @@
           "default": 34
         },
         {
-          "type": "header",
-          "content": "Image swatches"
-        },
-        {
-          "type": "checkbox",
-          "id": "use_variant_images",
-          "label": "Use variant images for color swatches",
-          "default": false,
-          "info": "Show variant images instead of color swatches for 'Color' options"
-        },
-        {
-          "type": "range",
-          "id": "image_swatch_width",
-          "min": 40,
-          "max": 200,
-          "step": 5,
-          "unit": "px",
-          "label": "Image swatch width",
-          "default": 80
-        },
-        {
-          "type": "select",
-          "id": "image_swatch_ratio",
-          "label": "Image swatch aspect ratio",
-          "default": "1:1",
-          "options": [
-            { "value": "1:1", "label": "1:1 (Square)" },
-            { "value": "16:9", "label": "16:9 (Landscape)" },
-            { "value": "9:16", "label": "9:16 (Portrait)" },
-            { "value": "4:3", "label": "4:3 (Classic)" }
-          ]
-        },
-        {
           "type": "range",
           "id": "option_size_radio",
           "min": 20,
@@ -1193,6 +1075,39 @@
           "unit": "px",
           "label": "Radio button height",
           "default": 50
+        },
+        {
+          "type": "header",
+          "content": "Variant image swatches"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_image_swatches",
+          "label": "Use variant images for color swatches",
+          "default": false,
+          "info": "Show variant images instead of color swatches for color options"
+        },
+        {
+          "type": "range",
+          "id": "image_swatch_width",
+          "min": 30,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "label": "Image swatch width",
+          "default": 60
+        },
+        {
+          "type": "select",
+          "id": "image_swatch_aspect_ratio",
+          "label": "Image swatch aspect ratio",
+          "default": "1/1",
+          "options": [
+            { "value": "1/1", "label": "1:1 Square" },
+            { "value": "16/9", "label": "16:9 Landscape" },
+            { "value": "9/16", "label": "9:16 Portrait" },
+            { "value": "4/3", "label": "4:3 Standard" }
+          ]
         },
         {
           "type": "header",
@@ -4598,3 +4513,94 @@ background-color: #22282D;
     });
   });
 </script>
+
+<style>
+/* Image Swatch Styles */
+.swatch__button--image .swatch__label--image {
+  width: var(--IMAGE-SWATCH-WIDTH);
+  height: calc(var(--IMAGE-SWATCH-WIDTH) / var(--IMAGE-SWATCH-ASPECT));
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border: 2px solid var(--border);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Hover effect */
+.swatch__button--image label:hover {
+  border-color: var(--text-dark);
+  cursor: pointer;
+}
+
+/* Selected state - border */
+.swatch__button--image input:checked ~ .swatch__label--image {
+  border-color: var(--text-dark);
+  border-width: 2px;
+}
+
+/* Selected state - checkmark on top right */
+.swatch__button--image input:checked ~ .swatch__label--image:before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--text-dark);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.swatch__button--image input:checked ~ .swatch__label--image:after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 10px;
+  height: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' stroke-linecap='square' stroke-linejoin='arcs' viewBox='0 0 24 24'%3E%3Cpath d='m20 6.5-11 11-5-5' stroke='white' stroke-width='3' fill='none'/%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 3;
+}
+
+/* No Image fallback */
+.swatch__no-image {
+  font-family: var(--FONT-STACK-ACCENT);
+  font-size: calc(var(--font-2) * var(--FONT-ADJUST-ACCENT));
+  color: var(--text-light);
+  text-align: center;
+  padding: 4px;
+  display: block;
+  line-height: 1.2;
+}
+
+/* Disabled/sold out state */
+.swatch__button--image input:disabled ~ .swatch__label--image:before,
+.swatch__button--image input.sold-out ~ .swatch__label--image:before,
+.swatch__button--image input.unavailable ~ .swatch__label--image:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: 2px;
+  height: 110%;
+  border-radius: 0;
+  background: var(--bg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* Mobile adjustments */
+@media only screen and (max-width: 767px) {
+  .swatch__button--image .swatch__label--image {
+    width: calc(var(--IMAGE-SWATCH-WIDTH) - 8px);
+    height: calc((var(--IMAGE-SWATCH-WIDTH) - 8px) / var(--IMAGE-SWATCH-ASPECT));
+  }
+}
+</style>
