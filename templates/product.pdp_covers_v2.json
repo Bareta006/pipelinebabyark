@@ -73,7 +73,7 @@
             "option_size_radio": 50,
             "use_variant_image_swatches": true,
             "image_swatch_width": 80,
-            "image_swatch_aspect_ratio": "4/3",
+            "image_swatch_aspect_ratio": "3/4",
             "option_space": 36,
             "padding_bottom": 20
           }
