@@ -76,6 +76,9 @@
           "settings": {
             "option_size_swatch": 40,
             "option_size_radio": 50,
+            "use_variant_image_swatches": true,
+            "image_swatch_width": 80,
+            "image_swatch_aspect_ratio": "3/4",
             "option_space": 36,
             "padding_bottom": 20
           }
@@ -716,7 +719,12 @@
       "blocks": {
         "judge_me_reviews_review_widget_MXkTRw": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
-          "settings": {}
+          "settings": {
+            "review_data": "sample_data",
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget",
+            "max_width": 1200
+          }
         }
       },
       "block_order": [
