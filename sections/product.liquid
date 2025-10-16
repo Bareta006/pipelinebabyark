@@ -826,6 +826,121 @@
 }
 </script>
 
+{% style %}
+  /* Image Swatch Styles */
+  .swatch__button--image {
+    display: inline-block;
+  }
+  
+  .swatch__button--image input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .swatch__label--image {
+    position: relative;
+    display: block;
+    width: var(--IMAGE-SWATCH-WIDTH);
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+  
+  /* Aspect Ratios */
+  .swatch__label--image {
+    aspect-ratio: 1 / 1; /* Default 1:1 */
+  }
+  
+  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 16:9"] .swatch__label--image {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 9:16"] .swatch__label--image {
+    aspect-ratio: 9 / 16;
+  }
+  
+  .product__block__variants[style*="--IMAGE-SWATCH-RATIO: 4:3"] .swatch__label--image {
+    aspect-ratio: 4 / 3;
+  }
+  
+  .swatch__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+  .swatch__no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-bg-light);
+    color: var(--color-text-light);
+    font-size: 12px;
+    text-align: center;
+    padding: 4px;
+    border: 1px solid var(--color-border);
+  }
+  
+  /* Checkmark - hidden by default */
+  .swatch__checkmark {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.2s ease;
+  }
+  
+  .swatch__checkmark svg {
+    width: 14px;
+    height: 14px;
+    fill: white;
+  }
+  
+  /* Hover State */
+  .swatch__button--image:hover .swatch__label--image {
+    border-color: var(--color-primary);
+  }
+  
+  /* Checked State */
+  .swatch__button--image input[type="radio"]:checked + .swatch__label--image {
+    border-color: var(--color-primary);
+  }
+  
+  .swatch__button--image input[type="radio"]:checked + .swatch__label--image .swatch__checkmark {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  /* Disabled/Sold Out State */
+  .swatch__button--image input[type="radio"]:disabled + .swatch__label--image {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .swatch__button--image input[type="radio"]:disabled + .swatch__label--image::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -10%;
+    right: -10%;
+    height: 2px;
+    background-color: var(--color-text);
+    transform: rotate(-45deg);
+  }
+{% endstyle %}
 
 {% schema %}
 {
@@ -1065,6 +1180,39 @@
           "unit": "px",
           "label": "Color swatch size",
           "default": 34
+        },
+        {
+          "type": "header",
+          "content": "Image swatches"
+        },
+        {
+          "type": "checkbox",
+          "id": "use_variant_images",
+          "label": "Use variant images for color swatches",
+          "default": false,
+          "info": "Show variant images instead of color swatches for 'Color' options"
+        },
+        {
+          "type": "range",
+          "id": "image_swatch_width",
+          "min": 40,
+          "max": 200,
+          "step": 5,
+          "unit": "px",
+          "label": "Image swatch width",
+          "default": 80
+        },
+        {
+          "type": "select",
+          "id": "image_swatch_ratio",
+          "label": "Image swatch aspect ratio",
+          "default": "1:1",
+          "options": [
+            { "value": "1:1", "label": "1:1 (Square)" },
+            { "value": "16:9", "label": "16:9 (Landscape)" },
+            { "value": "9:16", "label": "9:16 (Portrait)" },
+            { "value": "4:3", "label": "4:3 (Classic)" }
+          ]
         },
         {
           "type": "range",

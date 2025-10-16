@@ -8,6 +8,8 @@
     --OPTION-SPACE: {{ block.settings.option_space | default: 30 }}px;
     --OPTION-SIZE-RADIO: {{ block.settings.option_size_radio | default: 50 }}px;
     --OPTION-SIZE-SWATCH: {{ block.settings.option_size_swatch | default: 34 }}px;
+    --IMAGE-SWATCH-WIDTH: {{ block.settings.image_swatch_width | default: 80 }}px;
+    --IMAGE-SWATCH-RATIO: {{ block.settings.image_swatch_ratio | default: '1:1' }};
     "
   {{ block.shopify_attributes }}
 >
@@ -76,19 +78,61 @@
                   {%- capture input_id -%}{{ product.id }}-{{ block.id }}-{{ option.name | escape_once }}-{{ value | escape_once | handleize }}{%- endcapture -%}
 
                   {%- if is_swatch_option -%}
-                    <radio-swatch class="swatch__button{% if settings.swatches_squares %} swatch__button--square{% endif %}">
-                      <input type="radio"
-                          data-swatch-input
-                          name="options[{{ option.name | escape_once }}]"
-                          value="{{ value | escape_once }}"
-                          id="{{ input_id }}"
-                          form="{{ uniq_id }}"
-                          {% if value == current_value -%}checked{%- endif %}>
-                      <label for="{{ input_id }}" data-swatch="{{ value | escape_once }}" data-swapper-hover="{{ value | escape_once }}">
-                        <span class="visually-hidden value">{{ value | escape_once }}</span>
-                        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-                      </label>
-                    </radio-swatch>
+                    {%- comment -%} Check if we should use variant images {%- endcomment -%}
+                    {%- assign use_variant_images = block.settings.use_variant_images | default: false -%}
+                    
+                    {%- if use_variant_images -%}
+                      {%- comment -%} Find the variant that matches this option value {%- endcomment -%}
+                      {%- assign variant_image = null -%}
+                      {%- for variant in product.variants -%}
+                        {%- if variant.options[forloop.index0] == value or variant.option1 == value or variant.option2 == value or variant.option3 == value -%}
+                          {%- if variant.featured_image -%}
+                            {%- assign variant_image = variant.featured_image -%}
+                            {%- break -%}
+                          {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                      
+                      <radio-swatch class="swatch__button swatch__button--image">
+                        <input type="radio"
+                            data-swatch-input
+                            name="options[{{ option.name | escape_once }}]"
+                            value="{{ value | escape_once }}"
+                            id="{{ input_id }}"
+                            form="{{ uniq_id }}"
+                            {% if value == current_value -%}checked{%- endif %}>
+                        <label for="{{ input_id }}" data-swapper-hover="{{ value | escape_once }}" class="swatch__label--image">
+                          {%- if variant_image -%}
+                            <img src="{{ variant_image | image_url: width: 200 }}" 
+                                 alt="{{ value | escape_once }}" 
+                                 loading="lazy"
+                                 class="swatch__image">
+                          {%- else -%}
+                            <span class="swatch__no-image">No image</span>
+                          {%- endif -%}
+                          <span class="swatch__checkmark">
+                            {%- render 'icon-core-checkmark' -%}
+                          </span>
+                          <span class="visually-hidden value">{{ value | escape_once }}</span>
+                          <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+                        </label>
+                      </radio-swatch>
+                    {%- else -%}
+                      {%- comment -%} Regular color swatch {%- endcomment -%}
+                      <radio-swatch class="swatch__button{% if settings.swatches_squares %} swatch__button--square{% endif %}">
+                        <input type="radio"
+                            data-swatch-input
+                            name="options[{{ option.name | escape_once }}]"
+                            value="{{ value | escape_once }}"
+                            id="{{ input_id }}"
+                            form="{{ uniq_id }}"
+                            {% if value == current_value -%}checked{%- endif %}>
+                        <label for="{{ input_id }}" data-swatch="{{ value | escape_once }}" data-swapper-hover="{{ value | escape_once }}">
+                          <span class="visually-hidden value">{{ value | escape_once }}</span>
+                          <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+                        </label>
+                      </radio-swatch>
+                    {%- endif -%}
 
                   {%- else -%}
                     {%- comment -%} radio button {%- endcomment -%}
