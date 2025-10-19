@@ -70,7 +70,11 @@
             {% endif %}
           {% endif %}
         </td>
-        <td>{{ delivery_display }}</td>
+        <td>
+          {% if variant.inventory_quantity > 0 %}
+            {{ delivery_display }}
+          {% endif %}
+        </td>
       </tr>
     {% endfor %}
   {% endunless %}
