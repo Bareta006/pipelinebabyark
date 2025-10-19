@@ -44,9 +44,9 @@
       
       {% if variant_delivery_date != blank %}
         {% assign delivery_display = variant_delivery_date %}
-      elsif product.metafields.delivery.delivery_time != blank %}
+      {% elsif product.metafields.delivery.delivery_time != blank %}
         {% assign delivery_display = product.metafields.delivery.delivery_time %}
-      elsif product.metafields.delivery.estimated_date != blank %}
+      {% elsif product.metafields.delivery.estimated_date != blank %}
         {% assign delivery_display = product.metafields.delivery.estimated_date %}
       {% else %}
         {% assign delivery_display = 'N/A' %}
