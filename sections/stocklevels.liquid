@@ -42,9 +42,17 @@
       {% unless variant_delivery_date %}
         {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
       {% endunless %}
+      {% assign variant_delivery_time = variant.metafields.delivery.delivery_time %}
+      {% assign variant_estimated_date = variant.metafields.delivery.estimated_date %}
       
       {% if variant_delivery_date != blank %}
         {% assign delivery_display = variant_delivery_date %}
+        {% assign delivery_type = 'estimated_date' %}
+      {% elsif variant_delivery_time != blank %}
+        {% assign delivery_display = variant_delivery_time %}
+        {% assign delivery_type = 'delivery_time' %}
+      {% elsif variant_estimated_date != blank %}
+        {% assign delivery_display = variant_estimated_date %}
         {% assign delivery_type = 'estimated_date' %}
       {% elsif product.metafields.delivery.delivery_time != blank %}
         {% assign delivery_display = product.metafields.delivery.delivery_time %}
