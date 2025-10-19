@@ -37,6 +37,7 @@
     {% for variant in product.variants %}
       {% comment %} Calculate delivery date using hierarchy {% endcomment %}
       {% assign delivery_display = '' %}
+      {% assign delivery_type = '' %}
       {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
       {% unless variant_delivery_date %}
         {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
@@ -44,12 +45,16 @@
       
       {% if variant_delivery_date != blank %}
         {% assign delivery_display = variant_delivery_date %}
+        {% assign delivery_type = 'estimated_date' %}
       {% elsif product.metafields.delivery.delivery_time != blank %}
         {% assign delivery_display = product.metafields.delivery.delivery_time %}
+        {% assign delivery_type = 'delivery_time' %}
       {% elsif product.metafields.delivery.estimated_date != blank %}
         {% assign delivery_display = product.metafields.delivery.estimated_date %}
+        {% assign delivery_type = 'estimated_date' %}
       {% else %}
         {% assign delivery_display = 'N/A' %}
+        {% assign delivery_type = 'none' %}
       {% endif %}
       
       <tr>
@@ -71,7 +76,9 @@
           {% endif %}
         </td>
         <td>
-          {% if variant.inventory_quantity > 0 or delivery_display != 'N/A' %}
+          {% if variant.inventory_quantity > 0 %}
+            {{ delivery_display }}
+          {% elsif delivery_type == 'estimated_date' %}
             {{ delivery_display }}
           {% endif %}
         </td>
