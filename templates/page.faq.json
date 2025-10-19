@@ -560,7 +560,7 @@
           "type": "text",
           "settings": {
             "title": "How can I file a warranty claim?",
-            "content": "<p>To initiate a warranty claim, please contact babyark's customer service department through one of the following methods:</p><p>Email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a>​, Phone: 1-(888) 922-2927​ or the chat feature on the babyark website</p>"
+            "content": "<p>To initiate a warranty claim, please contact babyark's customer service department through one of the following methods:</p><p>Email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>"
           }
         },
         "text_9NMb3M": {
@@ -799,16 +799,19 @@
             "button_size_1": "btn--medium",
             "button_style_1": "btn--outline",
             "button_color_1": "btn--neutral",
+            "open_new_window_1": false,
             "link_text_2": "",
             "link_2": "",
             "button_size_2": "btn--medium",
             "button_style_2": "btn-text-thick-line",
             "button_color_2": "btn--neutral",
+            "open_new_window_2": false,
             "link_text_3": "",
             "link_3": "",
             "button_size_3": "btn--long",
             "button_style_3": "btn-text-thick-line",
-            "button_color_3": "btn--white"
+            "button_color_3": "btn--white",
+            "open_new_window_3": false
           }
         }
       },
