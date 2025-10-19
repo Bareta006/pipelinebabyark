@@ -87,10 +87,18 @@
         "padding_bottom": 0,
         "special_arrange": false
       }
+    },
+    "section_liquid_bqnayk": {
+      "type": "section-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "custom_liquid": "<script>\n(function () {\n  function updateCtaText() {\n    const el = document.querySelector('.hero__cta__wrapper > a:first-child');\n    if (!el) return false;\n\n    // Only change if needed\n    const current = (el.textContent || '').trim();\n    if (current.toLowerCase() !== 'premium') {\n      el.textContent = 'premium';\n    }\n\n    // Optional: keep accessible name in sync\n    el.setAttribute('aria-label', 'premium');\n    return true;\n  }\n\n  // Run after DOM is ready\n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', () => {\n      if (!updateCtaText()) startObserver();\n    });\n  } else {\n    if (!updateCtaText()) startObserver();\n  }\n\n  // Watch for late-rendered content (stop after 10s)\n  function star"
+      }
     }
   },
   "order": [
     "main",
-    "section_hero_DCEPgC"
+    "section_hero_DCEPgC",
+    "section_liquid_bqnayk"
   ]
 }
