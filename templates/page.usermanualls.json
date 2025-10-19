@@ -92,7 +92,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<script>\n(function () {\n  function updateCtaText() {\n    const el = document.querySelector('.hero__cta__wrapper > a:first-child');\n    if (!el) return false;\n\n    // Only change if needed\n    const current = (el.textContent || '').trim();\n    if (current.toLowerCase() !== 'premium') {\n      el.textContent = 'premium';\n    }\n\n    // Optional: keep accessible name in sync\n    el.setAttribute('aria-label', 'premium');\n    return true;\n  }\n\n  // Run after DOM is ready\n  if (document.readyState === 'loading') {\n    document.addEventListener('DOMContentLoaded', () => {\n      if (!updateCtaText()) startObserver();\n    });\n  } else {\n    if (!updateCtaText()) startObserver();\n  }\n\n  // Watch for late-rendered content (stop after 10s)\n  function star"
+        "custom_liquid": "<script>\nwindow.addEventListener('load', function () {\n  var a = document.querySelector('.hero__cta__wrapper > a:first-child');\n  if (a) a.textContent = 'premium';\n});\n</script>"
       }
     }
   },
