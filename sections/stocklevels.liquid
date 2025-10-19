@@ -86,8 +86,15 @@
         <td>
           {% if variant.inventory_quantity > 0 %}
             {{ delivery_display }}
-          {% elsif delivery_type == 'estimated_date' %}
-            {{ delivery_display }}
+          {% else %}
+            {% comment %} For out of stock/pre-order: only show if estimated_date exists {% endcomment %}
+            {% if variant_delivery_date != blank %}
+              {{ variant_delivery_date }}
+            {% elsif variant_estimated_date != blank %}
+              {{ variant_estimated_date }}
+            {% elsif product.metafields.delivery.estimated_date != blank %}
+              {{ product.metafields.delivery.estimated_date }}
+            {% endif %}
           {% endif %}
         </td>
       </tr>
