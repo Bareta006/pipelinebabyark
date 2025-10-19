@@ -20,6 +20,7 @@
             <th>Name of Item</th>
             <th>SKU</th>
             <th>Stock Level</th>
+            <th>Delivery Date</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +35,23 @@
   {% endfor %}
   {% unless exclude_product %}
     {% for variant in product.variants %}
+      {% comment %} Calculate delivery date using hierarchy {% endcomment %}
+      {% assign delivery_display = '' %}
+      {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date %}
+      {% unless variant_delivery_date %}
+        {% assign variant_delivery_date = variant.metafields.delivery.delivery_estimated_date.value %}
+      {% endunless %}
+      
+      {% if variant_delivery_date != blank %}
+        {% assign delivery_display = variant_delivery_date %}
+      elsif product.metafields.delivery.delivery_time != blank %}
+        {% assign delivery_display = product.metafields.delivery.delivery_time %}
+      elsif product.metafields.delivery.estimated_date != blank %}
+        {% assign delivery_display = product.metafields.delivery.estimated_date %}
+      {% else %}
+        {% assign delivery_display = 'N/A' %}
+      {% endif %}
+      
       <tr>
         <td>{{ product.title }}{% if product.variants.size > 1 %} - {{ variant.title }}{% endif %}</td>
         <td>{{ variant.sku }}</td>
@@ -52,6 +70,7 @@
             {% endif %}
           {% endif %}
         </td>
+        <td>{{ delivery_display }}</td>
       </tr>
     {% endfor %}
   {% endunless %}
