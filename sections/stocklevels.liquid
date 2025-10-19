@@ -71,7 +71,7 @@
           {% endif %}
         </td>
         <td>
-          {% if variant.inventory_quantity > 0 %}
+          {% if variant.inventory_quantity > 0 or delivery_display != 'N/A' %}
             {{ delivery_display }}
           {% endif %}
         </td>
