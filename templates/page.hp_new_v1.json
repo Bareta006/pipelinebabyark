@@ -47,7 +47,7 @@
       "custom_css": [
         "10.hero__content > .text__standard {text-align: center;}",
         ".hero__cta__wrapper {justify-content: center;}",
-        "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 30px 20px 0; margin: 0; }}"
+        "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 00px 20px 0; margin: 0; }}"
       ],
       "name": "Image banner",
       "settings": {
