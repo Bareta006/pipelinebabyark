@@ -10,6 +10,19 @@
 {%- assign title_override = false -%}
 {%- assign default_description = false -%}
 <head>
+  <style id="ab-test-preload">
+  /* Hide entire page for 2 seconds */
+  body {
+    opacity: 0;
+    animation: showPage 0.1s 0.7s forwards;
+  }
+  
+  @keyframes showPage {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
 {% render 'visually_io_sdk' %}
 
 
@@ -245,19 +258,7 @@
     }
   }
 </style> {% endcomment %}
-<style id="ab-test-preload">
-  /* Hide entire page for 2 seconds */
-  body {
-    opacity: 0;
-    animation: showPage 0.1s 0.7s forwards;
-  }
-  
-  @keyframes showPage {
-    to {
-      opacity: 1;
-    }
-  }
-</style>
+
 
 </head>
 
