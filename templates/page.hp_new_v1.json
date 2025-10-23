@@ -44,6 +44,10 @@
         "text_npjEVw",
         "button_XnyNKX"
       ],
+      "custom_css": [
+        ".hero__content > .text__standard {text-align: center;}",
+        ".hero__cta__wrapper{justify-content: center;}"
+      ],
       "name": "Image banner",
       "settings": {
         "mobile_special_arrange": false,
