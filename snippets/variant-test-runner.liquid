@@ -1,3 +1,4 @@
+<!-- GrowthBook A/B Testing Script -->
 <!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
@@ -11,40 +12,34 @@
 
 <script>
 (function() {
-  // Get SDK key from metafield
   const SDK_KEY = '{{ shop.metafields.growthbook.sdk_key }}';
   if (!SDK_KEY || SDK_KEY.includes('{' + '{')) {
     console.error('[GB] No SDK key found in growthbook.sdk_key metafield');
     return;
   }
   
-  // Ensure stable user ID
   let userId = localStorage.getItem('gb_anonymous_id');
   if (!userId) {
     userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
     localStorage.setItem('gb_anonymous_id', userId);
-    localStorage.setItem('gb_stable_user_id', userId); // backward compatibility
+    localStorage.setItem('gb_stable_user_id', userId);
   }
   
-  // Configuration for Vercel script
   window.GB_CONFIG = {
     sdkKey: SDK_KEY,
     userId: userId,
     shopifyData: {
-      shop: window.Shopify?.shop || location.hostname,
-      customerId: window.ShopifyAnalytics?.meta?.page?.customerId,
-      pageType: window.ShopifyAnalytics?.meta?.page?.pageType,
+      shop: '{{ shop.domain }}',
+      customerId: {{ customer.id | default: 'null' }},
+      pageType: '{{ request.page_type }}',  // ✅ Liquid instead of JS
       cart: window.Shopify?.cart
     },
     debug: /[?&]debug=1(&|$)/.test(location.search),
-    // Add preview API endpoint
     previewApiUrl: 'https://growthbook-scripts.vercel.app/api/preview-experiments'
   };
   
-  // Initialize empty test assignments for pixel
   window.gbTestAssignments = {};
   
-  // Add timeout fallback (3 seconds)
   setTimeout(function() {
     if (!document.documentElement.classList.contains('gb-ready')) {
       document.documentElement.classList.add('gb-timeout');
@@ -52,10 +47,9 @@
     }
   }, 3000);
   
-  // Load Vercel script
-   const VERSION = '2.4.0';
-   const script = document.createElement('script');
-  script.src = `https://growthbook-scripts.vercel.app/growthbook-bundle.js?v=${VERSION}`;
+  // ✅ No version parameter - auto-updates
+  const script = document.createElement('script');
+  script.src = 'https://growthbook-scripts.vercel.app/growthbook-bundle.js';
   script.async = true;
   script.onerror = function() {
     console.error('[GB] Failed to load GrowthBook script');
@@ -63,7 +57,7 @@
     document.dispatchEvent(new CustomEvent('gb:load:failed'));
   };
   script.onload = function() {
-    console.log('[GB] Script loaded from Vercel v' + VERSION);
+    console.log('[GB] Script loaded from Vercel');
   };
   document.head.appendChild(script);
 })();
