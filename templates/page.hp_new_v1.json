@@ -251,13 +251,24 @@
         "padding_bottom": 36
       }
     },
+    "section_html_JTm889": {
+      "type": "section-html",
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 765px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 56px;\n  opacity: 0.92;\n  background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%);\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\n  background: linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n}\n</style>",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_fullwidth_card_slider_47qVDr": {
       "type": "section-fullwidth-card-slider",
       "blocks": {
         "card_AmL46e": {
           "type": "card",
           "settings": {
-            "desktop_image": "shopify://shop_images/Rectangle_1486127489.png",
+            "desktop_image": "shopify://shop_images/Group_1597881470.png",
+            "mobile_image": "shopify://shop_images/Group_1597881461.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -275,7 +286,8 @@
         "card_LmN9Gk": {
           "type": "card",
           "settings": {
-            "desktop_image": "shopify://shop_images/Rectangle_1486127491.png",
+            "desktop_image": "shopify://shop_images/Group_1597881469.png",
+            "mobile_image": "shopify://shop_images/Group_1597881462.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
@@ -313,11 +325,7 @@
         "card_LmN9Gk",
         "card_CGNqzm"
       ],
-      "custom_css": [
-        ".section__title {width: 765px; max-width: 100%; margin: 0 auto 60px; font-size: 56px; opacity: 0.92; background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; line-height: 120%; letter-spacing: -1px;}",
-        ".flickity-button {color: #473c2d;}",
-        "section {background: linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}"
-      ],
+      "custom_css": [],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
@@ -344,6 +352,7 @@
     "section_logos_yw9yit",
     "section_html_EPzMT4",
     "section_double2_ietMK7",
+    "section_html_JTm889",
     "section_fullwidth_card_slider_47qVDr"
   ]
 }
