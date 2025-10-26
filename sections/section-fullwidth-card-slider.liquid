@@ -328,20 +328,28 @@
     }
   }
 
-  /* Mobile Text Overlay - Override stacked layout */
+  /* Mobile Text Overlay - When enabled, keep desktop overlay behavior on mobile */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card {
-      height: auto;
-      min-height: 500px;
+      display: block;
+      flex-direction: initial;
+      border-radius: 10px;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile {
+      display: block;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content__wrapper {
       position: absolute;
       height: 100%;
-      padding: 0;
+      padding: 0rem;
       background-color: transparent;
       border-radius: 0;
-      align-items: flex-end;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content {
@@ -349,12 +357,23 @@
       padding: 1.5rem;
     }
 
+    #shopify-section-{{ section.id }}.mobile-text-overlay .hero__title {
+      margin-bottom: 1rem;
+      color: inherit !important;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .hero__description {
+      margin-bottom: 1.5rem;
+      color: inherit !important;
+      max-width: 100%;
+    }
+
     #shopify-section-{{ section.id }}.mobile-text-overlay .image-overlay {
       display: block;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .backdrop--hero {
-      background: var(--bg) !important;
+      background: inherit !important;
       padding: 1.5rem;
     }
   }
@@ -518,7 +537,7 @@
       "type": "checkbox",
       "id": "mobile_text_overlay",
       "label": "Overlay text on mobile",
-      "info": "When enabled, text overlays the image on mobile instead of appearing below it",
+      "info": "When enabled, text will overlay the image on mobile instead of appearing below it",
       "default": false
     },
     {
