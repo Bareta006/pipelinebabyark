@@ -162,7 +162,7 @@
       "custom_css": [
         ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
         ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
-        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; }}"
+        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; } > div {background-color: transparent; margin-bottom: -100px; }}"
       ],
       "name": "Logo list",
       "settings": {
@@ -173,6 +173,16 @@
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "section_html_EPzMT4": {
+      "type": "section-html",
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<style>\n.section-double2 section {\n  background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%),\n    linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n.section-double2 .brick__block__video {\n  height: 28vw;\n}\n.section-double2 .brick__block:not(:first-child),\n.section-double2  .brick__block__video video {\n  border-radius: 15px;\n  overflow: hidden;\n}\n.section-double2 .rte p {\n  font-size: 40px !important;\n}\n.section-double2 .rte p strong {\n  background: linear-gradient(180deg, #afa9a1, #d1956a);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-weight: 700;\n}\n@media (max-width:480px){\n.section-double2 .brick__block__video {\n  height: 250px;\n}\n.section-double2 section {\n  background: linear-gradient(312deg, #E9DDCE 0.88%, #E8ECEA 95.54%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}\n.section-double2 .rte p {\n  font-size: 20px !important;\ncolor:#000;\ntext-align:center;\nmax-width:330px; \nmargin:0 auto;\n}\n.section-double2 .rte p strong {color:#000;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: #000\n}\n.section-double2  .brick__section--reverse{\nflex-direction:column;\n}\n.section-double2  .section-padding.wrapper{\npadding-top:50px;\npadding-bottom:50px;}\n}\n</style>",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "section_double2_ietMK7": {
@@ -224,13 +234,7 @@
         "text_fHfYU8",
         "video_4E3YKi"
       ],
-      "custom_css": [
-        "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        ".brick__block__video {height: 28vw;}",
-        ".brick__block:not(:first-child),.brick__block__video video {border-radius: 15px; overflow: hidden;}",
-        ".rte p {font-size: 40px;}",
-        ".rte p strong {background: linear-gradient(180deg, #afa9a1, #d1956a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:700;}"
-      ],
+      "custom_css": [],
       "name": "Image with text no2",
       "settings": {
         "height": "use_image",
@@ -309,9 +313,14 @@
         "card_LmN9Gk",
         "card_CGNqzm"
       ],
+      "custom_css": [
+        ".section__title {width: 765px; max-width: 100%; margin: 0 auto 60px; font-size: 56px; opacity: 0.92; background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; line-height: 120%; letter-spacing: -1px;}",
+        ".flickity-button {color: #473c2d;}",
+        "section {background: linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}"
+      ],
       "name": "Fullwidth Card Slider",
       "settings": {
-        "title": "",
+        "title": "Built with military-grade materials and next-generation impact engineering",
         "description": "",
         "title_alignment": "text-center",
         "title_size": 8,
@@ -333,6 +342,7 @@
     "section_hero_4LVqG3",
     "main",
     "section_logos_yw9yit",
+    "section_html_EPzMT4",
     "section_double2_ietMK7",
     "section_fullwidth_card_slider_47qVDr"
   ]
