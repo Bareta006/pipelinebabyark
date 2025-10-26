@@ -332,19 +332,38 @@
 
     /* OVERLAY MODE: When mobile-text-overlay class is present */
     #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card {
-      height: auto;
+      position: relative;
       display: block;
       border-radius: 10px;
     }
 
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile img,
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile .hero__image__container {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content__wrapper {
       position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
       height: 100%;
       padding: 2rem;
       background-color: transparent;
       border-radius: 0;
       align-items: flex-end;
       justify-content: flex-start;
+      display: flex;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content {
