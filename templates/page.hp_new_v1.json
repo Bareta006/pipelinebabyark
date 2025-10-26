@@ -93,7 +93,7 @@
         "logo_image_ktxaah": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/Scary_Mommy_Nominee_Badge_2025_1.png",
+            "image": "shopify://shop_images/Scary_Mommy_Nominee_Badge_2025_1_1.png",
             "link": "",
             "new_tab": true,
             "width": 95,
@@ -103,7 +103,7 @@
         "logo_image_8fkUVD": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/Group_1597881387.png",
+            "image": "shopify://shop_images/Group_1597881387_1.png",
             "link": "",
             "new_tab": true,
             "width": 50,
@@ -113,7 +113,7 @@
         "logo_image_QxY8HP": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/TB-BestofAwards-2023_color.png",
+            "image": "shopify://shop_images/TB-BestofAwards-2023_color_1_4afdb7e8-d2b2-4461-87cf-575917d07915.png",
             "link": "",
             "new_tab": true,
             "width": 100,
@@ -123,7 +123,7 @@
         "logo_image_8fDYbU": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/s2-icon-1_1.png",
+            "image": "shopify://shop_images/s2-icon-1_1_1.png",
             "link": "",
             "new_tab": true,
             "width": 80,
@@ -133,7 +133,7 @@
         "logo_image_FnF7mk": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/hka-baby-gear-winner-2-at-4x_1.png",
+            "image": "shopify://shop_images/hka-baby-gear-winner-2-at-4x_1_1.png",
             "link": "",
             "new_tab": true,
             "width": 100,
@@ -146,7 +146,7 @@
             "image": "shopify://shop_images/1668639266204_1.png",
             "link": "",
             "new_tab": true,
-            "width": 70,
+            "width": 50,
             "spacing": 100
           }
         }
