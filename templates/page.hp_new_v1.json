@@ -175,6 +175,16 @@
         "padding_bottom": 36
       }
     },
+    "section_html_EPzMT4": {
+      "type": "section-html",
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<style>\n.section-double2 section {\n  background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%),\n    linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n.section-double2 .brick__block__video {\n  height: 28vw;\n}\n.section-double2 .brick__block:not(:first-child),\n.section-double2  .brick__block__video video {\n  border-radius: 15px;\n  overflow: hidden;\n}\n.section-double2 .rte p {\n  font-size: 40px;\n}\n.section-double2 .rte p strong {\n  background: linear-gradient(180deg, #afa9a1, #d1956a);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-weight: 700;\n}\n</style>",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_double2_ietMK7": {
       "type": "section-double2",
       "blocks": {
@@ -224,13 +234,7 @@
         "text_fHfYU8",
         "video_4E3YKi"
       ],
-      "custom_css": [
-        "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        ".brick__block__video {height: 28vw;}",
-        ".brick__block:not(:first-child),.brick__block__video video {border-radius: 15px; overflow: hidden;}",
-        ".rte p {font-size: 40px;}",
-        ".rte p strong {background: linear-gradient(180deg, #afa9a1, #d1956a); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:700;}"
-      ],
+      "custom_css": [],
       "name": "Image with text no2",
       "settings": {
         "height": "use_image",
@@ -333,6 +337,7 @@
     "section_hero_4LVqG3",
     "main",
     "section_logos_yw9yit",
+    "section_html_EPzMT4",
     "section_double2_ietMK7",
     "section_fullwidth_card_slider_47qVDr"
   ]
