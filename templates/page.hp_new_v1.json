@@ -184,7 +184,7 @@
             "kicker": "",
             "title": "",
             "text": "<p>We set out to build the world’s <strong>safest, smartest</strong>, and most <strong>comfortable </strong>car seat.. We may have taken it a little too far.</p>",
-            "font_size": 5,
+            "font_size": 7,
             "text_columns": 1,
             "align_text": "text-left",
             "button_text": "",
@@ -195,7 +195,7 @@
             "button_link_2": "",
             "button_color_2": "btn--neutral",
             "button_style_2": "btn-text-thick-line",
-            "text_color": "text--neutral",
+            "text_color": "text--white",
             "bg_color": "rgba(0,0,0,0)"
           }
         },
@@ -225,7 +225,7 @@
         "video_4E3YKi"
       ],
       "custom_css": [
-        "{background: linear-gradient(149deg, #373534 1.7%, #67483F 91.34%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}"
+        "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}"
       ],
       "name": "Image with text no2",
       "settings": {
