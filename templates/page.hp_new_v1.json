@@ -346,6 +346,16 @@
         "padding_bottom": 60
       }
     },
+    "section_html_iHYUXJ": {
+      "type": "section-html",
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<style>\n> div > .wrapper {\n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n  border-radius: 10px;\n}\n.kicker-flourished:after {\n  display: none;\n}\nh2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n@media (min-width: 960px) {\n  .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .clearfix {\n    display: none;\n  }\n}\n@media (max-width: 480px) {\n  > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\n  }\n  h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_icons_grid_7cHcKR": {
       "type": "section-icons-grid",
       "blocks": {
@@ -417,13 +427,7 @@
         "icon_block_kLfLPJ",
         "icon_block_FHCgmz"
       ],
-      "custom_css": [
-        "> div > .wrapper {background-color: #f6f6f6; padding-top: 90px; padding-bottom: 90px; max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2)); border-radius: 10px;}",
-        ".kicker-flourished:after {display: none;}",
-        "h2 {font-family: \"centrano2\", sans-serif; font-size: 34px; font-weight: 400; text-transform: none; letter-spacing: -1.5px;}",
-        "@media (min-width: 960px) {.carousel-slide {width: 20%; clear: none; } .clearfix {display: none; }}",
-        "@media (max-width: 480px) {> div > .wrapper {padding: 30px 0; margin-bottom: 60px; } h2 {font-size: 30px; padding: 0 20px; }}"
-      ],
+      "custom_css": [],
       "name": "Icon columns grid",
       "settings": {
         "title": "Complies with the strictest standards",
@@ -449,6 +453,7 @@
     "section_double2_ietMK7",
     "section_html_JTm889",
     "section_fullwidth_card_slider_47qVDr",
+    "section_html_iHYUXJ",
     "section_icons_grid_7cHcKR"
   ]
 }
