@@ -270,14 +270,6 @@
       bottom: -2.125rem;
     }
 
-    /* DEFAULT: Mobile Card Layout - Image on top, text below */
-    #shopify-section-{{ section.id }} .fullwidth-card {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      border-radius: 10px;
-    }
-
     /* Show mobile image, hide desktop image */
     #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
       display: none;
@@ -287,7 +279,14 @@
       display: block;
     }
 
-    /* Mobile Content Positioning */
+    /* DEFAULT: Mobile Card Layout - Image on top, text below */
+    #shopify-section-{{ section.id }} .fullwidth-card {
+      height: auto !important;
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
+    }
+
     #shopify-section-{{ section.id }} .hero__content__wrapper {
       position: relative;
       height: auto;
@@ -320,7 +319,6 @@
       font-size: 16px;
     }
     
-    /* Hide overlay on mobile since text is not overlaid */
     #shopify-section-{{ section.id }} .image-overlay {
       display: none;
     }
@@ -332,38 +330,26 @@
 
     /* OVERLAY MODE: When mobile-text-overlay class is present */
     #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card {
-      position: relative;
+      height: auto !important;
       display: block;
-      border-radius: 10px;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile {
-      position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
-      height: 100%;
-    }
-
-    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile img,
-    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card__image-mobile .hero__image__container {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content__wrapper {
       position: absolute;
-      top: 0;
+      bottom: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: auto;
       padding: 2rem;
       background-color: transparent;
       border-radius: 0;
-      align-items: flex-end;
+      align-items: flex-start;
       justify-content: flex-start;
-      display: flex;
     }
 
     #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content {
