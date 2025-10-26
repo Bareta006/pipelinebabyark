@@ -159,6 +159,10 @@
         "logo_image_FnF7mk",
         "logo_image_wgwaUk"
       ],
+      "custom_css": [
+        ".logo-bar {display: flex; gap: 0; justify-content: space-around;}",
+        ".logo-bar__item{margin:unset; max-height:100px; width:auto;}"
+      ],
       "name": "Logo list",
       "settings": {
         "title": "",
