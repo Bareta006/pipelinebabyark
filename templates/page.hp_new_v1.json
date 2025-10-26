@@ -229,7 +229,7 @@
         ".brick__block__video {height: 28vw;}",
         ".brick__block:not(:first-child),.brick__block__video video {border-radius: 15px; overflow: hidden;}",
         ".rte p {font-size: 40px;}",
-        ".rte p strong {background: linear-gradient(180deg, #AFA9A1, #D1956A); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
+        ".rte p strong {background: linear-gradient(180deg, #afa9a1, #d1956a); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}"
       ],
       "name": "Image with text no2",
       "settings": {
