@@ -2,7 +2,7 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
 
-<section class="section-fullwidth-card-slider {{ section.settings.text_color }} {% if section.settings.mobile_overlay_text %}mobile-overlay-enabled{% else %}mobile-stacked-layout{% endif %}"
+<section class="section-fullwidth-card-slider {{ section.settings.text_color }} {% if section.settings.mobile_text_overlay %}mobile-text-overlay{% endif %}"
   data-section-id="{{ section.id }}"
   data-section-type="fullwidth-card-slider"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
@@ -266,11 +266,15 @@
       right: 1rem;
     }
 
-    #shopify-section-{{ section.id }} .flickity-button{
-        bottom: -2.125rem;
+    /* Mobile Card Layout - Image on top, text below */
+    #shopify-section-{{ section.id }} .fullwidth-card {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      border-radius: 10px;
     }
 
-    /* Show mobile image, hide desktop image (both layouts) */
+    /* Show mobile image, hide desktop image */
     #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
       display: none;
     }
@@ -279,26 +283,8 @@
       display: block;
     }
 
-    /* Mobile font sizes (both layouts) */
-    #shopify-section-{{ section.id }} .hero__title {
-      font-size: 32px;
-    }
-
-    #shopify-section-{{ section.id }} .hero__description p{
-      font-size: 16px;
-    }
-  }
-
-  /* Mobile STACKED Layout - Image on top, text below */
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .fullwidth-card {
-      height: auto;
-      display: flex;
-      flex-direction: column;
-      border-radius: 10px;
-    }
-
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .hero__content__wrapper {
+    /* Mobile Content Positioning */
+    #shopify-section-{{ section.id }} .hero__content__wrapper {
       position: relative;
       height: auto;
       padding: 0rem;
@@ -307,39 +293,69 @@
       align-items: flex-start;
     }
 
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .hero__content {
+    #shopify-section-{{ section.id }} .hero__content {
       max-width: 100%;
       width: 100%;
       margin: 0;
-      padding: 24px 0;
+        padding: 24px 0;
     }
 
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .hero__title {
+    #shopify-section-{{ section.id }} .hero__title {
       margin-bottom: 0.75rem;
       color: var(--color-text) !important;
+      font-size: 32px;
     }
 
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .hero__description {
+    #shopify-section-{{ section.id }} .hero__description {
       margin-bottom: 1rem;
       color: var(--color-text) !important;
       max-width: 100%;
     }
-
-    /* Hide overlay on mobile stacked since text is not overlaid */
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .image-overlay {
+    #shopify-section-{{ section.id }} .hero__description p{
+      font-size: 16px;
+    }
+    /* Hide overlay on mobile since text is not overlaid */
+    #shopify-section-{{ section.id }} .image-overlay {
       display: none;
     }
 
-    #shopify-section-{{ section.id }}.mobile-stacked-layout .backdrop--hero {
+    #shopify-section-{{ section.id }} .backdrop--hero {
       background: none !important;
       padding: 0;
     }
+    #shopify-section-{{ section.id }} .flickity-button{
+        bottom: -2.125rem;
+    }
   }
 
-  /* Mobile OVERLAY Layout - Text overlays image like desktop */
+  /* Mobile Text Overlay - Override stacked layout */
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }}.mobile-overlay-enabled .hero__content {
+    #shopify-section-{{ section.id }}.mobile-text-overlay .fullwidth-card {
+      height: auto;
+      min-height: 500px;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content__wrapper {
+      position: absolute;
+      height: 100%;
+      padding: 0;
+      background-color: transparent;
+      border-radius: 0;
+      align-items: flex-end;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .hero__content {
       max-width: 100%;
+      padding: 1.5rem;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .image-overlay {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-text-overlay .backdrop--hero {
+      background: var(--bg) !important;
+      padding: 1.5rem;
     }
   }
 
@@ -477,13 +493,6 @@
       ]
     },
     {
-      "type": "checkbox",
-      "id": "mobile_overlay_text",
-      "label": "Overlay text on mobile",
-      "info": "When enabled, text overlays the image on mobile. When disabled, text appears below the image.",
-      "default": false
-    },
-    {
       "type": "select",
       "id": "text_color",
       "label": "Text color",
@@ -500,6 +509,17 @@
         { "value": "text--bright--primary", "label": "Primary bright accent"},
         { "value": "text--bright--secondary", "label": "Secondary bright accent"}
       ]
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_text_overlay",
+      "label": "Overlay text on mobile",
+      "info": "When enabled, text overlays the image on mobile instead of appearing below it",
+      "default": false
     },
     {
       "type": "header",
