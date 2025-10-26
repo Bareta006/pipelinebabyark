@@ -96,7 +96,7 @@
             "image": "shopify://shop_images/Scary_Mommy_Nominee_Badge_2025_1.png",
             "link": "",
             "new_tab": true,
-            "width": 140,
+            "width": 95,
             "spacing": 50
           }
         },
@@ -161,7 +161,7 @@
       ],
       "name": "Logo list",
       "settings": {
-        "title": "Logo list",
+        "title": "",
         "bg": "palette--light bg--neutral",
         "enable_marquee": true,
         "marquee_speed": 30,
