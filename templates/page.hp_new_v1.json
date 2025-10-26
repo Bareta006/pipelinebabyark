@@ -163,7 +163,7 @@
       "settings": {
         "title": "",
         "bg": "palette--light bg--neutral",
-        "enable_marquee": true,
+        "enable_marquee": false,
         "marquee_speed": 30,
         "width": "wrapper",
         "padding_top": 36,
