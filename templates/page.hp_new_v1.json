@@ -86,10 +86,94 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_logos_yw9yit": {
+      "type": "section-logos",
+      "blocks": {
+        "logo_image_ktxaah": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Scary_Mommy_Nominee_Badge_2025_1.png",
+            "link": "",
+            "new_tab": true,
+            "width": 140,
+            "spacing": 50
+          }
+        },
+        "logo_image_8fkUVD": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Group_1597881387.png",
+            "link": "",
+            "new_tab": true,
+            "width": 50,
+            "spacing": 100
+          }
+        },
+        "logo_image_QxY8HP": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/TB-BestofAwards-2023_color.png",
+            "link": "",
+            "new_tab": true,
+            "width": 100,
+            "spacing": 100
+          }
+        },
+        "logo_image_8fDYbU": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/s2-icon-1_1.png",
+            "link": "",
+            "new_tab": true,
+            "width": 80,
+            "spacing": 100
+          }
+        },
+        "logo_image_FnF7mk": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/hka-baby-gear-winner-2-at-4x_1.png",
+            "link": "",
+            "new_tab": true,
+            "width": 100,
+            "spacing": 100
+          }
+        },
+        "logo_image_wgwaUk": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/1668639266204_1.png",
+            "link": "",
+            "new_tab": true,
+            "width": 70,
+            "spacing": 100
+          }
+        }
+      },
+      "block_order": [
+        "logo_image_ktxaah",
+        "logo_image_8fkUVD",
+        "logo_image_QxY8HP",
+        "logo_image_8fDYbU",
+        "logo_image_FnF7mk",
+        "logo_image_wgwaUk"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "title": "Logo list",
+        "bg": "palette--light bg--neutral",
+        "enable_marquee": true,
+        "marquee_speed": 30,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_4LVqG3",
-    "main"
+    "main",
+    "section_logos_yw9yit"
   ]
 }
