@@ -226,8 +226,8 @@
       ],
       "custom_css": [
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        ".brick__block__video {height: 28vw; border-radius: 15px; overflow: hidden;}",
-        ".brick__block:not(:first-child), .brick__block__video video {border-radius: 15px; overflow: hidden;}"
+        ".brick__block__video {height: 28vw;}",
+        ".brick__block:not(:first-child),.brick__block__video video {border-radius: 15px; overflow: hidden;}"
       ],
       "name": "Image with text no2",
       "settings": {
