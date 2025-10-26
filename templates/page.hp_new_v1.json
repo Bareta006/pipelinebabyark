@@ -162,7 +162,7 @@
       "custom_css": [
         ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
         ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
-        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; }}"
+        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; }}"
       ],
       "name": "Logo list",
       "settings": {
@@ -212,7 +212,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
