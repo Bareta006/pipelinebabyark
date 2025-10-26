@@ -162,7 +162,7 @@
       "custom_css": [
         ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
         ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
-        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; } > div {background-color: #e8ecea; }}"
+        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; } > div {background-color: transparent; margin-bottom:-100px; }}"
       ],
       "name": "Logo list",
       "settings": {
