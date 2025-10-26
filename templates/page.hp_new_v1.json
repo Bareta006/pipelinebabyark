@@ -160,9 +160,9 @@
         "logo_image_wgwaUk"
       ],
       "custom_css": [
-        ".logo-bar {display: flex; gap: 0; justify-content: space-around;}",
+        ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
         ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
-        "@media (max-width:480px){.logo-bar__item{width:50px; }}"
+        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; }}"
       ],
       "name": "Logo list",
       "settings": {
@@ -174,11 +174,80 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_double2_ietMK7": {
+      "type": "section-double2",
+      "blocks": {
+        "text_fHfYU8": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "",
+            "text": "<p>We set out to build the world’s <strong>safest, smartest</strong>, and most <strong>comfortable </strong>car seat.. We may have taken it a little too far.</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--neutral",
+            "bg_color": "rgba(0,0,0,0)"
+          }
+        },
+        "video_4E3YKi": {
+          "type": "video",
+          "settings": {
+            "video_bg": "shopify://files/videos/3242323.mp4",
+            "object_position": "center-center",
+            "video_link": "",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_fHfYU8",
+        "video_4E3YKi"
+      ],
+      "custom_css": [
+        "{background: linear-gradient(149deg, #373534 1.7%, #67483F 91.34%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}"
+      ],
+      "name": "Image with text no2",
+      "settings": {
+        "height": "use_screen_one_half",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "bg_size_desktop": "cover",
+        "bg_size_mobile": "cover",
+        "bg_position_desktop": "center center",
+        "bg_position_mobile": "center center",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
     "section_hero_4LVqG3",
     "main",
-    "section_logos_yw9yit"
+    "section_logos_yw9yit",
+    "section_double2_ietMK7"
   ]
 }
