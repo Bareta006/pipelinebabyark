@@ -129,34 +129,6 @@
     width: 100%;
   }
 
-  /* Desktop - disable flickity completely, use normal grid */
-  @media (min-width: 750px) {
-    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-viewport {
-      overflow: visible !important;
-      height: auto !important;
-    }
-
-    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-slider {
-      transform: none !important;
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--card-gap);
-    }
-
-    #shopify-section-{{ section.id }} .mobile-carousel-enabled .card-item {
-      position: relative !important;
-      left: 0 !important;
-      transform: none !important;
-    }
-  }
-
-  /* Mobile - force carousel slide width */
-  @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-slider > * {
-      width: calc(100% / var(--grid-small-items)) !important;
-    }
-  }
-
   /* Individual Card Item */
   #shopify-section-{{ section.id }} .card-item {
     flex: 1 1 calc((100% / var(--cards-desktop)) - (var(--card-gap) * (var(--cards-desktop) - 1) / var(--cards-desktop)));
@@ -329,65 +301,55 @@
     }
   }
 
-  /* Flickity Navigation Arrows */
-  #shopify-section-{{ section.id }} .flickity-button {
-    position: absolute;
-    bottom: -4.125rem;
-    top: auto;
-    z-index: 10;
-    width: 2.5rem;
-    height: 2.5rem;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-bg-light);
-    border-radius: 50%;
-    margin: 0rem;
-    border: 1px solid;
-    color: #000;
-  }
-
-  #shopify-section-{{ section.id }} .flickity-button:hover {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
-  }
-
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
-    right: 3.75rem;
-    left: auto;
-  }
-
-  #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
-    right: 0.625rem;
-  }
-
-  /* Desktop - hide arrows */
-  @media (min-width: 750px) {
-    #shopify-section-{{ section.id }} .flickity-button {
-      display: none;
-    }
-  }
-
-  /* Mobile carousel */
+  /* Mobile carousel arrows - only when enabled */
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
-      right: 4rem;
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-button {
+      position: absolute;
+      bottom: -2.125rem;
+      top: auto;
+      z-index: 10;
+      width: 2.5rem;
+      height: 2.5rem;
+      border: 1px solid var(--color-border);
+      background-color: var(--color-bg-light);
+      border-radius: 50%;
+      margin: 0rem;
+      border: 1px solid;
+      color: #000;
     }
 
-    #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-button:hover {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
+    }
+
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-prev-next-button.previous {
+      right: 4rem;
+      left: auto;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-prev-next-button.next {
       right: 1rem;
     }
 
-    #shopify-section-{{ section.id }} .flickity-button {
-      bottom: -2.125rem;
-    }
-
-    /* Hide arrows if mobile carousel not enabled */
-    #shopify-section-{{ section.id }}:not(.mobile-carousel-enabled) .flickity-button {
-      display: none;
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-slider > * {
+      width: calc(100% / var(--grid-small-items)) !important;
     }
 
     #shopify-section-{{ section.id }}.mobile-carousel-enabled flickity-carousel > div {
       padding-bottom: 2rem;
+    }
+  }
+
+  /* Hide arrows everywhere else */
+  #shopify-section-{{ section.id }} .flickity-button {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-button {
+      display: block;
     }
   }
 </style>
