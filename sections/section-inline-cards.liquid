@@ -129,8 +129,8 @@
     width: 100%;
   }
 
-  /* Force proper slide width */
-  #shopify-section-{{ section.id }} .flickity-slider > * {
+  /* Force proper slide width - only for carousel */
+  #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-slider > * {
     width: calc(100% / var(--cards-desktop)) !important;
   }
 
