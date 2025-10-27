@@ -443,6 +443,50 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_inline_cards_phzrEF": {
+      "type": "section-inline-cards",
+      "blocks": {
+        "card_iRRaWM": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/Group_1597881392.png",
+            "card_video_url": "",
+            "card_title": "First Card",
+            "card_description": "<p>This is the description for the first card showcasing our amazing features.</p>"
+          }
+        },
+        "card_irJJEA": {
+          "type": "card",
+          "settings": {
+            "card_image": "shopify://shop_images/BABYARK_film-1-final_NO_SUBS_1102024_1.gif",
+            "card_video_url": "",
+            "card_title": "Second Card",
+            "card_description": "<p>This is the description for the second card with more great content to explore.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "card_iRRaWM",
+        "card_irJJEA"
+      ],
+      "name": "Inline Cards",
+      "settings": {
+        "title": "Our Features",
+        "description": "<p>Discover our amazing features through these cards.</p>",
+        "title_alignment": "text-center",
+        "title_size": 8,
+        "description_size": 5,
+        "cards_desktop": 3,
+        "cards_tablet": "2",
+        "card_title_size": 6,
+        "card_description_size": 4,
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -454,6 +498,7 @@
     "section_html_JTm889",
     "section_fullwidth_card_slider_47qVDr",
     "section_html_iHYUXJ",
-    "section_icons_grid_7cHcKR"
+    "section_icons_grid_7cHcKR",
+    "section_inline_cards_phzrEF"
   ]
 }
