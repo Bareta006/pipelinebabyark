@@ -467,8 +467,8 @@
             "card_title": "Second Card",
             "card_description": "<p>This is the description for the second card with more great content to explore.</p>",
             "text_overlay": true,
-            "title_color": "#ffffff",
-            "description_color": "#ffffff"
+            "title_color": "#000000",
+            "description_color": "#000000"
           }
         }
       },
