@@ -576,11 +576,11 @@
         "text_block_hbNYyx"
       ],
       "custom_css": [
-        "> div {background: linear-gradient(312deg, #E9DDCE 0.88%, #E8ECEA 95.54%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}"
+        "> div {background: linear-gradient(312deg, #e9ddce 0.88%, #e8ecea 95.54%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}"
       ],
       "name": "Text columns with images2",
       "settings": {
-        "title": "Text columns with images",
+        "title": "High-end materials, designed to last and keep your little ones safe, snug and happy",
         "bg": "palette--light bg--neutral",
         "align_text": "text-center",
         "scale_image": true,
