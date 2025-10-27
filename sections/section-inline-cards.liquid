@@ -43,7 +43,10 @@
                 card_title: block.settings.card_title,
                 card_description: block.settings.card_description,
                 card_title_size: section.settings.card_title_size,
-                card_description_size: section.settings.card_description_size
+                card_description_size: section.settings.card_description_size,
+                text_overlay: block.settings.text_overlay,
+                title_color: block.settings.title_color,
+                description_color: block.settings.description_color
               %}
             </div>
           {% endfor %}
@@ -371,6 +374,31 @@
           "id": "card_description",
           "label": "Card Description",
           "default": "<p>This is the card description that explains the content of this particular card.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Layout & Style"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_overlay",
+          "label": "Text overlay on media",
+          "default": false,
+          "info": "Display text centered over the media with a dark gradient overlay"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title color",
+          "default": "#ffffff",
+          "info": "Only applies when text overlay is enabled"
+        },
+        {
+          "type": "color",
+          "id": "description_color",
+          "label": "Description color",
+          "default": "#ffffff",
+          "info": "Only applies when text overlay is enabled"
         }
       ]
     }

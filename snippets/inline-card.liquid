@@ -9,11 +9,14 @@
     card_title: card_title,
     card_description: card_description,
     card_title_size: card_title_size,
-    card_description_size: card_description_size
+    card_description_size: card_description_size,
+    text_overlay: text_overlay,
+    title_color: title_color,
+    description_color: description_color
   %}
 {% endcomment %}
 
-<div class="inline-card-container">
+<div class="inline-card-container {% if text_overlay %}inline-card-container--overlay{% endif %}">
   
   <!-- Card Media (Video or Image) -->
   <div class="card-media-wrapper">
@@ -81,15 +84,15 @@
   </div>
   
   <!-- Card Content -->
-  <div class="card-content">
+  <div class="card-content" {% if text_overlay %}style="--title-color: {{ title_color }}; --description-color: {{ description_color }};"{% endif %}>
     {% if card_title != blank %}
-      <h3 class="card-title heading-size-{{ card_title_size }}">
+      <h3 class="card-title heading-size-{{ card_title_size }}"{% if text_overlay and title_color != blank %} style="color: {{ title_color }};"{% endif %}>
         {{ card_title }}
       </h3>
     {% endif %}
     
     {% if card_description != blank %}
-      <div class="card-description rte body-size-{{ card_description_size }}">
+      <div class="card-description rte body-size-{{ card_description_size }}"{% if text_overlay and description_color != blank %} style="color: {{ description_color }};"{% endif %}>
         {{ card_description }}
       </div>
     {% endif %}
@@ -104,6 +107,31 @@
     flex-direction: column;
     width: 100%;
     height: 100%;
+  }
+
+  /* Overlay Mode */
+  .inline-card-container--overlay {
+    position: relative;
+  }
+
+  .inline-card-container--overlay .card-media-wrapper {
+    margin-bottom: 0;
+  }
+
+  .inline-card-container--overlay .card-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem;
+    z-index: 2;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5));
   }
 
   /* Card Media Wrapper (Image or Video) */
@@ -181,6 +209,10 @@
 
     .card-content {
       gap: 1.75rem;
+    }
+
+    .inline-card-container--overlay .card-content {
+      padding: 1.5rem;
     }
   }
 </style> 
