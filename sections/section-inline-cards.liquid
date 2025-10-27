@@ -311,7 +311,7 @@
 
   /* Mobile carousel arrows - only when enabled */
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-button {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-button {
       position: absolute;
       bottom: -2.125rem;
       top: auto;
@@ -326,26 +326,26 @@
       color: #000;
     }
 
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-button:hover {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-button:hover {
       background-color: var(--color-primary);
       border-color: var(--color-primary);
       color: var(--color-white);
     }
 
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-prev-next-button.previous {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-prev-next-button.previous {
       right: 4rem;
       left: auto;
     }
 
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-prev-next-button.next {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-prev-next-button.next {
       right: 1rem;
     }
 
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .flickity-slider > * {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .flickity-slider > * {
       width: calc(100% / var(--grid-small-items)) !important;
     }
 
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled flickity-carousel > div {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled flickity-carousel > div {
       padding-bottom: 2rem;
     }
   }
@@ -353,7 +353,7 @@
   /* Mobile Styles */
   @media screen and (max-width: 749px) {
     /* Hide Desktop Layout ONLY when carousel is enabled */
-    #shopify-section-{{ section.id }}.mobile-carousel-enabled .desktop-cards-wrapper {
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .desktop-cards-wrapper {
       display: none;
     }
 
