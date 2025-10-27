@@ -3,7 +3,6 @@
 <div class="section-columns2 {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="section-columns2"
-  data-arrow-position="{{ section.settings.mobile_arrow_position }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
     {% if section.settings.title != blank %}
@@ -18,7 +17,7 @@
         data-grid-medium
         data-grid-small
         data-custom-scrollbar-items
-        data-options='{"pageDots": false, "prevNextButtons": {% if section.settings.show_mobile_arrows %}true{% else %}false{% endif %}, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
+        data-options='{"pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
         style="
           --grid-large-items: {{ section.settings.grid_large }};
           --grid-medium-items: {{ section.settings.grid_medium }};
@@ -217,64 +216,64 @@
 }
   }
 
-  /* Mobile Navigation Arrows */
+  /* Navigation buttons positioning */
   #shopify-section-{{ section.id }} .flickity-button {
     position: absolute;
-    bottom: -5rem;
+    bottom: -5.5rem;
     top: auto;
     width: 2.5rem;
     height: 2.5rem;
-    border: 1px solid var(--color-border);
     background-color: var(--color-bg);
-    border-radius: 50%;
-    color: var(--color-text);
-    opacity: 1;
+    opacity: 1; /* Force visibility */
   }
 
-  #shopify-section-{{ section.id }} .flickity-button:hover {
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-    color: var(--color-white);
-  }
-
+  /* Disabled state */
   #shopify-section-{{ section.id }} .flickity-button:disabled {
     opacity: 0.3;
     cursor: not-allowed;
   }
 
-  /* Arrow Position - Left */
-  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.previous {
-    left: 0;
-  }
-  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.next {
-    left: 3rem;
-  }
+  {% if section.settings.arrow_position == 'left' %}
+    #shopify-section-{{ section.id }} .flickity-button.previous {
+      left: 0;
+    }
+    #shopify-section-{{ section.id }} .flickity-button.next {
+      left: 3rem;
+    }
+  {% elsif section.settings.arrow_position == 'right' %}
+    #shopify-section-{{ section.id }} .flickity-button.previous {
+      right: 3rem;
+    }
+    #shopify-section-{{ section.id }} .flickity-button.next {
+      right: 0;
+    }
+  {% else %}
+    #shopify-section-{{ section.id }} .flickity-button.previous {
+      left: 50%;
+      transform: translateX(-100%);
+      margin-left: -1rem;
+    }
+    #shopify-section-{{ section.id }} .flickity-button.next {
+      right: 50%;
+      transform: translateX(100%);
+      margin-right: -1rem;
+    }
+  {% endif %}
 
-  /* Arrow Position - Right */
-  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.previous {
-    right: 3rem;
-  }
-  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.next {
-    right: 0;
-  }
-
-  /* Arrow Position - Center (default) */
-  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.previous {
-    left: 50%;
-    transform: translateX(-100%);
-    margin-left: -1rem;
-  }
-  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.next {
-    right: 50%;
-    transform: translateX(100%);
-    margin-right: -1rem;
-  }
-
-  /* Desktop - hide arrows */
+  /* Desktop - hide arrows only */
   @media (min-width: 750px) {
     #shopify-section-{{ section.id }} .flickity-button {
       display: none;
     }
+  }
+
+  /* Mobile - hide arrows if not enabled */
+  @media (max-width: 749px) {
+    {% unless section.settings.show_mobile_arrows %}
+      #shopify-section-{{ section.id }} .flickity-button {
+        display: none;
+      }
+    {% endunless %}
   }
 </style>
 
@@ -385,13 +384,12 @@
         "type": "checkbox",
         "id": "show_mobile_arrows",
         "label": "Show mobile navigation arrows",
-        "default": false,
-        "info": "Display prev/next arrows on mobile devices"
+        "default": false
       },
       {
         "type": "select",
-        "id": "mobile_arrow_position",
-        "label": "Mobile arrow position",
+        "id": "arrow_position",
+        "label": "Arrow position (mobile)",
         "default": "center",
         "options": [
           { "value": "left", "label": "Left" },
