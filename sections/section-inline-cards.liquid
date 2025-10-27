@@ -360,7 +360,8 @@
     /* Show Mobile Carousel */
     #shopify-section-{{ section.id }} .mobile-carousel-wrapper {
       display: block;
-      margin: 0 -1rem;
+      margin: 0 0rem;
+              padding-bottom: 2rem;
     }
 
     #shopify-section-{{ section.id }} .mobile-carousel {
@@ -398,6 +399,9 @@
 
     #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
       right: 0;
+    }
+    #shopify-section-{{ section.id }} .mobile-carousel-enabled .wrapper.section-padding{
+      paddig-right: 0;
     }
   }
 </style>
