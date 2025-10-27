@@ -2,7 +2,7 @@
 
 {%- assign animation_anchor = "[data-section-id='" | append: section.id | append: "']" -%}
  
-<section class="section-inline-cards {{ section.settings.text_color }}"
+<section class="section-inline-cards {{ section.settings.text_color }} {% if section.settings.enable_mobile_carousel %}mobile-carousel-enabled{% endif %}"
   data-section-id="{{ section.id }}"
   data-section-type="inline-cards"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
@@ -31,12 +31,20 @@
 
       <!-- Cards Container -->
       <div class="inline-cards-wrapper">
-        <div class="cards-container" 
-             style="--cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
-          
-          {% for block in section.blocks %}
-            <div class="card-item" {{ block.shopify_attributes }}>
-              {% render 'inline-card', 
+        <flickity-carousel>
+          <div
+            data-carousel
+            data-grid
+            data-grid-large
+            data-grid-medium
+            data-grid-small
+            data-options='{"pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
+            class="cards-container" 
+            style="--grid-large-items: {{ section.settings.cards_desktop }}; --grid-medium-items: {{ section.settings.cards_tablet }}; --grid-small-items: {{ section.settings.mobile_cards_count }}; --cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
+            
+            {% for block in section.blocks %}
+              <div class="card-item" data-carousel-slide {{ block.shopify_attributes }}>
+                {% render 'inline-card', 
                 card_image: block.settings.card_image,
                 card_video_file: block.settings.card_video_file,
                 card_video_url: block.settings.card_video_url,
@@ -48,10 +56,11 @@
                 title_color: block.settings.title_color,
                 description_color: block.settings.description_color
               %}
-            </div>
-          {% endfor %}
-          
-        </div>
+              </div>
+            {% endfor %}
+            
+          </div>
+        </flickity-carousel>
       </div>
       
     </div>
@@ -94,6 +103,11 @@
     flex-wrap: wrap;
     gap: var(--card-gap);
     width: 100%;
+  }
+
+  /* Force proper slide width */
+  #shopify-section-{{ section.id }} .flickity-slider > * {
+    width: calc(100% / var(--cards-desktop)) !important;
   }
 
   /* Individual Card Item */
@@ -267,6 +281,72 @@
       font-size: 16px;
     }
   }
+
+  /* Flickity Navigation Arrows */
+  #shopify-section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -4.125rem;
+    top: auto;
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
+    border-radius: 50%;
+    margin: 0rem;
+    border: 1px solid;
+    color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+    right: 3.75rem;
+    left: auto;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+    right: 0.625rem;
+  }
+
+  /* Desktop - hide arrows */
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .flickity-button {
+      display: none;
+    }
+  }
+
+  /* Mobile carousel */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .flickity-slider > * {
+      width: calc(100% / var(--grid-small-items)) !important;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
+      right: 4rem;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-prev-next-button.next {
+      right: 1rem;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-button {
+      bottom: -2.125rem;
+    }
+
+    /* Hide arrows if mobile carousel not enabled */
+    #shopify-section-{{ section.id }}:not(.mobile-carousel-enabled) .flickity-button {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled flickity-carousel > div {
+      padding-bottom: 2rem;
+    }
+  }
 </style>
 
 {% schema %}
@@ -362,6 +442,27 @@
       "step": 1,
       "label": "Card Description Size",
       "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Mobile Carousel"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_mobile_carousel",
+      "label": "Enable mobile carousel with arrows",
+      "default": false,
+      "info": "Show navigation arrows on mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_cards_count",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "label": "Cards visible on mobile",
+      "default": 1.1,
+      "info": "Number of cards to show at once on mobile"
     },
     {
       "type": "header",
