@@ -479,12 +479,12 @@
       "custom_css": [
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
         ".inline-cards-content {background: transparent;}",
-        "h2{color:#fff;}"
+        "h2 {color: #fff;}"
       ],
       "name": "Inline Cards",
       "settings": {
         "title": "",
-        "description": "<h2>Advanced technology<br/>that goes the extra mile</h2>",
+        "description": "<h2><strong>Advanced technology</strong><br/>that goes the extra mile</h2>",
         "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
