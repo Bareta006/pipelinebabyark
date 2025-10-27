@@ -352,8 +352,8 @@
 
   /* Mobile Styles */
   @media screen and (max-width: 749px) {
-    /* Hide Desktop Layout */
-    #shopify-section-{{ section.id }} .desktop-cards-wrapper {
+    /* Hide Desktop Layout ONLY when carousel is enabled */
+    #shopify-section-{{ section.id }}.mobile-carousel-enabled .desktop-cards-wrapper {
       display: none;
     }
 
@@ -383,6 +383,12 @@
       background-color: var(--color-bg); 
       color: var(--color-text);
       border: 1px solid;
+    }
+
+    #shopify-section-{{ section.id }} .flickity-button:hover {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      color: var(--color-white);
     }
 
     #shopify-section-{{ section.id }} .flickity-prev-next-button.previous {
