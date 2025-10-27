@@ -6,7 +6,7 @@
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
     {% if section.settings.title != blank %}
-      <h2 class="kicker-flourished mb-r11">{{ section.settings.title | escape }}</h2>
+      <h2 class="section__title mb-r11">{{ section.settings.title | escape }}</h2>
     {% endif %}
     <flickity-carousel>
       <div
