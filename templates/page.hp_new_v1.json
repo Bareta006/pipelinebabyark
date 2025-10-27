@@ -453,7 +453,10 @@
             "card_image": "shopify://shop_images/Group_1597881392.png",
             "card_video_url": "",
             "card_title": "First Card",
-            "card_description": "<p>This is the description for the first card showcasing our amazing features.</p>"
+            "card_description": "<p>This is the description for the first card showcasing our amazing features.</p>",
+            "text_overlay": true,
+            "title_color": "#ffffff",
+            "description_color": "#ffffff"
           }
         },
         "card_irJJEA": {
@@ -462,7 +465,10 @@
             "card_image": "shopify://shop_images/BABYARK_film-1-final_NO_SUBS_1102024_1.gif",
             "card_video_url": "",
             "card_title": "Second Card",
-            "card_description": "<p>This is the description for the second card with more great content to explore.</p>"
+            "card_description": "<p>This is the description for the second card with more great content to explore.</p>",
+            "text_overlay": true,
+            "title_color": "#ffffff",
+            "description_color": "#ffffff"
           }
         }
       },
