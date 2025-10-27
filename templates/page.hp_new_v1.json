@@ -337,7 +337,7 @@
         "card_description_size": 6,
         "grid_large": 1.2,
         "grid_medium": 1.1,
-        "grid_mobile": 1,
+        "grid_mobile": 1.1,
         "height": "use_image",
         "text_color": "text--white",
         "mobile_text_overlay": true,
