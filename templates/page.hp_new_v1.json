@@ -337,7 +337,7 @@
         "card_description_size": 6,
         "grid_large": 1.2,
         "grid_medium": 1.1,
-        "grid_mobile": 1,
+        "grid_mobile": 1.1,
         "height": "use_image",
         "text_color": "text--white",
         "mobile_text_overlay": true,
@@ -480,7 +480,7 @@
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
         ".inline-cards-content {background: transparent;}",
         "h2 {color: #fff;}",
-        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight:700}"
+        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -499,6 +499,95 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "section_columns2_VKzfLG": {
+      "type": "section-columns2",
+      "blocks": {
+        "text_block_ifVz3D": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": true,
+            "video_file": "shopify://files/videos/Video-Feature copy_2.mp4",
+            "video_url": "",
+            "video_autoplay": true,
+            "video_loop": true,
+            "show_video_controls": true,
+            "enable_image": false,
+            "shape_class": "",
+            "title": "Magnetic Harness staps",
+            "text": "<p>babyark’s magnetic harness keeps straps out of the way- making it easier to get your child in and out.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_JQkHnM": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": false,
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": false,
+            "show_video_controls": true,
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_hbNYyx": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": false,
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": false,
+            "show_video_controls": true,
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        }
+      },
+      "block_order": [
+        "text_block_ifVz3D",
+        "text_block_JQkHnM",
+        "text_block_hbNYyx"
+      ],
+      "name": "Text columns with images2",
+      "settings": {
+        "title": "Text columns with images",
+        "bg": "palette--light bg--neutral",
+        "align_text": "text-center",
+        "scale_image": true,
+        "wh_ratio": 1,
+        "grid_large": 3,
+        "grid_medium": 3,
+        "grid_mobile": 1.1,
+        "progress_bar_mobile": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -511,6 +600,7 @@
     "section_fullwidth_card_slider_47qVDr",
     "section_html_iHYUXJ",
     "section_icons_grid_7cHcKR",
-    "section_inline_cards_phzrEF"
+    "section_inline_cards_phzrEF",
+    "section_columns2_VKzfLG"
   ]
 }
