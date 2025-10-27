@@ -575,6 +575,9 @@
         "text_block_JQkHnM",
         "text_block_hbNYyx"
       ],
+      "custom_css": [
+        "> div{}"
+      ],
       "name": "Text columns with images2",
       "settings": {
         "title": "Text columns with images",
@@ -587,7 +590,6 @@
         "grid_mobile": 1.1,
         "progress_bar_mobile": false,
         "show_mobile_arrows": true,
-        "arrow_position": "center",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
