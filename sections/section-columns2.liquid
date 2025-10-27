@@ -1,0 +1,527 @@
+<!-- /sections/section-columns2.liquid -->
+
+<div class="section-columns2 {{ section.settings.bg }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="section-columns2"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
+  <div class="{{ section.settings.width }} section-padding">
+    {% if section.settings.title != blank %}
+      <h2 class="kicker-flourished mb-r11">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+    <div
+      data-grid
+      data-grid-flex
+      data-grid-large
+      data-grid-medium
+      data-grid-small
+      data-custom-scrollbar-items
+      style="
+        --grid-large-items: {{ section.settings.grid_large }};
+        --grid-medium-items: {{ section.settings.grid_medium }};
+        --grid-small-items: {{ section.settings.grid_mobile }};">
+      {% for block in section.blocks %}
+        <div
+          class="index__column grid__item slide-item {{ section.settings.align_text }}"
+          data-item
+          {{ block.shopify_attributes }}>
+          {% if block.settings.enable_image or block.settings.enable_video %}
+            <div class="column__media" data-grid-slide>
+              {% if block.settings.enable_video %}
+                {% comment %} Video Media {% endcomment %}
+                {% if block.settings.video_file != blank %}
+                  {% comment %} Native Shopify Video {% endcomment %}
+                  <div class="column__video-wrapper">
+                    {{ block.settings.video_file | video_tag: 
+                      controls: block.settings.show_video_controls, 
+                      autoplay: block.settings.video_autoplay, 
+                      loop: block.settings.video_loop, 
+                      muted: block.settings.video_autoplay,
+                      playsinline: true,
+                      preload: 'metadata',
+                      class: 'column__video-native'
+                    }}
+                  </div>
+                {% elsif block.settings.video_url != blank %}
+                  {% comment %} External Video (YouTube/Vimeo) {% endcomment %}
+                  <div class="column__video-wrapper">
+                    {% if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' %}
+                      {% assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first %}
+                      {% if block.settings.video_url contains 'youtu.be' %}
+                        {% assign video_id = block.settings.video_url | split: '.be/' | last | split: '?' | first %}
+                      {% endif %}
+                      <iframe 
+                        src="https://www.youtube.com/embed/{{ video_id }}?{% if block.settings.video_autoplay %}autoplay=1&mute=1&{% endif %}rel=0&controls={% if block.settings.show_video_controls %}1{% else %}0{% endif %}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        class="column__video-iframe">
+                      </iframe>
+                    {% elsif block.settings.video_url contains 'vimeo' %}
+                      {% assign video_id = block.settings.video_url | split: 'vimeo.com/' | last | split: '?' | first %}
+                      <iframe 
+                        src="https://player.vimeo.com/video/{{ video_id }}?{% if block.settings.video_autoplay %}autoplay=1&muted=1&{% endif %}controls={% if block.settings.show_video_controls %}1{% else %}0{% endif %}"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                        class="column__video-iframe">
+                      </iframe>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              {% elsif block.settings.enable_image %}
+                {% comment %} Image Media {% endcomment %}
+                {%- capture sizes -%}
+                  {%- render 'image-grid-sizes',
+                    columns_desktop: section.settings.grid_large,
+                    columns_tablet: section.settings.grid_large,
+                    columns_mobile: section.settings.grid_mobile,
+                    section_width: section.settings.width
+                  %}
+                {%- endcapture -%}
+
+                {%- capture srcset -%}
+                  {%- render 'image-grid-srcset',
+                    image: block.settings.image,
+                    columns_desktop: section.settings.grid_large,
+                    columns_tablet: section.settings.grid_large,
+                    columns_mobile: section.settings.grid_mobile,
+                    section_width: section.settings.width
+                  %}
+                {%- endcapture -%}
+
+                {%- if section.settings.scale_image -%}
+                  {%- render 'image', cover: true, img_object: block.settings.image, srcset: srcset, sizes: sizes, loading: 'lazy', class: block.settings.shape_class, wh_ratio: section.settings.wh_ratio -%}
+                {%- else -%}
+                  {%- render 'image', cover: true, img_object: block.settings.image, srcset: srcset, sizes: sizes, loading: 'lazy', class: block.settings.shape_class -%}
+                {%- endif -%}
+              {% endif %}
+              
+              {% comment %} Video Popup (only if enable_video_popup is checked) {% endcomment %}
+              {%- if block.settings.enable_video_popup -%}
+                <div class="{{ block.settings.video_button_color }}">
+                  {%- render 'video-popup', video: block.settings.video_popup_link, unique: block.id -%}
+                </div>
+              {%- elsif block.settings.button_label == blank and block.settings.button_link != blank -%}
+                <a class="link-over-image" href="{{ block.settings.button_link }}" aria-label="{{ block.settings.title | strip_html | escape }}"></a>
+              {%- endif -%}
+            </div>
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <div class="accent-title-large strong mb-r4">{{ block.settings.title | escape }}</div>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div class="rte body-size-4">{{ block.settings.text }}</div>
+          {% endif %}
+          {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+            <a href="{{ block.settings.button_link }}" class="{{ block.settings.button_color }} {{ block.settings.button_style }}">
+              {{ block.settings.button_label | escape }}
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    {%- if section.settings.progress_bar_mobile -%}
+      <div class="custom-scrollbar small-down--show" data-custom-scrollbar>
+        <div class="custom-scrollbar__track" data-custom-scrollbar-track></div>
+      </div>
+    {%- endif -%}
+
+    {% if section.blocks.size == 0 %}
+      <div class="text-center">{{ 'home_page.onboarding.no_content' | t }}</div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  /* Column Media Container */
+  #shopify-section-{{ section.id }} .column__media {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Video Wrapper */
+  #shopify-section-{{ section.id }} .column__video-wrapper {
+    width: 100%;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #000;
+  }
+
+  #shopify-section-{{ section.id }} .column__video-native {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .column__video-iframe {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    border: none;
+    display: block;
+  }
+
+  /* Scale video when scale_image is enabled */
+  #shopify-section-{{ section.id }} .column__video-wrapper.scaled-video {
+    aspect-ratio: var(--wh-ratio, 1);
+  }
+
+  #shopify-section-{{ section.id }} .column__video-wrapper.scaled-video .column__video-native,
+  #shopify-section-{{ section.id }} .column__video-wrapper.scaled-video .column__video-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Mobile Responsive */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .column__media {
+      margin-bottom: 1rem;
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Text columns with images2",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Kicker",
+        "default": "Text columns with images"
+      },
+      {
+        "type": "select",
+        "id": "bg",
+        "label": "Background color",
+        "default": "palette--light bg--neutral",
+        "options": [
+          { "value": "palette--light bg--neutral", "label": "Default"},
+          { "value": "palette--light bg--accent", "label": "Light"},
+          { "value": "palette--dark bg--invert", "label": "Dark"},
+          { "value": "palette--dark bg--invert--accent", "label": "Dark accent"},
+          { "value": "palette--bright bg--bright", "label": "Bright"},
+          { "value": "palette--bright bg--bright--accent", "label": "Bright accent"}
+        ]
+      },
+      {
+        "type": "select",
+        "id": "align_text",
+        "label": "Text alignment",
+        "default": "text-center",
+        "options": [
+          {
+            "value": "text-left",
+            "label": "Left"
+          },
+          {
+            "value": "text-center",
+            "label": "Centered"
+          },
+          {
+            "value": "text-right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Images"
+      },
+      {
+        "type": "checkbox",
+        "id": "scale_image",
+        "label": "Scale images/videos",
+        "default": true,
+        "info": "Applies to both images and videos"
+      },
+      {
+        "type": "range",
+        "id": "wh_ratio",
+        "min": 0.5,
+        "max": 5,
+        "step": 0.1,
+        "unit": ":1",
+        "label": "Image/Video scaling ratio",
+        "info": "Tall to wide",
+        "default": 1
+      },
+      {
+        "type": "header",
+        "content": "Items per row"
+      },
+      {
+        "type":    "range",
+        "id":      "grid_large",
+        "min":     3,
+        "max":     6,
+        "step":    1,
+        "label":   "Desktop",
+        "default": 3
+      },
+      {
+        "type":    "range",
+        "id":      "grid_medium",
+        "min":     1,
+        "max":     4,
+        "step":    1,
+        "label":   "Tablet",
+        "default": 3
+      },
+      {
+        "type":    "range",
+        "id":      "grid_mobile",
+        "min":     1,
+        "max":     3,
+        "step":    0.1,
+        "label":   "Mobile",
+        "default": 1.2
+      },
+      {
+        "type": "checkbox",
+        "id": "progress_bar_mobile",
+        "label": "Show mobile scrollbar",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Section spacing"
+      },
+      {
+        "type": "select",
+        "id": "width",
+        "label": "Width",
+        "default": "wrapper",
+        "options": [
+          { "value": "wrapper--full", "label": "Full width padded" },
+          { "value": "wrapper", "label": "Page width" },
+          { "value": "wrapper--narrow", "label": "Page width narrow" },
+          { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+        ]
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 180,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 180,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Column",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Media Type (Choose one)"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_video",
+            "label": "Show inline video",
+            "default": false,
+            "info": "Takes priority over image"
+          },
+          {
+            "type": "video",
+            "id": "video_file",
+            "label": "Video File (Shopify Upload)",
+            "info": "Upload video file - takes priority over external video URL"
+          },
+          {
+            "type": "url",
+            "id": "video_url",
+            "label": "Video URL (YouTube/Vimeo)",
+            "info": "Paste YouTube or Vimeo URL - only displays if no Shopify video is uploaded"
+          },
+          {
+            "type": "checkbox",
+            "id": "video_autoplay",
+            "label": "Autoplay video",
+            "default": false,
+            "info": "Video will be muted when autoplay is enabled"
+          },
+          {
+            "type": "checkbox",
+            "id": "video_loop",
+            "label": "Loop video",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "show_video_controls",
+            "label": "Show video controls",
+            "default": true,
+            "info": "Show play/pause and other video controls"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_image",
+            "label": "Show image",
+            "default": true,
+            "info": "Only displays if video is not enabled"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "select",
+            "id": "shape_class",
+            "label": "Shape",
+            "default": "",
+            "info": "Applies to images only",
+            "options": [
+              {"value": "", "label": "None"},
+              {"value": "rounded-lg", "label": "Rounded"},
+              {"value": "radius-keyhole", "label": "Keyhole"},
+              {"value": "rounded-full", "label": "Circle"},
+              {"value": "clip-sunburst", "label": "Sunburst"},
+              {"value": "clip-hexagon", "label": "Hexagon"},
+              {"value": "clip-octagon", "label": "Octagon"},
+              {"value": "clip-parallelogram", "label": "Parallelogram"},
+              {"value": "radius-blob-1", "label": "Blob 1"},
+              {"value": "radius-blob-2", "label": "Blob 2"},
+              {"value": "radius-blob-3", "label": "Blob 3"},
+              {"value": "radius-blob-4", "label": "Blob 4"},
+              {"value": "mask-stamp-sharp", "label": "Stamp sharp"},
+              {"value": "mask-stamp-rounded", "label": "Stamp rounded"},
+              {"value": "mask-ticket-stub", "label": "Ticket"}
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Feature images or videos"
+          },
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "label": "Button label",
+            "info": "Leave blank to link from image"
+          },
+          {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+          },
+          {
+            "type": "select",
+            "id": "button_color",
+            "label": "Color",
+            "default": "btn--neutral",
+            "options": [
+              { "value": "btn--primary", "label": "Bright accent" },
+              { "value": "btn--secondary", "label": "Secondary accent" },
+              { "value": "btn--neutral", "label": "Text color" },
+              { "value": "btn--black", "label": "Black" },
+              { "value": "btn--white", "label": "White" }
+            ]
+          },
+          {
+            "type": "select",
+            "id": "button_style",
+            "label": "Button style",
+            "default": "btn--soft",
+            "options": [
+              { "value": "btn-text-thick-line", "label": "Capitalized text" },
+              { "value": "btn", "label": "Solid button" },
+              { "value": "btn--soft", "label": "Soft button" },
+              { "value": "btn--outline", "label": "Outlined button" }
+            ]
+          },
+          {
+            "type": "header",
+            "content": "Video Popup (Optional)"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_video_popup",
+            "label": "Show video popup",
+            "default": false,
+            "info": "Adds a play button that opens video in popup modal"
+          },
+          {
+            "type": "video_url",
+            "id": "video_popup_link",
+            "label": "Video popup link",
+            "accept": ["youtube", "vimeo"],
+            "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "info": "Video links from YouTube or Vimeo accepted."
+          },
+          {
+            "type": "select",
+            "id": "video_button_color",
+            "label": "Popup button color",
+            "default": "text--white",
+            "options": [
+              { "value": "text--neutral", "label": "Normal text"},
+              { "value": "text--white", "label": "White"},
+              { "value": "text--primary", "label": "Primary accent"},
+              { "value": "text--secondary", "label": "Secondary accent"},
+              { "value": "text--black", "label": "Black"},
+              { "value": "text--invert--primary", "label": "Primary dark accent"},
+              { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+              { "value": "text--invert", "label": "Inverted text color"},
+              { "value": "text--bright--primary", "label": "Primary bright accent"},
+              { "value": "text--bright--secondary", "label": "Secondary bright accent"}
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Text columns with images2",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          }
+        ]
+      }
+    ],
+    "disabled_on": {
+      "groups": ["header","aside"]
+    }
+  }
+{% endschema %}
+
