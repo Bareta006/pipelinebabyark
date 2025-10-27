@@ -38,6 +38,8 @@
             <div class="card-item" {{ block.shopify_attributes }}>
               {% render 'inline-card', 
                 card_image: block.settings.card_image,
+                card_video_file: block.settings.card_video_file,
+                card_video_url: block.settings.card_video_url,
                 card_title: block.settings.card_title,
                 card_description: block.settings.card_description,
                 card_title_size: section.settings.card_title_size,
@@ -333,9 +335,30 @@
       "limit": 4,
       "settings": [
         {
+          "type": "header",
+          "content": "Media (Choose one: Image OR Video)"
+        },
+        {
           "type": "image_picker",
           "id": "card_image",
-          "label": "Card Image"
+          "label": "Card Image",
+          "info": "Displays if no video is selected"
+        },
+        {
+          "type": "video",
+          "id": "card_video_file",
+          "label": "Card Video (Shopify Upload)",
+          "info": "Upload video file - takes priority over image and external video"
+        },
+        {
+          "type": "url",
+          "id": "card_video_url",
+          "label": "Card Video URL (YouTube/Vimeo)",
+          "info": "Paste YouTube or Vimeo URL - only displays if no Shopify video is uploaded"
+        },
+        {
+          "type": "header",
+          "content": "Content"
         },
         {
           "type": "text",
