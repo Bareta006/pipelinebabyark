@@ -683,6 +683,9 @@
         "testimonial_g9xfWE",
         "testimonial_DfTneT"
       ],
+      "custom_css": [
+        ".flickity-button{color:#000;}"
+      ],
       "name": "Testimonials Carousel",
       "settings": {
         "title": "What our customers say",
