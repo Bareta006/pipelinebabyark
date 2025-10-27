@@ -478,8 +478,8 @@
       ],
       "name": "Inline Cards",
       "settings": {
-        "title": "Our Features",
-        "description": "<p>Discover our amazing features through these cards.</p>",
+        "title": "",
+        "description": "<h2>Advanced technology<br/>that goes the extra mile</h2>",
         "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
