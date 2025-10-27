@@ -586,6 +586,8 @@
         "grid_medium": 3,
         "grid_mobile": 1.1,
         "progress_bar_mobile": false,
+        "show_mobile_arrows": true,
+        "mobile_arrow_position": "center",
         "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36
