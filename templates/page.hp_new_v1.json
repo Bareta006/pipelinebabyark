@@ -493,7 +493,7 @@
         "cards_tablet": "2",
         "card_title_size": 6,
         "card_description_size": 4,
-        "enable_mobile_carousel": true,
+        "enable_mobile_carousel": false,
         "mobile_cards_count": 1.1,
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
