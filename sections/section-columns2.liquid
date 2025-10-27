@@ -186,7 +186,11 @@
     font-size: 36px; 
     text-align: left;
 }
-    
+    #shopify-section-{{ section.id }} .rte p{
+    font-size: 20px;
+    line-height: 1.4;
+    text-align: left;
+}
   /* Mobile Responsive */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .column__media {
@@ -199,6 +203,12 @@
     letter-spacing: 0;
     text-transform: none;
     font-size: 24px;    
+    line-height: 1.2;
+}
+#shopify-section-{{ section.id }} .rte p{
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: left;
 }
   }
 </style>
