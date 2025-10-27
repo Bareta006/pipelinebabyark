@@ -1,8 +1,9 @@
 <!-- /sections/section-columns2.liquid -->
 
-<div class="section-columns2 {{ section.settings.bg }}"
+<div class="section-columns2 {{ section.settings.bg }} {% if section.settings.show_mobile_arrows %}show-mobile-arrows{% endif %}"
   data-section-id="{{ section.id }}"
   data-section-type="section-columns2"
+  data-arrow-position="{{ section.settings.arrow_position }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
     {% if section.settings.title != blank %}
@@ -224,7 +225,8 @@
     width: 2.5rem;
     height: 2.5rem;
     background-color: var(--color-bg);
-    opacity: 1; /* Force visibility */
+    opacity: 1;
+    display: none; /* Hidden by default */
   }
 
   /* Disabled state */
@@ -233,47 +235,46 @@
     cursor: not-allowed;
   }
 
-  {% if section.settings.arrow_position == 'left' %}
-    #shopify-section-{{ section.id }} .flickity-button.previous {
-      left: 0;
-    }
-    #shopify-section-{{ section.id }} .flickity-button.next {
-      left: 3rem;
-    }
-  {% elsif section.settings.arrow_position == 'right' %}
-    #shopify-section-{{ section.id }} .flickity-button.previous {
-      right: 3rem;
-    }
-    #shopify-section-{{ section.id }} .flickity-button.next {
-      right: 0;
-    }
-  {% else %}
-    #shopify-section-{{ section.id }} .flickity-button.previous {
-      left: 50%;
-      transform: translateX(-100%);
-      margin-left: -1rem;
-    }
-    #shopify-section-{{ section.id }} .flickity-button.next {
-      right: 50%;
-      transform: translateX(100%);
-      margin-right: -1rem;
-    }
-  {% endif %}
+  /* Arrow Position - Left */
+  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.previous {
+    left: 0;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.next {
+    left: 3rem;
+  }
 
-  /* Desktop - hide arrows only */
+  /* Arrow Position - Right */
+  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.previous {
+    right: 3rem;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.next {
+    right: 0;
+  }
+
+  /* Arrow Position - Center */
+  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.previous {
+    left: 50%;
+    transform: translateX(-100%);
+    margin-left: -1rem;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.next {
+    right: 50%;
+    transform: translateX(100%);
+    margin-right: -1rem;
+  }
+
+  /* Show arrows on mobile when enabled */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }}.show-mobile-arrows .flickity-button {
+      display: block;
+    }
+  }
+
+  /* Always hide on desktop */
   @media (min-width: 750px) {
     #shopify-section-{{ section.id }} .flickity-button {
       display: none;
     }
-  }
-
-  /* Mobile - hide arrows if not enabled */
-  @media (max-width: 749px) {
-    {% unless section.settings.show_mobile_arrows %}
-      #shopify-section-{{ section.id }} .flickity-button {
-        display: none;
-      }
-    {% endunless %}
   }
 </style>
 
