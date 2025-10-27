@@ -3,23 +3,27 @@
 <div class="section-columns2 {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="section-columns2"
+  data-arrow-position="{{ section.settings.mobile_arrow_position }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px;">
   <div class="{{ section.settings.width }} section-padding">
     {% if section.settings.title != blank %}
       <h2 class="kicker-flourished mb-r11">{{ section.settings.title | escape }}</h2>
     {% endif %}
-    <div
-      data-grid
-      data-grid-flex
-      data-grid-large
-      data-grid-medium
-      data-grid-small
-      data-custom-scrollbar-items
-      style="
-        --grid-large-items: {{ section.settings.grid_large }};
-        --grid-medium-items: {{ section.settings.grid_medium }};
-        --grid-small-items: {{ section.settings.grid_mobile }};">
-      {% for block in section.blocks %}
+    <flickity-carousel>
+      <div
+        data-carousel
+        data-grid
+        data-grid-flex
+        data-grid-large
+        data-grid-medium
+        data-grid-small
+        data-custom-scrollbar-items
+        data-options='{"pageDots": false, "prevNextButtons": {% if section.settings.show_mobile_arrows %}true{% else %}false{% endif %}, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
+        style="
+          --grid-large-items: {{ section.settings.grid_large }};
+          --grid-medium-items: {{ section.settings.grid_medium }};
+          --grid-small-items: {{ section.settings.grid_mobile }};">
+        {% for block in section.blocks %}
         <div
           class="index__column grid__item slide-item {{ section.settings.align_text }}"
           data-item
@@ -119,7 +123,8 @@
           {% endif %}
         </div>
       {% endfor %}
-    </div>
+      </div>
+    </flickity-carousel>
     {%- if section.settings.progress_bar_mobile -%}
       <div class="custom-scrollbar small-down--show" data-custom-scrollbar>
         <div class="custom-scrollbar__track" data-custom-scrollbar-track></div>
@@ -205,11 +210,71 @@
     font-size: 24px;    
     line-height: 1.2;
 }
-#shopify-section-{{ section.id }} .rte p{
+ #shopify-section-{{ section.id }} .rte p{
     font-size: 16px;
     line-height: 1.4;
     text-align: left;
 }
+  }
+
+  /* Mobile Navigation Arrows */
+  #shopify-section-{{ section.id }} .flickity-button {
+    position: absolute;
+    bottom: -5rem;
+    top: auto;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    border-radius: 50%;
+    color: var(--color-text);
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:hover {
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+  }
+
+  #shopify-section-{{ section.id }} .flickity-button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  /* Arrow Position - Left */
+  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.previous {
+    left: 0;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="left"] .flickity-button.next {
+    left: 3rem;
+  }
+
+  /* Arrow Position - Right */
+  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.previous {
+    right: 3rem;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="right"] .flickity-button.next {
+    right: 0;
+  }
+
+  /* Arrow Position - Center (default) */
+  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.previous {
+    left: 50%;
+    transform: translateX(-100%);
+    margin-left: -1rem;
+  }
+  #shopify-section-{{ section.id }}[data-arrow-position="center"] .flickity-button.next {
+    right: 50%;
+    transform: translateX(100%);
+    margin-right: -1rem;
+  }
+
+  /* Desktop - hide arrows */
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .flickity-button {
+      display: none;
+    }
   }
 </style>
 
@@ -315,6 +380,24 @@
         "id": "progress_bar_mobile",
         "label": "Show mobile scrollbar",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile_arrows",
+        "label": "Show mobile navigation arrows",
+        "default": false,
+        "info": "Display prev/next arrows on mobile devices"
+      },
+      {
+        "type": "select",
+        "id": "mobile_arrow_position",
+        "label": "Mobile arrow position",
+        "default": "center",
+        "options": [
+          { "value": "left", "label": "Left" },
+          { "value": "center", "label": "Center" },
+          { "value": "right", "label": "Right" }
+        ]
       },
       {
         "type": "header",
