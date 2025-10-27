@@ -31,36 +31,60 @@
 
       <!-- Cards Container -->
       <div class="inline-cards-wrapper">
-        <flickity-carousel>
-          <div
-            data-carousel
-            data-grid
-            data-grid-large
-            data-grid-medium
-            data-grid-small
-            data-options='{"pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
-            class="cards-container" 
-            style="--grid-large-items: {{ section.settings.cards_desktop }}; --grid-medium-items: {{ section.settings.cards_tablet }}; --grid-small-items: {{ section.settings.mobile_cards_count }}; --cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
+        {% if section.settings.enable_mobile_carousel %}
+          <flickity-carousel>
+            <div
+              data-carousel
+              data-grid
+              data-grid-large
+              data-grid-medium
+              data-grid-small
+              data-options='{"pageDots": false, "prevNextButtons": true, "wrapAround": false, "contain": true, "cellAlign": "left", "freeScroll": false}'
+              class="cards-container" 
+              style="--grid-large-items: {{ section.settings.cards_desktop }}; --grid-medium-items: {{ section.settings.cards_tablet }}; --grid-small-items: {{ section.settings.mobile_cards_count }}; --cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
+              
+              {% for block in section.blocks %}
+                <div class="card-item" data-carousel-slide {{ block.shopify_attributes }}>
+                  {% render 'inline-card', 
+                    card_image: block.settings.card_image,
+                    card_video_file: block.settings.card_video_file,
+                    card_video_url: block.settings.card_video_url,
+                    card_title: block.settings.card_title,
+                    card_description: block.settings.card_description,
+                    card_title_size: section.settings.card_title_size,
+                    card_description_size: section.settings.card_description_size,
+                    text_overlay: block.settings.text_overlay,
+                    title_color: block.settings.title_color,
+                    description_color: block.settings.description_color
+                  %}
+                </div>
+              {% endfor %}
+              
+            </div>
+          </flickity-carousel>
+        {% else %}
+          <div class="cards-container" 
+               style="--cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
             
             {% for block in section.blocks %}
-              <div class="card-item" data-carousel-slide {{ block.shopify_attributes }}>
+              <div class="card-item" {{ block.shopify_attributes }}>
                 {% render 'inline-card', 
-                card_image: block.settings.card_image,
-                card_video_file: block.settings.card_video_file,
-                card_video_url: block.settings.card_video_url,
-                card_title: block.settings.card_title,
-                card_description: block.settings.card_description,
-                card_title_size: section.settings.card_title_size,
-                card_description_size: section.settings.card_description_size,
-                text_overlay: block.settings.text_overlay,
-                title_color: block.settings.title_color,
-                description_color: block.settings.description_color
-              %}
+                  card_image: block.settings.card_image,
+                  card_video_file: block.settings.card_video_file,
+                  card_video_url: block.settings.card_video_url,
+                  card_title: block.settings.card_title,
+                  card_description: block.settings.card_description,
+                  card_title_size: section.settings.card_title_size,
+                  card_description_size: section.settings.card_description_size,
+                  text_overlay: block.settings.text_overlay,
+                  title_color: block.settings.title_color,
+                  description_color: block.settings.description_color
+                %}
               </div>
             {% endfor %}
             
           </div>
-        </flickity-carousel>
+        {% endif %}
       </div>
       
     </div>
