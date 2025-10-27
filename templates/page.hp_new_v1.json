@@ -493,6 +493,8 @@
         "cards_tablet": "2",
         "card_title_size": 6,
         "card_description_size": 4,
+        "enable_mobile_carousel": true,
+        "mobile_cards_count": 1.1,
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
@@ -685,7 +687,7 @@
       ],
       "custom_css": [
         ".flickity-button {color: #000;}",
-        ".testimonial-card{background-color:#373534;}"
+        ".testimonial-card {background-color: #373534;}"
       ],
       "name": "Testimonials Carousel",
       "settings": {
