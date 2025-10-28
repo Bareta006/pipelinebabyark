@@ -7,15 +7,14 @@
   .gb-ready [data-gb-gate], .gb-timeout [data-gb-gate] {
     visibility: visible;
   }
-</style>   
+</style>
 
 <!-- Variant A/B Testing - Script Tag Mode -->
 <script 
-  src="https://growthbook-scripts-jf0xsaglj-variant-db.vercel.app/growthbook-bundle.js"
+  src="https://growthbook-scripts.vercel.app/growthbook-bundle.js"
   data-gb-sdk-key="{{ shop.metafields.growthbook.sdk_key }}"
   data-gb-shop="{{ shop.domain }}"
   {% if customer %}data-gb-customer-id="{{ customer.id }}"{% endif %}
   {% if template %}data-gb-page-type="{{ request.page_type }}"{% endif %}
   async
 ></script>
-
