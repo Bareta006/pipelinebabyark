@@ -45,6 +45,7 @@
         "button_XnyNKX"
       ],
       "custom_css": [
+        "{z-index:2;}",
         ".hero__content > .text__standard {text-align: center;}",
         ".hero__cta__wrapper {justify-content: center;}",
         "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 00px 20px 0; margin: 0; } .hero__content__wrapper {padding-bottom: 10px; }}"
