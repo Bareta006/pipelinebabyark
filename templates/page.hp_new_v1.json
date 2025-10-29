@@ -760,7 +760,7 @@
         ".rte p:first-child {line-height: 1.2; padding-bottom: 20px;}",
         ".rte p:not(:first-child) {font-size: 30px !important;}",
         ".rte p:not(:first-child) strong {font-size: 35px !important;}",
-        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; color: #fff; text-align: left; } .rte p:not(:first-child),.rte p:not(:first-child) strong {font-size: 20px !important; text-align: left; color:#fff !important;}}"
+        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; color: #fff; text-align: left; } .rte p:not(:first-child), .rte p:not(:first-child) strong {font-size: 20px !important; text-align: left; color: #fff !important; -webkit-text-fill-color: #fff; }}"
       ],
       "name": "Image with text no2",
       "settings": {
