@@ -328,7 +328,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width:480px){.fullwidth-card-slide:last-child h1,.fullwidth-card-slide:last-child p {color: #000 !important;} }"
+        "@media (max-width: 480px) {.fullwidth-card-slide:last-child h1, .fullwidth-card-slide:last-child p {color: #000 !important; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
@@ -782,6 +782,16 @@
         "padding_top": 50,
         "padding_bottom": 50
       }
+    },
+    "section_html_gaw4nc": {
+      "type": "section-html",
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<div class=\"floatingButton\">\n<a class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>\n</div>",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -798,6 +808,7 @@
     "section_columns2_VKzfLG",
     "1761563838e965cf15",
     "testimonials_carousel_AwMwJj",
-    "section_double2_34cTmT"
+    "section_double2_34cTmT",
+    "section_html_gaw4nc"
   ]
 }
