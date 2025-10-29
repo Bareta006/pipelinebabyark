@@ -1,4 +1,3 @@
-<!-- GrowthBook A/B Testing Script -->
 <!-- Anti-flicker styles -->
 <style>
   [data-gb-gate] {
@@ -10,54 +9,12 @@
   }
 </style>
 
-<script>
-(function() {
-  const SDK_KEY = '{{ shop.metafields.growthbook.sdk_key }}';
-  if (!SDK_KEY || SDK_KEY.includes('{' + '{')) {
-    console.error('[GB] No SDK key found in growthbook.sdk_key metafield');
-    return;
-  }
-  
-  let userId = localStorage.getItem('gb_anonymous_id');
-  if (!userId) {
-    userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem('gb_anonymous_id', userId);
-    localStorage.setItem('gb_stable_user_id', userId);
-  }
-  
-  window.GB_CONFIG = {
-    sdkKey: SDK_KEY,
-    userId: userId,
-    shopifyData: {
-      shop: '{{ shop.domain }}',
-      customerId: {{ customer.id | default: 'null' }},
-      pageType: '{{ request.page_type }}',  // ✅ Liquid instead of JS
-      cart: window.Shopify?.cart
-    },
-    debug: /[?&]debug=1(&|$)/.test(location.search),
-    previewApiUrl: 'https://growthbook-scripts.vercel.app/api/preview-experiments'
-  };
-  
-  window.gbTestAssignments = {};
-  
-  setTimeout(function() {
-    if (!document.documentElement.classList.contains('gb-ready')) {
-      document.documentElement.classList.add('gb-timeout');
-      console.warn('[GB] Timeout reached, revealing content');
-    }
-  }, 3000);
-  
-  // ✅ No version parameter - auto-updates
-  const script = document.createElement('script');
-  script.src = 'https://growthbook-scripts.vercel.app/growthbook-bundle.js';
-  script.async = true;
-  script.onerror = function() {
-    console.error('[GB] Failed to load GrowthBook script');
-    document.documentElement.classList.add('gb-timeout');
-    document.dispatchEvent(new CustomEvent('gb:load:failed'));
-  };
-  script.onload = function() {
-  };
-  document.head.appendChild(script);
-})();
-</script>
+<!-- Variant A/B Testing - Script Tag Mode -->
+<script 
+  src="https://growthbook-scripts.vercel.app/growthbook-bundle.js"
+  data-gb-sdk-key="{{ shop.metafields.growthbook.sdk_key }}"
+  data-gb-shop="{{ shop.domain }}"
+  {% if customer %}data-gb-customer-id="{{ customer.id }}"{% endif %}
+  {% if template %}data-gb-page-type="{{ request.page_type }}"{% endif %}
+  async
+></script>
