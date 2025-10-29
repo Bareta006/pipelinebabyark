@@ -756,6 +756,11 @@
         "text_9GzM8K",
         "video_8WCk3h"
       ],
+      "custom_css": [
+        ".rte p:first-child {line-height: 1.2; padding-bottom:20px;}",
+        ".rte p:not(:first-child){font-size: 30px !important; line-height: 1.2;}",
+        ".rte p:not(:first-child) strong{font-size: 35px !important; line-height: 1.2;}"
+      ],
       "name": "Image with text no2",
       "settings": {
         "height": "use_image",
