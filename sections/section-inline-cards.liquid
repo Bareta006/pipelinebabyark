@@ -428,6 +428,38 @@
       padding-left: 0;
     }
   }
+  
+  /* Calculate mobile image heights for carousel mode */
+  @media screen and (max-width: 749px) {
+    {% if section.settings.enable_mobile_carousel %}
+      {% for block in section.blocks %}
+        {%- liquid
+          if block.settings.mobile_image != blank
+            assign mobile_img = block.settings.mobile_image
+          elsif block.settings.card_image != blank
+            assign mobile_img = block.settings.card_image
+          else
+            assign mobile_img = blank
+          endif
+          
+          if mobile_img != blank
+            assign mobile_img_height = mobile_img.height
+            assign mobile_img_width = mobile_img.width
+            assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
+          else
+            assign mobile_aspect_ratio = 118
+          endif
+        -%}
+        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile,
+        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile .hero,
+        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile img {
+          height: {{ mobile_aspect_ratio }}vw !important;
+          object-fit: cover;
+          object-position: center;
+        }
+      {% endfor %}
+    {% endif %}
+  }
 </style>
 
 {% schema %}
