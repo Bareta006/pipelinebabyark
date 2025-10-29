@@ -327,7 +327,9 @@
         "card_LmN9Gk",
         "card_CGNqzm"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "@media (max-width:480px){.fullwidth-card-slide:last-child h1,.fullwidth-card-slide:last-child p {color: #000 !important;} }"
+      ],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
