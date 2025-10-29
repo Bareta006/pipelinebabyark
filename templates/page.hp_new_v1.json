@@ -764,7 +764,7 @@
       "name": "Image with text no2",
       "settings": {
         "height": "use_image",
-        "brick_gutter": 34,
+        "brick_gutter": 0,
         "borders": false,
         "bg_color": "",
         "bg_size_desktop": "cover",
