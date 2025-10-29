@@ -35,9 +35,10 @@
              style="--cards-desktop: {{ section.settings.cards_desktop }}; --cards-tablet: {{ section.settings.cards_tablet }};">
           
           {% for block in section.blocks %}
-            <div class="card-item" {{ block.shopify_attributes }}>
+            <div class="card-item" data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
               {% render 'inline-card', 
                 card_image: block.settings.card_image,
+                mobile_image: block.settings.mobile_image,
                 card_video_file: block.settings.card_video_file,
                 card_video_url: block.settings.card_video_url,
                 card_title: block.settings.card_title,
@@ -46,7 +47,8 @@
                 card_description_size: section.settings.card_description_size,
                 text_overlay: block.settings.text_overlay,
                 title_color: block.settings.title_color,
-                description_color: block.settings.description_color
+                description_color: block.settings.description_color,
+                block_id: block.id
               %}
             </div>
           {% endfor %}
@@ -69,9 +71,10 @@
               style="--grid-large-items: 1; --grid-medium-items: 1; --grid-small-items: {{ section.settings.mobile_cards_count }};">
               
               {% for block in section.blocks %}
-                <div class="mobile-card" data-carousel-slide {{ block.shopify_attributes }}>
+                <div class="mobile-card" data-carousel-slide data-block-id="{{ block.id }}" {{ block.shopify_attributes }}>
                   {% render 'inline-card', 
                     card_image: block.settings.card_image,
+                    mobile_image: block.settings.mobile_image,
                     card_video_file: block.settings.card_video_file,
                     card_video_url: block.settings.card_video_url,
                     card_title: block.settings.card_title,
@@ -80,7 +83,8 @@
                     card_description_size: section.settings.card_description_size,
                     text_overlay: block.settings.text_overlay,
                     title_color: block.settings.title_color,
-                    description_color: block.settings.description_color
+                    description_color: block.settings.description_color,
+                    block_id: block.id
                   %}
                 </div>
               {% endfor %}
@@ -185,6 +189,16 @@
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
+  }
+  
+  /* Desktop Image - Show by default */
+  #shopify-section-{{ section.id }} .card-image-desktop {
+    display: block;
+  }
+  
+  /* Mobile Image - Hidden by default */
+  #shopify-section-{{ section.id }} .card-image-mobile {
+    display: none;
   }
 
   #shopify-section-{{ section.id }} .card-video {
@@ -291,6 +305,15 @@
 
     #shopify-section-{{ section.id }} .inline-card-container--overlay .card-content {
       padding: 1.5rem;
+    }
+    
+    /* Show mobile image, hide desktop image on mobile */
+    #shopify-section-{{ section.id }} .card-image-desktop {
+      display: none;
+    }
+    
+    #shopify-section-{{ section.id }} .card-image-mobile {
+      display: block;
     }
   }
 
@@ -608,8 +631,14 @@
         {
           "type": "image_picker",
           "id": "card_image",
-          "label": "Card Image",
+          "label": "Desktop Image",
           "info": "Displays if no video is selected"
+        },
+        {
+          "type": "image_picker",
+          "id": "mobile_image",
+          "label": "Mobile Image",
+          "info": "If not provided, desktop image will be used"
         },
         {
           "type": "video",

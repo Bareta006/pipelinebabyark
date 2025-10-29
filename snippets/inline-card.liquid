@@ -4,6 +4,7 @@
   Usage:
   {% render 'inline-card',
     card_image: card_image,
+    mobile_image: mobile_image,
     card_video_file: card_video_file,
     card_video_url: card_video_url,
     card_title: card_title,
@@ -12,11 +13,12 @@
     card_description_size: card_description_size,
     text_overlay: text_overlay,
     title_color: title_color,
-    description_color: description_color
+    description_color: description_color,
+    block_id: block_id
   %}
 {% endcomment %}
 
-<div class="inline-card-container {% if text_overlay %}inline-card-container--overlay{% endif %}">
+<div class="inline-card-container {% if text_overlay %}inline-card-container--overlay{% endif %}" data-block-id="{{ block_id }}">
   
   <!-- Card Media (Video or Image) -->
   <div class="card-media-wrapper">
@@ -60,21 +62,47 @@
         {% endif %}
       </div>
     {% elsif card_image != blank %}
-      {% comment %} Card Image {% endcomment %}
+      {% comment %} Card Images - Desktop and Mobile {% endcomment %}
       {%- capture image_sizes -%}
         (min-width: 1100px) calc((100vw - 6rem) / 3), 
         (min-width: 750px) calc((100vw - 4rem) / 2), 
         (max-width: 749px) calc(100vw - 4rem)
       {%- endcapture -%}
       
-      {% render 'image',
-        img_object: card_image,
-        alt: card_title,
-        class: 'card-image',
-        sizes: image_sizes,
-        loading: 'lazy',
-        wh_ratio: 1.18
-      %}
+      {% comment %} Desktop Image {% endcomment %}
+      <div class="card-image-desktop">
+        {% render 'image',
+          img_object: card_image,
+          alt: card_title,
+          class: 'card-image',
+          sizes: image_sizes,
+          loading: 'lazy',
+          wh_ratio: 1.18
+        %}
+      </div>
+      
+      {% comment %} Mobile Image {% endcomment %}
+      <div class="card-image-mobile">
+        {% if mobile_image != blank %}
+          {% render 'image',
+            img_object: mobile_image,
+            alt: card_title,
+            class: 'card-image',
+            sizes: image_sizes,
+            loading: 'lazy',
+            wh_ratio: 1.18
+          %}
+        {% else %}
+          {% render 'image',
+            img_object: card_image,
+            alt: card_title,
+            class: 'card-image',
+            sizes: image_sizes,
+            loading: 'lazy',
+            wh_ratio: 1.18
+          %}
+        {% endif %}
+      </div>
     {% else %}
       {% comment %} Placeholder {% endcomment %}
       <div class="card-media-placeholder" style="aspect-ratio: 1.18;">
