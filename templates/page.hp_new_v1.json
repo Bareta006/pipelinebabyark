@@ -786,7 +786,7 @@
     "section_html_gaw4nc": {
       "type": "section-html",
       "custom_css": [
-        "a#floatingButton {position: fixed; left: 50%; bottom: 190px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
+        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
       ],
       "name": "Custom HTML",
       "settings": {
