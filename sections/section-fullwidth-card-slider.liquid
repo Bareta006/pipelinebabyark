@@ -421,9 +421,18 @@
           assign mobile_aspect_ratio = 66
         endif
       -%}
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile,
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile {
         height: {{ mobile_aspect_ratio }}vw !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
+        height: 100% !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero__image,
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
       }
     {% endfor %}
   }
