@@ -45,7 +45,7 @@
         "button_XnyNKX"
       ],
       "custom_css": [
-        "{z-index:2;}",
+        "{z-index: 2;}",
         ".hero__content > .text__standard {text-align: center;}",
         ".hero__cta__wrapper {justify-content: center;}",
         "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 00px 20px 0; margin: 0; } .hero__content__wrapper {padding-bottom: 10px; }}"
@@ -716,6 +716,19 @@
         "padding_bottom": 30
       }
     },
+    "section_html_gaw4nc": {
+      "type": "section-html",
+      "custom_css": [
+        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
+      ],
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_double2_34cTmT": {
       "type": "section-double2",
       "blocks": {
@@ -786,19 +799,6 @@
         "padding_top": 50,
         "padding_bottom": 50
       }
-    },
-    "section_html_gaw4nc": {
-      "type": "section-html",
-      "custom_css": [
-        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
-      ],
-      "name": "Custom HTML",
-      "settings": {
-        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
-        "width": "wrapper",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
     }
   },
   "order": [
@@ -815,7 +815,7 @@
     "section_columns2_VKzfLG",
     "1761563838e965cf15",
     "testimonials_carousel_AwMwJj",
-    "section_double2_34cTmT",
-    "section_html_gaw4nc"
+    "section_html_gaw4nc",
+    "section_double2_34cTmT"
   ]
 }
