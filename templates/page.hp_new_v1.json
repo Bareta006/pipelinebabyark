@@ -305,13 +305,15 @@
         "card_CGNqzm": {
           "type": "card",
           "settings": {
+            "desktop_image": "shopify://shop_images/Group_1597881521.png",
+            "mobile_image": "shopify://shop_images/Screenshot_2025-10-09_at_12.41.45_5.png",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
             "enable_overlay_text": false,
-            "title": "Third Card",
-            "title_color": "#ffffff",
+            "title": "Head Injury Protection",
+            "title_color": "#000000",
             "description": "<p>This is the description for the third card showcasing more features.</p>",
-            "description_color": "#ffffff",
+            "description_color": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Explore",
             "button_link": "",
@@ -329,7 +331,7 @@
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
-        "description": "",
+        "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
         "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
