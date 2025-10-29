@@ -759,7 +759,8 @@
       "custom_css": [
         ".rte p:first-child {line-height: 1.2; padding-bottom: 20px;}",
         ".rte p:not(:first-child) {font-size: 30px !important; line-height: 1.2;}",
-        ".rte p:not(:first-child) strong {font-size: 35px !important; line-height: 1.2;}"
+        ".rte p:not(:first-child) strong {font-size: 35px !important; line-height: 1.2;}",
+        "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}"
       ],
       "name": "Image with text no2",
       "settings": {
