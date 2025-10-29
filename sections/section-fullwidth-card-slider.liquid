@@ -251,7 +251,6 @@
 
     #shopify-section-{{ section.id }} .fullwidth-card-slide {
       min-height: auto;
-      height: 100%;
     }
 
     /* Single slide in view on mobile */
@@ -269,7 +268,6 @@
 
     /* Mobile Card Layout - Image on top, text below */
     #shopify-section-{{ section.id }} .fullwidth-card {
-      height: 100%;
       display: flex;
       flex-direction: column;
       border-radius: 10px;
@@ -282,6 +280,13 @@
 
     #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
       display: block;
+      flex-shrink: 0;
+    }
+    
+    /* Ensure image wrapper respects the height class */
+    #shopify-section-{{ section.id }} .fullwidth-card__image-mobile .hero,
+    #shopify-section-{{ section.id }} .fullwidth-card__image-mobile > div {
+      width: 100%;
     }
 
     /* Mobile Content Positioning */
@@ -332,7 +337,6 @@
   /* Mobile Text Overlay - When enabled, keep desktop overlay behavior on mobile */
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card {
-      height: 100%;
       display: block;
       flex-direction: initial;
       border-radius: 10px;
@@ -344,6 +348,12 @@
 
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile {
       display: block;
+    }
+    
+    /* Ensure image wrapper respects the height class in overlay mode */
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile .hero,
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile > div {
+      width: 100%;
     }
 
     #shopify-section-{{ section.id }} .mobile-text-overlay .hero__content__wrapper {
