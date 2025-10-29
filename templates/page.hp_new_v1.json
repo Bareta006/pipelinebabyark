@@ -706,6 +706,71 @@
         "padding_top": 30,
         "padding_bottom": 30
       }
+    },
+    "section_double2_34cTmT": {
+      "type": "section-double2",
+      "blocks": {
+        "text_9GzM8K": {
+          "type": "text",
+          "settings": {
+            "kicker": "",
+            "title": "",
+            "text": "<p>“What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p>Automobile designer for Ferrari & Maserati</p>",
+            "font_size": 5,
+            "text_columns": 1,
+            "align_text": "text-left",
+            "button_text": "",
+            "button_url": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn-text-thick-line",
+            "button_text_2": "",
+            "button_link_2": "",
+            "button_color_2": "btn--neutral",
+            "button_style_2": "btn-text-thick-line",
+            "text_color": "text--white",
+            "bg_color": ""
+          }
+        },
+        "video_8WCk3h": {
+          "type": "video",
+          "settings": {
+            "object_position": "center-center",
+            "image": "shopify://shop_images/Copy_of_220906-Babyark-11878_1_1.png",
+            "video_link": "https://youtu.be/mm.mp4",
+            "popup_text": "",
+            "kicker": "",
+            "title": "",
+            "richtext": "",
+            "text_align": "align--middle-center",
+            "text_color": "text--white",
+            "overlay_opacity": 15,
+            "overlay_color": "#000",
+            "link_text": "",
+            "link": "",
+            "button_color": "btn--white",
+            "button_style": "btn"
+          }
+        }
+      },
+      "block_order": [
+        "text_9GzM8K",
+        "video_8WCk3h"
+      ],
+      "name": "Image with text no2",
+      "settings": {
+        "height": "use_image",
+        "brick_gutter": 0,
+        "borders": false,
+        "bg_color": "",
+        "bg_size_desktop": "cover",
+        "bg_size_mobile": "cover",
+        "bg_position_desktop": "center center",
+        "bg_position_mobile": "center center",
+        "preload_image": false,
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
@@ -721,6 +786,7 @@
     "section_inline_cards_phzrEF",
     "section_columns2_VKzfLG",
     "1761563838e965cf15",
-    "testimonials_carousel_AwMwJj"
+    "testimonials_carousel_AwMwJj",
+    "section_double2_34cTmT"
   ]
 }
