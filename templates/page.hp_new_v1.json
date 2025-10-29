@@ -787,10 +787,10 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<div class=\"floatingButton\">\n<a class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>\n</div>",
+        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
         "width": "wrapper",
         "padding_top": 0,
-        "padding_bottom": 36
+        "padding_bottom": 0
       }
     }
   },
