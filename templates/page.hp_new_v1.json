@@ -259,7 +259,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 765px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 56px;\n  opacity: 0.92;\n  background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%);\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\n  background: linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n}\n</style>",
+        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 650px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 46px;\n  opacity: 0.92;\n  background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%);\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\n  background: linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -337,7 +337,7 @@
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
-        "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
+        "description": "",
         "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
