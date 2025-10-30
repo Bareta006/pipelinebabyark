@@ -615,58 +615,60 @@
       }
     }
     
-    // Wait for Flickity to initialize
-    function initSlider() {
-      const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+    // Initialize - wait for Flickity to be ready on THIS carousel
+    function init() {
+      console.log('Initializing carousel video controls...');
       
-      console.log('Flickity instance:', flickity);
-      console.log('Selected index:', flickity ? flickity.selectedIndex : 'N/A');
+      // Equalize slide heights
+      equalizeSlideHeights();
       
-      if (flickity) {
-        console.log('✓ Flickity initialized, setting up...');
+      // Listen for Flickity events on the carousel element
+      if (carousel) {
+        console.log('Setting up Flickity event listeners on carousel');
         
-        // Equalize slide heights
-        equalizeSlideHeights();
+        // Flickity fires 'change.flickity' event
+        carousel.addEventListener('change.flickity', function(event) {
+          console.log('Flickity change event fired');
+          setTimeout(playActiveSlideVideo, 100);
+        });
         
-        // Play active slide video after a delay
+        // Flickity fires 'settle.flickity' event
+        carousel.addEventListener('settle.flickity', function(event) {
+          console.log('Flickity settle event fired');
+          setTimeout(playActiveSlideVideo, 100);
+        });
+        
+        // Play initial video
         setTimeout(() => {
-          console.log('Initial video play attempt');
+          console.log('Playing initial active slide video');
           playActiveSlideVideo();
-        }, 500);
+        }, 1000);
         
-        // Listen for slide changes
-        flickity.on('change', (index) => {
-          console.log('Flickity change event, index:', index);
-          setTimeout(playActiveSlideVideo, 100);
-        });
-        flickity.on('settle', (index) => {
-          console.log('Flickity settle event, index:', index);
-          setTimeout(playActiveSlideVideo, 100);
-        });
-        
-        // Also try on user interaction
-        let hasPlayed = false;
-        const playOnInteraction = () => {
-          if (!hasPlayed) {
-            hasPlayed = true;
-            console.log('User interaction - attempting video play');
+        // Fallback: user interaction
+        let hasInteracted = false;
+        const onInteraction = () => {
+          if (!hasInteracted) {
+            hasInteracted = true;
+            console.log('User interaction - playing video');
             playActiveSlideVideo();
           }
         };
-        document.addEventListener('click', playOnInteraction, { once: true });
-        document.addEventListener('touchstart', playOnInteraction, { once: true });
+        document.addEventListener('click', onInteraction, { once: true });
+        document.addEventListener('touchstart', onInteraction, { once: true });
       } else {
-        console.log('Flickity not ready, retrying...');
-        // Retry if Flickity hasn't initialized yet
-        setTimeout(initSlider, 100);
+        console.error('Carousel element not found!');
       }
     }
     
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSlider);
+    // Wait for custom elements to be defined
+    if (customElements && customElements.whenDefined) {
+      customElements.whenDefined('flickity-carousel').then(() => {
+        console.log('flickity-carousel custom element defined');
+        setTimeout(init, 500);
+      });
     } else {
-      initSlider();
+      // Fallback if customElements API not available
+      setTimeout(init, 1000);
     }
     
     // Re-equalize on window resize
