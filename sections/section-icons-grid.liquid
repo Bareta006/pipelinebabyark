@@ -233,36 +233,29 @@
       }
       
       function startAutoplay() {
-        console.log('[Icons Grid Autoplay] Checking mobile:', isMobile());
-        
         if (!isMobile()) {
           if (autoplayInterval) {
-            console.log('[Icons Grid Autoplay] Stopping - not mobile');
             clearInterval(autoplayInterval);
             autoplayInterval = null;
           }
           return;
         }
         
+        const flickityCarousel = section.querySelector('flickity-carousel');
         const carousel = section.querySelector('[data-carousel]');
-        if (!carousel) {
-          console.log('[Icons Grid Autoplay] Carousel not found, retrying...');
+        
+        if (!flickityCarousel || !carousel) {
           setTimeout(startAutoplay, 200);
           return;
         }
         
-        console.log('[Icons Grid Autoplay] Carousel found:', carousel);
-        
-        // Try to get Flickity instance
-        const flickity = Flickity.data(carousel);
+        // Get Flickity instance from custom element or carousel
+        const flickity = flickityCarousel.flickityInstance || carousel.flickity;
         
         if (!flickity) {
-          console.log('[Icons Grid Autoplay] Flickity not ready, retrying...');
           setTimeout(startAutoplay, 200);
           return;
         }
-        
-        console.log('[Icons Grid Autoplay] Flickity ready, starting autoplay');
         
         // Clear any existing interval
         if (autoplayInterval) {
@@ -271,17 +264,20 @@
         
         // Start autoplay
         autoplayInterval = setInterval(() => {
-          if (isMobile() && flickity) {
-            console.log('[Icons Grid Autoplay] Next slide');
+          if (isMobile()) {
             flickity.next();
           }
         }, 3000);
-        
-        console.log('[Icons Grid Autoplay] Autoplay started');
       }
       
-      // Start after delay
-      setTimeout(startAutoplay, 1500);
+      // Wait for custom element to be defined
+      if (customElements && customElements.whenDefined) {
+        customElements.whenDefined('flickity-carousel').then(() => {
+          setTimeout(startAutoplay, 500);
+        });
+      } else {
+        setTimeout(startAutoplay, 1000);
+      }
       
       // Handle resize
       let resizeTimeout;
