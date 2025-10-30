@@ -32,12 +32,13 @@
   {% if desktop_video != blank %}
     <div class="fullwidth-card__video-desktop video-autoplay-wrapper">
       {{ desktop_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif desktop_image != blank %}
@@ -51,23 +52,25 @@
   {% if mobile_video != blank %}
     <div class="fullwidth-card__video-mobile video-autoplay-wrapper">
       {{ mobile_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif desktop_video != blank %}
     <div class="fullwidth-card__video-mobile video-autoplay-wrapper">
       {{ desktop_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif mobile_image != blank %}
