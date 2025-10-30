@@ -153,13 +153,13 @@
     overflow: hidden;
   }
 
-  /* Desktop Media - Show by default */
-  #shopify-section-{{ section.id }} .fullwidth-card__media-desktop {
+  /* Desktop Image - Show by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
     display: block;
   }
 
-  /* Mobile Media - Hidden by default */
-  #shopify-section-{{ section.id }} .fullwidth-card__media-mobile {
+  /* Mobile Image - Hidden by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
     display: none;
   }
 
@@ -170,7 +170,26 @@
     object-position: center;
   }
 
-  /* Video Styles */
+  /* Desktop Video - Show by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__video-desktop {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* Mobile Video - Hidden by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
   #shopify-section-{{ section.id }} .fullwidth-card__video {
     width: 100%;
     height: 100%;
@@ -284,19 +303,24 @@
       border-radius: 10px;
     }
 
-    /* Mobile aspect ratio override */
-    #shopify-section-{{ section.id }} .fullwidth-card.aspect-\[--wh-ratio\] {
-      --wh-ratio: var(--mobile-wh-ratio);
-    }
-
-    /* Show mobile media, hide desktop media */
-    #shopify-section-{{ section.id }} .fullwidth-card__media-desktop {
+    /* Show mobile image/video, hide desktop image/video */
+    #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
       display: none;
     }
 
-    #shopify-section-{{ section.id }} .fullwidth-card__media-mobile {
+    #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
       display: block;
       flex-shrink: 0;
+    }
+    
+    #shopify-section-{{ section.id }} .fullwidth-card__video-desktop {
+      display: none;
+    }
+
+    #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
+      display: block;
+      flex-shrink: 0;
+      position: relative;
     }
     
     /* Ensure image wrapper respects the height class */
@@ -359,17 +383,21 @@
       border-radius: 10px;
     }
 
-    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__media-desktop {
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-desktop {
       display: none;
     }
 
-    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__media-mobile {
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile {
       display: block;
     }
+    
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__video-desktop {
+      display: none;
+    }
 
-    /* Mobile aspect ratio override for overlay mode */
-    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card.aspect-\[--wh-ratio\] {
-      --wh-ratio: var(--mobile-wh-ratio);
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__video-mobile {
+      display: block;
+      position: absolute;
     }
     
     /* Ensure image wrapper respects the height class in overlay mode */
@@ -422,7 +450,125 @@
       width: calc(100% / {{ section.settings.grid_medium }}) !important;
     }
   }
+  
+  /* Individual block mobile image heights when use_image is selected */
+  @media screen and (max-width: 749px) {
+    {% for block in section.blocks %}
+      {%- liquid
+        if block.settings.mobile_image != blank
+          assign mobile_img = block.settings.mobile_image
+        elsif block.settings.desktop_image != blank
+          assign mobile_img = block.settings.desktop_image
+        else
+          assign mobile_img = blank
+        endif
+        
+        if mobile_img != blank
+          assign mobile_img_height = mobile_img.height
+          assign mobile_img_width = mobile_img.width
+          assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
+        else
+          assign mobile_aspect_ratio = 66
+        endif
+      -%}
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile {
+        height: {{ mobile_aspect_ratio }}vw !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
+        height: 100% !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero__image,
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+    {% endfor %}
+  }
 </style>
+
+<script>
+  (function() {
+    const sectionId = 'shopify-section-{{ section.id }}';
+    const section = document.getElementById(sectionId);
+    
+    if (!section) return;
+    
+    const carousel = section.querySelector('[data-carousel]');
+    const flickityCarousel = section.querySelector('flickity-carousel');
+    
+    if (!flickityCarousel || !carousel) return;
+    
+    // Function to play video in active slide
+    function playActiveVideo() {
+      const activeSlide = carousel.querySelector('.is-selected');
+      if (!activeSlide) return;
+      
+      const videos = activeSlide.querySelectorAll('.fullwidth-card__video');
+      videos.forEach(video => {
+        if (video && video.paused) {
+          video.play().catch(err => {
+            console.log('Video autoplay failed:', err);
+          });
+        }
+      });
+    }
+    
+    // Function to pause all videos
+    function pauseAllVideos() {
+      const allVideos = section.querySelectorAll('.fullwidth-card__video');
+      allVideos.forEach(video => {
+        if (video && !video.paused) {
+          video.pause();
+        }
+      });
+    }
+    
+    // Function to pause videos except in active slide
+    function handleSlideChange() {
+      // Pause all videos first
+      pauseAllVideos();
+      // Then play video in active slide
+      setTimeout(() => {
+        playActiveVideo();
+      }, 100);
+    }
+    
+    // Wait for Flickity to initialize
+    function initVideoControls() {
+      const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+      
+      if (flickity) {
+        // Play video on initial load
+        playActiveVideo();
+        
+        // Listen for slide changes
+        flickity.on('change', handleSlideChange);
+        flickity.on('settle', handleSlideChange);
+      } else {
+        // Retry if Flickity hasn't initialized yet
+        setTimeout(initVideoControls, 100);
+      }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoControls);
+    } else {
+      initVideoControls();
+    }
+    
+    // Pause videos when section becomes hidden (e.g., user navigates away)
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        pauseAllVideos();
+      } else {
+        playActiveVideo();
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -623,31 +769,31 @@
       "settings": [
         {
           "type": "header",
-          "content": "Media (Video takes priority over images)"
-        },
-        {
-          "type": "video",
-          "id": "desktop_video",
-          "label": "Desktop Video",
-          "info": "Upload video file - will autoplay when slide is active. Takes priority over images."
-        },
-        {
-          "type": "video",
-          "id": "mobile_video",
-          "label": "Mobile Video",
-          "info": "If not provided, desktop video will be used on mobile"
+          "content": "Media (Choose Image OR Video)"
         },
         {
           "type": "image_picker",
           "id": "desktop_image",
           "label": "Desktop Image",
-          "info": "Displays if no video is uploaded"
+          "info": "Used if no video is uploaded"
         },
         {
           "type": "image_picker",
           "id": "mobile_image",
           "label": "Mobile Image",
           "info": "If not provided, desktop image will be used"
+        },
+        {
+          "type": "video",
+          "id": "desktop_video",
+          "label": "Desktop Video (Shopify Upload)",
+          "info": "Upload video file - takes priority over desktop image. Will autoplay when slide is active."
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile Video (Shopify Upload)",
+          "info": "If not provided, desktop video will be used. Autoplays when slide is active."
         },
         {
           "type": "header",
@@ -799,144 +945,4 @@
     "groups": ["header","footer","aside"]
   }
 }
-{% endschema %}
-
-<script>
-  (function() {
-    const sectionId = 'shopify-section-{{ section.id }}';
-    const section = document.getElementById(sectionId);
-    
-    if (!section) return;
-    
-    const carousel = section.querySelector('[data-carousel]');
-    
-    if (!carousel) return;
-    
-    const isUseImageHeight = section.querySelector('.use_image') !== null;
-    
-    // Function to set uniform heights for use_image mode
-    function setUniformHeight() {
-      if (!isUseImageHeight) return;
-      
-      const slides = section.querySelectorAll('.fullwidth-card-slide');
-      if (slides.length === 0) return;
-      
-      // Get first slide to calculate base height
-      const firstSlide = slides[0];
-      const firstCard = firstSlide.querySelector('.fullwidth-card');
-      
-      if (!firstCard) return;
-      
-      // Get the aspect ratio from CSS variable
-      const whRatio = getComputedStyle(firstCard).getPropertyValue('--wh-ratio').trim();
-      
-      if (whRatio && parseFloat(whRatio) > 0) {
-        const carouselWidth = carousel.offsetWidth;
-        const slideWidth = carouselWidth / {{ section.settings.grid_large }};
-        const calculatedHeight = slideWidth / parseFloat(whRatio);
-        
-        // Apply height to all cards
-        slides.forEach(slide => {
-          const card = slide.querySelector('.fullwidth-card');
-          if (card) {
-            card.style.height = `${calculatedHeight}px`;
-          }
-        });
-        
-        // Set viewport height
-        const viewport = carousel.querySelector('.flickity-viewport');
-        if (viewport) {
-          viewport.style.height = `${calculatedHeight}px`;
-        }
-      }
-    }
-    
-    // Function to play video in active slide
-    function playActiveVideo() {
-      const slides = section.querySelectorAll('.fullwidth-card-slide');
-      
-      slides.forEach((slide) => {
-        const videos = slide.querySelectorAll('.fullwidth-card__video');
-        const isActive = slide.classList.contains('is-selected');
-        
-        videos.forEach(video => {
-          if (isActive) {
-            // Play video if it's in the active slide
-            if (video.paused) {
-              video.play().catch(err => {
-                console.log('Video autoplay prevented:', err);
-              });
-            }
-          } else {
-            // Pause video if it's not in the active slide
-            if (!video.paused) {
-              video.pause();
-            }
-            video.currentTime = 0; // Reset to beginning
-          }
-        });
-      });
-    }
-    
-    // Wait for Flickity to initialize
-    function initVideoControl() {
-      const flickityCarousel = section.querySelector('flickity-carousel');
-      
-      if (flickityCarousel) {
-        // Set uniform heights for use_image mode
-        setTimeout(() => {
-          setUniformHeight();
-        }, 100);
-        
-        // Listen for Flickity change event
-        carousel.addEventListener('change.flickity', playActiveVideo);
-        
-        // Wait for videos to be ready
-        const allVideos = section.querySelectorAll('.fullwidth-card__video');
-        let videosLoaded = 0;
-        
-        if (allVideos.length > 0) {
-          allVideos.forEach(video => {
-            if (video.readyState >= 3) {
-              videosLoaded++;
-              if (videosLoaded === allVideos.length) {
-                playActiveVideo();
-              }
-            } else {
-              video.addEventListener('canplay', () => {
-                videosLoaded++;
-                if (videosLoaded === allVideos.length) {
-                  playActiveVideo();
-                }
-              }, { once: true });
-            }
-          });
-        }
-        
-        // Fallback - play after timeout
-        setTimeout(playActiveVideo, 1000);
-      }
-    }
-    
-    // Recalculate on window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(setUniformHeight, 250);
-    });
-    
-    // Initialize when DOM is ready
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initVideoControl);
-    } else {
-      initVideoControl();
-    }
-    
-    // Re-initialize on theme editor section load
-    document.addEventListener('shopify:section:load', function(event) {
-      if (event.detail.sectionId === '{{ section.id }}') {
-        setTimeout(initVideoControl, 500);
-      }
-    });
-  })();
-</script> 
+{% endschema %} 
