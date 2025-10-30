@@ -1,8 +1,9 @@
 {% comment %} /sections/section-icons-grid.liquid {% endcomment %}
 
-<div class="section-icons-grid section-padding {{ section.settings.bg }}"
+<div class="section-icons-grid section-padding {{ section.settings.bg }} {% if section.settings.autoplay_enabled %}autoplay-enabled{% endif %}"
   data-section-id="{{ section.id }}"
   data-section-type="section-icons-grid"
+  data-autoplay="{{ section.settings.autoplay_enabled }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --ICON-SIZE: {{ section.settings.icons_size }}px;">
   <div class="{{ section.settings.width }} {{ section.settings.icon_alignment }} {{ section.settings.icon_size }}">
     {% if section.settings.title != blank %}
@@ -10,14 +11,18 @@
     {% endif %}
 
     {% if section.settings.mobile_carousel %}
-      <flickity-carousel class="{% if section.settings.autoplay_carousel %}autoplay-enabled{% endif %}">
+      <flickity-carousel>
         <div
           data-carousel
           data-grid
           data-grid-large
           data-grid-medium
           data-grid-small
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": {% if section.settings.autoplay_carousel %}true{% else %}false{% endif %}, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          {% if section.settings.autoplay_enabled %}
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": false, "autoPlay": 3000, "pauseAutoPlayOnHover": false }'
+          {% else %}
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          {% endif %}
           class="icons-grid-carousel"
           style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
           
@@ -212,67 +217,53 @@
   }
   
   /* Hide arrows when autoplay is enabled */
-  #shopify-section-{{ section.id }} .autoplay-enabled .flickity-button {
-    display: none !important;
+  #shopify-section-{{ section.id }}.autoplay-enabled .flickity-button {
+    display: none;
   }
 </style>
 
 <script>
   (function() {
-    const sectionId = 'shopify-section-{{ section.id }}';
-    const section = document.getElementById(sectionId);
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    
     if (!section) return;
     
-    const autoplayEnabled = {{ section.settings.autoplay_carousel | default: false }};
+    const autoplayEnabled = section.getAttribute('data-autoplay') === 'true';
     
     if (autoplayEnabled) {
-      function isMobile() {
-        return window.innerWidth < 750;
-      }
-      
-      function setupAutoplay() {
-        const flickityCarousel = section.querySelector('flickity-carousel');
+      // Stop autoplay on desktop (>= 750px)
+      function handleAutoplay() {
         const carousel = section.querySelector('[data-carousel]');
+        const flickityCarousel = section.querySelector('flickity-carousel');
         
-        if (!flickityCarousel || !carousel) {
-          setTimeout(setupAutoplay, 200);
-          return;
-        }
+        if (!carousel || !flickityCarousel) return;
         
-        // Get Flickity instance
-        const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+        const isDesktop = window.innerWidth >= 750;
         
-        if (!flickity) {
-          setTimeout(setupAutoplay, 200);
-          return;
-        }
-        
-        // Enable/disable autoplay based on screen size
-        if (isMobile()) {
-          // Enable autoplay - use Flickity's built-in player
-          flickity.options.autoPlay = 3000;
-          flickity.playPlayer();
-        } else {
-          // Disable on desktop
-          flickity.stopPlayer();
-          flickity.options.autoPlay = false;
+        if (isDesktop) {
+          // Wait for Flickity to initialize
+          setTimeout(() => {
+            const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+            
+            if (flickity && flickity.player) {
+              flickity.player.stop();
+            }
+          }, 100);
         }
       }
       
-      // Wait for Flickity to initialize
-      if (customElements && customElements.whenDefined) {
-        customElements.whenDefined('flickity-carousel').then(() => {
-          setTimeout(setupAutoplay, 500);
-        });
+      // Run on load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleAutoplay);
       } else {
-        setTimeout(setupAutoplay, 1000);
+        handleAutoplay();
       }
       
-      // Handle resize
+      // Run on resize
       let resizeTimeout;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(setupAutoplay, 300);
+        resizeTimeout = setTimeout(handleAutoplay, 200);
       });
     }
   })();
@@ -359,6 +350,13 @@
         "default": false
       },
       {
+        "type": "checkbox",
+        "id": "autoplay_enabled",
+        "label": "Enable autoplay/autoscroll",
+        "default": false,
+        "info": "Hides arrows and auto-scrolls every 3 seconds. Only works on mobile."
+      },
+      {
         "type": "range",
         "id": "mobile_icons_count",
         "min": 1,
@@ -366,13 +364,6 @@
         "step": 1,
         "label": "Icons visible on mobile",
         "default": 2
-      },
-      {
-        "type": "checkbox",
-        "id": "autoplay_carousel",
-        "label": "Enable autoplay (mobile only)",
-        "default": false,
-        "info": "Auto-scrolls every 3 seconds and hides arrows"
       },
       {
         "type": "select",
