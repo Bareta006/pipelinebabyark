@@ -225,12 +225,13 @@
     display: none !important;
   }
   
-  /* Desktop - show grid, hide carousel */
+  /* Hide mobile carousel on desktop */
   #shopify-section-{{ section.id }} .icons-mobile-view {
     display: none;
   }
   
-  /* Mobile - hide grid, show carousel */
+  {% if section.settings.mobile_carousel %}
+  /* Mobile - hide grid, show carousel (only if carousel is enabled) */
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .icons-desktop-view {
       display: none !important;
@@ -239,6 +240,7 @@
       display: block;
     }
   }
+  {% endif %}
 </style>
 
 {% schema %}
