@@ -320,11 +320,11 @@
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Head Injury Protection",
-            "title_color_desktop": "#ffffff",
-            "title_color_mobile": "#ffffff",
+            "title_color_desktop": "#000000",
+            "title_color_mobile": "#000000",
             "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
-            "description_color_desktop": "#ffffff",
-            "description_color_mobile": "#ffffff",
+            "description_color_desktop": "#000000",
+            "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Explore",
             "button_link": "",
@@ -338,9 +338,7 @@
         "card_LmN9Gk",
         "card_CGNqzm"
       ],
-      "custom_css": [
-        "@media (max-width: 480px) {.fullwidth-card-slide:last-child h1, .fullwidth-card-slide:last-child p {color: #000 !important; }}"
-      ],
+      "custom_css": [],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
