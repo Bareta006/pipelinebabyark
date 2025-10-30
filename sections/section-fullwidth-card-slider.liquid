@@ -514,27 +514,11 @@
 
 <script>
   (function() {
-    const sectionId = '#shopify-section-{{ section.id }}';
-    const section = document.querySelector(sectionId);
-    
-    console.log('Section ID:', sectionId);
-    console.log('Section element:', section);
-    
-    if (!section) {
-      console.error('Section not found!');
-      return;
-    }
-    
-    const carousel = document.querySelector(sectionId + ' [data-carousel]');
-    const flickityCarousel = document.querySelector(sectionId + ' flickity-carousel');
-    
-    console.log('Carousel:', carousel);
-    console.log('Flickity element:', flickityCarousel);
-    
-    if (!flickityCarousel || !carousel) {
-      console.error('Carousel elements not found!');
-      return;
-    }
+     const section = document.getElementById('shopify-section-{{ section.id }}');
+     
+     if (!section) return;
+     
+     const carousel = section.querySelector('[data-carousel]');
     
     // Function to equalize slide heights
     function equalizeSlideHeights() {
@@ -607,7 +591,7 @@
     
      // Ensure all videos are muted
      function ensureAllVideosMuted() {
-       const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
+       const allVideos = section.querySelectorAll('.fullwidth-card__video');
        allVideos.forEach(v => {
          if (v) {
            v.muted = true;
@@ -617,147 +601,40 @@
        });
      }
      
-     // Play video in active slide only
-     function playActiveSlideVideo() {
-       console.log('=== playActiveSlideVideo called ===');
-       
-       // Ensure all videos are muted first
-       ensureAllVideosMuted();
-       
-       // Pause ALL videos first
-       const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
-       console.log('Total videos found:', allVideos.length);
-       
-       allVideos.forEach(v => {
-         if (v && !v.paused) {
-           console.log('Pausing video');
-           v.pause();
-         }
-       });
-       
-       // Play video in active slide only
-       const activeSlide = document.querySelector(sectionId + ' .is-selected');
-       console.log('Active slide:', activeSlide);
-       
-       if (activeSlide) {
-         const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
-         console.log('Active video element:', activeVideo);
-         
-         if (activeVideo) {
-           console.log('Video readyState:', activeVideo.readyState);
-           console.log('Video paused:', activeVideo.paused);
-           console.log('Video muted:', activeVideo.muted);
-           
-           // Ensure video is muted for autoplay
-           activeVideo.muted = true;
-           activeVideo.setAttribute('muted', '');
-           
-           // Try to play
-           console.log('Attempting to play video...');
-           const playPromise = activeVideo.play();
-          
-          if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                console.log('✓ Video playing successfully!');
-              })
-              .catch(err => {
-                console.error('✗ Video play failed:', err.message);
-                
-                // Retry once after a delay
-                setTimeout(() => {
-                  console.log('Retrying video play...');
-                  activeVideo.play()
-                    .then(() => console.log('✓ Retry successful'))
-                    .catch(e => console.error('✗ Retry failed:', e.message));
-                }, 500);
-              });
-          }
-        } else {
-          console.log('No video found in active slide');
-        }
-      } else {
-        console.log('No active slide found');
-      }
-    }
-    
-     // Initialize - wait for Flickity to be ready on THIS carousel
+     // Initialize
      function init() {
-       console.log('Initializing carousel video controls...');
-       
        // Ensure all videos are muted on init
        ensureAllVideosMuted();
        
        // Equalize slide heights
        equalizeSlideHeights();
-      
-      // Listen for Flickity events on the carousel element
-      if (carousel) {
-        console.log('Setting up Flickity event listeners on carousel');
-        
-        // Flickity fires 'change.flickity' event
-        carousel.addEventListener('change.flickity', function(event) {
-          console.log('Flickity change event fired');
-          setTimeout(playActiveSlideVideo, 100);
-        });
-        
-        // Flickity fires 'settle.flickity' event
-        carousel.addEventListener('settle.flickity', function(event) {
-          console.log('Flickity settle event fired');
-          setTimeout(playActiveSlideVideo, 100);
-        });
-        
-        // Play initial video
-        setTimeout(() => {
-          console.log('Playing initial active slide video');
-          playActiveSlideVideo();
-        }, 1000);
-        
-        // Fallback: user interaction
-        let hasInteracted = false;
-        const onInteraction = () => {
-          if (!hasInteracted) {
-            hasInteracted = true;
-            console.log('User interaction - playing video');
-            playActiveSlideVideo();
-          }
-        };
-        document.addEventListener('click', onInteraction, { once: true });
-        document.addEventListener('touchstart', onInteraction, { once: true });
-      } else {
-        console.error('Carousel element not found!');
-      }
-    }
+     }
     
-    // Wait for custom elements to be defined
-    if (customElements && customElements.whenDefined) {
-      customElements.whenDefined('flickity-carousel').then(() => {
-        console.log('flickity-carousel custom element defined');
-        setTimeout(init, 500);
-      });
-    } else {
-      // Fallback if customElements API not available
-      setTimeout(init, 1000);
-    }
-    
-    // Re-equalize on window resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(equalizeSlideHeights, 200);
-    });
-    
-    // Re-equalize when images load
-    const images = document.querySelectorAll(sectionId + ' img');
-    images.forEach(img => {
-      if (img.complete) {
-        equalizeSlideHeights();
-      } else {
-        img.addEventListener('load', equalizeSlideHeights);
-      }
-    });
-  })();
-</script>
+     // Wait for DOM ready
+     if (document.readyState === 'loading') {
+       document.addEventListener('DOMContentLoaded', init);
+     } else {
+       init();
+     }
+     
+     // Re-equalize on window resize
+     let resizeTimeout;
+     window.addEventListener('resize', () => {
+       clearTimeout(resizeTimeout);
+       resizeTimeout = setTimeout(equalizeSlideHeights, 200);
+     });
+     
+     // Re-equalize when images load
+     const images = section.querySelectorAll('img');
+     images.forEach(img => {
+       if (img.complete) {
+         equalizeSlideHeights();
+       } else {
+         img.addEventListener('load', equalizeSlideHeights);
+       }
+     });
+   })();
+ </script>
 
 {% schema %}
 {
