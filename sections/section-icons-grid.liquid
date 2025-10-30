@@ -218,72 +218,9 @@
   
   /* Hide arrows when autoplay is enabled */
   #shopify-section-{{ section.id }}.autoplay-enabled .flickity-button {
-    display: none;
+    display: none !important;
   }
 </style>
-
-<script>
-  (function() {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
-    
-    if (!section) return;
-    
-    const autoplayEnabled = section.getAttribute('data-autoplay') === 'true';
-    
-    if (autoplayEnabled) {
-      const flickityCarousel = section.querySelector('flickity-carousel');
-      
-      if (!flickityCarousel) return;
-      
-      // Stop autoplay on desktop (>= 750px), allow on mobile
-      function handleAutoplay() {
-        const carousel = flickityCarousel.carouselInstance;
-        if (!carousel) return;
-        
-        const isDesktop = window.innerWidth >= 750;
-        
-        if (isDesktop) {
-          // Desktop: stop autoplay
-          if (carousel.options.autoPlay) {
-            carousel.options.autoPlay = false;
-            carousel.stopPlayer();
-          }
-        } else {
-          // Mobile: ensure autoplay is running
-          if (!carousel.options.autoPlay) {
-            carousel.options.autoPlay = 3000;
-            carousel.playPlayer();
-          }
-        }
-      }
-      
-      // Wait for carousel to be fully initialized
-      const initAutoplayControl = () => {
-        if (flickityCarousel.carouselInstance) {
-          handleAutoplay();
-        } else {
-          setTimeout(initAutoplayControl, 100);
-        }
-      };
-      
-      // Start checking after custom element is defined
-      if (customElements.get('flickity-carousel')) {
-        setTimeout(initAutoplayControl, 300);
-      } else {
-        customElements.whenDefined('flickity-carousel').then(() => {
-          setTimeout(initAutoplayControl, 300);
-        });
-      }
-      
-      // Handle resize
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(handleAutoplay, 200);
-      });
-    }
-  })();
-</script>
 
 {% schema %}
   {
