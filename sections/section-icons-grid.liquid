@@ -219,36 +219,72 @@
 
 <script>
   (function() {
-    const section = document.getElementById('shopify-section-{{ section.id }}');
+    const sectionId = 'shopify-section-{{ section.id }}';
+    const section = document.getElementById(sectionId);
     if (!section) return;
     
     const autoplayEnabled = {{ section.settings.autoplay_carousel | default: false }};
-    const isMobile = window.innerWidth < 750;
     
     // Only run autoplay on mobile
-    if (autoplayEnabled && isMobile) {
-      const flickityCarousel = section.querySelector('flickity-carousel');
-      if (!flickityCarousel) return;
+    if (autoplayEnabled) {
+      function isMobile() {
+        return window.innerWidth < 750;
+      }
+      
+      let autoplayInterval = null;
       
       function startAutoplay() {
+        // Only run on mobile
+        if (!isMobile()) {
+          if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+          }
+          return;
+        }
+        
         const carousel = section.querySelector('[data-carousel]');
-        if (!carousel) return;
+        const flickityCarousel = section.querySelector('flickity-carousel');
+        
+        if (!carousel || !flickityCarousel) {
+          setTimeout(startAutoplay, 100);
+          return;
+        }
         
         const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+        
         if (flickity) {
-          setInterval(() => {
-            flickity.next();
+          // Clear any existing interval
+          if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+          }
+          
+          // Start new interval
+          autoplayInterval = setInterval(() => {
+            if (isMobile()) {
+              flickity.next();
+            }
           }, 3000);
         } else {
           setTimeout(startAutoplay, 100);
         }
       }
       
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', startAutoplay);
+      // Wait for Flickity to initialize
+      if (customElements && customElements.whenDefined) {
+        customElements.whenDefined('flickity-carousel').then(() => {
+          setTimeout(startAutoplay, 500);
+        });
       } else {
-        startAutoplay();
+        setTimeout(startAutoplay, 1000);
       }
+      
+      // Re-check on resize
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(startAutoplay, 200);
+      });
     }
   })();
 </script>
