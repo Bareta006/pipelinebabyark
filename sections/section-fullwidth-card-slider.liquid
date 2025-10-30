@@ -504,12 +504,24 @@
     const sectionId = 'shopify-section-{{ section.id }}';
     const section = document.getElementById(sectionId);
     
-    if (!section) return;
+    console.log('Section ID:', sectionId);
+    console.log('Section element:', section);
+    
+    if (!section) {
+      console.error('Section not found!');
+      return;
+    }
     
     const carousel = section.querySelector('[data-carousel]');
     const flickityCarousel = section.querySelector('flickity-carousel');
     
-    if (!flickityCarousel || !carousel) return;
+    console.log('Carousel:', carousel);
+    console.log('Flickity element:', flickityCarousel);
+    
+    if (!flickityCarousel || !carousel) {
+      console.error('Carousel elements not found!');
+      return;
+    }
     
     // Function to equalize all slide heights
     function equalizeSlideHeights() {
@@ -607,20 +619,28 @@
     function initSlider() {
       const flickity = flickityCarousel.flickityInstance || carousel.flickity;
       
+      console.log('Flickity instance:', flickity);
+      console.log('Selected index:', flickity ? flickity.selectedIndex : 'N/A');
+      
       if (flickity) {
+        console.log('✓ Flickity initialized, setting up...');
+        
         // Equalize slide heights
         equalizeSlideHeights();
         
         // Play active slide video after a delay
         setTimeout(() => {
+          console.log('Initial video play attempt');
           playActiveSlideVideo();
-        }, 300);
+        }, 500);
         
         // Listen for slide changes
-        flickity.on('change', () => {
+        flickity.on('change', (index) => {
+          console.log('Flickity change event, index:', index);
           setTimeout(playActiveSlideVideo, 100);
         });
-        flickity.on('settle', () => {
+        flickity.on('settle', (index) => {
+          console.log('Flickity settle event, index:', index);
           setTimeout(playActiveSlideVideo, 100);
         });
         
@@ -629,14 +649,14 @@
         const playOnInteraction = () => {
           if (!hasPlayed) {
             hasPlayed = true;
+            console.log('User interaction - attempting video play');
             playActiveSlideVideo();
-            document.removeEventListener('click', playOnInteraction);
-            document.removeEventListener('touchstart', playOnInteraction);
           }
         };
         document.addEventListener('click', playOnInteraction, { once: true });
         document.addEventListener('touchstart', playOnInteraction, { once: true });
       } else {
+        console.log('Flickity not ready, retrying...');
         // Retry if Flickity hasn't initialized yet
         setTimeout(initSlider, 100);
       }
