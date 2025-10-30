@@ -199,27 +199,7 @@
     object-fit: cover;
     object-position: center;
     display: block;
-  }
-
-  /* Hide video controls and make it pure background */
-  #shopify-section-{{ section.id }} .fullwidth-card__video {
     pointer-events: none;
-  }
-  
-  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls {
-    display: none !important;
-  }
-  
-  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls-enclosure {
-    display: none !important;
-  }
-  
-  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls-panel {
-    display: none !important;
-  }
-
-  #shopify-section-{{ section.id }} .fullwidth-card__video::--webkit-media-controls-start-playback-button {
-    display: none !important;
   }
 
   #shopify-section-{{ section.id }} .fullwidth-card__placeholder {
@@ -563,80 +543,25 @@
       }, 100);
     }
     
-    // Function to play video in active slide
-    function playActiveVideo() {
-      const activeSlide = carousel.querySelector('.is-selected');
-      if (!activeSlide) return;
-      
-      const videos = activeSlide.querySelectorAll('.fullwidth-card__video');
-      videos.forEach(video => {
-        if (video) {
-          // Remove controls attribute
-          video.removeAttribute('controls');
-          video.controls = false;
-          
-          // Play video
-          if (video.paused) {
-            video.play().catch(err => {
-              console.log('Video autoplay failed:', err);
-            });
-          }
-        }
-      });
-    }
-    
-    // Function to pause all videos
-    function pauseAllVideos() {
-      const allVideos = section.querySelectorAll('.fullwidth-card__video');
-      allVideos.forEach(video => {
-        if (video && !video.paused) {
-          video.pause();
-        }
-      });
-    }
-    
-    // Function to pause videos except in active slide
-    function handleSlideChange() {
-      // Pause all videos first
-      pauseAllVideos();
-      // Then play video in active slide
-      setTimeout(() => {
-        playActiveVideo();
-      }, 100);
-    }
     
     // Wait for Flickity to initialize
-    function initVideoControls() {
+    function initSlider() {
       const flickity = flickityCarousel.flickityInstance || carousel.flickity;
       
       if (flickity) {
-        // Remove controls from all videos
-        const allVideos = section.querySelectorAll('.fullwidth-card__video');
-        allVideos.forEach(video => {
-          video.removeAttribute('controls');
-          video.controls = false;
-        });
-        
         // Equalize slide heights
         equalizeSlideHeights();
-        
-        // Play video on initial load
-        playActiveVideo();
-        
-        // Listen for slide changes
-        flickity.on('change', handleSlideChange);
-        flickity.on('settle', handleSlideChange);
       } else {
         // Retry if Flickity hasn't initialized yet
-        setTimeout(initVideoControls, 100);
+        setTimeout(initSlider, 100);
       }
     }
     
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initVideoControls);
+      document.addEventListener('DOMContentLoaded', initSlider);
     } else {
-      initVideoControls();
+      initSlider();
     }
     
     // Re-equalize on window resize
@@ -653,15 +578,6 @@
         equalizeSlideHeights();
       } else {
         img.addEventListener('load', equalizeSlideHeights);
-      }
-    });
-    
-    // Pause videos when section becomes hidden (e.g., user navigates away)
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) {
-        pauseAllVideos();
-      } else {
-        playActiveVideo();
       }
     });
   })();
