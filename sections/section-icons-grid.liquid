@@ -10,61 +10,8 @@
       <h2 class="kicker-flourished mb-r11">{{ section.settings.title | escape }}</h2>
     {% endif %}
 
-    {% if section.settings.mobile_carousel %}
-      <flickity-carousel>
-        <div
-          data-carousel
-          data-grid
-          data-grid-large
-          data-grid-medium
-          data-grid-small
-          {% if section.settings.autoplay_enabled %}
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": false, "autoPlay": 3000, "pauseAutoPlayOnHover": false }'
-          {% else %}
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
-          {% endif %}
-          class="icons-grid-carousel"
-          style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
-          
-          {% for block in section.blocks %}
-            <div class="carousel-slide" data-carousel-slide {{ block.shopify_attributes }}>
-              <div class="icon__column {{ section.settings.icon_alignment }} {{ section.settings.icon_size }} {{ section.settings.align_text }}">
-                {%- if block.settings.icon_alt != blank -%}
-                  {%- assign icon_width = section.settings.icons_size %}
-                  {%- assign icon_width_2x = icon_width | times: 2 %}
-
-                  {% capture srcset %}
-                    {{ block.settings.icon_alt | image_url: width: icon_width_2x }} 2x,
-                    {{ block.settings.icon_alt | image_url: width: icon_width }}
-                  {% endcapture %}
-                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash">
-                    {% render 'image', cover: false, img_object: block.settings.icon_alt, srcset: srcset, width: icon_width %}
-                  </div>
-                {%- else -%}
-                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash" style="--ICON-STROKE-COLOR: {{ block.settings.icon_color }}">
-                    {% render 'icon-setting', filename: block.settings.icon_name %}
-                  </div>
-                {%- endif -%}
-                <div class="icon__column__text">
-                  {% if block.settings.title != blank %}
-                    <p class="icon__column__heading">{{ block.settings.title | escape }}</p>
-                  {% endif %}
-                  {% if block.settings.text != blank %}
-                    <div class="rte rte--lock-font rte--lock-size icon__column__paragraph body-size-4">
-                      {{ block.settings.text }}
-                    </div>
-                  {% endif %}
-                  {% if block.settings.link_text != blank %}
-                    <a href="{{ block.settings.link_url }}" class="text-dark text-link-bare">{{ block.settings.link_text }}</a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-          
-        </div>
-      </flickity-carousel>
-    {% else %}
+    <!-- Desktop Grid -->
+    <div class="icons-desktop-wrapper">
       <div class="float-grid {{ section.settings.layout }} {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}">
         {%- assign grid_item_width = 'medium-up--one-third small-down--two-thirds' -%}
         {%- if section.settings.layout == 'grid--stacked' -%}
@@ -123,6 +70,65 @@
           </div>
         {% endfor %}
       </div>
+    </div>
+    
+    <!-- Mobile Carousel -->
+    {% if section.settings.mobile_carousel %}
+    <div class="icons-mobile-wrapper">
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-grid
+          data-grid-large
+          data-grid-medium
+          data-grid-small
+          {% if section.settings.autoplay_enabled %}
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": false, "autoPlay": 3000, "pauseAutoPlayOnHover": false }'
+          {% else %}
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          {% endif %}
+          class="icons-grid-carousel"
+          style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
+          
+          {% for block in section.blocks %}
+            <div class="carousel-slide" data-carousel-slide {{ block.shopify_attributes }}>
+              <div class="icon__column {{ section.settings.icon_alignment }} {{ section.settings.icon_size }} {{ section.settings.align_text }}">
+                {%- if block.settings.icon_alt != blank -%}
+                  {%- assign icon_width = section.settings.icons_size %}
+                  {%- assign icon_width_2x = icon_width | times: 2 %}
+
+                  {% capture srcset %}
+                    {{ block.settings.icon_alt | image_url: width: icon_width_2x }} 2x,
+                    {{ block.settings.icon_alt | image_url: width: icon_width }}
+                  {% endcapture %}
+                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash">
+                    {% render 'image', cover: false, img_object: block.settings.icon_alt, srcset: srcset, width: icon_width %}
+                  </div>
+                {%- else -%}
+                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash" style="--ICON-STROKE-COLOR: {{ block.settings.icon_color }}">
+                    {% render 'icon-setting', filename: block.settings.icon_name %}
+                  </div>
+                {%- endif -%}
+                <div class="icon__column__text">
+                  {% if block.settings.title != blank %}
+                    <p class="icon__column__heading">{{ block.settings.title | escape }}</p>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <div class="rte rte--lock-font rte--lock-size icon__column__paragraph body-size-4">
+                      {{ block.settings.text }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.link_text != blank %}
+                    <a href="{{ block.settings.link_url }}" class="text-dark text-link-bare">{{ block.settings.link_text }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          
+        </div>
+      </flickity-carousel>
+    </div>
     {% endif %}
 
     {% if section.blocks.size == 0 %}
@@ -219,6 +225,26 @@
   /* Hide arrows when autoplay is enabled */
   #shopify-section-{{ section.id }}.autoplay-enabled .flickity-button {
     display: none !important;
+  }
+  
+  /* Desktop - show grid, hide carousel */
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} .icons-desktop-wrapper {
+      display: block;
+    }
+    #shopify-section-{{ section.id }} .icons-mobile-wrapper {
+      display: none;
+    }
+  }
+  
+  /* Mobile - hide grid, show carousel */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .icons-desktop-wrapper {
+      display: none;
+    }
+    #shopify-section-{{ section.id }} .icons-mobile-wrapper {
+      display: block;
+    }
   }
 </style>
 
