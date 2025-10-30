@@ -295,7 +295,7 @@
             "desktop_video": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
             "overlay_opacity": 15,
             "overlay_color": "#000000",
-            "enable_overlay_text": true,
+            "enable_overlay_text": false,
             "title": "Energy Absorption",
             "title_color": "#000000",
             "description": "<p>Engineered with our patented SafeCoil™ energy absorption system, a breakthrough inspired by the same physics that protect Formula 1 drivers. <br/></p>",
