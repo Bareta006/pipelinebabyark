@@ -812,26 +812,66 @@
     
     if (!carousel) return;
     
+    const isUseImageHeight = section.querySelector('.use_image') !== null;
+    
+    // Function to set uniform heights for use_image mode
+    function setUniformHeight() {
+      if (!isUseImageHeight) return;
+      
+      const slides = section.querySelectorAll('.fullwidth-card-slide');
+      if (slides.length === 0) return;
+      
+      // Get first slide to calculate base height
+      const firstSlide = slides[0];
+      const firstCard = firstSlide.querySelector('.fullwidth-card');
+      
+      if (!firstCard) return;
+      
+      // Get the aspect ratio from CSS variable
+      const whRatio = getComputedStyle(firstCard).getPropertyValue('--wh-ratio').trim();
+      
+      if (whRatio && parseFloat(whRatio) > 0) {
+        const carouselWidth = carousel.offsetWidth;
+        const slideWidth = carouselWidth / {{ section.settings.grid_large }};
+        const calculatedHeight = slideWidth / parseFloat(whRatio);
+        
+        // Apply height to all cards
+        slides.forEach(slide => {
+          const card = slide.querySelector('.fullwidth-card');
+          if (card) {
+            card.style.height = `${calculatedHeight}px`;
+          }
+        });
+        
+        // Set viewport height
+        const viewport = carousel.querySelector('.flickity-viewport');
+        if (viewport) {
+          viewport.style.height = `${calculatedHeight}px`;
+        }
+      }
+    }
+    
     // Function to play video in active slide
     function playActiveVideo() {
       const slides = section.querySelectorAll('.fullwidth-card-slide');
       
-      slides.forEach((slide, index) => {
+      slides.forEach((slide) => {
         const videos = slide.querySelectorAll('.fullwidth-card__video');
+        const isActive = slide.classList.contains('is-selected');
         
         videos.forEach(video => {
-          // Check if this slide is selected/active
-          const flickityCell = slide.closest('.flickity-slider').querySelector(`.flickity-slider > *:nth-child(${index + 1})`);
-          const isActive = flickityCell && flickityCell.classList.contains('is-selected');
-          
           if (isActive) {
             // Play video if it's in the active slide
-            video.play().catch(err => {
-              console.log('Video autoplay prevented:', err);
-            });
+            if (video.paused) {
+              video.play().catch(err => {
+                console.log('Video autoplay prevented:', err);
+              });
+            }
           } else {
             // Pause video if it's not in the active slide
-            video.pause();
+            if (!video.paused) {
+              video.pause();
+            }
             video.currentTime = 0; // Reset to beginning
           }
         });
@@ -843,13 +883,47 @@
       const flickityCarousel = section.querySelector('flickity-carousel');
       
       if (flickityCarousel) {
+        // Set uniform heights for use_image mode
+        setTimeout(() => {
+          setUniformHeight();
+        }, 100);
+        
         // Listen for Flickity change event
         carousel.addEventListener('change.flickity', playActiveVideo);
         
-        // Also play video on initial load
-        setTimeout(playActiveVideo, 500);
+        // Wait for videos to be ready
+        const allVideos = section.querySelectorAll('.fullwidth-card__video');
+        let videosLoaded = 0;
+        
+        if (allVideos.length > 0) {
+          allVideos.forEach(video => {
+            if (video.readyState >= 3) {
+              videosLoaded++;
+              if (videosLoaded === allVideos.length) {
+                playActiveVideo();
+              }
+            } else {
+              video.addEventListener('canplay', () => {
+                videosLoaded++;
+                if (videosLoaded === allVideos.length) {
+                  playActiveVideo();
+                }
+              }, { once: true });
+            }
+          });
+        }
+        
+        // Fallback - play after timeout
+        setTimeout(playActiveVideo, 1000);
       }
     }
+    
+    // Recalculate on window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(setUniformHeight, 250);
+    });
     
     // Initialize when DOM is ready
     if (document.readyState === 'loading') {
