@@ -299,10 +299,10 @@
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Energy Absorption",
-            "title_color_desktop": "#ffffff",
+            "title_color_desktop": "#000000",
             "title_color_mobile": "#000000",
             "description": "<p>Engineered with our patented SafeCoil™ energy absorption system, a breakthrough inspired by the same physics that protect Formula 1 drivers. <br/></p>",
-            "description_color_desktop": "#ffffff",
+            "description_color_desktop": "#000000",
             "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Discover",
@@ -320,11 +320,11 @@
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Head Injury Protection",
-            "title_color_desktop": "#ffffff",
-            "title_color_mobile": "#ffffff",
+            "title_color_desktop": "#000000",
+            "title_color_mobile": "#000000",
             "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
-            "description_color_desktop": "#ffffff",
-            "description_color_mobile": "#ffffff",
+            "description_color_desktop": "#000000",
+            "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Explore",
             "button_link": "",
@@ -339,7 +339,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.fullwidth-card-slide:last-child h1, .fullwidth-card-slide:last-child p {color: #000 !important; }}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
@@ -365,7 +365,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-icons-grid{\nbackground: linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "html": "<style>\n.section-icons-grid{\nbackground: #E9DFD1;\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -470,7 +470,7 @@
             "card_video_url": "",
             "card_title": "Critical alerts",
             "card_description": "<p>Never second-guess if your child is secured.  Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.<br/></p>",
-            "text_overlay": true,
+            "text_overlay": false,
             "title_color": "#ffffff",
             "description_color": "#ffffff"
           }
@@ -483,7 +483,7 @@
             "card_video_url": "",
             "card_title": "Built-In Sensors for Real-Time Protection",
             "card_description": "<p>babyark’s connected car seat uses 14 smart sensors to monitor buckle, orientation, and installation — forming a closed safety loop that’s always active, precise, and foolproof.</p>",
-            "text_overlay": true,
+            "text_overlay": false,
             "title_color": "#000000",
             "description_color": "#000000"
           }
@@ -497,8 +497,7 @@
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
         ".inline-cards-content {background: transparent;}",
         "h2 {color: #fff;}",
-        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}",
-        "@media (min-width: 481px) {.card-item:not(:first-child) .card-content {background-color: rgba(255, 255, 255, 0.5); }}"
+        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -597,7 +596,7 @@
       ],
       "custom_css": [
         "> div {background: linear-gradient(312deg, #e9ddce 0.88%, #e8ecea 95.54%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        "h2 {background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 56px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
+        "h2 {background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],
       "name": "Text columns with images2",
@@ -772,7 +771,7 @@
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
-            "overlay_opacity": 15,
+            "overlay_opacity": 0,
             "overlay_color": "#000000",
             "link_text": "",
             "link": "",
