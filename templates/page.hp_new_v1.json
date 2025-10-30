@@ -772,7 +772,7 @@
             "richtext": "",
             "text_align": "align--middle-center",
             "text_color": "text--white",
-            "overlay_opacity": 15,
+            "overlay_opacity": 0,
             "overlay_color": "#000000",
             "link_text": "",
             "link": "",
