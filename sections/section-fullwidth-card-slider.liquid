@@ -321,13 +321,11 @@
       display: none;
     }
 
+    /* Mobile video - default is NOT overlaid (text below) */
     #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
       display: block;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      position: relative;
+      flex-shrink: 0;
     }
     
     /* Ensure image wrapper respects the height class */
@@ -402,13 +400,15 @@
       display: none;
     }
 
+    /* With overlay enabled - video is absolute background */
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__video-mobile {
       display: block;
-      position: absolute;
+      position: absolute !important;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      flex-shrink: unset;
     }
     
     /* Ensure image wrapper respects the height class in overlay mode */
