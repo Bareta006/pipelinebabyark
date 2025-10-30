@@ -543,6 +543,21 @@
       }, 100);
     }
     
+    // Play video in active slide only
+    function playActiveSlideVideo() {
+      // Pause ALL videos first
+      const allVideos = section.querySelectorAll('.fullwidth-card__video');
+      allVideos.forEach(v => v.pause());
+      
+      // Play video in active slide only
+      const activeSlide = carousel.querySelector('.is-selected');
+      if (activeSlide) {
+        const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
+        if (activeVideo && activeVideo.paused) {
+          activeVideo.play().catch(err => console.log('Video play failed:', err));
+        }
+      }
+    }
     
     // Wait for Flickity to initialize
     function initSlider() {
@@ -551,6 +566,13 @@
       if (flickity) {
         // Equalize slide heights
         equalizeSlideHeights();
+        
+        // Play active slide video
+        playActiveSlideVideo();
+        
+        // Listen for slide changes
+        flickity.on('change', playActiveSlideVideo);
+        flickity.on('settle', playActiveSlideVideo);
       } else {
         // Retry if Flickity hasn't initialized yet
         setTimeout(initSlider, 100);
