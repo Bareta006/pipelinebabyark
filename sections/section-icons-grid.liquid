@@ -11,8 +11,7 @@
     {% endif %}
 
     <!-- Desktop Grid -->
-    <div class="icons-desktop-wrapper">
-      <div class="float-grid {{ section.settings.layout }} {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}">
+    <div class="float-grid icons-desktop-view {{ section.settings.layout }} {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}">
         {%- assign grid_item_width = 'medium-up--one-third small-down--two-thirds' -%}
         {%- if section.settings.layout == 'grid--stacked' -%}
           {%- assign grid_item_width = 'medium-up--one-third small--one-third' -%}
@@ -69,12 +68,11 @@
             </div>
           </div>
         {% endfor %}
-      </div>
     </div>
     
     <!-- Mobile Carousel -->
     {% if section.settings.mobile_carousel %}
-    <div class="icons-mobile-wrapper">
+    <div class="icons-mobile-view">
       <flickity-carousel>
         <div
           data-carousel
@@ -228,20 +226,17 @@
   }
   
   /* Desktop - show grid, hide carousel */
-  #shopify-section-{{ section.id }} .icons-desktop-wrapper {
-    display: contents;
-  }
-  #shopify-section-{{ section.id }} .icons-mobile-wrapper {
+  #shopify-section-{{ section.id }} .icons-mobile-view {
     display: none;
   }
   
   /* Mobile - hide grid, show carousel */
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} .icons-desktop-wrapper {
-      display: none;
+    #shopify-section-{{ section.id }} .icons-desktop-view {
+      display: none !important;
     }
-    #shopify-section-{{ section.id }} .icons-mobile-wrapper {
-      display: contents;
+    #shopify-section-{{ section.id }} .icons-mobile-view {
+      display: block;
     }
   }
 </style>
