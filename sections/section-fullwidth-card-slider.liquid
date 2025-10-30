@@ -201,6 +201,27 @@
     display: block;
   }
 
+  /* Hide video controls and make it pure background */
+  #shopify-section-{{ section.id }} .fullwidth-card__video {
+    pointer-events: none;
+  }
+  
+  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls-enclosure {
+    display: none !important;
+  }
+  
+  #shopify-section-{{ section.id }} .fullwidth-card__video::-webkit-media-controls-panel {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card__video::--webkit-media-controls-start-playback-button {
+    display: none !important;
+  }
+
   #shopify-section-{{ section.id }} .fullwidth-card__placeholder {
     width: 100%;
     height: 100%;
@@ -549,10 +570,17 @@
       
       const videos = activeSlide.querySelectorAll('.fullwidth-card__video');
       videos.forEach(video => {
-        if (video && video.paused) {
-          video.play().catch(err => {
-            console.log('Video autoplay failed:', err);
-          });
+        if (video) {
+          // Remove controls attribute
+          video.removeAttribute('controls');
+          video.controls = false;
+          
+          // Play video
+          if (video.paused) {
+            video.play().catch(err => {
+              console.log('Video autoplay failed:', err);
+            });
+          }
         }
       });
     }
@@ -582,6 +610,13 @@
       const flickity = flickityCarousel.flickityInstance || carousel.flickity;
       
       if (flickity) {
+        // Remove controls from all videos
+        const allVideos = section.querySelectorAll('.fullwidth-card__video');
+        allVideos.forEach(video => {
+          video.removeAttribute('controls');
+          video.controls = false;
+        });
+        
         // Equalize slide heights
         equalizeSlideHeights();
         

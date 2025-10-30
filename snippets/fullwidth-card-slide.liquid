@@ -32,12 +32,10 @@
   {% if desktop_video != blank %}
     <div class="fullwidth-card__video-desktop">
       {{ desktop_video | video_tag: 
-        controls: false,
         autoplay: false,
         loop: true,
         muted: true,
         playsinline: true,
-        preload: 'metadata',
         class: 'fullwidth-card__video'
       }}
     </div>
@@ -52,24 +50,20 @@
   {% if mobile_video != blank %}
     <div class="fullwidth-card__video-mobile">
       {{ mobile_video | video_tag: 
-        controls: false,
         autoplay: false,
         loop: true,
         muted: true,
         playsinline: true,
-        preload: 'metadata',
         class: 'fullwidth-card__video'
       }}
     </div>
   {% elsif desktop_video != blank %}
     <div class="fullwidth-card__video-mobile">
       {{ desktop_video | video_tag: 
-        controls: false,
         autoplay: false,
         loop: true,
         muted: true,
         playsinline: true,
-        preload: 'metadata',
         class: 'fullwidth-card__video'
       }}
     </div>
