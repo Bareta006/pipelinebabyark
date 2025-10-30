@@ -112,15 +112,15 @@
   </div>
   
   <!-- Card Content -->
-  <div class="card-content" {% if text_overlay %}style="--title-color: {{ title_color }}; --description-color: {{ description_color }};"{% endif %}>
+  <div class="card-content">
     {% if card_title != blank %}
-      <h3 class="card-title heading-size-{{ card_title_size }}"{% if text_overlay and title_color != blank %} style="color: {{ title_color }};"{% endif %}>
+      <h3 class="card-title heading-size-{{ card_title_size }}"{% if title_color != blank %} style="color: {{ title_color }};"{% endif %}>
         {{ card_title }}
       </h3>
     {% endif %}
     
     {% if card_description != blank %}
-      <div class="card-description rte body-size-{{ card_description_size }}"{% if text_overlay and description_color != blank %} style="color: {{ description_color }};"{% endif %}>
+      <div class="card-description rte body-size-{{ card_description_size }}"{% if description_color != blank %} style="color: {{ description_color }};"{% endif %}>
         {{ card_description }}
       </div>
     {% endif %}
