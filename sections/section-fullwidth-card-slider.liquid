@@ -38,28 +38,30 @@
           
           {% for block in section.blocks %}
             <div class="fullwidth-card-slide" data-carousel-slide {{ block.shopify_attributes }}>
-              {% render 'fullwidth-card-slide', 
-                desktop_image: block.settings.desktop_image,
-                mobile_image: block.settings.mobile_image,
-                desktop_video: block.settings.desktop_video,
-                mobile_video: block.settings.mobile_video,
-                title: block.settings.title,
-                description: block.settings.description,
-                title_color: block.settings.title_color,
-                description_color: block.settings.description_color,
-                button_text: block.settings.button_text,
-                button_link: block.settings.button_link,
-                button_style: block.settings.button_style,
-                button_color: block.settings.button_color,
-                text_align: block.settings.text_align,
-                title_size: section.settings.card_title_size,
-                description_size: section.settings.card_description_size,
-                overlay_opacity: block.settings.overlay_opacity,
-                overlay_color: block.settings.overlay_color,
-                enable_overlay_text: block.settings.enable_overlay_text,
-                height: section.settings.height,
-                block_id: block.id
-              %}
+               {% render 'fullwidth-card-slide', 
+                 desktop_image: block.settings.desktop_image,
+                 mobile_image: block.settings.mobile_image,
+                 desktop_video: block.settings.desktop_video,
+                 mobile_video: block.settings.mobile_video,
+                 title: block.settings.title,
+                 description: block.settings.description,
+                 title_color_desktop: block.settings.title_color_desktop,
+                 title_color_mobile: block.settings.title_color_mobile,
+                 description_color_desktop: block.settings.description_color_desktop,
+                 description_color_mobile: block.settings.description_color_mobile,
+                 button_text: block.settings.button_text,
+                 button_link: block.settings.button_link,
+                 button_style: block.settings.button_style,
+                 button_color: block.settings.button_color,
+                 text_align: block.settings.text_align,
+                 title_size: section.settings.card_title_size,
+                 description_size: section.settings.card_description_size,
+                 overlay_opacity: block.settings.overlay_opacity,
+                 overlay_color: block.settings.overlay_color,
+                 enable_overlay_text: block.settings.enable_overlay_text,
+                 height: section.settings.height,
+                 block_id: block.id
+               %}
             </div>
           {% endfor %}
           
@@ -455,12 +457,22 @@
     }
   }
 
-  /* Tablet Styles */
-  @media screen and (min-width: 750px) and (max-width: 999px) {
-    #shopify-section-{{ section.id }} .flickity-slider > * {
-      width: calc(100% / {{ section.settings.grid_medium }}) !important;
-    }
-  }
+   /* Tablet Styles */
+   @media screen and (min-width: 750px) and (max-width: 999px) {
+     #shopify-section-{{ section.id }} .flickity-slider > * {
+       width: calc(100% / {{ section.settings.grid_medium }}) !important;
+     }
+   }
+   
+   /* Mobile color overrides */
+   @media screen and (max-width: 749px) {
+     #shopify-section-{{ section.id }} .hero__title {
+       color: var(--title-color-mobile) !important;
+     }
+     #shopify-section-{{ section.id }} .hero__description {
+       color: var(--desc-color-mobile) !important;
+     }
+   }
   
   /* Individual block mobile image heights when use_image is selected */
   @media screen and (max-width: 749px) {
@@ -593,40 +605,56 @@
       }
     }
     
-    // Play video in active slide only
-    function playActiveSlideVideo() {
-      console.log('=== playActiveSlideVideo called ===');
-      
-      // Pause ALL videos first
-      const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
-      console.log('Total videos found:', allVideos.length);
-      
-      allVideos.forEach(v => {
-        if (v && !v.paused) {
-          console.log('Pausing video');
-          v.pause();
-        }
-      });
-      
-      // Play video in active slide only
-      const activeSlide = document.querySelector(sectionId + ' .is-selected');
-      console.log('Active slide:', activeSlide);
-      
-      if (activeSlide) {
-        const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
-        console.log('Active video element:', activeVideo);
-        
-        if (activeVideo) {
-          console.log('Video readyState:', activeVideo.readyState);
-          console.log('Video paused:', activeVideo.paused);
-          console.log('Video muted:', activeVideo.muted);
-          
-          // Ensure video is muted for autoplay
-          activeVideo.muted = true;
-          
-          // Try to play
-          console.log('Attempting to play video...');
-          const playPromise = activeVideo.play();
+     // Ensure all videos are muted
+     function ensureAllVideosMuted() {
+       const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
+       allVideos.forEach(v => {
+         if (v) {
+           v.muted = true;
+           v.setAttribute('muted', '');
+           v.setAttribute('playsinline', '');
+         }
+       });
+     }
+     
+     // Play video in active slide only
+     function playActiveSlideVideo() {
+       console.log('=== playActiveSlideVideo called ===');
+       
+       // Ensure all videos are muted first
+       ensureAllVideosMuted();
+       
+       // Pause ALL videos first
+       const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
+       console.log('Total videos found:', allVideos.length);
+       
+       allVideos.forEach(v => {
+         if (v && !v.paused) {
+           console.log('Pausing video');
+           v.pause();
+         }
+       });
+       
+       // Play video in active slide only
+       const activeSlide = document.querySelector(sectionId + ' .is-selected');
+       console.log('Active slide:', activeSlide);
+       
+       if (activeSlide) {
+         const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
+         console.log('Active video element:', activeVideo);
+         
+         if (activeVideo) {
+           console.log('Video readyState:', activeVideo.readyState);
+           console.log('Video paused:', activeVideo.paused);
+           console.log('Video muted:', activeVideo.muted);
+           
+           // Ensure video is muted for autoplay
+           activeVideo.muted = true;
+           activeVideo.setAttribute('muted', '');
+           
+           // Try to play
+           console.log('Attempting to play video...');
+           const playPromise = activeVideo.play();
           
           if (playPromise !== undefined) {
             playPromise
@@ -653,12 +681,15 @@
       }
     }
     
-    // Initialize - wait for Flickity to be ready on THIS carousel
-    function init() {
-      console.log('Initializing carousel video controls...');
-      
-      // Equalize slide heights
-      equalizeSlideHeights();
+     // Initialize - wait for Flickity to be ready on THIS carousel
+     function init() {
+       console.log('Initializing carousel video controls...');
+       
+       // Ensure all videos are muted on init
+       ensureAllVideosMuted();
+       
+       // Equalize slide heights
+       equalizeSlideHeights();
       
       // Listen for Flickity events on the carousel element
       if (carousel) {
@@ -992,8 +1023,14 @@
         },
         {
           "type": "color",
-          "id": "title_color",
-          "label": "Title Color",
+          "id": "title_color_desktop",
+          "label": "Title Color (Desktop)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "title_color_mobile",
+          "label": "Title Color (Mobile)",
           "default": "#ffffff"
         },
         {
@@ -1004,8 +1041,14 @@
         },
         {
           "type": "color",
-          "id": "description_color",
-          "label": "Description Color",
+          "id": "description_color_desktop",
+          "label": "Description Color (Desktop)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "description_color_mobile",
+          "label": "Description Color (Mobile)",
           "default": "#ffffff"
         },
         {
