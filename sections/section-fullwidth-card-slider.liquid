@@ -41,6 +41,8 @@
               {% render 'fullwidth-card-slide', 
                 desktop_image: block.settings.desktop_image,
                 mobile_image: block.settings.mobile_image,
+                desktop_video: block.settings.desktop_video,
+                mobile_video: block.settings.mobile_video,
                 title: block.settings.title,
                 description: block.settings.description,
                 title_color: block.settings.title_color,
@@ -151,17 +153,34 @@
     overflow: hidden;
   }
 
-  /* Desktop Image - Show by default */
-  #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
+  /* Desktop Media - Show by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__media-desktop {
     display: block;
   }
 
-  /* Mobile Image - Hidden by default */
-  #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
+  /* Mobile Media - Hidden by default */
+  #shopify-section-{{ section.id }} .fullwidth-card__media-mobile {
     display: none;
   }
 
   #shopify-section-{{ section.id }} .fullwidth-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Video Styles */
+  #shopify-section-{{ section.id }} .fullwidth-card__video-desktop,
+  #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .fullwidth-card__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -273,12 +292,12 @@
       border-radius: 10px;
     }
 
-    /* Show mobile image, hide desktop image */
-    #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
+    /* Show mobile media, hide desktop media */
+    #shopify-section-{{ section.id }} .fullwidth-card__media-desktop {
       display: none;
     }
 
-    #shopify-section-{{ section.id }} .fullwidth-card__image-mobile {
+    #shopify-section-{{ section.id }} .fullwidth-card__media-mobile {
       display: block;
       flex-shrink: 0;
     }
@@ -343,11 +362,11 @@
       border-radius: 10px;
     }
 
-    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-desktop {
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__media-desktop {
       display: none;
     }
 
-    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile {
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__media-mobile {
       display: block;
     }
     
@@ -638,12 +657,25 @@
       "settings": [
         {
           "type": "header",
-          "content": "Images"
+          "content": "Media (Video takes priority over images)"
+        },
+        {
+          "type": "video",
+          "id": "desktop_video",
+          "label": "Desktop Video",
+          "info": "Upload video file - will autoplay when slide is active. Takes priority over images."
+        },
+        {
+          "type": "video",
+          "id": "mobile_video",
+          "label": "Mobile Video",
+          "info": "If not provided, desktop video will be used on mobile"
         },
         {
           "type": "image_picker",
           "id": "desktop_image",
-          "label": "Desktop Image"
+          "label": "Desktop Image",
+          "info": "Displays if no video is uploaded"
         },
         {
           "type": "image_picker",
@@ -801,4 +833,70 @@
     "groups": ["header","footer","aside"]
   }
 }
-{% endschema %} 
+{% endschema %}
+
+<script>
+  (function() {
+    const sectionId = 'shopify-section-{{ section.id }}';
+    const section = document.getElementById(sectionId);
+    
+    if (!section) return;
+    
+    const carousel = section.querySelector('[data-carousel]');
+    
+    if (!carousel) return;
+    
+    // Function to play video in active slide
+    function playActiveVideo() {
+      const slides = section.querySelectorAll('.fullwidth-card-slide');
+      
+      slides.forEach((slide, index) => {
+        const videos = slide.querySelectorAll('.fullwidth-card__video');
+        
+        videos.forEach(video => {
+          // Check if this slide is selected/active
+          const flickityCell = slide.closest('.flickity-slider').querySelector(`.flickity-slider > *:nth-child(${index + 1})`);
+          const isActive = flickityCell && flickityCell.classList.contains('is-selected');
+          
+          if (isActive) {
+            // Play video if it's in the active slide
+            video.play().catch(err => {
+              console.log('Video autoplay prevented:', err);
+            });
+          } else {
+            // Pause video if it's not in the active slide
+            video.pause();
+            video.currentTime = 0; // Reset to beginning
+          }
+        });
+      });
+    }
+    
+    // Wait for Flickity to initialize
+    function initVideoControl() {
+      const flickityCarousel = section.querySelector('flickity-carousel');
+      
+      if (flickityCarousel) {
+        // Listen for Flickity change event
+        carousel.addEventListener('change.flickity', playActiveVideo);
+        
+        // Also play video on initial load
+        setTimeout(playActiveVideo, 500);
+      }
+    }
+    
+    // Initialize when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initVideoControl);
+    } else {
+      initVideoControl();
+    }
+    
+    // Re-initialize on theme editor section load
+    document.addEventListener('shopify:section:load', function(event) {
+      if (event.detail.sectionId === '{{ section.id }}') {
+        setTimeout(initVideoControl, 500);
+      }
+    });
+  })();
+</script> 

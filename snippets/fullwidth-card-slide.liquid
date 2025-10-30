@@ -5,6 +5,8 @@
   {% render 'fullwidth-card-slide',
     desktop_image: desktop_image,
     mobile_image: mobile_image,
+    desktop_video: desktop_video,
+    mobile_video: mobile_video,
     title: title,
     description: description,
     title_color: title_color,
@@ -26,25 +28,63 @@
 
 <div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}">
   
-  <!-- Background Image - Desktop -->
-  {% if desktop_image != blank %}
-    <div class="fullwidth-card__image-desktop">
+  <!-- Video - Desktop (Priority over images) -->
+  {% if desktop_video != blank %}
+    <div class="fullwidth-card__video-desktop fullwidth-card__media-desktop">
+      {{ desktop_video | video_tag: 
+        controls: false, 
+        autoplay: false, 
+        loop: true, 
+        muted: true,
+        playsinline: true,
+        preload: 'metadata',
+        class: 'fullwidth-card__video'
+      }}
+    </div>
+  {% elsif desktop_image != blank %}
+    <!-- Background Image - Desktop -->
+    <div class="fullwidth-card__image-desktop fullwidth-card__media-desktop">
       {% render 'image-parallax', img_object: desktop_image, img_object_mobile: mobile_image, frame_height_class: height, alt: 'Card Image' %}
     </div>
   {% endif %}
   
-  <!-- Background Image - Mobile -->
-  {% if mobile_image != blank %}
-    <div class="fullwidth-card__image-mobile">
+  <!-- Video - Mobile (Priority over images) -->
+  {% if mobile_video != blank %}
+    <div class="fullwidth-card__video-mobile fullwidth-card__media-mobile">
+      {{ mobile_video | video_tag: 
+        controls: false, 
+        autoplay: false, 
+        loop: true, 
+        muted: true,
+        playsinline: true,
+        preload: 'metadata',
+        class: 'fullwidth-card__video'
+      }}
+    </div>
+  {% elsif desktop_video != blank %}
+    <div class="fullwidth-card__video-mobile fullwidth-card__media-mobile">
+      {{ desktop_video | video_tag: 
+        controls: false, 
+        autoplay: false, 
+        loop: true, 
+        muted: true,
+        playsinline: true,
+        preload: 'metadata',
+        class: 'fullwidth-card__video'
+      }}
+    </div>
+  {% elsif mobile_image != blank %}
+    <!-- Background Image - Mobile -->
+    <div class="fullwidth-card__image-mobile fullwidth-card__media-mobile">
       {% render 'image-parallax', img_object: mobile_image, frame_height_class: height, alt: 'Card Mobile Image' %}
     </div>
   {% elsif desktop_image != blank %}
-    <div class="fullwidth-card__image-mobile">
+    <div class="fullwidth-card__image-mobile fullwidth-card__media-mobile">
       {% render 'image-parallax', img_object: desktop_image, frame_height_class: height, alt: 'Card Image' %}
     </div>
   {% endif %}
   
-  {% if desktop_image == blank and mobile_image == blank %}
+  {% if desktop_image == blank and mobile_image == blank and desktop_video == blank and mobile_video == blank %}
     <div class="fullwidth-card__placeholder"></div>
   {% endif %}
   
