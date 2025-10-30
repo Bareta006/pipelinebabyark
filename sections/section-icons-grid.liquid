@@ -226,70 +226,53 @@
     const autoplayEnabled = {{ section.settings.autoplay_carousel | default: false }};
     
     if (autoplayEnabled) {
-      let autoplayInterval = null;
-      
       function isMobile() {
         return window.innerWidth < 750;
       }
       
-      function startAutoplay() {
-        if (!isMobile()) {
-          if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            autoplayInterval = null;
-          }
-          return;
-        }
-        
+      function setupAutoplay() {
         const flickityCarousel = section.querySelector('flickity-carousel');
         const carousel = section.querySelector('[data-carousel]');
         
         if (!flickityCarousel || !carousel) {
-          setTimeout(startAutoplay, 200);
+          setTimeout(setupAutoplay, 200);
           return;
         }
         
-        // Get Flickity instance from custom element or carousel
+        // Get Flickity instance
         const flickity = flickityCarousel.flickityInstance || carousel.flickity;
         
         if (!flickity) {
-          setTimeout(startAutoplay, 200);
+          setTimeout(setupAutoplay, 200);
           return;
         }
         
-        // Clear any existing interval
-        if (autoplayInterval) {
-          clearInterval(autoplayInterval);
+        // Enable/disable autoplay based on screen size
+        if (isMobile()) {
+          // Enable autoplay - use Flickity's built-in player
+          flickity.options.autoPlay = 3000;
+          flickity.playPlayer();
+        } else {
+          // Disable on desktop
+          flickity.stopPlayer();
+          flickity.options.autoPlay = false;
         }
-        
-        // Start autoplay
-        autoplayInterval = setInterval(() => {
-          if (isMobile()) {
-            flickity.next();
-          }
-        }, 3000);
       }
       
-      // Wait for custom element to be defined
+      // Wait for Flickity to initialize
       if (customElements && customElements.whenDefined) {
         customElements.whenDefined('flickity-carousel').then(() => {
-          setTimeout(startAutoplay, 500);
+          setTimeout(setupAutoplay, 500);
         });
       } else {
-        setTimeout(startAutoplay, 1000);
+        setTimeout(setupAutoplay, 1000);
       }
       
       // Handle resize
       let resizeTimeout;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            autoplayInterval = null;
-          }
-          startAutoplay();
-        }, 300);
+        resizeTimeout = setTimeout(setupAutoplay, 300);
       });
     }
   })();
