@@ -547,14 +547,38 @@
     function playActiveSlideVideo() {
       // Pause ALL videos first
       const allVideos = section.querySelectorAll('.fullwidth-card__video');
-      allVideos.forEach(v => v.pause());
+      allVideos.forEach(v => {
+        if (v && !v.paused) {
+          v.pause();
+        }
+      });
       
       // Play video in active slide only
       const activeSlide = carousel.querySelector('.is-selected');
       if (activeSlide) {
         const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
-        if (activeVideo && activeVideo.paused) {
-          activeVideo.play().catch(err => console.log('Video play failed:', err));
+        if (activeVideo) {
+          // Ensure video is muted for autoplay
+          activeVideo.muted = true;
+          
+          // Try to play
+          const playPromise = activeVideo.play();
+          
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                // Video started playing
+              })
+              .catch(err => {
+                // Autoplay prevented, try again after user interaction
+                console.log('Video autoplay prevented:', err.message);
+                
+                // Retry once after a delay
+                setTimeout(() => {
+                  activeVideo.play().catch(e => console.log('Retry failed:', e.message));
+                }, 500);
+              });
+          }
         }
       }
     }
@@ -567,12 +591,31 @@
         // Equalize slide heights
         equalizeSlideHeights();
         
-        // Play active slide video
-        playActiveSlideVideo();
+        // Play active slide video after a delay
+        setTimeout(() => {
+          playActiveSlideVideo();
+        }, 300);
         
         // Listen for slide changes
-        flickity.on('change', playActiveSlideVideo);
-        flickity.on('settle', playActiveSlideVideo);
+        flickity.on('change', () => {
+          setTimeout(playActiveSlideVideo, 100);
+        });
+        flickity.on('settle', () => {
+          setTimeout(playActiveSlideVideo, 100);
+        });
+        
+        // Also try on user interaction
+        let hasPlayed = false;
+        const playOnInteraction = () => {
+          if (!hasPlayed) {
+            hasPlayed = true;
+            playActiveSlideVideo();
+            document.removeEventListener('click', playOnInteraction);
+            document.removeEventListener('touchstart', playOnInteraction);
+          }
+        };
+        document.addEventListener('click', playOnInteraction, { once: true });
+        document.addEventListener('touchstart', playOnInteraction, { once: true });
       } else {
         // Retry if Flickity hasn't initialized yet
         setTimeout(initSlider, 100);
