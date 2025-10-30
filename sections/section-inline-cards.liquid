@@ -427,37 +427,40 @@
       padding-right: 0;
       padding-left: 0;
     }
-  }
-  
-  /* Calculate mobile image heights for carousel mode */
-  @media screen and (max-width: 749px) {
+    
+    /* Mobile carousel image heights - Use FIRST image height for ALL */
     {% if section.settings.enable_mobile_carousel %}
-      {% for block in section.blocks %}
-        {%- liquid
-          if block.settings.mobile_image != blank
-            assign mobile_img = block.settings.mobile_image
-          elsif block.settings.card_image != blank
-            assign mobile_img = block.settings.card_image
-          else
-            assign mobile_img = blank
-          endif
-          
-          if mobile_img != blank
-            assign mobile_img_height = mobile_img.height
-            assign mobile_img_width = mobile_img.width
-            assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
-          else
-            assign mobile_aspect_ratio = 118
-          endif
-        -%}
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile,
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile .hero,
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"] .card-image-mobile img {
-          height: {{ mobile_aspect_ratio }}vw !important;
-          object-fit: cover;
-          object-position: center;
-        }
-      {% endfor %}
+      {%- liquid
+        comment
+          Get the first block's image aspect ratio
+        endcomment
+        assign first_block = section.blocks | first
+        
+        if first_block.settings.mobile_image != blank
+          assign first_img = first_block.settings.mobile_image
+        elsif first_block.settings.card_image != blank
+          assign first_img = first_block.settings.card_image
+        else
+          assign first_img = blank
+        endif
+        
+        if first_img != blank
+          assign first_img_height = first_img.height
+          assign first_img_width = first_img.width
+          assign carousel_aspect_ratio = first_img_height | times: 100 | divided_by: first_img_width
+        else
+          assign carousel_aspect_ratio = 118
+        endif
+      -%}
+      
+      /* Apply same height to ALL cards */
+      #shopify-section-{{ section.id }} .mobile-carousel-wrapper .card-image-mobile,
+      #shopify-section-{{ section.id }} .mobile-carousel-wrapper .card-image-mobile .hero,
+      #shopify-section-{{ section.id }} .mobile-carousel-wrapper .card-image-mobile img {
+        height: {{ carousel_aspect_ratio }}vw !important;
+        object-fit: cover;
+        object-position: center;
+      }
     {% endif %}
   }
 </style>
