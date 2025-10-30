@@ -45,8 +45,10 @@
                 mobile_video: block.settings.mobile_video,
                 title: block.settings.title,
                 description: block.settings.description,
-                title_color: block.settings.title_color,
-                description_color: block.settings.description_color,
+                title_color_desktop: block.settings.title_color_desktop,
+                title_color_mobile: block.settings.title_color_mobile,
+                description_color_desktop: block.settings.description_color_desktop,
+                description_color_mobile: block.settings.description_color_mobile,
                 button_text: block.settings.button_text,
                 button_link: block.settings.button_link,
                 button_style: block.settings.button_style,
@@ -459,6 +461,16 @@
   @media screen and (min-width: 750px) and (max-width: 999px) {
     #shopify-section-{{ section.id }} .flickity-slider > * {
       width: calc(100% / {{ section.settings.grid_medium }}) !important;
+    }
+  }
+  
+  /* Mobile color overrides */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .hero__title {
+      color: var(--title-color-mobile) !important;
+    }
+    #shopify-section-{{ section.id }} .hero__description {
+      color: var(--desc-color-mobile) !important;
     }
   }
   
@@ -992,8 +1004,14 @@
         },
         {
           "type": "color",
-          "id": "title_color",
-          "label": "Title Color",
+          "id": "title_color_desktop",
+          "label": "Title Color (Desktop)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "title_color_mobile",
+          "label": "Title Color (Mobile)",
           "default": "#ffffff"
         },
         {
@@ -1004,8 +1022,14 @@
         },
         {
           "type": "color",
-          "id": "description_color",
-          "label": "Description Color",
+          "id": "description_color_desktop",
+          "label": "Description Color (Desktop)",
+          "default": "#ffffff"
+        },
+        {
+          "type": "color",
+          "id": "description_color_mobile",
+          "label": "Description Color (Mobile)",
           "default": "#ffffff"
         },
         {

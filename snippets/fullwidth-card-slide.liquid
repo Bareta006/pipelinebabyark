@@ -9,8 +9,10 @@
     mobile_video: mobile_video,
     title: title,
     description: description,
-    title_color: title_color,
-    description_color: description_color,
+    title_color_desktop: title_color_desktop,
+    title_color_mobile: title_color_mobile,
+    description_color_desktop: description_color_desktop,
+    description_color_mobile: description_color_mobile,
     button_text: button_text,
     button_link: button_link,
     button_style: button_style,
@@ -32,12 +34,13 @@
   {% if desktop_video != blank %}
     <div class="fullwidth-card__video-desktop video-autoplay-wrapper">
       {{ desktop_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif desktop_image != blank %}
@@ -51,23 +54,25 @@
   {% if mobile_video != blank %}
     <div class="fullwidth-card__video-mobile video-autoplay-wrapper">
       {{ mobile_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif desktop_video != blank %}
     <div class="fullwidth-card__video-mobile video-autoplay-wrapper">
       {{ desktop_video | video_tag: 
-        autoplay: false,
+        autoplay: true,
         loop: true,
         muted: true,
         controls: false,
         playsinline: true,
-        class: 'fullwidth-card__video'
+        class: 'fullwidth-card__video',
+        data-video-autoplay: ''
       }}
     </div>
   {% elsif mobile_image != blank %}
@@ -94,13 +99,13 @@
     <div class="hero__content {% if enable_overlay_text %} backdrop--hero{% endif %}" {% if enable_overlay_text %} style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"{% endif %}>
       
       {% if title != blank %}
-        <h1 class="hero__title heading-size-{{ title_size | default: 9 }}" style="color: {{ title_color | default: '#ffffff' }};">
+        <h1 class="hero__title heading-size-{{ title_size | default: 9 }}" style="--title-color-desktop: {{ title_color_desktop | default: '#ffffff' }}; --title-color-mobile: {{ title_color_mobile | default: '#ffffff' }}; color: var(--title-color-desktop);">
           {{ title }}
         </h1>
       {% endif %}
       
       {% if description != blank %}
-        <div class="hero__description rte body-size-{{ description_size | default: 6 }}" style="color: {{ description_color | default: '#ffffff' }};">
+        <div class="hero__description rte body-size-{{ description_size | default: 6 }}" style="--desc-color-desktop: {{ description_color_desktop | default: '#ffffff' }}; --desc-color-mobile: {{ description_color_mobile | default: '#ffffff' }}; color: var(--desc-color-desktop);">
           {{ description }}
         </div>
       {% endif %}
