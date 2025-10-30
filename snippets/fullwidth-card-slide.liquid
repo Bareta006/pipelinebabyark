@@ -26,7 +26,14 @@
   %}
 {% endcomment %}
 
-<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}">
+{%- liquid
+  assign media_wh_ratio = desktop_video.aspect_ratio | default: desktop_image.aspect_ratio | default: 1
+  assign mobile_media_wh_ratio = mobile_video.aspect_ratio | default: mobile_image.aspect_ratio | default: media_wh_ratio
+-%}
+
+<div class="fullwidth-card {{ height }} aspect-[--wh-ratio]" 
+     data-block-id="{{ block_id }}"
+     style="--wh-ratio: {{ media_wh_ratio }}; --mobile-wh-ratio: {{ mobile_media_wh_ratio }};">
   
   <!-- Video - Desktop (Priority over images) -->
   {% if desktop_video != blank %}

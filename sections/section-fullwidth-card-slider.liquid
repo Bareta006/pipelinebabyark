@@ -171,20 +171,12 @@
   }
 
   /* Video Styles */
-  #shopify-section-{{ section.id }} .fullwidth-card__video-desktop,
-  #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
   #shopify-section-{{ section.id }} .fullwidth-card__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
+    display: block;
   }
 
   #shopify-section-{{ section.id }} .fullwidth-card__placeholder {
@@ -292,6 +284,11 @@
       border-radius: 10px;
     }
 
+    /* Mobile aspect ratio override */
+    #shopify-section-{{ section.id }} .fullwidth-card.aspect-\[--wh-ratio\] {
+      --wh-ratio: var(--mobile-wh-ratio);
+    }
+
     /* Show mobile media, hide desktop media */
     #shopify-section-{{ section.id }} .fullwidth-card__media-desktop {
       display: none;
@@ -369,6 +366,11 @@
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__media-mobile {
       display: block;
     }
+
+    /* Mobile aspect ratio override for overlay mode */
+    #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card.aspect-\[--wh-ratio\] {
+      --wh-ratio: var(--mobile-wh-ratio);
+    }
     
     /* Ensure image wrapper respects the height class in overlay mode */
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__image-mobile .hero,
@@ -419,42 +421,6 @@
     #shopify-section-{{ section.id }} .flickity-slider > * {
       width: calc(100% / {{ section.settings.grid_medium }}) !important;
     }
-  }
-  
-  /* Individual block mobile image heights when use_image is selected */
-  @media screen and (max-width: 749px) {
-    {% for block in section.blocks %}
-      {%- liquid
-        if block.settings.mobile_image != blank
-          assign mobile_img = block.settings.mobile_image
-        elsif block.settings.desktop_image != blank
-          assign mobile_img = block.settings.desktop_image
-        else
-          assign mobile_img = blank
-        endif
-        
-        if mobile_img != blank
-          assign mobile_img_height = mobile_img.height
-          assign mobile_img_width = mobile_img.width
-          assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
-        else
-          assign mobile_aspect_ratio = 66
-        endif
-      -%}
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile {
-        height: {{ mobile_aspect_ratio }}vw !important;
-      }
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
-        height: 100% !important;
-      }
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero__image,
-      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-      }
-    {% endfor %}
   }
 </style>
 
