@@ -348,7 +348,7 @@
         "grid_mobile": 1.1,
         "height": "use_image",
         "text_color": "text--white",
-        "mobile_text_overlay": true,
+        "mobile_text_overlay": false,
         "width": "wrapper--none",
         "padding_top": 60,
         "padding_bottom": 60
