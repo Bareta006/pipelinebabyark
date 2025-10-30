@@ -523,8 +523,19 @@
       return;
     }
     
-    // Function to equalize all slide heights
+    // Function to equalize all slide heights (DESKTOP ONLY)
     function equalizeSlideHeights() {
+      // Only equalize on desktop (>= 750px)
+      if (window.innerWidth < 750) {
+        // On mobile, remove any forced heights
+        const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
+        allSlides.forEach(slide => {
+          const card = slide.querySelector('.fullwidth-card');
+          if (card) card.style.height = '';
+        });
+        return;
+      }
+      
       const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
       if (!allSlides.length) return;
       
