@@ -10,14 +10,14 @@
     {% endif %}
 
     {% if section.settings.mobile_carousel %}
-      <flickity-carousel>
+      <flickity-carousel data-autoplay="{{ section.settings.carousel_autoplay }}">
         <div
           data-carousel
           data-grid
           data-grid-large
           data-grid-medium
           data-grid-small
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": {% if section.settings.carousel_autoplay %}true{% else %}false{% endif %}, "contain": true, "cellAlign": "left", "prevNextButtons": {% if section.settings.carousel_autoplay %}false{% else %}true{% endif %}, "autoPlay": {% if section.settings.carousel_autoplay %}3000{% else %}false{% endif %} }'
           class="icons-grid-carousel"
           style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
           
@@ -210,6 +210,11 @@
       display: none;
     }
   }
+  
+  /* Hide arrows when autoplay is enabled */
+  #shopify-section-{{ section.id }} flickity-carousel[data-autoplay="true"] .flickity-button {
+    display: none !important;
+  }
 </style>
 
 {% schema %}
@@ -291,6 +296,13 @@
         "id": "mobile_carousel",
         "label": "Enable mobile carousel",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "carousel_autoplay",
+        "label": "Enable carousel autoplay",
+        "default": false,
+        "info": "Auto-scroll carousel every 3 seconds. Arrows will be hidden."
       },
       {
         "type": "range",
