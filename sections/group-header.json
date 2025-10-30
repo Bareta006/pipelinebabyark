@@ -34,11 +34,11 @@
         "p {text-transform: none; letter-spacing: 0;}"
       ],
       "settings": {
-        "text_size": 3,
+        "text_size": 5,
         "layout": "slider",
         "speed": 5,
-        "padding_top": 4,
-        "padding_bottom": 4
+        "padding_top": 14,
+        "padding_bottom": 14
       }
     },
     "header": {
