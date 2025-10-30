@@ -225,18 +225,19 @@
     
     const autoplayEnabled = {{ section.settings.autoplay_carousel | default: false }};
     
-    // Only run autoplay on mobile
     if (autoplayEnabled) {
+      let autoplayInterval = null;
+      
       function isMobile() {
         return window.innerWidth < 750;
       }
       
-      let autoplayInterval = null;
-      
       function startAutoplay() {
-        // Only run on mobile
+        console.log('[Icons Grid Autoplay] Checking mobile:', isMobile());
+        
         if (!isMobile()) {
           if (autoplayInterval) {
+            console.log('[Icons Grid Autoplay] Stopping - not mobile');
             clearInterval(autoplayInterval);
             autoplayInterval = null;
           }
@@ -244,46 +245,55 @@
         }
         
         const carousel = section.querySelector('[data-carousel]');
-        const flickityCarousel = section.querySelector('flickity-carousel');
-        
-        if (!carousel || !flickityCarousel) {
-          setTimeout(startAutoplay, 100);
+        if (!carousel) {
+          console.log('[Icons Grid Autoplay] Carousel not found, retrying...');
+          setTimeout(startAutoplay, 200);
           return;
         }
         
-        const flickity = flickityCarousel.flickityInstance || carousel.flickity;
+        console.log('[Icons Grid Autoplay] Carousel found:', carousel);
         
-        if (flickity) {
-          // Clear any existing interval
-          if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-          }
-          
-          // Start new interval
-          autoplayInterval = setInterval(() => {
-            if (isMobile()) {
-              flickity.next();
-            }
-          }, 3000);
-        } else {
-          setTimeout(startAutoplay, 100);
+        // Try to get Flickity instance
+        const flickity = Flickity.data(carousel);
+        
+        if (!flickity) {
+          console.log('[Icons Grid Autoplay] Flickity not ready, retrying...');
+          setTimeout(startAutoplay, 200);
+          return;
         }
+        
+        console.log('[Icons Grid Autoplay] Flickity ready, starting autoplay');
+        
+        // Clear any existing interval
+        if (autoplayInterval) {
+          clearInterval(autoplayInterval);
+        }
+        
+        // Start autoplay
+        autoplayInterval = setInterval(() => {
+          if (isMobile() && flickity) {
+            console.log('[Icons Grid Autoplay] Next slide');
+            flickity.next();
+          }
+        }, 3000);
+        
+        console.log('[Icons Grid Autoplay] Autoplay started');
       }
       
-      // Wait for Flickity to initialize
-      if (customElements && customElements.whenDefined) {
-        customElements.whenDefined('flickity-carousel').then(() => {
-          setTimeout(startAutoplay, 500);
-        });
-      } else {
-        setTimeout(startAutoplay, 1000);
-      }
+      // Start after delay
+      setTimeout(startAutoplay, 1500);
       
-      // Re-check on resize
+      // Handle resize
       let resizeTimeout;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(startAutoplay, 200);
+        resizeTimeout = setTimeout(() => {
+          if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            autoplayInterval = null;
+          }
+          startAutoplay();
+        }, 300);
       });
     }
   })();
