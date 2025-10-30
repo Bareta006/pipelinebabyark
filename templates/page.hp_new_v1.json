@@ -45,6 +45,7 @@
         "button_XnyNKX"
       ],
       "custom_css": [
+        "{z-index: 2;}",
         ".hero__content > .text__standard {text-align: center;}",
         ".hero__cta__wrapper {justify-content: center;}",
         "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 00px 20px 0; margin: 0; } .hero__content__wrapper {padding-bottom: 10px; }}"
@@ -160,6 +161,7 @@
         "logo_image_wgwaUk"
       ],
       "custom_css": [
+        "{z-index: 3;}",
         ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
         ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
         "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; } > div {background-color: transparent; margin-bottom: -100px; }}"
@@ -171,15 +173,15 @@
         "enable_marquee": false,
         "marquee_speed": 30,
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     },
     "section_html_EPzMT4": {
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-double2 section {\n  background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%),\n    linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n.section-double2 .brick__block__video {\n  height: 28vw;\n}\n.section-double2 .brick__block:not(:first-child),\n.section-double2  .brick__block__video video {\n  border-radius: 15px;\n  overflow: hidden;\n}\n.section-double2 .rte p {\n  font-size: 40px !important;\n}\n.section-double2 .rte p strong {\n  background: linear-gradient(180deg, #afa9a1, #d1956a);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-weight: 700;\n}\n@media (max-width:480px){\n.section-double2 .brick__block__video {\n  height: 250px;\n}\n.section-double2:not(:last-child) section {\n  background: linear-gradient(312deg, #E9DDCE 0.88%, #E8ECEA 95.54%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}\n.section-double2 .rte p {\n  font-size: 20px !important;\ncolor:#000;\ntext-align:center;\nmax-width:330px; \nmargin:0 auto;\n}\n.section-double2 .rte p strong {color:#000;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: #000\n}\n.section-double2  .section-padding.wrapper{\npadding-top:50px;\npadding-bottom:50px;}\n}\n</style>",
+        "html": "<style>\n.section-double2 section {\n  background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%),\n    linear-gradient(313deg, #e9ddce 1.04%, #e8ecea 99.74%),\n    linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;\n}\n.section-double2 .brick__block__video {\n  height: 28vw;\n}\n.section-double2 .brick__block:not(:first-child),\n.section-double2  .brick__block__video video {\n  border-radius: 20px;\n  overflow: hidden;\n}\n.section-double2 .rte p {\n  font-size: 40px !important;\n}\n.section-double2 .rte p strong {\n  background: linear-gradient(180deg, #afa9a1, #d1956a);\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-weight: 700;\n}\n@media (max-width:480px){\n.section-double2 .brick__block__video {\n  height: 250px;\n}\n.section-double2:not(:last-child) section {\n  background: linear-gradient(312deg, #E9DDCE 0.88%, #E8ECEA 95.54%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;}\n.section-double2 .rte p {\n  font-size: 20px !important;\ncolor:#000;\ntext-align:center;\nmax-width:330px; \nmargin:0 auto;\n}\n.section-double2 .rte p strong {color:#000;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: #000\n}\n.section-double2:not(:last-child)  .section-padding.wrapper{\npadding-top:100px;\npadding-bottom:50px;}\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -234,7 +236,9 @@
         "text_fHfYU8",
         "video_4E3YKi"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "{z-index: 2;}"
+      ],
       "name": "Image with text no2",
       "settings": {
         "height": "use_image",
@@ -305,13 +309,15 @@
         "card_CGNqzm": {
           "type": "card",
           "settings": {
-            "overlay_opacity": 15,
+            "desktop_image": "shopify://shop_images/Group_1597881521.png",
+            "mobile_image": "shopify://shop_images/Group_1597881463.png",
+            "overlay_opacity": 0,
             "overlay_color": "#000000",
-            "enable_overlay_text": false,
-            "title": "Third Card",
-            "title_color": "#ffffff",
-            "description": "<p>This is the description for the third card showcasing more features.</p>",
-            "description_color": "#ffffff",
+            "enable_overlay_text": true,
+            "title": "Head Injury Protection",
+            "title_color": "#000000",
+            "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
+            "description_color": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Explore",
             "button_link": "",
@@ -325,11 +331,13 @@
         "card_LmN9Gk",
         "card_CGNqzm"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "@media (max-width: 480px) {.fullwidth-card-slide:last-child h1, .fullwidth-card-slide:last-child p {color: #000 !important; }}"
+      ],
       "name": "Fullwidth Card Slider",
       "settings": {
         "title": "Built with military-grade materials and next-generation impact engineering",
-        "description": "",
+        "description": "<p>The JoltFree headrest features incredibly resilient, energy-absorbing D3O®, the same material trusted in motorcycle gear, military uniforms, and hockey helmets.</p>",
         "title_alignment": "text-center",
         "title_size": 8,
         "description_size": 5,
@@ -350,7 +358,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-icons-grid{\nbackground: linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n  border-radius: 10px;\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "html": "<style>\n.section-icons-grid{\nbackground: linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -455,7 +463,7 @@
             "card_video_url": "",
             "card_title": "Critical alerts",
             "card_description": "<p>Never second-guess if your child is secured.  Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.<br/></p>",
-            "text_overlay": true,
+            "text_overlay": false,
             "title_color": "#ffffff",
             "description_color": "#ffffff"
           }
@@ -468,7 +476,7 @@
             "card_video_url": "",
             "card_title": "Built-In Sensors for Real-Time Protection",
             "card_description": "<p>babyark’s connected car seat uses 14 smart sensors to monitor buckle, orientation, and installation — forming a closed safety loop that’s always active, precise, and foolproof.</p>",
-            "text_overlay": true,
+            "text_overlay": false,
             "title_color": "#000000",
             "description_color": "#000000"
           }
@@ -482,7 +490,8 @@
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
         ".inline-cards-content {background: transparent;}",
         "h2 {color: #fff;}",
-        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}"
+        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}",
+        "@media (min-width: 481px) {.card-item:not(:first-child) .card-content {background-color: rgba(255, 255, 255, 0.5); }}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -707,6 +716,19 @@
         "padding_bottom": 30
       }
     },
+    "section_html_gaw4nc": {
+      "type": "section-html",
+      "custom_css": [
+        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
+      ],
+      "name": "Custom HTML",
+      "settings": {
+        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/babyark-convertible-car-seat-smart\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "section_double2_34cTmT": {
       "type": "section-double2",
       "blocks": {
@@ -744,7 +766,7 @@
             "text_align": "align--middle-center",
             "text_color": "text--white",
             "overlay_opacity": 15,
-            "overlay_color": "#000",
+            "overlay_color": "#000000",
             "link_text": "",
             "link": "",
             "button_color": "btn--white",
@@ -774,8 +796,8 @@
         "bg_position_mobile": "center center",
         "preload_image": false,
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 50,
+        "padding_bottom": 50
       }
     }
   },
@@ -793,6 +815,7 @@
     "section_columns2_VKzfLG",
     "1761563838e965cf15",
     "testimonials_carousel_AwMwJj",
+    "section_html_gaw4nc",
     "section_double2_34cTmT"
   ]
 }
