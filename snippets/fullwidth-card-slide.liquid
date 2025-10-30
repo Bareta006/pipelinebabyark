@@ -30,7 +30,7 @@
   
   <!-- Background Video - Desktop (Priority over image) -->
   {% if desktop_video != blank %}
-    <div class="fullwidth-card__video-desktop {{ height }}">
+    <div class="fullwidth-card__video-desktop">
       {{ desktop_video | video_tag: 
         controls: false,
         autoplay: false,
@@ -50,7 +50,7 @@
   
   <!-- Background Video/Image - Mobile -->
   {% if mobile_video != blank %}
-    <div class="fullwidth-card__video-mobile {{ height }}">
+    <div class="fullwidth-card__video-mobile">
       {{ mobile_video | video_tag: 
         controls: false,
         autoplay: false,
@@ -62,7 +62,7 @@
       }}
     </div>
   {% elsif desktop_video != blank %}
-    <div class="fullwidth-card__video-mobile {{ height }}">
+    <div class="fullwidth-card__video-mobile">
       {{ desktop_video | video_tag: 
         controls: false,
         autoplay: false,

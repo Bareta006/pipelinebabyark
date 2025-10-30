@@ -170,32 +170,35 @@
     object-position: center;
   }
 
-  /* Desktop Video - Show by default */
+  /* Desktop Video - Show by default, fills parent */
   #shopify-section-{{ section.id }} .fullwidth-card__video-desktop {
     display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    position: relative;
+    height: 100%;
     overflow: hidden;
   }
 
   /* Mobile Video - Hidden by default */
   #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
     display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    position: relative;
+    height: 100%;
     overflow: hidden;
   }
 
-  /* Video element fills container */
+  /* Video element fills wrapper */
   #shopify-section-{{ section.id }} .fullwidth-card__video {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
   }
 
   #shopify-section-{{ section.id }} .fullwidth-card__placeholder {
@@ -319,8 +322,11 @@
 
     #shopify-section-{{ section.id }} .fullwidth-card__video-mobile {
       display: block;
-      flex-shrink: 0;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
     
     /* Ensure image wrapper respects the height class */
@@ -397,7 +403,11 @@
 
     #shopify-section-{{ section.id }} .mobile-text-overlay .fullwidth-card__video-mobile {
       display: block;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
     }
     
     /* Ensure image wrapper respects the height class in overlay mode */
@@ -451,68 +461,39 @@
     }
   }
   
-  /* Individual block mobile image/video heights when use_image is selected */
+  /* Individual block mobile image heights when use_image is selected */
   @media screen and (max-width: 749px) {
     {% for block in section.blocks %}
       {%- liquid
-        comment
-          Calculate mobile media aspect ratio for use_image height
-          Priority: mobile_video > desktop_video > mobile_image > desktop_image
-        endcomment
-        
-        if block.settings.mobile_video != blank
-          assign mobile_video_aspect = block.settings.mobile_video.aspect_ratio | default: 1.777
-          assign mobile_aspect_ratio = 1 | divided_by: mobile_video_aspect | times: 100
-          assign is_video = true
-        elsif block.settings.desktop_video != blank
-          assign desktop_video_aspect = block.settings.desktop_video.aspect_ratio | default: 1.777
-          assign mobile_aspect_ratio = 1 | divided_by: desktop_video_aspect | times: 100
-          assign is_video = true
-        elsif block.settings.mobile_image != blank
+        if block.settings.mobile_image != blank
           assign mobile_img = block.settings.mobile_image
-          assign mobile_img_height = mobile_img.height
-          assign mobile_img_width = mobile_img.width
-          assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
-          assign is_video = false
         elsif block.settings.desktop_image != blank
           assign mobile_img = block.settings.desktop_image
+        else
+          assign mobile_img = blank
+        endif
+        
+        if mobile_img != blank
           assign mobile_img_height = mobile_img.height
           assign mobile_img_width = mobile_img.width
           assign mobile_aspect_ratio = mobile_img_height | times: 100 | divided_by: mobile_img_width
-          assign is_video = false
         else
-          assign mobile_aspect_ratio = 56.25
-          assign is_video = false
+          assign mobile_aspect_ratio = 66
         endif
       -%}
-      
-      {% if is_video %}
-        /* Video height for use_image */
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__video-mobile {
-          height: {{ mobile_aspect_ratio }}vw !important;
-        }
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__video-mobile .fullwidth-card__video {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-      {% else %}
-        /* Image height for use_image */
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile {
-          height: {{ mobile_aspect_ratio }}vw !important;
-        }
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
-          height: 100% !important;
-        }
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero__image,
-        #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-      {% endif %}
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile {
+        height: {{ mobile_aspect_ratio }}vw !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero {
+        height: 100% !important;
+      }
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile .hero__image,
+      #shopify-section-{{ section.id }} [data-block-id="{{ block.id }}"].use_image .fullwidth-card__image-mobile img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
     {% endfor %}
   }
 </style>
