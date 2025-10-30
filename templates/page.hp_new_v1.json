@@ -339,7 +339,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.backdrop--hero:before {}}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top:20px; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
