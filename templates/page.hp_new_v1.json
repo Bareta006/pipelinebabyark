@@ -365,7 +365,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-icons-grid{\nbackground: #E9DFD1;\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "html": "<style>\n.section-icons-grid{\nbackground: linear-gradient(269deg, #E9DFD1 0.67%, #E8E7DE 99.58%);\n}\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  border-radius: 20px;\nbackground: linear-gradient(146deg, #63453D 2.84%, #C6926F 100.66%), #F6F6F6;\n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\ncolor:#fff;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n.section-icons-grid  .flickity-button {\n  color: #473c2d !important;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n.section-icons-grid .icon__column__paragraph p{\ncolor:#fff;}\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -466,7 +466,7 @@
           "type": "card",
           "settings": {
             "card_image": "shopify://shop_images/Group_1597881392.png",
-            "mobile_image": "shopify://shop_images/Group_1597881466.png",
+            "mobile_image": "shopify://shop_images/Group_1597881537.png",
             "card_video_url": "",
             "card_title": "Critical alerts",
             "card_description": "<p>Never second-guess if your child is secured.  Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.<br/></p>",
@@ -479,13 +479,12 @@
           "type": "card",
           "settings": {
             "card_image": "shopify://shop_images/BABYARK_film-1-final_NO_SUBS_1102024_1.gif",
-            "mobile_image": "shopify://shop_images/Group_1597881467.png",
             "card_video_url": "",
             "card_title": "Built-In Sensors for Real-Time Protection",
             "card_description": "<p>babyark’s connected car seat uses 14 smart sensors to monitor buckle, orientation, and installation — forming a closed safety loop that’s always active, precise, and foolproof.</p>",
             "text_overlay": false,
-            "title_color": "#000000",
-            "description_color": "#000000"
+            "title_color": "#ffffff",
+            "description_color": "#ffffff"
           }
         }
       },
@@ -497,7 +496,8 @@
         "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
         ".inline-cards-content {background: transparent;}",
         "h2 {color: #fff;}",
-        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}"
+        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}",
+        ".flickity-button {color: #fff;}"
       ],
       "name": "Inline Cards",
       "settings": {
