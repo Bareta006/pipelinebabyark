@@ -273,7 +273,7 @@
           "settings": {
             "desktop_image": "shopify://shop_images/Group_1597881533.png",
             "mobile_image": "shopify://shop_images/Screenshot_2025-10-09_at_12.41.45_1_1.png",
-            "overlay_opacity": 0,
+            "overlay_opacity": 20,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Side Impact Protection",
@@ -295,7 +295,7 @@
             "desktop_image": "shopify://shop_images/Group_1597881469.png",
             "mobile_image": "shopify://shop_images/Group_1597881462.png",
             "desktop_video": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
-            "overlay_opacity": 0,
+            "overlay_opacity": 20,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Energy Absorption",
@@ -316,7 +316,7 @@
           "settings": {
             "desktop_image": "shopify://shop_images/Group_1597881522.png",
             "mobile_image": "shopify://shop_images/Group_1597881524.png",
-            "overlay_opacity": 0,
+            "overlay_opacity": 20,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
             "title": "Head Injury Protection",
