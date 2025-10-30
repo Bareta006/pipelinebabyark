@@ -524,47 +524,73 @@
       return;
     }
     
-    // Function to equalize all slide heights (DESKTOP ONLY)
+    // Function to equalize slide heights
     function equalizeSlideHeights() {
-      // Only equalize on desktop (>= 750px)
-      if (window.innerWidth < 750) {
-        // On mobile, remove any forced heights
-        const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
+      const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
+      if (!allSlides.length) return;
+      
+      const isMobile = window.innerWidth < 750;
+      
+      if (isMobile) {
+        // MOBILE: Equalize MEDIA heights only (not full card)
+        // Reset card heights
         allSlides.forEach(slide => {
           const card = slide.querySelector('.fullwidth-card');
           if (card) card.style.height = '';
         });
-        return;
-      }
-      
-      const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
-      if (!allSlides.length) return;
-      
-      // Reset heights first
-      allSlides.forEach(slide => {
-        const card = slide.querySelector('.fullwidth-card');
-        if (card) card.style.height = '';
-      });
-      
-      // Get the height of the first slide after a short delay (let images load)
-      setTimeout(() => {
-        const firstSlide = allSlides[0];
-        const firstCard = firstSlide.querySelector('.fullwidth-card');
         
-        if (firstCard) {
-          const targetHeight = firstCard.offsetHeight;
+        setTimeout(() => {
+          const firstSlide = allSlides[0];
           
-          if (targetHeight > 0) {
-            // Apply this height to ALL slides
-            allSlides.forEach(slide => {
-              const card = slide.querySelector('.fullwidth-card');
-              if (card) {
-                card.style.height = targetHeight + 'px';
-              }
-            });
+          // Find first media wrapper (video or image)
+          let firstMedia = firstSlide.querySelector('.fullwidth-card__video-mobile') || 
+                          firstSlide.querySelector('.fullwidth-card__image-mobile');
+          
+          if (firstMedia) {
+            const targetMediaHeight = firstMedia.offsetHeight;
+            
+            if (targetMediaHeight > 0) {
+              // Apply to ALL slides' media wrappers
+              allSlides.forEach(slide => {
+                const videoWrapper = slide.querySelector('.fullwidth-card__video-mobile');
+                const imageWrapper = slide.querySelector('.fullwidth-card__image-mobile');
+                
+                if (videoWrapper) {
+                  videoWrapper.style.height = targetMediaHeight + 'px';
+                }
+                if (imageWrapper) {
+                  imageWrapper.style.height = targetMediaHeight + 'px';
+                }
+              });
+            }
           }
-        }
-      }, 100);
+        }, 100);
+        
+      } else {
+        // DESKTOP: Equalize full card heights
+        allSlides.forEach(slide => {
+          const card = slide.querySelector('.fullwidth-card');
+          if (card) card.style.height = '';
+        });
+        
+        setTimeout(() => {
+          const firstSlide = allSlides[0];
+          const firstCard = firstSlide.querySelector('.fullwidth-card');
+          
+          if (firstCard) {
+            const targetHeight = firstCard.offsetHeight;
+            
+            if (targetHeight > 0) {
+              allSlides.forEach(slide => {
+                const card = slide.querySelector('.fullwidth-card');
+                if (card) {
+                  card.style.height = targetHeight + 'px';
+                }
+              });
+            }
+          }
+        }, 100);
+      }
     }
     
     // Play video in active slide only
