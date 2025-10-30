@@ -545,41 +545,61 @@
     
     // Play video in active slide only
     function playActiveSlideVideo() {
+      console.log('=== playActiveSlideVideo called ===');
+      
       // Pause ALL videos first
       const allVideos = section.querySelectorAll('.fullwidth-card__video');
+      console.log('Total videos found:', allVideos.length);
+      
       allVideos.forEach(v => {
         if (v && !v.paused) {
+          console.log('Pausing video');
           v.pause();
         }
       });
       
       // Play video in active slide only
       const activeSlide = carousel.querySelector('.is-selected');
+      console.log('Active slide:', activeSlide);
+      
       if (activeSlide) {
         const activeVideo = activeSlide.querySelector('.fullwidth-card__video');
+        console.log('Active video element:', activeVideo);
+        
         if (activeVideo) {
+          console.log('Video readyState:', activeVideo.readyState);
+          console.log('Video paused:', activeVideo.paused);
+          console.log('Video muted:', activeVideo.muted);
+          
           // Ensure video is muted for autoplay
           activeVideo.muted = true;
           
           // Try to play
+          console.log('Attempting to play video...');
           const playPromise = activeVideo.play();
           
           if (playPromise !== undefined) {
             playPromise
               .then(() => {
-                // Video started playing
+                console.log('✓ Video playing successfully!');
               })
               .catch(err => {
-                // Autoplay prevented, try again after user interaction
-                console.log('Video autoplay prevented:', err.message);
+                console.error('✗ Video play failed:', err.message);
                 
                 // Retry once after a delay
                 setTimeout(() => {
-                  activeVideo.play().catch(e => console.log('Retry failed:', e.message));
+                  console.log('Retrying video play...');
+                  activeVideo.play()
+                    .then(() => console.log('✓ Retry successful'))
+                    .catch(e => console.error('✗ Retry failed:', e.message));
                 }, 500);
               });
           }
+        } else {
+          console.log('No video found in active slide');
         }
+      } else {
+        console.log('No active slide found');
       }
     }
     
