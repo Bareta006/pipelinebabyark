@@ -1,17 +1,66 @@
 {% comment %} /sections/section-icons-grid.liquid {% endcomment %}
 
-<div class="section-icons-grid section-padding {{ section.settings.bg }} {% if section.settings.autoplay_enabled %}autoplay-enabled{% endif %}"
+<div class="section-icons-grid section-padding {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="section-icons-grid"
-  data-autoplay="{{ section.settings.autoplay_enabled }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --ICON-SIZE: {{ section.settings.icons_size }}px;">
   <div class="{{ section.settings.width }} {{ section.settings.icon_alignment }} {{ section.settings.icon_size }}">
     {% if section.settings.title != blank %}
       <h2 class="kicker-flourished mb-r11">{{ section.settings.title | escape }}</h2>
     {% endif %}
 
-    <!-- Desktop Grid -->
-    <div class="float-grid icons-desktop-view {{ section.settings.layout }} {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}">
+    {% if section.settings.mobile_carousel %}
+      <flickity-carousel>
+        <div
+          data-carousel
+          data-grid
+          data-grid-large
+          data-grid-medium
+          data-grid-small
+          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
+          class="icons-grid-carousel"
+          style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
+          
+          {% for block in section.blocks %}
+            <div class="carousel-slide" data-carousel-slide {{ block.shopify_attributes }}>
+              <div class="icon__column {{ section.settings.icon_alignment }} {{ section.settings.icon_size }} {{ section.settings.align_text }}">
+                {%- if block.settings.icon_alt != blank -%}
+                  {%- assign icon_width = section.settings.icons_size %}
+                  {%- assign icon_width_2x = icon_width | times: 2 %}
+
+                  {% capture srcset %}
+                    {{ block.settings.icon_alt | image_url: width: icon_width_2x }} 2x,
+                    {{ block.settings.icon_alt | image_url: width: icon_width }}
+                  {% endcapture %}
+                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash">
+                    {% render 'image', cover: false, img_object: block.settings.icon_alt, srcset: srcset, width: icon_width %}
+                  </div>
+                {%- else -%}
+                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash" style="--ICON-STROKE-COLOR: {{ block.settings.icon_color }}">
+                    {% render 'icon-setting', filename: block.settings.icon_name %}
+                  </div>
+                {%- endif -%}
+                <div class="icon__column__text">
+                  {% if block.settings.title != blank %}
+                    <p class="icon__column__heading">{{ block.settings.title | escape }}</p>
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <div class="rte rte--lock-font rte--lock-size icon__column__paragraph body-size-4">
+                      {{ block.settings.text }}
+                    </div>
+                  {% endif %}
+                  {% if block.settings.link_text != blank %}
+                    <a href="{{ block.settings.link_url }}" class="text-dark text-link-bare">{{ block.settings.link_text }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          
+        </div>
+      </flickity-carousel>
+    {% else %}
+      <div class="float-grid {{ section.settings.layout }} {% unless section.blocks.size == 5 %}grid--uniform{% endunless %}">
         {%- assign grid_item_width = 'medium-up--one-third small-down--two-thirds' -%}
         {%- if section.settings.layout == 'grid--stacked' -%}
           {%- assign grid_item_width = 'medium-up--one-third small--one-third' -%}
@@ -68,65 +117,7 @@
             </div>
           </div>
         {% endfor %}
-    </div>
-    
-    <!-- Mobile Carousel -->
-    {% if section.settings.mobile_carousel %}
-    <div class="icons-mobile-view">
-      <flickity-carousel>
-        <div
-          data-carousel
-          data-grid
-          data-grid-large
-          data-grid-medium
-          data-grid-small
-          {% if section.settings.autoplay_enabled %}
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": true, "contain": true, "cellAlign": "left", "prevNextButtons": false, "autoPlay": 3000, "pauseAutoPlayOnHover": false }'
-          {% else %}
-          data-options='{ "pageDots": false, "freeScroll": false, "wrapAround": false, "contain": true, "cellAlign": "left", "prevNextButtons": true }'
-          {% endif %}
-          class="icons-grid-carousel"
-          style="--grid-large-items: {{ section.blocks.size }}; --grid-medium-items: {{ section.blocks.size }}; --grid-small-items: {{ section.settings.mobile_icons_count }};">
-          
-          {% for block in section.blocks %}
-            <div class="carousel-slide" data-carousel-slide {{ block.shopify_attributes }}>
-              <div class="icon__column {{ section.settings.icon_alignment }} {{ section.settings.icon_size }} {{ section.settings.align_text }}">
-                {%- if block.settings.icon_alt != blank -%}
-                  {%- assign icon_width = section.settings.icons_size %}
-                  {%- assign icon_width_2x = icon_width | times: 2 %}
-
-                  {% capture srcset %}
-                    {{ block.settings.icon_alt | image_url: width: icon_width_2x }} 2x,
-                    {{ block.settings.icon_alt | image_url: width: icon_width }}
-                  {% endcapture %}
-                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash">
-                    {% render 'image', cover: false, img_object: block.settings.icon_alt, srcset: srcset, width: icon_width %}
-                  </div>
-                {%- else -%}
-                  <div class="icon__column__icon" data-aos-delay="{{ forloop.index | times: 100 | plus: 100 }}" data-aos="svg-dash" style="--ICON-STROKE-COLOR: {{ block.settings.icon_color }}">
-                    {% render 'icon-setting', filename: block.settings.icon_name %}
-                  </div>
-                {%- endif -%}
-                <div class="icon__column__text">
-                  {% if block.settings.title != blank %}
-                    <p class="icon__column__heading">{{ block.settings.title | escape }}</p>
-                  {% endif %}
-                  {% if block.settings.text != blank %}
-                    <div class="rte rte--lock-font rte--lock-size icon__column__paragraph body-size-4">
-                      {{ block.settings.text }}
-                    </div>
-                  {% endif %}
-                  {% if block.settings.link_text != blank %}
-                    <a href="{{ block.settings.link_url }}" class="text-dark text-link-bare">{{ block.settings.link_text }}</a>
-                  {% endif %}
-                </div>
-              </div>
-            </div>
-          {% endfor %}
-          
-        </div>
-      </flickity-carousel>
-    </div>
+      </div>
     {% endif %}
 
     {% if section.blocks.size == 0 %}
@@ -219,28 +210,6 @@
       display: none;
     }
   }
-  
-  /* Hide arrows when autoplay is enabled */
-  #shopify-section-{{ section.id }}.autoplay-enabled .flickity-button {
-    display: none !important;
-  }
-  
-  /* Hide mobile carousel on desktop */
-  #shopify-section-{{ section.id }} .icons-mobile-view {
-    display: none;
-  }
-  
-  {% if section.settings.mobile_carousel %}
-  /* Mobile - hide grid, show carousel (only if carousel is enabled) */
-  @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} .icons-desktop-view {
-      display: none !important;
-    }
-    #shopify-section-{{ section.id }} .icons-mobile-view {
-      display: block;
-    }
-  }
-  {% endif %}
 </style>
 
 {% schema %}
@@ -322,13 +291,6 @@
         "id": "mobile_carousel",
         "label": "Enable mobile carousel",
         "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "autoplay_enabled",
-        "label": "Enable autoplay/autoscroll",
-        "default": false,
-        "info": "Hides arrows and auto-scrolls every 3 seconds. Only works on mobile."
       },
       {
         "type": "range",
