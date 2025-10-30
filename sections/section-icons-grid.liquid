@@ -235,31 +235,47 @@
       
       if (!flickityCarousel) return;
       
-      // Stop autoplay on desktop (>= 750px)
+      // Stop autoplay on desktop (>= 750px), allow on mobile
       function handleAutoplay() {
+        const carousel = flickityCarousel.carouselInstance;
+        if (!carousel) return;
+        
         const isDesktop = window.innerWidth >= 750;
         
-        if (isDesktop && flickityCarousel.carouselInstance) {
-          flickityCarousel.carouselInstance.stopPlayer();
-        } else if (!isDesktop && flickityCarousel.carouselInstance) {
-          // Restart on mobile
-          flickityCarousel.carouselInstance.playPlayer();
+        if (isDesktop) {
+          // Desktop: stop autoplay
+          if (carousel.options.autoPlay) {
+            carousel.options.autoPlay = false;
+            carousel.stopPlayer();
+          }
+        } else {
+          // Mobile: ensure autoplay is running
+          if (!carousel.options.autoPlay) {
+            carousel.options.autoPlay = 3000;
+            carousel.playPlayer();
+          }
         }
       }
       
-      // Wait for carousel to initialize
+      // Wait for carousel to be fully initialized
       const initAutoplayControl = () => {
         if (flickityCarousel.carouselInstance) {
           handleAutoplay();
         } else {
-          setTimeout(initAutoplayControl, 200);
+          setTimeout(initAutoplayControl, 100);
         }
       };
       
-      // Run on load
-      setTimeout(initAutoplayControl, 500);
+      // Start checking after custom element is defined
+      if (customElements.get('flickity-carousel')) {
+        setTimeout(initAutoplayControl, 300);
+      } else {
+        customElements.whenDefined('flickity-carousel').then(() => {
+          setTimeout(initAutoplayControl, 300);
+        });
+      }
       
-      // Run on resize
+      // Handle resize
       let resizeTimeout;
       window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
