@@ -290,6 +290,7 @@
         "card_LmN9Gk": {
           "type": "card",
           "settings": {
+            "desktop_video": "shopify://files/videos/Coils_new_f64bd960-85fb-4669-b6e8-79b4b8aea09b.mp4",
             "desktop_image": "shopify://shop_images/Group_1597881469.png",
             "mobile_image": "shopify://shop_images/Group_1597881462.png",
             "overlay_opacity": 15,
