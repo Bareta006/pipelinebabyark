@@ -501,8 +501,8 @@
 
 <script>
   (function() {
-    const sectionId = 'shopify-section-{{ section.id }}';
-    const section = document.getElementById(sectionId);
+    const sectionId = '#shopify-section-{{ section.id }}';
+    const section = document.querySelector(sectionId);
     
     console.log('Section ID:', sectionId);
     console.log('Section element:', section);
@@ -512,8 +512,8 @@
       return;
     }
     
-    const carousel = section.querySelector('[data-carousel]');
-    const flickityCarousel = section.querySelector('flickity-carousel');
+    const carousel = document.querySelector(sectionId + ' [data-carousel]');
+    const flickityCarousel = document.querySelector(sectionId + ' flickity-carousel');
     
     console.log('Carousel:', carousel);
     console.log('Flickity element:', flickityCarousel);
@@ -560,7 +560,7 @@
       console.log('=== playActiveSlideVideo called ===');
       
       // Pause ALL videos first
-      const allVideos = section.querySelectorAll('.fullwidth-card__video');
+      const allVideos = document.querySelectorAll(sectionId + ' .fullwidth-card__video');
       console.log('Total videos found:', allVideos.length);
       
       allVideos.forEach(v => {
@@ -571,7 +571,7 @@
       });
       
       // Play video in active slide only
-      const activeSlide = carousel.querySelector('.is-selected');
+      const activeSlide = document.querySelector(sectionId + ' .is-selected');
       console.log('Active slide:', activeSlide);
       
       if (activeSlide) {
@@ -677,7 +677,7 @@
     });
     
     // Re-equalize when images load
-    const images = section.querySelectorAll('img');
+    const images = document.querySelectorAll(sectionId + ' img');
     images.forEach(img => {
       if (img.complete) {
         equalizeSlideHeights();
