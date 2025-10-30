@@ -463,7 +463,7 @@
             "card_video_url": "",
             "card_title": "Critical alerts",
             "card_description": "<p>Never second-guess if your child is secured.  Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.<br/></p>",
-            "text_overlay": false,
+            "text_overlay": true,
             "title_color": "#ffffff",
             "description_color": "#ffffff"
           }
@@ -476,9 +476,9 @@
             "card_video_url": "",
             "card_title": "Built-In Sensors for Real-Time Protection",
             "card_description": "<p>babyark’s connected car seat uses 14 smart sensors to monitor buckle, orientation, and installation — forming a closed safety loop that’s always active, precise, and foolproof.</p>",
-            "text_overlay": false,
-            "title_color": "#ffffff",
-            "description_color": "#ffffff"
+            "text_overlay": true,
+            "title_color": "#000000",
+            "description_color": "#000000"
           }
         }
       },
