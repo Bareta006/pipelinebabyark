@@ -26,22 +26,7 @@
   %}
 {% endcomment %}
 
-{%- liquid
-  if desktop_video != blank
-    assign video_wh_ratio = desktop_video.aspect_ratio | default: 1.777
-  endif
-  
-  if mobile_video != blank
-    assign video_wh_ratio_mobile = mobile_video.aspect_ratio | default: 1.777
-  elsif desktop_video != blank
-    assign video_wh_ratio_mobile = desktop_video.aspect_ratio | default: 1.777
-  endif
--%}
-
-<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}"
-  {% if height == 'use_image' and desktop_video != blank %}
-    style="--wh-ratio: {{ video_wh_ratio }}; --wh-ratio-mobile: {{ video_wh_ratio_mobile }};"
-  {% endif %}>
+<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}">
   
   <!-- Background Video - Desktop (Priority over image) -->
   {% if desktop_video != blank %}

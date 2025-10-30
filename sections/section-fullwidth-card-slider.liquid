@@ -153,18 +153,6 @@
     overflow: hidden;
   }
 
-  /* Video slides with use_image height - use aspect ratio */
-  #shopify-section-{{ section.id }} .fullwidth-card.use_image {
-    aspect-ratio: var(--wh-ratio, 16/9);
-    height: auto;
-  }
-
-  @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .fullwidth-card.use_image {
-      aspect-ratio: var(--wh-ratio-mobile, 16/9);
-    }
-  }
-
   /* Desktop Image - Show by default */
   #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
     display: block;
@@ -522,6 +510,38 @@
     
     if (!flickityCarousel || !carousel) return;
     
+    // Function to equalize all slide heights
+    function equalizeSlideHeights() {
+      const allSlides = carousel.querySelectorAll('.fullwidth-card-slide');
+      if (!allSlides.length) return;
+      
+      // Reset heights first
+      allSlides.forEach(slide => {
+        const card = slide.querySelector('.fullwidth-card');
+        if (card) card.style.height = '';
+      });
+      
+      // Get the height of the first slide after a short delay (let images load)
+      setTimeout(() => {
+        const firstSlide = allSlides[0];
+        const firstCard = firstSlide.querySelector('.fullwidth-card');
+        
+        if (firstCard) {
+          const targetHeight = firstCard.offsetHeight;
+          
+          if (targetHeight > 0) {
+            // Apply this height to ALL slides
+            allSlides.forEach(slide => {
+              const card = slide.querySelector('.fullwidth-card');
+              if (card) {
+                card.style.height = targetHeight + 'px';
+              }
+            });
+          }
+        }
+      }, 100);
+    }
+    
     // Function to play video in active slide
     function playActiveVideo() {
       const activeSlide = carousel.querySelector('.is-selected');
@@ -562,6 +582,9 @@
       const flickity = flickityCarousel.flickityInstance || carousel.flickity;
       
       if (flickity) {
+        // Equalize slide heights
+        equalizeSlideHeights();
+        
         // Play video on initial load
         playActiveVideo();
         
@@ -580,6 +603,23 @@
     } else {
       initVideoControls();
     }
+    
+    // Re-equalize on window resize
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(equalizeSlideHeights, 200);
+    });
+    
+    // Re-equalize when images load
+    const images = section.querySelectorAll('img');
+    images.forEach(img => {
+      if (img.complete) {
+        equalizeSlideHeights();
+      } else {
+        img.addEventListener('load', equalizeSlideHeights);
+      }
+    });
     
     // Pause videos when section becomes hidden (e.g., user navigates away)
     document.addEventListener('visibilitychange', () => {
