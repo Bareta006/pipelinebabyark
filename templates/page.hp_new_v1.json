@@ -452,6 +452,7 @@
         "layout": "grid--stacked",
         "align_text": "text-center",
         "mobile_carousel": true,
+        "carousel_autoplay": true,
         "mobile_icons_count": 3,
         "arrow_position": "center",
         "width": "wrapper",
