@@ -153,6 +153,18 @@
     overflow: hidden;
   }
 
+  /* Video slides with use_image height - use aspect ratio */
+  #shopify-section-{{ section.id }} .fullwidth-card.use_image {
+    aspect-ratio: var(--wh-ratio, 16/9);
+    height: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .fullwidth-card.use_image {
+      aspect-ratio: var(--wh-ratio-mobile, 16/9);
+    }
+  }
+
   /* Desktop Image - Show by default */
   #shopify-section-{{ section.id }} .fullwidth-card__image-desktop {
     display: block;
