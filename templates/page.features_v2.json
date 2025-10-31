@@ -209,10 +209,10 @@
             "enable_overlay_text": false,
             "title": "Premium Materials",
             "title_color_desktop": "#ffffff",
-            "title_color_mobile": "#ffffff",
+            "title_color_mobile": "#000000",
             "description": "<p>Combining the strength of steel and aviation-grade materials with the protective prowess of patented technology. Unparalleled quality means your car seat works as well on day 1,000 as on day 1, with materials that resist degradation over time and work overtime for your peace of mind and high performance shock absorption from premium components like D30 and SafeCoil ™.</p>",
             "description_color_desktop": "#ffffff",
-            "description_color_mobile": "#ffffff",
+            "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Learn More",
             "button_link": "",
@@ -230,10 +230,10 @@
             "enable_overlay_text": false,
             "title": "Head Injury Protection",
             "title_color_desktop": "#ffffff",
-            "title_color_mobile": "#ffffff",
+            "title_color_mobile": "#000000",
             "description": "<p>The babyark JoltFree™ headrest features incredibly resilient and energy-absorbing D30, a material used in applications like motorcyclist protective gear, military uniforms and ice hockey helmets.</p>",
             "description_color_desktop": "#ffffff",
-            "description_color_mobile": "#ffffff",
+            "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Discover",
             "button_link": "",
@@ -362,8 +362,8 @@
             "card_title": "No Expiration Date",
             "card_description": "<p>With babyark’s durable materials and steel construction, there’s no expiration date. The seats are built to last through multiple children, saving you money in the long run.<br/></p>",
             "text_overlay": false,
-            "title_color": "#ffffff",
-            "description_color": "#ffffff"
+            "title_color": "#000000",
+            "description_color": "#000000"
           }
         },
         "card_XeBh7f": {
@@ -374,8 +374,8 @@
             "card_title": "Extra Bases",
             "card_description": "<p>An extra base means you can easily transfer your little one across cars and caretakers without the stress of a new install, or wondering if everything fits together properly. <br/><br/></p>",
             "text_overlay": false,
-            "title_color": "#ffffff",
-            "description_color": "#ffffff"
+            "title_color": "#000000",
+            "description_color": "#000000"
           }
         }
       },
