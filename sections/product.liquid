@@ -4515,39 +4515,11 @@ background-color: #22282D;
     }
     
     // Update sticky bar when variant changes
-    function updateStickyBar(event) {
-      // Update price - check for both sale and regular prices
-      if (stickyPrice) {
-        // If called from variant change event, use the variant data directly
-        if (event && event.detail && event.detail.variant) {
-          const variant = event.detail.variant;
-          const currencyCodeEnabled = {{ settings.currency_code_enable | json }};
-          
-          if (variant.compare_at_price && variant.compare_at_price > variant.price) {
-            // Product is on sale
-            const comparePrice = window.Shopify.formatMoney(variant.compare_at_price, window.theme.moneyFormat);
-            const currentPrice = currencyCodeEnabled 
-              ? window.Shopify.formatMoney(variant.price, window.theme.moneyWithCurrencyFormat)
-              : window.Shopify.formatMoney(variant.price, window.theme.moneyFormat);
-            stickyPrice.innerHTML = '<del style="margin-right: 8px; opacity: 0.6;">' + comparePrice + '</del>' + currentPrice;
-          } else {
-            // Regular price
-            const currentPrice = currencyCodeEnabled 
-              ? window.Shopify.formatMoney(variant.price, window.theme.moneyWithCurrencyFormat)
-              : window.Shopify.formatMoney(variant.price, window.theme.moneyFormat);
-            stickyPrice.textContent = currentPrice;
-          }
-        } else {
-          // Fallback: read from DOM
-          const currentPrice = document.querySelector('[data-product-price]');
-          const comparePrice = document.querySelector('.product__price del');
-          
-          if (comparePrice && currentPrice) {
-            stickyPrice.innerHTML = '<del style="margin-right: 8px; opacity: 0.6;">' + comparePrice.textContent + '</del>' + currentPrice.textContent;
-          } else if (currentPrice) {
-            stickyPrice.textContent = currentPrice.textContent;
-          }
-        }
+    function updateStickyBar() {
+      // Update price
+      const currentPrice = document.querySelector('.product__price .price__current');
+      if (currentPrice && stickyPrice) {
+        stickyPrice.textContent = currentPrice.textContent;
       }
       
       // Update button text based on availability
@@ -4626,8 +4598,8 @@ background-color: #22282D;
       });
     }
     
-    // Listen for variant changes - use theme:variant:change which has the variant data
-    document.addEventListener('theme:variant:change', updateStickyBar);
+    // Listen for variant changes
+    document.addEventListener('variant:change', updateStickyBar);
     document.addEventListener('change', function(event) {
       if (event.target.matches('input[data-swatch-input]')) {
         setTimeout(updateStickyBar, 100);
