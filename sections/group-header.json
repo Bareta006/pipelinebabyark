@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Early Black Friday  — $200 Off Smart,  $100 Off Classic - Limited Quantities!</p>",
+            "text": "<p>Early Black Friday  -  <strong>$200</strong> Off Smart -   <strong>$100 </strong>Off Classic - Limited Quantities!</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
