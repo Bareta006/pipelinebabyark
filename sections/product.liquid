@@ -4516,10 +4516,18 @@ background-color: #22282D;
     
     // Update sticky bar when variant changes
     function updateStickyBar() {
-      // Update price
-      const currentPrice = document.querySelector('.product__price .price__current');
-      if (currentPrice && stickyPrice) {
-        stickyPrice.textContent = currentPrice.textContent;
+      // Update price - check for both sale and regular prices
+      if (stickyPrice) {
+        const currentPrice = document.querySelector('[data-product-price]');
+        const comparePrice = document.querySelector('.product__price del');
+        
+        if (comparePrice && currentPrice) {
+          // Product is on sale - show both compare and current price
+          stickyPrice.innerHTML = '<del style="margin-right: 8px; opacity: 0.6;">' + comparePrice.textContent + '</del>' + currentPrice.textContent;
+        } else if (currentPrice) {
+          // Regular price only
+          stickyPrice.textContent = currentPrice.textContent;
+        }
       }
       
       // Update button text based on availability
