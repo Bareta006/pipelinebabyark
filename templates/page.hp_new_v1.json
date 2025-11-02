@@ -88,93 +88,131 @@
         "padding_bottom": 36
       }
     },
-    "section_logos_yw9yit": {
+    "section_logos_wD9LRL": {
       "type": "section-logos",
       "blocks": {
-        "logo_image_ktxaah": {
+        "logo_image_tnaaYz": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/Scary_Mommy_Nominee_Badge_2025_1_1.png",
-            "link": "",
+            "image": "shopify://shop_images/Bumb.png",
+            "link": "https://www.thebump.com/a/best-convertible-car-seats#product-3",
+            "new_tab": true,
+            "width": 90,
+            "spacing": 50
+          }
+        },
+        "logo_image_Kb3wme": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Motherly.png",
+            "link": "https://www.mother.ly/parenting/safety/car-seat-safety/car-seat-safety-guide/#:~:text=Convertible%20Car%20Seat%20Premium",
+            "new_tab": true,
+            "width": 170,
+            "spacing": 50
+          }
+        },
+        "logo_image_UyRUVb": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Parents.png",
+            "link": "https://www.parents.com/best-convertible-car-seats-7546527#:~:text=on%20Babyark.com-,Why%20We%20Like%20It,-This%20convertible%20car",
             "new_tab": true,
             "width": 95,
             "spacing": 50
           }
         },
-        "logo_image_8fkUVD": {
+        "logo_image_xcQwTq": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/Group_1597881387_1.png",
-            "link": "",
+            "image": "shopify://shop_images/Fast_Company_7b4d92c4-e0a7-4108-870c-9f813e3a8414.png",
+            "link": "https://www.fastcompany.com/90830388/this-new-baby-car-seat-combines-military-grade-tech-and-ferrari-aesthetics",
             "new_tab": true,
-            "width": 50,
-            "spacing": 100
+            "width": 130,
+            "spacing": 50
           }
         },
-        "logo_image_QxY8HP": {
+        "logo_image_GnUF3Q": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/TB-BestofAwards-2023_color_1_4afdb7e8-d2b2-4461-87cf-575917d07915.png",
-            "link": "",
+            "image": "shopify://shop_images/Babylist.png",
+            "link": "https://www.babylist.com/hello-baby/best-new-baby-products?tblci=GiBpb2Q3HKHOImDbtyaoBsLBOCJz4XgOalhgL3vLZpsPLSCMrWMo9O-19J7g5MM3#:~:text=from%20durable%20steel%20to",
+            "new_tab": true,
+            "width": 110,
+            "spacing": 50
+          }
+        },
+        "logo_image_xHCfFy": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Wallpaper_a37605f7-36fb-40f8-9dea-8e3a5cef5405.png",
+            "link": "https://www.wallpaper.com/transport/babyark",
+            "new_tab": true,
+            "width": 120,
+            "spacing": 50
+          }
+        },
+        "logo_image_HTyb6R": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify://shop_images/Engadget.png",
+            "link": "https://www.engadget.com/the-babyark-uses-sensor-laden-anticrash-materials-to-keep-your-kids-safe-in-auto-wrecks-041807015.html",
             "new_tab": true,
             "width": 100,
-            "spacing": 100
+            "spacing": 50
           }
         },
-        "logo_image_8fDYbU": {
+        "logo_image_FXUzp8": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/s2-icon-1_1_1.png",
-            "link": "",
+            "image": "shopify://shop_images/Everymom.png",
+            "link": "https://theeverymom.com/babyark-car-seat-review/",
             "new_tab": true,
-            "width": 80,
-            "spacing": 100
+            "width": 175,
+            "spacing": 50
           }
         },
-        "logo_image_FnF7mk": {
+        "logo_image_f8XP8E": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/hka-baby-gear-winner-2-at-4x_1_1.png",
-            "link": "",
+            "image": "shopify://shop_images/Forbes_31a4b871-6da4-438f-9d7f-c477c645f67d.png",
+            "link": "https://www.forbes.com/sites/forbes-personal-shopper/2024/08/07/prevent-hot-car-deaths/",
             "new_tab": true,
-            "width": 100,
-            "spacing": 100
+            "width": 60,
+            "spacing": 50
           }
         },
-        "logo_image_wgwaUk": {
+        "logo_image_kYCq8d": {
           "type": "logo_image",
           "settings": {
-            "image": "shopify://shop_images/1668639266204_1.png",
-            "link": "",
+            "image": "shopify://shop_images/Quality_edit.png",
+            "link": "https://www.thequalityedit.com/articles/babyark-carseat-review",
             "new_tab": true,
-            "width": 55,
-            "spacing": 100
+            "width": 75,
+            "spacing": 50
           }
         }
       },
       "block_order": [
-        "logo_image_ktxaah",
-        "logo_image_8fkUVD",
-        "logo_image_QxY8HP",
-        "logo_image_8fDYbU",
-        "logo_image_FnF7mk",
-        "logo_image_wgwaUk"
-      ],
-      "custom_css": [
-        "{z-index: 3;}",
-        ".logo-bar {display: flex; align-items: center; gap: 0; justify-content: space-around;}",
-        ".logo-bar__item {margin: unset; max-height: 100px; width: auto;}",
-        "@media (max-width: 480px) {.logo-bar__item {max-width: 55px; } .logo-bar {display: flex; align-items: center; gap: 7px; justify-content: space-around; } .logo-bar__image img {height: 50px; width: auto; } > div {background-color: transparent; margin-bottom: -100px; }}"
+        "logo_image_tnaaYz",
+        "logo_image_Kb3wme",
+        "logo_image_UyRUVb",
+        "logo_image_xcQwTq",
+        "logo_image_GnUF3Q",
+        "logo_image_xHCfFy",
+        "logo_image_HTyb6R",
+        "logo_image_FXUzp8",
+        "logo_image_f8XP8E",
+        "logo_image_kYCq8d"
       ],
       "name": "Logo list",
       "settings": {
         "title": "",
         "bg": "palette--light bg--neutral",
-        "enable_marquee": false,
+        "enable_marquee": true,
         "marquee_speed": 30,
-        "width": "wrapper",
-        "padding_top": 50,
-        "padding_bottom": 50
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "section_html_EPzMT4": {
@@ -811,7 +849,7 @@
   "order": [
     "section_hero_4LVqG3",
     "main",
-    "section_logos_yw9yit",
+    "section_logos_wD9LRL",
     "section_html_EPzMT4",
     "section_double2_ietMK7",
     "section_html_JTm889",
