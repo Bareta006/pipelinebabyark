@@ -215,7 +215,7 @@
         "logo_image_kYCq8d"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {{margin-bottom: -90px; }.logo-bar__wrapper{z-index: 3;}}"
+        "@media (max-width: 480px) {{margin-bottom: -90px; } .logo-bar__wrapper {z-index: 3; }}"
       ],
       "name": "Logo list",
       "settings": {
@@ -508,7 +508,7 @@
           "type": "card",
           "settings": {
             "card_image": "shopify://shop_images/Group_1597881523.png",
-            "mobile_image": "shopify://shop_images/Group_1597881537.png",
+            "mobile_image": "shopify://shop_images/Group_1597881537_1.png",
             "card_video_url": "",
             "card_title": "Critical alerts",
             "card_description": "<p>Never second-guess if your child is secured.  Smart alerts confirm proper installation and buckling before every ride—whether it’s you, a grandparent, or a caregiver behind the wheel.<br/></p>",
