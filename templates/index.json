@@ -9,56 +9,65 @@
  */
 {
   "sections": {
-    "section_slideshow2_xALbxr": {
-      "type": "section-slideshow2",
+    "section_hero_qdEA7R": {
+      "type": "section-hero",
       "blocks": {
-        "video_slide_MKzhWK": {
-          "type": "video_slide",
+        "text_xMEdan": {
+          "type": "text",
           "settings": {
-            "video_bg": "shopify://files/videos/Desktop.mp4",
-            "mobile_video_bg": "shopify://files/videos/Mobilemp4.mp4",
-            "object_position": "center-center",
-            "overlay_opacity": 55,
-            "overlay_color": "#000000",
-            "enable_overlay_text": true,
-            "kicker": "Safe. Smart. Beautiful.",
-            "title": "The World’s Most Advanced Car Seat",
-            "richtext": "",
-            "text_align": "align--middle-left",
-            "text_color": "text--white",
-            "link_text": "SHOP",
-            "link": "shopify://products/babyark-convertible-car-seat-smart",
-            "button_color": "btn--white",
-            "button_style": "btn",
-            "link_text_2": "See it in action",
-            "link_2": "shopify://pages/features",
+            "richtext": "<h1>A New Standard<br/>Of Safety</h1>",
+            "text_size": 6
+          }
+        },
+        "button_qngmpE": {
+          "type": "button",
+          "settings": {
+            "link_text_1": "Get babyark",
+            "link_1": "shopify://products/babyark-convertible-car-seat-smart",
+            "button_size_1": "btn--large",
+            "button_style_1": "btn",
+            "button_color_1": "btn--white",
+            "link_text_2": "",
+            "link_2": "",
+            "button_size_2": "btn--long",
+            "button_style_2": "btn-text-thick-line",
             "button_color_2": "btn--white",
-            "button_style_2": "btn--outline",
-            "mobile_background_color": "#ffffff"
+            "link_text_3": "",
+            "link_3": "",
+            "button_size_3": "btn--long",
+            "button_style_3": "btn-text-thick-line",
+            "button_color_3": "btn--white"
           }
         }
       },
       "block_order": [
-        "video_slide_MKzhWK"
+        "text_xMEdan",
+        "button_qngmpE"
       ],
       "custom_css": [
-        ".custom-prev-next-button {display: none;}",
-        ".hero__content {width: 696px; max-width: 100%;}",
-        ".hero__title {font-size: 60px; font-weight: 400; line-height: 100%; /* 80px */ letter-spacing: -2.4px;}",
-        "@media (min-width: 600px) {.hero__cta__wrapper a {padding: 14px 35px; min-width: auto; }}",
-        "@media (max-width: 480px) {.hero__title {font-size: 32px; line-height: 120%; letter-spacing: -0.36px; } .hero__content__wrapper {align-items: end; text-align: center; } .hero__cta__wrapper {align-items: center; padding-bottom: 40px; }}"
+        "{z-index: 2;}",
+        ".hero__content > .text__standard {text-align: center;}",
+        ".hero__cta__wrapper {justify-content: center;}",
+        "@media (max-width: 480px) {.hero__cta__wrapper a {width: 80%; } .hero__content {padding: 00px 20px 0; margin: 0; } .hero__content__wrapper {padding-bottom: 10px; }}"
       ],
-      "name": "Slideshow2",
+      "name": "Image banner",
       "settings": {
-        "autoplay": false,
-        "autoplay_speed": 8,
-        "show_dots": false,
-        "preload_first_image": false,
-        "height": "use_screen_two_thirds",
-        "color_bg": "palette--light bg--neutral",
+        "mobile_special_arrange": true,
+        "image": "shopify://shop_images/Group_1597881468.png",
+        "mobile_image": "shopify://shop_images/Group_1597881460.png",
+        "height": "use_image",
+        "overlay_opacity": 15,
+        "overlay_color": "#000000",
+        "enable_overlay_text": true,
+        "preload_image": true,
+        "content_width": 650,
+        "text_align": "align--middle-left",
+        "text_color": "text--white",
+        "color_bg": "hero__content--transparent",
         "width": "wrapper--none",
         "padding_top": 0,
-        "padding_bottom": 0
+        "padding_bottom": 0,
+        "special_arrange": false
       }
     },
     "section_logos_DRYK6i": {
@@ -669,7 +678,7 @@
     }
   },
   "order": [
-    "section_slideshow2_xALbxr",
+    "section_hero_qdEA7R",
     "section_logos_DRYK6i",
     "two_cards_section_HdRcyi",
     "cards_carousel_LaBmMN",
