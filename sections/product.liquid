@@ -4656,11 +4656,11 @@ background-color: #22282D;
       // Show/hide based on availability
       if (currentVariant.available) {
         // Variant is in stock - show add to cart, hide klaviyo
-        klaviyoTrigger.style.display = 'none';
-        if (addToCartButton) addToCartButton.style.display = '';
+        if (klaviyoTrigger) klaviyoTrigger.style.display = 'none';
+        if (addToCartButton) addToCartButton.style.removeProperty('display');
       } else {
         // Variant is out of stock - hide add to cart, show klaviyo
-        klaviyoTrigger.style.display = 'block';
+        if (klaviyoTrigger) klaviyoTrigger.style.display = 'block';
         if (addToCartButton) addToCartButton.style.display = 'none';
       }
     }
