@@ -143,7 +143,7 @@
 
             {%- case block.type -%}
               {%- when 'text' -%}
-                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'beginning' -%}
+                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'beginning' and block.settings.countdown_date != blank -%}
                   <span class="countdown-wrapper">
                     <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
                       <span class="countdown-days">0</span>d 
@@ -159,7 +159,7 @@
                   {{ block.settings.text }}
                 {%- endif -%}
                 
-                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'end' -%}
+                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'end' and block.settings.countdown_date != blank -%}
                   <span class="countdown-wrapper">
                     <span class="countdown-separator ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
                     <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
