@@ -4619,7 +4619,7 @@ background-color: #22282D;
 
 <script>
   // Klaviyo Back in Stock - Toggle between Add to Cart and Notify Me
-  document.addEventListener('DOMContentLoaded', function() {
+  (function() {
     const productForm = document.querySelector('[data-product-form]');
     if (!productForm) return;
     
@@ -4646,15 +4646,27 @@ background-color: #22282D;
       
       // Find both buttons
       const addToCartBtn = productForm.querySelector('.btn--add-to-cart');
+      const addToCartText = addToCartBtn ? addToCartBtn.querySelector('[data-add-to-cart-text]') : null;
       const klaviyoTrigger = productForm.querySelector('.klaviyo-bis-trigger');
       
       if (currentVariant.available) {
         // Show add to cart, hide Klaviyo
-        if (addToCartBtn) addToCartBtn.style.display = 'block';
-        if (klaviyoTrigger) klaviyoTrigger.style.display = 'none';
+        if (addToCartBtn) {
+          addToCartBtn.style.display = 'block';
+          addToCartBtn.disabled = false;
+        }
+        if (addToCartText) {
+          addToCartText.textContent = '{{ 'products.product.add_to_cart' | t }}';
+        }
+        if (klaviyoTrigger) {
+          klaviyoTrigger.style.display = 'none';
+        }
       } else {
         // Hide add to cart, show Klaviyo
-        if (addToCartBtn) addToCartBtn.style.display = 'none';
+        if (addToCartBtn) {
+          addToCartBtn.style.display = 'none';
+          addToCartBtn.disabled = true;
+        }
         if (klaviyoTrigger) {
           klaviyoTrigger.style.display = 'block';
           klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
@@ -4670,7 +4682,10 @@ background-color: #22282D;
       }
     });
     
-    // Initial check
+    // Run immediately on page load AND after DOM is ready
     updateButtonVisibility();
-  });
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateButtonVisibility);
+    }
+  })();
 </script>

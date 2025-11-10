@@ -79,46 +79,45 @@
                 {{ 'products.product.added_to_cart' | t }}
               </span>
 
-              {%- if current_variant.available -%}
-                <button
-                  type="submit"
-                  name="add"
-                  class="btn--outline btn--full btn--primary btn--add-to-cart"
-                  data-add-to-cart
-                  {% comment %} Explicitly add aria label so that button text isn't read out in screen readers in uppercase {% endcomment %}
-                  aria-label="{{ button_text }}"
-                  :class="{
-                    'has-success': isSuccess,
-                    'loading': isLoading
-                  }"
-                >
-                  <span class="btn-state-ready">
-                    <span data-add-to-cart-text>
-                      {{ button_text }}
-                    </span>
-                    {% comment %} <span class="cta__dot">•</span>
-                    <span data-button-price>
-                      {%- if settings.currency_code_enable -%}
-                        {{ current_variant.price | money_with_currency }}
-                      {%- else -%}
-                        {{ current_variant.price | money }}
-                      {%- endif -%}
-                    </span>{% endcomment %} 
+              <button
+                type="submit"
+                name="add"
+                class="btn--outline btn--full btn--primary btn--add-to-cart"
+                data-add-to-cart
+                {% comment %} Explicitly add aria label so that button text isn't read out in screen readers in uppercase {% endcomment %}
+                aria-label="{{ button_text }}"
+                :class="{
+                  'has-success': isSuccess,
+                  'loading': isLoading
+                }"
+                {% unless current_variant.available %} disabled="disabled" {% endunless %}
+              >
+                <span class="btn-state-ready">
+                  <span data-add-to-cart-text>
+                    {{ button_text }}
                   </span>
+                  {% comment %} <span class="cta__dot">•</span>
+                  <span data-button-price>
+                    {%- if settings.currency_code_enable -%}
+                      {{ current_variant.price | money_with_currency }}
+                    {%- else -%}
+                      {{ current_variant.price | money }}
+                    {%- endif -%}
+                  </span>{% endcomment %} 
+                </span>
 
-                  <span class="btn-state-loading">
-                    <svg height="18" width="18" class="svg-loader">
-                      <circle r="7" cx="9" cy="9" />
-                      <circle stroke-dasharray="87.96459430051421 87.96459430051421" r="7" cx="9" cy="9" />
-                    </svg>
-                  </span>
+                <span class="btn-state-loading">
+                  <svg height="18" width="18" class="svg-loader">
+                    <circle r="7" cx="9" cy="9" />
+                    <circle stroke-dasharray="87.96459430051421 87.96459430051421" r="7" cx="9" cy="9" />
+                  </svg>
+                </span>
 
-                  <span class="btn-state-complete">&nbsp;</span>
-                </button>
-              {%- else -%}
-                {%- comment -%} Klaviyo Back in Stock - Show ONLY when out of stock {%- endcomment -%}
-                <div class="klaviyo-bis-trigger" data-product-id="{{ product.id }}" data-variant-id="{{ current_variant.id }}"></div>
-              {%- endif -%}
+                <span class="btn-state-complete">&nbsp;</span>
+              </button>
+
+              {%- comment -%} Klaviyo Back in Stock - Always render, JavaScript toggles visibility {%- endcomment -%}
+              <div class="klaviyo-bis-trigger" data-product-id="{{ product.id }}" data-variant-id="{{ current_variant.id }}"></div>
 
               {%- if buybutton_setting -%}
                 <div class="product__submit__quick">
