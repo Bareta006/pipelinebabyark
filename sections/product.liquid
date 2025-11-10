@@ -4618,10 +4618,13 @@ background-color: #22282D;
 </script>
 
 <script>
-  // Klaviyo Back in Stock - Toggle between Add to Cart and Notify Me
-  (function() {
+  // Klaviyo Back in Stock - Update button when variant changes
+  document.addEventListener('DOMContentLoaded', function() {
     const productForm = document.querySelector('[data-product-form]');
     if (!productForm) return;
+    
+    const klaviyoTrigger = document.querySelector('.klaviyo-bis-trigger');
+    if (!klaviyoTrigger) return;
     
     const productData = productForm.querySelector('[data-product-json]');
     if (!productData) return;
@@ -4634,7 +4637,7 @@ background-color: #22282D;
       return;
     }
     
-    function updateButtonVisibility() {
+    function updateBackInStockButton() {
       // Get current variant ID from form
       const variantIdInput = productForm.querySelector('input[name="id"]');
       if (!variantIdInput) return;
@@ -4644,48 +4647,33 @@ background-color: #22282D;
       
       if (!currentVariant) return;
       
-      // Find both buttons
-      const addToCartBtn = productForm.querySelector('.btn--add-to-cart');
-      const addToCartText = addToCartBtn ? addToCartBtn.querySelector('[data-add-to-cart-text]') : null;
-      const klaviyoTrigger = productForm.querySelector('.klaviyo-bis-trigger');
+      // Get the main add to cart button
+      const addToCartButton = document.querySelector('.btn--add-to-cart');
       
+      // Update the trigger's data attributes
+      klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
+      
+      // Show/hide based on availability
       if (currentVariant.available) {
-        // Show add to cart, hide Klaviyo
-        if (addToCartBtn) {
-          addToCartBtn.style.display = 'block';
-          addToCartBtn.disabled = false;
-        }
-        if (addToCartText) {
-          addToCartText.textContent = '{{ 'products.product.add_to_cart' | t }}';
-        }
-        if (klaviyoTrigger) {
-          klaviyoTrigger.style.display = 'none';
-        }
+        // Variant is in stock - show add to cart, hide klaviyo
+        klaviyoTrigger.style.display = 'none';
+        if (addToCartButton) addToCartButton.style.display = '';
       } else {
-        // Hide add to cart, show Klaviyo
-        if (addToCartBtn) {
-          addToCartBtn.style.display = 'none';
-          addToCartBtn.disabled = true;
-        }
-        if (klaviyoTrigger) {
-          klaviyoTrigger.style.display = 'block';
-          klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
-        }
+        // Variant is out of stock - hide add to cart, show klaviyo
+        klaviyoTrigger.style.display = 'block';
+        if (addToCartButton) addToCartButton.style.display = 'none';
       }
     }
     
     // Listen for variant changes
-    document.addEventListener('variant:change', updateButtonVisibility);
+    document.addEventListener('variant:change', updateBackInStockButton);
     document.addEventListener('change', function(event) {
       if (event.target.matches('input[data-swatch-input]') || event.target.name === 'id') {
-        setTimeout(updateButtonVisibility, 100);
+        setTimeout(updateBackInStockButton, 100);
       }
     });
     
-    // Run immediately on page load AND after DOM is ready
-    updateButtonVisibility();
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', updateButtonVisibility);
-    }
-  })();
+    // Initial check
+    updateBackInStockButton();
+  });
 </script>
