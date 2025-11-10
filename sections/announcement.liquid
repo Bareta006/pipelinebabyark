@@ -143,8 +143,28 @@
 
             {%- case block.type -%}
               {%- when 'text' -%}
+                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'beginning' -%}
+                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
+                    <span class="countdown-days">0</span>d 
+                    <span class="countdown-hours">0</span>h 
+                    <span class="countdown-minutes">0</span>m 
+                    <span class="countdown-seconds">0</span>s
+                  </span>
+                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
+                {%- endif -%}
+                
                 {%- if block.settings.text != blank -%}
                   {{ block.settings.text }}
+                {%- endif -%}
+                
+                {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'end' -%}
+                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
+                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
+                    <span class="countdown-days">0</span>d 
+                    <span class="countdown-hours">0</span>h 
+                    <span class="countdown-minutes">0</span>m 
+                    <span class="countdown-seconds">0</span>s
+                  </span>
                 {%- endif -%}
 
               {%- when 'message' -%}
@@ -235,6 +255,75 @@
   </div>
 {%- endif -%}
 
+<style>
+  .announcement-countdown {
+    display: inline-flex;
+    gap: 0.5em;
+    font-weight: 600;
+  }
+  
+  .announcement-countdown span {
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  // Announcement Bar Countdown Timer
+  document.addEventListener('DOMContentLoaded', function() {
+    const countdowns = document.querySelectorAll('.announcement-countdown');
+    
+    if (countdowns.length === 0) return;
+    
+    function updateCountdown(countdownEl) {
+      const targetDate = countdownEl.getAttribute('data-countdown-date');
+      if (!targetDate) return;
+      
+      // Parse the date (format: YYYY-MM-DD HH:MM)
+      const target = new Date(targetDate.replace(' ', 'T'));
+      
+      const daysEl = countdownEl.querySelector('.countdown-days');
+      const hoursEl = countdownEl.querySelector('.countdown-hours');
+      const minutesEl = countdownEl.querySelector('.countdown-minutes');
+      const secondsEl = countdownEl.querySelector('.countdown-seconds');
+      
+      function calculate() {
+        const now = new Date();
+        const diff = target - now;
+        
+        if (diff <= 0) {
+          // Countdown finished
+          daysEl.textContent = '0';
+          hoursEl.textContent = '0';
+          minutesEl.textContent = '0';
+          secondsEl.textContent = '0';
+          return;
+        }
+        
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+      }
+      
+      // Initial calculation
+      calculate();
+      
+      // Update every second
+      setInterval(calculate, 1000);
+    }
+    
+    // Initialize all countdowns
+    countdowns.forEach(countdown => {
+      updateCountdown(countdown);
+    });
+  });
+</script>
+
 {% schema %}
 {
   "name": "Announcement bar",
@@ -320,6 +409,32 @@
           "id": "text",
           "label": "Text",
           "default": "<p><strong>Make an announcement</strong> | More info</p>"
+        },
+        {
+          "type": "header",
+          "content": "Countdown Timer"
+        },
+        {
+          "id": "countdown_enabled",
+          "type": "checkbox",
+          "label": "Enable countdown timer",
+          "default": false
+        },
+        {
+          "id": "countdown_date",
+          "type": "text",
+          "label": "Target date and time",
+          "info": "Format: YYYY-MM-DD HH:MM (24-hour format). Example: 2025-12-31 23:59"
+        },
+        {
+          "type": "select",
+          "id": "countdown_position",
+          "label": "Timer position",
+          "default": "end",
+          "options": [
+            {"value": "beginning", "label": "Beginning of text"},
+            {"value": "end", "label": "End of text"}
+          ]
         },
         {
           "type": "header",
