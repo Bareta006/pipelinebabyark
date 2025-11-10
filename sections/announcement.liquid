@@ -144,13 +144,15 @@
             {%- case block.type -%}
               {%- when 'text' -%}
                 {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'beginning' -%}
-                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-days">0</span>d 
-                    <span class="countdown-hours">0</span>h 
-                    <span class="countdown-minutes">0</span>m 
-                    <span class="countdown-seconds">0</span>s
+                  <span class="countdown-wrapper">
+                    <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
+                      <span class="countdown-days">0</span>d 
+                      <span class="countdown-hours">0</span>h 
+                      <span class="countdown-minutes">0</span>m 
+                      <span class="countdown-seconds">0</span>s
+                    </span>
+                    <span class="countdown-separator ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
                   </span>
-                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
                 {%- endif -%}
                 
                 {%- if block.settings.text != blank -%}
@@ -158,12 +160,14 @@
                 {%- endif -%}
                 
                 {%- if block.settings.countdown_enabled and block.settings.countdown_position == 'end' -%}
-                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
-                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-days">0</span>d 
-                    <span class="countdown-hours">0</span>h 
-                    <span class="countdown-minutes">0</span>m 
-                    <span class="countdown-seconds">0</span>s
+                  <span class="countdown-wrapper">
+                    <span class="countdown-separator ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
+                    <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
+                      <span class="countdown-days">0</span>d 
+                      <span class="countdown-hours">0</span>h 
+                      <span class="countdown-minutes">0</span>m 
+                      <span class="countdown-seconds">0</span>s
+                    </span>
                   </span>
                 {%- endif -%}
 
@@ -276,10 +280,28 @@
     
     function updateCountdown(countdownEl) {
       const targetDate = countdownEl.getAttribute('data-countdown-date');
-      if (!targetDate) return;
+      const wrapper = countdownEl.closest('.countdown-wrapper');
+      
+      if (!targetDate) {
+        if (wrapper) wrapper.style.display = 'none';
+        return;
+      }
+      
+      // Validate format: YYYY-MM-DD HH:MM
+      const datePattern = /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}$/;
+      if (!datePattern.test(targetDate)) {
+        if (wrapper) wrapper.style.display = 'none';
+        return;
+      }
       
       // Parse the date (format: YYYY-MM-DD HH:MM)
       const target = new Date(targetDate.replace(' ', 'T'));
+      
+      // Check if date is valid
+      if (isNaN(target.getTime())) {
+        if (wrapper) wrapper.style.display = 'none';
+        return;
+      }
       
       const daysEl = countdownEl.querySelector('.countdown-days');
       const hoursEl = countdownEl.querySelector('.countdown-hours');
