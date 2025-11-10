@@ -4618,13 +4618,10 @@ background-color: #22282D;
 </script>
 
 <script>
-  // Klaviyo Back in Stock - Update button when variant changes
+  // Klaviyo Back in Stock - Toggle between Add to Cart and Notify Me
   document.addEventListener('DOMContentLoaded', function() {
     const productForm = document.querySelector('[data-product-form]');
     if (!productForm) return;
-    
-    const klaviyoTrigger = document.querySelector('.klaviyo-bis-trigger');
-    if (!klaviyoTrigger) return;
     
     const productData = productForm.querySelector('[data-product-json]');
     if (!productData) return;
@@ -4637,7 +4634,7 @@ background-color: #22282D;
       return;
     }
     
-    function updateBackInStockButton() {
+    function updateButtonVisibility() {
       // Get current variant ID from form
       const variantIdInput = productForm.querySelector('input[name="id"]');
       if (!variantIdInput) return;
@@ -4647,26 +4644,33 @@ background-color: #22282D;
       
       if (!currentVariant) return;
       
-      // Update the trigger's data attributes
-      klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
+      // Find both buttons
+      const addToCartBtn = productForm.querySelector('.btn--add-to-cart');
+      const klaviyoTrigger = productForm.querySelector('.klaviyo-bis-trigger');
       
-      // Show/hide based on availability
       if (currentVariant.available) {
-        klaviyoTrigger.style.display = 'none';
+        // Show add to cart, hide Klaviyo
+        if (addToCartBtn) addToCartBtn.style.display = 'block';
+        if (klaviyoTrigger) klaviyoTrigger.style.display = 'none';
       } else {
-        klaviyoTrigger.style.display = 'block';
+        // Hide add to cart, show Klaviyo
+        if (addToCartBtn) addToCartBtn.style.display = 'none';
+        if (klaviyoTrigger) {
+          klaviyoTrigger.style.display = 'block';
+          klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
+        }
       }
     }
     
     // Listen for variant changes
-    document.addEventListener('variant:change', updateBackInStockButton);
+    document.addEventListener('variant:change', updateButtonVisibility);
     document.addEventListener('change', function(event) {
       if (event.target.matches('input[data-swatch-input]') || event.target.name === 'id') {
-        setTimeout(updateBackInStockButton, 100);
+        setTimeout(updateButtonVisibility, 100);
       }
     });
     
     // Initial check
-    updateBackInStockButton();
+    updateButtonVisibility();
   });
 </script>
