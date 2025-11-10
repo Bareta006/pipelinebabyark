@@ -279,12 +279,43 @@
 <style>
   .announcement-countdown {
     display: inline-flex;
-    gap: 0.5em;
-    font-weight: 600;
+    gap: 0.4em;
+    align-items: center;
   }
   
-  .announcement-countdown span {
-    white-space: nowrap;
+  .announcement-countdown > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15em;
+  }
+  
+  .countdown-days,
+  .countdown-hours,
+  .countdown-minutes,
+  .countdown-seconds {
+    display: inline-block;
+    min-width: 2ch;
+    text-align: center;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.15em 0.35em;
+    border-radius: 3px;
+  }
+  
+  @media (max-width: 749px) {
+    .announcement-countdown {
+      gap: 0.3em;
+    }
+    
+    .countdown-days,
+    .countdown-hours,
+    .countdown-minutes,
+    .countdown-seconds {
+      min-width: 1.8ch;
+      padding: 0.1em 0.25em;
+      font-size: 0.95em;
+    }
   }
 </style>
 
