@@ -18,6 +18,9 @@
           "type": "text",
           "settings": {
             "text": "<p>Early Black Friday  -  <strong>$200</strong> Off Smart -   <strong>$100 </strong>Off Classic - Limited Quantities!</p>",
+            "countdown_enabled": true,
+            "countdown_date": "",
+            "countdown_position": "end",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
