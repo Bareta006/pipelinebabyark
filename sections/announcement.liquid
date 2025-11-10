@@ -166,10 +166,25 @@
                 
                 {%- if show_countdown and block.settings.countdown_position == 'beginning' -%}
                   <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-days">0</span>d 
-                    <span class="countdown-hours">0</span>h 
-                    <span class="countdown-minutes">0</span>m 
-                    <span class="countdown-seconds">0</span>s
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-days">00</span>
+                      <span class="countdown-label">DAYS</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-hours">00</span>
+                      <span class="countdown-label">HRS</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-minutes">00</span>
+                      <span class="countdown-label">MIN</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-seconds">00</span>
+                      <span class="countdown-label">SEC</span>
+                    </span>
                   </span>
                   <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
                 {%- endif -%}
@@ -181,10 +196,25 @@
                 {%- if show_countdown and block.settings.countdown_position == 'end' -%}
                   <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
                   <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-days">0</span>d 
-                    <span class="countdown-hours">0</span>h 
-                    <span class="countdown-minutes">0</span>m 
-                    <span class="countdown-seconds">0</span>s
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-days">00</span>
+                      <span class="countdown-label">DAYS</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-hours">00</span>
+                      <span class="countdown-label">HRS</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-minutes">00</span>
+                      <span class="countdown-label">MIN</span>
+                    </span>
+                    <span class="countdown-separator">:</span>
+                    <span class="countdown-unit">
+                      <span class="countdown-number countdown-seconds">00</span>
+                      <span class="countdown-label">SEC</span>
+                    </span>
                   </span>
                 {%- endif -%}
 
@@ -279,42 +309,67 @@
 <style>
   .announcement-countdown {
     display: inline-flex;
-    gap: 0.4em;
     align-items: center;
+    gap: 0.5em;
+    font-family: inherit;
   }
   
-  .announcement-countdown > span {
+  .countdown-unit {
     display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    gap: 0.15em;
+    gap: 0.2em;
   }
   
-  .countdown-days,
-  .countdown-hours,
-  .countdown-minutes,
-  .countdown-seconds {
+  .countdown-number {
     display: inline-block;
-    min-width: 2ch;
-    text-align: center;
-    font-weight: 700;
+    min-width: 2.2em;
+    padding: 0.3em 0.5em;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    font-size: 1.2em;
+    font-weight: 800;
+    line-height: 1;
     font-variant-numeric: tabular-nums;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 0.15em 0.35em;
-    border-radius: 3px;
+    text-align: center;
+    letter-spacing: 0.02em;
+  }
+  
+  .countdown-label {
+    font-size: 0.65em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  
+  .countdown-separator {
+    font-size: 1.3em;
+    font-weight: 700;
+    opacity: 0.6;
+    line-height: 1;
+    margin: 0 -0.1em;
   }
   
   @media (max-width: 749px) {
     .announcement-countdown {
-      gap: 0.3em;
+      gap: 0.35em;
     }
     
-    .countdown-days,
-    .countdown-hours,
-    .countdown-minutes,
-    .countdown-seconds {
-      min-width: 1.8ch;
-      padding: 0.1em 0.25em;
-      font-size: 0.95em;
+    .countdown-number {
+      min-width: 2em;
+      padding: 0.25em 0.4em;
+      font-size: 1em;
+    }
+    
+    .countdown-label {
+      font-size: 0.6em;
+    }
+    
+    .countdown-separator {
+      font-size: 1.1em;
+      margin: 0 -0.15em;
     }
   }
 </style>
@@ -356,10 +411,10 @@
         const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((diff % (1000 * 60)) / 1000);
         
-        daysEl.textContent = days;
-        hoursEl.textContent = hours;
-        minutesEl.textContent = minutes;
-        secondsEl.textContent = seconds;
+        daysEl.textContent = String(days).padStart(2, '0');
+        hoursEl.textContent = String(hours).padStart(2, '0');
+        minutesEl.textContent = String(minutes).padStart(2, '0');
+        secondsEl.textContent = String(seconds).padStart(2, '0');
       }
       
       // Initial calculation
