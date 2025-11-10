@@ -115,25 +115,6 @@
 
                 <span class="btn-state-complete">&nbsp;</span>
               </button>
-              {% if product.available == false %}
-  <div id="klaviyo-bis-trigger"></div>
-
-  <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-  <script>
-    KlaviyoSubscribe.attachToProduct({
-      triggerButtonId: "klaviyo-bis-trigger",
-      variantSelector: '[name="id"]'
-    });
-    document.addEventListener('change', function (e) {
-  if (e.target.name === 'id') {
-    KlaviyoSubscribe.attachToProduct({
-      triggerButtonId: "klaviyo-bis-trigger",
-      variantSelector: '[name="id"]'
-    });
-  }
-});
-  </script>
-{% endif %}
 
 
               {%- if buybutton_setting -%}
