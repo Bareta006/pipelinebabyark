@@ -116,10 +116,8 @@
                 <span class="btn-state-complete">&nbsp;</span>
               </button>
 
-              {%- comment -%} Klaviyo Back in Stock - Only show for out of stock variants {%- endcomment -%}
-              {%- unless current_variant.available -%}
-                <div class="klaviyo-bis-trigger" data-product-id="{{ product.id }}" data-variant-id="{{ current_variant.id }}"></div>
-              {%- endunless -%}
+              {%- comment -%} Klaviyo Back in Stock - Always render, JS controls visibility {%- endcomment -%}
+              <div class="klaviyo-bis-trigger" data-product-id="{{ product.id }}" data-variant-id="{{ current_variant.id }}" style="display: {% if current_variant.available %}none{% else %}block{% endif %};"></div>
 
               {%- if buybutton_setting -%}
                 <div class="product__submit__quick">

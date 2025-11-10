@@ -4682,6 +4682,11 @@ background-color: #22282D;
           // Out of stock - hide add to cart, show klaviyo
           if (klaviyoTrigger) klaviyoTrigger.style.display = 'block';
           if (addToCartButton) addToCartButton.style.display = 'none';
+          
+          // Tell Klaviyo to reinitialize and check for the trigger
+          if (window.klaviyo && window.klaviyo.init) {
+            window.klaviyo.init();
+          }
         }
       }
     });
