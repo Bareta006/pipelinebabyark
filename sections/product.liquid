@@ -4665,10 +4665,30 @@ background-color: #22282D;
       }
     }
     
-    // Listen for variant changes
-    document.addEventListener('variant:change', updateBackInStockButton);
+    // Listen for variant changes (main event from theme)
+    document.addEventListener('variant:change', function(event) {
+      if (event.detail && event.detail.variant) {
+        const variant = event.detail.variant;
+        const addToCartButton = document.querySelector('.btn--add-to-cart');
+        
+        // Update klaviyo trigger
+        klaviyoTrigger.setAttribute('data-variant-id', variant.id);
+        
+        if (variant.available) {
+          // In stock - show add to cart, hide klaviyo
+          if (klaviyoTrigger) klaviyoTrigger.style.display = 'none';
+          if (addToCartButton) addToCartButton.style.removeProperty('display');
+        } else {
+          // Out of stock - hide add to cart, show klaviyo
+          if (klaviyoTrigger) klaviyoTrigger.style.display = 'block';
+          if (addToCartButton) addToCartButton.style.display = 'none';
+        }
+      }
+    });
+    
+    // Also listen for direct swatch changes as backup
     document.addEventListener('change', function(event) {
-      if (event.target.matches('input[data-swatch-input]') || event.target.name === 'id') {
+      if (event.target.matches('input[data-swatch-input]')) {
         setTimeout(updateBackInStockButton, 100);
       }
     });
