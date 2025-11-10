@@ -4616,3 +4616,57 @@ background-color: #22282D;
     });
   });
 </script>
+
+<script>
+  // Klaviyo Back in Stock - Update button when variant changes
+  document.addEventListener('DOMContentLoaded', function() {
+    const productForm = document.querySelector('[data-product-form]');
+    if (!productForm) return;
+    
+    const klaviyoTrigger = document.querySelector('.klaviyo-bis-trigger');
+    if (!klaviyoTrigger) return;
+    
+    const productData = productForm.querySelector('[data-product-json]');
+    if (!productData) return;
+    
+    let product;
+    try {
+      product = JSON.parse(productData.textContent);
+    } catch(e) {
+      console.error('Error parsing product data:', e);
+      return;
+    }
+    
+    function updateBackInStockButton() {
+      // Get current variant ID from form
+      const variantIdInput = productForm.querySelector('input[name="id"]');
+      if (!variantIdInput) return;
+      
+      const currentVariantId = parseInt(variantIdInput.value);
+      const currentVariant = product.variants.find(v => v.id === currentVariantId);
+      
+      if (!currentVariant) return;
+      
+      // Update the trigger's data attributes
+      klaviyoTrigger.setAttribute('data-variant-id', currentVariantId);
+      
+      // Show/hide based on availability
+      if (currentVariant.available) {
+        klaviyoTrigger.style.display = 'none';
+      } else {
+        klaviyoTrigger.style.display = 'block';
+      }
+    }
+    
+    // Listen for variant changes
+    document.addEventListener('variant:change', updateBackInStockButton);
+    document.addEventListener('change', function(event) {
+      if (event.target.matches('input[data-swatch-input]') || event.target.name === 'id') {
+        setTimeout(updateBackInStockButton, 100);
+      }
+    });
+    
+    // Initial check
+    updateBackInStockButton();
+  });
+</script>
