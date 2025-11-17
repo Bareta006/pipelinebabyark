@@ -257,6 +257,9 @@
       -%}
       
       {%- if show_countdown -%}
+        <script>
+          document.body.classList.add('announcement-countdown-active');
+        </script>
         <div class="announcement-countdown-wrapper">
           <div class="announcement-countdown" data-countdown-date="{{ section.settings.countdown_date }}">
             <span class="countdown-unit">
@@ -290,7 +293,12 @@
   #shopify-section-{{ section.id }} .announcement.announcement-with-countdown {
     overflow: visible;
     background: transparent;
-    margin-bottom: -6.5em;
+    margin-bottom: -60px;
+  }
+  
+  /* Add padding-top to header when countdown is active */
+  body.announcement-countdown-active .theme__header {
+    padding-top: 60px;
   }
   
   /* Countdown wrapper - displays below announcement bar, transparent to show section below */
@@ -356,7 +364,7 @@
   
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .announcement.announcement-with-countdown {
-      margin-bottom: -5em;
+      margin-bottom: -60px;
     }
     
     .announcement-countdown-wrapper {
