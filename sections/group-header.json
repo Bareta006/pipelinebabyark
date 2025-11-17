@@ -17,8 +17,8 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Early Black Friday  -  <strong>$200</strong> Off Smart -   <strong>$100 </strong>Off Classic - Limited Quantities!</p>",
-            "countdown_enabled": true,
+            "text": "<p>Black Friday is Here! -  <strong>$200</strong> Off Smart -   <strong>$100 </strong>Off Classic - Limited to first 500 orders</p>",
+            "countdown_enabled": false,
             "countdown_date": "2025-11-10 23:59",
             "countdown_position": "end",
             "target_url_enabled": false,

@@ -15,7 +15,7 @@
         "text_xMEdan": {
           "type": "text",
           "settings": {
-            "richtext": "<h1>A New Standard<br/>Of Safety</h1>",
+            "richtext": "<h1>A New Standard<br/>of Safety</h1>",
             "text_size": 6
           }
         },
