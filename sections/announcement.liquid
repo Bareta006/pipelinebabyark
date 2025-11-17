@@ -286,14 +286,20 @@
 {%- endif -%}
 
 <style>
-  /* Countdown wrapper - displays below announcement bar */
-  .announcement-countdown-wrapper {
+  /* Countdown wrapper - displays below announcement bar, transparent to show section below */
+  #shopify-section-{{ section.id }} .announcement-countdown-wrapper {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0.75rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: transparent !important;
+  }
+  
+  /* Ensure announcement container doesn't block section below when countdown is enabled */
+  #shopify-section-{{ section.id }} .announcement {
+    background: transparent;
   }
   
   .announcement-countdown {
