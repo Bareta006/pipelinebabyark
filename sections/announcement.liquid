@@ -177,10 +177,10 @@
   {%- endfor -%}
 
   <div
-    class="announcement relative z-[5500] overflow-hidden"
+    class="announcement relative z-[5500] {% if section.settings.countdown_enabled %}announcement-with-countdown{% endif %}"
     style="
       --PT: {{ section.settings.padding_top }}px;
-      --PB: {{ section.settings.padding_bottom }}px;
+      --PB: {% if section.settings.countdown_enabled %}0{% else %}{{ section.settings.padding_bottom }}{% endif %}px;
       --bg: var(--COLOR-ANNOUNCEMENT-BG);
       --text: var(--COLOR-ANNOUNCEMENT-TEXT);
       --underline: calc(var(--font-{{ section.settings.text_size }}) * var(--FONT-ADJUST-ACCENT));"
@@ -286,6 +286,13 @@
 {%- endif -%}
 
 <style>
+  /* When countdown is enabled, use negative margin to pull next section up */
+  #shopify-section-{{ section.id }} .announcement.announcement-with-countdown {
+    overflow: visible;
+    background: transparent;
+    margin-bottom: calc(-1 * (0.75rem * 2 + 1rem * 2 + 3em));
+  }
+  
   /* Countdown wrapper - displays below announcement bar, transparent to show section below */
   #shopify-section-{{ section.id }} .announcement-countdown-wrapper {
     width: 100%;
@@ -295,11 +302,8 @@
     padding: 0.75rem 1rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     background: transparent !important;
-  }
-  
-  /* Ensure announcement container doesn't block section below when countdown is enabled */
-  #shopify-section-{{ section.id }} .announcement {
-    background: transparent;
+    position: relative;
+    z-index: 10;
   }
   
   .announcement-countdown {
@@ -351,6 +355,10 @@
   }
   
   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .announcement.announcement-with-countdown {
+      margin-bottom: calc(-1 * (0.5rem * 2 + 0.75rem * 2 + 2.5em));
+    }
+    
     .announcement-countdown-wrapper {
       padding: 0.5rem 0.75rem;
     }
