@@ -257,10 +257,7 @@
       -%}
       
       {%- if show_countdown -%}
-        <script>
-          document.body.classList.add('announcement-countdown-active');
-        </script>
-        <div class="announcement-countdown-wrapper">
+        <div class="announcement-countdown-wrapper" data-countdown-active="true">
           <div class="announcement-countdown" data-countdown-date="{{ section.settings.countdown_date }}">
             <span class="countdown-unit">
               <span class="countdown-number countdown-days">00</span>

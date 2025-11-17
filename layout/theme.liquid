@@ -264,6 +264,22 @@
 
 
 <body id="{{ page_title | handle }}" class="template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }} {{ settings.default_background }}{% if customer %} customer-logged-in{% endif %}">
+  <script>
+    (function() {
+      // Check for announcement countdown and add class to body
+      var checkCountdown = function() {
+        var countdownElement = document.querySelector('[data-countdown-active="true"]');
+        if (countdownElement) {
+          document.body.classList.add('announcement-countdown-active');
+        }
+      };
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkCountdown);
+      } else {
+        checkCountdown();
+      }
+    })();
+  </script>
 
   <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
 
