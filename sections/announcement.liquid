@@ -177,7 +177,7 @@
   {%- endfor -%}
 
   <div
-    class="announcement bg-[--bg] text-[--text] relative z-[5500] overflow-hidden"
+    class="announcement relative z-[5500] overflow-hidden"
     style="
       --PT: {{ section.settings.padding_top }}px;
       --PB: {{ section.settings.padding_bottom }}px;
@@ -192,7 +192,7 @@
     {%- comment -%} Slider {%- endcomment -%}
     {%- if section.settings.layout == 'slider' -%}
       <div
-        class="{{ font_size_class }}"
+        class="{{ font_size_class }} announcementBarContainer bg-[--bg] text-[--text]"
         x-data="announcementSlider({{ section.settings.speed | times: 1000 }})"
         {%- if request.design_mode -%}
           @shopify:block:select="onBlockSelect"
@@ -206,7 +206,7 @@
 
     {%- comment -%} Marquee {%- endcomment -%}
     {%- if section.settings.layout == 'marquee' -%}
-      <div style="--items-spacing: {{ section.settings.text_size | times: 4 }}px">
+      <div class="announcementBarContainer bg-[--bg] text-[--text]" style="--items-spacing: {{ section.settings.text_size | times: 4 }}px">
         <div class="flex justify-between items-center text-center w-full">
           <div
             class="w-full px-[--outer] text-[0] overflow-hidden"
