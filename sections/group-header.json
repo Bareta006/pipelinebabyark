@@ -18,9 +18,6 @@
           "type": "text",
           "settings": {
             "text": "<p>Black Friday is Here! -  <strong>$200</strong> Off Smart -   <strong>$100 </strong>Off Classic - Limited to first 500 orders</p>",
-            "countdown_enabled": false,
-            "countdown_date": "2025-11-10 23:59",
-            "countdown_position": "end",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
@@ -40,6 +37,8 @@
         "text_size": 5,
         "layout": "slider",
         "speed": 14,
+        "countdown_enabled": true,
+        "countdown_date": "2025-11-31 23:59",
         "padding_top": 14,
         "padding_bottom": 14
       }
