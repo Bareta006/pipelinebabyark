@@ -143,79 +143,8 @@
 
             {%- case block.type -%}
               {%- when 'text' -%}
-                {%- liquid
-                  assign show_countdown = false
-                  if block.settings.countdown_enabled and block.settings.countdown_date != blank
-                    assign date_parts = block.settings.countdown_date | split: ' '
-                    if date_parts.size == 2
-                      assign date_part = date_parts[0] | split: '-'
-                      assign time_part = date_parts[1] | split: ':'
-                      if date_part.size == 3 and time_part.size == 2
-                        assign year = date_part[0] | plus: 0
-                        assign month = date_part[1] | plus: 0
-                        assign day = date_part[2] | plus: 0
-                        assign hour = time_part[0] | plus: 0
-                        assign minute = time_part[1] | plus: 0
-                        if year > 2000 and month >= 1 and month <= 12 and day >= 1 and day <= 31 and hour >= 0 and hour <= 23 and minute >= 0 and minute <= 59
-                          assign show_countdown = true
-                        endif
-                      endif
-                    endif
-                  endif
-                -%}
-                
-                {%- if show_countdown and block.settings.countdown_position == 'beginning' -%}
-                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-days">00</span>
-                      <span class="countdown-label">DAYS</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-hours">00</span>
-                      <span class="countdown-label">HRS</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-minutes">00</span>
-                      <span class="countdown-label">MIN</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-seconds">00</span>
-                      <span class="countdown-label">SEC</span>
-                    </span>
-                  </span>
-                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
-                {%- endif -%}
-                
                 {%- if block.settings.text != blank -%}
                   {{ block.settings.text }}
-                {%- endif -%}
-                
-                {%- if show_countdown and block.settings.countdown_position == 'end' -%}
-                  <span class="ml-[0.66em] pr-[0.66em] w-0 border-l border-current"></span>
-                  <span class="announcement-countdown" data-countdown-date="{{ block.settings.countdown_date }}">
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-days">00</span>
-                      <span class="countdown-label">DAYS</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-hours">00</span>
-                      <span class="countdown-label">HRS</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-minutes">00</span>
-                      <span class="countdown-label">MIN</span>
-                    </span>
-                    <span class="countdown-separator">:</span>
-                    <span class="countdown-unit">
-                      <span class="countdown-number countdown-seconds">00</span>
-                      <span class="countdown-label">SEC</span>
-                    </span>
-                  </span>
                 {%- endif -%}
 
               {%- when 'message' -%}
@@ -303,10 +232,70 @@
         </div>
       </div>
     {%- endif -%}
+
+    {%- comment -%} Section-level Countdown Timer {%- endcomment -%}
+    {%- if section.settings.countdown_enabled -%}
+      {%- liquid
+        assign show_countdown = false
+        if section.settings.countdown_date != blank
+          assign date_parts = section.settings.countdown_date | split: ' '
+          if date_parts.size == 2
+            assign date_part = date_parts[0] | split: '-'
+            assign time_part = date_parts[1] | split: ':'
+            if date_part.size == 3 and time_part.size == 2
+              assign year = date_part[0] | plus: 0
+              assign month = date_part[1] | plus: 0
+              assign day = date_part[2] | plus: 0
+              assign hour = time_part[0] | plus: 0
+              assign minute = time_part[1] | plus: 0
+              if year > 2000 and month >= 1 and month <= 12 and day >= 1 and day <= 31 and hour >= 0 and hour <= 23 and minute >= 0 and minute <= 59
+                assign show_countdown = true
+              endif
+            endif
+          endif
+        endif
+      -%}
+      
+      {%- if show_countdown -%}
+        <div class="announcement-countdown-wrapper">
+          <div class="announcement-countdown" data-countdown-date="{{ section.settings.countdown_date }}">
+            <span class="countdown-unit">
+              <span class="countdown-number countdown-days">00</span>
+              <span class="countdown-label">DAYS</span>
+            </span>
+            <span class="countdown-separator">:</span>
+            <span class="countdown-unit">
+              <span class="countdown-number countdown-hours">00</span>
+              <span class="countdown-label">HRS</span>
+            </span>
+            <span class="countdown-separator">:</span>
+            <span class="countdown-unit">
+              <span class="countdown-number countdown-minutes">00</span>
+              <span class="countdown-label">MIN</span>
+            </span>
+            <span class="countdown-separator">:</span>
+            <span class="countdown-unit">
+              <span class="countdown-number countdown-seconds">00</span>
+              <span class="countdown-label">SEC</span>
+            </span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
   </div>
 {%- endif -%}
 
 <style>
+  /* Countdown wrapper - displays below announcement bar */
+  .announcement-countdown-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
   .announcement-countdown {
     display: inline-flex;
     align-items: center;
@@ -319,6 +308,7 @@
     flex-direction: column;
     align-items: center;
     gap: 0.2em;
+    position: relative;
   }
   
   .countdown-number {
@@ -343,7 +333,7 @@
     text-transform: uppercase;
     line-height: 1;
     position: absolute;
-    bottom:10px;
+    bottom: -2px;
   }
   
   .countdown-separator {
@@ -355,9 +345,13 @@
   }
   
   @media (max-width: 749px) {
+    .announcement-countdown-wrapper {
+      padding: 0.5rem 0.75rem;
+    }
+    
     .announcement-countdown {
       gap: 0.35em;
-              padding-bottom: 3px;
+      padding-bottom: 3px;
     }
     
     .countdown-number {
@@ -368,14 +362,12 @@
     
     .countdown-label {
       font-size: 0.6em;
+      bottom: -2px;
     }
     
     .countdown-separator {
       font-size: 1.1em;
       margin: 0 -0.15em;
-    }
-      .countdown-label {
-        bottom:-2px;
     }
   }
 </style>
@@ -484,6 +476,22 @@
       "default": 5
     },
     {
+      "type": "header",
+      "content": "Countdown Timer"
+    },
+    {
+      "id": "countdown_enabled",
+      "type": "checkbox",
+      "label": "Show countdown timer below announcement bar",
+      "default": false
+    },
+    {
+      "id": "countdown_date",
+      "type": "text",
+      "label": "Target date and time",
+      "info": "Format: YYYY-MM-DD HH:MM (24-hour format). Example: 2025-12-31 23:59"
+    },
+    {
       "type": "paragraph",
       "content": "Note: the transparent header setting will hide announcements placed beneath a transparent header.  For transparent header announcements, use the toolbar block of the header section."
     },
@@ -522,32 +530,6 @@
           "id": "text",
           "label": "Text",
           "default": "<p><strong>Make an announcement</strong> | More info</p>"
-        },
-        {
-          "type": "header",
-          "content": "Countdown Timer"
-        },
-        {
-          "id": "countdown_enabled",
-          "type": "checkbox",
-          "label": "Enable countdown timer",
-          "default": false
-        },
-        {
-          "id": "countdown_date",
-          "type": "text",
-          "label": "Target date and time",
-          "info": "Format: YYYY-MM-DD HH:MM (24-hour format). Example: 2025-12-31 23:59"
-        },
-        {
-          "type": "select",
-          "id": "countdown_position",
-          "label": "Timer position",
-          "default": "end",
-          "options": [
-            {"value": "beginning", "label": "Beginning of text"},
-            {"value": "end", "label": "End of text"}
-          ]
         },
         {
           "type": "header",
