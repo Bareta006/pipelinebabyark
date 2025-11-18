@@ -321,6 +321,36 @@
     align-items: center;
     gap: 0.5em;
     font-family: inherit;
+    background-color: #000;
+    padding: 10px;
+    border-radius: 0 0px 10px 10px;
+    position: relative;
+  }
+  
+  /* Left triangle - narrow at bottom, wider at top */
+  .announcement-countdown::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 20px;
+    height: 30px;
+    background-color: #000;
+    clip-path: polygon(0 100%, 0 0, 100% 0);
+    transform: translateX(-100%);
+  }
+  
+  /* Right triangle - narrow at bottom, wider at top */
+  .announcement-countdown::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    height: 30px;
+    background-color: #000;
+    clip-path: polygon(100% 100%, 0 0, 100% 0);
+    transform: translateX(100%);
   }
   
   .countdown-unit {
