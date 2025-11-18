@@ -298,6 +298,11 @@
     padding-top: 60px;
   }
   
+  /* Remove padding-top when header is sticky (scrolled) */
+  body.announcement-countdown-active .js__header__stuck .theme__header {
+    padding-top: 0;
+  }
+  
   /* Countdown wrapper - displays below announcement bar, transparent to show section below */
   #shopify-section-{{ section.id }} .announcement-countdown-wrapper {
     width: 100%;
