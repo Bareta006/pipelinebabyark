@@ -1,0 +1,97 @@
+<div class="multistep-step multistep-step--1" data-step="1" style="display: block;">
+  <div class="step1-container">
+      <div class="step1-info">
+        <h1 class="product-title">{{ product.title }}</h1>
+
+        {%- if product.metafields.theme.cutline.value -%}
+          <p class="product-cutline">{{ product.metafields.theme.cutline.value }}</p>
+        {%- endif -%}
+
+        <div class="product-price">
+          <span class="price" data-product-price>
+            {{ current_variant.price | money }}
+          </span>
+        </div>
+      </div>
+    <div class="step1-product-container">
+      <div class="step1-images">
+          <div class="product-main-image">
+            <img src="https://cdn.shopify.com/s/files/1/0552/2135/4567/files/advanced.png?v=1763194702"
+                alt="{{ product.title }}"
+                class="product-image">
+                <button type="button" class="plus-icon-1 plus-absolute" data-feature-modal="1">
+                  {%- render 'icon-plus' -%}
+                </button>
+                <button type="button" class="plus-icon-2 plus-absolute" data-feature-modal="2">
+                  {%- render 'icon-plus' -%}
+                </button>
+                <button type="button" class="plus-icon-3 plus-absolute" data-feature-modal="3">
+                  {%- render 'icon-plus' -%}
+                </button>
+                <button type="button" class="plus-icon-4 plus-absolute" data-feature-modal="4">
+                  {%- render 'icon-plus' -%}
+                </button>
+                <button type="button" class="plus-icon-5 plus-absolute" data-feature-modal="5">
+                  {%- render 'icon-plus' -%}
+                </button>
+                <button type="button" class="plus-icon-6 plus-absolute" data-feature-modal="6">
+                  {%- render 'icon-plus' -%}
+                </button>
+          </div>
+      </div>
+      <div class="step1-features-container">
+      {%- assign product_features = shop.metaobjects.multistep_product_features.values -%}
+      {%- assign feature_order = 'd-3-o-jolt-free,side-impact-protection,anti-rebound-bar,support-leg,energy-absorption-coils,rigid-latch' | split: ',' -%}
+
+        <div class="product-features">
+          {%- for handle in feature_order -%}
+            {%- for feature in product_features -%}
+              {%- if feature.system.handle == handle -%}
+                <button type="button" class="product-feature-item" data-feature-modal="{{ forloop.parentloop.index }}">
+                  {%- if feature.image != blank -%}
+                    <img src="{{ feature.image | image_url: width: 120 }}" alt="{{ feature.title }}" class="feature-icon">
+                  {%- endif -%}
+                  <span class="feature-title">{{ feature.title }}</span>
+                </button>
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+      <button type="button" class="btn btn--steps btn--large btn--step-1" data-customize-btn>
+        Customize
+      </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-modal-backdrop" data-feature-backdrop style="display: none;">
+  <div class="feature-modal-content">
+    <button type="button" class="feature-modal-close" data-feature-close>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="feature-modal-body" data-feature-modal-body></div>
+    <button type="button" class="btn btn--white btn--large feature-modal-customize" data-feature-customize>
+      Customize
+    </button>
+  </div>
+</div>
+
+{%- for handle in feature_order -%}
+  {%- for feature in product_features -%}
+    {%- if feature.system.handle == handle -%}
+      <script type="application/json" data-feature-data="{{ forloop.parentloop.index }}">
+        {
+          "title": {{ feature.title | default: '' | json }},
+          "description": {{ feature.description.value | default: feature.description | default: '' | json }},
+          "image": {% if feature.image != blank %}{{ feature.image | image_url: width: 400 | json }}{% else %}null{% endif %}
+        }
+      </script>
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}

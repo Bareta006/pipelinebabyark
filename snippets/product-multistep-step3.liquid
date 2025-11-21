@@ -1,0 +1,88 @@
+{%- liquid
+  assign smart_values = product.options_with_values | where: 'name', 'Smart' | first
+
+  if smart_values == blank
+    for option in product.options_with_values
+      assign option_name_lower = option.name | downcase
+      if option_name_lower contains 'smart'
+        assign smart_values = option
+        break
+      endif
+    endfor
+  endif
+
+  assign smart_value = null
+  assign non_smart_value = null
+
+  if smart_values
+    for value in smart_values.values
+      assign value_lower = value | downcase
+      if value_lower contains 'non' or value_lower contains 'classic' or value_lower contains 'no'
+        assign non_smart_value = value
+      else
+        assign smart_value = value
+      endif
+    endfor
+  endif
+
+  assign smart_features = shop.metaobjects.smart_features.values
+-%}
+
+<div class="multistep-step multistep-step--3" data-step="3" style="display: none;">
+  <div class="step3-container">
+    <h2 class="step-title">Add Smart Capabilities</h2>
+    <div class="price-smart-multistep">$200</div>
+
+    <div class="smart-feature-showcase">
+      <div class="smart-features-list">
+        {%- for feature in smart_features -%}
+          <div class="smart-feature-item">
+            <div class="feature-media">
+              {%- if feature.video != blank -%}
+                <video autoplay muted loop playsinline>
+                  <source src="{{ feature.video }}" type="video/mp4">
+                </video>
+              {%- elsif feature.image != blank -%}
+                <img src="{{ feature.image | image_url: width: 400 }}"
+                     alt="{{ feature.title }}"
+                     loading="lazy">
+              {%- endif -%}
+            </div>
+            <div class="feature-content">
+              <div class="feature-header">
+                {%- if feature.icon != blank -%}
+                  <img src="{{ feature.icon | image_url: width: 48 }}"
+                       alt=""
+                       class="feature-header-icon"
+                       width="24"
+                       height="24">
+                {%- endif -%}
+                <h3 class="feature-title">{{ feature.title }}</h3>
+              </div>
+              <p class="feature-description">{{ feature.description }}</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <input type="hidden"
+             name="smart_option"
+             data-smart-option-input
+             value="{{ smart_value | default: 'Smart' | escape }}"
+             data-smart-value="{{ smart_value | default: 'Smart' | escape }}"
+             data-non-smart-value="{{ non_smart_value | default: 'Non-Smart' | escape }}">
+    </div>
+
+    <div class="step-actions step-actions--vertical">
+      <button type="button" class="btn btn--steps btn--large action-button" data-add-smart-btn>
+        Add
+      </button>
+      <button type="button" class="btn btn--text" data-skip-smart-btn>
+        Skip
+      </button>
+      <button type="button" class="btn btn--secondary btn--back-only" data-prev-step="2">
+        Back
+      </button>
+    </div>
+  </div>
+</div>

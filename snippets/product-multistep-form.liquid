@@ -1,0 +1,27 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+-%}
+
+<link rel="stylesheet" href="{{ 'product-multistep.css' | asset_url }}">
+<script src="{{ 'product-multistep.js' | asset_url }}" defer></script>
+
+<script type="application/json" data-product-json>
+  {{ product | json }}
+</script>
+
+<div class="multistep-container" data-multistep-container data-accessories-collection="accessories">
+  <div class="multistep-progress" data-progress-dots style="display: none;">
+    <div class="progress-dots">
+      <div class="progress-dot" data-step-dot data-step-number="2"></div>
+      <div class="progress-dot" data-step-dot data-step-number="3"></div>
+      <div class="progress-dot" data-step-dot data-step-number="4"></div>
+      <div class="progress-dot" data-step-dot data-step-number="5"></div>
+    </div>
+  </div>
+
+  {% render 'product-multistep-step1', product: product, current_variant: current_variant %}
+  {% render 'product-multistep-step2', product: product %}
+  {% render 'product-multistep-step3', product: product %}
+  {% render 'product-multistep-step4', product: product %}
+  {% render 'product-multistep-step5', product: product %}
+</div>
