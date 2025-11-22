@@ -122,11 +122,53 @@ class ProductMultiStep {
     const colorSelected = this.container.querySelector('input[name="color"]:checked');
     const shellColorSelected = this.container.querySelector('input[name="shell_color"]:checked');
 
+    if (shellColorSelected) {
+      this.selectedShellColor = shellColorSelected.value;
+      this.updateColorAvailability();
+    }
+
     if (colorSelected && shellColorSelected) {
       this.selectedColor = colorSelected.value;
       this.selectedShellColor = shellColorSelected.value;
       this.selectPartialVariant();
     }
+  }
+
+  updateColorAvailability() {
+    if (!this.productData || !this.selectedShellColor) return;
+
+    const colorInputs = this.container.querySelectorAll('input[name="color"]');
+
+    colorInputs.forEach(input => {
+      const color = input.value;
+
+      const availableVariant = this.productData.variants.find(v => {
+        const matchesShell = v.option1?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
+                            v.option2?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
+                            v.option3?.toLowerCase() === this.selectedShellColor?.toLowerCase();
+
+        const matchesColor = v.option1?.toLowerCase() === color?.toLowerCase() ||
+                            v.option2?.toLowerCase() === color?.toLowerCase() ||
+                            v.option3?.toLowerCase() === color?.toLowerCase();
+
+        return matchesShell && matchesColor && v.available;
+      });
+
+      const swatchWrapper = input.closest('.swatch-option');
+      if (swatchWrapper) {
+        if (!availableVariant) {
+          swatchWrapper.classList.add('swatch-option--disabled');
+          input.disabled = true;
+          if (input.checked) {
+            input.checked = false;
+            this.selectedColor = null;
+          }
+        } else {
+          swatchWrapper.classList.remove('swatch-option--disabled');
+          input.disabled = false;
+        }
+      }
+    });
   }
 
   validateStep2() {
@@ -563,6 +605,7 @@ class ProductMultiStep {
 
   renderOrderSummary() {
     const summaryContainer = this.container.querySelector('[data-order-summary]');
+    const totalsContainer = this.container.querySelector('[data-summary-totals]');
     if (!summaryContainer) return;
 
     let html = '<div class="order-summary">';
@@ -620,15 +663,17 @@ class ProductMultiStep {
     if (this.selectedSmartOption && this.selectedSmartOption.toLowerCase().includes('non')) {
       html += `
         <div class="summary-upgrade">
-          <div class"summary-upgrade-icon-container">
-            <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-             <path d="M21.25 2.5H8.75C7.36929 2.5 6.25 3.61929 6.25 5V25C6.25 26.3807 7.36929 27.5 8.75 27.5H21.25C22.6307 27.5 23.75 26.3807 23.75 25V5C23.75 3.61929 22.6307 2.5 21.25 2.5Z" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-             <path d="M15 22.5H15.0125" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <div class="summary-upgrade-content">
-          <div class="summary-upgrade-title">Add Smart Capabilities</div>
-          <span>14 sensors, alerts & more $200</span>
+          <div class="summary-upgrade-container">
+            <div class="summary-upgrade-icon-container">
+              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21.25 2.5H8.75C7.36929 2.5 6.25 3.61929 6.25 5V25C6.25 26.3807 7.36929 27.5 8.75 27.5H21.25C22.6307 27.5 23.75 26.3807 23.75 25V5C23.75 3.61929 22.6307 2.5 21.25 2.5Z" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 22.5H15.0125" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="summary-upgrade-content">
+            <div class="summary-upgrade-title">Add Smart Capabilities</div>
+            <span>14 sensors, alerts & more $200</span>
+            </div>
           </div>
           <button data-upgrade-to-smart class="btn-text-add-upgrade">ADD</button>
         </div>
@@ -636,6 +681,8 @@ class ProductMultiStep {
     }
 
     html += '</div>';
+
+    summaryContainer.innerHTML = html;
 
     let subtotal = 0;
     let totalDiscounted = 0;
@@ -652,24 +699,24 @@ class ProductMultiStep {
 
     const savings = subtotal - totalDiscounted;
 
-    html += `
-      <div class="summary-totals">
-        <div class="summary-total-row">
-          <span>Subtotal</span>
-          <span>${this.formatMoney(subtotal)}</span>
+    if (totalsContainer) {
+      totalsContainer.innerHTML = `
+        <div class="summary-totals">
+          <div class="summary-total-row">
+            <span>Subtotal</span>
+            <span>${this.formatMoney(subtotal)}</span>
+          </div>
+          <div class="summary-total-row summary-total-savings">
+            <span>Your Save</span>
+            <span>-${this.formatMoney(savings)}</span>
+          </div>
+          <div class="summary-total-row summary-total-final">
+            <span>Total</span>
+            <span>${this.formatMoney(totalDiscounted)}</span>
+          </div>
         </div>
-        <div class="summary-total-row summary-total-savings">
-          <span>You Save</span>
-          <span>-${this.formatMoney(savings)}</span>
-        </div>
-        <div class="summary-total-row summary-total-final">
-          <span>Total</span>
-          <span>${this.formatMoney(totalDiscounted)}</span>
-        </div>
-      </div>
-    `;
-
-    summaryContainer.innerHTML = html;
+      `;
+    }
 
     const upgradeBtn = summaryContainer.querySelector('[data-upgrade-to-smart]');
     if (upgradeBtn) {

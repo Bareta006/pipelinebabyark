@@ -131,10 +131,14 @@
                         style="background-image: url('{{ swatch_bg_image | image_url: width: 120 }}');"
                         {% endif %}>
                   </label>
+                {% if has_available_variant == true %}
                   <span class="swatch-text-below">
                     {{ value }}
-                    {% unless has_available_variant %}<br><small>Sold Out</small>{% endunless %}
                   </span>
+                {% endif %}
+                  <div class="swatch-sold-out">
+                    {% unless has_available_variant %}<small>Sold Out</small>{% endunless %}
+                  </div>
                 </div>
               {%- endfor -%}
             </div>

@@ -2,45 +2,53 @@
   <div class="step5-container">
     <h2 class="step-title">Order Summary</h2>
 
-    <div class="order-summary-container" data-order-summary>
-      <div class="order-summary-loading">
-        <p>Loading your order...</p>
+    <div class="step5-layout">
+      <div class="order-summary-container" data-order-summary>
+        <div class="order-summary-loading">
+          <p>Loading your order...</p>
+        </div>
       </div>
-    </div>
 
-    <div class="step-actions">
-      <button type="button" class="btn btn--secondary" data-prev-step="4">
-        Back
-      </button>
-      <button type="button" class="btn btn--steps btn--large" data-checkout-btn>
-        Proceed to Checkout
-      </button>
-    </div>  
-    <div class="order-summary-icons">
-      <div class="order-summary-icon">
-        {% render 'icon-multistep-delivery' %}
-        <span class="order-summary-icon-text">Free Delivery</span>
+      <div class="summary-totals-container" data-summary-totals>
       </div>
-      <div class="order-summary-icon">
-        {% render 'icon-multistep-trial' %}
-        <span class="order-summary-icon-text">Free Trial</span>
+
+      <div class="order-summary-icons">
+        <div class="order-summary-icon">
+          {% render 'icon-multistep-delivery' %}
+          <span class="order-summary-icon-text">Free Delivery</span>
+        </div>
+        <div class="order-summary-icon">
+          {% render 'icon-multistep-trial' %}
+          <span class="order-summary-icon-text">Free Trial</span>
+        </div>
+        <div class="order-summary-icon">
+          {% render 'icon-multistep-warranty' %}
+          <span class="order-summary-icon-text">Free Warranty</span>
+        </div>
       </div>
-      <div class="order-summary-icon">
-        {% render 'icon-multistep-warranty' %}       
-        <span class="order-summary-icon-text">Free Warranty</span>
+
+      <div class="order-summary-bullets">
+        <div class="order-summary-bullet">
+        {% render 'icon-multistep-deliver_2' %}
+          Estimated delivery between Dec 15-20
+        </div>
+        <div class="order-summary-bullet">
+          {% render 'icon-core-chevron-down' %}
+          {% render 'icon-multistep-affirm' %}
+          Starting at $62/mo or 0% APR. Check your purchasing power
+        </div>
+        <div class="order-summary-bullet">
+          Pay with friends and family using Paysquad
+        </div>
       </div>
-    </div>
-    <div class="order-summary-bullets">
-      <div class="order-summary-bullet">
-      {% render 'icon-multistep-deliver_2' %}
-        Estimated delivery between Dec 15-20
-      </div>
-      <div class="order-summary-bullet">
-        {% render 'icon-multistep-affirm' %}
-        Starting at $62/mo or 0% APR. Check your purchasing power
-      </div>
-      <div class="order-summary-bullet">
-        Pay with friends and family using Paysquad
+
+      <div class="step-actions">
+        <button type="button" class="btn btn--secondary" data-prev-step="4">
+          Back
+        </button>
+        <button type="button" class="btn btn--steps btn--large" data-checkout-btn>
+          Checkout
+        </button>
       </div>
     </div>
   </div>
