@@ -325,12 +325,14 @@
         
         fetch(currentWebhookUrl, {
           method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
           body: JSON.stringify({
             code: form.getAttribute('data-coupon'),
             refereeName: fullName,
             refereeEmail: email
-          }),
-          mode: 'no-cors'
+          })
         });
         
         messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
