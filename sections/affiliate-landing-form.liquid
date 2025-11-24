@@ -305,8 +305,14 @@
         submitBtn.textContent = 'Processing...';
         messageDiv.innerHTML = '';
         
-        if (!webhookUrl || webhookUrl === '') {
-          console.error('Webhook URL is empty');
+        const currentWebhookUrl = section.getAttribute('data-webhook-url') || '';
+        const currentRedirectUrl = section.getAttribute('data-redirect-url') || '{{ redirect_url }}';
+        
+        console.log('Form submit - Webhook URL:', currentWebhookUrl);
+        console.log('Form submit - Redirect URL:', currentRedirectUrl);
+        
+        if (!currentWebhookUrl || currentWebhookUrl === '') {
+          console.error('Webhook URL is empty at submit time');
           messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Webhook URL not configured.</p>';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Get Discount';
@@ -319,11 +325,11 @@
           refereeEmail: email
         };
         
-        console.log('Sending webhook to:', webhookUrl);
+        console.log('Sending webhook to:', currentWebhookUrl);
         console.log('Webhook data:', webhookData);
         
         try {
-          const response = await fetch(webhookUrl, {
+          const response = await fetch(currentWebhookUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -348,7 +354,7 @@
           messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
           
           setTimeout(function() {
-            const discountUrl = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(redirectUrl);
+            const discountUrl = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
             window.location.href = discountUrl;
           }, 500);
           
