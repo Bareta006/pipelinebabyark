@@ -111,31 +111,10 @@
         "newsletter_signup"
       ],
       "settings": {}
-    },
-    "affiliate_landing_form_fJWYTh": {
-      "type": "affiliate-landing-form",
-      "name": "Affiliate Landing Form",
-      "settings": {
-        "webhook_url": "https://unmigratory-mustachioed-leona.ngrok-free.dev/referrals/register",
-        "redirect_url": "/products/babyark-convertible-car-seat-smart",
-        "message_size": 24,
-        "message_color": "#000000",
-        "form_text_size": 18,
-        "text_color_custom": "#666666",
-        "button_color": "#000000",
-        "button_text_color": "#ffffff",
-        "text_alignment": "center",
-        "width": "wrapper",
-        "text_color": "#666666",
-        "padding_top": 36,
-        "padding_bottom": 36,
-        "show_debug": true
-      }
     }
   },
   "order": [
     "cart",
-    "popups",
-    "affiliate_landing_form_fJWYTh"
+    "popups"
   ]
 }

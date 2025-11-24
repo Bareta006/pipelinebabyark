@@ -11,11 +11,6 @@
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
 -%}
 
-{%- liquid
-  assign info_param = request.params.info | default: ''
--%}
-
-{%- if info_param != blank -%}
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
@@ -43,9 +38,6 @@
     </div>
   </div>
 </section>
-{%- endif -%}
-
-{%- if info_param != blank -%}
 <style>
   #shopify-section-{{ section.id }} .affiliate-landing-form__container {
     max-width: 100%;
@@ -358,7 +350,6 @@
     }
   })();
 </script>
-{%- endif -%}
 
 {% schema %}
 {
