@@ -319,64 +319,21 @@
           return;
         }
         
-        const code = form.getAttribute('data-coupon') || '';
-        const refereeName = fullName || '';
-        const refereeEmail = email || '';
+        fetch(currentWebhookUrl, {
+          method: 'POST',
+          body: JSON.stringify({
+            code: form.getAttribute('data-coupon'),
+            refereeName: fullName,
+            refereeEmail: email
+          }),
+          mode: 'no-cors'
+        });
         
-        const webhookData = {
-          code: code,
-          refereeName: refereeName,
-          refereeEmail: refereeEmail
-        };
+        messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
         
-        // Use FormData for no-cors compatibility
-        const formData = new FormData();
-        formData.append('code', code);
-        formData.append('refereeName', refereeName);
-        formData.append('refereeEmail', refereeEmail);
-        
-        // Also send as JSON string in a field for webhook.site compatibility
-        formData.append('json', JSON.stringify(webhookData));
-        
-        console.log('=== WEBHOOK REQUEST ===');
-        console.log('URL:', currentWebhookUrl);
-        console.log('Method: POST');
-        console.log('Mode: no-cors (CORS blocked, using FormData)');
-        console.log('Data (object):', webhookData);
-        console.log('Data (JSON string):', JSON.stringify(webhookData));
-        
-        try {
-          console.log('Calling fetch...');
-          const response = await fetch(currentWebhookUrl, {
-            method: 'POST',
-            body: formData,
-            mode: 'no-cors',
-            cache: 'no-cache'
-          });
-          
-          console.log('Fetch completed (no-cors mode - response not readable)');
-          console.log('Request sent successfully to:', currentWebhookUrl);
-          console.log('Data sent:', webhookData);
-          
-          messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
-          
-          setTimeout(function() {
-            const discountUrl = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
-            window.location.href = discountUrl;
-          }, 500);
-          
-        } catch (error) {
-          console.error('=== WEBHOOK ERROR ===');
-          console.error('Error:', error);
-          console.error('Error message:', error.message);
-          console.error('Error stack:', error.stack);
-          console.error('Error name:', error.name);
-          console.error('Webhook URL:', currentWebhookUrl);
-          console.error('Webhook data:', webhookData);
-          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request: ' + error.message + '</p>';
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Get Discount';
-        }
+        setTimeout(function() {
+          window.location.href = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
+        }, 500);
       });
     }
     
