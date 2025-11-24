@@ -226,8 +226,6 @@
       {%- if section.settings.show_debug -%}
       const decodedInfoEl = section.querySelector('#decoded-info-{{ section.id }}');
       if (decodedInfoEl) decodedInfoEl.textContent = decodedString || 'Decode failed';
-      const rawInfoEl = section.querySelector('#raw-info-param-{{ section.id }}');
-      if (rawInfoEl) rawInfoEl.textContent = infoParam || 'No param';
       {%- endif -%}
       
       if (!decodedString) {
