@@ -18,7 +18,12 @@ class ProductMultiStep {
     this.loadProductData();
     this.attachEventListeners();
     this.attachBannerListeners();
-    this.showStep(1);
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const stepParam = urlParams.get('step');
+    const initialStep = stepParam && !isNaN(stepParam) ? parseInt(stepParam) : 1;
+
+    this.showStep(initialStep);
     this.currentSlide = 0;
   }
 
