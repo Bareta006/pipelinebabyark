@@ -39,17 +39,7 @@
       
       {%- comment -%} Main form content {%- endcomment -%}
       <div class="affiliate-landing-form__content">
-        {%- if section.settings.heading != blank -%}
-          <h2 class="affiliate-landing-form__heading">{{ section.settings.heading }}</h2>
-        {%- endif -%}
-        
-        {%- if section.settings.description != blank -%}
-          <div class="affiliate-landing-form__description">
-            {{ section.settings.description }}
-          </div>
-        {%- endif -%}
-        
-        {%- comment -%} Form will be populated by JavaScript {%- endcomment -%}
+        {%- comment -%} Welcome message and form will be populated by JavaScript {%- endcomment -%}
         <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper">
           <p class="affiliate-landing-form__loading">Loading...</p>
         </div>
@@ -94,9 +84,91 @@
     padding: 2rem;
   }
   
+  #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
+    font-size: {{ section.settings.message_size }}px;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: {{ section.settings.message_color }};
+    text-align: center;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
+    font-size: {{ section.settings.form_text_size }}px;
+    margin-bottom: 1.5rem;
+    color: {{ section.settings.text_color }};
+    text-align: center;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__form-group {
+    margin-bottom: 1rem;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__email-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__email-input:focus {
+    outline: none;
+    border-color: {{ section.settings.button_color }};
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__submit-btn {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: {{ section.settings.button_color }};
+    color: {{ section.settings.button_text_color }};
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__submit-btn:hover {
+    opacity: 0.9;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__error {
+    color: #d32f2f;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #ffebee;
+    border-radius: 4px;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__success-message {
+    color: #2e7d32;
+    text-align: center;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background-color: #e8f5e9;
+    border-radius: 4px;
+  }
+  
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} .affiliate-landing-form__heading {
-      font-size: {{ section.settings.heading_size | times: 0.8 }}px;
+    #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
+      font-size: {{ section.settings.message_size | times: 0.85 }}px;
+    }
+    
+    #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
+      font-size: {{ section.settings.form_text_size | times: 0.9 }}px;
     }
   }
 </style>
@@ -162,6 +234,54 @@
       };
     }
     
+    // Email validation
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    // Send webhook
+    async function sendWebhook(email, affiliateData) {
+      const webhookUrl = '{{ section.settings.webhook_url }}';
+      
+      if (!webhookUrl) {
+        console.error('Webhook URL not configured');
+        return { success: false, error: 'Webhook URL not configured' };
+      }
+      
+      try {
+        const response = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: email,
+            coupon: affiliateData.coupon,
+            userName: affiliateData.userName,
+            discountAmount: affiliateData.discountAmount,
+            timestamp: new Date().toISOString(),
+            url: window.location.href
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error(`Webhook failed: ${response.status} ${response.statusText}`);
+        }
+        
+        return { success: true };
+      } catch (error) {
+        console.error('Webhook error:', error);
+        return { success: false, error: error.message };
+      }
+    }
+    
+    // Redirect to discount page
+    function redirectToDiscount(couponCode, redirectUrl) {
+      const discountUrl = `/discount/${couponCode}?redirect=${encodeURIComponent(redirectUrl)}`;
+      window.location.href = discountUrl;
+    }
+    
     // Initialize
     function initAffiliateForm() {
       const formWrapper = document.getElementById('affiliate-form-wrapper');
@@ -212,14 +332,83 @@
         // Store data for form use
         window.affiliateData = affiliateData;
         
+        // Get redirect URL from section settings (embedded from Liquid)
+        const redirectUrl = '{{ section.settings.redirect_url | default: "/products/babyark-convertible-car-seat-smart" }}';
+        
         if (formWrapper) {
+          // Welcome message
+          const welcomeMessage = `Welcome, ${affiliateData.userName} has give u $${affiliateData.discountAmount} discount to purchase babyark!`;
+          
           formWrapper.innerHTML = `
-            <div class="affiliate-landing-form__success">
-              <p>Welcome! You've been referred by <strong>${affiliateData.userName}</strong></p>
-              <p>Your discount code: <strong>${affiliateData.coupon}</strong></p>
-              <p>Discount amount: <strong>${affiliateData.discountAmount}</strong></p>
+            <div class="affiliate-landing-form__welcome">
+              ${welcomeMessage}
             </div>
+            
+            <form class="affiliate-landing-form__form" id="affiliate-email-form">
+              <p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>
+              
+              <div class="affiliate-landing-form__form-group">
+                <input 
+                  type="email" 
+                  class="affiliate-landing-form__email-input" 
+                  id="affiliate-email-input"
+                  placeholder="Enter your email address"
+                  required
+                />
+              </div>
+              
+              <button 
+                type="submit" 
+                class="affiliate-landing-form__submit-btn"
+                id="affiliate-submit-btn"
+              >
+                Get Discount
+              </button>
+              
+              <div id="affiliate-form-message"></div>
+            </form>
           `;
+          
+          // Handle form submission
+          const form = document.getElementById('affiliate-email-form');
+          const emailInput = document.getElementById('affiliate-email-input');
+          const submitBtn = document.getElementById('affiliate-submit-btn');
+          const messageDiv = document.getElementById('affiliate-form-message');
+          
+          form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = emailInput.value.trim();
+            
+            // Validate email
+            if (!isValidEmail(email)) {
+              messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Please enter a valid email address.</p>';
+              return;
+            }
+            
+            // Disable form during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Processing...';
+            messageDiv.innerHTML = '';
+            
+            // Send webhook
+            const webhookResult = await sendWebhook(email, affiliateData);
+            
+            if (webhookResult.success) {
+              // Show success message briefly
+              messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
+              
+              // Redirect after short delay
+              setTimeout(() => {
+                redirectToDiscount(affiliateData.coupon, redirectUrl);
+              }, 500);
+            } else {
+              // Show error
+              messageDiv.innerHTML = `<p class="affiliate-landing-form__error">Failed to process request. Please try again.</p>`;
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Get Discount';
+            }
+          });
         }
       } else {
         if (formWrapper) {
@@ -245,19 +434,24 @@
   "settings": [
     {
       "type": "header",
-      "content": "Content"
+      "content": "Webhook Settings"
     },
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Welcome! You've been referred"
+      "type": "url",
+      "id": "webhook_url",
+      "label": "Webhook URL",
+      "info": "URL to send POST request when email is submitted"
     },
     {
-      "type": "richtext",
-      "id": "description",
-      "label": "Description",
-      "default": "<p>Thank you for visiting through a referral link.</p>"
+      "type": "header",
+      "content": "Redirect Settings"
+    },
+    {
+      "type": "url",
+      "id": "redirect_url",
+      "label": "Redirect URL",
+      "default": "/products/babyark-convertible-car-seat-smart",
+      "info": "URL to redirect to after successful submission (used in /discount/{coupon}?redirect=...)"
     },
     {
       "type": "header",
@@ -265,25 +459,47 @@
     },
     {
       "type": "range",
-      "id": "heading_size",
-      "label": "Heading size",
-      "min": 20,
-      "max": 60,
+      "id": "message_size",
+      "label": "Welcome message size",
+      "min": 18,
+      "max": 48,
       "step": 2,
-      "default": 32,
+      "default": 24,
       "unit": "px"
     },
     {
       "type": "color",
-      "id": "heading_color",
-      "label": "Heading color",
+      "id": "message_color",
+      "label": "Welcome message color",
       "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "form_text_size",
+      "label": "Form text size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
       "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "button_color",
+      "label": "Button background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button text color",
+      "default": "#ffffff"
     },
     {
       "type": "select",
