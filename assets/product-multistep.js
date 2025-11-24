@@ -46,7 +46,7 @@ class ProductMultiStep {
     nextBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         const nextStep = parseInt(e.currentTarget.dataset.nextStep);
-        this.handleNextStep(nextStep);
+        this.handleNextStep(nextStep, e.currentTarget);
       });
     });
 
@@ -79,7 +79,7 @@ class ProductMultiStep {
     });
   }
 
-  async handleNextStep(nextStep) {
+  async handleNextStep(nextStep, btn) {
     if (this.currentStep === 2) {
       if (!this.validateStep2()) {
         alert('Please select both color and shell color');
@@ -88,7 +88,14 @@ class ProductMultiStep {
     }
 
     if (this.currentStep === 4 && nextStep === 5) {
+      const originalText = btn.textContent;
+      btn.disabled = true;
+      btn.textContent = 'Adding to cart...';
+
       await this.addAllToCart();
+
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
 
     this.showStep(nextStep);

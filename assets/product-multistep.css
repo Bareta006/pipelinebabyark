@@ -1102,6 +1102,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
     min-width: 205px;
     align-self: center;
   }  
+
 }
 
 @media (max-width: 768px) {
@@ -1444,5 +1445,16 @@ body:has([data-multistep-container]) .float-grid.product-single {
   .step-actions {
     grid-column: 2;
     grid-row: 2;
+  }
+  .accessory-item__content {
+    padding: 10px;
+  }
+
+  .accessory-item__image {
+    border-radius: 10px 0px 0px 10px
+  }
+
+  .multistep-step {
+    overflow-y: scroll;
   }
 }
