@@ -26,9 +26,30 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "affiliate_landing_form_TwAD6e": {
+      "type": "affiliate-landing-form",
+      "name": "Affiliate Landing Form",
+      "settings": {
+        "webhook_url": "",
+        "redirect_url": "/products/babyark-convertible-car-seat-smart",
+        "message_size": 24,
+        "message_color": "#000000",
+        "form_text_size": 16,
+        "text_color_custom": "#666666",
+        "button_color": "#000000",
+        "button_text_color": "#ffffff",
+        "text_alignment": "center",
+        "width": "wrapper",
+        "text_color": "text--neutral",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_debug": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "affiliate_landing_form_TwAD6e"
   ]
 }
