@@ -87,6 +87,7 @@
     margin-bottom: 1rem;
   }
   
+  #shopify-section-{{ section.id }} .affiliate-landing-form__name-input,
   #shopify-section-{{ section.id }} .affiliate-landing-form__email-input {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -254,6 +255,9 @@
         '<form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="' + affiliateData.coupon + '" data-user-name="' + affiliateData.userName + '" data-discount-amount="' + affiliateData.discountAmount + '">' +
           '<p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>' +
           '<div class="affiliate-landing-form__form-group">' +
+            '<input type="text" class="affiliate-landing-form__name-input" id="affiliate-name-input" placeholder="Enter your full name" required />' +
+          '</div>' +
+          '<div class="affiliate-landing-form__form-group">' +
             '<input type="email" class="affiliate-landing-form__email-input" id="affiliate-email-input" placeholder="Enter your email address" required />' +
           '</div>' +
           '<button type="submit" class="affiliate-landing-form__submit-btn" id="affiliate-submit-btn">Get Discount</button>' +
@@ -261,11 +265,12 @@
         '</form>';
       
       const form = document.getElementById('affiliate-email-form');
+      const nameInput = document.getElementById('affiliate-name-input');
       const emailInput = document.getElementById('affiliate-email-input');
       const submitBtn = document.getElementById('affiliate-submit-btn');
       const messageDiv = document.getElementById('affiliate-form-message');
       
-      if (!form || !emailInput || !submitBtn || !messageDiv) {
+      if (!form || !nameInput || !emailInput || !submitBtn || !messageDiv) {
         console.error('Form elements not found');
         return;
       }
@@ -273,8 +278,14 @@
       form.addEventListener('submit', async function(e) {
         e.preventDefault();
         
+        const fullName = nameInput.value.trim();
         const email = emailInput.value.trim();
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!fullName || fullName === '') {
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Please enter your full name.</p>';
+          return;
+        }
         
         if (!emailRegex.test(email)) {
           messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Please enter a valid email address.</p>';
@@ -299,12 +310,9 @@
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-              email: email,
-              coupon: form.getAttribute('data-coupon'),
-              userName: form.getAttribute('data-user-name'),
-              discountAmount: form.getAttribute('data-discount-amount'),
-              timestamp: new Date().toISOString(),
-              url: window.location.href
+              code: form.getAttribute('data-coupon'),
+              refereeName: fullName,
+              refereeEmail: email
             })
           });
           
