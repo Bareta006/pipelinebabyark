@@ -1,0 +1,354 @@
+<!-- /sections/affiliate-landing-form.liquid -->
+{%- comment -%}
+  Affiliate Landing Form Section
+  Handles base64 encoded referral data from URL parameter: ?info={base64}
+  Format: {coupon}-{userName}-{discountAmount}
+{%- endcomment -%}
+
+{%- liquid
+  assign info_param = request.params.info | default: ''
+  assign decoded_info = ''
+  assign coupon_code = ''
+  assign user_name = ''
+  assign discount_amount = ''
+  assign is_valid = false
+  
+  if info_param != blank
+    assign decoded_info = info_param
+  endif
+-%}
+
+<section class="affiliate-landing-form section-padding"
+  data-section-id="{{ section.id }}"
+  data-section-type="affiliate-landing-form"
+  style="
+    --PT: {{ section.settings.padding_top }}px;
+    --PB: {{ section.settings.padding_bottom }}px;">
+  
+  <div class="{{ section.settings.width }}">
+    <div class="affiliate-landing-form__container">
+      
+      {%- comment -%} Debug info (remove in production) {%- endcomment -%}
+      {%- if section.settings.show_debug -%}
+        <div class="affiliate-landing-form__debug">
+          <p><strong>Raw info param:</strong> {{ info_param }}</p>
+          <p><strong>Decoded info:</strong> <span id="decoded-info">Decoding...</span></p>
+          <p><strong>Parsed data:</strong> <span id="parsed-data">Parsing...</span></p>
+        </div>
+      {%- endif -%}
+      
+      {%- comment -%} Main form content {%- endcomment -%}
+      <div class="affiliate-landing-form__content">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="affiliate-landing-form__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.description != blank -%}
+          <div class="affiliate-landing-form__description">
+            {{ section.settings.description }}
+          </div>
+        {%- endif -%}
+        
+        {%- comment -%} Form will be populated by JavaScript {%- endcomment -%}
+        <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper">
+          <p class="affiliate-landing-form__loading">Loading...</p>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} .affiliate-landing-form__container {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__content {
+    text-align: {{ section.settings.text_alignment }};
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__heading {
+    font-size: {{ section.settings.heading_size }}px;
+    margin-bottom: 1rem;
+    color: {{ section.settings.heading_color }};
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__description {
+    margin-bottom: 2rem;
+    color: {{ section.settings.text_color }};
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__debug {
+    background: #f5f5f5;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border: 1px solid #ddd;
+    font-family: monospace;
+    font-size: 12px;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__loading {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .affiliate-landing-form__heading {
+      font-size: {{ section.settings.heading_size | times: 0.8 }}px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    'use strict';
+    
+    // Get the info parameter from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const encodedInfo = urlParams.get('info');
+    
+    // Base64 decode function
+    function base64Decode(str) {
+      try {
+        // Handle URL-safe base64
+        str = str.replace(/-/g, '+').replace(/_/g, '/');
+        
+        // Add padding if needed
+        while (str.length % 4) {
+          str += '=';
+        }
+        
+        return decodeURIComponent(
+          atob(str)
+            .split('')
+            .map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join('')
+        );
+      } catch (e) {
+        console.error('Base64 decode error:', e);
+        return null;
+      }
+    }
+    
+    // Parse decoded string: {coupon}-{userName}-{discountAmount}
+    function parseAffiliateData(decodedString) {
+      if (!decodedString) return null;
+      
+      const parts = decodedString.split('-');
+      
+      if (parts.length >= 3) {
+        // Get last part as discount amount (in case userName contains hyphens)
+        const discountAmount = parts[parts.length - 1];
+        // Get first part as coupon
+        const coupon = parts[0];
+        // Get everything in between as userName
+        const userName = parts.slice(1, -1).join('-');
+        
+        return {
+          coupon: coupon,
+          userName: userName,
+          discountAmount: discountAmount,
+          isValid: true
+        };
+      }
+      
+      return {
+        isValid: false,
+        error: 'Invalid format. Expected: {coupon}-{userName}-{discountAmount}'
+      };
+    }
+    
+    // Initialize
+    function initAffiliateForm() {
+      const formWrapper = document.getElementById('affiliate-form-wrapper');
+      const decodedInfoEl = document.getElementById('decoded-info');
+      const parsedDataEl = document.getElementById('parsed-data');
+      
+      if (!encodedInfo) {
+        if (formWrapper) {
+          formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
+        }
+        if (decodedInfoEl) decodedInfoEl.textContent = 'No info parameter';
+        if (parsedDataEl) parsedDataEl.textContent = 'No data to parse';
+        return;
+      }
+      
+      // Decode base64
+      const decodedString = base64Decode(encodedInfo);
+      
+      if (decodedInfoEl) {
+        decodedInfoEl.textContent = decodedString || 'Decode failed';
+      }
+      
+      if (!decodedString) {
+        if (formWrapper) {
+          formWrapper.innerHTML = '<p class="affiliate-landing-form__error">Invalid referral link. Please check your link and try again.</p>';
+        }
+        if (parsedDataEl) parsedDataEl.textContent = 'Decode failed';
+        return;
+      }
+      
+      // Parse the decoded data
+      const affiliateData = parseAffiliateData(decodedString);
+      
+      if (parsedDataEl) {
+        if (affiliateData.isValid) {
+          parsedDataEl.innerHTML = `
+            <strong>Coupon:</strong> ${affiliateData.coupon}<br>
+            <strong>User:</strong> ${affiliateData.userName}<br>
+            <strong>Discount:</strong> ${affiliateData.discountAmount}
+          `;
+        } else {
+          parsedDataEl.textContent = affiliateData.error || 'Parse failed';
+        }
+      }
+      
+      // Validate and show form
+      if (affiliateData && affiliateData.isValid) {
+        // Store data for form use
+        window.affiliateData = affiliateData;
+        
+        if (formWrapper) {
+          formWrapper.innerHTML = `
+            <div class="affiliate-landing-form__success">
+              <p>Welcome! You've been referred by <strong>${affiliateData.userName}</strong></p>
+              <p>Your discount code: <strong>${affiliateData.coupon}</strong></p>
+              <p>Discount amount: <strong>${affiliateData.discountAmount}</strong></p>
+            </div>
+          `;
+        }
+      } else {
+        if (formWrapper) {
+          formWrapper.innerHTML = '<p class="affiliate-landing-form__error">Invalid referral data format. Please check your link.</p>';
+        }
+      }
+    }
+    
+    // Run on DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAffiliateForm);
+    } else {
+      initAffiliateForm();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Affiliate Landing Form",
+  "tag": "section",
+  "class": "section-affiliate-landing-form",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Welcome! You've been referred"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Thank you for visiting through a referral link.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#666666"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper", "label": "Normal" },
+        { "value": "wrapper--narrow", "label": "Narrow" },
+        { "value": "wrapper--full", "label": "Full width" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Debug"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_debug",
+      "label": "Show debug information",
+      "default": true,
+      "info": "Disable this in production"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Affiliate Landing Form",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
