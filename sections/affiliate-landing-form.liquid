@@ -331,6 +331,20 @@
             refereeEmail: email
           }),
           mode: 'no-cors'
+        })
+        .then(function(response) {
+          console.log('=== WEBHOOK RESPONSE ===');
+          console.log('Status:', response.status);
+          console.log('Status Text:', response.statusText);
+          console.log('OK:', response.ok);
+          console.log('Response Type:', response.type);
+          console.log('Note: With no-cors mode, response body cannot be read');
+          return response;
+        })
+        .catch(function(error) {
+          console.error('=== WEBHOOK ERROR ===');
+          console.error('Error:', error);
+          console.error('Error message:', error.message);
         });
         
         messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
