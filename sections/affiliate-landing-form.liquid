@@ -342,6 +342,7 @@
         console.log('Body length:', jsonBody.length);
         
         try {
+          console.log('Calling fetch...');
           const response = await fetch(currentWebhookUrl, {
             method: 'POST',
             headers: {
@@ -353,10 +354,12 @@
             cache: 'no-cache'
           });
           
+          console.log('Fetch completed, got response');
           console.log('=== WEBHOOK RESPONSE ===');
           console.log('Status:', response.status);
           console.log('Status Text:', response.statusText);
           console.log('OK:', response.ok);
+          console.log('Response headers:', Object.fromEntries(response.headers.entries()));
           
           const responseText = await response.text();
           console.log('Response body:', responseText);
@@ -383,14 +386,14 @@
           }, 500);
           
         } catch (error) {
-          console.error('Webhook error:', error);
-          console.error('Error details:', {
-            message: error.message,
-            stack: error.stack,
-            webhookUrl: webhookUrl,
-            webhookData: webhookData
-          });
-          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request. Please check console for details.</p>';
+          console.error('=== WEBHOOK ERROR ===');
+          console.error('Error:', error);
+          console.error('Error message:', error.message);
+          console.error('Error stack:', error.stack);
+          console.error('Error name:', error.name);
+          console.error('Webhook URL:', currentWebhookUrl);
+          console.error('Webhook data:', webhookData);
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request: ' + error.message + '</p>';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Get Discount';
         }
