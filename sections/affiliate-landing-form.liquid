@@ -23,7 +23,16 @@
   data-section-type="affiliate-landing-form"
   style="
     --PT: {{ section.settings.padding_top }}px;
-    --PB: {{ section.settings.padding_bottom }}px;">
+    --PB: {{ section.settings.padding_bottom }}px;
+    --text-alignment: {{ section.settings.text_alignment }};
+    --message-size: {{ section.settings.message_size }}px;
+    --message-color: {{ section.settings.message_color }};
+    --form-text-size: {{ section.settings.form_text_size }}px;
+    --text-color: {{ section.settings.text_color }};
+    --button-color: {{ section.settings.button_color }};
+    --button-text-color: {{ section.settings.button_text_color }};
+    --message-size-mobile: {{ section.settings.message_size | times: 0.85 }}px;
+    --form-text-size-mobile: {{ section.settings.form_text_size | times: 0.9 }}px;">
   
   <div class="{{ section.settings.width }}">
     <div class="affiliate-landing-form__container">
@@ -56,18 +65,7 @@
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__content {
-    text-align: {{ section.settings.text_alignment }};
-  }
-  
-  #shopify-section-{{ section.id }} .affiliate-landing-form__heading {
-    font-size: {{ section.settings.heading_size }}px;
-    margin-bottom: 1rem;
-    color: {{ section.settings.heading_color }};
-  }
-  
-  #shopify-section-{{ section.id }} .affiliate-landing-form__description {
-    margin-bottom: 2rem;
-    color: {{ section.settings.text_color }};
+    text-align: var(--text-alignment);
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__debug {
@@ -85,10 +83,10 @@
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
-    font-size: {{ section.settings.message_size }}px;
+    font-size: var(--message-size);
     font-weight: 600;
     margin-bottom: 2rem;
-    color: {{ section.settings.message_color }};
+    color: var(--message-color);
     text-align: center;
   }
   
@@ -98,9 +96,9 @@
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
-    font-size: {{ section.settings.form_text_size }}px;
+    font-size: var(--form-text-size);
     margin-bottom: 1.5rem;
-    color: {{ section.settings.text_color }};
+    color: var(--text-color);
     text-align: center;
   }
   
@@ -119,7 +117,7 @@
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__email-input:focus {
     outline: none;
-    border-color: {{ section.settings.button_color }};
+    border-color: var(--button-color);
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__submit-btn {
@@ -127,8 +125,8 @@
     padding: 0.75rem 1.5rem;
     font-size: 1rem;
     font-weight: 600;
-    background-color: {{ section.settings.button_color }};
-    color: {{ section.settings.button_text_color }};
+    background-color: var(--button-color);
+    color: var(--button-text-color);
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -164,11 +162,11 @@
   
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
-      font-size: {{ section.settings.message_size | times: 0.85 }}px;
+      font-size: var(--message-size-mobile);
     }
     
     #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
-      font-size: {{ section.settings.form_text_size | times: 0.9 }}px;
+      font-size: var(--form-text-size-mobile);
     }
   }
 </style>
