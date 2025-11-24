@@ -7,12 +7,6 @@
 
 {%- liquid
   assign info_param = request.params.info | default: ''
-  assign decoded_info = ''
-  assign coupon_code = ''
-  assign user_name = ''
-  assign discount_amount = ''
-  assign is_valid = false
-  
   assign message_size_mobile = section.settings.message_size | times: 0.85 | round
   assign form_text_size_mobile = section.settings.form_text_size | times: 0.9 | round
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
@@ -23,22 +17,20 @@
   data-section-type="affiliate-landing-form"
   data-info-param="{{ info_param }}"
   data-redirect-url="{{ redirect_url }}"
-  data-webhook-url="{{ section.settings.webhook_url }}" 
+  data-webhook-url="{{ section.settings.webhook_url }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px;">
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="affiliate-landing-form__container">
       
-      {%- comment -%} Debug info {%- endcomment -%}
       {%- if section.settings.show_debug -%}
         <div class="affiliate-landing-form__debug">
           <p><strong>Raw info param:</strong> {{ info_param }}</p>
-          <p><strong>Decoded info:</strong> <span id="decoded-info">Decoding...</span></p>
-          <p><strong>Parsed data:</strong> <span id="parsed-data">Parsing...</span></p>
+          <p><strong>Decoded info:</strong> <span id="decoded-info">-</span></p>
+          <p><strong>Parsed data:</strong> <span id="parsed-data">-</span></p>
         </div>
       {%- endif -%}
       
-      {%- comment -%} Main form content - rendered in Liquid after JS decode {%- endcomment -%}
       <div class="affiliate-landing-form__content">
         <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper">
           {%- if info_param == blank -%}
@@ -166,7 +158,6 @@
   }
 </style>
 
-{%- comment -%} Minimal JS: Only decode base64, then render via Liquid template {%- endcomment -%}
 <script>
   (function() {
     'use strict';
@@ -174,171 +165,190 @@
     function initAffiliateForm() {
       const section = document.querySelector('[data-section-id="{{ section.id }}"]');
       if (!section) {
-        console.error('Section not found');
+        console.error('Affiliate form section not found');
         return;
       }
       
-      const infoParam = section.dataset.infoParam;
+      const formWrapper = document.getElementById('affiliate-form-wrapper');
+      if (!formWrapper) {
+        console.error('Form wrapper not found');
+        return;
+      }
+      
+      const infoParam = section.dataset.infoParam || '';
+      const redirectUrl = section.dataset.redirectUrl || '{{ redirect_url }}';
+      const webhookUrl = section.dataset.webhookUrl || '';
+      
       if (!infoParam || infoParam === '') {
-        const formWrapper = document.getElementById('affiliate-form-wrapper');
-        if (formWrapper) {
-          formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
-        }
+        formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
         return;
       }
-    
-    {%- comment -%} Base64 decode function {%- endcomment -%}
-    function base64Decode(str) {
-      try {
-        str = str.replace(/-/g, '+').replace(/_/g, '/');
-        while (str.length % 4) {
-          str += '=';
-        }
-        return decodeURIComponent(
-          atob(str)
-            .split('')
-            .map(function(c) {
-              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            })
-            .join('')
-        );
-      } catch (e) {
-        return null;
-      }
-    }
-    
-    {%- comment -%} Parse decoded string {%- endcomment -%}
-    function parseAffiliateData(decodedString) {
-      if (!decodedString) return null;
-      const parts = decodedString.split('-');
-      if (parts.length >= 3) {
-        return {
-          coupon: parts[0],
-          userName: parts.slice(1, -1).join('-'),
-          discountAmount: parts[parts.length - 1],
-          isValid: true
-        };
-      }
-      return { isValid: false };
-    }
-    
-    {%- comment -%} Decode and render {%- endcomment -%}
-    const decodedString = base64Decode(infoParam);
-    if (!decodedString) {
-      document.getElementById('affiliate-form-wrapper').innerHTML = '<p class="affiliate-landing-form__error">Invalid referral link. Please check your link and try again.</p>';
-      return;
-    }
-    
-    const affiliateData = parseAffiliateData(decodedString);
-    if (!affiliateData || !affiliateData.isValid) {
-      document.getElementById('affiliate-form-wrapper').innerHTML = '<p class="affiliate-landing-form__error">Invalid referral data format. Please check your link.</p>';
-      return;
-    }
-    
-    {%- comment -%} Debug output {%- endcomment -%}
-    {%- if section.settings.show_debug -%}
-      const decodedInfoEl = document.getElementById('decoded-info');
-      const parsedDataEl = document.getElementById('parsed-data');
-      if (decodedInfoEl) decodedInfoEl.textContent = decodedString;
-      if (parsedDataEl) {
-        parsedDataEl.innerHTML = '<strong>Coupon:</strong> ' + affiliateData.coupon + '<br><strong>User:</strong> ' + affiliateData.userName + '<br><strong>Discount:</strong> ' + affiliateData.discountAmount;
-      }
-    {%- endif -%}
-    
-    {%- comment -%} Render form in Liquid template {%- endcomment -%}
-    const formWrapper = document.getElementById('affiliate-form-wrapper');
-    const redirectUrl = section.dataset.redirectUrl;
-    const webhookUrl = section.dataset.webhookUrl;
-    
-    formWrapper.innerHTML = `
-      <div class="affiliate-landing-form__welcome">
-        Welcome, ${affiliateData.userName} has give u $${affiliateData.discountAmount} discount to purchase babyark!
-      </div>
       
-      <form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="${affiliateData.coupon}" data-user-name="${affiliateData.userName}" data-discount-amount="${affiliateData.discountAmount}">
-        <p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>
+      function base64Decode(str) {
+        try {
+          str = str.replace(/-/g, '+').replace(/_/g, '/');
+          while (str.length % 4) {
+            str += '=';
+          }
+          return decodeURIComponent(
+            atob(str)
+              .split('')
+              .map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+              })
+              .join('')
+          );
+        } catch (e) {
+          console.error('Base64 decode error:', e);
+          return null;
+        }
+      }
+      
+      function parseAffiliateData(decodedString) {
+        if (!decodedString) return null;
         
-        <div class="affiliate-landing-form__form-group">
-          <input 
-            type="email" 
-            class="affiliate-landing-form__email-input" 
-            id="affiliate-email-input"
-            placeholder="Enter your email address"
-            required
-          />
+        const parts = decodedString.split('-');
+        if (parts.length >= 3) {
+          return {
+            coupon: parts[0],
+            userName: parts.slice(1, -1).join('-'),
+            discountAmount: parts[parts.length - 1],
+            isValid: true
+          };
+        }
+        return { isValid: false };
+      }
+      
+      const decodedString = base64Decode(infoParam);
+      
+      {%- if section.settings.show_debug -%}
+      const decodedInfoEl = document.getElementById('decoded-info');
+      if (decodedInfoEl) decodedInfoEl.textContent = decodedString || 'Decode failed';
+      {%- endif -%}
+      
+      if (!decodedString) {
+        formWrapper.innerHTML = '<p class="affiliate-landing-form__error">Invalid referral link. Please check your link and try again.</p>';
+        {%- if section.settings.show_debug -%}
+        const parsedDataEl = document.getElementById('parsed-data');
+        if (parsedDataEl) parsedDataEl.textContent = 'Decode failed';
+        {%- endif -%}
+        return;
+      }
+      
+      const affiliateData = parseAffiliateData(decodedString);
+      
+      {%- if section.settings.show_debug -%}
+      const parsedDataEl = document.getElementById('parsed-data');
+      if (parsedDataEl) {
+        if (affiliateData && affiliateData.isValid) {
+          parsedDataEl.innerHTML = '<strong>Coupon:</strong> ' + affiliateData.coupon + '<br><strong>User:</strong> ' + affiliateData.userName + '<br><strong>Discount:</strong> ' + affiliateData.discountAmount;
+        } else {
+          parsedDataEl.textContent = 'Parse failed';
+        }
+      }
+      {%- endif -%}
+      
+      if (!affiliateData || !affiliateData.isValid) {
+        formWrapper.innerHTML = '<p class="affiliate-landing-form__error">Invalid referral data format. Please check your link.</p>';
+        return;
+      }
+      
+      formWrapper.innerHTML = `
+        <div class="affiliate-landing-form__welcome">
+          Welcome, ${affiliateData.userName} has give u $${affiliateData.discountAmount} discount to purchase babyark!
         </div>
         
-        <button 
-          type="submit" 
-          class="affiliate-landing-form__submit-btn"
-          id="affiliate-submit-btn"
-        >
-          Get Discount
-        </button>
-        
-        <div id="affiliate-form-message"></div>
-      </form>
-    `;
-    
-    {%- comment -%} Form submission handler {%- endcomment -%}
-    const form = document.getElementById('affiliate-email-form');
-    const emailInput = document.getElementById('affiliate-email-input');
-    const submitBtn = document.getElementById('affiliate-submit-btn');
-    const messageDiv = document.getElementById('affiliate-form-message');
-    
-    form.addEventListener('submit', async function(e) {
-      e.preventDefault();
+        <form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="${affiliateData.coupon}" data-user-name="${affiliateData.userName}" data-discount-amount="${affiliateData.discountAmount}">
+          <p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>
+          
+          <div class="affiliate-landing-form__form-group">
+            <input 
+              type="email" 
+              class="affiliate-landing-form__email-input" 
+              id="affiliate-email-input"
+              placeholder="Enter your email address"
+              required
+            />
+          </div>
+          
+          <button 
+            type="submit" 
+            class="affiliate-landing-form__submit-btn"
+            id="affiliate-submit-btn"
+          >
+            Get Discount
+          </button>
+          
+          <div id="affiliate-form-message"></div>
+        </form>
+      `;
       
-      const email = emailInput.value.trim();
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const form = document.getElementById('affiliate-email-form');
+      const emailInput = document.getElementById('affiliate-email-input');
+      const submitBtn = document.getElementById('affiliate-submit-btn');
+      const messageDiv = document.getElementById('affiliate-form-message');
       
-      if (!emailRegex.test(email)) {
-        messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Please enter a valid email address.</p>';
+      if (!form || !emailInput || !submitBtn || !messageDiv) {
+        console.error('Form elements not found');
         return;
       }
       
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Processing...';
-      messageDiv.innerHTML = '';
-      
-      if (!webhookUrl) {
-        messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Webhook URL not configured.</p>';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Get Discount';
-        return;
-      }
-      
-      try {
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: email,
-            coupon: form.dataset.coupon,
-            userName: form.dataset.userName,
-            discountAmount: form.dataset.discountAmount,
-            timestamp: new Date().toISOString(),
-            url: window.location.href
-          })
-        });
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
         
-        if (!response.ok) {
-          throw new Error('Webhook failed');
+        const email = emailInput.value.trim();
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!emailRegex.test(email)) {
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Please enter a valid email address.</p>';
+          return;
         }
         
-        messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+        messageDiv.innerHTML = '';
         
-        setTimeout(() => {
-          window.location.href = '/discount/' + form.dataset.coupon + '?redirect=' + encodeURIComponent(redirectUrl);
-        }, 500);
-      } catch (error) {
-        messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request. Please try again.</p>';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Get Discount';
-      }
-    });
+        if (!webhookUrl || webhookUrl === '') {
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Webhook URL not configured.</p>';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Get Discount';
+          return;
+        }
+        
+        try {
+          const response = await fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              coupon: form.dataset.coupon,
+              userName: form.dataset.userName,
+              discountAmount: form.dataset.discountAmount,
+              timestamp: new Date().toISOString(),
+              url: window.location.href
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Webhook request failed: ' + response.status);
+          }
+          
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
+          
+          setTimeout(function() {
+            const discountUrl = '/discount/' + form.dataset.coupon + '?redirect=' + encodeURIComponent(redirectUrl);
+            window.location.href = discountUrl;
+          }, 500);
+          
+        } catch (error) {
+          console.error('Webhook error:', error);
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request. Please try again.</p>';
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Get Discount';
+        }
+      });
     }
     
     if (document.readyState === 'loading') {
