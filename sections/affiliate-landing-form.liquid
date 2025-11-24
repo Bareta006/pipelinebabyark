@@ -1,17 +1,11 @@
 {%- comment -%}
   /sections/affiliate-landing-form.liquid
   Affiliate Landing Form Section
-  
-  RULES:
-  1. Get ?info= parameter from URL using request.params.info
-  2. Pass to JavaScript via data-info-param attribute
-  3. JavaScript decodes base64 and parses {coupon}-{userName}-{discountAmount}
-  4. Render welcome message and email form
-  5. On submit: validate email → POST webhook → redirect
+  Handles base64 encoded referral data from URL parameter: ?info={base64}
+  Format: {coupon}-{userName}-{discountAmount}
 {%- endcomment -%}
 
 {%- liquid
-  assign info_param = request.params.info | default: ''
   assign message_size_mobile = section.settings.message_size | times: 0.85 | round
   assign form_text_size_mobile = section.settings.form_text_size | times: 0.9 | round
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
@@ -20,7 +14,6 @@
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
-  data-info-param="{{ info_param }}"
   data-redirect-url="{{ redirect_url }}"
   data-webhook-url="{{ section.settings.webhook_url }}"
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px;">
@@ -30,7 +23,7 @@
       
       {%- if section.settings.show_debug -%}
         <div class="affiliate-landing-form__debug">
-          <p><strong>Raw info param:</strong> {{ info_param }}</p>
+          <p><strong>Raw info param:</strong> <span id="raw-info-param">-</span></p>
           <p><strong>Decoded info:</strong> <span id="decoded-info">-</span></p>
           <p><strong>Parsed data:</strong> <span id="parsed-data">-</span></p>
         </div>
@@ -38,11 +31,7 @@
       
       <div class="affiliate-landing-form__content">
         <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper">
-          {%- if info_param == blank -%}
-            <p class="affiliate-landing-form__error">No referral information found in URL.</p>
-          {%- else -%}
-            <p class="affiliate-landing-form__loading">Loading...</p>
-          {%- endif -%}
+          <p class="affiliate-landing-form__loading">Loading...</p>
         </div>
       </div>
       
@@ -170,27 +159,22 @@
     function initAffiliateForm() {
       const sectionId = '{{ section.id }}';
       const section = document.querySelector('[data-section-id="' + sectionId + '"]');
-      
-      if (!section) {
-        console.error('Affiliate form section not found for ID:', sectionId);
-        return;
-      }
-      
       const formWrapper = document.getElementById('affiliate-form-wrapper');
-      if (!formWrapper) {
-        console.error('Form wrapper not found');
+      
+      if (!section || !formWrapper) {
+        console.error('Section or form wrapper not found');
         return;
       }
       
-      const infoParam = section.getAttribute('data-info-param') || '';
+      const urlParams = new URLSearchParams(window.location.search);
+      const infoParam = urlParams.get('info') || '';
       const redirectUrl = section.getAttribute('data-redirect-url') || '{{ redirect_url }}';
       const webhookUrl = section.getAttribute('data-webhook-url') || '';
       
-      console.log('Affiliate Form Init:', {
-        infoParam: infoParam,
-        redirectUrl: redirectUrl,
-        webhookUrl: webhookUrl
-      });
+      {%- if section.settings.show_debug -%}
+      const rawInfoEl = document.getElementById('raw-info-param');
+      if (rawInfoEl) rawInfoEl.textContent = infoParam || 'Not found';
+      {%- endif -%}
       
       if (!infoParam || infoParam === '') {
         formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
@@ -217,7 +201,6 @@
       
       function parseAffiliateData(decodedString) {
         if (!decodedString) return null;
-        
         const parts = decodedString.split('-');
         if (parts.length >= 3) {
           return {
@@ -231,7 +214,6 @@
       }
       
       const decodedString = base64Decode(infoParam);
-      console.log('Decoded string:', decodedString);
       
       {%- if section.settings.show_debug -%}
       const decodedInfoEl = document.getElementById('decoded-info');
@@ -248,7 +230,6 @@
       }
       
       const affiliateData = parseAffiliateData(decodedString);
-      console.log('Parsed affiliate data:', affiliateData);
       
       {%- if section.settings.show_debug -%}
       const parsedDataEl = document.getElementById('parsed-data');
@@ -285,7 +266,7 @@
       const messageDiv = document.getElementById('affiliate-form-message');
       
       if (!form || !emailInput || !submitBtn || !messageDiv) {
-        console.error('Form elements not found after render');
+        console.error('Form elements not found');
         return;
       }
       
