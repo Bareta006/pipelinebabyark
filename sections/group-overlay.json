@@ -111,10 +111,27 @@
         "newsletter_signup"
       ],
       "settings": {}
+    },
+    "affiliate_landing_form_fJWYTh": {
+      "type": "affiliate-landing-form",
+      "name": "Affiliate Landing Form",
+      "settings": {
+        "heading": "Welcome! You've been referred",
+        "description": "<p>Thank you for visiting through a referral link.</p>",
+        "heading_size": 32,
+        "heading_color": "#000000",
+        "text_color": "#666666",
+        "text_alignment": "center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "show_debug": true
+      }
     }
   },
   "order": [
     "cart",
-    "popups"
+    "popups",
+    "affiliate_landing_form_fJWYTh"
   ]
 }
