@@ -11,6 +11,11 @@
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
 -%}
 
+{%- liquid
+  assign info_param = request.params.info | default: ''
+-%}
+
+{%- if info_param != blank -%}
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
@@ -30,7 +35,7 @@
       {%- endif -%}
       
       <div class="affiliate-landing-form__content">
-        <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper">
+        <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper-{{ section.id }}">
           <p class="affiliate-landing-form__loading">Loading...</p>
         </div>
       </div>
@@ -38,7 +43,9 @@
     </div>
   </div>
 </section>
+{%- endif -%}
 
+{%- if info_param != blank -%}
 <style>
   #shopify-section-{{ section.id }} .affiliate-landing-form__container {
     max-width: 100%;
@@ -160,10 +167,9 @@
     function initAffiliateForm() {
       const sectionId = '{{ section.id }}';
       const section = document.querySelector('[data-section-id="' + sectionId + '"]');
-      const formWrapper = document.getElementById('affiliate-form-wrapper');
+      const formWrapper = section ? section.querySelector('#affiliate-form-wrapper-{{ section.id }}') : null;
       
       if (!section || !formWrapper) {
-        console.error('Section or form wrapper not found');
         return;
       }
       
@@ -259,27 +265,33 @@
         return;
       }
       
+      const formId = 'affiliate-email-form-{{ section.id }}';
+      const nameInputId = 'affiliate-name-input-{{ section.id }}';
+      const emailInputId = 'affiliate-email-input-{{ section.id }}';
+      const submitBtnId = 'affiliate-submit-btn-{{ section.id }}';
+      const messageDivId = 'affiliate-form-message-{{ section.id }}';
+      
       formWrapper.innerHTML = 
         '<div class="affiliate-landing-form__welcome">' +
           'Welcome, ' + affiliateData.userName + ' has give u $' + affiliateData.discountAmount + ' discount to purchase babyark!' +
         '</div>' +
-        '<form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="' + affiliateData.coupon + '" data-user-name="' + affiliateData.userName + '" data-discount-amount="' + affiliateData.discountAmount + '">' +
+        '<form class="affiliate-landing-form__form" id="' + formId + '" data-coupon="' + affiliateData.coupon + '" data-user-name="' + affiliateData.userName + '" data-discount-amount="' + affiliateData.discountAmount + '">' +
           '<p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>' +
           '<div class="affiliate-landing-form__form-group">' +
-            '<input type="text" class="affiliate-landing-form__name-input" id="affiliate-name-input" placeholder="Enter your full name" required />' +
+            '<input type="text" class="affiliate-landing-form__name-input" id="' + nameInputId + '" placeholder="Enter your full name" required />' +
           '</div>' +
           '<div class="affiliate-landing-form__form-group">' +
-            '<input type="email" class="affiliate-landing-form__email-input" id="affiliate-email-input" placeholder="Enter your email address" required />' +
+            '<input type="email" class="affiliate-landing-form__email-input" id="' + emailInputId + '" placeholder="Enter your email address" required />' +
           '</div>' +
-          '<button type="submit" class="affiliate-landing-form__submit-btn" id="affiliate-submit-btn">Get Discount</button>' +
-          '<div id="affiliate-form-message"></div>' +
+          '<button type="submit" class="affiliate-landing-form__submit-btn" id="' + submitBtnId + '">Get Discount</button>' +
+          '<div id="' + messageDivId + '"></div>' +
         '</form>';
       
-      const form = document.getElementById('affiliate-email-form');
-      const nameInput = document.getElementById('affiliate-name-input');
-      const emailInput = document.getElementById('affiliate-email-input');
-      const submitBtn = document.getElementById('affiliate-submit-btn');
-      const messageDiv = document.getElementById('affiliate-form-message');
+      const form = section.querySelector('#' + formId);
+      const nameInput = section.querySelector('#' + nameInputId);
+      const emailInput = section.querySelector('#' + emailInputId);
+      const submitBtn = section.querySelector('#' + submitBtnId);
+      const messageDiv = section.querySelector('#' + messageDivId);
       
       if (!form || !nameInput || !emailInput || !submitBtn || !messageDiv) {
         console.error('Form elements not found');
@@ -346,6 +358,7 @@
     }
   })();
 </script>
+{%- endif -%}
 
 {% schema %}
 {
