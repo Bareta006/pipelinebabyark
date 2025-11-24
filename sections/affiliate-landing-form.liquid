@@ -336,7 +336,7 @@
         messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
         
         setTimeout(function() {
-          window.location.href = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
+          window.location.href =  '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
         }, 500);
       });
     }
