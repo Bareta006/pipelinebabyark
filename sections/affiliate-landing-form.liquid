@@ -171,11 +171,21 @@
   (function() {
     'use strict';
     
-    const section = document.querySelector('[data-section-id="{{ section.id }}"]');
-    if (!section) return;
-    
-    const infoParam = section.dataset.infoParam;
-    if (!infoParam) return;
+    function initAffiliateForm() {
+      const section = document.querySelector('[data-section-id="{{ section.id }}"]');
+      if (!section) {
+        console.error('Section not found');
+        return;
+      }
+      
+      const infoParam = section.dataset.infoParam;
+      if (!infoParam || infoParam === '') {
+        const formWrapper = document.getElementById('affiliate-form-wrapper');
+        if (formWrapper) {
+          formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
+        }
+        return;
+      }
     
     {%- comment -%} Base64 decode function {%- endcomment -%}
     function base64Decode(str) {
@@ -329,6 +339,13 @@
         submitBtn.textContent = 'Get Discount';
       }
     });
+    }
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initAffiliateForm);
+    } else {
+      initAffiliateForm();
+    }
   })();
 </script>
 
