@@ -31,7 +31,7 @@
       "type": "affiliate-landing-form",
       "name": "Affiliate Landing Form",
       "settings": {
-        "webhook_url": "",
+        "webhook_url": "https://webhook.site/4f645903-97a5-4b18-9800-d79654820599",
         "redirect_url": "/products/babyark-convertible-car-seat-smart",
         "message_size": 24,
         "message_color": "#000000",
