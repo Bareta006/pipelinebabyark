@@ -22,10 +22,10 @@
     <div class="affiliate-landing-form__container">
       
       {%- if section.settings.show_debug -%}
-        <div class="affiliate-landing-form__debug">
-          <p><strong>Raw info param:</strong> <span id="raw-info-param">-</span></p>
-          <p><strong>Decoded info:</strong> <span id="decoded-info">-</span></p>
-          <p><strong>Parsed data:</strong> <span id="parsed-data">-</span></p>
+        <div class="affiliate-landing-form__debug" id="affiliate-debug-{{ section.id }}">
+          <p><strong>Raw info param:</strong> <span id="raw-info-param-{{ section.id }}">-</span></p>
+          <p><strong>Decoded info:</strong> <span id="decoded-info-{{ section.id }}">-</span></p>
+          <p><strong>Parsed data:</strong> <span id="parsed-data-{{ section.id }}">-</span></p>
         </div>
       {%- endif -%}
       
@@ -182,7 +182,7 @@
       });
       
       {%- if section.settings.show_debug -%}
-      const rawInfoEl = document.getElementById('raw-info-param');
+      const rawInfoEl = section.querySelector('#raw-info-param-{{ section.id }}');
       if (rawInfoEl) rawInfoEl.textContent = infoParam || 'Not found';
       {%- endif -%}
       
@@ -226,14 +226,16 @@
       const decodedString = base64Decode(infoParam);
       
       {%- if section.settings.show_debug -%}
-      const decodedInfoEl = document.getElementById('decoded-info');
+      const decodedInfoEl = section.querySelector('#decoded-info-{{ section.id }}');
       if (decodedInfoEl) decodedInfoEl.textContent = decodedString || 'Decode failed';
+      const rawInfoEl = section.querySelector('#raw-info-param-{{ section.id }}');
+      if (rawInfoEl) rawInfoEl.textContent = infoParam || 'No param';
       {%- endif -%}
       
       if (!decodedString) {
         formWrapper.innerHTML = '<p class="affiliate-landing-form__error">Invalid referral link. Please check your link and try again.</p>';
         {%- if section.settings.show_debug -%}
-        const parsedDataEl = document.getElementById('parsed-data');
+        const parsedDataEl = section.querySelector('#parsed-data-{{ section.id }}');
         if (parsedDataEl) parsedDataEl.textContent = 'Decode failed';
         {%- endif -%}
         return;
@@ -242,7 +244,7 @@
       const affiliateData = parseAffiliateData(decodedString);
       
       {%- if section.settings.show_debug -%}
-      const parsedDataEl = document.getElementById('parsed-data');
+      const parsedDataEl = section.querySelector('#parsed-data-{{ section.id }}');
       if (parsedDataEl) {
         if (affiliateData && affiliateData.isValid) {
           parsedDataEl.innerHTML = '<strong>Coupon:</strong> ' + affiliateData.coupon + '<br><strong>User:</strong> ' + affiliateData.userName + '<br><strong>Discount:</strong> ' + affiliateData.discountAmount;

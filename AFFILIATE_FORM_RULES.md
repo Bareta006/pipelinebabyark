@@ -21,33 +21,40 @@ Example: `x4ofqz-Dudek-100` → base64: `eDRvZnF6LUR1ZGVrLTEwMA==`
 
 ### 2. JavaScript (Client-Side)
 - **DOM Ready**: Must wait for DOMContentLoaded or check readyState
+- **Read URL Parameter**: Use `URLSearchParams(window.location.search).get('info')` directly
 - **Base64 Decode**: Use `atob()` with proper URL-safe handling and padding
 - **Parse Data**: Split by `-`, first part = coupon, last part = discount, middle = userName
-- **Render Form**: Create HTML dynamically with welcome message and email form
-- **Form Submission**: Validate email, send POST to webhook, redirect on success
+- **Render Form**: Create HTML dynamically with welcome message and form (fullName + email inputs)
+- **Form Submission**: 
+  - Validate fullName and email
+  - Send POST to webhook with `mode: 'no-cors'` (CORS blocked by Shopify preview domain)
+  - Body: JSON string `{"code": "...", "refereeName": "...", "refereeEmail": "..."}`
+  - No try/catch - keep it simple
+  - Redirect immediately after fetch call
 
 ### 3. Error Handling
 - No `info` parameter → Show error message
 - Invalid base64 → Show decode error
 - Invalid format → Show parse error
-- Webhook failure → Show error, re-enable form
-- Missing webhook URL → Show configuration error
+- Form validation → Show error for empty fullName or invalid email
+- **Keep it simple** - No complex error handling for webhook (fire and forget)
 
 ### 4. Flow
-1. Page loads → Liquid gets `?info=` param
-2. Liquid sets `data-info-param` attribute
-3. JavaScript waits for DOM ready
-4. JavaScript reads `data-info-param`
-5. JavaScript decodes base64
-6. JavaScript parses `{coupon}-{userName}-{discountAmount}`
-7. JavaScript renders welcome message + form
-8. User submits email → Validate → POST webhook → Redirect
+1. Page loads → Liquid gets `?info=` param (for initial state)
+2. JavaScript waits for DOM ready
+3. JavaScript reads `info` parameter directly from URL using `URLSearchParams`
+4. JavaScript decodes base64
+5. JavaScript parses `{coupon}-{userName}-{discountAmount}`
+6. JavaScript renders welcome message + form (fullName + email inputs)
+7. User submits form → Validate → POST webhook (no-cors mode) → Redirect immediately
 
 ### 5. Critical Rules
 - **NO conditional CSS** - Use CSS variables only
+- **KEEP IT SIMPLE** - Minimal code, no overcomplication
 - **Minimal JavaScript** - Only for base64 decode and form handling
 - **Proper DOM ready** - Always check before accessing elements
-- **Error handling** - Every step must have error handling
+- **CORS Issue** - Use `mode: 'no-cors'` for fetch (Shopify preview blocks CORS)
+- **Simple webhook** - Just send JSON and redirect, no complex error handling
 - **Debug mode** - Show decoded/parsed data when enabled
 
 ## Schema Settings Required
@@ -66,15 +73,32 @@ Example: `x4ofqz-Dudek-100` → base64: `eDRvZnF6LUR1ZGVrLTEwMA==`
 - `padding_bottom` (range) - Bottom padding
 - `show_debug` (checkbox) - Debug mode
 
+## Webhook Data Format
+```json
+{
+  "code": "x4ofqz",
+  "refereeName": "John Doe",
+  "refereeEmail": "john@example.com"
+}
+```
+
+## Implementation Notes
+- **CORS**: Shopify preview domains block CORS, so use `mode: 'no-cors'` in fetch
+- **Simple**: No try/catch, no complex error handling - just send and redirect
+- **Form Fields**: fullName (required) and email (required, validated)
+- **Redirect**: `/discount/{coupon}?redirect={redirect_url}`
+
 ## Testing Checklist
 - [ ] URL with `?info=` parameter loads correctly
 - [ ] Base64 decodes properly
 - [ ] Data parses correctly (coupon, userName, discountAmount)
 - [ ] Welcome message displays with correct values
-- [ ] Form renders correctly
-- [ ] Email validation works
-- [ ] Webhook POST sends correct data
-- [ ] Redirect works after success
-- [ ] Error messages show for all failure cases
+- [ ] Form renders correctly with fullName and email fields
+- [ ] FullName validation works (required)
+- [ ] Email validation works (regex check)
+- [ ] Webhook POST sends correct JSON data
+- [ ] Webhook receives data at webhook.site (check raw body)
+- [ ] Redirect works after form submission
+- [ ] Error messages show for validation failures
 - [ ] Debug mode shows decoded/parsed data
 
