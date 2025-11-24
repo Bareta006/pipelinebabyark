@@ -172,6 +172,15 @@
       const redirectUrl = section.getAttribute('data-redirect-url') || '{{ redirect_url }}';
       const webhookUrl = section.getAttribute('data-webhook-url') || '';
       
+      console.log('Webhook URL from attribute:', webhookUrl);
+      console.log('Section attributes:', {
+        redirectUrl: section.getAttribute('data-redirect-url'),
+        webhookUrl: section.getAttribute('data-webhook-url'),
+        allAttributes: Array.from(section.attributes).map(function(attr) {
+          return attr.name + '=' + attr.value;
+        })
+      });
+      
       {%- if section.settings.show_debug -%}
       const rawInfoEl = document.getElementById('raw-info-param');
       if (rawInfoEl) rawInfoEl.textContent = infoParam || 'Not found';
@@ -297,11 +306,21 @@
         messageDiv.innerHTML = '';
         
         if (!webhookUrl || webhookUrl === '') {
+          console.error('Webhook URL is empty');
           messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Webhook URL not configured.</p>';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Get Discount';
           return;
         }
+        
+        const webhookData = {
+          code: form.getAttribute('data-coupon'),
+          refereeName: fullName,
+          refereeEmail: email
+        };
+        
+        console.log('Sending webhook to:', webhookUrl);
+        console.log('Webhook data:', webhookData);
         
         try {
           const response = await fetch(webhookUrl, {
@@ -309,16 +328,22 @@
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-              code: form.getAttribute('data-coupon'),
-              refereeName: fullName,
-              refereeEmail: email
-            })
+            body: JSON.stringify(webhookData)
           });
           
+          console.log('Webhook response status:', response.status);
+          console.log('Webhook response ok:', response.ok);
+          
           if (!response.ok) {
-            throw new Error('Webhook request failed: ' + response.status);
+            const errorText = await response.text();
+            console.error('Webhook error response:', errorText);
+            throw new Error('Webhook request failed: ' + response.status + ' - ' + errorText);
           }
+          
+          const responseData = await response.json().catch(function() {
+            return { success: true };
+          });
+          console.log('Webhook success:', responseData);
           
           messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
           
@@ -329,7 +354,13 @@
           
         } catch (error) {
           console.error('Webhook error:', error);
-          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request. Please try again.</p>';
+          console.error('Error details:', {
+            message: error.message,
+            stack: error.stack,
+            webhookUrl: webhookUrl,
+            webhookData: webhookData
+          });
+          messageDiv.innerHTML = '<p class="affiliate-landing-form__error">Failed to process request. Please check console for details.</p>';
           submitBtn.disabled = false;
           submitBtn.textContent = 'Get Discount';
         }
