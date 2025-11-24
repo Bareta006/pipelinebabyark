@@ -1,5 +1,5 @@
-<!-- /sections/affiliate-landing-form.liquid -->
 {%- comment -%}
+  /sections/affiliate-landing-form.liquid
   Affiliate Landing Form Section
   Handles base64 encoded referral data from URL parameter: ?info={base64}
   Format: {coupon}-{userName}-{discountAmount}
@@ -16,25 +16,17 @@
   if info_param != blank
     assign decoded_info = info_param
   endif
+  
+  assign message_size_mobile = section.settings.message_size | times: 0.85 | round
+  assign form_text_size_mobile = section.settings.form_text_size | times: 0.9 | round
 -%}
 
-<section class="affiliate-landing-form section-padding"
+<section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
-  style="
-    --PT: {{ section.settings.padding_top }}px;
-    --PB: {{ section.settings.padding_bottom }}px;
-    --text-alignment: {{ section.settings.text_alignment }};
-    --message-size: {{ section.settings.message_size }}px;
-    --message-color: {{ section.settings.message_color }};
-    --form-text-size: {{ section.settings.form_text_size }}px;
-    --text-color: {{ section.settings.text_color }};
-    --button-color: {{ section.settings.button_color }};
-    --button-text-color: {{ section.settings.button_text_color }};
-    --message-size-mobile: {{ section.settings.message_size | times: 0.85 }}px;
-    --form-text-size-mobile: {{ section.settings.form_text_size | times: 0.9 }}px;">
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px;">
   
-  <div class="{{ section.settings.width }}">
+  <div class="{{ section.settings.width }} section-padding">
     <div class="affiliate-landing-form__container">
       
       {%- comment -%} Debug info (remove in production) {%- endcomment -%}
@@ -483,9 +475,10 @@
     },
     {
       "type": "color",
-      "id": "text_color",
-      "label": "Text color",
-      "default": "#666666"
+      "id": "text_color_custom",
+      "label": "Text color (custom)",
+      "default": "#666666",
+      "info": "Custom text color for form elements"
     },
     {
       "type": "color",
@@ -516,9 +509,29 @@
       "label": "Width",
       "default": "wrapper",
       "options": [
-        { "value": "wrapper", "label": "Normal" },
-        { "value": "wrapper--narrow", "label": "Narrow" },
-        { "value": "wrapper--full", "label": "Full width" }
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text--neutral",
+      "options": [
+        { "value": "text--neutral", "label": "Normal text"},
+        { "value": "text--white", "label": "White"},
+        { "value": "text--primary", "label": "Primary accent"},
+        { "value": "text--secondary", "label": "Secondary accent"},
+        { "value": "text--black", "label": "Black"},
+        { "value": "text--invert--primary", "label": "Primary dark accent"},
+        { "value": "text--invert--secondary", "label": "Secondary dark accent"},
+        { "value": "text--invert", "label": "Inverted text color"},
+        { "value": "text--bright--primary", "label": "Primary bright accent"},
+        { "value": "text--bright--secondary", "label": "Secondary bright accent"}
       ]
     },
     {
@@ -528,22 +541,22 @@
     {
       "type": "range",
       "id": "padding_top",
-      "label": "Padding top",
       "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 36,
-      "unit": "px"
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "label": "Padding bottom",
       "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 36,
-      "unit": "px"
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
     },
     {
       "type": "header",
