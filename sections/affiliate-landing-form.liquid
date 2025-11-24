@@ -1,8 +1,13 @@
 {%- comment -%}
   /sections/affiliate-landing-form.liquid
   Affiliate Landing Form Section
-  Handles base64 encoded referral data from URL parameter: ?info={base64}
-  Format: {coupon}-{userName}-{discountAmount}
+  
+  RULES:
+  1. Get ?info= parameter from URL using request.params.info
+  2. Pass to JavaScript via data-info-param attribute
+  3. JavaScript decodes base64 and parses {coupon}-{userName}-{discountAmount}
+  4. Render welcome message and email form
+  5. On submit: validate email → POST webhook → redirect
 {%- endcomment -%}
 
 {%- liquid
@@ -163,9 +168,11 @@
     'use strict';
     
     function initAffiliateForm() {
-      const section = document.querySelector('[data-section-id="{{ section.id }}"]');
+      const sectionId = '{{ section.id }}';
+      const section = document.querySelector('[data-section-id="' + sectionId + '"]');
+      
       if (!section) {
-        console.error('Affiliate form section not found');
+        console.error('Affiliate form section not found for ID:', sectionId);
         return;
       }
       
@@ -175,9 +182,15 @@
         return;
       }
       
-      const infoParam = section.dataset.infoParam || '';
-      const redirectUrl = section.dataset.redirectUrl || '{{ redirect_url }}';
-      const webhookUrl = section.dataset.webhookUrl || '';
+      const infoParam = section.getAttribute('data-info-param') || '';
+      const redirectUrl = section.getAttribute('data-redirect-url') || '{{ redirect_url }}';
+      const webhookUrl = section.getAttribute('data-webhook-url') || '';
+      
+      console.log('Affiliate Form Init:', {
+        infoParam: infoParam,
+        redirectUrl: redirectUrl,
+        webhookUrl: webhookUrl
+      });
       
       if (!infoParam || infoParam === '') {
         formWrapper.innerHTML = '<p class="affiliate-landing-form__error">No referral information found in URL.</p>';
@@ -190,13 +203,11 @@
           while (str.length % 4) {
             str += '=';
           }
+          const decoded = atob(str);
           return decodeURIComponent(
-            atob(str)
-              .split('')
-              .map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join('')
+            decoded.split('').map(function(c) {
+              return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join('')
           );
         } catch (e) {
           console.error('Base64 decode error:', e);
@@ -220,6 +231,7 @@
       }
       
       const decodedString = base64Decode(infoParam);
+      console.log('Decoded string:', decodedString);
       
       {%- if section.settings.show_debug -%}
       const decodedInfoEl = document.getElementById('decoded-info');
@@ -236,6 +248,7 @@
       }
       
       const affiliateData = parseAffiliateData(decodedString);
+      console.log('Parsed affiliate data:', affiliateData);
       
       {%- if section.settings.show_debug -%}
       const parsedDataEl = document.getElementById('parsed-data');
@@ -253,35 +266,18 @@
         return;
       }
       
-      formWrapper.innerHTML = `
-        <div class="affiliate-landing-form__welcome">
-          Welcome, ${affiliateData.userName} has give u $${affiliateData.discountAmount} discount to purchase babyark!
-        </div>
-        
-        <form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="${affiliateData.coupon}" data-user-name="${affiliateData.userName}" data-discount-amount="${affiliateData.discountAmount}">
-          <p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>
-          
-          <div class="affiliate-landing-form__form-group">
-            <input 
-              type="email" 
-              class="affiliate-landing-form__email-input" 
-              id="affiliate-email-input"
-              placeholder="Enter your email address"
-              required
-            />
-          </div>
-          
-          <button 
-            type="submit" 
-            class="affiliate-landing-form__submit-btn"
-            id="affiliate-submit-btn"
-          >
-            Get Discount
-          </button>
-          
-          <div id="affiliate-form-message"></div>
-        </form>
-      `;
+      formWrapper.innerHTML = 
+        '<div class="affiliate-landing-form__welcome">' +
+          'Welcome, ' + affiliateData.userName + ' has give u $' + affiliateData.discountAmount + ' discount to purchase babyark!' +
+        '</div>' +
+        '<form class="affiliate-landing-form__form" id="affiliate-email-form" data-coupon="' + affiliateData.coupon + '" data-user-name="' + affiliateData.userName + '" data-discount-amount="' + affiliateData.discountAmount + '">' +
+          '<p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>' +
+          '<div class="affiliate-landing-form__form-group">' +
+            '<input type="email" class="affiliate-landing-form__email-input" id="affiliate-email-input" placeholder="Enter your email address" required />' +
+          '</div>' +
+          '<button type="submit" class="affiliate-landing-form__submit-btn" id="affiliate-submit-btn">Get Discount</button>' +
+          '<div id="affiliate-form-message"></div>' +
+        '</form>';
       
       const form = document.getElementById('affiliate-email-form');
       const emailInput = document.getElementById('affiliate-email-input');
@@ -289,7 +285,7 @@
       const messageDiv = document.getElementById('affiliate-form-message');
       
       if (!form || !emailInput || !submitBtn || !messageDiv) {
-        console.error('Form elements not found');
+        console.error('Form elements not found after render');
         return;
       }
       
@@ -323,9 +319,9 @@
             },
             body: JSON.stringify({
               email: email,
-              coupon: form.dataset.coupon,
-              userName: form.dataset.userName,
-              discountAmount: form.dataset.discountAmount,
+              coupon: form.getAttribute('data-coupon'),
+              userName: form.getAttribute('data-user-name'),
+              discountAmount: form.getAttribute('data-discount-amount'),
               timestamp: new Date().toISOString(),
               url: window.location.href
             })
@@ -338,7 +334,7 @@
           messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
           
           setTimeout(function() {
-            const discountUrl = '/discount/' + form.dataset.coupon + '?redirect=' + encodeURIComponent(redirectUrl);
+            const discountUrl = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(redirectUrl);
             window.location.href = discountUrl;
           }, 500);
           
