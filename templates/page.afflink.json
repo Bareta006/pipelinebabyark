@@ -31,7 +31,7 @@
       "type": "affiliate-landing-form",
       "name": "Affiliate Landing Form",
       "settings": {
-        "webhook_url": "https://unmigratory-mustachioed-leona.ngrok-free.dev/referrals/register",
+        "webhook_url": "https://eve-patents-assist-nam.trycloudflare.com/referrals/register",
         "redirect_url": "/products/babyark-convertible-car-seat-smart",
         "message_size": 24,
         "message_color": "#000000",
