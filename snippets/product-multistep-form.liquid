@@ -6,7 +6,68 @@
 <script src="{{ 'product-multistep.js' | asset_url }}" defer></script>
 
 <script type="application/json" data-product-json>
-  {{ product | json }}
+  {
+    "id": {{ product.id | json }},
+    "title": {{ product.title | json }},
+    "handle": {{ product.handle | json }},
+    "description": {{ product.description | json }},
+    "published_at": {{ product.published_at | json }},
+    "created_at": {{ product.created_at | json }},
+    "vendor": {{ product.vendor | json }},
+    "type": {{ product.type | json }},
+    "tags": {{ product.tags | json }},
+    "price": {{ product.price | json }},
+    "price_min": {{ product.price_min | json }},
+    "price_max": {{ product.price_max | json }},
+    "available": {{ product.available | json }},
+    "price_varies": {{ product.price_varies | json }},
+    "compare_at_price": {{ product.compare_at_price | json }},
+    "compare_at_price_min": {{ product.compare_at_price_min | json }},
+    "compare_at_price_max": {{ product.compare_at_price_max | json }},
+    "compare_at_price_varies": {{ product.compare_at_price_varies | json }},
+    "options": {{ product.options | json }},
+    "images": {{ product.images | json }},
+    "featured_image": {{ product.featured_image | json }},
+    "media": {{ product.media | json }},
+    "content": {{ product.content | json }},
+    "requires_selling_plan": {{ product.requires_selling_plan | json }},
+    "selling_plan_groups": {{ product.selling_plan_groups | json }},
+    "metafields": {
+      "delivery_time": {{ product.metafields.delivery.delivery_time.value | json }},
+      "estimated_date": {{ product.metafields.delivery.estimated_date.value | json }}
+    },
+    "variants": [
+      {%- for variant in product.variants -%}
+        {
+          "id": {{ variant.id | json }},
+          "title": {{ variant.title | json }},
+          "option1": {{ variant.option1 | json }},
+          "option2": {{ variant.option2 | json }},
+          "option3": {{ variant.option3 | json }},
+          "sku": {{ variant.sku | json }},
+          "requires_shipping": {{ variant.requires_shipping | json }},
+          "taxable": {{ variant.taxable | json }},
+          "featured_image": {{ variant.featured_image | json }},
+          "featured_media": {{ variant.featured_media | json }},
+          "available": {{ variant.available | json }},
+          "name": {{ variant.name | json }},
+          "public_title": {{ variant.public_title | json }},
+          "options": {{ variant.options | json }},
+          "price": {{ variant.price | json }},
+          "weight": {{ variant.weight | json }},
+          "compare_at_price": {{ variant.compare_at_price | json }},
+          "inventory_management": {{ variant.inventory_management | json }},
+          "barcode": {{ variant.barcode | json }},
+          "requires_selling_plan": {{ variant.requires_selling_plan | json }},
+          "selling_plan_allocations": {{ variant.selling_plan_allocations | json }},
+          "quantity_rule": {{ variant.quantity_rule | json }},
+          "metafields": {
+            "delivery_estimated_date": {{ variant.metafields.delivery.delivery_estimated_date.value | json }}
+          }
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
 </script>
 
 <div class="multistep-container" data-multistep-container data-accessories-collection="accessories">

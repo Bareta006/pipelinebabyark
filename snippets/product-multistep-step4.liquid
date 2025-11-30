@@ -109,6 +109,9 @@
                        data-accessory-price="{{ accessory.variants.first.price }}"
                        data-accessory-title="{{ accessory.title | escape }}"
                        data-product-id="{{ accessory.id }}"
+                       data-delivery-time="{{ accessory.metafields.delivery.delivery_time.value }}"
+                       data-delivery-date="{{ accessory.metafields.delivery.estimated_date.value }}"
+                       data-variant-delivery-date="{{ accessory.variants.first.metafields.delivery.delivery_estimated_date.value }}"
                        id="accessory-{{ accessory.id }}"
                        class="accessory-checkbox-hidden">
                 <label for="accessory-{{ accessory.id }}" class="accessory-add-btn">

@@ -33,17 +33,17 @@
         <div class="slider-container">
           <button type="button" class="slider-arrow slider-arrow--prev" data-slider-prev>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M15 18L9 12L15 6" stroke="#7f7f7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
 
-          <div class="slider-track" data-slider-track>
+          <div class="slider-track" data-slider-track data-multistep-slideshow>
             {%- assign current_variant = product.selected_or_first_available_variant -%}
 
             {%- if current_variant.featured_image -%}
               <div class="slider-slide">
                 <img src="{{ current_variant.featured_image | image_url: width: 800 }}"
-                    alt="{{ product.title }}"
+                    alt="{{ current_variant.featured_image.alt | default: product.title }}"
                     data-variant-image>
               </div>
             {%- endif -%}
@@ -60,7 +60,7 @@
 
           <button type="button" class="slider-arrow slider-arrow--next" data-slider-next>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M9 18L15 12L9 6" stroke="#7f7f7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </button>
         </div>
@@ -206,10 +206,14 @@
                         style="background-image: url('{{ swatch_bg_image | image_url: width: 120 }}');"
                         {% endif %}>
                   </label>
+                {% if has_available_variant == true %}
                   <span class="swatch-text-below">
                     {{ value }}
-                    {% unless has_available_variant %}<br><small>Sold Out</small>{% endunless %}
                   </span>
+                {% endif %}
+                  <div class="swatch-sold-out-fabric">
+                    {% unless has_available_variant %}<small>Sold Out</small>{% endunless %}
+                  </div>
                 </div>
               {%- endfor -%}
             </div>
@@ -227,7 +231,7 @@
           Next
         </button>
       </div>
-    </div>  
+      </div>
     </div>
   </div>
 </div>

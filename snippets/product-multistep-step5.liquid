@@ -9,7 +9,12 @@
         </div>
       </div>
 
+      <div class="summary-totals-wrapper">
       <div class="summary-totals-container" data-summary-totals>
+      </div>
+      <button type="button" class="btn desktop--only btn--steps btn--large" data-checkout-btn>
+        Checkout
+      </button>
       </div>
 
       <div class="order-summary-icons">
@@ -28,7 +33,7 @@
       </div>
 
       <div class="order-summary-bullets">
-        <div class="order-summary-bullet">
+        <div class="order-summary-bullet" data-delivery-bullet>
         {% render 'icon-multistep-deliver_2' %}
           Estimated delivery between Dec 15-20
         </div>
@@ -48,7 +53,7 @@
           Back
         </button>
         {%- endcomment -%}
-        <button type="button" class="btn btn--steps btn--large" data-checkout-btn>
+        <button type="button" class="btn mobile--only btn--steps btn--large" data-checkout-btn>
           Checkout
         </button>
       </div>

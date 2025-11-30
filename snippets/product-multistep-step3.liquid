@@ -63,6 +63,11 @@
             </div>
           </div>
         {%- endfor -%}
+        <div class="step-actions step-actions--vertical">
+          <button type="button" class="btn mobile--only btn--steps btn--large action-button step3-btn" data-add-smart-btn>
+            Add
+          </button>
+          </div>  
       </div>
 
       <input type="hidden"
@@ -74,10 +79,10 @@
     </div>
 
     <div class="step-actions step-actions--vertical">
-      <button type="button" class="btn btn--steps btn--large action-button" data-add-smart-btn>
+      <button type="button" class="btn desktop--only btn--steps btn--large action-button step3-btn" data-add-smart-btn>
         Add
       </button>
-      <button type="button" class="btn btn--text" data-skip-smart-btn>
+      <button type="button" class="btn btn--text skip-smart-btn" data-skip-smart-btn>
         Skip
       </button>
       {%- comment -%}

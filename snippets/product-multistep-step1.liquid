@@ -51,7 +51,7 @@
                   {%- if feature.image != blank -%}
                     <img src="{{ feature.image | image_url: width: 120 }}" alt="{{ feature.title }}" class="feature-icon">
                   {%- endif -%}
-                  <span class="feature-title">{{ feature.title }}</span>
+                  <div class="feature-title">{{ feature.title }}</div>
                 </button>
                 {%- break -%}
               {%- endif -%}
