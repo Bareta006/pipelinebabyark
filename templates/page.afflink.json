@@ -43,6 +43,7 @@
         "text_alignment": "center",
         "width": "wrapper",
         "text_color": "text--neutral",
+        "enable_transparent_header": true,
         "padding_top": 36,
         "padding_bottom": 36,
         "show_debug": false
