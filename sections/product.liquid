@@ -4702,3 +4702,37 @@ background-color: #22282D;
     updateBackInStockButton();
   });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function getCookie(name) {
+      const value = '; ' + document.cookie;
+      const parts = value.split('; ' + name + '=');
+      if (parts.length === 2) return parts.pop().split(';').shift();
+      return null;
+    }
+    
+    const discountCode = getCookie('discount_code');
+    if (!discountCode) return;
+    
+    const stored = localStorage.getItem('discountrefferal');
+    if (!stored) return;
+    
+    const data = JSON.parse(stored);
+    if (!data.amount) return;
+    
+    const now = Date.now();
+    const elapsed = now - data.timestamp;
+    if (elapsed > data.expiresIn) {
+      localStorage.removeItem('discountrefferal');
+      return;
+    }
+    
+    const priceBlock = document.querySelector('.product__block__price');
+    if (!priceBlock || document.querySelector('.refMessage')) return;
+    
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'refMessage';
+    messageDiv.textContent = data.amount + ' $';
+    priceBlock.parentNode.insertBefore(messageDiv, priceBlock);
+  });
+</script>
