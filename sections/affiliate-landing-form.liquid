@@ -403,8 +403,11 @@ padding: 0.75rem 2.5rem;
         
         messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
         
+        const discountAmount = form.getAttribute('data-discount-amount');
+        const redirectUrlWithDiscount = currentRedirectUrl + (currentRedirectUrl.indexOf('?') > -1 ? '&' : '?') + 'discount=' + encodeURIComponent(discountAmount);
+        
         setTimeout(function() {
-          window.location.href =  '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
+          window.location.href =  '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(redirectUrlWithDiscount);
         }, 500);
       });
     }
