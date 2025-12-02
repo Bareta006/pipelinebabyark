@@ -404,10 +404,20 @@ padding: 0.75rem 2.5rem;
         messageDiv.innerHTML = '<p class="affiliate-landing-form__success-message">Success! Redirecting...</p>';
         
         const discountAmount = form.getAttribute('data-discount-amount');
-        const redirectUrl = currentRedirectUrl + '?discount=' + discountAmount;
+        const discountData = {
+          amount: discountAmount,
+          timestamp: Date.now(),
+          expiresIn: 48 * 60 * 60 * 1000
+        };
+        
+        try {
+          localStorage.setItem('discountrefferal', JSON.stringify(discountData));
+        } catch (e) {
+          console.error('Failed to save discount to localStorage:', e);
+        }
         
         setTimeout(function() {
-          window.location.href = '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(redirectUrl);
+          window.location.href =  '/discount/' + form.getAttribute('data-coupon') + '?redirect=' + encodeURIComponent(currentRedirectUrl);
         }, 500);
       });
     }
