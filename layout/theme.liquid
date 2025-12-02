@@ -10,7 +10,7 @@
 {%- assign title_override = false -%}
 {%- assign default_description = false -%}
 <head>
-  <style id="ab-test-preload">
+  {% comment %} <style id="ab-test-preload">
   
   body {
     opacity: 0;
@@ -22,7 +22,7 @@
       opacity: 1;
     }
   }
-</style> 
+</style>  {% endcomment %}
 {% render 'visually_io_sdk' %}
 
 
