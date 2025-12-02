@@ -98,22 +98,26 @@
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
+    margin-bottom: 2rem;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__welcome-title {
     font-size: var(--message-size);
     font-weight: 600;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     color: var(--message-color);
+    text-align: left;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__welcome-description {
+    font-size: var(--form-text-size);
+    margin-bottom: 0;
+    color: var(--text-color);
     text-align: left;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form {
     max-width: 100%;
-  }
-  
-  #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
-    font-size: var(--form-text-size);
-    margin-bottom: 1.5rem;
-    color: var(--text-color);
-    text-align: left;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form-group {
@@ -191,12 +195,12 @@
       width: 100%;
     }
     
-    #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
+    #shopify-section-{{ section.id }} .affiliate-landing-form__welcome-title {
       font-size: var(--message-size-mobile);
       text-align: left;
     }
     
-    #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
+    #shopify-section-{{ section.id }} .affiliate-landing-form__welcome-description {
       font-size: var(--form-text-size-mobile);
       text-align: left;
     }
@@ -318,10 +322,10 @@
       
       formWrapper.innerHTML = 
         '<div class="affiliate-landing-form__welcome">' +
-          'Welcome, ' + affiliateData.userName + ' has give u $' + affiliateData.discountAmount + ' discount to purchase babyark!' +
+          '<h2 class="affiliate-landing-form__welcome-title">' + affiliateData.userName + ' introduces you to babyark and gives you $' + affiliateData.discountAmount + ' off</h2>' +
+          '<p class="affiliate-landing-form__welcome-description">' + affiliateData.userName + ' wants to invite you into the world of babyark by giving you $' + affiliateData.discountAmount + ' off your first babyark purchase. This will be automatically applied in your shopping bag.</p>' +
         '</div>' +
         '<form class="affiliate-landing-form__form" id="' + formId + '" data-coupon="' + affiliateData.coupon + '" data-user-name="' + affiliateData.userName + '" data-discount-amount="' + affiliateData.discountAmount + '">' +
-          '<p class="affiliate-landing-form__form-text">Want to get the discount? Fill in your email address</p>' +
           '<div class="affiliate-landing-form__form-group">' +
             '<input type="text" class="affiliate-landing-form__name-input" id="' + nameInputId + '" placeholder="Enter your full name" required />' +
           '</div>' +
