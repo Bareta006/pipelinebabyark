@@ -35,30 +35,25 @@
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="affiliate-landing-form__container">
-      
-      {%- if section.settings.show_debug -%}
-        <div class="affiliate-landing-form__debug" id="affiliate-debug-{{ section.id }}">
-          <p><strong>Raw info param:</strong> <span id="raw-info-param-{{ section.id }}">-</span></p>
-          <p><strong>Decoded info:</strong> <span id="decoded-info-{{ section.id }}">-</span></p>
-          <p><strong>Parsed data:</strong> <span id="parsed-data-{{ section.id }}">-</span></p>
-        </div>
-      {%- endif -%}
-      
-      <div class="affiliate-landing-form__content">
-        <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper-{{ section.id }}">
-          <p class="affiliate-landing-form__loading">Loading...</p>
+      <div class="wrapper">
+        {%- if section.settings.show_debug -%}
+          <div class="affiliate-landing-form__debug" id="affiliate-debug-{{ section.id }}">
+            <p><strong>Raw info param:</strong> <span id="raw-info-param-{{ section.id }}">-</span></p>
+            <p><strong>Decoded info:</strong> <span id="decoded-info-{{ section.id }}">-</span></p>
+            <p><strong>Parsed data:</strong> <span id="parsed-data-{{ section.id }}">-</span></p>
+          </div>
+        {%- endif -%}
+        
+        <div class="affiliate-landing-form__content">
+          <div class="affiliate-landing-form__form-wrapper" id="affiliate-form-wrapper-{{ section.id }}">
+            <p class="affiliate-landing-form__loading">Loading...</p>
+          </div>
         </div>
       </div>
-      
     </div>
   </div>
 </section>
 <style>
-  #shopify-section-{{ section.id }} .wrapper.section-padding {
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
   #shopify-section-{{ section.id }} .affiliate-landing-form {
     background-image: var(--bg-image-desktop);
     background-size: cover;
@@ -75,6 +70,13 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
+    width: 100%;
+  }
+  
+  #shopify-section-{{ section.id }} .affiliate-landing-form__container .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: start;
     width: 100%;
   }
   
