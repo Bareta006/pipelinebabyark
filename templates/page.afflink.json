@@ -9,24 +9,6 @@
  */
 {
   "sections": {
-    "main": {
-      "type": "page",
-      "disabled": true,
-      "settings": {
-        "kicker": "",
-        "kicker_size": 3,
-        "show_title": true,
-        "title_size": 8,
-        "show_content": true,
-        "content_size": 5,
-        "align_text": "text-center",
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "affiliate_landing_form_TwAD6e": {
       "type": "affiliate-landing-form",
       "name": "Affiliate Landing Form",
@@ -48,10 +30,28 @@
         "padding_bottom": 36,
         "show_debug": false
       }
+    },
+    "main": {
+      "type": "page",
+      "disabled": true,
+      "settings": {
+        "kicker": "",
+        "kicker_size": 3,
+        "show_title": true,
+        "title_size": 8,
+        "show_content": true,
+        "content_size": 5,
+        "align_text": "text-center",
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
   "order": [
-    "main",
-    "affiliate_landing_form_TwAD6e"
+    "affiliate_landing_form_TwAD6e",
+    "main"
   ]
 }
