@@ -23,7 +23,7 @@
         "button_color": "#000000",
         "button_text_color": "#ffffff",
         "text_alignment": "center",
-        "width": "wrapper--none",
+        "width": "wrapper",
         "text_color": "text--neutral",
         "enable_transparent_header": true,
         "padding_top": 36,
