@@ -25,11 +25,19 @@
   endif
 -%}
 
+{%- liquid
+  assign overlay_header = false
+  if section.settings.enable_transparent_header and section.settings.width == "wrapper--none" and section.settings.padding_top == 0
+    assign overlay_header = true
+  endif
+-%}
+
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
   data-redirect-url="{{ redirect_url }}"
   data-webhook-url="{{ section.settings.webhook_url }}"
+  {% if overlay_header %}data-overlay-header{% endif %}
   style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px; --bg-image-desktop: {% if bg_image_desktop_url != '' %}url('{{ bg_image_desktop_url }}'){% else %}none{% endif %}; --bg-image-mobile: {% if bg_image_mobile_url != '' %}url('{{ bg_image_mobile_url }}'){% else %}none{% endif %};">
   
   <div class="{{ section.settings.width }} section-padding">
@@ -563,6 +571,17 @@ padding: 0.75rem 2.5rem;
         { "value": "text--bright--primary", "label": "Primary bright accent"},
         { "value": "text--bright--secondary", "label": "Secondary bright accent"}
       ]
+    },
+    {
+      "type": "header",
+      "content": "Transparent Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_transparent_header",
+      "label": "Enable transparent header overlay",
+      "default": false,
+      "info": "Requires 'Enable on pages' to be enabled in Header section settings. Also requires 'Full width' and 'Padding top' set to 0."
     },
     {
       "type": "header",
