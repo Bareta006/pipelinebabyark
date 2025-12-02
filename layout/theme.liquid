@@ -10,9 +10,9 @@
 {%- assign title_override = false -%}
 {%- assign default_description = false -%}
 <head>
-  {% comment %} <style id="ab-test-preload">
+  <style id="ab-test-preload">
   
-  body.template-index {
+  body {
     opacity: 0;
     animation: showPage 0.1s 0.7s forwards;
   }
@@ -22,7 +22,7 @@
       opacity: 1;
     }
   }
-</style> {% endcomment %}
+</style> 
 {% render 'visually_io_sdk' %}
 
 
