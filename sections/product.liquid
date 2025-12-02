@@ -3384,6 +3384,15 @@
     text-decoration: underline;
     font-size: 14px;
   }
+  .refMessage{
+        margin-bottom: 30px;
+    background: linear-gradient(135deg, #3d3530 0%, #2d2520 100%) !important;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 12px;
+    width: fit-content;
+    font-size: 18px;
+  }
   @media (max-width: 749px) {
     .product__block__custom-buttons__wrapper {
       flex-direction: row;
@@ -4732,7 +4741,8 @@ background-color: #22282D;
     
     const messageDiv = document.createElement('div');
     messageDiv.className = 'refMessage';
-    messageDiv.textContent = data.amount + ' $';
+    messageDiv.textContent = 'You have been reffered and got a discount of <strong>' + data.amount + '$</strong>. This discount will be applied after adding to cart.';
+    messageDiv.innerHTML = messageDiv.innerHTML.replace('<strong>' + data.amount + '$</strong>', '<strong>' + data.amount + '$</strong>');
     priceBlock.parentNode.insertBefore(messageDiv, priceBlock);
   });
 </script>
