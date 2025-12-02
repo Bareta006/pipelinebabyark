@@ -33,6 +33,7 @@
       "settings": {
         "webhook_url": "https://eve-patents-assist-nam.trycloudflare.com/referrals/register",
         "redirect_url": "/products/babyark-convertible-car-seat-smart",
+        "background_image_desktop": "shopify://shop_images/045A9091_1_3.png",
         "message_size": 24,
         "message_color": "#000000",
         "form_text_size": 16,
