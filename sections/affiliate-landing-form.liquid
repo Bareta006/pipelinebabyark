@@ -11,12 +11,17 @@
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
 -%}
 
+{%- liquid
+  assign bg_image_desktop = section.settings.background_image_desktop
+  assign bg_image_mobile = section.settings.background_image_mobile | default: bg_image_desktop
+-%}
+
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="affiliate-landing-form"
   data-redirect-url="{{ redirect_url }}"
   data-webhook-url="{{ section.settings.webhook_url }}"
-  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px;">
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px; {% if bg_image_desktop %}--bg-image-desktop: url('{{ bg_image_desktop | image_url: width: 1920 }}');{% endif %} {% if bg_image_mobile %}--bg-image-mobile: url('{{ bg_image_mobile | image_url: width: 768 }}');{% endif %}">
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="affiliate-landing-form__container">
@@ -39,17 +44,32 @@
   </div>
 </section>
 <style>
+  #shopify-section-{{ section.id }} .affiliate-landing-form {
+    {% if bg_image_desktop %}
+    background-image: var(--bg-image-desktop);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    {% endif %}
+    position: relative;
+  }
+  
   #shopify-section-{{ section.id }} .affiliate-landing-form__container {
     max-width: 100%;
     margin: 0 auto;
+    display: flex;
+    align-items: center;
+    min-height: 600px;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__content {
+    width: 50%;
+    max-width: 500px;
     text-align: var(--text-alignment);
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__debug {
-    background: #f5f5f5;
+    background: rgba(245, 245, 245, 0.9);
     padding: 1rem;
     margin-bottom: 2rem;
     border: 1px solid #ddd;
@@ -58,8 +78,8 @@
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__loading {
-    text-align: center;
-    padding: 2rem;
+    text-align: left;
+    padding: 2rem 0;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
@@ -67,19 +87,18 @@
     font-weight: 600;
     margin-bottom: 2rem;
     color: var(--message-color);
-    text-align: center;
+    text-align: left;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form {
-    max-width: 500px;
-    margin: 0 auto;
+    max-width: 100%;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
     font-size: var(--form-text-size);
     margin-bottom: 1.5rem;
     color: var(--text-color);
-    text-align: center;
+    text-align: left;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__form-group {
@@ -96,6 +115,7 @@
     box-sizing: border-box;
   }
   
+  #shopify-section-{{ section.id }} .affiliate-landing-form__name-input:focus,
   #shopify-section-{{ section.id }} .affiliate-landing-form__email-input:focus {
     outline: none;
     border-color: var(--button-color);
@@ -125,29 +145,51 @@
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__error {
     color: #d32f2f;
-    text-align: center;
+    text-align: left;
     margin-top: 1rem;
     padding: 0.75rem;
-    background-color: #ffebee;
+    background-color: rgba(255, 235, 238, 0.9);
     border-radius: 4px;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__success-message {
     color: #2e7d32;
-    text-align: center;
+    text-align: left;
     margin-top: 1rem;
     padding: 0.75rem;
-    background-color: #e8f5e9;
+    background-color: rgba(232, 245, 233, 0.9);
     border-radius: 4px;
   }
   
   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} .affiliate-landing-form {
+      {% if bg_image_mobile %}
+      background-image: var(--bg-image-mobile);
+      {% endif %}
+    }
+    
+    #shopify-section-{{ section.id }} .affiliate-landing-form__container {
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: auto;
+    }
+    
+    #shopify-section-{{ section.id }} .affiliate-landing-form__content {
+      width: 100%;
+    }
+    
     #shopify-section-{{ section.id }} .affiliate-landing-form__welcome {
       font-size: var(--message-size-mobile);
+      text-align: left;
     }
     
     #shopify-section-{{ section.id }} .affiliate-landing-form__form-text {
       font-size: var(--form-text-size-mobile);
+      text-align: left;
+    }
+    
+    #shopify-section-{{ section.id }} .affiliate-landing-form__loading {
+      text-align: left;
     }
   }
 </style>
@@ -377,6 +419,22 @@
       "label": "Redirect URL",
       "default": "/products/babyark-convertible-car-seat-smart",
       "info": "URL to redirect to after successful submission (used in /discount/{coupon}?redirect=...)"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "Background image (Desktop)",
+      "info": "Background image for desktop and mobile (if mobile image not set)"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image (Mobile)",
+      "info": "Optional: Different background image for mobile. If not set, desktop image will be used."
     },
     {
       "type": "header",
