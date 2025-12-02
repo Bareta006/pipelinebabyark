@@ -6,8 +6,8 @@
 {%- endcomment -%}
 
 {%- liquid
-  assign message_size_mobile = section.settings.message_size | times: 0.85 | round
-  assign form_text_size_mobile = section.settings.form_text_size | times: 0.9 | round
+  assign message_size_mobile = section.settings.message_size | times: 1 | round
+  assign form_text_size_mobile = section.settings.form_text_size | times: 1 | round
   assign redirect_url = section.settings.redirect_url | default: '/products/babyark-convertible-car-seat-smart'
   assign bg_image_desktop = section.settings.background_image_desktop
   assign bg_image_mobile = section.settings.background_image_mobile | default: bg_image_desktop
