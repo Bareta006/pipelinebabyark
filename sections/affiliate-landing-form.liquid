@@ -53,12 +53,20 @@
   </div>
 </section>
 <style>
+  #shopify-section-{{ section.id }} .wrapper.section-padding {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
   #shopify-section-{{ section.id }} .affiliate-landing-form {
     background-image: var(--bg-image-desktop);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__container {
@@ -66,7 +74,7 @@
     margin: 0 auto;
     display: flex;
     align-items: center;
-    min-height: 600px;
+    width: 100%;
   }
   
   #shopify-section-{{ section.id }} .affiliate-landing-form__content {
