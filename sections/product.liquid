@@ -4741,8 +4741,7 @@ background-color: #22282D;
     
     const messageDiv = document.createElement('div');
     messageDiv.className = 'refMessage';
-    messageDiv.textContent = 'You have been reffered and got a discount of <strong>' + data.amount + '$</strong>. This discount will be applied after adding to cart.';
-    messageDiv.innerHTML = messageDiv.innerHTML.replace('<strong>' + data.amount + '$</strong>', '<strong>' + data.amount + '$</strong>');
+    messageDiv.innerHTML = 'You have been reffered and got a discount of <strong>' + data.amount + '$</strong>. This discount will be applied after adding to cart.';
     priceBlock.parentNode.insertBefore(messageDiv, priceBlock);
   });
 </script>
