@@ -14,6 +14,18 @@
 {%- liquid
   assign bg_image_desktop = section.settings.background_image_desktop
   assign bg_image_mobile = section.settings.background_image_mobile | default: bg_image_desktop
+  
+  if bg_image_desktop
+    assign bg_image_desktop_css = 'url(' | append: bg_image_desktop | image_url: width: 1920 | append: ')'
+  else
+    assign bg_image_desktop_css = 'none'
+  endif
+  
+  if bg_image_mobile
+    assign bg_image_mobile_css = 'url(' | append: bg_image_mobile | image_url: width: 768 | append: ')'
+  else
+    assign bg_image_mobile_css = 'none'
+  endif
 -%}
 
 <section class="affiliate-landing-form {{ section.settings.text_color }}"
@@ -21,7 +33,7 @@
   data-section-type="affiliate-landing-form"
   data-redirect-url="{{ redirect_url }}"
   data-webhook-url="{{ section.settings.webhook_url }}"
-  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px; {% if bg_image_desktop %}--bg-image-desktop: url('{{ bg_image_desktop | image_url: width: 1920 }}');{% endif %} {% if bg_image_mobile %}--bg-image-mobile: url('{{ bg_image_mobile | image_url: width: 768 }}');{% endif %}">
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --text-alignment: {{ section.settings.text_alignment }}; --message-size: {{ section.settings.message_size }}px; --message-color: {{ section.settings.message_color }}; --form-text-size: {{ section.settings.form_text_size }}px; --text-color: {{ section.settings.text_color_custom }}; --button-color: {{ section.settings.button_color }}; --button-text-color: {{ section.settings.button_text_color }}; --message-size-mobile: {{ message_size_mobile }}px; --form-text-size-mobile: {{ form_text_size_mobile }}px; --bg-image-desktop: {{ bg_image_desktop_css }}; --bg-image-mobile: {{ bg_image_mobile_css }};">
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="affiliate-landing-form__container">
@@ -45,12 +57,10 @@
 </section>
 <style>
   #shopify-section-{{ section.id }} .affiliate-landing-form {
-    {% if bg_image_desktop %}
     background-image: var(--bg-image-desktop);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    {% endif %}
     position: relative;
     min-height: 100vh;
     display: flex;
@@ -177,9 +187,7 @@
   
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} .affiliate-landing-form {
-      {% if bg_image_mobile %}
       background-image: var(--bg-image-mobile);
-      {% endif %}
     }
     
     #shopify-section-{{ section.id }} .affiliate-landing-form__container {
