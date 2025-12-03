@@ -74,10 +74,10 @@ class ProductMultiStep {
       });
     });
 
-    const addSmartBtn = this.container.querySelector('[data-add-smart-btn]');
-    if (addSmartBtn) {
-      addSmartBtn.addEventListener('click', () => this.selectSmartOption(true));
-    }
+    const addSmartBtns = this.container.querySelectorAll('[data-add-smart-btn]');
+    addSmartBtns.forEach(btn => {
+      btn.addEventListener('click', () => this.selectSmartOption(true, btn));
+    });
 
     const skipSmartBtn = this.container.querySelector('[data-skip-smart-btn]');
     if (skipSmartBtn) {
@@ -117,7 +117,7 @@ class ProductMultiStep {
     this.showStep(nextStep);
   }
 
-  selectSmartOption(addSmart) {
+  selectSmartOption(addSmart, btn = null) {
     const smartOptionInput = this.container.querySelector('[data-smart-option-input]');
     if (!smartOptionInput) {
       console.error('Smart option input not found');
@@ -138,7 +138,28 @@ class ProductMultiStep {
     smartOptionInput.value = this.selectedSmartOption;
 
     this.selectFinalVariant();
-    this.showStep(4);
+
+    if (addSmart && btn) {
+      const addText = btn.querySelector('.btn-text-add');
+      const addedText = btn.querySelector('.btn-text-added');
+
+      if (addText && addedText) {
+        addText.style.display = 'none';
+        addedText.style.display = 'flex';
+        btn.classList.add('showing-added');
+
+        setTimeout(() => {
+          addText.style.display = 'inline-block';
+          addedText.style.display = 'none';
+          btn.classList.remove('showing-added');
+          this.showStep(4);
+        }, 2000);
+      } else {
+        this.showStep(4);
+      }
+    } else {
+      this.showStep(4);
+    }
   }
 
   handleSwatchChange() {
@@ -932,7 +953,7 @@ class ProductMultiStep {
           </div>
           <div class="summary-total-row summary-total-final">
             <span>Total</span>
-            <span>${this.formatMoney(totalDiscounted)}</span>
+            <span class="totalMultiStep">${this.formatMoney(totalDiscounted)}</span>
           </div>
         </div>
       `;
@@ -1122,6 +1143,11 @@ class ProductMultiStep {
             const featureData = JSON.parse(featureDataScript.textContent);
 
             modalBody.innerHTML = `
+            <button type="button" class="feature-modal-close" data-feature-close>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
             <div class="feature-modal-fixed-height">
              <div class="feature-modal-body-dynamic-content">
               ${featureData.image ? `<img src="${featureData.image}" alt="${featureData.title}" class="feature-modal-body-dynamic-content-image">` : ''}
@@ -1134,6 +1160,15 @@ class ProductMultiStep {
             `;
 
             backdrop.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+
+            const newCloseBtn = modalBody.querySelector('[data-feature-close]');
+            if (newCloseBtn) {
+              newCloseBtn.addEventListener('click', () => {
+                backdrop.style.display = 'none';
+                document.body.style.overflow = '';
+              });
+            }
           } catch (error) {
             console.error('Error loading feature data:', error);
           }
@@ -1144,18 +1179,21 @@ class ProductMultiStep {
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
         backdrop.style.display = 'none';
+        document.body.style.overflow = '';
       });
     }
 
     backdrop.addEventListener('click', (e) => {
       if (e.target === backdrop) {
         backdrop.style.display = 'none';
+        document.body.style.overflow = '';
       }
     });
 
     if (customizeBtn) {
       customizeBtn.addEventListener('click', () => {
         backdrop.style.display = 'none';
+        document.body.style.overflow = '';
         const customizeBtnMain = this.container.querySelector('[data-customize-btn]');
         if (customizeBtnMain) {
           customizeBtnMain.click();
