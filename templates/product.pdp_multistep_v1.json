@@ -119,7 +119,7 @@
     "section_wide_card_hero_TpyKNx": {
       "type": "section-wide-card-hero",
       "custom_css": [
-        "section{background-color: #f7f7f7;}"
+        "section {background-color: #f7f7f7;}"
       ],
       "name": "Wide card hero",
       "settings": {
@@ -127,6 +127,7 @@
         "background_image_mobile": "shopify://shop_images/Group_1597881538_2_1.png",
         "border_radius": 50,
         "image": "shopify://shop_images/saatchi_mom.png",
+        "image_mobile": "shopify://shop_images/Copy_of_220906-Babyark-11391_4.png",
         "image_alignment": "right",
         "text_1": "<p>100 DAYS</p>",
         "text_1_size_desktop": 46,
