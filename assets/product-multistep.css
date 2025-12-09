@@ -941,11 +941,11 @@ body:has([data-multistep-container]) .product__main__content {
   width: 100% !important;
 }
 
-body:has([data-multistep-container]) .wrapper {
+body:has([data-multistep-container]) .product-section .wrapper {
   background: #F7F7F7;
 }
 
-body:has([data-multistep-container]) .product__media__wrapper {
+body:has([data-multistep-container]) .product-section .product__media__wrapper {
   display: none !important;
 }
 
