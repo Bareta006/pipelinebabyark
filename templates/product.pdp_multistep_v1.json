@@ -8,6 +8,7 @@
     },
     "main": {
       "type": "product",
+      "class": "multistep-section-pdp",
       "blocks": {
         "multistep_form": {
           "type": "liquid",
