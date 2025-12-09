@@ -121,7 +121,8 @@
       "name": "Wide card hero",
       "settings": {
         "background_image_desktop": "shopify://shop_images/Group_1597881647.png",
-        "border_radius": 0,
+        "border_radius": 50,
+        "image": "shopify://shop_images/saatchi_mom.png",
         "image_alignment": "center",
         "text_1": "",
         "text_1_size_desktop": 18,
@@ -139,8 +140,8 @@
         "text_3_color": "#000000",
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     }
   },
