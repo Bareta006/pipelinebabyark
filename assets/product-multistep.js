@@ -30,6 +30,12 @@ class ProductMultiStep {
       console.log('No slider track at init');
     }
 
+    const shellColorSelected = this.container.querySelector('input[name="shell_color"]:checked');
+    if (shellColorSelected) {
+      this.selectedShellColor = shellColorSelected.value;
+      this.updateColorAvailability();
+    }
+
     const urlParams = new URLSearchParams(window.location.search);
     const stepParam = urlParams.get('step');
     const initialStep = stepParam && !isNaN(stepParam) ? parseInt(stepParam) : 1;
@@ -104,17 +110,31 @@ class ProductMultiStep {
     }
 
     if (this.currentStep === 4 && nextStep === 5) {
-      const originalText = btn.textContent;
+      const addText = btn.querySelector('.btn-text-add');
+      const addedText = btn.querySelector('.btn-text-added');
+
       btn.disabled = true;
-      btn.textContent = 'Adding to cart...';
+
+      if (addText && addedText) {
+        addText.style.display = 'none';
+        addedText.style.display = 'flex';
+        btn.classList.add('showing-added');
+      }
 
       await this.addAllToCart();
 
-      btn.disabled = false;
-      btn.textContent = originalText;
+      setTimeout(() => {
+        if (addText && addedText) {
+          addText.style.display = 'inline-block';
+          addedText.style.display = 'none';
+          btn.classList.remove('showing-added');
+        }
+        btn.disabled = false;
+        this.showStep(nextStep);
+      }, 2000);
+    } else {
+      this.showStep(nextStep);
     }
-
-    this.showStep(nextStep);
   }
 
   selectSmartOption(addSmart, btn = null) {
@@ -580,9 +600,29 @@ class ProductMultiStep {
     const imageEl = item.querySelector('[data-accessory-image]');
     if (!imageEl) return;
 
-    const newImageUrl = changedOption.dataset.variantImage;
-    if (newImageUrl) {
-      imageEl.src = newImageUrl;
+    const variantImagesData = item.dataset.variantImages;
+    let customImageUrl = null;
+
+    if (variantImagesData) {
+      try {
+        const variantImages = JSON.parse(variantImagesData);
+        const selectedVariantId = changedOption.dataset.variantId;
+
+        if (selectedVariantId && variantImages[selectedVariantId]) {
+          customImageUrl = variantImages[selectedVariantId];
+        }
+      } catch (e) {
+        console.error('Error parsing variant images:', e);
+      }
+    }
+
+    if (customImageUrl) {
+      imageEl.src = customImageUrl;
+    } else {
+      const newImageUrl = changedOption.dataset.variantImage;
+      if (newImageUrl) {
+        imageEl.src = newImageUrl;
+      }
     }
   }
 
@@ -905,10 +945,19 @@ class ProductMultiStep {
         <div class="summary-upgrade">
           <div class="summary-upgrade-container">
             <div class="summary-upgrade-icon-container">
-              <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21.25 2.5H8.75C7.36929 2.5 6.25 3.61929 6.25 5V25C6.25 26.3807 7.36929 27.5 8.75 27.5H21.25C22.6307 27.5 23.75 26.3807 23.75 25V5C23.75 3.61929 22.6307 2.5 21.25 2.5Z" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-              <path d="M15 22.5H15.0125" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 5C0 2.23858 2.23858 0 5 0H20C22.7614 0 25 2.23858 25 5V20C25 22.7614 22.7614 25 20 25H5C2.23858 25 0 22.7614 0 20V5Z" fill="#F7F7F7"/>
+            <g clip-path="url(#clip0_7373_282)">
+            <path d="M20 0H5C2.23858 0 0 2.23858 0 5V20C0 22.7614 2.23858 25 5 25H20C22.7614 25 25 22.7614 25 20V5C25 2.23858 22.7614 0 20 0Z" fill="#F7F7F7"/>
+            <path d="M8.56104 6.9375C7.88157 6.9375 7.43896 7.56112 7.43896 8.19238V8.80566H5.94873C4.22776 8.80582 2.95666 10.487 2.95654 12.3926V15.6533C2.95664 16.3486 3.43014 17.0575 4.17139 17.0576H4.43896C4.61317 17.6402 5.15653 18.0625 5.79541 18.0625C6.43429 18.0624 6.97794 17.6403 7.15186 17.0576H12.5005C12.6746 17.6402 13.2182 18.0624 13.8569 18.0625C14.4958 18.0624 15.0394 17.6402 15.2134 17.0576H16.063C16.7423 17.0575 17.185 16.4339 17.1851 15.8027V8.19238C17.1851 7.56117 16.7423 6.93761 16.063 6.9375H8.56104ZM13.8569 16.0332C14.2119 16.0333 14.4927 16.3172 14.4927 16.6582C14.4924 16.9991 14.2117 17.2831 13.8569 17.2832C13.5022 17.283 13.2214 16.999 13.2212 16.6582C13.2212 16.3172 13.5021 16.0334 13.8569 16.0332ZM5.79541 16.0332C6.15033 16.0333 6.43113 16.3172 6.43115 16.6582C6.4309 16.9991 6.15018 17.2831 5.79541 17.2832C5.44054 17.2832 5.15992 16.9991 5.15967 16.6582C5.15969 16.3171 5.44039 16.0332 5.79541 16.0332ZM7.43896 16.2783H7.15674C6.98947 15.6852 6.44164 15.254 5.79541 15.2539C5.14908 15.2539 4.60056 15.6852 4.43311 16.2783H4.17139C4.00299 16.2782 3.73593 16.0754 3.73584 15.6533V12.3926C3.73596 10.7611 4.79989 9.58513 5.94873 9.58496H7.43896V16.2783ZM16.063 7.7168C16.1951 7.71693 16.4058 7.86519 16.4058 8.19238V15.8027C16.4057 16.1298 16.1951 16.2772 16.063 16.2773H15.2183C15.0507 15.6848 14.5028 15.254 13.8569 15.2539C13.2111 15.2541 12.6634 15.6848 12.4956 16.2773H8.21924V8.80566L8.21826 8.19238C8.21826 7.86504 8.42892 7.7168 8.56104 7.7168H16.063ZM17.9263 14.2627C17.711 14.2627 17.5357 14.4371 17.5356 14.6523C17.5356 14.8677 17.711 15.042 17.9263 15.042H20.0776C20.293 15.042 20.4673 14.8677 20.4673 14.6523C20.4672 14.4371 20.2929 14.2627 20.0776 14.2627H17.9263ZM17.9233 12.4229C17.7083 12.4232 17.5337 12.5974 17.5337 12.8125C17.5337 13.0277 17.7083 13.2018 17.9233 13.2021H20.7798C20.9951 13.2021 21.1694 13.0278 21.1694 12.8125C21.1694 12.5972 20.9951 12.4229 20.7798 12.4229H17.9233ZM17.9253 10.626C17.71 10.626 17.5356 10.8003 17.5356 11.0156C17.5357 11.2309 17.71 11.4053 17.9253 11.4053H21.6538C21.8689 11.405 22.0434 11.2308 22.0435 11.0156C22.0435 10.8004 21.8689 10.6262 21.6538 10.626H17.9253Z" fill="#333333"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_7373_282">
+            <rect width="25" height="25" fill="white"/>
+            </clipPath>
+            </defs>
+            </svg>
+
             </div>
             <div class="summary-upgrade-content">
             <div class="summary-upgrade-title">Add Smart Capabilities</div>
@@ -968,17 +1017,26 @@ class ProductMultiStep {
       const deliveryText = this.getDeliveryText();
       if (deliveryText) {
         deliveryBullet.innerHTML = `
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 3H4.27273L6.46545 13.9729C6.54027 14.3928 6.74797 14.7727 7.05372 15.0512C7.35947 15.3297 7.74596 15.4881 8.14545 15.5H18.1818C18.5813 15.4881 18.9678 15.3297 19.2735 15.0512C19.5793 14.7727 19.787 14.3928 19.8618 13.9729L21.5455 6.31818H5.09091" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.72729 20.1818C8.72729 20.7341 8.27957 21.1818 7.72729 21.1818C7.175 21.1818 6.72729 20.7341 6.72729 20.1818C6.72729 19.6295 7.175 19.1818 7.72729 19.1818C8.27957 19.1818 8.72729 19.6295 8.72729 20.1818Z" stroke="currentColor" stroke-width="1.5"/>
-            <path d="M18.7273 20.1818C18.7273 20.7341 18.2796 21.1818 17.7273 21.1818C17.175 21.1818 16.7273 20.7341 16.7273 20.1818C16.7273 19.6295 17.175 19.1818 17.7273 19.1818C18.2796 19.1818 18.7273 19.6295 18.7273 20.1818Z" stroke="currentColor" stroke-width="1.5"/>
+          <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 5C0 2.23858 2.23858 0 5 0H20C22.7614 0 25 2.23858 25 5V20C25 22.7614 22.7614 25 20 25H5C2.23858 25 0 22.7614 0 20V5Z" fill="#F7F7F7"/>
+          <g clip-path="url(#clip0_7373_282)">
+          <path d="M20 0H5C2.23858 0 0 2.23858 0 5V20C0 22.7614 2.23858 25 5 25H20C22.7614 25 25 22.7614 25 20V5C25 2.23858 22.7614 0 20 0Z" fill="#F7F7F7"/>
+          <path d="M8.56104 6.9375C7.88157 6.9375 7.43896 7.56112 7.43896 8.19238V8.80566H5.94873C4.22776 8.80582 2.95666 10.487 2.95654 12.3926V15.6533C2.95664 16.3486 3.43014 17.0575 4.17139 17.0576H4.43896C4.61317 17.6402 5.15653 18.0625 5.79541 18.0625C6.43429 18.0624 6.97794 17.6403 7.15186 17.0576H12.5005C12.6746 17.6402 13.2182 18.0624 13.8569 18.0625C14.4958 18.0624 15.0394 17.6402 15.2134 17.0576H16.063C16.7423 17.0575 17.185 16.4339 17.1851 15.8027V8.19238C17.1851 7.56117 16.7423 6.93761 16.063 6.9375H8.56104ZM13.8569 16.0332C14.2119 16.0333 14.4927 16.3172 14.4927 16.6582C14.4924 16.9991 14.2117 17.2831 13.8569 17.2832C13.5022 17.283 13.2214 16.999 13.2212 16.6582C13.2212 16.3172 13.5021 16.0334 13.8569 16.0332ZM5.79541 16.0332C6.15033 16.0333 6.43113 16.3172 6.43115 16.6582C6.4309 16.9991 6.15018 17.2831 5.79541 17.2832C5.44054 17.2832 5.15992 16.9991 5.15967 16.6582C5.15969 16.3171 5.44039 16.0332 5.79541 16.0332ZM7.43896 16.2783H7.15674C6.98947 15.6852 6.44164 15.254 5.79541 15.2539C5.14908 15.2539 4.60056 15.6852 4.43311 16.2783H4.17139C4.00299 16.2782 3.73593 16.0754 3.73584 15.6533V12.3926C3.73596 10.7611 4.79989 9.58513 5.94873 9.58496H7.43896V16.2783ZM16.063 7.7168C16.1951 7.71693 16.4058 7.86519 16.4058 8.19238V15.8027C16.4057 16.1298 16.1951 16.2772 16.063 16.2773H15.2183C15.0507 15.6848 14.5028 15.254 13.8569 15.2539C13.2111 15.2541 12.6634 15.6848 12.4956 16.2773H8.21924V8.80566L8.21826 8.19238C8.21826 7.86504 8.42892 7.7168 8.56104 7.7168H16.063ZM17.9263 14.2627C17.711 14.2627 17.5357 14.4371 17.5356 14.6523C17.5356 14.8677 17.711 15.042 17.9263 15.042H20.0776C20.293 15.042 20.4673 14.8677 20.4673 14.6523C20.4672 14.4371 20.2929 14.2627 20.0776 14.2627H17.9263ZM17.9233 12.4229C17.7083 12.4232 17.5337 12.5974 17.5337 12.8125C17.5337 13.0277 17.7083 13.2018 17.9233 13.2021H20.7798C20.9951 13.2021 21.1694 13.0278 21.1694 12.8125C21.1694 12.5972 20.9951 12.4229 20.7798 12.4229H17.9233ZM17.9253 10.626C17.71 10.626 17.5356 10.8003 17.5356 11.0156C17.5357 11.2309 17.71 11.4053 17.9253 11.4053H21.6538C21.8689 11.405 22.0434 11.2308 22.0435 11.0156C22.0435 10.8004 21.8689 10.6262 21.6538 10.626H17.9253Z" fill="#333333"/>
+          </g>
+          <defs>
+          <clipPath id="clip0_7373_282">
+          <rect width="25" height="25" fill="white"/>
+          </clipPath>
+          </defs>
           </svg>
+
           ${deliveryText}
         `;
       }
     }
   }
 
+  
   getDeliveryText() {
     const properties = this.getDeliveryProperties();
 
@@ -1063,13 +1121,6 @@ class ProductMultiStep {
 
   getDeliveryProperties() {
     const properties = {};
-
-    console.log('Getting delivery properties');
-    console.log('Product data:', this.productData);
-    console.log('Product metafields:', this.productData?.metafields);
-    console.log('Selected variant:', this.selectedVariant);
-    console.log('Variant metafields:', this.selectedVariant?.metafields);
-
     const deliveryTimeInput = this.container.querySelector('input[name="deliveryTime"]');
     const deliveryDateInput = this.container.querySelector('input[name="deliveryDate"]');
 

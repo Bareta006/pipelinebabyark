@@ -1,5 +1,6 @@
 {%- liquid
   assign accessories_collection = collections['accessories']
+  assign accessory_image_overrides = shop.metaobjects.accessory_image_overrides.values
 -%}
 
 <div class="multistep-step multistep-step--4" data-step="4" style="display: none;">
@@ -44,7 +45,23 @@
             {%- assign has_variants = true -%}
           {%- endif -%}
 
-          <div class="accessory-item" data-accessory-item data-product-id="{{ accessory.id }}">
+          {%- assign custom_image_override = null -%}
+          {%- assign product_id_str = accessory.id | append: '' -%}
+          {%- for override in accessory_image_overrides -%}
+            {%- if override.product_id == product_id_str -%}
+              {%- assign custom_image_override = override -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- if custom_image_override.default_image -%}
+            {%- assign accessory_image = custom_image_override.default_image -%}
+          {%- endif -%}
+
+          <div class="accessory-item" data-accessory-item data-product-id="{{ accessory.id }}"
+               {%- if custom_image_override.variant_images -%}
+               data-variant-images="{{ custom_image_override.variant_images | escape }}"
+               {%- endif -%}>
             <div class="accessory-item__image">
               {%- if accessory_image -%}
                 <img src="{{ accessory_image | image_url: width: 400 }}"
@@ -85,6 +102,7 @@
                                  value="{{ value | escape }}"
                                  data-variant-option
                                  data-option-position="{{ option.position }}"
+                                 data-variant-id="{{ variant_for_value.id }}"
                                  {%- if variant_for_value.featured_image -%}
                                  data-variant-image="{{ variant_for_value.featured_image | image_url: width: 400 }}"
                                  {%- endif -%}
@@ -141,7 +159,13 @@
       </button>
       {%- endcomment -%}
       <button type="button" class="btn btn--steps action-button" data-next-step="5">
-        Next
+        <span class="btn-text-add">Next</span>
+        <span class="btn-text-added">
+          <span>Added</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M13.3333 4L6 11.3333L2.66666 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
       </button>
     </div>
   </div>
