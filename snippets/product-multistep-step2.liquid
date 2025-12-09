@@ -1,0 +1,237 @@
+{%- liquid
+  assign color_values = product.options_with_values | where: 'name', 'Color' | first
+  assign shell_color_values = product.options_with_values | where: 'name', 'Shell Color' | first
+
+  if color_values == blank
+    for option in product.options_with_values
+      assign option_name_lower = option.name | downcase
+      if option_name_lower == 'color' and option_name_lower != 'shell color'
+        assign color_values = option
+        break
+      endif
+    endfor
+  endif
+
+  if shell_color_values == blank
+    for option in product.options_with_values
+      assign option_name_lower = option.name | downcase
+      if option_name_lower contains 'shell'
+        assign shell_color_values = option
+        break
+      endif
+    endfor
+  endif
+
+  assign option_swatches = product.metafields.custom.option_swatches.value
+-%}
+
+<div class="multistep-step multistep-step--2" data-step="2" style="display: none;">
+  <div class="step2-container">
+    <h2 class="step-title">Choose Your Style</h2>
+    <div class="step2-product-container">
+      <div class="step2-image-slider" data-step2-slider>
+        <div class="slider-container">
+          <button type="button" class="slider-arrow slider-arrow--prev" data-slider-prev>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6" stroke="#7f7f7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="slider-track" data-slider-track data-multistep-slideshow>
+            {%- assign current_variant = product.selected_or_first_available_variant -%}
+
+            {%- if current_variant.featured_image -%}
+              <div class="slider-slide">
+                <img src="{{ current_variant.featured_image | image_url: width: 800 }}"
+                    alt="{{ current_variant.featured_image.alt | default: product.title }}"
+                    data-variant-image>
+              </div>
+            {%- endif -%}
+
+            {%- for image in product.images -%}
+              {%- unless image.id == current_variant.featured_image.id -%}
+                <div class="slider-slide">
+                  <img src="{{ image | image_url: width: 800 }}"
+                      alt="{{ image.alt | default: product.title }}">
+                </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+
+          <button type="button" class="slider-arrow slider-arrow--next" data-slider-next>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="#7f7f7f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="step2-variant-and-buttons-container">
+
+      <div class="variant-selection">
+        {%- if shell_color_values -%}
+          <div class="variant-option-group">
+            <h3 class="option-title">Shell Color</h3>
+            <div class="option-swatches">
+              {%- for value in shell_color_values.values -%}
+                {%- liquid
+                  assign swatch_image = null
+                  assign has_available_variant = false
+
+                  if option_swatches
+                    for swatch in option_swatches
+                      assign swatch_type = swatch.option_type.value | default: swatch.option_type
+                      assign swatch_value = swatch.option_value.value | default: swatch.option_value
+
+                      if swatch_type == 'shell' and swatch_value == value
+                        assign swatch_image = swatch.swatch_image.value | default: swatch.swatch_image
+                        break
+                      endif
+                    endfor
+                  endif
+
+                  for variant in product.variants
+                    if variant.options contains value
+                      if variant.available
+                        assign has_available_variant = true
+                        break
+                      endif
+                    endif
+                  endfor
+
+                  assign variant_for_image = null
+                  if swatch_image == blank
+                    for variant in product.variants
+                      if variant.options contains value
+                        if variant.featured_image
+                          assign variant_for_image = variant
+                          break
+                        endif
+                      endif
+                    endfor
+                  endif
+
+                  assign input_id = 'shell-color-' | append: forloop.index
+                  assign swatch_bg_image = swatch_image
+                  if swatch_bg_image == blank and variant_for_image.featured_image
+                    assign swatch_bg_image = variant_for_image.featured_image | image_url: width: 120
+                  endif
+                -%}
+
+                <div class="swatch-option {% unless has_available_variant %}swatch-option--disabled{% endunless %}">
+                  <input type="radio"
+                        name="shell_color"
+                        value="{{ value | escape }}"
+                        id="{{ input_id }}"
+                        data-swatch-radio
+                        {% unless has_available_variant %}disabled{% endunless %}
+                        {% if forloop.first and has_available_variant %}checked{% endif %}>
+                  <label for="{{ input_id }}" class="swatch-label"
+                        {% if swatch_bg_image %}
+                        style="background-image: url('{{ swatch_bg_image | image_url: width: 120 }}');"
+                        {% endif %}>
+                  </label>
+                {% if has_available_variant == true %}
+                  <span class="swatch-text-below">
+                    {{ value }}
+                  </span>
+                {% endif %}
+                  <div class="swatch-sold-out">
+                    {% unless has_available_variant %}<small>Sold Out</small>{% endunless %}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+        {%- if color_values -%}
+          <div class="variant-option-group">
+            <h3 class="option-title">Fabric Color</h3>
+            <div class="option-swatches">
+              {%- for value in color_values.values -%}
+                {%- liquid
+                  assign swatch_image = null
+                  assign has_available_variant = false
+
+                  if option_swatches
+                    for swatch in option_swatches
+                      assign swatch_type = swatch.option_type.value | default: swatch.option_type
+                      assign swatch_value = swatch.option_value.value | default: swatch.option_value
+
+                      if swatch_type == 'fabric' and swatch_value == value
+                        assign swatch_image = swatch.swatch_image.value | default: swatch.swatch_image
+                        break
+                      endif
+                    endfor
+                  endif
+
+                  for variant in product.variants
+                    if variant.options contains value
+                      if variant.available
+                        assign has_available_variant = true
+                        break
+                      endif
+                    endif
+                  endfor
+
+                  assign variant_for_image = null
+                  if swatch_image == blank
+                    for variant in product.variants
+                      if variant.options contains value
+                        if variant.featured_image
+                          assign variant_for_image = variant
+                          break
+                        endif
+                      endif
+                    endfor
+                  endif
+
+                  assign input_id = 'color-' | append: forloop.index
+                  assign swatch_bg_image = swatch_image
+                  if swatch_bg_image == blank and variant_for_image.featured_image
+                    assign swatch_bg_image = variant_for_image.featured_image | image_url: width: 120
+                  endif
+                -%}
+
+                <div class="swatch-option {% unless has_available_variant %}swatch-option--disabled{% endunless %}">
+                  <input type="radio"
+                        name="color"
+                        value="{{ value | escape }}"
+                        id="{{ input_id }}"
+                        data-swatch-radio
+                        {% unless has_available_variant %}disabled{% endunless %}
+                        {% if forloop.first and has_available_variant %}checked{% endif %}>
+                  <label for="{{ input_id }}" class="swatch-label"
+                        {% if swatch_bg_image %}
+                        style="background-image: url('{{ swatch_bg_image | image_url: width: 120 }}');"
+                        {% endif %}>
+                  </label>
+                {% if has_available_variant == true %}
+                  <span class="swatch-text-below">
+                    {{ value }}
+                  </span>
+                {% endif %}
+                  <div class="swatch-sold-out-fabric">
+                    {% unless has_available_variant %}<small>Sold Out</small>{% endunless %}
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="step-actions">
+        {%- comment -%}
+        <button type="button" class="btn btn--secondary" data-prev-step="1">
+          Back
+        </button>
+        {%- endcomment -%}
+        <button type="button" class="btn btn--steps action-button" data-next-step="3">
+          Next
+        </button>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>

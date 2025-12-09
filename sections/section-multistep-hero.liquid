@@ -1,0 +1,209 @@
+{%- liquid
+  assign product = section.settings.product
+  if product == blank
+    assign product = all_products[section.settings.product_handle]
+  endif
+
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_features = shop.metaobjects.multistep_product_features.values
+  assign feature_order = 'd-3-o-jolt-free,side-impact-protection,anti-rebound-bar,support-leg,energy-absorption-coils,rigid-latch' | split: ','
+-%}
+
+<link rel="stylesheet" href="{{ 'product-multistep.css' | asset_url }}">
+
+<div class="multistep-hero-section">
+  <div class="step1-container">
+    <div class="step1-info">
+      <h1 class="product-title">{{ section.settings.heading | default: product.title }}</h1>
+
+      {%- if section.settings.cutline != blank -%}
+        <p class="product-cutline">{{ section.settings.cutline }}</p>
+      {%- elsif product.metafields.theme.cutline.value -%}
+        <p class="product-cutline">{{ product.metafields.theme.cutline.value }}</p>
+      {%- endif -%}
+
+      <div class="product-price">
+        <span class="price">
+          {{ current_variant.price | money }}
+        </span>
+      </div>
+    </div>
+
+    <div class="step1-product-container">
+      <div class="step1-images">
+        <div class="product-main-image">
+          {%- if section.settings.hero_image != blank -%}
+            <img src="{{ section.settings.hero_image | image_url: width: 800 }}"
+                alt="{{ product.title }}"
+                class="product-image">
+          {%- else -%}
+            <img src="https://cdn.shopify.com/s/files/1/0552/2135/4567/files/advanced.png?v=1763194702"
+                alt="{{ product.title }}"
+                class="product-image">
+          {%- endif -%}
+
+          <button type="button" class="plus-icon-1 plus-absolute" data-feature-modal-hero="1">
+            {%- render 'icon-plus' -%}
+          </button>
+          <button type="button" class="plus-icon-2 plus-absolute" data-feature-modal-hero="2">
+            {%- render 'icon-plus' -%}
+          </button>
+          <button type="button" class="plus-icon-3 plus-absolute" data-feature-modal-hero="3">
+            {%- render 'icon-plus' -%}
+          </button>
+          <button type="button" class="plus-icon-4 plus-absolute" data-feature-modal-hero="4">
+            {%- render 'icon-plus' -%}
+          </button>
+          <button type="button" class="plus-icon-5 plus-absolute" data-feature-modal-hero="5">
+            {%- render 'icon-plus' -%}
+          </button>
+          <button type="button" class="plus-icon-6 plus-absolute" data-feature-modal-hero="6">
+            {%- render 'icon-plus' -%}
+          </button>
+        </div>
+      </div>
+
+      <div class="step1-features-container">
+        <div class="product-features">
+          {%- for handle in feature_order -%}
+            {%- for feature in product_features -%}
+              {%- if feature.system.handle == handle -%}
+                <button type="button" class="product-feature-item" data-feature-modal-hero="{{ forloop.parentloop.index }}">
+                  {%- if feature.image != blank -%}
+                    <img src="{{ feature.image | image_url: width: 120 }}" alt="{{ feature.title }}" class="feature-icon">
+                  {%- endif -%}
+                  <span class="feature-title">{{ feature.title }}</span>
+                </button>
+                {%- break -%}
+              {%- endif -%}
+            {%- endfor -%}
+          {%- endfor -%}
+        </div>
+
+        <a href="{{ product.url }}?step=2" class="btn btn--steps btn--large btn--step-1">
+          {{ section.settings.button_text | default: 'Customize' }}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="feature-modal-backdrop" data-feature-backdrop-hero style="display: none;">
+  <div class="feature-modal-content">
+    <button type="button" class="feature-modal-close" data-feature-close-hero>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <div class="feature-modal-body" data-feature-modal-body-hero></div>
+    <a href="{{ product.url }}?step=2" class="btn btn--white btn--large feature-modal-customize">
+      {{ section.settings.button_text | default: 'Customize' }}
+    </a>
+  </div>
+</div>
+
+{%- for handle in feature_order -%}
+  {%- for feature in product_features -%}
+    {%- if feature.system.handle == handle -%}
+      <script type="application/json" data-feature-data-hero="{{ forloop.parentloop.index }}">
+        {
+          "title": {{ feature.title | default: '' | json }},
+          "description": {{ feature.description.value | default: feature.description | default: '' | json }},
+          "image": {% if feature.image != blank %}{{ feature.image | image_url: width: 400 | json }}{% else %}null{% endif %}
+        }
+      </script>
+      {%- break -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endfor -%}
+
+<script>
+(function() {
+  const backdrop = document.querySelector('[data-feature-backdrop-hero]');
+  const modalBody = document.querySelector('[data-feature-modal-body-hero]');
+  const closeBtn = document.querySelector('[data-feature-close-hero]');
+
+  document.querySelectorAll('[data-feature-modal-hero]').forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      const featureId = trigger.dataset.featureModalHero;
+      const featureData = document.querySelector(`[data-feature-data-hero="${featureId}"]`);
+
+      if (featureData && modalBody) {
+        const data = JSON.parse(featureData.textContent);
+        modalBody.innerHTML = `
+          <div class="feature-modal-body-dynamic-content feature-modal-fixed-height">
+            ${data.image ? `<img src="${data.image}" alt="${data.title}" class="feature-modal-body-dynamic-content-image">` : ''}
+            <div class="feature-modal-body-dynamic-content-text">
+              <h3>${data.title}</h3>
+              <p>${data.description}</p>
+            </div>
+          </div>
+        `;
+        backdrop.style.display = 'flex';
+      }
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      backdrop.style.display = 'none';
+    });
+  }
+
+  if (backdrop) {
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) {
+        backdrop.style.display = 'none';
+      }
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Multistep Product Hero",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_handle",
+      "label": "Product Handle (fallback)",
+      "info": "If product picker doesn't work, enter handle manually"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "info": "Leave blank to use product title"
+    },
+    {
+      "type": "text",
+      "id": "cutline",
+      "label": "Cutline",
+      "info": "Leave blank to use product metafield"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image",
+      "info": "Leave blank to use default image"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Customize"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Multistep Product Hero"
+    }
+  ]
+}
+{% endschema %}
