@@ -58,7 +58,7 @@
         "icon_text_block_RzbcRE"
       ],
       "custom_css": [
-        "> div {background: linear-gradient(100deg, #22282d 2.35%, #6f8393 145.68%);}"
+        "@media (max-width:480px){.wrapper.section-padding{padding-bottom:0; }}"
       ],
       "name": "Features with image",
       "settings": {
