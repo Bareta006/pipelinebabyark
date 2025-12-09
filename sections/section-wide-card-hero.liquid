@@ -58,8 +58,11 @@
 </section>
 
 <style>
-  
-  #shopify-section-{{ section.id }} .section-wide-card-hero {
+  #shopify-section-{{ section.id }} .wide-card-hero__container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 400px;
     background-image: var(--bg-image-desktop);
     background-size: cover;
     background-position: center center;
@@ -70,21 +73,8 @@
   }
 
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .section-wide-card-hero {
-      background-image: var(--bg-image-mobile);
-    }
-  }
-
-
-  #shopify-section-{{ section.id }} .wide-card-hero__container {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    min-height: 400px;
-  }
-
-  @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .wide-card-hero__container {
+      background-image: var(--bg-image-mobile);
       flex-direction: column;
       min-height: auto;
     }
