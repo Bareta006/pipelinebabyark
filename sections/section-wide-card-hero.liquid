@@ -1,0 +1,437 @@
+{%- comment -%}
+  /sections/section-wide-card-hero.liquid
+  
+  Wide Card Hero Section
+  - Desktop: Left side (image) and Right side (texts)
+  - Mobile: Upper side (right on desktop) and Lower side (left on desktop)
+  - Background image with border radius
+{%- endcomment -%}
+
+{%- liquid
+  assign bg_image_desktop = section.settings.background_image_desktop | image_url: width: 2000 | default: 'none'
+  assign bg_image_mobile = section.settings.background_image_mobile | image_url: width: 1000 | default: bg_image_desktop
+-%}
+
+<section class="section-wide-card-hero {{ section.settings.bg }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="wide-card-hero"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-image-desktop: url('{{ bg_image_desktop }}'); --bg-image-mobile: url('{{ bg_image_mobile }}'); --border-radius: {{ section.settings.border_radius }}px;">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="wide-card-hero__container">
+      
+      {%- comment -%} Left Side - Image (Desktop) / Lower Side (Mobile) {%- endcomment -%}
+      <div class="wide-card-hero__left">
+        {% if section.settings.image != blank %}
+          <div class="wide-card-hero__image wide-card-hero__image--{{ section.settings.image_alignment }}">
+            {% render 'image', img_object: section.settings.image, sizes: '50vw', loading: 'lazy' %}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} Right Side - Texts (Desktop) / Upper Side (Mobile) {%- endcomment -%}
+      <div class="wide-card-hero__right">
+        {% if section.settings.text_1 != blank %}
+          <div class="wide-card-hero__text-1"
+               style="--text-1-size-desktop: {{ section.settings.text_1_size_desktop }}px; --text-1-size-mobile: {{ section.settings.text_1_size_mobile }}px; --text-1-color: {{ section.settings.text_1_color }}; --text-1-bg-color: {{ section.settings.text_1_bg_color }}; --text-1-padding: {{ section.settings.text_1_padding }}px;">
+            {{ section.settings.text_1 }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.text_2 != blank %}
+          <div class="wide-card-hero__text-2"
+               style="--text-2-size-desktop: {{ section.settings.text_2_size_desktop }}px; --text-2-size-mobile: {{ section.settings.text_2_size_mobile }}px; --text-2-color: {{ section.settings.text_2_color }};">
+            {{ section.settings.text_2 }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.text_3 != blank %}
+          <div class="wide-card-hero__text-3"
+               style="--text-3-size-desktop: {{ section.settings.text_3_size_desktop }}px; --text-3-size-mobile: {{ section.settings.text_3_size_mobile }}px; --text-3-color: {{ section.settings.text_3_color }};">
+            {{ section.settings.text_3 }}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  {%- comment -%} Background Image with Border Radius {%- endcomment -%}
+  #shopify-section-{{ section.id }} .section-wide-card-hero {
+    background-image: var(--bg-image-desktop);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .section-wide-card-hero {
+      background-image: var(--bg-image-mobile);
+    }
+  }
+
+  {%- comment -%} Container - 50/50 Split Desktop, Stacked Mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 400px;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__container {
+      flex-direction: column;
+      min-height: auto;
+    }
+  }
+
+  {%- comment -%} Left Side (Image) {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__left {
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__left {
+      flex: 1 1 auto;
+      order: 2;
+      padding: 1.5rem;
+    }
+  }
+
+  {%- comment -%} Image Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  {%- comment -%} Image Alignment {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__image--left {
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__image--center {
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__image--right {
+    justify-content: flex-end;
+  }
+
+  {%- comment -%} Right Side (Texts) {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__right {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    gap: 1.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__right {
+      flex: 1 1 auto;
+      order: 1;
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  {%- comment -%} Text 1 Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__text-1 {
+    font-size: var(--text-1-size-desktop);
+    color: var(--text-1-color);
+    background-color: var(--text-1-bg-color);
+    padding: var(--text-1-padding);
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__text-1 {
+      font-size: var(--text-1-size-mobile);
+    }
+  }
+
+  {%- comment -%} Text 2 Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__text-2 {
+    font-size: var(--text-2-size-desktop);
+    color: var(--text-2-color);
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__text-2 {
+      font-size: var(--text-2-size-mobile);
+    }
+  }
+
+  {%- comment -%} Text 3 Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__text-3 {
+    font-size: var(--text-3-size-desktop);
+    color: var(--text-3-color);
+    line-height: 1.5;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__text-3 {
+      font-size: var(--text-3-size-mobile);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Wide card hero",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "Background image (desktop)",
+      "info": "Background image covering entire section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Optional. Falls back to desktop image if not set"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Border radius",
+      "default": 0,
+      "info": "Border radius for the section background"
+    },
+    {
+      "type": "header",
+      "content": "Left Side - Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image alignment",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Text 1"
+    },
+    {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "Text 1"
+    },
+    {
+      "type": "range",
+      "id": "text_1_size_desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 1 size (desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "text_1_size_mobile",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 1 size (mobile)",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "text_1_color",
+      "label": "Text 1 color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_1_bg_color",
+      "label": "Text 1 background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "text_1_padding",
+      "min": 0,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Text 1 padding",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Text 2"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Text 2"
+    },
+    {
+      "type": "range",
+      "id": "text_2_size_desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 2 size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_2_size_mobile",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 2 size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "text_2_color",
+      "label": "Text 2 color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Right Side - Text 3"
+    },
+    {
+      "type": "richtext",
+      "id": "text_3",
+      "label": "Text 3"
+    },
+    {
+      "type": "range",
+      "id": "text_3_size_desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 3 size (desktop)",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "text_3_size_mobile",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Text 3 size (mobile)",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "text_3_color",
+      "label": "Text 3 color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default" },
+        { "value": "palette--light bg--accent", "label": "Light" },
+        { "value": "palette--dark bg--invert", "label": "Dark" },
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent" },
+        { "value": "palette--bright bg--bright", "label": "Bright" },
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wide card hero",
+      "category": "Image"
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
+
