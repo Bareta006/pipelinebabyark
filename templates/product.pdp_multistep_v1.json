@@ -1,5 +1,82 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
+    "section_features_with_image_PP6LD3": {
+      "type": "section-features-with-image",
+      "blocks": {
+        "icon_text_block_BQNafP": {
+          "type": "icon_text_block",
+          "settings": {
+            "icon_svg": "",
+            "icon_size": 60,
+            "icon_layout": "top",
+            "text": "<p>Feature description goes here.</p>",
+            "text_size_desktop": 16,
+            "text_size_mobile": 14,
+            "text_color_desktop": "#000000",
+            "text_color_mobile": "#000000"
+          }
+        },
+        "icon_text_block_d47rBw": {
+          "type": "icon_text_block",
+          "settings": {
+            "icon_svg": "",
+            "icon_size": 60,
+            "icon_layout": "top",
+            "text": "<p>Another feature description.</p>",
+            "text_size_desktop": 16,
+            "text_size_mobile": 14,
+            "text_color_desktop": "#000000",
+            "text_color_mobile": "#000000"
+          }
+        },
+        "icon_text_block_RzbcRE": {
+          "type": "icon_text_block",
+          "settings": {
+            "icon_svg": "",
+            "icon_size": 60,
+            "icon_layout": "top",
+            "text": "<p>Third feature description.</p>",
+            "text_size_desktop": 16,
+            "text_size_mobile": 14,
+            "text_color_desktop": "#000000",
+            "text_color_mobile": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "icon_text_block_BQNafP",
+        "icon_text_block_d47rBw",
+        "icon_text_block_RzbcRE"
+      ],
+      "custom_css": [
+        "> div {background: linear-gradient(100deg, #22282d 2.35%, #6f8393 145.68%);}"
+      ],
+      "name": "Features with image",
+      "settings": {
+        "title": "A Lifetime of Value",
+        "image_desktop": "shopify://shop_images/Rectangle_1486127509.png",
+        "image_mobile": "shopify://shop_images/Rectangle_1486127365_4.png",
+        "background_image_desktop": "shopify://shop_images/Rectangle_1486127510.jpg",
+        "background_image_mobile": "shopify://shop_images/Rectangle_1486127508.jpg",
+        "title_size_desktop": 32,
+        "title_size_mobile": 24,
+        "title_color_desktop": "#000000",
+        "title_color_mobile": "#000000",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "section_liquid_custom": {
       "type": "section-liquid",
       "settings": {
@@ -42,6 +119,7 @@
     }
   },
   "order": [
+    "section_features_with_image_PP6LD3",
     "section_liquid_custom",
     "main"
   ]
