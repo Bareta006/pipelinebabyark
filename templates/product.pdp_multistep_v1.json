@@ -15,40 +15,40 @@
         "icon_text_block_BQNafP": {
           "type": "icon_text_block",
           "settings": {
-            "icon_svg": "",
-            "icon_size": 60,
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\" viewbox=\"0 0 32 32\" fill=\"none\">\n  <path d=\"M15.5522 2.27065C19.0675 -1.05329 25.0836 0.709791 25.9946 5.33093L26.2458 6.60421\" stroke=\"url(#paint0_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M15.3326 2.27013C12.0902 -1.05144 6.22944 0.545427 5.35326 4.98921L5.07562 6.39734\" stroke=\"url(#paint1_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M23.187 7.22265L23.9938 6.88136C27.3547 5.45955 30.3265 9.46342 27.7698 11.9689C31.4053 12.5616 31.944 17.2877 28.5258 18.5994L25.3692 19.8107\" stroke=\"url(#paint2_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M8.12962 7.01624L7.32281 6.67494C3.96174 5.25314 0.989916 9.25701 3.54665 11.7624C-0.0887288 12.3551 -0.627492 17.0814 2.7908 18.3931L5.94724 19.6041\" stroke=\"url(#paint3_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M29.2956 18.3655L30.3288 21.0253C31.6267 24.3656 28.6483 27.7941 24.9309 27.239C24.7671 30.7252 20.2602 32.3211 17.715 29.794L15.7651 27.8581\" stroke=\"url(#paint4_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M2.02343 18.1589L0.990156 20.8186C-0.307539 24.1591 2.67076 27.5873 6.38814 27.0323C6.55201 30.5187 11.0589 32.1144 13.6041 29.5875L15.5541 27.6515\" stroke=\"url(#paint5_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M15.5522 27.8581V2.26953\" stroke=\"url(#paint6_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M21.0053 15.6827L21.1571 15.0133C21.4505 13.7187 22.6604 12.7937 24.0606 12.7937\" stroke=\"url(#paint7_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M22.884 22.6996L23.0556 23.3648C23.387 24.6513 22.7231 25.9818 21.4623 26.5578\" stroke=\"url(#paint8_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M10.5525 21.4619L10.3811 22.1271C10.0495 23.4135 10.7134 24.7439 11.9742 25.32\" stroke=\"url(#paint9_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <path d=\"M10.5223 9.93335L10.2643 10.5731C9.76537 11.8102 8.4204 12.5499 7.03656 12.3479\" stroke=\"url(#paint10_linear_7334_392)\" stroke-linecap=\"round\"></path>\n  <defs>\n    <lineargradient id=\"paint0_linear_7334_392\" x1=\"20.899\" y1=\"0.554199\" x2=\"20.899\" y2=\"6.60421\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint1_linear_7334_392\" x1=\"10.2041\" y1=\"0.498047\" x2=\"10.2041\" y2=\"6.39734\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint2_linear_7334_392\" x1=\"27.001\" y1=\"6.58398\" x2=\"27.001\" y2=\"19.8107\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint3_linear_7334_392\" x1=\"4.31551\" y1=\"6.37756\" x2=\"4.31551\" y2=\"19.6041\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint4_linear_7334_392\" x1=\"23.2015\" y1=\"18.3655\" x2=\"23.2015\" y2=\"31.0297\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint5_linear_7334_392\" x1=\"8.11758\" y1=\"18.1589\" x2=\"8.11758\" y2=\"30.823\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint6_linear_7334_392\" x1=\"16.0522\" y1=\"2.26953\" x2=\"16.0522\" y2=\"27.8581\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint7_linear_7334_392\" x1=\"22.533\" y1=\"12.7937\" x2=\"22.533\" y2=\"15.6827\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint8_linear_7334_392\" x1=\"22.3013\" y1=\"22.6996\" x2=\"22.3013\" y2=\"26.5578\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint9_linear_7334_392\" x1=\"11.1352\" y1=\"21.4619\" x2=\"11.1352\" y2=\"25.32\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint10_linear_7334_392\" x1=\"8.77941\" y1=\"9.93335\" x2=\"8.77941\" y2=\"12.381\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n  </defs>\n</svg>",
+            "icon_size": 32,
             "icon_layout": "top",
-            "text": "<p>Feature description goes here.</p>",
-            "text_size_desktop": 16,
+            "text": "<p>Intelligent design that goes beyond safety-driven</p>",
+            "text_size_desktop": 28,
             "text_size_mobile": 14,
-            "text_color_desktop": "#000000",
-            "text_color_mobile": "#000000"
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff"
           }
         },
         "icon_text_block_d47rBw": {
           "type": "icon_text_block",
           "settings": {
-            "icon_svg": "",
-            "icon_size": 60,
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"17\" viewbox=\"0 0 40 17\" fill=\"none\">\n  <path d=\"M23.5892 16.3248C23.5892 16.3248 23.16 14.9479 23.2061 13.8933C23.3295 11.064 25.7011 9.13174 28.3796 9.13171C29.7208 9.13169 32.0985 9.82042 32.9782 11.8671C33.6931 13.5302 32.8829 16.3248 32.8829 16.3248\" stroke=\"url(#paint0_linear_7334_388)\"></path>\n  <path d=\"M33.5337 16.1867H33.7398C33.7398 16.1867 34.6258 16.4974 35.9828 16.1867C36.5933 16.0469 37.4506 15.3405 37.7924 14.8388C38.1959 14.2467 38.6802 12.8537 38.6802 12.8537C38.6802 12.8537 39.2979 10.9913 38.8861 10.3051C38.1605 9.09541 34.7997 8.16728 32.2987 7.46229C29.1958 6.58755 24.5792 6.57999 24.5792 6.57999C24.5792 6.57999 12.178 -2.93637 0.185074 1.84237M23.7684 16.1867H0.185074\" stroke=\"url(#paint1_linear_7334_388)\"></path>\n  <path d=\"M28.2395 16.3248C29.4313 16.3248 30.3974 15.3586 30.3974 14.1668C30.3974 12.975 29.4313 12.0089 28.2395 12.0089C27.0477 12.0089 26.0816 12.975 26.0816 14.1668C26.0816 15.3586 27.0477 16.3248 28.2395 16.3248Z\" stroke=\"url(#paint2_linear_7334_388)\"></path>\n  <defs>\n    <lineargradient id=\"paint0_linear_7334_388\" x1=\"28.2378\" y1=\"9.13171\" x2=\"28.2378\" y2=\"16.3248\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint1_linear_7334_388\" x1=\"11.7185\" y1=\"1.48229\" x2=\"11.7185\" y2=\"16.3244\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n    <lineargradient id=\"paint2_linear_7334_388\" x1=\"28.2395\" y1=\"12.0089\" x2=\"28.2395\" y2=\"16.3248\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n  </defs>\n</svg>",
+            "icon_size": 32,
             "icon_layout": "top",
-            "text": "<p>Another feature description.</p>",
-            "text_size_desktop": 16,
+            "text": "<p>Designed to fit perfectly in your vehicle</p>",
+            "text_size_desktop": 28,
             "text_size_mobile": 14,
-            "text_color_desktop": "#000000",
-            "text_color_mobile": "#000000"
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff"
           }
         },
         "icon_text_block_RzbcRE": {
           "type": "icon_text_block",
           "settings": {
-            "icon_svg": "",
-            "icon_size": 60,
+            "icon_svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"43\" height=\"16\" viewbox=\"0 0 43 16\" fill=\"none\">\n  <path opacity=\"0.75\" d=\"M21.3652 7.91744L30.3092 2.04762C33.1788 0.164334 37.0188 0.487963 39.5094 2.82299C42.4813 5.60947 42.4813 10.2254 39.5094 13.0119C37.0188 15.3469 33.1788 15.6706 30.3092 13.7873L12.31 1.97444C9.48363 0.119534 5.71466 0.373988 3.18142 2.59073C-0.0760787 5.44123 -0.0760787 10.3937 3.18142 13.2442C5.71466 15.4609 9.48363 15.7154 12.31 13.8604L21.3652 7.91744Z\" stroke=\"url(#paint0_linear_7334_386)\" stroke-width=\"1.47661\"></path>\n  <defs>\n    <lineargradient id=\"paint0_linear_7334_386\" x1=\"21.2383\" y1=\"0.738281\" x2=\"21.2383\" y2=\"15.0966\" gradientunits=\"userSpaceOnUse\">\n      <stop stop-color=\"white\"></stop>\n      <stop offset=\"1\" stop-color=\"#BDCCD7\"></stop>\n    </lineargradient>\n  </defs>\n</svg>",
+            "icon_size": 32,
             "icon_layout": "top",
-            "text": "<p>Third feature description.</p>",
-            "text_size_desktop": 16,
+            "text": "<p>Good for a lifetime! with no expiration date</p>",
+            "text_size_desktop": 28,
             "text_size_mobile": 14,
-            "text_color_desktop": "#000000",
-            "text_color_mobile": "#000000"
+            "text_color_desktop": "#ffffff",
+            "text_color_mobile": "#ffffff"
           }
         }
       },
@@ -67,9 +67,9 @@
         "image_mobile": "shopify://shop_images/Rectangle_1486127365_4.png",
         "background_image_desktop": "shopify://shop_images/Rectangle_1486127510.jpg",
         "background_image_mobile": "shopify://shop_images/Rectangle_1486127508.jpg",
-        "title_size_desktop": 32,
+        "title_size_desktop": 60,
         "title_size_mobile": 24,
-        "title_color_desktop": "#000000",
+        "title_color_desktop": "#ffffff",
         "title_color_mobile": "#000000",
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
@@ -85,7 +85,6 @@
     },
     "main": {
       "type": "product",
-      "class": "multistep-section-pdp",
       "blocks": {
         "multistep_form": {
           "type": "liquid",
