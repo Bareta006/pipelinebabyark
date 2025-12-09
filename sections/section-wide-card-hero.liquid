@@ -21,9 +21,9 @@
     <div class="wide-card-hero__container">
       
       {%- comment -%} Left Side - Image (Desktop) / Lower Side (Mobile) {%- endcomment -%}
-      <div class="wide-card-hero__left">
+      <div class="wide-card-hero__left wide-card-hero__left--{{ section.settings.image_alignment }}">
         {% if section.settings.image != blank %}
-          <div class="wide-card-hero__image wide-card-hero__image--{{ section.settings.image_alignment }}">
+          <div class="wide-card-hero__image">
             {% render 'image', img_object: section.settings.image, sizes: '50vw', loading: 'lazy' %}
           </div>
         {% endif %}
@@ -85,7 +85,18 @@
     flex: 0 0 50%;
     display: flex;
     align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__left--left {
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__left--center {
     justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .wide-card-hero__left--right {
+    justify-content: flex-end;
   }
 
   @media screen and (max-width: 749px) {
@@ -96,32 +107,15 @@
     }
   }
 
-
   #shopify-section-{{ section.id }} .wide-card-hero__image {
-    width: 500px;
+    width: 100%;
     max-width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
   }
 
   #shopify-section-{{ section.id }} .wide-card-hero__image img {
     width: 100%;
     height: auto;
     display: block;
-  }
-
-  
-  #shopify-section-{{ section.id }} .wide-card-hero__image--left {
-    justify-content: flex-start;
-  }
-
-  #shopify-section-{{ section.id }} .wide-card-hero__image--center {
-    justify-content: center;
-  }
-
-  #shopify-section-{{ section.id }} .wide-card-hero__image--right {
-    justify-content: flex-end;
   }
 
 
