@@ -84,7 +84,7 @@
   #shopify-section-{{ section.id }} .wide-card-hero__left {
     flex: 0 0 50%;
     display: flex;
-    align-items: center;
+    align-items: end;
   }
 
   #shopify-section-{{ section.id }} .wide-card-hero__left--left {
@@ -120,12 +120,13 @@
 
 
   #shopify-section-{{ section.id }} .wide-card-hero__right {
-    flex: 0 0 50%;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     justify-content: center;
-    padding: 2rem;
-    gap: 1.5rem;
+    padding: 0rem;
+    gap: 0rem;
+    align-items: start;
   }
 
   @media screen and (max-width: 749px) {
@@ -144,6 +145,8 @@
     background-color: var(--text-1-bg-color);
     padding: var(--text-1-padding);
     line-height: 1.5;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   @media screen and (max-width: 749px) {
