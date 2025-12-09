@@ -79,6 +79,7 @@
     },
     "section_liquid_custom": {
       "type": "section-liquid",
+      "class": "multistep-section-pdp",
       "settings": {
         "custom_liquid": "<style>\n.multistep-container {\n  max-width: 1200px;\n  margin: 0 auto;\n}\n.product__inner .jdgm-widget {\n  margin-bottom: 20px;\n}\n.product__media-container,\n.product__media-wrapper,\n[data-product-slideshow] {\n  display: none !important;\n}\n\nbody.multistep-fullscreen {\n  overflow: hidden;\n}\n\nbody.multistep-fullscreen #MainContent {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  overflow-y: auto;\n  background: white;\n  z-index: 999;\n  padding-top: 40px;\n}\n\nbody.multistep-fullscreen .header-wrapper,\nbody.multistep-fullscreen header,\nbody.multistep-fullscreen .announcement {\n  position: fixed;\n  top: 0;\n  left: 0;\n  right: 0;\n  z-index: 10000;\n  background: white;\n  box-shadow: 0 2px 4px rgba(0,0,0,0.1);\n}\n\nbody.multistep-fullscreen .header-wrapper,\nbody.multistep-fullscreen header {\n  top: var(--announcement-height, 0);\n}\n\nbody.multistep-fullscreen footer,\nbody.multistep-fullscreen .shopify-section--footer {\n  display: none !important;\n}\n</style>"
       }
