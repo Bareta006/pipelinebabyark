@@ -84,6 +84,7 @@
       flex-direction: column;
       min-height: var(--image-height);
       position: relative;
+      justify-content: end;
     }
   }
 
@@ -160,16 +161,16 @@
 
   @media screen and (max-width: 749px) {
     #shopify-section-{{ section.id }} .wide-card-hero__right {
-      flex: 1 1 auto;
-      order: 1;
-      padding: 1.5rem;
-      gap: 1rem;
-      justify-content: flex-end;
-      position: relative;
-      z-index: 2;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      background-color: rgba(255, 255, 255, 0.3);
+flex: 0.1 0 auto;
+        order: 1;
+        padding: 1.5rem;
+        gap: 1rem;
+        justify-content: flex-end;
+        position: relative;
+        z-index: 2;
+        background-image: linear-gradient(354deg, #2E3963 2.85%, rgba(71, 88, 153, 0.00) 103%);
+        backdrop-filter: blur(27px);
+        -webkit-backdrop-filter: blur(27px);
     }
   }
 
