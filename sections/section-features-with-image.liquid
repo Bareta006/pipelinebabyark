@@ -1,0 +1,529 @@
+{%- comment -%}
+  /sections/section-features-with-image.liquid
+  
+  Features with Image Section
+  - Left side (mobile upper): Section title + icon text blocks
+  - Right side (mobile lower): Desktop and mobile images
+  - Background image covers entire section
+{%- endcomment -%}
+
+{%- liquid
+  assign bg_image_desktop = section.settings.background_image_desktop | image_url: width: 2000 | default: 'none'
+  assign bg_image_mobile = section.settings.background_image_mobile | image_url: width: 1000 | default: bg_image_desktop
+-%}
+
+<section class="section-features-with-image {{ section.settings.bg }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="features-with-image"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-image-desktop: url('{{ bg_image_desktop }}'); --bg-image-mobile: url('{{ bg_image_mobile }}');">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="features-with-image__container">
+      
+      {%- comment -%} Left Side - Title and Icon Blocks {%- endcomment -%}
+      <div class="features-with-image__left">
+        {% if section.settings.title != blank %}
+          <h2 class="features-with-image__title" 
+              style="--title-size-desktop: {{ section.settings.title_size_desktop }}px; --title-size-mobile: {{ section.settings.title_size_mobile }}px; --title-color-desktop: {{ section.settings.title_color_desktop }}; --title-color-mobile: {{ section.settings.title_color_mobile }};">
+            {{ section.settings.title | escape }}
+          </h2>
+        {% endif %}
+
+        <div class="features-with-image__blocks">
+          {% for block in section.blocks %}
+            <div class="features-with-image__block features-with-image__block--{{ block.settings.icon_layout }}" 
+                 {{ block.shopify_attributes }}
+                 style="--text-size-desktop: {{ block.settings.text_size_desktop }}px; --text-size-mobile: {{ block.settings.text_size_mobile }}px; --text-color-desktop: {{ block.settings.text_color_desktop }}; --text-color-mobile: {{ block.settings.text_color_mobile }};">
+              
+              {%- comment -%} Icon Display - Priority: SVG > Image > Nothing {%- endcomment -%}
+              {% if block.settings.icon_svg != blank %}
+                <div class="features-with-image__icon features-with-image__icon--svg">
+                  {{ block.settings.icon_svg }}
+                </div>
+              {% elsif block.settings.icon_image != blank %}
+                <div class="features-with-image__icon features-with-image__icon--image">
+                  {%- assign icon_width = block.settings.icon_size | default: 60 -%}
+                  {%- assign icon_width_2x = icon_width | times: 2 -%}
+                  {% capture srcset %}
+                    {{ block.settings.icon_image | image_url: width: icon_width_2x }} 2x,
+                    {{ block.settings.icon_image | image_url: width: icon_width }}
+                  {% endcapture %}
+                  {% render 'image', cover: false, img_object: block.settings.icon_image, srcset: srcset, width: icon_width %}
+                </div>
+              {% endif %}
+
+              {% if block.settings.text != blank %}
+                <div class="features-with-image__text">
+                  {{ block.settings.text }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      {%- comment -%} Right Side - Images {%- endcomment -%}
+      <div class="features-with-image__right">
+        {% if section.settings.image_desktop != blank %}
+          <div class="features-with-image__image features-with-image__image--desktop">
+            {% render 'image', img_object: section.settings.image_desktop, sizes: '50vw', loading: 'lazy' %}
+          </div>
+        {% endif %}
+        
+        {% if section.settings.image_mobile != blank %}
+          <div class="features-with-image__image features-with-image__image--mobile">
+            {% render 'image', img_object: section.settings.image_mobile, sizes: '100vw', loading: 'lazy' %}
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  {%- comment -%} Background Image {%- endcomment -%}
+  #shopify-section-{{ section.id }} .section-features-with-image {
+    background-image: var(--bg-image-desktop);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .section-features-with-image {
+      background-image: var(--bg-image-mobile);
+    }
+  }
+
+  {%- comment -%} Container - 50/50 Split Desktop, Stacked Mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 2rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__container {
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+  }
+
+  {%- comment -%} Left Side {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__left {
+    flex: 0 0 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__left {
+      flex: 1 1 auto;
+      order: 1;
+    }
+  }
+
+  {%- comment -%} Section Title {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__title {
+    font-size: var(--title-size-desktop);
+    color: var(--title-color-desktop);
+    margin-bottom: 2rem;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__title {
+      font-size: var(--title-size-mobile);
+      color: var(--title-color-mobile);
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  {%- comment -%} Icon Blocks Container {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__blocks {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__blocks {
+      gap: 1rem;
+    }
+  }
+
+  {%- comment -%} Individual Block {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__block {
+    display: flex;
+  }
+
+  {%- comment -%} Block Layout - Icon Top {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__block--top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  {%- comment -%} Block Layout - Icon Left {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__block--left {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__block--top,
+    #shopify-section-{{ section.id }} .features-with-image__block--left {
+      gap: 0.75rem;
+    }
+  }
+
+  {%- comment -%} Icon Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__icon {
+    flex-shrink: 0;
+  }
+
+  #shopify-section-{{ section.id }} .features-with-image__icon--svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .features-with-image__icon--svg svg {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .features-with-image__icon--image {
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .features-with-image__icon--image img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    display: block;
+  }
+
+  {%- comment -%} Text Styles {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__text {
+    font-size: var(--text-size-desktop);
+    color: var(--text-color-desktop);
+    line-height: 1.5;
+    flex: 1;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__text {
+      font-size: var(--text-size-mobile);
+      color: var(--text-color-mobile);
+    }
+  }
+
+  {%- comment -%} Right Side {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__right {
+    flex: 0 0 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__right {
+      flex: 1 1 auto;
+      order: 2;
+    }
+  }
+
+  {%- comment -%} Images {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__image {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .features-with-image__image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  {%- comment -%} Desktop Image - Show on desktop, hide on mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__image--desktop {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__image--desktop {
+      display: none;
+    }
+  }
+
+  {%- comment -%} Mobile Image - Hide on desktop, show on mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .features-with-image__image--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .features-with-image__image--mobile {
+      display: block;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Features with image",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Features"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_desktop",
+      "label": "Desktop image",
+      "info": "Right side image for desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Mobile image",
+      "info": "Right side image for mobile"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "Background image (desktop)",
+      "info": "Background image covering entire section"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Background image (mobile)",
+      "info": "Optional. Falls back to desktop image if not set"
+    },
+    {
+      "type": "header",
+      "content": "Title styling"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size (desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 14,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "label": "Title size (mobile)",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "title_color_desktop",
+      "label": "Title color (desktop)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color_mobile",
+      "label": "Title color (mobile)",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "select",
+      "id": "bg",
+      "label": "Background color",
+      "default": "palette--light bg--neutral",
+      "options": [
+        { "value": "palette--light bg--neutral", "label": "Default" },
+        { "value": "palette--light bg--accent", "label": "Light" },
+        { "value": "palette--dark bg--invert", "label": "Dark" },
+        { "value": "palette--dark bg--invert--accent", "label": "Dark accent" },
+        { "value": "palette--bright bg--bright", "label": "Bright" },
+        { "value": "palette--bright bg--bright--accent", "label": "Bright accent" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Section spacing"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        { "value": "wrapper--none", "label": "Full width" },
+        { "value": "wrapper--full", "label": "Full width padded" },
+        { "value": "wrapper", "label": "Page width" },
+        { "value": "wrapper--narrow", "label": "Page width narrow" },
+        { "value": "wrapper--tiny", "label": "Page width extra narrow" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 180,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon_text_block",
+      "name": "Icon text block",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "icon_svg",
+          "label": "SVG HTML code",
+          "info": "Paste SVG HTML code here. Takes priority over image."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon image",
+          "info": "Alternative to SVG. Only shows if SVG is empty."
+        },
+        {
+          "type": "range",
+          "id": "icon_size",
+          "min": 20,
+          "max": 200,
+          "step": 4,
+          "unit": "px",
+          "label": "Icon size",
+          "default": 60,
+          "info": "Only applies to image icons"
+        },
+        {
+          "type": "select",
+          "id": "icon_layout",
+          "label": "Icon layout",
+          "default": "top",
+          "options": [
+            { "value": "top", "label": "Icon above text" },
+            { "value": "left", "label": "Icon left of text" }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Text"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Add descriptive text here.</p>"
+        },
+        {
+          "type": "range",
+          "id": "text_size_desktop",
+          "min": 14,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size (desktop)",
+          "default": 16
+        },
+        {
+          "type": "range",
+          "id": "text_size_mobile",
+          "min": 14,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "label": "Text size (mobile)",
+          "default": 14
+        },
+        {
+          "type": "color",
+          "id": "text_color_desktop",
+          "label": "Text color (desktop)",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "text_color_mobile",
+          "label": "Text color (mobile)",
+          "default": "#000000"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features with image",
+      "category": "Image",
+      "blocks": [
+        {
+          "type": "icon_text_block",
+          "settings": {
+            "text": "<p>Feature description goes here.</p>"
+          }
+        },
+        {
+          "type": "icon_text_block",
+          "settings": {
+            "text": "<p>Another feature description.</p>"
+          }
+        },
+        {
+          "type": "icon_text_block",
+          "settings": {
+            "text": "<p>Third feature description.</p>"
+          }
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
+

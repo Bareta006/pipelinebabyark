@@ -1,0 +1,490 @@
+# Multistep Product Template Documentation
+
+## Overview
+
+The Multistep Product Template (`product.pdp_multistep_v1.json`) is a custom Shopify product page template that provides a guided, step-by-step customization experience for complex products with multiple options, variants, accessories, and smart features. The template transforms the standard product page into an immersive fullscreen experience with 5 distinct steps.
+
+## Template Structure
+
+### File Location
+- **Template**: `/templates/product.pdp_multistep_v1.json`
+- **Main Form Snippet**: `/snippets/product-multistep-form.liquid`
+- **Step Snippets**: `/snippets/product-multistep-step1.liquid` through `step5.liquid`
+- **JavaScript**: `/assets/product-multistep.js`
+- **CSS**: `/assets/product-multistep.css`
+- **Hero Section**: `/sections/section-multistep-hero.liquid`
+
+### Template Configuration
+
+The template consists of two main sections:
+
+1. **Section Liquid Custom** (`section_liquid_custom`):
+   - Contains critical CSS for fullscreen mode
+   - Hides default product media containers
+   - Manages fullscreen body state
+   - Controls header/footer visibility during customization
+
+2. **Main Product Section** (`main`):
+   - Type: `product`
+   - Layout: `none@columns` (no default product layout)
+   - Contains single block: `multistep_form`
+   - Renders `product-multistep-form` snippet
+
+## The 5-Step Flow
+
+### Step 1: Product Hero / Introduction
+- **Purpose**: Initial product showcase and feature discovery
+- **Snippet**: `product-multistep-step1.liquid`
+- **Features**:
+  - Product title, cutline, and price display
+  - Hero image with interactive feature points (plus icons)
+  - Feature list with modal popups
+  - "Customize" button to start customization
+- **Navigation**: Clicking "Customize" or URL parameter `?step=2` advances to Step 2
+- **Fullscreen**: Not active (normal page view)
+
+### Step 2: Color & Shell Selection
+- **Purpose**: Select fabric color and shell color options
+- **Snippet**: `product-multistep-step2.liquid`
+- **Features**:
+  - Dual swatch selection (color + shell color)
+  - Dynamic image slider filtered by selections
+  - Real-time variant matching and price updates
+  - Image filtering based on alt text patterns (`shell_color / fabric_color`)
+- **Validation**: Both color and shell color must be selected to proceed
+- **Variant Selection**: Partial variant matching (color + shell, no smart option yet)
+- **Fullscreen**: Active (hides header, fullscreen mode)
+
+### Step 3: Smart Option Selection
+- **Purpose**: Choose between smart and non-smart product versions
+- **Snippet**: `product-multistep-step3.liquid`
+- **Features**:
+  - "Add Smart Capabilities" button
+  - "Skip" option for non-smart version
+  - Smart option adds $200 upgrade
+  - Final variant selection (color + shell + smart option)
+- **Variant Selection**: Complete variant matching with all three options
+- **Fullscreen**: Active
+
+### Step 4: Accessories Selection
+- **Purpose**: Browse and add optional accessories
+- **Snippet**: `product-multistep-step4.liquid`
+- **Features**:
+  - Accessory collection display
+  - Checkbox selection with auto-uncheck after 2 seconds
+  - Variant options for accessories (if applicable)
+  - Image updates based on accessory variant selection
+  - 20% discount applied to accessories
+- **Accessories Collection**: Configured via `data-accessories-collection` attribute (default: "accessories")
+- **Cart Addition**: Accessories added separately with delivery properties
+- **Fullscreen**: Active
+
+### Step 5: Order Summary & Checkout
+- **Purpose**: Review order and proceed to checkout
+- **Snippet**: `product-multistep-step5.liquid`
+- **Features**:
+  - Complete order summary with product image
+  - Selected accessories with discounted pricing
+  - Subtotal, savings, and total calculations
+  - Delivery date/time display
+  - "Upgrade to Smart" option (if non-smart selected)
+  - "Go to Checkout" button
+- **Cart Addition**: All items added to cart before showing summary
+- **Fullscreen**: Active
+
+## JavaScript Architecture
+
+### ProductMultiStep Class
+
+**Location**: `/assets/product-multistep.js`
+
+**Initialization**:
+- Automatically initializes on `DOMContentLoaded`
+- Finds container via `[data-multistep-container]` selector
+- Loads product JSON from `[data-product-json]` script tag
+
+**Key Properties**:
+- `currentStep`: Current step number (1-5)
+- `totalSteps`: Total number of steps (5)
+- `selectedVariant`: Final selected product variant
+- `selectedColor`: Selected fabric color
+- `selectedShellColor`: Selected shell color
+- `selectedSmartOption`: Smart or non-smart selection
+- `selectedAccessories`: Array of selected accessories
+- `productData`: Complete product JSON object
+- `allSliderSlides`: Original slider slides for filtering
+
+**Core Methods**:
+
+1. **Step Navigation**:
+   - `showStep(stepNumber)`: Shows/hides steps, manages fullscreen state
+   - `handleNextStep(nextStep, btn)`: Validates and advances steps
+   - `updateProgress()`: Updates progress dots visualization
+
+2. **Variant Selection**:
+   - `selectPartialVariant()`: Matches color + shell (Step 2)
+   - `selectFinalVariant()`: Matches color + shell + smart option (Step 3)
+   - `updateImages(variant)`: Updates product images via custom event
+   - `updatePrice(variant)`: Updates price display
+
+3. **Color Availability**:
+   - `updateColorAvailability()`: Enables/disables color options based on shell selection
+   - Checks variant availability for each color/shell combination
+   - Shows "Sold Out" indicators for unavailable combinations
+
+4. **Image Slider**:
+   - `initializeSlider()`: Sets up touch/mouse drag navigation
+   - `filterSliderImages()`: Filters slides based on selected colors
+   - `goToSlide(index)`: Navigates to specific slide
+   - `updateSliderArrows()`: Shows/hides navigation arrows
+
+5. **Accessories Management**:
+   - `attachAccessoryListeners()`: Sets up accessory selection handlers
+   - `addAccessory(variantId, title, price, image)`: Adds accessory to selection
+   - `removeAccessory(variantId)`: Removes accessory from selection
+   - `updateAccessoryVariant(item)`: Updates accessory variant selection
+   - `updateAccessoryImage(item, changedOption)`: Updates accessory image
+
+6. **Cart Operations**:
+   - `addToCart(variantId, quantity, properties)`: Adds single item to cart
+   - `addAllToCart()`: Adds main product + all accessories to cart
+   - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
+   - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
+
+7. **Order Summary**:
+   - `renderOrderSummary()`: Generates HTML for Step 5 summary
+   - `getDeliveryText()`: Formats delivery information for display
+   - `upgradeToSmart()`: Allows upgrading to smart version from summary
+
+8. **Feature Modals**:
+   - `attachBannerListeners()`: Handles feature modal popups
+   - Loads feature data from JSON script tags
+   - Manages modal backdrop and close interactions
+
+## CSS & Styling
+
+### Fullscreen Mode
+
+**Body Class**: `multistep-fullscreen`
+
+**Effects**:
+- Hides body overflow
+- Fixes `#MainContent` to viewport
+- Hides header/footer
+- Shows fixed header with announcement bar offset
+- White background overlay
+
+**CSS Variables**:
+- `--announcement-height`: Height of announcement bar (default: 0)
+
+### Key CSS Classes
+
+- `.multistep-container`: Main container (max-width: 1200px)
+- `.multistep-progress`: Progress dots container
+- `.progress-dot`: Individual progress indicator
+- `.progress-dot.active`: Current step indicator
+- `.progress-dot.completed`: Completed step indicator
+- `[data-step]`: Step containers (hidden/shown via JavaScript)
+
+### Image Filtering Logic
+
+**Pattern Matching**:
+- Images filtered by alt text format: `shell_color / fabric_color`
+- Exact matches prioritized over shell-only matches
+- Falls back to all images if no matches found
+
+**Example Alt Text**:
+- `"Black / Navy"` - Exact match for Black shell + Navy fabric
+- `"Black /"` - Shell match for Black shell with any fabric
+
+## Variant Matching Logic
+
+### Step 2 (Partial Match)
+Matches variants where:
+- `option1/option2/option3` contains `selectedColor` (case-insensitive)
+- `option1/option2/option3` contains `selectedShellColor` (case-insensitive)
+
+### Step 3 (Final Match)
+Matches variants where:
+- `option1/option2/option3` contains `selectedColor` (case-insensitive)
+- `option1/option2/option3` contains `selectedShellColor` (case-insensitive)
+- `option1/option2/option3` contains `selectedSmartOption` (case-insensitive)
+
+**Note**: Variant options can be in any position (option1, option2, or option3)
+
+## Delivery Properties
+
+### Main Product Delivery
+Priority order:
+1. `input[name="deliveryDate"]` value
+2. `input[name="deliveryTime"]` value
+3. `variant.metafields.delivery.delivery_estimated_date`
+4. `product.metafields.delivery.delivery_time`
+5. `product.metafields.delivery.estimated_date`
+
+### Accessory Delivery
+Priority order:
+1. `data-variant-delivery-date` attribute
+2. `data-delivery-time` attribute
+3. `data-delivery-date` attribute
+
+**Cart Properties**:
+- Stored as `properties` object in cart line items
+- Keys: `"Delivery Date"` or `"Delivery Time"`
+
+## Smart Option Upgrade
+
+### Upgrade Flow
+- Available in Step 5 if non-smart version selected
+- Shows upgrade card with $200 price
+- Clicking "ADD" button:
+  - Updates `selectedSmartOption` to smart value
+  - Finds matching smart variant
+  - Re-renders order summary with updated pricing
+
+### Smart Option Values
+- Stored in `[data-smart-option-input]` element
+- `data-smart-value`: Smart variant option value
+- `data-non-smart-value`: Non-smart variant option value
+
+## Accessories System
+
+### Collection Source
+- Configured via `data-accessories-collection` attribute
+- Default: `"accessories"`
+- Fetched via Shopify collection handle
+
+### Accessory Selection
+- Checkbox-based selection
+- Auto-unchecks after 2 seconds (visual feedback)
+- Supports variant options (size, color, etc.)
+- Image updates based on variant selection
+- Quantity tracking (can add same accessory multiple times)
+
+### Pricing
+- 20% discount applied automatically
+- Displayed as: discounted price (strikethrough original price)
+- Savings shown in order summary
+
+## URL Parameters
+
+### Step Navigation
+- `?step=2` - Jump directly to Step 2
+- `?step=3` - Jump directly to Step 3
+- `?step=4` - Jump directly to Step 4
+- `?step=5` - Jump directly to Step 5
+
+**Note**: Step 1 is default (no parameter needed)
+
+## Event System
+
+### Custom Events Dispatched
+
+1. **`theme:variant:change`**:
+   - Dispatched when variant selection changes
+   - Detail: `{ variant: variantObject }`
+   - Used by theme to update product images
+
+2. **`theme:cart:change`**:
+   - Dispatched after cart addition
+   - Detail: `{ cart: cartObject }`
+   - Used by theme to update cart UI
+
+## Product JSON Structure
+
+The template includes complete product JSON with:
+- Basic product info (id, title, handle, description)
+- Pricing information
+- Variants array with full variant data
+- Images and media
+- Metafields (delivery_time, estimated_date)
+- Variant metafields (delivery_estimated_date)
+
+**Access**: Via `[data-product-json]` script tag, parsed by JavaScript
+
+## Progress Indicators
+
+### Progress Dots
+- 4 dots total (Steps 2-5)
+- Hidden on Step 1
+- Visual states:
+  - `.active`: Current step
+  - `.completed`: Past steps
+  - Default: Future steps
+
+### Step Visibility
+- Only one step visible at a time
+- Controlled via `display: none/block` CSS
+- Managed by `showStep()` method
+
+## Button States & Feedback
+
+### Add to Cart Button (Step 4)
+- Shows "ADD" text initially
+- Changes to "ADDED" after click
+- Disabled during cart addition (2 seconds)
+- Visual feedback via `.showing-added` class
+
+### Smart Option Button (Step 3)
+- Similar add/added state pattern
+- Auto-advances to Step 4 after selection
+
+## Image Handling
+
+### Variant Images
+- Updated via `updateImages()` method
+- Uses Shopify image URL transformation: `_800x.jpg`
+- Dispatches `theme:variant:change` event for theme integration
+
+### Slider Images
+- Filtered based on color selections
+- Original slides stored in `allSliderSlides` array
+- Filtered slides replace slider content dynamically
+- Maintains slide order and structure
+
+## Mobile Considerations
+
+### Touch Support
+- Slider supports touch drag/swipe
+- Minimum drag distance: 50px
+- Prevents accidental navigation
+
+### Responsive Design
+- Fullscreen mode works on mobile
+- Progress dots adapt to screen size
+- Form elements sized appropriately
+
+## Critical Implementation Notes
+
+### 1. Product Media Hiding
+- Default product media containers hidden via CSS
+- Prevents duplicate image displays
+- Maintains theme compatibility
+
+### 2. Header Management
+- Header hidden during Steps 2-5
+- Fixed positioning during fullscreen
+- Announcement bar height accounted for
+
+### 3. Variant Option Flexibility
+- Variant options can be in any position
+- Case-insensitive matching
+- Handles missing options gracefully
+
+### 4. Image Alt Text Format
+- Critical for slider filtering
+- Format: `"shell_color / fabric_color"`
+- Must match exactly for filtering to work
+
+### 5. Accessory Auto-Uncheck
+- 2-second timeout for visual feedback
+- Prevents accidental double-selection
+- Can be manually unchecked before timeout
+
+### 6. Delivery Metafields
+- Supports both product and variant metafields
+- Fallback chain ensures delivery info always available
+- Format: Date (YYYY-MM-DD) or Time (text)
+
+## File Dependencies
+
+### Required Files
+1. `/snippets/product-multistep-form.liquid` - Main form container
+2. `/snippets/product-multistep-step1.liquid` - Hero/intro step
+3. `/snippets/product-multistep-step2.liquid` - Color selection step
+4. `/snippets/product-multistep-step3.liquid` - Smart option step
+5. `/snippets/product-multistep-step4.liquid` - Accessories step
+6. `/snippets/product-multistep-step5.liquid` - Summary step
+7. `/assets/product-multistep.js` - JavaScript functionality
+8. `/assets/product-multistep.css` - Styling
+
+### Optional Files
+- `/sections/section-multistep-hero.liquid` - Hero section (can be used separately)
+
+## Usage Instructions
+
+### Applying Template to Product
+1. Go to Shopify Admin > Products
+2. Select product
+3. In "Theme templates" section, select "pdp_multistep_v1"
+4. Save product
+
+### URL Navigation
+- Default: Shows Step 1 (hero)
+- `?step=2`: Jump to color selection
+- `?step=3`: Jump to smart option
+- `?step=4`: Jump to accessories
+- `?step=5`: Jump to summary
+
+### Accessories Collection
+- Ensure "accessories" collection exists
+- Or update `data-accessories-collection` attribute in form snippet
+
+## Development Guidelines
+
+### Adding New Steps
+1. Create new step snippet: `product-multistep-step6.liquid`
+2. Render in `product-multistep-form.liquid`
+3. Update `totalSteps` in JavaScript
+4. Add progress dot in template
+5. Update `showStep()` logic
+
+### Modifying Variant Logic
+- Update `selectPartialVariant()` for Step 2 changes
+- Update `selectFinalVariant()` for Step 3 changes
+- Ensure variant option matching handles all cases
+
+### Customizing Styling
+- All styles in `/assets/product-multistep.css`
+- Fullscreen styles in template's custom liquid section
+- Use CSS variables for theme integration
+
+### Debugging
+- Check browser console for JavaScript errors
+- Verify product JSON structure
+- Check variant option values match selections
+- Verify image alt text format for filtering
+
+## Common Issues & Solutions
+
+### Images Not Filtering
+- **Cause**: Alt text format incorrect
+- **Solution**: Ensure format is `"shell_color / fabric_color"`
+
+### Variant Not Found
+- **Cause**: Option values don't match (case/whitespace)
+- **Solution**: Check variant option values match exactly
+
+### Accessories Not Loading
+- **Cause**: Collection handle incorrect
+- **Solution**: Verify `data-accessories-collection` attribute
+
+### Fullscreen Not Working
+- **Cause**: CSS not loading or body class not applied
+- **Solution**: Check template's custom liquid section CSS
+
+### Cart Addition Fails
+- **Cause**: Variant unavailable or invalid
+- **Solution**: Check variant availability and ID
+
+## Best Practices
+
+1. **Variant Naming**: Use consistent naming for variant options
+2. **Image Alt Text**: Follow exact format for filtering
+3. **Metafields**: Set up delivery metafields properly
+4. **Testing**: Test all variant combinations
+5. **Mobile**: Verify touch interactions work
+6. **Performance**: Optimize image sizes for slider
+7. **Accessibility**: Ensure keyboard navigation works
+8. **Error Handling**: Provide user feedback for errors
+
+## Future Enhancements
+
+Potential improvements:
+- Step persistence (save progress)
+- Step validation improvements
+- More granular image filtering
+- Additional accessory options
+- Step skipping for returning customers
+- Analytics integration for step tracking
+
