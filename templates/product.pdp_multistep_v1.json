@@ -119,7 +119,7 @@
     "section_wide_card_hero_TpyKNx": {
       "type": "section-wide-card-hero",
       "custom_css": [
-        "{background-color: #f7f7f7;}"
+        "section{background-color: #f7f7f7;}"
       ],
       "name": "Wide card hero",
       "settings": {
