@@ -1405,7 +1405,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
 @media (max-width: 768px) {
 
-  body:has([data-multistep-container]) .wrapper {
+  body:has([data-multistep-container]) .product-section .wrapper {
     background: #F7F7F7;
     padding: 0px;
   }
