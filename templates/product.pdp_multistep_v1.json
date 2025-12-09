@@ -58,7 +58,7 @@
         "icon_text_block_RzbcRE"
       ],
       "custom_css": [
-        "@media (max-width:480px){.wrapper.section-padding{padding-bottom:0; }}"
+        "@media (max-width: 480px) {.wrapper.section-padding {padding-bottom: 0; }}"
       ],
       "name": "Features with image",
       "settings": {
@@ -115,11 +115,40 @@
         "enable_sticky_desktop": false,
         "enable_sticky_mobile": false
       }
+    },
+    "section_wide_card_hero_TpyKNx": {
+      "type": "section-wide-card-hero",
+      "name": "Wide card hero",
+      "settings": {
+        "background_image_desktop": "shopify://shop_images/Group_1597881647.png",
+        "border_radius": 50,
+        "image": "shopify://shop_images/saatchi_mom.png",
+        "image_alignment": "center",
+        "text_1": "",
+        "text_1_size_desktop": 18,
+        "text_1_size_mobile": 16,
+        "text_1_color": "#000000",
+        "text_1_bg_color": "#ffffff",
+        "text_1_padding": 20,
+        "text_2": "",
+        "text_2_size_desktop": 16,
+        "text_2_size_mobile": 14,
+        "text_2_color": "#000000",
+        "text_3": "",
+        "text_3_size_desktop": 16,
+        "text_3_size_mobile": 14,
+        "text_3_color": "#000000",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
   "order": [
     "section_features_with_image_PP6LD3",
     "section_liquid_custom",
-    "main"
+    "main",
+    "section_wide_card_hero_TpyKNx"
   ]
 }
