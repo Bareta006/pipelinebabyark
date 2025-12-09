@@ -10,12 +10,18 @@
 {%- liquid
   assign bg_image_desktop = section.settings.background_image_desktop | image_url: width: 2000 | default: 'none'
   assign bg_image_mobile = section.settings.background_image_mobile | image_url: width: 1000 | default: bg_image_desktop
+  
+  if section.settings.image != blank
+    assign image_height = section.settings.image.height
+  else
+    assign image_height = 400
+  endif
 -%}
 
 <section class="section-wide-card-hero {{ section.settings.bg }}"
   data-section-id="{{ section.id }}"
   data-section-type="wide-card-hero"
-  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-image-desktop: url('{{ bg_image_desktop }}'); --bg-image-mobile: url('{{ bg_image_mobile }}'); --border-radius: {{ section.settings.border_radius }}px;">
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-image-desktop: url('{{ bg_image_desktop }}'); --bg-image-mobile: url('{{ bg_image_mobile }}'); --border-radius: {{ section.settings.border_radius }}px; --image-height: {{ image_height }}px;">
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="wide-card-hero__container">
@@ -76,7 +82,7 @@
     #shopify-section-{{ section.id }} .wide-card-hero__container {
       background-image: var(--bg-image-mobile);
       flex-direction: column;
-      min-height: auto;
+      min-height: var(--image-height);
       position: relative;
     }
   }
