@@ -118,6 +118,9 @@
     },
     "section_wide_card_hero_TpyKNx": {
       "type": "section-wide-card-hero",
+      "custom_css": [
+        "{background-color: #f7f7f7;}"
+      ],
       "name": "Wide card hero",
       "settings": {
         "background_image_desktop": "shopify://shop_images/Group_1597881647.png",
