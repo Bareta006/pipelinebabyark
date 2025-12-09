@@ -11,7 +11,9 @@
   assign bg_image_desktop = section.settings.background_image_desktop | image_url: width: 2000 | default: 'none'
   assign bg_image_mobile = section.settings.background_image_mobile | image_url: width: 1000 | default: bg_image_desktop
   
-  if section.settings.image != blank
+  if section.settings.image_mobile != blank
+    assign image_height = section.settings.image_mobile.height
+  elsif section.settings.image != blank
     assign image_height = section.settings.image.height
   else
     assign image_height = 400
@@ -29,8 +31,17 @@
       {%- comment -%} Left Side - Image (Desktop) / Lower Side (Mobile) {%- endcomment -%}
       <div class="wide-card-hero__left wide-card-hero__left--{{ section.settings.image_alignment }}">
         {% if section.settings.image != blank %}
-          <div class="wide-card-hero__image">
+          <div class="wide-card-hero__image wide-card-hero__image--desktop">
             {% render 'image', img_object: section.settings.image, sizes: '50vw', loading: 'lazy' %}
+          </div>
+        {% endif %}
+        {% if section.settings.image_mobile != blank %}
+          <div class="wide-card-hero__image wide-card-hero__image--mobile">
+            {% render 'image', img_object: section.settings.image_mobile, sizes: '100vw', loading: 'lazy' %}
+          </div>
+        {% elsif section.settings.image != blank %}
+          <div class="wide-card-hero__image wide-card-hero__image--mobile">
+            {% render 'image', img_object: section.settings.image, sizes: '100vw', loading: 'lazy' %}
           </div>
         {% endif %}
       </div>
@@ -132,13 +143,30 @@
     display: block;
   }
 
+  {%- comment -%} Desktop Image - Show on desktop, hide on mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__image--desktop {
+    display: block;
+  }
+
   @media screen and (max-width: 749px) {
-    #shopify-section-{{ section.id }} .wide-card-hero__image {
+    #shopify-section-{{ section.id }} .wide-card-hero__image--desktop {
+      display: none;
+    }
+  }
+
+  {%- comment -%} Mobile Image - Hide on desktop, show on mobile {%- endcomment -%}
+  #shopify-section-{{ section.id }} .wide-card-hero__image--mobile {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .wide-card-hero__image--mobile {
+      display: block;
       width: 100%;
       height: 100%;
     }
 
-    #shopify-section-{{ section.id }} .wide-card-hero__image img {
+    #shopify-section-{{ section.id }} .wide-card-hero__image--mobile img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -258,7 +286,13 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Image"
+      "label": "Image (desktop)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_mobile",
+      "label": "Image (mobile)",
+      "info": "Optional. Falls back to desktop image if not set"
     },
     {
       "type": "select",
