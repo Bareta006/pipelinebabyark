@@ -20,7 +20,7 @@
             "icon_layout": "top",
             "text": "<p>Intelligent design that goes beyond safety-driven technology</p>",
             "text_size_desktop": 28,
-            "text_size_mobile": 14,
+            "text_size_mobile": 16,
             "text_color_desktop": "#ffffff",
             "text_color_mobile": "#ffffff"
           }
@@ -33,7 +33,7 @@
             "icon_layout": "top",
             "text": "<p>Designed to fit perfectly in your vehicle</p>",
             "text_size_desktop": 28,
-            "text_size_mobile": 14,
+            "text_size_mobile": 16,
             "text_color_desktop": "#ffffff",
             "text_color_mobile": "#ffffff"
           }
@@ -46,7 +46,7 @@
             "icon_layout": "top",
             "text": "<p>Good for a lifetime!<br/>with no expiration date</p>",
             "text_size_desktop": 28,
-            "text_size_mobile": 14,
+            "text_size_mobile": 16,
             "text_color_desktop": "#ffffff",
             "text_color_mobile": "#ffffff"
           }
@@ -68,7 +68,7 @@
         "background_image_desktop": "shopify://shop_images/Rectangle_1486127510.jpg",
         "background_image_mobile": "shopify://shop_images/Rectangle_1486127508.jpg",
         "title_size_desktop": 68,
-        "title_size_mobile": 24,
+        "title_size_mobile": 30,
         "title_color_desktop": "#ffffff",
         "title_color_mobile": "#ffffff",
         "bg": "palette--light bg--neutral",
