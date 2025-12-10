@@ -1197,14 +1197,10 @@ class ProductMultiStep {
     }
 
     // Update Affirm widget amount and setup trigger
-    // Use the final total that's displayed in the summary
     this.updateAffirmWidget(totalDiscounted);
   }
 
   updateAffirmWidget(totalAmount) {
-    // Store the total amount for later use
-    this.orderTotalAmount = totalAmount;
-
     // Find existing Affirm widget on the page
     const affirmWidget = document.querySelector(".affirm-as-low-as");
 
@@ -1212,29 +1208,6 @@ class ProductMultiStep {
       // Update data-amount to total order amount in cents
       const amountInCents = Math.round(totalAmount * 100);
       affirmWidget.setAttribute("data-amount", amountInCents);
-      affirmWidget.setAttribute("data-value", amountInCents);
-
-      // Also update the price display if it exists
-      const affirmPriceElement =
-        affirmWidget.querySelector(".affirm-ala-price");
-      if (affirmPriceElement) {
-        const monthlyPrice = Math.round(totalAmount / 12);
-        affirmPriceElement.textContent = `$${monthlyPrice}`;
-      }
-
-      // CRITICAL: Force Affirm to refresh and re-read the updated data-amount
-      // This ensures the iframe URL will be built with the correct amount
-      if (
-        window.Affirm &&
-        window.Affirm.ui &&
-        typeof window.Affirm.ui.refresh === "function"
-      ) {
-        try {
-          window.Affirm.ui.refresh();
-        } catch (err) {
-          // Refresh might fail, continue anyway
-        }
-      }
 
       // Find the modal trigger link within the widget
       const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
@@ -1250,59 +1223,8 @@ class ProductMultiStep {
 
         newLink.addEventListener("click", (e) => {
           e.preventDefault();
-
-          if (!this.orderTotalAmount) {
-            return;
-          }
-
-          const amountInCents = Math.round(this.orderTotalAmount * 100);
-
-          // CRITICAL: Affirm reads data-amount from the widget when building iframe URL
-          // We must update it BEFORE the trigger click, and force Affirm to re-read it
-          if (affirmWidget) {
-            // Update data-amount on widget
-            affirmWidget.setAttribute("data-amount", amountInCents);
-            affirmWidget.setAttribute("data-value", amountInCents);
-
-            // Also update any nested elements that might have data-amount
-            const nestedElements =
-              affirmWidget.querySelectorAll("[data-amount]");
-            nestedElements.forEach((el) => {
-              el.setAttribute("data-amount", amountInCents);
-            });
-          }
-
-          // Update trigger if it has data attributes
-          if (affirmTrigger) {
-            affirmTrigger.setAttribute("data-amount", amountInCents);
-            affirmTrigger.setAttribute("data-value", amountInCents);
-          }
-
-          // CRITICAL: Call refresh() BEFORE clicking to force Affirm to re-read data-amount
-          // This ensures the iframe URL is built with the updated amount
-          if (
-            window.Affirm &&
-            window.Affirm.ui &&
-            typeof window.Affirm.ui.refresh === "function"
-          ) {
-            try {
-              window.Affirm.ui.refresh();
-              // Wait a tick for refresh to process, then click
-              setTimeout(() => {
-                if (affirmTrigger) {
-                  affirmTrigger.click();
-                }
-              }, 50);
-              return;
-            } catch (err) {
-              // If refresh fails, try clicking anyway
-            }
-          }
-
-          // Fallback: Click trigger directly (may show old amount)
-          if (affirmTrigger) {
-            affirmTrigger.click();
-          }
+          // Trigger the existing Affirm modal trigger
+          affirmTrigger.click();
         });
       }
     }
