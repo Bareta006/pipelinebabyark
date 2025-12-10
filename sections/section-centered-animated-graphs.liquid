@@ -16,7 +16,7 @@
 <section class="section-centered-animated-graphs AnimatedGraphs-section {{ section.settings.text_color }}"
   data-section-id="{{ section.id }}"
   data-section-type="centered-animated-graphs"
-  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-color: {{ section.settings.background_color }}; --title-size-desktop: {{ section.settings.title_size_desktop }}px; --title-size-mobile: {{ section.settings.title_size_mobile }}px; --title-color-desktop: {{ section.settings.title_color_desktop }}; --title-color-mobile: {{ section.settings.title_color_mobile }}; --textarea-size-desktop: {{ section.settings.textarea_size_desktop }}px; --textarea-size-mobile: {{ section.settings.textarea_size_mobile }}px; --textarea-color-desktop: {{ section.settings.textarea_color_desktop }}; --textarea-color-mobile: {{ section.settings.textarea_color_mobile }};">
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-color: {{ section.settings.background_color }}; --title-size-desktop: {{ section.settings.title_size_desktop }}px; --title-size-mobile: {{ section.settings.title_size_mobile }}px; --title-color-desktop: {{ section.settings.title_color_desktop }}; --title-color-mobile: {{ section.settings.title_color_mobile }}; --textarea-size-desktop: {{ section.settings.textarea_size_desktop }}px; --textarea-size-mobile: {{ section.settings.textarea_size_mobile }}px; --textarea-color-desktop: {{ section.settings.textarea_color_desktop }}; --textarea-color-mobile: {{ section.settings.textarea_color_mobile }}; --blocks-max-width: {% if section.settings.blocks_max_width > 0 %}{{ section.settings.blocks_max_width }}px{% else %}none{% endif %}; --blocks-justify: {{ section.settings.blocks_justify }};">
   
   <div class="{{ section.settings.width }} section-padding">
     <div class="centered-animated-graphs__container">
@@ -104,9 +104,13 @@
 
   #shopify-section-{{ section.id }} .centered-animated-graphs__blocks {
     width: 100%;
+    max-width: var(--blocks-max-width);
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    justify-content: var(--blocks-justify);
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #shopify-section-{{ section.id }} .centered-animated-graphs__block {
@@ -508,6 +512,41 @@
       "id": "textarea_color_mobile",
       "label": "Textarea color (mobile)",
       "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Blocks Container"
+    },
+    {
+      "type": "range",
+      "id": "blocks_max_width",
+      "min": 0,
+      "max": 2000,
+      "step": 50,
+      "unit": "px",
+      "label": "Blocks max width",
+      "default": 0,
+      "info": "Set to 0 for no max width"
+    },
+    {
+      "type": "select",
+      "id": "blocks_justify",
+      "label": "Blocks justify",
+      "default": "flex-start",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Start"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "End"
+        }
+      ]
     }
   ],
   "blocks": [
