@@ -280,14 +280,18 @@
   overflow: hidden;
   border-radius: 10px;
   position: relative;
+  min-width: 0;
+  flex-shrink: 0;
 }
 
 .slider-track {
   display: flex;
   height: 100%;
+  width: 100%;
   transition: transform 0.3s ease;
   cursor: grab;
   will-change: transform;
+  min-width: 0;
 }
 
 .slider-track:active {
@@ -1215,7 +1219,13 @@ body:has([data-multistep-container]) .float-grid.product-single {
     flex-direction: row;
     gap: 55px;
   }
+  .step2-image-slider {
+    flex: 0 0 50%;
+    min-width: 0;
+    max-width: 50%;
+  }
   .step2-variant-and-buttons-container {
+    flex: 0 0 50%;
     min-width: 50%;
   }
 
