@@ -113,6 +113,9 @@ The template consists of two main sections:
 - `selectedAccessories`: Array of selected accessories
 - `productData`: Complete product JSON object
 - `allSliderSlides`: Original slider slides for filtering
+- `sectionsHidden`: Flag to prevent recursive section hiding
+- `sliderInitialized`: Flag to prevent multiple slider initializations
+- `sliderEventHandlers`: Object storing event handler references to prevent duplicate attachments
 
 **Core Methods**:
 
@@ -134,6 +137,10 @@ The template consists of two main sections:
 
 4. **Image Slider**:
    - `initializeSlider()`: Sets up touch/mouse drag navigation
+   - **Performance**: Prevents multiple initializations with `sliderInitialized` flag
+   - **Event Handlers**: Stored in `sliderEventHandlers` object to prevent duplicate attachments
+   - **Throttling**: `mousemove` events throttled using `requestAnimationFrame` to prevent performance issues
+   - **Guards**: Uses `dataset.listenerAttached` checks to ensure listeners are only added once
    - `filterSliderImages()`: Filters slides based on selected colors
    - `goToSlide(index)`: Navigates to specific slide
    - `updateSliderArrows()`: Shows/hides navigation arrows
@@ -386,6 +393,23 @@ The template includes complete product JSON with:
 - Fallback chain ensures delivery info always available
 - Format: Date (YYYY-MM-DD) or Time (text)
 
+### 7. Performance & Rendering Optimizations
+- **Event Listener Management**: 
+  - `initializeSlider()` checks `sliderInitialized` flag before adding listeners
+  - Event handlers stored in `sliderEventHandlers` object to prevent duplicate attachments
+  - Uses `dataset.listenerAttached` attributes to track listener state
+  - Prevents browser freezing from multiple event listener stacks
+- **Event Throttling**:
+  - `mousemove` events throttled using `requestAnimationFrame` to prevent excessive firing
+  - Prevents performance issues when DevTools is open
+- **Initialization Guards**:
+  - `showStep()` uses `requestAnimationFrame` instead of `setTimeout` for better performance
+  - Early returns prevent unnecessary DOM queries and operations
+- **Memory Leak Prevention**:
+  - Drag state variables stored outside event handlers to prevent closure leaks
+  - Event handler references stored in class properties for proper cleanup
+  - Prevents memory accumulation from repeated initializations
+
 ## File Dependencies
 
 ### Required Files
@@ -437,6 +461,46 @@ The template includes complete product JSON with:
 ### Customizing Styling
 - All styles in `/assets/product-multistep.css`
 - Fullscreen styles in template's custom liquid section
+
+## Performance Best Practices
+
+### Event Listener Management
+- **NEVER** add event listeners without checking if they're already attached
+- Use `dataset` attributes or flags to track listener state
+- Store handler references in class properties for cleanup
+- Example pattern:
+  ```javascript
+  if (!element.dataset.listenerAttached) {
+    element.addEventListener('event', handler);
+    element.dataset.listenerAttached = 'true';
+  }
+  ```
+
+### Event Throttling
+- Always throttle high-frequency events like `mousemove`, `scroll`, `resize`
+- Use `requestAnimationFrame` for smooth animations and throttling
+- Example:
+  ```javascript
+  let timeout;
+  element.addEventListener('mousemove', (e) => {
+    if (timeout) return;
+    timeout = requestAnimationFrame(() => {
+      // Handle event
+      timeout = null;
+    });
+  });
+  ```
+
+### Initialization Guards
+- Always check if initialization has already occurred before running setup code
+- Use flags (`sliderInitialized`, `sectionsHidden`) to prevent duplicate work
+- Early returns prevent unnecessary DOM queries and operations
+
+### Memory Leak Prevention
+- Store event handler references in class properties, not closures
+- Avoid creating new functions in loops or repeated calls
+- Use `removeEventListener` when cleaning up (if needed)
+- Store drag state variables outside event handlers to prevent closure leaks
 - Use CSS variables for theme integration
 
 ### Debugging
