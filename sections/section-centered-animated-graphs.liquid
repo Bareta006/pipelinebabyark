@@ -25,7 +25,7 @@
       <div class="centered-animated-graphs__header">
         {% if section.settings.title != blank %}
           <h2 class="centered-animated-graphs__title">
-            {{ section.settings.title | escape }}
+            {{ section.settings.title | newline_to_br }}
           </h2>
         {% endif %}
 
@@ -420,7 +420,7 @@
       "content": "Title"
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "title",
       "label": "Title"
     },
