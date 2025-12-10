@@ -208,7 +208,8 @@
         "animated_graphs_YGYGUH"
       ],
       "custom_css": [
-        ".centered-animated-graphs__textarea {margin-bottom: 60px;}"
+        ".centered-animated-graphs__textarea {margin-bottom: 60px;}",
+        "@media (max-width:480px){.centered-animated-graphs__blocks{padding:0 15px; }}"
       ],
       "name": "Centered AnimatedGraphs",
       "settings": {
