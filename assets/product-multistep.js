@@ -771,9 +771,32 @@ class ProductMultiStep {
     this.updateProgress();
 
     if (stepNumber === 2) {
+      // Get default selected swatches and filter gallery
+      const colorSelected = this.container.querySelector(
+        'input[name="color"]:checked'
+      );
+      const shellColorSelected = this.container.querySelector(
+        'input[name="shell_color"]:checked'
+      );
+
+      if (shellColorSelected) {
+        this.selectedShellColor = shellColorSelected.value;
+        this.updateColorAvailability();
+      }
+
+      if (colorSelected && shellColorSelected) {
+        this.selectedColor = colorSelected.value;
+        this.selectedShellColor = shellColorSelected.value;
+        this.selectPartialVariant();
+      }
+
       // Use requestAnimationFrame for better performance
       requestAnimationFrame(() => {
         this.initializeSlider();
+        // Filter gallery based on default selections
+        if (this.selectedShellColor || this.selectedColor) {
+          this.filterSliderImages();
+        }
       });
     }
 
