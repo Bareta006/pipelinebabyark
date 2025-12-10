@@ -21,14 +21,14 @@ class ProductMultiStep {
     this.attachEventListeners();
     this.attachBannerListeners();
 
-    console.log('=== Init Method ===');
+    // console.log('=== Init Method ===');
     const sliderTrack = this.container.querySelector('[data-slider-track]');
     if (sliderTrack) {
-      console.log('Slider track found at init');
-      console.log('Initial slides count:', sliderTrack.querySelectorAll('.slider-slide').length);
-      console.log('Initial [data-media-slide] count:', sliderTrack.querySelectorAll('[data-media-slide]').length);
+      // console.log('Slider track found at init');
+      // console.log('Initial slides count:', sliderTrack.querySelectorAll('.slider-slide').length);
+      // console.log('Initial [data-media-slide] count:', sliderTrack.querySelectorAll('[data-media-slide]').length);
     } else {
-      console.log('No slider track at init');
+      // console.log('No slider track at init');
     }
 
     const shellColorSelected = this.container.querySelector('input[name="shell_color"]:checked');
@@ -142,13 +142,13 @@ class ProductMultiStep {
   selectSmartOption(addSmart, btn = null) {
     const smartOptionInput = this.container.querySelector('[data-smart-option-input]');
     if (!smartOptionInput) {
-      console.error('Smart option input not found');
+      // console.error('Smart option input not found');
       return;
     }
 
-    console.log('Smart option selected:', addSmart);
-    console.log('Smart value:', smartOptionInput.dataset.smartValue);
-    console.log('Non-smart value:', smartOptionInput.dataset.nonSmartValue);
+    // console.log('Smart option selected:', addSmart);
+    // console.log('Smart value:', smartOptionInput.dataset.smartValue);
+    // console.log('Non-smart value:', smartOptionInput.dataset.nonSmartValue);
 
     if (addSmart) {
       this.selectedSmartOption = smartOptionInput.dataset.smartValue;
@@ -156,7 +156,7 @@ class ProductMultiStep {
       this.selectedSmartOption = smartOptionInput.dataset.nonSmartValue;
     }
 
-    console.log('Selected smart option:', this.selectedSmartOption);
+    // console.log('Selected smart option:', this.selectedSmartOption);
     smartOptionInput.value = this.selectedSmartOption;
 
     this.selectFinalVariant();
@@ -1273,7 +1273,7 @@ class ProductMultiStep {
                           this.container.closest('[id^="shopify-section-"]');
     
     if (!productSection) {
-      console.warn('Product section not found');
+      // console.warn('Product section not found');
       return;
     }
 
