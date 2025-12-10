@@ -86,6 +86,17 @@
     "main": {
       "type": "product",
       "blocks": {
+        "affirm_pay_over_time_messaging_product_block_9QApfJ": {
+          "type": "shopify://apps/affirm-pay-over-time-messaging/blocks/product-block/6dce54be-130d-4d13-9636-1e8f611b3071",
+          "settings": {
+            "logo_align": "left",
+            "font_size": 16,
+            "logo_color": "blue",
+            "logo_type": "logo",
+            "public_api_key": "",
+            "price_selector": ""
+          }
+        },
         "multistep_form": {
           "type": "liquid",
           "settings": {
@@ -94,6 +105,7 @@
         }
       },
       "block_order": [
+        "affirm_pay_over_time_messaging_product_block_9QApfJ",
         "multistep_form"
       ],
       "settings": {
