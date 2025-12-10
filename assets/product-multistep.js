@@ -348,45 +348,45 @@ class ProductMultiStep {
   }
 
   filterSliderImages() {
-    console.log('=== Filter Slider Images Called ===');
-    console.log('Current step:', this.currentStep);
-    console.log('Selected shell color:', this.selectedShellColor);
-    console.log('Selected fabric color:', this.selectedColor);
+    // console.log('=== Filter Slider Images Called ===');
+    // console.log('Current step:', this.currentStep);
+    // console.log('Selected shell color:', this.selectedShellColor);
+    // console.log('Selected fabric color:', this.selectedColor);
 
     if (this.currentStep !== 2) {
-      console.log('Not on step 2, exiting');
+      // console.log('Not on step 2, exiting');
       return;
     }
 
     const step2 = this.container.querySelector('[data-step="2"]');
     if (!step2) {
-      console.log('Step 2 not found');
+      // console.log('Step 2 not found');
       return;
     }
-    console.log('Step 2 display:', step2.style.display);
+    // console.log('Step 2 display:', step2.style.display);
 
     const slideshow = step2.querySelector('[data-slider-track]');
     if (!slideshow) {
-      console.log('No slideshow found');
+      // console.log('No slideshow found');
       return;
     }
-    console.log('Slideshow found:', slideshow);
+    // console.log('Slideshow found:', slideshow);
 
     if (!this.allSliderSlides || this.allSliderSlides.length === 0) {
-      console.log('No original slides stored, exiting');
+      // console.log('No original slides stored, exiting');
       return;
     }
 
-    console.log('Using stored original slides:', this.allSliderSlides.length);
+    // console.log('Using stored original slides:', this.allSliderSlides.length);
     const allSlides = this.allSliderSlides.map(slide => slide.cloneNode(true));
 
     if (!this.selectedShellColor && !this.selectedColor) {
-      console.log('No selections made, showing all slides');
+      // console.log('No selections made, showing all slides');
       allSlides.forEach(slide => slide.style.display = '');
       return;
     }
 
-    console.log('--- Checking each slide ---');
+    // console.log('--- Checking each slide ---');
     const exactMatches = [];
     const shellMatches = [];
     const otherSlides = [];
@@ -394,21 +394,21 @@ class ProductMultiStep {
     allSlides.forEach((slide, index) => {
       const img = slide.querySelector('img');
       const altText = img ? (img.alt || '').toLowerCase().trim() : '';
-      console.log(`Slide ${index + 1} alt text:`, altText);
+      // console.log(`Slide ${index + 1} alt text:`, altText);
 
       if (this.selectedShellColor && this.selectedColor) {
         const exactPattern = `${this.selectedShellColor} / ${this.selectedColor}`.toLowerCase().trim();
         const shellPattern = this.selectedShellColor.toLowerCase().trim() + ' /';
 
-        console.log(`  Checking exact match: "${exactPattern}"`);
+        // console.log(`  Checking exact match: "${exactPattern}"`);
         if (altText === exactPattern) {
-          console.log(`  Exact match!`);
+          // console.log(`  Exact match!`);
           exactMatches.push(slide);
         } else if (altText.startsWith(shellPattern)) {
-          console.log(`  Shell color match`);
+          // console.log(`  Shell color match`);
           shellMatches.push(slide);
         } else {
-          console.log(`  No match`);
+          // console.log(`  No match`);
           otherSlides.push(slide);
         }
       } else if (this.selectedShellColor) {
@@ -421,40 +421,40 @@ class ProductMultiStep {
       }
     });
 
-    console.log('Exact matches:', exactMatches.length);
-    console.log('Shell matches:', shellMatches.length);
-    console.log('Other slides:', otherSlides.length);
+    // console.log('Exact matches:', exactMatches.length);
+    // console.log('Shell matches:', shellMatches.length);
+    // console.log('Other slides:', otherSlides.length);
 
     let visibleSlides = [];
 
     if (exactMatches.length > 0) {
-      console.log('Using exact matches');
+      // console.log('Using exact matches');
       visibleSlides = exactMatches;
     } else if (shellMatches.length > 0) {
-      console.log('No exact matches, using shell color matches');
+      // console.log('No exact matches, using shell color matches');
       visibleSlides = shellMatches;
     } else {
-      console.log('No matches found, showing all slides');
+      // console.log('No matches found, showing all slides');
       allSlides.forEach(slide => slide.style.display = '');
       return;
     }
 
-    console.log('Rebuilding slideshow with', visibleSlides.length, 'visible slides');
+    // console.log('Rebuilding slideshow with', visibleSlides.length, 'visible slides');
     slideshow.innerHTML = '';
 
     visibleSlides.forEach((slide, index) => {
-      console.log(`Appending slide ${index + 1}`);
+      // console.log(`Appending slide ${index + 1}`);
       slide.style.display = '';
       slideshow.appendChild(slide);
     });
 
-    console.log('Final slideshow children count:', slideshow.children.length);
+    // console.log('Final slideshow children count:', slideshow.children.length);
 
-    console.log('Going to slide 0');
+    // console.log('Going to slide 0');
     this.currentSlide = 0;
     slideshow.style.transform = 'translateX(0%)';
     this.updateSliderArrows();
-    console.log('=== Filter Complete ===');
+    // console.log('=== Filter Complete ===');
   }
 
   updatePrice(variant) {
