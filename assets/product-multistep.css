@@ -1870,7 +1870,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
 
   .multistep-step {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 
   .multistep-step.multistep-step--1 {
