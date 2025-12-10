@@ -11,6 +11,7 @@ class ProductMultiStep {
     this.productData = null;
     this.accessoriesCollection = [];
     this.allSliderSlides = null;
+    this.sectionsHidden = false;
 
     this.init();
   }
@@ -1248,38 +1249,70 @@ class ProductMultiStep {
         document.body.style.overflow = '';
         // Hide all sections except product section
         this.hideAllSectionsExceptProduct();
-        // Trigger the main customize button
+        // Trigger the main customize button - but prevent recursion by checking if already hidden
         const customizeBtnMain = this.container.querySelector('[data-customize-btn]');
-        if (customizeBtnMain) {
+        if (customizeBtnMain && !this.sectionsHidden) {
           customizeBtnMain.click();
+        } else if (customizeBtnMain) {
+          // Sections already hidden, just show step 2
+          this.showStep(2);
         }
       });
     }
   }
 
   hideAllSectionsExceptProduct() {
-    // Find all sections on the page
-    const allSections = document.querySelectorAll('[data-section-id]');
-    
+    // Prevent multiple calls
+    if (this.sectionsHidden) {
+      return;
+    }
+
     // Find the product section (contains the multistep container)
-    const productSection = this.container.closest('[data-section-id]');
+    const productSection = this.container.closest('[data-section-id]') || 
+                          this.container.closest('.shopify-section') ||
+                          this.container.closest('[id^="shopify-section-"]');
     
     if (!productSection) {
       console.warn('Product section not found');
       return;
     }
 
-    // Hide all sections except the product section
-    allSections.forEach(section => {
-      if (section !== productSection) {
-        // Store original display style for potential restoration (before hiding)
-        if (!section.dataset.originalDisplay) {
-          const computedStyle = window.getComputedStyle(section);
-          section.dataset.originalDisplay = computedStyle.display || '';
-        }
-        section.style.display = 'none';
-      }
+    const productSectionId = productSection.id || productSection.getAttribute('data-section-id');
+
+    // Find all sections on the page - including app sections
+    // Use multiple selectors to catch all section types
+    const selectors = [
+      '[data-section-id]',
+      '.shopify-section',
+      '[id^="shopify-section-"]'
+    ];
+    
+    const allSectionsSet = new Set();
+    selectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => allSectionsSet.add(el));
     });
+
+    // Hide all sections except the product section
+    allSectionsSet.forEach(section => {
+      const sectionId = section.id || section.getAttribute('data-section-id');
+      
+      // Skip if it's the product section or contains the product section
+      if (section === productSection || 
+          section.contains(productSection) ||
+          sectionId === productSectionId) {
+        return;
+      }
+
+      // Store original display style for potential restoration (before hiding)
+      if (!section.dataset.originalDisplay) {
+        const computedStyle = window.getComputedStyle(section);
+        section.dataset.originalDisplay = computedStyle.display || '';
+      }
+      section.style.display = 'none';
+    });
+
+    // Mark as hidden to prevent recursive calls
+    this.sectionsHidden = true;
 
     // Add class to body for styling purposes
     document.body.classList.add('multistep-customize-mode');
