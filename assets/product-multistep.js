@@ -1236,129 +1236,145 @@ class ProductMultiStep {
         newLink.addEventListener("click", (e) => {
           e.preventDefault();
 
-          // Update amount right before opening modal (in case widget reads it at click time)
-          if (affirmWidget && this.orderTotalAmount) {
-            const amountInCents = Math.round(this.orderTotalAmount * 100);
+          if (!this.orderTotalAmount) {
+            return;
+          }
 
-            // Update widget attributes
+          const amountInCents = Math.round(this.orderTotalAmount * 100);
+
+          // Update widget attributes
+          if (affirmWidget) {
             affirmWidget.setAttribute("data-amount", amountInCents);
             affirmWidget.setAttribute("data-value", amountInCents);
-
-            // Also update the trigger link's data attributes if they exist
-            if (affirmTrigger) {
-              affirmTrigger.setAttribute("data-amount", amountInCents);
-              affirmTrigger.setAttribute("data-value", amountInCents);
-              // Update href to include amount if it uses query params
-              const currentHref = affirmTrigger.getAttribute("href");
-              if (currentHref && currentHref.includes("amount=")) {
-                affirmTrigger.setAttribute(
-                  "href",
-                  currentHref.replace(/amount=\d+/, `amount=${amountInCents}`)
-                );
-              }
-            }
-
-            // Try to use Affirm's API directly if available
-            if (window.Affirm && window.Affirm.ui) {
-              // Try refresh first to update widget
-              if (typeof window.Affirm.ui.refresh === "function") {
-                window.Affirm.ui.refresh();
-              }
-
-              // Try to open modal with amount directly using prequalify API
-              if (typeof window.Affirm.ui.prequalify === "function") {
-                try {
-                  window.Affirm.ui.prequalify({
-                    amount: amountInCents,
-                    pageType: "product",
-                  });
-                  return; // Exit early if we used the API
-                } catch (err) {
-                  // If API fails, fall back to clicking trigger
-                }
-              }
-
-              // Alternative: Try render method if available
-              if (typeof window.Affirm.ui.render === "function") {
-                try {
-                  window.Affirm.ui.render(affirmWidget);
-                  // Then trigger click after render
-                  setTimeout(() => {
-                    if (affirmTrigger) {
-                      affirmTrigger.click();
-                    }
-                  }, 200);
-                  return;
-                } catch (err) {
-                  // If render fails, fall back to clicking trigger
-                }
-              }
-            }
           }
 
-          // Fallback: Try to force Affirm to re-read the amount
-          // Method 1: Remove and re-add widget to force re-initialization
-          if (affirmWidget && affirmWidget.parentNode) {
-            try {
-              const parent = affirmWidget.parentNode;
-              const nextSibling = affirmWidget.nextSibling;
+          // The modal is an iframe with unit_price in the URL
+          // We need to extract the API key and device_id from existing iframe or widget
+          let publicApiKey = null;
+          let deviceId = null;
+          const referringUrl = encodeURIComponent(window.location.href);
 
-              // Remove widget
-              parent.removeChild(affirmWidget);
+          // Method 1: Try to find existing iframe to extract params
+          const existingIframe = document.querySelector(
+            '.affirm-sandbox-iframe, iframe[src*="affirm.com/apps/prequal"]'
+          );
+          if (existingIframe) {
+            const iframeSrc = existingIframe.getAttribute("src");
+            const apiKeyMatch = iframeSrc.match(/public_api_key=([^&]+)/);
+            const deviceIdMatch = iframeSrc.match(/device_id=([^&]+)/);
+            if (apiKeyMatch) publicApiKey = decodeURIComponent(apiKeyMatch[1]);
+            if (deviceIdMatch) deviceId = decodeURIComponent(deviceIdMatch[1]);
+          }
 
-              // Re-add with updated amount
-              parent.insertBefore(affirmWidget, nextSibling);
+          // Method 2: Try to get from Affirm config
+          if (!publicApiKey && window.Affirm && window.Affirm.config) {
+            publicApiKey = window.Affirm.config.public_api_key;
+            deviceId = window.Affirm.config.device_id;
+          }
 
-              // Try to re-render if Affirm API available
-              if (
-                window.Affirm &&
-                window.Affirm.ui &&
-                typeof window.Affirm.ui.render === "function"
-              ) {
-                window.Affirm.ui.render(affirmWidget);
+          // Method 3: Try to get from widget data attributes
+          if (!publicApiKey && affirmWidget) {
+            publicApiKey = affirmWidget.getAttribute("data-public-api-key");
+          }
+
+          // If we have the API key, build the prequalify URL with correct amount
+          if (publicApiKey) {
+            const prequalUrl = new URL("https://www.affirm.com/apps/prequal/");
+            prequalUrl.searchParams.set("public_api_key", publicApiKey);
+            prequalUrl.searchParams.set("unit_price", amountInCents.toString());
+            prequalUrl.searchParams.set("page_type", "product");
+            prequalUrl.searchParams.set("locale", "en_US");
+            if (deviceId) {
+              prequalUrl.searchParams.set("device_id", deviceId);
+            }
+            prequalUrl.searchParams.set("referring_url", referringUrl);
+
+            // Try to use Affirm's API first
+            if (
+              window.Affirm &&
+              window.Affirm.ui &&
+              typeof window.Affirm.ui.prequalify === "function"
+            ) {
+              try {
+                window.Affirm.ui.prequalify({
+                  amount: amountInCents,
+                  pageType: "product",
+                });
+                return;
+              } catch (err) {
+                // If API fails, create iframe manually
               }
+            }
 
-              // Wait a bit then click trigger
-              setTimeout(() => {
-                const newTrigger = affirmWidget.querySelector(
-                  ".affirm-modal-trigger"
-                );
-                if (newTrigger) {
-                  newTrigger.click();
+            // Create or update the modal iframe manually
+            // Find or create modal container
+            let modalContainer = document.querySelector(
+              '.affirm-modal, .affirm-overlay, [id*="affirm-modal"]'
+            );
+            if (!modalContainer) {
+              modalContainer = document.createElement("div");
+              modalContainer.className = "affirm-modal affirm-overlay";
+              modalContainer.style.cssText =
+                "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 99999; display: flex; align-items: center; justify-content: center;";
+              document.body.appendChild(modalContainer);
+
+              // Add close button
+              const closeBtn = document.createElement("button");
+              closeBtn.innerHTML = "×";
+              closeBtn.style.cssText =
+                "position: absolute; top: 20px; right: 20px; background: white; border: none; font-size: 30px; width: 40px; height: 40px; cursor: pointer; z-index: 100000; border-radius: 50%;";
+              closeBtn.onclick = () => {
+                if (modalContainer) modalContainer.remove();
+              };
+              modalContainer.appendChild(closeBtn);
+
+              // Close on backdrop click
+              modalContainer.addEventListener("click", (e) => {
+                if (e.target === modalContainer) {
+                  modalContainer.remove();
                 }
-              }, 300);
-              return;
-            } catch (err) {
-              // If removal/re-add fails, continue to other methods
+              });
             }
+
+            // Create or update iframe
+            let iframe = modalContainer.querySelector("iframe");
+            if (!iframe) {
+              iframe = document.createElement("iframe");
+              iframe.className = "affirm-sandbox-iframe";
+              iframe.setAttribute("id", "prequal-application");
+              iframe.setAttribute("width", "100%");
+              iframe.setAttribute("height", "100%");
+              iframe.setAttribute("frameborder", "0");
+              iframe.setAttribute("allowscroll", "no");
+              iframe.setAttribute("scrolling", "no");
+              iframe.setAttribute("allowtransparency", "true");
+              iframe.setAttribute(
+                "sandbox",
+                "allow-forms allow-modals allow-popups allow-same-origin allow-scripts allow-top-navigation allow-storage-access-by-user-activation"
+              );
+              iframe.setAttribute("title", "Affirm Prequal");
+              iframe.setAttribute("aria-label", "Affirm Prequal Modal");
+              iframe.setAttribute("aria-modal", "true");
+              iframe.setAttribute("role", "dialog");
+              iframe.setAttribute(
+                "allow",
+                "camera *; microphone *; publickey-credentials-get *"
+              );
+              iframe.style.cssText =
+                "overflow: hidden; width: 100%; height: 100%; margin: 0px; border: 0px; padding: 0px;";
+              modalContainer.appendChild(iframe);
+            }
+
+            // Set iframe src with correct amount
+            iframe.setAttribute("src", prequalUrl.toString());
+            modalContainer.style.display = "flex";
+            return;
           }
 
-          // Method 2: Try to find and update Affirm's internal data storage
-          // Affirm might store amount in widget's __affirmData or similar
-          if (affirmWidget && window.Affirm) {
-            try {
-              // Try to update widget's internal state if accessible
-              if (affirmWidget.__affirmData) {
-                affirmWidget.__affirmData.amount = amountInCents;
-              }
-              // Try Affirm's internal update method if it exists
-              if (
-                window.Affirm._updateWidgetAmount &&
-                typeof window.Affirm._updateWidgetAmount === "function"
-              ) {
-                window.Affirm._updateWidgetAmount(affirmWidget, amountInCents);
-              }
-            } catch (err) {
-              // Internal methods might not be accessible
-            }
+          // Fallback: Try clicking the original trigger (will show wrong amount)
+          if (affirmTrigger) {
+            affirmTrigger.click();
           }
-
-          // Last resort: Click the trigger (will show cached amount)
-          setTimeout(() => {
-            if (affirmTrigger) {
-              affirmTrigger.click();
-            }
-          }, 100);
         });
       }
     }
