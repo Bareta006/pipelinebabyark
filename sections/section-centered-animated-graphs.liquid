@@ -1,0 +1,576 @@
+{%- comment -%}
+  /sections/section-centered-animated-graphs.liquid
+  
+  Centered AnimatedGraphs Section
+  - Centered title and textarea (description)
+  - Title: font size desktop/mobile, color desktop/mobile
+  - Textarea: font size desktop/mobile, color desktop/mobile
+  - Section background color picker
+  - AnimatedGraphs blocks (multiple)
+{%- endcomment -%}
+
+{%- liquid
+  assign babyarkLogo = '<svg width="14" style="fill:none;" height="24" viewBox="0 0 14 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.84433 16.529C5.02979 16.5268 3.29023 15.8052 2.00715 14.5225C0.724083 13.2399 0.00226017 11.5008 0 9.68688C0 7.87104 0.700376 5.55996 1.82781 3.65162C3.22287 1.30212 5.00371 0 6.84433 0C8.68495 0 10.4644 1.30212 11.8594 3.65446C12.9869 5.56138 13.6872 7.87389 13.6872 9.68973C13.6846 11.5031 12.9628 13.2414 11.68 14.5234C10.3972 15.8055 8.65824 16.5268 6.84433 16.529ZM6.84433 2.29827C5.87491 2.29827 4.73751 3.24319 3.80082 4.8285C2.89831 6.35404 2.29188 8.31077 2.29188 9.69685C2.29188 10.9046 2.77181 12.0629 3.6261 12.9169C4.48038 13.7709 5.63904 14.2507 6.84718 14.2507C8.05532 14.2507 9.21397 13.7709 10.0683 12.9169C10.9225 12.0629 11.4025 10.9046 11.4025 9.69685C11.4025 8.31077 10.796 6.35404 9.89211 4.8285C8.95685 3.23608 7.81802 2.29827 6.84433 2.29827Z" fill="#304545"/><path d="M6.84433 23.0961C5.02979 23.0938 3.29023 22.3722 2.00715 21.0895C0.724083 19.8069 0.00226017 18.0679 0 16.2539H2.29188C2.29188 17.4617 2.77181 18.6199 3.6261 19.474C4.48038 20.328 5.63904 20.8078 6.84718 20.8078C8.05532 20.8078 9.21397 20.328 10.0683 19.474C10.9225 18.6199 11.4025 17.4617 11.4025 16.2539H13.6929C13.6907 18.0686 12.9683 19.8083 11.6843 21.0911C10.4003 22.3738 8.6596 23.0949 6.84433 23.0961Z" fill="#304545"/></svg>'
+-%}
+
+<section class="section-centered-animated-graphs AnimatedGraphs-section {{ section.settings.text_color }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="centered-animated-graphs"
+  style="--PT: {{ section.settings.padding_top }}px; --PB: {{ section.settings.padding_bottom }}px; --bg-color: {{ section.settings.background_color }}; --title-size-desktop: {{ section.settings.title_size_desktop }}px; --title-size-mobile: {{ section.settings.title_size_mobile }}px; --title-color-desktop: {{ section.settings.title_color_desktop }}; --title-color-mobile: {{ section.settings.title_color_mobile }}; --textarea-size-desktop: {{ section.settings.textarea_size_desktop }}px; --textarea-size-mobile: {{ section.settings.textarea_size_mobile }}px; --textarea-color-desktop: {{ section.settings.textarea_color_desktop }}; --textarea-color-mobile: {{ section.settings.textarea_color_mobile }};">
+  
+  <div class="{{ section.settings.width }} section-padding">
+    <div class="centered-animated-graphs__container">
+      
+      {%- comment -%} Centered Title and Textarea {%- endcomment -%}
+      <div class="centered-animated-graphs__header">
+        {% if section.settings.title != blank %}
+          <h2 class="centered-animated-graphs__title">
+            {{ section.settings.title | escape }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.textarea != blank %}
+          <div class="centered-animated-graphs__textarea">
+            {{ section.settings.textarea }}
+          </div>
+        {% endif %}
+      </div>
+
+      {%- comment -%} AnimatedGraphs Blocks {%- endcomment -%}
+      {% if section.blocks.size > 0 %}
+        <div class="centered-animated-graphs__blocks">
+          {% for block in section.blocks %}
+            {% if block.type == 'AnimatedGraphs' %}
+              <div class="centered-animated-graphs__block" {{ block.shopify_attributes }}>
+                <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
+                  <div class="graphs">
+                    <div class="graph mb-8">
+                      <div class="flex flex-wrap flex-col-reverse md:flex-row gap-2 md:gap-4 justify-between items-start graphsContainer">
+                        <div class="textLeft flex">
+                          {% if block.settings.text_left != blank %}
+                            <div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>
+                          {% endif %}
+                          {% if block.settings.block_title != blank %}
+                            <div class="blockTitle text-center"><strong>{{ block.settings.block_title }}</strong></div>
+                          {% endif %}
+                        </div>
+                        <div class="innerContainer" 
+                          {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}
+                          {% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
+                          {% if block.settings.text_right != blank %}
+                            <span class="textRight">
+                              <span>{{ block.settings.text_right }}</span>
+                              {% if block.settings.text_right_after != blank %}
+                                <span class="textRight-after">{{ block.settings.text_right_after }}</span>
+                              {% endif %}
+                            </span>
+                          {% endif %}
+                          {% if block.settings.number_field != blank %}
+                            <div class="textNumber absolute">
+                              <div class="stats">{{ babyarkLogo }}{{ block.settings.number_field }}</div>
+                              {% if forloop.first %}
+                                <span class="brandName_after">babyark`s HIC</span>
+                              {% endif %}
+                            </div>
+                          {% endif %}
+                          {% if block.settings.competitor_number != blank and block.settings.competitor_number != 0 %}
+                            <div class="competitorNumber absolute" 
+                              style="left: calc(({{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%);transform: translateX(calc((-{{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%));">
+                              <div class="competitorStats">{{ block.settings.competitor_number }}</div>
+                              <div class="competitorName absolute">{{ block.settings.competitor }}</div>
+                            </div>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background-color: var(--bg-color);
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__header {
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__title {
+    font-size: var(--title-size-desktop);
+    color: var(--title-color-desktop);
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__textarea {
+    font-size: var(--textarea-size-desktop);
+    color: var(--textarea-color-desktop);
+    line-height: 1.6;
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__blocks {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  #shopify-section-{{ section.id }} .centered-animated-graphs__block {
+    width: 100%;
+  }
+
+  
+  #shopify-section-{{ section.id }} .innerContainer {
+    background: hsla(65, 31%, 45%, 1);
+    background: linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+    background: -moz-linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+    background: -webkit-linear-gradient(0deg, hsla(83, 44%, 40%, 1) 0%, hsla(83, 44%, 40%, 1) 24%, hsla(65, 31%, 45%, 1) 40%, hsla(40, 67%, 52%, 1) 68%, hsla(13, 67%, 52%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#90964F", endColorstr="#72943A", GradientType=1 );
+    width: 100%;
+    position: relative;
+    padding: 7px;
+    border-radius: 50px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{ section.id }} .textNumber {
+    height: 49px;
+    background: #FAF7F5;
+    border-radius: 50px;
+    width: 93px;
+    text-align: right;
+    display: flex;
+    padding-right: 16px;
+    font-size: 25px;
+    transition: 2.5s;
+    color: #000000;
+    left: 10px;
+    opacity: 1;
+  }
+
+  #shopify-section-{{ section.id }} .textNumber:after {
+    content: '';
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: 48px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .textNumber .stats {
+    display: flex;
+    justify-content: end;
+    gap: 7px;
+    align-items: center;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .textNumber .brandName_after {
+    top: 70px;
+    color: #FAF7F5;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .competitorNumber {
+    height: 49px;
+    border-radius: 50px;
+    width: 93px;
+    text-align: right;
+    display: flex;
+    font-size: 25px;
+    transition: 1.5s;
+    color: #FAF7F5;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+  }
+
+  #shopify-section-{{ section.id }} .competitorNumber:after {
+    content: '.';
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: 48px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} .competitorName {
+    top: 62px;
+    color: #fff;
+    font-size: 14px;
+    width: 250px;
+    display: block;
+    white-space: pre-wrap;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .competitorStats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .textLeft {
+    text-align: center;
+    margin-right: 20px;
+    font-size: 18px;
+    line-height: 1.4;
+    color: #000000;
+    min-width: 120px;
+  }
+
+  #shopify-section-{{ section.id }} .textRight {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  #shopify-section-{{ section.id }} .textRight-after {
+    font-size: 14px;
+    font-weight: normal;
+  }
+
+  #shopify-section-{{ section.id }} .graphsContainer {
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .blockTitle {
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  #shopify-section-{{ section.id }} .blockText {
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .centered-animated-graphs__title {
+      font-size: var(--title-size-mobile);
+      color: var(--title-color-mobile);
+    }
+
+    #shopify-section-{{ section.id }} .centered-animated-graphs__textarea {
+      font-size: var(--textarea-size-mobile);
+      color: var(--textarea-color-mobile);
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const observerCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.graphs').forEach(graph => {
+            const innerContainer = graph.querySelector('.innerContainer');
+            const textNumber = graph.querySelector('.textNumber');
+            const textRight = graph.querySelector('.textRight');
+            const competitorNumber = graph.querySelector('.competitorNumber');
+
+            if (!innerContainer) return;
+
+            const dataNumber = innerContainer.getAttribute('data-number');
+            const dataTextRight = innerContainer.getAttribute('data-text_right');
+
+            if (dataNumber && dataTextRight) {
+              const translateValue = (dataNumber / dataTextRight) * 100;
+
+              if (textNumber) {
+                textNumber.style.left = `${translateValue}%`;
+                textNumber.style.transform = `translateX(-${translateValue}%)`;
+              }
+            }
+
+            setTimeout(() => {
+              if (textRight) {
+                textRight.style.opacity = '1';
+              }
+              if (competitorNumber) {
+                competitorNumber.style.opacity = '1';
+              }
+            }, 2000);
+          });
+
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.4
+    });
+
+    const animatedGraphsSection = document.querySelector('#shopify-section-{{ section.id }}');
+    if (animatedGraphsSection) {
+      observer.observe(animatedGraphsSection);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Centered AnimatedGraphs",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "width",
+      "label": "Width",
+      "default": "wrapper",
+      "options": [
+        {
+          "value": "wrapper--full",
+          "label": "Full width"
+        },
+        {
+          "value": "wrapper",
+          "label": "Wrapped"
+        },
+        {
+          "value": "wrapper--narrow",
+          "label": "Narrow"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "text-dark",
+      "options": [
+        {
+          "value": "text-light",
+          "label": "Light"
+        },
+        {
+          "value": "text-dark",
+          "label": "Dark"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 36
+    },
+    {
+      "type": "header",
+      "content": "Title"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "range",
+      "id": "title_size_desktop",
+      "min": 14,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size (desktop)",
+      "default": 42
+    },
+    {
+      "type": "range",
+      "id": "title_size_mobile",
+      "min": 14,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Title font size (mobile)",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color_desktop",
+      "label": "Title color (desktop)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "title_color_mobile",
+      "label": "Title color (mobile)",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Textarea"
+    },
+    {
+      "type": "textarea",
+      "id": "textarea",
+      "label": "Textarea"
+    },
+    {
+      "type": "range",
+      "id": "textarea_size_desktop",
+      "min": 12,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Textarea font size (desktop)",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "textarea_size_mobile",
+      "min": 12,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Textarea font size (mobile)",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "textarea_color_desktop",
+      "label": "Textarea color (desktop)",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "textarea_color_mobile",
+      "label": "Textarea color (mobile)",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "AnimatedGraphs",
+      "name": "Graph Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "block_title",
+          "label": "Block Title"
+        },
+        {
+          "type": "text",
+          "id": "text_left",
+          "label": "Text on Left"
+        },
+        {
+          "type": "number",
+          "id": "text_right",
+          "label": "Text on Right"
+        },
+        {
+          "type": "text",
+          "id": "text_right_after",
+          "label": "Text after right text"
+        },
+        {
+          "type": "number",
+          "id": "number_field",
+          "label": "Number Field"
+        },
+        {
+          "type": "number",
+          "id": "competitor_number",
+          "label": "Competitor number"
+        },
+        {
+          "type": "text",
+          "id": "competitor",
+          "label": "Competitor name"
+        },
+        {
+          "type": "select",
+          "id": "text_color",
+          "label": "Text color",
+          "default": "text-dark",
+          "options": [
+            {
+              "value": "text-light",
+              "label": "Light"
+            },
+            {
+              "value": "text-dark",
+              "label": "Dark"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Centered AnimatedGraphs",
+      "category": "Custom",
+      "blocks": [
+        {
+          "type": "AnimatedGraphs"
+        }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer", "aside"]
+  }
+}
+{% endschema %}
+
