@@ -72,6 +72,17 @@
   align-items: center;
 }
 
+.order-summary-bullet .affirm-purchasing-power-link {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: inherit;
+}
+
+.order-summary-bullet .affirm-purchasing-power-link:hover {
+  opacity: 0.8;
+}
+
 .summary-upgrade-title {
   font-size: 16px;
   font-weight: 400;

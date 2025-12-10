@@ -1195,6 +1195,39 @@ class ProductMultiStep {
         `;
       }
     }
+
+    // Update Affirm widget amount and setup trigger
+    this.updateAffirmWidget(totalDiscounted);
+  }
+
+  updateAffirmWidget(totalAmount) {
+    // Find existing Affirm widget on the page
+    const affirmWidget = document.querySelector(".affirm-as-low-as");
+
+    if (affirmWidget) {
+      // Update data-amount to total order amount in cents
+      const amountInCents = Math.round(totalAmount * 100);
+      affirmWidget.setAttribute("data-amount", amountInCents);
+
+      // Find the modal trigger link within the widget
+      const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
+
+      // Setup click handler for our custom link
+      const affirmBullet = this.container.querySelector("[data-affirm-bullet]");
+      const affirmLink = affirmBullet?.querySelector("[data-affirm-trigger]");
+
+      if (affirmLink && affirmTrigger) {
+        // Remove any existing listener to prevent duplicates
+        const newLink = affirmLink.cloneNode(true);
+        affirmLink.parentNode.replaceChild(newLink, affirmLink);
+
+        newLink.addEventListener("click", (e) => {
+          e.preventDefault();
+          // Trigger the existing Affirm modal trigger
+          affirmTrigger.click();
+        });
+      }
+    }
   }
 
   getDeliveryText() {
