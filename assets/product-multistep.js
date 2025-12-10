@@ -1212,19 +1212,104 @@ class ProductMultiStep {
       // Find the modal trigger link within the widget
       const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
 
-      // Setup click handler for our custom link
+      if (affirmTrigger) {
+        // Extract existing config from the widget element's data attributes
+        const pageType =
+          affirmWidget.getAttribute("data-page-type") || "product";
+        const promoId = affirmWidget.getAttribute("data-promo-id");
+        const enabledIntegrations = affirmWidget.getAttribute(
+          "data-enabled-integrations"
+        );
+
+        // Create updated config object with the new amount
+        const updatedConfig = {
+          amount: amountInCents,
+          pageType: pageType,
+          promoId: promoId || null,
+          type: "product_page_modal",
+          enabled_integrations: enabledIntegrations || null,
+        };
+
+        // Replace the onclick handler with a new one that uses the updated config
+        // The handler needs to call Affirm's internal function U(event, config, element)
+        // We'll use Affirm's public API if available, or recreate the handler pattern
+        const newHandler = (e) => {
+          if (e && typeof e.preventDefault === "function") {
+            e.preventDefault();
+          }
+
+          // Try to use Affirm's public API to open modal with updated config
+          if (
+            window.Affirm &&
+            window.Affirm.ui &&
+            typeof window.Affirm.ui.openModal === "function"
+          ) {
+            // Create a dummy element for the API call
+            const dummyElement = document.createElement("div");
+            window.Affirm.ui.openModal(dummyElement, updatedConfig);
+          } else if (
+            window.Affirm &&
+            window.Affirm.widgets &&
+            window.Affirm.widgets.as_low_as &&
+            typeof window.Affirm.widgets.as_low_as
+              .openModalAssociatedWithPromoId === "function"
+          ) {
+            // Use the as_low_as widget's openModalAssociatedWithPromoId function
+            window.Affirm.widgets.as_low_as.openModalAssociatedWithPromoId(
+              e,
+              updatedConfig,
+              affirmWidget
+            );
+          } else {
+            // Fallback: try to trigger the original handler but with updated data-amount
+            // Update the widget's data-amount before clicking
+            affirmWidget.setAttribute("data-amount", amountInCents);
+            // Try to find and click the original trigger (may still use old amount)
+            affirmTrigger.click();
+          }
+        };
+
+        // Replace the onclick handler
+        affirmTrigger.onclick = newHandler;
+
+        // Also update any event listeners if Affirm uses addEventListener
+        // Clone and replace to remove old listeners
+        const newTrigger = affirmTrigger.cloneNode(true);
+        affirmTrigger.parentNode.replaceChild(newTrigger, affirmTrigger);
+        newTrigger.onclick = newHandler;
+      }
+
+      // Setup click handler for our custom link in the bullet
       const affirmBullet = this.container.querySelector("[data-affirm-bullet]");
       const affirmLink = affirmBullet?.querySelector("[data-affirm-trigger]");
 
-      if (affirmLink && affirmTrigger) {
+      if (affirmLink) {
         // Remove any existing listener to prevent duplicates
         const newLink = affirmLink.cloneNode(true);
         affirmLink.parentNode.replaceChild(newLink, affirmLink);
 
         newLink.addEventListener("click", (e) => {
           e.preventDefault();
-          // Trigger the existing Affirm modal trigger
-          affirmTrigger.click();
+
+          // Trigger the updated Affirm modal trigger
+          if (affirmTrigger) {
+            affirmTrigger.click();
+          } else {
+            // Fallback: try to open modal directly
+            const amountInCents = Math.round(totalAmount * 100);
+            if (
+              window.Affirm &&
+              window.Affirm.ui &&
+              typeof window.Affirm.ui.openModal === "function"
+            ) {
+              const dummyElement = document.createElement("div");
+              window.Affirm.ui.openModal(dummyElement, {
+                amount: amountInCents,
+                pageType: "product",
+                type: "product_page_modal",
+              });
+            }
+          }
         });
       }
     }
