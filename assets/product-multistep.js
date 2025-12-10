@@ -1204,114 +1204,95 @@ class ProductMultiStep {
     // Find existing Affirm widget on the page
     const affirmWidget = document.querySelector(".affirm-as-low-as");
 
-    if (affirmWidget) {
-      // Update data-amount to total order amount in cents
-      const amountInCents = Math.round(totalAmount * 100);
-      affirmWidget.setAttribute("data-amount", amountInCents);
+    if (!affirmWidget) {
+      return;
+    }
 
-      // Find the modal trigger link within the widget
-      const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
+    // Update data-amount to total order amount in cents
+    const amountInCents = Math.round(totalAmount * 100);
+    affirmWidget.setAttribute("data-amount", amountInCents);
 
-      if (affirmTrigger) {
-        // Extract existing config from the widget element's data attributes
-        const pageType =
-          affirmWidget.getAttribute("data-page-type") || "product";
-        const promoId = affirmWidget.getAttribute("data-promo-id");
-        const enabledIntegrations = affirmWidget.getAttribute(
-          "data-enabled-integrations"
-        );
+    // Find the modal trigger link within the widget
+    const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
 
-        // Create updated config object with the new amount
-        const updatedConfig = {
-          amount: amountInCents,
-          pageType: pageType,
-          promoId: promoId || null,
-          type: "product_page_modal",
-          enabled_integrations: enabledIntegrations || null,
-        };
+    if (!affirmTrigger) {
+      return;
+    }
 
-        // Replace the onclick handler with a new one that uses the updated config
-        // The handler needs to call Affirm's internal function U(event, config, element)
-        // We'll use Affirm's public API if available, or recreate the handler pattern
-        const newHandler = (e) => {
-          if (e && typeof e.preventDefault === "function") {
-            e.preventDefault();
-          }
+    // Store the updated amount on the widget for later use
+    affirmWidget._updatedAmount = amountInCents;
 
-          // Try to use Affirm's public API to open modal with updated config
-          if (
-            window.Affirm &&
-            window.Affirm.ui &&
-            typeof window.Affirm.ui.openModal === "function"
-          ) {
-            // Create a dummy element for the API call
-            const dummyElement = document.createElement("div");
-            window.Affirm.ui.openModal(dummyElement, updatedConfig);
-          } else if (
-            window.Affirm &&
-            window.Affirm.widgets &&
-            window.Affirm.widgets.as_low_as &&
-            typeof window.Affirm.widgets.as_low_as
-              .openModalAssociatedWithPromoId === "function"
-          ) {
-            // Use the as_low_as widget's openModalAssociatedWithPromoId function
-            window.Affirm.widgets.as_low_as.openModalAssociatedWithPromoId(
-              e,
-              updatedConfig,
-              affirmWidget
-            );
-          } else {
-            // Fallback: try to trigger the original handler but with updated data-amount
-            // Update the widget's data-amount before clicking
-            affirmWidget.setAttribute("data-amount", amountInCents);
-            // Try to find and click the original trigger (may still use old amount)
-            affirmTrigger.click();
-          }
-        };
+    // Store reference to the original onclick handler before replacing
+    const originalOnclick = affirmTrigger.onclick;
 
-        // Replace the onclick handler
-        affirmTrigger.onclick = newHandler;
-
-        // Also update any event listeners if Affirm uses addEventListener
-        // Clone and replace to remove old listeners
-        const newTrigger = affirmTrigger.cloneNode(true);
-        affirmTrigger.parentNode.replaceChild(newTrigger, affirmTrigger);
-        newTrigger.onclick = newHandler;
+    // Create a new handler that uses the updated amount
+    affirmTrigger.onclick = function (e) {
+      if (e && typeof e.preventDefault === "function") {
+        e.preventDefault();
       }
 
-      // Setup click handler for our custom link in the bullet
-      const affirmBullet = this.container.querySelector("[data-affirm-bullet]");
-      const affirmLink = affirmBullet?.querySelector("[data-affirm-trigger]");
+      // Get the updated amount from the widget
+      const updatedAmount = affirmWidget._updatedAmount || amountInCents;
 
-      if (affirmLink) {
-        // Remove any existing listener to prevent duplicates
-        const newLink = affirmLink.cloneNode(true);
-        affirmLink.parentNode.replaceChild(newLink, affirmLink);
+      // Update data-amount right before opening modal to ensure Affirm reads the latest value
+      affirmWidget.setAttribute("data-amount", updatedAmount);
 
-        newLink.addEventListener("click", (e) => {
-          e.preventDefault();
-
-          // Trigger the updated Affirm modal trigger
-          if (affirmTrigger) {
-            affirmTrigger.click();
-          } else {
-            // Fallback: try to open modal directly
-            const amountInCents = Math.round(totalAmount * 100);
-            if (
-              window.Affirm &&
-              window.Affirm.ui &&
-              typeof window.Affirm.ui.openModal === "function"
-            ) {
-              const dummyElement = document.createElement("div");
-              window.Affirm.ui.openModal(dummyElement, {
-                amount: amountInCents,
-                pageType: "product",
-                type: "product_page_modal",
-              });
-            }
-          }
-        });
+      // Try to call the original handler first (it should read the updated data-amount)
+      if (originalOnclick && typeof originalOnclick === "function") {
+        try {
+          originalOnclick.call(this, e);
+          return;
+        } catch (err) {
+          // If original handler fails, continue to fallback
+        }
       }
+
+      // Fallback: Try Affirm's public API
+      if (
+        window.Affirm &&
+        window.Affirm.ui &&
+        typeof window.Affirm.ui.openModal === "function"
+      ) {
+        try {
+          const dummyElement = document.createElement("div");
+          window.Affirm.ui.openModal(dummyElement, {
+            amount: updatedAmount,
+            pageType: affirmWidget.getAttribute("data-page-type") || "product",
+            type: "product_page_modal",
+          });
+          return;
+        } catch (err) {
+          // Continue to next fallback
+        }
+      }
+
+      // Last resort: just click the element (may use old amount)
+      this.click();
+    };
+
+    // Setup click handler for our custom link in the bullet
+    const affirmBullet = this.container.querySelector("[data-affirm-bullet]");
+    const affirmLink = affirmBullet?.querySelector("[data-affirm-trigger]");
+
+    if (affirmLink) {
+      // Remove any existing listener to prevent duplicates
+      const newLink = affirmLink.cloneNode(true);
+      affirmLink.parentNode.replaceChild(newLink, affirmLink);
+
+      newLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // Update data-amount right before triggering
+        affirmWidget.setAttribute("data-amount", amountInCents);
+
+        // Trigger the updated Affirm modal trigger
+        if (affirmTrigger && affirmTrigger.onclick) {
+          affirmTrigger.onclick.call(affirmTrigger, e);
+        } else if (affirmTrigger) {
+          affirmTrigger.click();
+        }
+      });
     }
   }
 
