@@ -1239,11 +1239,126 @@ class ProductMultiStep {
           // Update amount right before opening modal (in case widget reads it at click time)
           if (affirmWidget && this.orderTotalAmount) {
             const amountInCents = Math.round(this.orderTotalAmount * 100);
+
+            // Update widget attributes
             affirmWidget.setAttribute("data-amount", amountInCents);
+            affirmWidget.setAttribute("data-value", amountInCents);
+
+            // Also update the trigger link's data attributes if they exist
+            if (affirmTrigger) {
+              affirmTrigger.setAttribute("data-amount", amountInCents);
+              affirmTrigger.setAttribute("data-value", amountInCents);
+              // Update href to include amount if it uses query params
+              const currentHref = affirmTrigger.getAttribute("href");
+              if (currentHref && currentHref.includes("amount=")) {
+                affirmTrigger.setAttribute(
+                  "href",
+                  currentHref.replace(/amount=\d+/, `amount=${amountInCents}`)
+                );
+              }
+            }
+
+            // Try to use Affirm's API directly if available
+            if (window.Affirm && window.Affirm.ui) {
+              // Try refresh first to update widget
+              if (typeof window.Affirm.ui.refresh === "function") {
+                window.Affirm.ui.refresh();
+              }
+
+              // Try to open modal with amount directly using prequalify API
+              if (typeof window.Affirm.ui.prequalify === "function") {
+                try {
+                  window.Affirm.ui.prequalify({
+                    amount: amountInCents,
+                    pageType: "product",
+                  });
+                  return; // Exit early if we used the API
+                } catch (err) {
+                  // If API fails, fall back to clicking trigger
+                }
+              }
+
+              // Alternative: Try render method if available
+              if (typeof window.Affirm.ui.render === "function") {
+                try {
+                  window.Affirm.ui.render(affirmWidget);
+                  // Then trigger click after render
+                  setTimeout(() => {
+                    if (affirmTrigger) {
+                      affirmTrigger.click();
+                    }
+                  }, 200);
+                  return;
+                } catch (err) {
+                  // If render fails, fall back to clicking trigger
+                }
+              }
+            }
           }
 
-          // Trigger the existing Affirm modal trigger
-          affirmTrigger.click();
+          // Fallback: Try to force Affirm to re-read the amount
+          // Method 1: Remove and re-add widget to force re-initialization
+          if (affirmWidget && affirmWidget.parentNode) {
+            try {
+              const parent = affirmWidget.parentNode;
+              const nextSibling = affirmWidget.nextSibling;
+
+              // Remove widget
+              parent.removeChild(affirmWidget);
+
+              // Re-add with updated amount
+              parent.insertBefore(affirmWidget, nextSibling);
+
+              // Try to re-render if Affirm API available
+              if (
+                window.Affirm &&
+                window.Affirm.ui &&
+                typeof window.Affirm.ui.render === "function"
+              ) {
+                window.Affirm.ui.render(affirmWidget);
+              }
+
+              // Wait a bit then click trigger
+              setTimeout(() => {
+                const newTrigger = affirmWidget.querySelector(
+                  ".affirm-modal-trigger"
+                );
+                if (newTrigger) {
+                  newTrigger.click();
+                }
+              }, 300);
+              return;
+            } catch (err) {
+              // If removal/re-add fails, continue to other methods
+            }
+          }
+
+          // Method 2: Try to find and update Affirm's internal data storage
+          // Affirm might store amount in widget's __affirmData or similar
+          if (affirmWidget && window.Affirm) {
+            try {
+              // Try to update widget's internal state if accessible
+              if (affirmWidget.__affirmData) {
+                affirmWidget.__affirmData.amount = amountInCents;
+              }
+              // Try Affirm's internal update method if it exists
+              if (
+                window.Affirm._updateWidgetAmount &&
+                typeof window.Affirm._updateWidgetAmount === "function"
+              ) {
+                window.Affirm._updateWidgetAmount(affirmWidget, amountInCents);
+              }
+            } catch (err) {
+              // Internal methods might not be accessible
+            }
+          }
+
+          // Last resort: Click the trigger (will show cached amount)
+          setTimeout(() => {
+            if (affirmTrigger) {
+              affirmTrigger.click();
+            }
+          }, 100);
         });
       }
     }
