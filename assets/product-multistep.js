@@ -1197,10 +1197,14 @@ class ProductMultiStep {
     }
 
     // Update Affirm widget amount and setup trigger
+    // Use the final total that's displayed in the summary
     this.updateAffirmWidget(totalDiscounted);
   }
 
   updateAffirmWidget(totalAmount) {
+    // Store the total amount for later use
+    this.orderTotalAmount = totalAmount;
+
     // Find existing Affirm widget on the page
     const affirmWidget = document.querySelector(".affirm-as-low-as");
 
@@ -1208,6 +1212,14 @@ class ProductMultiStep {
       // Update data-amount to total order amount in cents
       const amountInCents = Math.round(totalAmount * 100);
       affirmWidget.setAttribute("data-amount", amountInCents);
+
+      // Also update the price display if it exists
+      const affirmPriceElement =
+        affirmWidget.querySelector(".affirm-ala-price");
+      if (affirmPriceElement) {
+        const monthlyPrice = Math.round(totalAmount / 12);
+        affirmPriceElement.textContent = `$${monthlyPrice}`;
+      }
 
       // Find the modal trigger link within the widget
       const affirmTrigger = affirmWidget.querySelector(".affirm-modal-trigger");
@@ -1223,6 +1235,13 @@ class ProductMultiStep {
 
         newLink.addEventListener("click", (e) => {
           e.preventDefault();
+
+          // Update amount right before opening modal (in case widget reads it at click time)
+          if (affirmWidget && this.orderTotalAmount) {
+            const amountInCents = Math.round(this.orderTotalAmount * 100);
+            affirmWidget.setAttribute("data-amount", amountInCents);
+          }
+
           // Trigger the existing Affirm modal trigger
           affirmTrigger.click();
         });
