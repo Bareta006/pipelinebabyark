@@ -207,6 +207,9 @@
         "animated_graphs_ij4YAx",
         "animated_graphs_YGYGUH"
       ],
+      "custom_css": [
+        ".centered-animated-graphs__textarea{margin-bottom:60px;}"
+      ],
       "name": "Centered AnimatedGraphs",
       "settings": {
         "background_color": "#f7f7f7",
