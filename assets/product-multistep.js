@@ -389,37 +389,28 @@ class ProductMultiStep {
   triggerNativeVariantChange(variant) {
     if (!variant) return;
 
-    // Find the hidden product form we created for app compatibility
+    // Find the product form variant input
     const productForm =
-      document.querySelector("#multistep-hidden-product-form") ||
-      document.querySelector(".multistep-hidden-form");
+      document.querySelector("[data-product-form]") ||
+      document.querySelector('form[action*="/cart/add"]') ||
+      this.container.closest("form");
 
     if (productForm) {
       // Update the variant ID input
-      const variantInput =
-        productForm.querySelector('input[name="id"]') ||
-        productForm.querySelector("[data-product-form-variant-id]");
-
+      const variantInput = productForm.querySelector('input[name="id"]');
       if (variantInput) {
         variantInput.value = variant.id;
 
-        // Trigger input event (more reliable than change)
-        variantInput.dispatchEvent(new Event("input", { bubbles: true }));
+        // Trigger change event on the input
         variantInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
 
-      // Dispatch Shopify's native variant:change event with proper structure
+      // Dispatch Shopify's native variant:change event
       const variantChangeEvent = new CustomEvent("variant:change", {
-        detail: {
-          variant: variant,
-          currentTarget: productForm,
-        },
+        detail: { variant: variant },
         bubbles: true,
         cancelable: true,
       });
-
-      // Dispatch on both the form and document for maximum compatibility
-      productForm.dispatchEvent(variantChangeEvent);
       document.dispatchEvent(variantChangeEvent);
     }
   }
@@ -1259,6 +1250,20 @@ class ProductMultiStep {
         `;
       }
     }
+
+    // Attach click handler to Affirm purchasing power link
+    const affirmLink = this.container.querySelector(
+      ".affirm-purchasing-power-link"
+    );
+    if (affirmLink) {
+      affirmLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const affirmTrigger = document.querySelector(".affirm-modal-trigger");
+        if (affirmTrigger) {
+          affirmTrigger.click();
+        }
+      });
+    }
   }
 
   getDeliveryText() {
@@ -1273,7 +1278,7 @@ class ProductMultiStep {
     return null;
   }
 
-  upgradeToSmart() {
+  async upgradeToSmart() {
     const smartOptionInput = this.container.querySelector(
       "[data-smart-option-input]"
     );
@@ -1304,8 +1309,58 @@ class ProductMultiStep {
     });
 
     if (smartVariant) {
-      this.selectedVariant = smartVariant;
-      this.renderOrderSummary();
+      // Update cart: remove non-smart variant and add smart variant
+      try {
+        // Get current cart
+        const cartResponse = await fetch("/cart.js");
+        const cart = await cartResponse.json();
+
+        // Find the non-smart variant line item
+        const nonSmartLineItem = cart.items.find(
+          (item) =>
+            item.product_id === this.productData.id &&
+            item.variant_id === this.selectedVariant.id
+        );
+
+        if (nonSmartLineItem) {
+          // Remove the non-smart variant
+          await fetch("/cart/change.js", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              id: nonSmartLineItem.key,
+              quantity: 0,
+            }),
+          });
+
+          // Add the smart variant with same properties
+          const properties = this.getDeliveryProperties();
+          await this.addToCart(smartVariant.id, 1, properties);
+
+          // Dispatch cart change event
+          const updatedCart = await fetch("/cart.js").then((r) => r.json());
+          document.dispatchEvent(
+            new CustomEvent("theme:cart:change", {
+              detail: { cart: updatedCart },
+              bubbles: true,
+            })
+          );
+        }
+
+        // Update selected variant and re-render summary
+        this.selectedVariant = smartVariant;
+        this.renderOrderSummary();
+      } catch (error) {
+        // console.error('Error updating cart:', error);
+        alert(
+          "There was an error upgrading to smart version. Please try again."
+        );
+        // Still update the UI even if cart update fails
+        this.selectedVariant = smartVariant;
+        this.renderOrderSummary();
+      }
     } else {
       // console.error('Smart variant not found');
       alert("Smart version not available for this combination");
