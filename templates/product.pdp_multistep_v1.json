@@ -209,9 +209,9 @@
       ],
       "name": "Centered AnimatedGraphs",
       "settings": {
-        "background_color": "#ffffff",
-        "width": "wrapper",
+        "background_color": "#f7f7f7",
         "text_color": "text-dark",
+        "width": "wrapper",
         "padding_top": 36,
         "padding_bottom": 36,
         "title": "We publish what\nothers don’t",
