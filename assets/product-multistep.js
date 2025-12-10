@@ -371,6 +371,9 @@ class ProductMultiStep {
 
     this.container.dispatchEvent(event);
 
+    // Trigger Shopify's native variant change event for app compatibility
+    this.triggerNativeVariantChange(variant);
+
     if (this.currentStep === 2 && variant.featured_image?.src) {
       const variantImg = this.container.querySelector("[data-variant-image]");
       if (variantImg) {
@@ -380,6 +383,35 @@ class ProductMultiStep {
         );
         this.goToSlide(0);
       }
+    }
+  }
+
+  triggerNativeVariantChange(variant) {
+    if (!variant) return;
+
+    // Find the product form variant input
+    const productForm =
+      document.querySelector("[data-product-form]") ||
+      document.querySelector('form[action*="/cart/add"]') ||
+      this.container.closest("form");
+
+    if (productForm) {
+      // Update the variant ID input
+      const variantInput = productForm.querySelector('input[name="id"]');
+      if (variantInput) {
+        variantInput.value = variant.id;
+
+        // Trigger change event on the input
+        variantInput.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      // Dispatch Shopify's native variant:change event
+      const variantChangeEvent = new CustomEvent("variant:change", {
+        detail: { variant: variant },
+        bubbles: true,
+        cancelable: true,
+      });
+      document.dispatchEvent(variantChangeEvent);
     }
   }
 
@@ -1218,6 +1250,39 @@ class ProductMultiStep {
         `;
       }
     }
+
+    // Make "Check your purchasing power" clickable to trigger Affirm modal
+    const affirmBullets = this.container.querySelectorAll(
+      ".order-summary-bullet"
+    );
+    affirmBullets.forEach((bullet) => {
+      const text = bullet.textContent.trim();
+      if (text.includes("Check your purchasing power")) {
+        const svg = bullet.querySelector("svg");
+        const svgHTML = svg ? svg.outerHTML : "";
+        const textParts = text.split("Check your purchasing power");
+
+        bullet.innerHTML = `
+          ${svgHTML}
+          ${textParts[0]}<a href="#" class="affirm-purchasing-power-link" style="text-decoration: underline; cursor: pointer; color: inherit;">Check your purchasing power</a>
+        `;
+
+        const affirmLink = bullet.querySelector(
+          ".affirm-purchasing-power-link"
+        );
+        if (affirmLink) {
+          affirmLink.addEventListener("click", (e) => {
+            e.preventDefault();
+            const affirmTrigger = document.querySelector(
+              ".affirm-modal-trigger"
+            );
+            if (affirmTrigger) {
+              affirmTrigger.click();
+            }
+          });
+        }
+      }
+    });
   }
 
   getDeliveryText() {
