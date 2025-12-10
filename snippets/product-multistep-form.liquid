@@ -86,3 +86,15 @@
   {% render 'product-multistep-step4', product: product %}
   {% render 'product-multistep-step5', product: product %}
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a[href="#affirm"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const trigger = document.querySelector('.affirm-modal-trigger');
+        if (trigger) trigger.click();
+      });
+    });
+  });
+</script>

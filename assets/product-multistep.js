@@ -389,8 +389,9 @@ class ProductMultiStep {
   triggerNativeVariantChange(variant) {
     if (!variant) return;
 
-    // Find the product form variant input
+    // Find the product form - check multiple possible locations
     const productForm =
+      document.querySelector("product-form") ||
       document.querySelector("[data-product-form]") ||
       document.querySelector('form[action*="/cart/add"]') ||
       this.container.closest("form");
@@ -401,16 +402,28 @@ class ProductMultiStep {
       if (variantInput) {
         variantInput.value = variant.id;
 
-        // Trigger change event on the input
+        // Trigger input event (more reliable than change)
+        variantInput.dispatchEvent(new Event("input", { bubbles: true }));
         variantInput.dispatchEvent(new Event("change", { bubbles: true }));
       }
 
-      // Dispatch Shopify's native variant:change event
+      // If it's a web component (product-form), trigger its update method
+      if (productForm.tagName === "PRODUCT-FORM" && productForm.updateVariant) {
+        productForm.updateVariant(variant.id);
+      }
+
+      // Dispatch Shopify's native variant:change event with proper structure
       const variantChangeEvent = new CustomEvent("variant:change", {
-        detail: { variant: variant },
+        detail: {
+          variant: variant,
+          currentTarget: productForm,
+        },
         bubbles: true,
         cancelable: true,
       });
+
+      // Dispatch on both the form and document
+      productForm.dispatchEvent(variantChangeEvent);
       document.dispatchEvent(variantChangeEvent);
     }
   }
@@ -1250,39 +1263,6 @@ class ProductMultiStep {
         `;
       }
     }
-
-    // Make "Check your purchasing power" clickable to trigger Affirm modal
-    const affirmBullets = this.container.querySelectorAll(
-      ".order-summary-bullet"
-    );
-    affirmBullets.forEach((bullet) => {
-      const text = bullet.textContent.trim();
-      if (text.includes("Check your purchasing power")) {
-        const svg = bullet.querySelector("svg");
-        const svgHTML = svg ? svg.outerHTML : "";
-        const textParts = text.split("Check your purchasing power");
-
-        bullet.innerHTML = `
-          ${svgHTML}
-          ${textParts[0]}<a href="#" class="affirm-purchasing-power-link" style="text-decoration: underline; cursor: pointer; color: inherit;">Check your purchasing power</a>
-        `;
-
-        const affirmLink = bullet.querySelector(
-          ".affirm-purchasing-power-link"
-        );
-        if (affirmLink) {
-          affirmLink.addEventListener("click", (e) => {
-            e.preventDefault();
-            const affirmTrigger = document.querySelector(
-              ".affirm-modal-trigger"
-            );
-            if (affirmTrigger) {
-              affirmTrigger.click();
-            }
-          });
-        }
-      }
-    });
   }
 
   getDeliveryText() {
