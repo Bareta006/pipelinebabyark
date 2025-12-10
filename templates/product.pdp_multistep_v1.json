@@ -208,7 +208,7 @@
         "animated_graphs_YGYGUH"
       ],
       "custom_css": [
-        ".centered-animated-graphs__textarea{margin-bottom:60px;}"
+        ".centered-animated-graphs__textarea {margin-bottom: 60px;}"
       ],
       "name": "Centered AnimatedGraphs",
       "settings": {
@@ -219,12 +219,12 @@
         "padding_bottom": 36,
         "title": "We publish what\nothers don’t",
         "title_size_desktop": 58,
-        "title_size_mobile": 24,
+        "title_size_mobile": 38,
         "title_color_desktop": "#000000",
         "title_color_mobile": "#000000",
         "textarea": "Most brands don’t disclose their Head Injury Criterion (HIC) scores -we do. The maximum federal limit is 1000, but not all seats perform the same. We believe parents deserve full transparency to make informed choices about their child’s safety.",
         "textarea_size_desktop": 24,
-        "textarea_size_mobile": 16,
+        "textarea_size_mobile": 20,
         "textarea_color_desktop": "#000000",
         "textarea_color_mobile": "#000000",
         "blocks_max_width": 600,
