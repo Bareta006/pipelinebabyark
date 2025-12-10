@@ -148,12 +148,52 @@
         "padding_top": 0,
         "padding_bottom": 0
       }
+    },
+    "section_centered_animated_graphs_YGxFDT": {
+      "type": "section-centered-animated-graphs",
+      "blocks": {
+        "animated_graphs_m4Kweq": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "1-yr old Rear-Facing",
+            "text_left": "",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 247,
+            "competitor_number": 0,
+            "competitor": "",
+            "text_color": "text-dark"
+          }
+        }
+      },
+      "block_order": [
+        "animated_graphs_m4Kweq"
+      ],
+      "name": "Centered AnimatedGraphs",
+      "settings": {
+        "background_color": "#ffffff",
+        "width": "wrapper",
+        "text_color": "text-dark",
+        "padding_top": 36,
+        "padding_bottom": 36,
+        "title": "We publish what\nothers don’t",
+        "title_size_desktop": 58,
+        "title_size_mobile": 24,
+        "title_color_desktop": "#000000",
+        "title_color_mobile": "#000000",
+        "textarea": "Most brands don’t disclose their Head Injury Criterion (HIC) scores -we do. The maximum federal limit is 1000, but not all seats perform the same. We believe parents deserve full transparency to make informed choices about their child’s safety.",
+        "textarea_size_desktop": 24,
+        "textarea_size_mobile": 16,
+        "textarea_color_desktop": "#000000",
+        "textarea_color_mobile": "#000000"
+      }
     }
   },
   "order": [
     "section_features_with_image_PP6LD3",
     "section_liquid_custom",
     "main",
-    "section_wide_card_hero_TpyKNx"
+    "section_wide_card_hero_TpyKNx",
+    "section_centered_animated_graphs_YGxFDT"
   ]
 }
