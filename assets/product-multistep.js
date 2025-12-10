@@ -1266,7 +1266,7 @@ class ProductMultiStep {
     const affirmBullet = this.container.querySelector("[data-affirm-bullet]");
     const affirmLink = affirmBullet?.querySelector("[data-affirm-trigger]");
 
-    if (affirmLink && affirmTrigger) {
+    if (affirmLink) {
       // Remove any existing listener to prevent duplicates
       const newLink = affirmLink.cloneNode(true);
       affirmLink.parentNode.replaceChild(newLink, affirmLink);
@@ -1275,8 +1275,30 @@ class ProductMultiStep {
         e.preventDefault();
         e.stopPropagation();
 
-        // Trigger the updated Affirm modal trigger (which now has the updated config)
-        affirmTrigger.click();
+        // Use Affirm's openModalAssociatedWithPromoId directly with updated config
+        // This bypasses the onclick handler and calls the function directly
+        if (
+          window.Affirm &&
+          window.Affirm.widgets &&
+          window.Affirm.widgets.as_low_as &&
+          typeof window.Affirm.widgets.as_low_as
+            .openModalAssociatedWithPromoId === "function"
+        ) {
+          // Create a synthetic event object
+          const syntheticEvent = {
+            preventDefault: () => {},
+          };
+
+          // Call openModalAssociatedWithPromoId with updated config
+          window.Affirm.widgets.as_low_as.openModalAssociatedWithPromoId(
+            syntheticEvent,
+            updatedConfig,
+            affirmWidget
+          );
+        } else if (affirmTrigger) {
+          // Fallback: trigger the updated onclick handler
+          affirmTrigger.click();
+        }
       });
     }
   }
