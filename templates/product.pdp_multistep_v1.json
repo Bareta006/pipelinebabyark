@@ -108,6 +108,9 @@
         "affirm_pay_over_time_messaging_product_block_9QApfJ",
         "multistep_form"
       ],
+      "custom_css": [
+        ".shopify-app-block{display: none;}"
+      ],
       "settings": {
         "layout": "none@columns",
         "image_width": "wide",
