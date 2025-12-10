@@ -60,6 +60,7 @@ class ProductMultiStep {
     if (customizeBtn) {
       customizeBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        this.hideAllSectionsExceptProduct();
         this.showStep(2);
       });
     }
@@ -1245,12 +1246,46 @@ class ProductMultiStep {
       customizeBtn.addEventListener('click', () => {
         backdrop.style.display = 'none';
         document.body.style.overflow = '';
+        // Hide all sections except product section
+        this.hideAllSectionsExceptProduct();
+        // Trigger the main customize button
         const customizeBtnMain = this.container.querySelector('[data-customize-btn]');
         if (customizeBtnMain) {
           customizeBtnMain.click();
         }
       });
     }
+  }
+
+  hideAllSectionsExceptProduct() {
+    // Find all sections on the page
+    const allSections = document.querySelectorAll('[data-section-id]');
+    
+    // Find the product section (contains the multistep container)
+    const productSection = this.container.closest('[data-section-id]');
+    
+    if (!productSection) {
+      console.warn('Product section not found');
+      return;
+    }
+
+    // Hide all sections except the product section
+    allSections.forEach(section => {
+      if (section !== productSection) {
+        // Store original display style for potential restoration (before hiding)
+        if (!section.dataset.originalDisplay) {
+          const computedStyle = window.getComputedStyle(section);
+          section.dataset.originalDisplay = computedStyle.display || '';
+        }
+        section.style.display = 'none';
+      }
+    });
+
+    // Add class to body for styling purposes
+    document.body.classList.add('multistep-customize-mode');
+    
+    // Scroll to product section
+    productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 
