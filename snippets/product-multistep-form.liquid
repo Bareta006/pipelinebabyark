@@ -70,6 +70,15 @@
   }
 </script>
 
+{%- comment -%}
+  Hidden product form for native Shopify app compatibility
+  This form is updated in the background when variants change
+  but never interferes with the multistep functionality
+{%- endcomment -%}
+{%- form 'product', product, id: 'multistep-hidden-product-form', class: 'multistep-hidden-form', style: 'display: none !important; position: absolute; visibility: hidden; opacity: 0; pointer-events: none;' -%}
+  <input type="hidden" name="id" value="{{ current_variant.id }}" data-product-form-variant-id>
+{%- endform -%}
+
 <div class="multistep-container" data-multistep-container data-accessories-collection="accessories">
   <div class="multistep-progress" data-progress-dots style="display: none;">
     <div class="progress-dots">

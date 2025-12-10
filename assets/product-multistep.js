@@ -389,27 +389,23 @@ class ProductMultiStep {
   triggerNativeVariantChange(variant) {
     if (!variant) return;
 
-    // Find the product form - check multiple possible locations
+    // Find the hidden product form we created for app compatibility
     const productForm =
-      document.querySelector("product-form") ||
-      document.querySelector("[data-product-form]") ||
-      document.querySelector('form[action*="/cart/add"]') ||
-      this.container.closest("form");
+      document.querySelector("#multistep-hidden-product-form") ||
+      document.querySelector(".multistep-hidden-form");
 
     if (productForm) {
       // Update the variant ID input
-      const variantInput = productForm.querySelector('input[name="id"]');
+      const variantInput =
+        productForm.querySelector('input[name="id"]') ||
+        productForm.querySelector("[data-product-form-variant-id]");
+
       if (variantInput) {
         variantInput.value = variant.id;
 
         // Trigger input event (more reliable than change)
         variantInput.dispatchEvent(new Event("input", { bubbles: true }));
         variantInput.dispatchEvent(new Event("change", { bubbles: true }));
-      }
-
-      // If it's a web component (product-form), trigger its update method
-      if (productForm.tagName === "PRODUCT-FORM" && productForm.updateVariant) {
-        productForm.updateVariant(variant.id);
       }
 
       // Dispatch Shopify's native variant:change event with proper structure
@@ -422,7 +418,7 @@ class ProductMultiStep {
         cancelable: true,
       });
 
-      // Dispatch on both the form and document
+      // Dispatch on both the form and document for maximum compatibility
       productForm.dispatchEvent(variantChangeEvent);
       document.dispatchEvent(variantChangeEvent);
     }
