@@ -41,45 +41,19 @@
         <div class="centered-animated-graphs__blocks">
           {% for block in section.blocks %}
             {% if block.type == 'AnimatedGraphs' %}
-              <div class="centered-animated-graphs__block" {{ block.shopify_attributes }}>
+              <div class="brick__block adjust_height" {{ block.shopify_attributes }}>
                 <div class="brick__block__AnimatedGraphs {{ block.settings.text_color }}">
                   <div class="graphs">
                     <div class="graph mb-8">
-                      <div class="flex flex-wrap flex-col-reverse md:flex-row gap-2 md:gap-4 justify-between items-start graphsContainer">
+                      <div class="flex flex-wrap flex-col-reverse md:flex-row  gap-2 md:gap-4 justify-between items-start graphsContainer">
                         <div class="textLeft flex">
-                          {% if block.settings.text_left != blank %}
-                            <div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>
-                          {% endif %}
-                          {% if block.settings.block_title != blank %}
-                            <div class="blockTitle text-center"><strong>{{ block.settings.block_title }}</strong></div>
-                          {% endif %}
+                          {% if block.settings.text_left != blank %}<div class="blockText text-center font-bold">{{ block.settings.text_left }}</div>{% endif %}
+                          {% if block.settings.block_title != blank %}<div class="blockTitle text-center"><strong>{{ block.settings.block_title }}</strong></div>{% endif %}
                         </div>
-                        <div class="innerContainer" 
-                          {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}
-                          {% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
-                          {% if block.settings.text_right != blank %}
-                            <span class="textRight">
-                              <span>{{ block.settings.text_right }}</span>
-                              {% if block.settings.text_right_after != blank %}
-                                <span class="textRight-after">{{ block.settings.text_right_after }}</span>
-                              {% endif %}
-                            </span>
-                          {% endif %}
-                          {% if block.settings.number_field != blank %}
-                            <div class="textNumber absolute">
-                              <div class="stats">{{ babyarkLogo }}{{ block.settings.number_field }}</div>
-                              {% if forloop.first %}
-                                <span class="brandName_after">babyark`s HIC</span>
-                              {% endif %}
-                            </div>
-                          {% endif %}
-                          {% if block.settings.competitor_number != blank and block.settings.competitor_number != 0 %}
-                            <div class="competitorNumber absolute" 
-                              style="left: calc(({{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%);transform: translateX(calc((-{{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%));">
-                              <div class="competitorStats">{{ block.settings.competitor_number }}</div>
-                              <div class="competitorName absolute">{{ block.settings.competitor }}</div>
-                            </div>
-                          {% endif %}
+                        <div class="innerContainer" {% if block.settings.number_field != blank %}data-number="{{ block.settings.number_field }}"{% endif %}{% if block.settings.text_right != blank %}data-text_right="{{ block.settings.text_right }}"{% endif %}>
+                          {% if block.settings.text_right != blank %}<span class="textRight"><span>{{ block.settings.text_right }}</span>{% if block.settings.text_right_after != blank %}<span class="textRight-after">{{block.settings.text_right_after}}</span>{% endif %}</span>{% endif %}
+                          {% if block.settings.number_field != blank %}<div class="textNumber absolute"><div class="stats">{{ babyarkLogo }}{{ block.settings.number_field }}</div>{%if forloop.first %}<span class="brandName_after">babyark`s HIC</span>{% endif %}</div>{% endif %}
+                          {% if block.settings.competitor_number != blank and block.settings.competitor_number != 0 %}<div class="competitorNumber absolute" style="    left: calc(({{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%);transform: translateX(calc((-{{ block.settings.competitor_number }} / {{ block.settings.text_right }})*100%));"><div class="competitorStats">{{ block.settings.competitor_number }}</div><div class="competitorName absolute">{{ block.settings.competitor }}</div></div>{%endif%}
                         </div>
                       </div>
                     </div>
@@ -190,14 +164,26 @@
     width: 100%;
   }
 
-  #shopify-section-{{ section.id }} .textNumber .brandName_after {
-    top: 70px;
-    color: #FAF7F5;
-    font-size: 16px;
-    text-align: center;
-    width: 100%;
+  #shopify-section-{{ section.id }} span.brandName_after {
     position: absolute;
+    bottom: -30px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #7f7f7f;
+    width: 110px;
     left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #shopify-section-{{ section.id }} span.brandName_after:after {
+    content: '.';
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: -13px;
+    position: absolute;
+    right: 50%;
     transform: translateX(-50%);
   }
 
@@ -256,16 +242,42 @@
   }
 
   #shopify-section-{{ section.id }} .textRight {
+    width: 100%;
+    text-align: right;
+    display: flex;
+    justify-content: end;
+    padding-right: 20px;
+    font-size: 25px;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: 1.5s;
     color: #fff;
-    font-size: 18px;
-    font-weight: bold;
   }
 
-  #shopify-section-{{ section.id }} .textRight-after {
-    font-size: 14px;
-    font-weight: normal;
+  #shopify-section-{{ section.id }} .textRight h3 {
+    max-width: 80px;
+    text-align: left;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} span.textRight-after:after {
+    width: 2px;
+    height: 12px;
+    color: transparent;
+    background: #fff;
+    top: -20px;
+    position: absolute;
+    right: 25px;
+    transform: translateX(-50%);
+    content: '.';
+  }
+
+  #shopify-section-{{ section.id }} span.textRight-after {
+    position: absolute;
+    bottom: -30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #7f7f7f;
   }
 
   #shopify-section-{{ section.id }} .graphsContainer {
@@ -536,23 +548,7 @@
         {
           "type": "text",
           "id": "competitor",
-          "label": "Competitor name"
-        },
-        {
-          "type": "select",
-          "id": "text_color",
-          "label": "Text color",
-          "default": "text-dark",
-          "options": [
-            {
-              "value": "text-light",
-              "label": "Light"
-            },
-            {
-              "value": "text-dark",
-              "label": "Dark"
-            }
-          ]
+          "label": "competitor name"
         }
       ]
     }
