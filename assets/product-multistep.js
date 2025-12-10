@@ -51,7 +51,7 @@ class ProductMultiStep {
       try {
         this.productData = JSON.parse(productJsonScript.textContent);
       } catch (e) {
-        console.error('Error parsing product JSON:', e);
+        // console.error('Error parsing product JSON:', e);
       }
     }
   }
@@ -296,11 +296,11 @@ class ProductMultiStep {
   selectFinalVariant() {
     if (!this.productData) return;
 
-    console.log('Selecting variant with:', {
-      color: this.selectedColor,
-      shell: this.selectedShellColor,
-      smart: this.selectedSmartOption
-    });
+    // console.log('Selecting variant with:', {
+    //   color: this.selectedColor,
+    //   shell: this.selectedShellColor,
+    //   smart: this.selectedSmartOption
+    // });
 
     const variant = this.productData.variants.find(v => {
       const matchesColor = v.option1?.toLowerCase() === this.selectedColor?.toLowerCase() ||
@@ -319,12 +319,12 @@ class ProductMultiStep {
     });
 
     if (variant) {
-      console.log('Found variant:', variant.id, variant.title);
+      // console.log('Found variant:', variant.id, variant.title);
       this.selectedVariant = variant;
       this.updateImages(variant);
       this.updatePrice(variant);
     } else {
-      console.error('No variant found matching selections');
+      // console.error('No variant found matching selections');
     }
 
     this.filterSliderImages();
@@ -492,7 +492,7 @@ class ProductMultiStep {
       }]
     };
 
-    console.log('Adding to cart:', formData);
+    // console.log('Adding to cart:', formData);
 
     try {
       const response = await fetch('/cart/add.js', {
@@ -505,7 +505,7 @@ class ProductMultiStep {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('Added to cart successfully:', result);
+        // console.log('Added to cart successfully:', result);
         const cart = await fetch('/cart.js').then(r => r.json());
         document.dispatchEvent(new CustomEvent('theme:cart:change', {
           detail: { cart: cart },
@@ -514,11 +514,11 @@ class ProductMultiStep {
         return true;
       } else {
         const error = await response.json();
-        console.error('Cart add failed:', error);
+        // console.error('Cart add failed:', error);
         return false;
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      // console.error('Error adding to cart:', error);
       return false;
     }
   }
@@ -614,7 +614,7 @@ class ProductMultiStep {
           customImageUrl = variantImages[selectedVariantId];
         }
       } catch (e) {
-        console.error('Error parsing variant images:', e);
+        // console.error('Error parsing variant images:', e);
       }
     }
 
@@ -629,8 +629,8 @@ class ProductMultiStep {
   }
 
   addAccessory(variantId, title, price, image) {
-    console.log('Adding accessory:', variantId, title);
-    console.log('Current accessories:', this.selectedAccessories);
+    // console.log('Adding accessory:', variantId, title);
+    // console.log('Current accessories:', this.selectedAccessories);
     const existing = this.selectedAccessories.find(acc => acc.id === variantId);
     if (!existing) {
       this.selectedAccessories.push({
@@ -640,32 +640,32 @@ class ProductMultiStep {
         image: image,
         quantity: 1
       });
-      console.log('Accessory added. Total accessories:', this.selectedAccessories.length);
+      // console.log('Accessory added. Total accessories:', this.selectedAccessories.length);
     } else {
       existing.quantity++;
-      console.log('Accessory quantity increased to:', existing.quantity);
+      // console.log('Accessory quantity increased to:', existing.quantity);
     }
   }
 
   removeAccessory(variantId) {
-    console.log('Removing accessory:', variantId);
+    // console.log('Removing accessory:', variantId);
     const index = this.selectedAccessories.findIndex(acc => acc.id === variantId);
     if (index > -1) {
       const accessory = this.selectedAccessories[index];
-      console.log('Found accessory at index:', index, 'with quantity:', accessory.quantity);
+      // console.log('Found accessory at index:', index, 'with quantity:', accessory.quantity);
 
       if (accessory.quantity > 1) {
         accessory.quantity--;
-        console.log('Quantity decreased to:', accessory.quantity);
+        // console.log('Quantity decreased to:', accessory.quantity);
       } else {
         this.selectedAccessories.splice(index, 1);
-        console.log('Accessory removed completely');
+        // console.log('Accessory removed completely');
       }
     }
   }
 
   showStep(stepNumber) {
-    console.log('=== Show Step Called ===', stepNumber);
+    // console.log('=== Show Step Called ===', stepNumber);
     this.currentStep = stepNumber;
 
     const header = document.querySelector('.header__wrapper');
@@ -682,7 +682,7 @@ class ProductMultiStep {
       const stepNum = parseInt(step.dataset.step);
       step.style.display = stepNum === stepNumber ? 'block' : 'none';
     });
-    console.log('Step visibility updated');
+    // console.log('Step visibility updated');
 
     if (stepNumber >= 2) {
       document.body.classList.add('multistep-fullscreen');
@@ -715,23 +715,23 @@ class ProductMultiStep {
   }
 
   initializeSlider() {
-    console.log('=== Initialize Slider Called ===');
+    // console.log('=== Initialize Slider Called ===');
     const sliderTrack = this.container.querySelector('[data-slider-track]');
     const prevBtn = this.container.querySelector('[data-slider-prev]');
     const nextBtn = this.container.querySelector('[data-slider-next]');
 
-    console.log('Slider track found:', sliderTrack);
+    // console.log('Slider track found:', sliderTrack);
     if (!sliderTrack) {
-      console.log('No slider track, returning');
+      // console.log('No slider track, returning');
       return;
     }
 
     const slides = sliderTrack.querySelectorAll('.slider-slide');
-    console.log('Slides found in initializeSlider:', slides.length);
+    // console.log('Slides found in initializeSlider:', slides.length);
 
     if (!this.allSliderSlides) {
       this.allSliderSlides = Array.from(slides).map(slide => slide.cloneNode(true));
-      console.log('Stored', this.allSliderSlides.length, 'original slides');
+      // console.log('Stored', this.allSliderSlides.length, 'original slides');
     }
 
     if (slides.length === 0) return;
@@ -940,7 +940,7 @@ class ProductMultiStep {
       });
     }
 
-    console.log('Selected smart option:', this.selectedSmartOption);
+    // console.log('Selected smart option:', this.selectedSmartOption);
 
     if (this.selectedSmartOption && this.selectedSmartOption.toLowerCase().includes('non')) {
       html += `
@@ -1054,7 +1054,7 @@ class ProductMultiStep {
   upgradeToSmart() {
     const smartOptionInput = this.container.querySelector('[data-smart-option-input]');
     if (!smartOptionInput) {
-      console.error('Smart option input not found');
+      // console.error('Smart option input not found');
       return;
     }
 
@@ -1080,7 +1080,7 @@ class ProductMultiStep {
       this.selectedVariant = smartVariant;
       this.renderOrderSummary();
     } else {
-      console.error('Smart variant not found');
+      // console.error('Smart variant not found');
       alert('Smart version not available for this combination');
     }
   }
@@ -1088,13 +1088,13 @@ class ProductMultiStep {
   async addAllToCart() {
     try {
       if (!this.selectedVariant) {
-        console.error('No variant selected');
+        // console.error('No variant selected');
         alert('Please complete all steps before checkout');
         return;
       }
 
-      console.log('Adding main product to cart:', this.selectedVariant);
-      console.log('Variant available:', this.selectedVariant.available);
+      // console.log('Adding main product to cart:', this.selectedVariant);
+      // console.log('Variant available:', this.selectedVariant.available);
 
       if (!this.selectedVariant.available) {
         alert('Selected variant is not available for purchase');
@@ -1102,7 +1102,7 @@ class ProductMultiStep {
       }
 
       const properties = this.getDeliveryProperties();
-      console.log('Delivery properties:', properties);
+      // console.log('Delivery properties:', properties);
 
       const mainAdded = await this.addToCart(this.selectedVariant.id, 1, properties);
       if (!mainAdded) {
@@ -1110,13 +1110,13 @@ class ProductMultiStep {
         return;
       }
 
-      console.log('Adding accessories to cart:', this.selectedAccessories);
+      // console.log('Adding accessories to cart:', this.selectedAccessories);
       for (const accessory of this.selectedAccessories) {
         const accessoryProperties = this.getAccessoryDeliveryProperties(accessory.id);
         await this.addToCart(accessory.id, accessory.quantity, accessoryProperties);
       }
     } catch (error) {
-      console.error('Error adding to cart:', error);
+      // console.error('Error adding to cart:', error);
       alert('There was an error adding items to cart. Please try again.');
     }
   }
@@ -1126,31 +1126,31 @@ class ProductMultiStep {
     const deliveryTimeInput = this.container.querySelector('input[name="deliveryTime"]');
     const deliveryDateInput = this.container.querySelector('input[name="deliveryDate"]');
 
-    console.log('Delivery time input:', deliveryTimeInput);
-    console.log('Delivery date input:', deliveryDateInput);
+    // console.log('Delivery time input:', deliveryTimeInput);
+    // console.log('Delivery date input:', deliveryDateInput);
 
     if (deliveryDateInput && deliveryDateInput.value) {
       properties['Delivery Date'] = deliveryDateInput.value;
-      console.log('Using deliveryDate from input:', properties['Delivery Date']);
+      // console.log('Using deliveryDate from input:', properties['Delivery Date']);
     } else if (deliveryTimeInput && deliveryTimeInput.value) {
       properties['Delivery Time'] = deliveryTimeInput.value;
-      console.log('Using deliveryTime from input:', properties['Delivery Time']);
+      // console.log('Using deliveryTime from input:', properties['Delivery Time']);
     } else if (this.selectedVariant) {
-      console.log('Checking variant metafields:', this.selectedVariant.metafields);
+      // console.log('Checking variant metafields:', this.selectedVariant.metafields);
 
       if (this.selectedVariant.metafields?.delivery_estimated_date) {
         properties['Delivery Date'] = this.selectedVariant.metafields.delivery_estimated_date;
-        console.log('Using delivery_estimated_date from variant metafield:', properties['Delivery Date']);
+        // console.log('Using delivery_estimated_date from variant metafield:', properties['Delivery Date']);
       } else if (this.productData?.metafields?.delivery_time) {
         properties['Delivery Time'] = this.productData.metafields.delivery_time;
-        console.log('Using delivery_time from product metafield:', properties['Delivery Time']);
+        // console.log('Using delivery_time from product metafield:', properties['Delivery Time']);
       } else if (this.productData?.metafields?.estimated_date) {
         properties['Delivery Date'] = this.productData.metafields.estimated_date;
-        console.log('Using estimated_date from product metafield:', properties['Delivery Date']);
+        // console.log('Using estimated_date from product metafield:', properties['Delivery Date']);
       }
     }
 
-    console.log('Final properties:', properties);
+    // console.log('Final properties:', properties);
     return properties;
   }
 
@@ -1223,7 +1223,7 @@ class ProductMultiStep {
               });
             }
           } catch (error) {
-            console.error('Error loading feature data:', error);
+            // console.error('Error loading feature data:', error);
           }
         }
       });
