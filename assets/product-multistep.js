@@ -835,6 +835,10 @@ class ProductMultiStep {
       document.body.classList.add("multistep-fullscreen");
     } else {
       document.body.classList.remove("multistep-fullscreen");
+      // Restore all sections when going back to step 1
+      if (this.sectionsHidden) {
+        this.restoreAllSections();
+      }
     }
 
     window.scrollTo(0, 0);
@@ -1766,6 +1770,58 @@ class ProductMultiStep {
 
     // Scroll to product section
     productSection.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  restoreAllSections() {
+    if (!this.sectionsHidden) {
+      return;
+    }
+
+    // Find all sections that were hidden
+    const selectors = [
+      "[data-section-id]",
+      ".shopify-section",
+      '[id^="shopify-section-"]',
+    ];
+
+    const allSectionsSet = new Set();
+    selectors.forEach((selector) => {
+      document
+        .querySelectorAll(selector)
+        .forEach((el) => allSectionsSet.add(el));
+    });
+
+    // Restore original display styles
+    allSectionsSet.forEach((section) => {
+      if (section.dataset.originalDisplay !== undefined) {
+        section.style.display = section.dataset.originalDisplay;
+        delete section.dataset.originalDisplay;
+      }
+    });
+
+    // Restore accessibility widget and chat widget
+    const accessiblyWidget = document.querySelector(
+      "#accessiblyAppWidgetButton"
+    );
+    if (
+      accessiblyWidget &&
+      accessiblyWidget.dataset.originalDisplay !== undefined
+    ) {
+      accessiblyWidget.style.display = accessiblyWidget.dataset.originalDisplay;
+      delete accessiblyWidget.dataset.originalDisplay;
+    }
+
+    const tidioChat = document.querySelector("#tidio-chat");
+    if (tidioChat && tidioChat.dataset.originalDisplay !== undefined) {
+      tidioChat.style.display = tidioChat.dataset.originalDisplay;
+      delete tidioChat.dataset.originalDisplay;
+    }
+
+    // Remove fullscreen class
+    document.body.classList.remove("multistep-customize-mode");
+
+    // Reset flag
+    this.sectionsHidden = false;
   }
 }
 

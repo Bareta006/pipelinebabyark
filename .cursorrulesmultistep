@@ -406,6 +406,16 @@ The template includes complete product JSON with:
   - Scrolls to product section
 - **Prevention**: Uses `sectionsHidden` flag to prevent recursive calls
 
+### Section Restoration
+- **Method**: `restoreAllSections()`
+- **Trigger**: Automatically called when navigating back to Step 1
+- **Behavior**:
+  - Restores all sections that were hidden (using stored `originalDisplay` values)
+  - Restores `#accessiblyAppWidgetButton` and `#tidio-chat` widgets
+  - Removes `multistep-customize-mode` class from body
+  - Resets `sectionsHidden` flag
+  - Ensures full page is visible when returning to Step 1
+
 ## Critical Implementation Notes
 
 ### 1. Product Media Hiding
@@ -591,9 +601,11 @@ The template includes complete product JSON with:
 
 ### Implementation
 - **Location**: Step 5 (Order Summary) only
-- **Element**: `<div class="affirm-as-low-as" data-affirm-type="product" data-amount="0"></div>`
+- **Element**: `<div class="affirm-as-low-as" data-page-type="product"></div>`
+- **Note**: Uses `data-page-type` (NOT `data-affirm-type`) - this is required by Affirm.js
 - **Price Source**: Final total including product + accessories (with 20% discount)
 - **Price Format**: Cents (multiply dollars by 100, rounded)
+- **Price Attribute**: Set dynamically via JavaScript `data-amount` attribute (not in Liquid)
 
 ### Price Updates
 - **Trigger**: Automatically called in `renderOrderSummary()` after calculating `totalDiscounted`
@@ -614,6 +626,7 @@ The template includes complete product JSON with:
 - Affirm.js must be loaded globally (via Shopify app or theme)
 - Affirm element must exist in Step 5 template
 - Price must be > 0 for Affirm to display
+- **Note**: The "Check your purchasing power" link was removed as it's not needed
 
 ## Future Enhancements
 
