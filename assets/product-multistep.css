@@ -189,7 +189,7 @@
   letter-spacing: 0.5px;
 }
 
-.btn--steps {
+.btn--steps:not(.btn--secondary) {
   background-color: #454545;
   color: #fff;
   border: none;
