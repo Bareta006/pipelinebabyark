@@ -801,6 +801,13 @@ body .step-actions .back-button {
     width: 167px;
     height: 185px;
   }
+  body .step-actions .back-button{
+    font-size: 14px;
+    width: 80px;
+    min-width: 80px !important;
+        padding: 9px 10px;
+            gap: 5px;
+  }
 }
 
 .order-summary-container {
