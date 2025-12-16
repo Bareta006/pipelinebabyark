@@ -1588,6 +1588,11 @@ class ProductMultiStep {
           bubbles: true,
         })
       );
+
+      // Re-render order summary to show updated base information
+      if (this.currentStep === 5) {
+        this.renderOrderSummary();
+      }
     } catch (error) {
       // console.error('Error upgrading base accessories:', error);
       // Don't show error to user, just log it
@@ -2034,12 +2039,20 @@ class ProductMultiStep {
           this.selectedAccessories[accessoryIndex].id = smartBaseVariant.id;
           this.selectedAccessories[accessoryIndex].price =
             smartBaseVariant.price;
+          this.selectedAccessories[accessoryIndex].title =
+            smartBaseVariant.name || smartBaseVariant.title;
           console.log(
             "New accessory:",
             this.selectedAccessories[accessoryIndex]
           );
         } else {
           console.log("WARNING: accessoryIndex not found");
+        }
+
+        // Re-render order summary if we're on step 5
+        if (this.currentStep === 5) {
+          console.log("Re-rendering order summary after base upgrade");
+          this.renderOrderSummary();
         }
       } else {
         console.log("ERROR: smartBaseVariant not found");
