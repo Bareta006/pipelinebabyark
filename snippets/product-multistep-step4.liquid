@@ -74,9 +74,9 @@
             });
           </script>
           
-          {%- unless has_available -%}
+          {%- if has_available == false -%}
             {%- continue -%}
-          {%- endunless -%}
+          {%- endif -%}
           {%- assign custom_image_override = null -%}
           {%- assign product_id_str = accessory.id | append: '' -%}
           {%- for override in accessory_image_overrides -%}
