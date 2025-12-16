@@ -1155,7 +1155,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
 
   .multistep-container {
-    padding: 138px 0;
+    padding: 40px 0;
   }
   .product-title {
     font-size: 58px;
