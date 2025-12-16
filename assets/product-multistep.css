@@ -766,8 +766,8 @@ body .step-actions .back-button {
     position: fixed;
     top: 50px;
     left: 5vw;
-    width: 98px;
-    min-width: 98px;
+    width: 100px;
+    min-width: 110px !important;
     padding: 9px 23px;
     font-size: 18px;
     font-weight: 400;
@@ -776,6 +776,10 @@ body .step-actions .back-button {
     background: #FFF;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.10);
     color: #454545;
+        display: flex;
+    gap: 11px;
+    justify-content: center;
+    align-items: center;
 }
 
 @media (max-width: 768px) {
