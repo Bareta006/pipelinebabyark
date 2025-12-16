@@ -1756,7 +1756,7 @@ class ProductMultiStep {
       // Get product handle from cart item URL
       const productUrl = baseCartItem.url || "";
       console.log("productUrl:", productUrl);
-      const handleMatch = productUrl.match(/\/products\/([^\/]+)/);
+      const handleMatch = productUrl.match(/\/products\/([^\/\?]+)/);
       console.log("handleMatch:", handleMatch);
 
       if (!handleMatch) {
@@ -1793,22 +1793,48 @@ class ProductMultiStep {
       if (isClassicBase) {
         // Classic base has no variants - need to fetch smart base product
         console.log("Classic base detected - fetching smart base product");
-        const accessoriesContainer = this.container.querySelector(
+
+        // Find smart base handle from DOM (elements exist even if display:none)
+        const accessoriesContainer = document.querySelector(
           "[data-accessories-container]"
         );
+        console.log("accessoriesContainer:", accessoriesContainer);
+
         if (!accessoriesContainer) {
           console.log("ERROR: accessoriesContainer not found");
           return;
         }
 
-        // Find smart base product handle from DOM
-        const smartBaseItem = accessoriesContainer.querySelector(
-          `[data-accessory-item][data-base-type="smart"]`
+        // Find smart base item - query all and find the one with smart base type
+        const allAccessoryItems = accessoriesContainer.querySelectorAll(
+          "[data-accessory-item]"
         );
-        console.log("smartBaseItem:", smartBaseItem);
+        console.log("All accessory items count:", allAccessoryItems.length);
+
+        let smartBaseItem = null;
+        for (const item of allAccessoryItems) {
+          const baseType = item.dataset.baseType;
+          console.log("Checking item:", {
+            productHandle: item.dataset.productHandle,
+            baseType: baseType,
+            title: item.querySelector("h4")?.textContent,
+          });
+          if (baseType === "smart") {
+            smartBaseItem = item;
+            console.log("Found smart base item!");
+            break;
+          }
+        }
+
+        console.log("smartBaseItem found:", smartBaseItem);
 
         if (!smartBaseItem || !smartBaseItem.dataset.productHandle) {
-          console.log("ERROR: smartBaseItem not found");
+          console.log(
+            "ERROR: smartBaseItem not found or missing productHandle"
+          );
+          if (smartBaseItem) {
+            console.log("smartBaseItem.dataset:", smartBaseItem.dataset);
+          }
           return;
         }
 
