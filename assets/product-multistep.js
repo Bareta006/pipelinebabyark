@@ -246,18 +246,29 @@ class ProductMultiStep {
         return matchesShell && matchesColor;
       });
 
-      // Check if variant should be hidden/disabled
-      const shouldHide =
-        !matchingVariant ||
-        !matchingVariant.available ||
-        matchingVariant.metafields?.hidevariant === true;
-
       const swatchWrapper = input.closest(".swatch-option");
       if (swatchWrapper) {
         let textBelow = swatchWrapper.querySelector(".swatch-text-below");
         let soldOutDiv = swatchWrapper.querySelector(".swatch-sold-out-fabric");
 
-        if (shouldHide) {
+        // Check if variant should be completely hidden (hidevariant metafield)
+        const shouldHideCompletely =
+          matchingVariant?.metafields?.hidevariant === true;
+
+        // Check if variant should be disabled (sold out or doesn't exist)
+        const shouldDisable = !matchingVariant || !matchingVariant.available;
+
+        if (shouldHideCompletely) {
+          // Completely hide the option when hidevariant = true
+          swatchWrapper.style.display = "none";
+          input.disabled = true;
+          if (input.checked) {
+            input.checked = false;
+            this.selectedColor = null;
+          }
+        } else if (shouldDisable) {
+          // Mark as sold out when variant doesn't exist or is unavailable
+          swatchWrapper.style.display = "";
           swatchWrapper.classList.add("swatch-option--disabled");
           input.disabled = true;
           if (input.checked) {
@@ -271,6 +282,8 @@ class ProductMultiStep {
             soldOutDiv.innerHTML = "<small>Sold Out</small>";
           }
         } else {
+          // Variant is available - show and enable
+          swatchWrapper.style.display = "";
           swatchWrapper.classList.remove("swatch-option--disabled");
           input.disabled = false;
 
