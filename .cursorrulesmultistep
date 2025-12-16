@@ -267,10 +267,14 @@ Priority order:
   - Updates `selectedSmartOption` to smart value
   - Finds matching smart variant
   - Removes non-smart variant from cart and adds smart variant
-  - **Base Accessory Upgrade**: Automatically checks cart for base accessories
-  - If base found, upgrades it to smart version (removes non-smart base, adds smart base)
+  - **Base Accessory Upgrade**: Automatically checks `selectedAccessories` and cart for base accessories
+  - **Logic**: 
+    - Checks if base title contains "classic"
+    - If in cart: Uses `upgradeBaseToSmart()` to fetch product JSON and find smart variant
+    - If NOT in cart: Finds smart variant ID from DOM `data-smart-base-variant-id` attribute on classic base item
+    - Replaces classic base variant ID with smart base variant ID in `selectedAccessories`
+    - Updates price and title from smart base item in DOM
   - Preserves delivery properties and quantities
-  - Updates `selectedAccessories` array with new base variant ID and price
   - Re-renders order summary with updated pricing
 
 ### Smart Option Values
@@ -313,10 +317,23 @@ Priority order:
 - **Location**: Liquid template (`product-multistep-step4.liquid`)
 - **Logic**:
   - **Variant Options**: Only shows swatches for variants where `variant.available == true`
-  - **Entire Item**: If accessory has variants and NONE are available, the entire accessory item is hidden
+  - **Entire Item**: If accessory has variants and NONE are available, the entire accessory item is hidden (using `continue`)
   - **Single Variant**: If accessory has only one variant and it's not available, the entire item is hidden
   - **Add Button**: Only shown if at least one variant is available
 - **Purpose**: Prevents users from seeing or attempting to add unavailable accessories
+
+### Base Accessory Marking
+- **Location**: Liquid template (`product-multistep-step4.liquid`)
+- **Data Attributes**:
+  - Classic base: `data-base-type="classic"` + `data-smart-base-variant-id="{variant_id}"`
+  - Smart base: `data-base-type="smart"`
+- **Logic**:
+  - Identifies bases by checking if title contains "base"
+  - Marks classic bases (title contains "classic")
+  - Marks smart bases (title contains "smart" but not "classic")
+  - For classic bases, finds smart base product in collection and stores its first available variant ID
+  - Smart base variant ID stored in `data-smart-base-variant-id` on classic base item
+- **Purpose**: Enables simple upgrade logic - just read `data-smart-base-variant-id` from DOM
 
 ## URL Parameters
 

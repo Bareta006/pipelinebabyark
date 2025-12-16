@@ -1611,91 +1611,50 @@ class ProductMultiStep {
         // Base is in cart, upgrade it using cart method
         await this.upgradeBaseToSmart(baseCartItem);
       } else {
-        // Base not in cart yet - fetch product JSON and find smart variant
-        if (!baseAccessory.productHandle) {
-          return; // Can't fetch without handle
-        }
-
-        // Fetch product JSON
-        const productResponse = await fetch(
-          `/products/${baseAccessory.productHandle}.js`
+        // Base not in cart yet - find smart variant ID from DOM data attribute
+        const accessoriesContainer = this.container.querySelector(
+          "[data-accessories-container]"
         );
-        if (!productResponse.ok) {
-          return; // Product not found
-        }
-
-        const baseProduct = await productResponse.json();
-
-        // Find current variant
-        const currentVariant = baseProduct.variants.find(
-          (v) => v.id === baseAccessory.id
-        );
-
-        if (!currentVariant) {
-          return; // Current variant not found
-        }
-
-        // Find smart option position
-        let smartOptionPosition = -1;
-        for (let i = 0; i < currentVariant.options.length; i++) {
-          const option = (currentVariant.options[i] || "").toLowerCase();
-          if (
-            option.includes("smart") ||
-            option.includes("non") ||
-            option.includes("no ")
-          ) {
-            smartOptionPosition = i;
-            break;
-          }
-        }
-
-        // Get smart option value
-        const smartOptionInput = this.container.querySelector(
-          "[data-smart-option-input]"
-        );
-        if (!smartOptionInput) {
-          return;
-        }
-        const smartValue = smartOptionInput.dataset.smartValue;
-
-        // Find smart variant using same logic as upgradeBaseToSmart
-        const smartVariant = baseProduct.variants.find((v) => {
-          if (!v.available) {
-            return false;
-          }
-
-          // Check if smart option position has the smart value
-          if (smartOptionPosition >= 0) {
-            const variantSmartOption = (
-              v.options[smartOptionPosition] || ""
-            ).toLowerCase();
-            const smartValueLower = (smartValue || "").toLowerCase();
-            if (variantSmartOption !== smartValueLower) {
-              return false;
-            }
-          }
-
-          // Match all other options exactly
-          for (let i = 0; i < currentVariant.options.length; i++) {
-            if (i === smartOptionPosition) {
-              continue; // Skip smart option position (already checked)
-            }
-            if (currentVariant.options[i] !== v.options[i]) {
-              return false;
-            }
-          }
-
-          return true;
-        });
-
-        if (smartVariant) {
-          // Replace classic base with smart base in selectedAccessories
-          const accessoryIndex = this.selectedAccessories.findIndex(
-            (acc) => acc.id === baseAccessory.id
+        if (accessoriesContainer && baseAccessory.productId) {
+          const classicBaseItem = accessoriesContainer.querySelector(
+            `[data-accessory-item][data-product-id="${baseAccessory.productId}"][data-base-type="classic"]`
           );
-          if (accessoryIndex > -1) {
-            this.selectedAccessories[accessoryIndex].id = smartVariant.id;
-            this.selectedAccessories[accessoryIndex].price = smartVariant.price;
+
+          if (classicBaseItem) {
+            const smartVariantId = classicBaseItem.dataset.smartBaseVariantId;
+            if (smartVariantId) {
+              // Get smart base item to get price and title
+              const smartBaseItem = accessoriesContainer.querySelector(
+                `[data-accessory-item][data-base-type="smart"][data-smart-base-variant-id="${smartVariantId}"], [data-accessory-item][data-base-type="smart"]`
+              );
+
+              let smartPrice = baseAccessory.price;
+              let smartTitle = baseAccessory.title.replace(
+                /classic/gi,
+                "Smart"
+              );
+
+              if (smartBaseItem) {
+                const smartCheckbox = smartBaseItem.querySelector(
+                  "[data-accessory-checkbox]"
+                );
+                if (smartCheckbox) {
+                  smartPrice = parseInt(smartCheckbox.dataset.accessoryPrice);
+                  smartTitle = smartCheckbox.dataset.accessoryTitle;
+                }
+              }
+
+              // Replace classic base with smart base in selectedAccessories
+              const accessoryIndex = this.selectedAccessories.findIndex(
+                (acc) => acc.id === baseAccessory.id
+              );
+              if (accessoryIndex > -1) {
+                this.selectedAccessories[accessoryIndex].id =
+                  parseInt(smartVariantId);
+                this.selectedAccessories[accessoryIndex].price = smartPrice;
+                this.selectedAccessories[accessoryIndex].title = smartTitle;
+              }
+            }
           }
         }
       }

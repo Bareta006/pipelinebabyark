@@ -70,7 +70,33 @@
             {%- assign accessory_image = custom_image_override.default_image -%}
           {%- endif -%}
 
+          {%- comment -%} Identify base type and find corresponding base {%- endcomment -%}
+          {%- assign title_lower = accessory.title | downcase -%}
+          {%- assign is_classic_base = false -%}
+          {%- assign is_smart_base = false -%}
+          {%- assign smart_base_variant_id = '' -%}
+          {%- if title_lower contains 'base' -%}
+            {%- if title_lower contains 'classic' -%}
+              {%- assign is_classic_base = true -%}
+              {%- comment -%} Find smart base product in collection {%- endcomment -%}
+              {%- for smart_accessory in accessories_collection.products limit: 20 -%}
+                {%- assign smart_title_lower = smart_accessory.title | downcase -%}
+                {%- if smart_title_lower contains 'base' and smart_title_lower contains 'smart' and smart_title_lower contains 'classic' == false -%}
+                  {%- for variant in smart_accessory.variants -%}
+                    {%- if variant.available -%}
+                      {%- assign smart_base_variant_id = variant.id -%}
+                      {%- break -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                  {%- break -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- elsif title_lower contains 'smart' -%}
+              {%- assign is_smart_base = true -%}
+            {%- endif -%}
+          {%- endif -%}
           <div class="accessory-item" data-accessory-item data-product-id="{{ accessory.id }}" data-product-handle="{{ accessory.handle }}"
+               {%- if is_classic_base -%}data-base-type="classic"{%- if smart_base_variant_id != '' -%} data-smart-base-variant-id="{{ smart_base_variant_id }}"{%- endif -%}{%- elsif is_smart_base -%}data-base-type="smart"{%- endif -%}
                {%- if custom_image_override.variant_images -%}
                data-variant-images="{{ custom_image_override.variant_images | escape }}"
                {%- endif -%}>
