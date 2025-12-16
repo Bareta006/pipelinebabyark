@@ -129,28 +129,10 @@ class ProductMultiStep {
     }
 
     if (this.currentStep === 4 && nextStep === 5) {
-      const addText = btn.querySelector(".btn-text-add");
-      const addedText = btn.querySelector(".btn-text-added");
-
       btn.disabled = true;
-
-      if (addText && addedText) {
-        addText.style.display = "none";
-        addedText.style.display = "flex";
-        btn.classList.add("showing-added");
-      }
-
       await this.addAllToCart();
-
-      setTimeout(() => {
-        if (addText && addedText) {
-          addText.style.display = "inline-block";
-          addedText.style.display = "none";
-          btn.classList.remove("showing-added");
-        }
-        btn.disabled = false;
-        this.showStep(nextStep);
-      }, 2000);
+      btn.disabled = false;
+      this.showStep(nextStep);
     } else {
       this.showStep(nextStep);
     }
