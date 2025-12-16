@@ -633,6 +633,42 @@ class ProductMultiStep {
     }
   }
 
+  filterAccessoriesBySmartOption() {
+    const container = this.container.querySelector(
+      "[data-accessories-container]"
+    );
+    if (!container) return;
+
+    const accessoryItems = container.querySelectorAll("[data-accessory-item]");
+    const smartOptionLower = (this.selectedSmartOption || "").toLowerCase();
+    const isSmartSelected =
+      smartOptionLower.includes("smart") &&
+      !smartOptionLower.includes("non") &&
+      !smartOptionLower.includes("classic");
+
+    accessoryItems.forEach((item) => {
+      const titleElement = item.querySelector("h4");
+      if (!titleElement) return;
+
+      const productName = titleElement.textContent.trim().toLowerCase();
+      let shouldHide = false;
+
+      if (isSmartSelected) {
+        // If smart selected, hide accessories with "classic" in name
+        if (productName.includes("classic")) {
+          shouldHide = true;
+        }
+      } else {
+        // If non-smart selected, hide accessories with "smart" in name
+        if (productName.includes("smart")) {
+          shouldHide = true;
+        }
+      }
+
+      item.style.display = shouldHide ? "none" : "";
+    });
+  }
+
   attachAccessoryListeners() {
     const container = this.container.querySelector(
       "[data-accessories-container]"
@@ -853,6 +889,7 @@ class ProductMultiStep {
     }
 
     if (stepNumber === 4) {
+      this.filterAccessoriesBySmartOption();
       this.attachAccessoryListeners();
     }
 
