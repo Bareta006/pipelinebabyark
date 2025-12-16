@@ -1930,6 +1930,9 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
   padding: 0 0 10px 0;
 }
+.step-actions{
+  gap: 10px;  
+}
 .step2-variant-and-buttons-container .step-actions,.multistep-step--4 .step-actions{
   display: flex;
   flex-direction: row-reverse;
