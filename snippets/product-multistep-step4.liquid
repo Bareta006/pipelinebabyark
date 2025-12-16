@@ -53,6 +53,27 @@
               {%- break -%}
             {%- endif -%}
           {%- endfor -%}
+          
+          <script>
+            console.log('Accessory:', {{ accessory.title | json }}, {
+              product_id: {{ accessory.id }},
+              variants_count: {{ accessory.variants.size }},
+              has_available: {{ has_available }},
+              variants: [
+                {%- for variant in accessory.variants -%}
+                {
+                  id: {{ variant.id }},
+                  title: {{ variant.title | json }},
+                  available: {{ variant.available }},
+                  inventory_quantity: {{ variant.inventory_quantity | default: 'null' }},
+                  inventory_policy: {{ variant.inventory_policy | json }},
+                  inventory_management: {{ variant.inventory_management | json }}
+                }{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+              ]
+            });
+          </script>
+          
           {%- unless has_available -%}
             {%- continue -%}
           {%- endunless -%}
