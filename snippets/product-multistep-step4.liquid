@@ -81,14 +81,18 @@
               {%- comment -%} Find smart base product in collection {%- endcomment -%}
               {%- for smart_accessory in accessories_collection.products limit: 20 -%}
                 {%- assign smart_title_lower = smart_accessory.title | downcase -%}
-                {%- if smart_title_lower contains 'base' and smart_title_lower contains 'smart' and smart_title_lower contains 'classic' == false -%}
-                  {%- for variant in smart_accessory.variants -%}
-                    {%- if variant.available -%}
-                      {%- assign smart_base_variant_id = variant.id -%}
+                {%- if smart_title_lower contains 'base' -%}
+                  {%- if smart_title_lower contains 'smart' -%}
+                    {%- unless smart_title_lower contains 'classic' -%}
+                      {%- for variant in smart_accessory.variants -%}
+                        {%- if variant.available -%}
+                          {%- assign smart_base_variant_id = variant.id -%}
+                          {%- break -%}
+                        {%- endif -%}
+                      {%- endfor -%}
                       {%- break -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                  {%- break -%}
+                    {%- endunless -%}
+                  {%- endif -%}
                 {%- endif -%}
               {%- endfor -%}
             {%- elsif title_lower contains 'smart' -%}
