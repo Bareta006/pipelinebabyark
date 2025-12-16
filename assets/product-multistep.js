@@ -662,7 +662,11 @@ class ProductMultiStep {
         }
       } else {
         // If non-smart selected, hide accessories with "smart" in name
-        if (productName.includes("smart")) {
+        // But don't hide if it starts with "no " or "no-" (e.g., "No Smart Capabilities")
+        const hasSmartInName = productName.includes("smart");
+        const startsWithNo =
+          productName.startsWith("no ") || productName.startsWith("no-");
+        if (hasSmartInName && !startsWithNo) {
           shouldHide = true;
         }
       }
