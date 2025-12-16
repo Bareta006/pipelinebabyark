@@ -89,6 +89,7 @@ The template consists of two main sections:
   - Delivery date/time display
   - "Upgrade to Smart" option (if non-smart selected)
   - "Go to Checkout" button
+  - **Affirm Payment Messaging**: Dynamic price display based on final total (product + discounted accessories)
 - **Cart Addition**: All items added to cart before showing summary
 - **Fullscreen**: Active
 
@@ -134,6 +135,8 @@ The template consists of two main sections:
    - `updateColorAvailability()`: Enables/disables color options based on shell selection
    - Checks variant availability for each color/shell combination
    - Shows "Sold Out" indicators for unavailable combinations
+   - **Variant Hiding**: If variant has `custom.hidevariant` metafield = true, completely hides the fabric color option (not just marks as sold out)
+   - **Metafield**: `variant.metafields.custom.hidevariant.value` (boolean) - included in product JSON
 
 4. **Image Slider**:
    - `initializeSlider()`: Sets up touch/mouse drag navigation
@@ -162,6 +165,19 @@ The template consists of two main sections:
    - `renderOrderSummary()`: Generates HTML for Step 5 summary
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
+   - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
+   - **Cart Update**: When upgrading to smart, removes non-smart variant and adds smart variant with same delivery properties
+   - `refreshAffirmPrice(totalInDollars)`: Updates Affirm payment messaging with current total price
+
+8. **Affirm Integration**:
+   - `refreshAffirmPrice(totalInDollars)`: Updates Affirm element with current total
+   - **Location**: Step 5 only (order summary)
+   - **Element**: `<div class="affirm-as-low-as" data-affirm-type="product" data-amount="TOTAL_IN_CENTS"></div>`
+   - **Price Calculation**: Uses `totalDiscounted` (product price + accessories with 20% discount)
+   - **Price Format**: Converted to cents for `data-amount` attribute
+   - **Refresh Trigger**: Called automatically in `renderOrderSummary()` after calculating totals
+   - **Refresh Method**: Uses `affirm.ui.refresh()` wrapped in `affirm.ui.ready()` if available
+   - **Fallback**: If Affirm not loaded, waits 500ms and retries
 
 8. **Feature Modals**:
    - `attachBannerListeners()`: Handles feature modal popups
@@ -251,8 +267,12 @@ Priority order:
 
 ### Smart Option Values
 - Stored in `[data-smart-option-input]` element
-- `data-smart-value`: Smart variant option value
-- `data-non-smart-value`: Non-smart variant option value
+- `data-smart-value`: Smart variant option value (e.g., "Smart Capabilities")
+- `data-non-smart-value`: Non-smart variant option value (e.g., "No Smart Capabilities")
+- **Detection Logic**: 
+  - Smart selected: Contains "smart" but NOT "non", "classic", "no ", or "no-"
+  - Non-smart selected: Contains "non", "no ", or "no-" (starts with)
+  - Liquid template checks for "no" in value to determine non-smart value
 
 ## Accessories System
 
@@ -271,7 +291,15 @@ Priority order:
 ### Pricing
 - 20% discount applied automatically
 - Displayed as: discounted price (strikethrough original price)
-- Savings shown in order summary
+- Savings shown in order summary (only if savings > 0)
+
+### Accessory Filtering by Smart Option
+- **Location**: `filterAccessoriesBySmartOption()` method
+- **Trigger**: Called when Step 4 is shown
+- **Logic**:
+  - If smart selected: Hide accessories with "classic" in product name
+  - If non-smart selected: Hide accessories with "smart" in product name (but NOT those starting with "no " or "no-")
+- **Purpose**: Show only compatible accessories based on smart/non-smart selection
 
 ## URL Parameters
 
@@ -309,6 +337,10 @@ The template includes complete product JSON with:
 
 **Access**: Via `[data-product-json]` script tag, parsed by JavaScript
 
+**Variant Metafields**:
+- `delivery_estimated_date`: Delivery date for specific variant
+- `hidevariant`: Boolean - if true, hides the fabric color option when shell color is selected (custom.hidevariant)
+
 ## Progress Indicators
 
 ### Progress Dots
@@ -327,10 +359,9 @@ The template includes complete product JSON with:
 ## Button States & Feedback
 
 ### Add to Cart Button (Step 4)
-- Shows "ADD" text initially
-- Changes to "ADDED" after click
-- Disabled during cart addition (2 seconds)
-- Visual feedback via `.showing-added` class
+- Shows "Next" text (no "Added" state)
+- Proceeds directly to Step 5 after adding to cart
+- Disabled during cart addition
 
 ### Smart Option Button (Step 3)
 - Similar add/added state pattern
@@ -360,6 +391,20 @@ The template includes complete product JSON with:
 - Fullscreen mode works on mobile
 - Progress dots adapt to screen size
 - Form elements sized appropriately
+
+## Customize Button Behavior
+
+### Section Hiding
+- **Method**: `hideAllSectionsExceptProduct()`
+- **Trigger**: When "Customize" button is clicked (Step 1)
+- **Behavior**:
+  - Hides all sections except the product section
+  - Includes app sections (Judge.me, etc.)
+  - Also hides: `#accessiblyAppWidgetButton` and `#tidio-chat`
+  - Stores original display styles in `dataset.originalDisplay` for potential restoration
+  - Adds `multistep-customize-mode` class to body
+  - Scrolls to product section
+- **Prevention**: Uses `sectionsHidden` flag to prevent recursive calls
 
 ## Critical Implementation Notes
 
@@ -541,6 +586,34 @@ The template includes complete product JSON with:
 6. **Performance**: Optimize image sizes for slider
 7. **Accessibility**: Ensure keyboard navigation works
 8. **Error Handling**: Provide user feedback for errors
+
+## Affirm Payment Integration
+
+### Implementation
+- **Location**: Step 5 (Order Summary) only
+- **Element**: `<div class="affirm-as-low-as" data-affirm-type="product" data-amount="0"></div>`
+- **Price Source**: Final total including product + accessories (with 20% discount)
+- **Price Format**: Cents (multiply dollars by 100, rounded)
+
+### Price Updates
+- **Trigger**: Automatically called in `renderOrderSummary()` after calculating `totalDiscounted`
+- **Method**: `refreshAffirmPrice(totalInDollars)`
+- **Process**:
+  1. Converts dollars to cents
+  2. Updates `data-amount` attribute on Affirm element
+  3. Calls `affirm.ui.refresh()` to update display
+  4. Wraps in `affirm.ui.ready()` if available
+  5. Falls back with timeout if Affirm not loaded
+
+### When Price Updates
+- Initial render of Step 5 (order summary)
+- When upgrading to smart variant (via `upgradeToSmart()` → `renderOrderSummary()`)
+- Price includes: Main product + all accessories (with 20% discount applied)
+
+### Requirements
+- Affirm.js must be loaded globally (via Shopify app or theme)
+- Affirm element must exist in Step 5 template
+- Price must be > 0 for Affirm to display
 
 ## Future Enhancements
 

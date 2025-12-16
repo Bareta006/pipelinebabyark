@@ -1279,6 +1279,9 @@ class ProductMultiStep {
       `;
     }
 
+    // Update Affirm price display
+    this.refreshAffirmPrice(totalDiscounted);
+
     const upgradeBtn = summaryContainer.querySelector(
       "[data-upgrade-to-smart]"
     );
@@ -1333,6 +1336,47 @@ class ProductMultiStep {
     }
 
     return null;
+  }
+
+  refreshAffirmPrice(totalInDollars) {
+    // Convert dollars to cents for Affirm
+    const totalInCents = Math.round(totalInDollars);
+
+    // Find Affirm element in step 5
+    const affirmElement = this.container.querySelector(
+      ".affirm-as-low-as[data-affirm-type='product']"
+    );
+
+    if (affirmElement && totalInCents > 0) {
+      // Update the data-amount attribute
+      affirmElement.setAttribute("data-amount", totalInCents);
+
+      // Refresh Affirm display
+      if (typeof affirm !== "undefined" && affirm.ui) {
+        // Check if Affirm is ready, otherwise wait for it
+        if (affirm.ui.ready) {
+          affirm.ui.ready(function () {
+            affirm.ui.refresh();
+          });
+        } else {
+          // If ready function doesn't exist, try refresh directly
+          try {
+            affirm.ui.refresh();
+          } catch (e) {
+            // Affirm might not be loaded yet, wait a bit and try again
+            setTimeout(() => {
+              if (
+                typeof affirm !== "undefined" &&
+                affirm.ui &&
+                affirm.ui.refresh
+              ) {
+                affirm.ui.refresh();
+              }
+            }, 500);
+          }
+        }
+      }
+    }
   }
 
   async upgradeToSmart() {

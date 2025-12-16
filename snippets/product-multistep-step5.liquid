@@ -38,9 +38,10 @@
         {% render 'icon-multistep-deliver_2' %}
           Estimated delivery between Dec 15-20
         </div>
-        <div class="order-summary-bullet">
+        <div class="order-summary-bullet" data-affirm-container>
           {% render 'icon-multistep-affirm' %}
-          Starting at $62/mo or 0% APR. <a href="#" class="affirm-purchasing-power-link" style="text-decoration: underline; cursor: pointer; color: inherit;">Check your purchasing power</a>
+          <div class="affirm-as-low-as" data-affirm-type="product" data-amount="0"></div>
+          <a href="#" class="affirm-purchasing-power-link" style="text-decoration: underline; cursor: pointer; color: inherit;">Check your purchasing power</a>
         </div>
         <div class="order-summary-bullet">
           {% render 'icon-multistep-paysquad' %}
