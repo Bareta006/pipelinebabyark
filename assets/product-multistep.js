@@ -1546,38 +1546,54 @@ class ProductMultiStep {
         return; // Current variant not found
       }
 
-      // Find smart variant of base
-      // Match all options from current variant, but find one with smart option
-      const smartBaseVariant = baseProduct.variants.find((v) => {
-        // Check if this variant has the smart option
-        const hasSmartOption = v.options.some((opt) => {
-          if (!opt) return false;
-          const optLower = opt.toLowerCase();
-          return (
-            optLower.includes("smart") &&
-            !optLower.includes("non") &&
-            !optLower.includes("no ") &&
-            !optLower.includes("classic")
-          );
-        });
+      // Find which option position is the smart option in current variant
+      let smartOptionPosition = -1;
+      for (let i = 0; i < currentBaseVariant.options.length; i++) {
+        const option = (currentBaseVariant.options[i] || "").toLowerCase();
+        if (
+          option.includes("smart") ||
+          option.includes("non") ||
+          option.includes("no ")
+        ) {
+          smartOptionPosition = i;
+          break;
+        }
+      }
 
-        if (!hasSmartOption || !v.available) {
+      // Get the smart option value from main product
+      const smartOptionInput = this.container.querySelector(
+        "[data-smart-option-input]"
+      );
+      if (!smartOptionInput) {
+        return;
+      }
+      const smartValue = smartOptionInput.dataset.smartValue;
+
+      // Find smart variant of base
+      // Match all options from current variant EXCEPT smart option position
+      // Smart option position should have the smart value
+      const smartBaseVariant = baseProduct.variants.find((v) => {
+        if (!v.available) {
           return false;
         }
 
-        // Match other options (non-smart options should match)
+        // Check if smart option position has the smart value
+        if (smartOptionPosition >= 0) {
+          const variantSmartOption = (
+            v.options[smartOptionPosition] || ""
+          ).toLowerCase();
+          const smartValueLower = (smartValue || "").toLowerCase();
+          if (variantSmartOption !== smartValueLower) {
+            return false;
+          }
+        }
+
+        // Match all other options exactly
         for (let i = 0; i < currentBaseVariant.options.length; i++) {
-          const currentOption = currentBaseVariant.options[i];
-          const variantOption = v.options[i];
-
-          // Skip if this is the smart option position
-          const currentOptionLower = (currentOption || "").toLowerCase();
-          const isSmartOptionPosition =
-            currentOptionLower.includes("smart") ||
-            currentOptionLower.includes("non") ||
-            currentOptionLower.includes("no ");
-
-          if (!isSmartOptionPosition && currentOption !== variantOption) {
+          if (i === smartOptionPosition) {
+            continue; // Skip smart option position (already checked)
+          }
+          if (currentBaseVariant.options[i] !== v.options[i]) {
             return false;
           }
         }
