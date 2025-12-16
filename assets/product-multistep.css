@@ -1919,7 +1919,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
 }
 @media (max-width: 480px) {
-    .multistep-container .multistep-step{
+    .multistep-container .multistep-step:not(.multistep-step--1){
     padding: 0 15px;
   }
   .product__inner {
