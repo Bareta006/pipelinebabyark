@@ -1943,4 +1943,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
 .step2-variant-and-buttons-container .step-actions button.action-button.btn--secondary,.multistep-step--4 .step-actions button.action-button.btn--secondary{
   flex-shrink: 2.5;
 }
+.multistep-step--5 .step-actions .btn--secondary{
+      border: none !important;
+}
 }
