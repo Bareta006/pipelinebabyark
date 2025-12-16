@@ -1920,16 +1920,18 @@ class ProductMultiStep {
             return false;
           }
 
-          // Match shell color - bases only have one color option
-          const variantColor = v.option1 || v.title || "";
+          // Match shell color - bases only have one color option (option1)
+          const variantColor = v.option1 || "";
+          const variantColorLower = variantColor.toLowerCase().trim();
+          const shellColorLower = (selectedShellColor || "")
+            .toLowerCase()
+            .trim();
+
           console.log(
-            `Checking variant ${v.id}: color "${variantColor}" vs shell color "${selectedShellColor}"`
+            `Checking variant ${v.id}: option1="${variantColor}" (${variantColorLower}) vs shell color="${selectedShellColor}" (${shellColorLower})`
           );
 
-          if (
-            selectedShellColor &&
-            variantColor.toLowerCase() === selectedShellColor.toLowerCase()
-          ) {
+          if (shellColorLower && variantColorLower === shellColorLower) {
             console.log("Shell color match found!");
             return true;
           }
