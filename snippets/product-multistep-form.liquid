@@ -62,7 +62,8 @@
           "selling_plan_allocations": {{ variant.selling_plan_allocations | json }},
           "quantity_rule": {{ variant.quantity_rule | json }},
           "metafields": {
-            "delivery_estimated_date": {{ variant.metafields.delivery.delivery_estimated_date.value | json }}
+            "delivery_estimated_date": {{ variant.metafields.delivery.delivery_estimated_date.value | json }},
+            "hidevariant": {{ variant.metafields.custom.hidevariant.value | json }}
           }
         }{% unless forloop.last %},{% endunless %}
       {%- endfor -%}

@@ -231,7 +231,8 @@ class ProductMultiStep {
     colorInputs.forEach((input) => {
       const color = input.value;
 
-      const availableVariant = this.productData.variants.find((v) => {
+      // Find variant matching shell color + fabric color
+      const matchingVariant = this.productData.variants.find((v) => {
         const matchesShell =
           v.option1?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
           v.option2?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
@@ -242,15 +243,21 @@ class ProductMultiStep {
           v.option2?.toLowerCase() === color?.toLowerCase() ||
           v.option3?.toLowerCase() === color?.toLowerCase();
 
-        return matchesShell && matchesColor && v.available;
+        return matchesShell && matchesColor;
       });
+
+      // Check if variant should be hidden/disabled
+      const shouldHide =
+        !matchingVariant ||
+        !matchingVariant.available ||
+        matchingVariant.metafields?.hidevariant === true;
 
       const swatchWrapper = input.closest(".swatch-option");
       if (swatchWrapper) {
         let textBelow = swatchWrapper.querySelector(".swatch-text-below");
         let soldOutDiv = swatchWrapper.querySelector(".swatch-sold-out-fabric");
 
-        if (!availableVariant) {
+        if (shouldHide) {
           swatchWrapper.classList.add("swatch-option--disabled");
           input.disabled = true;
           if (input.checked) {
