@@ -45,16 +45,15 @@
             {%- assign has_variants = true -%}
           {%- endif -%}
           
-          {%- comment -%} Check if accessory has any available variants {%- endcomment -%}
-          {%- assign has_available_variant = false -%}
+          {%- comment -%} Check if accessory has any available variants - if not, skip it {%- endcomment -%}
+          {%- assign has_available = false -%}
           {%- for variant in accessory.variants -%}
-            {%- if variant.available == true -%}
-              {%- assign has_available_variant = true -%}
+            {%- if variant.available -%}
+              {%- assign has_available = true -%}
               {%- break -%}
             {%- endif -%}
           {%- endfor -%}
-          
-          {%- unless has_available_variant -%}
+          {%- unless has_available -%}
             {%- continue -%}
           {%- endunless -%}
           {%- assign custom_image_override = null -%}
