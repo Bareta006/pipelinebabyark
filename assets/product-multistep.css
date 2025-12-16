@@ -901,9 +901,7 @@ border-radius: 10px 10px 0 0;
   margin: 0;
 }
 
-.multistep-fullscreen .shopify-section-header,
-.multistep-fullscreen [class*="announcement"],
-.multistep-fullscreen [id*="announcement"] {
+.multistep-fullscreen .shopify-section-header {
   display: block !important;
   visibility: visible !important;
   position: relative !important;
