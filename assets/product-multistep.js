@@ -1908,42 +1908,88 @@ class ProductMultiStep {
 
       // Find smart variant
       console.log("Searching for smart variant...");
-      smartBaseVariant = smartBaseProduct.variants.find((v) => {
-        if (!v.available) {
+
+      if (isClassicBase) {
+        // Classic base upgrading to smart base
+        // Smart base variants only have COLOR options (no smart option)
+        // Match by color from classic base cart item
+        const classicBaseColor =
+          baseCartItem.variant_title || baseCartItem.variant_options?.[0] || "";
+        console.log("classicBaseColor from cart:", classicBaseColor);
+
+        smartBaseVariant = smartBaseProduct.variants.find((v) => {
+          if (!v.available) {
+            return false;
+          }
+
+          // Match color from classic base
+          const variantColor = v.option1 || v.title || "";
+          console.log(
+            `Checking variant ${v.id}: color "${variantColor}" vs "${classicBaseColor}"`
+          );
+
+          if (
+            classicBaseColor &&
+            variantColor.toLowerCase() === classicBaseColor.toLowerCase()
+          ) {
+            console.log("Color match found!");
+            return true;
+          }
+
           return false;
-        }
+        });
+      } else {
+        // Smart base upgrading (has variants with smart option)
+        smartBaseVariant = smartBaseProduct.variants.find((v) => {
+          if (!v.available) {
+            return false;
+          }
 
-        // Match smart option
-        const matchesSmart =
-          v.option1?.toLowerCase() === smartValue?.toLowerCase() ||
-          v.option2?.toLowerCase() === smartValue?.toLowerCase() ||
-          v.option3?.toLowerCase() === smartValue?.toLowerCase();
+          // Match smart option
+          const matchesSmart =
+            v.option1?.toLowerCase() === smartValue?.toLowerCase() ||
+            v.option2?.toLowerCase() === smartValue?.toLowerCase() ||
+            v.option3?.toLowerCase() === smartValue?.toLowerCase();
 
-        if (!matchesSmart) {
-          return false;
-        }
+          if (!matchesSmart) {
+            return false;
+          }
 
-        // If classic base, match colors from main product
-        if (isClassicBase) {
-          const variantOptionsStr = (
-            v.option1 +
-            " " +
-            v.option2 +
-            " " +
-            v.option3
-          ).toLowerCase();
-          const hasColor = selectedColor
-            ? variantOptionsStr.includes(selectedColor.toLowerCase())
-            : true;
-          const hasShellColor = selectedShellColor
-            ? variantOptionsStr.includes(selectedShellColor.toLowerCase())
-            : true;
-          return hasColor && hasShellColor;
-        }
+          // Match all other options exactly
+          const currentBaseVariant = baseProduct.variants.find(
+            (v) => v.id === baseCartItem.variant_id
+          );
+          if (!currentBaseVariant) {
+            return false;
+          }
 
-        // For smart base, match all other options (already handled above)
-        return true;
-      });
+          let smartOptionPosition = -1;
+          for (let i = 0; i < currentBaseVariant.options.length; i++) {
+            const option = (currentBaseVariant.options[i] || "").toLowerCase();
+            if (
+              option.includes("smart") ||
+              option.includes("non") ||
+              option.includes("no ")
+            ) {
+              smartOptionPosition = i;
+              break;
+            }
+          }
+
+          // Match all other options exactly
+          for (let i = 0; i < currentBaseVariant.options.length; i++) {
+            if (i === smartOptionPosition) {
+              continue; // Skip smart option position (already checked)
+            }
+            if (currentBaseVariant.options[i] !== v.options[i]) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+      }
+
       console.log("smartBaseVariant found:", smartBaseVariant);
 
       if (smartBaseVariant) {
