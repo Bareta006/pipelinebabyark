@@ -1912,27 +1912,25 @@ class ProductMultiStep {
       if (isClassicBase) {
         // Classic base upgrading to smart base
         // Smart base variants only have COLOR options (no smart option)
-        // Match by color from classic base cart item
-        const classicBaseColor =
-          baseCartItem.variant_title || baseCartItem.variant_options?.[0] || "";
-        console.log("classicBaseColor from cart:", classicBaseColor);
+        // Match by shell color from main product - bases only have one color
+        console.log("Matching smart base by shell color:", selectedShellColor);
 
         smartBaseVariant = smartBaseProduct.variants.find((v) => {
           if (!v.available) {
             return false;
           }
 
-          // Match color from classic base
+          // Match shell color - bases only have one color option
           const variantColor = v.option1 || v.title || "";
           console.log(
-            `Checking variant ${v.id}: color "${variantColor}" vs "${classicBaseColor}"`
+            `Checking variant ${v.id}: color "${variantColor}" vs shell color "${selectedShellColor}"`
           );
 
           if (
-            classicBaseColor &&
-            variantColor.toLowerCase() === classicBaseColor.toLowerCase()
+            selectedShellColor &&
+            variantColor.toLowerCase() === selectedShellColor.toLowerCase()
           ) {
-            console.log("Color match found!");
+            console.log("Shell color match found!");
             return true;
           }
 
