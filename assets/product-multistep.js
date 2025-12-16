@@ -1608,80 +1608,68 @@ class ProductMultiStep {
       );
 
       if (baseCartItem) {
-        // Base is in cart, upgrade it using cart method
+        // Base is in cart, upgrade it using cart method (same as seat upgrade)
         await this.upgradeBaseToSmart(baseCartItem);
       } else {
-        // Base not in cart yet - find smart variant ID from DOM data attribute
+        // Base not in cart yet - use data-smart-base-variant-id from Liquid
         const accessoriesContainer = this.container.querySelector(
           "[data-accessories-container]"
         );
-        if (accessoriesContainer) {
-          // Try to find classic base item by productHandle first, then by productId
-          let classicBaseItem = null;
-          if (baseAccessory.productHandle) {
-            classicBaseItem = accessoriesContainer.querySelector(
-              `[data-accessory-item][data-product-handle="${baseAccessory.productHandle}"][data-base-type="classic"]`
-            );
+        if (!accessoriesContainer) {
+          return;
+        }
+
+        // Find classic base item
+        let classicBaseItem = null;
+        if (baseAccessory.productHandle) {
+          classicBaseItem = accessoriesContainer.querySelector(
+            `[data-accessory-item][data-product-handle="${baseAccessory.productHandle}"][data-base-type="classic"]`
+          );
+        }
+        if (!classicBaseItem && baseAccessory.productId) {
+          classicBaseItem = accessoriesContainer.querySelector(
+            `[data-accessory-item][data-product-id="${baseAccessory.productId}"][data-base-type="classic"]`
+          );
+        }
+
+        if (!classicBaseItem) {
+          return;
+        }
+
+        // Get smart variant ID from Liquid data attribute
+        const smartVariantId = classicBaseItem.dataset.smartBaseVariantId;
+        if (!smartVariantId) {
+          return;
+        }
+
+        // Find smart base item to get price and title
+        const smartBaseItem = accessoriesContainer.querySelector(
+          `[data-accessory-item][data-base-type="smart"]`
+        );
+
+        let smartPrice = baseAccessory.price;
+        let smartTitle = baseAccessory.title.replace(/classic/gi, "Smart");
+
+        if (smartBaseItem) {
+          // Find checkbox with matching variant ID
+          const smartCheckbox = smartBaseItem.querySelector(
+            `[data-accessory-checkbox][data-accessory-id="${smartVariantId}"]`
+          );
+          if (smartCheckbox) {
+            smartPrice = parseInt(smartCheckbox.dataset.accessoryPrice);
+            smartTitle = smartCheckbox.dataset.accessoryTitle;
           }
-          if (!classicBaseItem && baseAccessory.productId) {
-            classicBaseItem = accessoriesContainer.querySelector(
-              `[data-accessory-item][data-product-id="${baseAccessory.productId}"][data-base-type="classic"]`
-            );
-          }
+        }
 
-          if (classicBaseItem) {
-            const smartVariantId = classicBaseItem.dataset.smartBaseVariantId;
-            if (smartVariantId) {
-              // Find smart base item to get price and title
-              const smartBaseItem = accessoriesContainer.querySelector(
-                `[data-accessory-item][data-base-type="smart"]`
-              );
-
-              let smartPrice = baseAccessory.price;
-              let smartTitle = baseAccessory.title.replace(
-                /classic/gi,
-                "Smart"
-              );
-
-              if (smartBaseItem) {
-                // Try to find checkbox with matching variant ID
-                const smartCheckboxes = smartBaseItem.querySelectorAll(
-                  "[data-accessory-checkbox]"
-                );
-                for (const checkbox of smartCheckboxes) {
-                  if (
-                    parseInt(checkbox.dataset.accessoryId) ===
-                    parseInt(smartVariantId)
-                  ) {
-                    smartPrice = parseInt(checkbox.dataset.accessoryPrice);
-                    smartTitle = checkbox.dataset.accessoryTitle;
-                    break;
-                  }
-                }
-                // Fallback to first checkbox if variant not found
-                if (smartCheckboxes.length > 0) {
-                  const firstCheckbox = smartCheckboxes[0];
-                  if (!smartPrice || smartPrice === baseAccessory.price) {
-                    smartPrice = parseInt(firstCheckbox.dataset.accessoryPrice);
-                  }
-                  if (!smartTitle || smartTitle === baseAccessory.title) {
-                    smartTitle = firstCheckbox.dataset.accessoryTitle;
-                  }
-                }
-              }
-
-              // Replace classic base with smart base in selectedAccessories
-              const accessoryIndex = this.selectedAccessories.findIndex(
-                (acc) => acc.id === baseAccessory.id
-              );
-              if (accessoryIndex > -1) {
-                this.selectedAccessories[accessoryIndex].id =
-                  parseInt(smartVariantId);
-                this.selectedAccessories[accessoryIndex].price = smartPrice;
-                this.selectedAccessories[accessoryIndex].title = smartTitle;
-              }
-            }
-          }
+        // Update selectedAccessories
+        const accessoryIndex = this.selectedAccessories.findIndex(
+          (acc) => acc.id === baseAccessory.id
+        );
+        if (accessoryIndex > -1) {
+          this.selectedAccessories[accessoryIndex].id =
+            parseInt(smartVariantId);
+          this.selectedAccessories[accessoryIndex].price = smartPrice;
+          this.selectedAccessories[accessoryIndex].title = smartTitle;
         }
       }
     } catch (error) {
