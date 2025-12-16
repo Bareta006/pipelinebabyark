@@ -1575,6 +1575,14 @@ class ProductMultiStep {
 
   async upgradeBaseAccessoryToSmart(baseAccessory) {
     try {
+      // Check if this is a classic base (needs upgrade)
+      const titleLower = (baseAccessory.title || "").toLowerCase();
+      const isClassic = titleLower.includes("classic");
+
+      if (!isClassic) {
+        return; // Not a classic base, no upgrade needed
+      }
+
       // Check if base is already in cart
       const cartResponse = await fetch("/cart.js");
       const cart = await cartResponse.json();
@@ -1584,32 +1592,67 @@ class ProductMultiStep {
       );
 
       if (baseCartItem) {
-        // Base is in cart, upgrade it
+        // Base is in cart, upgrade it using cart method
         await this.upgradeBaseToSmart(baseCartItem);
-        // Update selectedAccessories array with new variant
-        const updatedCart = await fetch("/cart.js").then((r) => r.json());
-        const updatedCartItem = updatedCart.items.find((item) =>
-          item.product_title.toLowerCase().includes("base")
+      } else {
+        // Base not in cart yet - find smart variant from the same product
+        // Find the accessory item in DOM by productId
+        const accessoriesContainer = this.container.querySelector(
+          "[data-accessories-container]"
         );
-        if (updatedCartItem) {
-          const accessoryIndex = this.selectedAccessories.findIndex(
-            (acc) => acc.id === baseAccessory.id
+        if (accessoriesContainer && baseAccessory.productId) {
+          const accessoryItem = accessoriesContainer.querySelector(
+            `[data-accessory-item][data-product-id="${baseAccessory.productId}"]`
           );
-          if (accessoryIndex > -1) {
-            this.selectedAccessories[accessoryIndex].id =
-              updatedCartItem.variant_id;
-            this.selectedAccessories[accessoryIndex].price =
-              updatedCartItem.price;
+
+          if (accessoryItem) {
+            // Get smart option value
+            const smartOptionInput = this.container.querySelector(
+              "[data-smart-option-input]"
+            );
+            if (smartOptionInput) {
+              const smartValue =
+                smartOptionInput.dataset.smartValue.toLowerCase();
+
+              // Find variant option that matches smart value
+              const variantOptions = accessoryItem.querySelectorAll(
+                "[data-variant-option]"
+              );
+
+              for (const option of variantOptions) {
+                const optionValue = (option.value || "").toLowerCase();
+                // Check if this option value contains smart (but not non/no/classic)
+                if (
+                  optionValue.includes("smart") &&
+                  !optionValue.includes("non") &&
+                  !optionValue.includes("no ") &&
+                  !optionValue.includes("classic")
+                ) {
+                  // Found smart variant option - get its variant ID
+                  const smartVariantId = parseInt(option.dataset.variantId);
+                  const smartPrice = parseInt(option.dataset.variantPrice);
+                  const smartTitle =
+                    option
+                      .closest("[data-accessory-item]")
+                      .querySelector("h4")
+                      ?.textContent?.trim() || baseAccessory.title;
+
+                  // Replace classic base with smart base in selectedAccessories
+                  const accessoryIndex = this.selectedAccessories.findIndex(
+                    (acc) => acc.id === baseAccessory.id
+                  );
+                  if (accessoryIndex > -1) {
+                    this.selectedAccessories[accessoryIndex].id =
+                      smartVariantId;
+                    this.selectedAccessories[accessoryIndex].price = smartPrice;
+                    this.selectedAccessories[accessoryIndex].title = smartTitle;
+                  }
+                  break;
+                }
+              }
+            }
           }
         }
-      } else {
-        // Base not in cart yet - we need to fetch product to find smart variant
-        // We'll need to get product handle somehow
-        // For now, mark it for upgrade when it gets added to cart
-        // Actually, let's try to fetch by making a request to find the product
-        // But we don't have handle...
-        // Best approach: when base gets added to cart in addAllToCart, check if we need to upgrade
-        // For now, we'll handle it when cart is checked
       }
     } catch (error) {
       // console.error('Error upgrading base accessory:', error);
