@@ -1946,4 +1946,10 @@ body:has([data-multistep-container]) .float-grid.product-single {
 .multistep-step--5 .step-actions .btn--secondary{
       border: none !important;
 }
+.multistep-step--4 h2.step-title{
+  margin-bottom: 15px;
+}
+ .multistep-step--4   .accessories-discount-banner {
+        margin-bottom: 15px;
+    }
 }
