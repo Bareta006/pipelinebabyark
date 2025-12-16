@@ -70,7 +70,7 @@
             {%- assign accessory_image = custom_image_override.default_image -%}
           {%- endif -%}
 
-          <div class="accessory-item" data-accessory-item data-product-id="{{ accessory.id }}"
+          <div class="accessory-item" data-accessory-item data-product-id="{{ accessory.id }}" data-product-handle="{{ accessory.handle }}"
                {%- if custom_image_override.variant_images -%}
                data-variant-images="{{ custom_image_override.variant_images | escape }}"
                {%- endif -%}>

@@ -685,12 +685,16 @@ class ProductMultiStep {
 
           if (e.target.checked) {
             const productId = parseInt(e.target.dataset.productId);
+            const productHandle =
+              item.closest("[data-accessory-item]")?.dataset.productHandle ||
+              null;
             this.addAccessory(
               variantId,
               accessoryTitle,
               accessoryPrice,
               accessoryImage,
-              productId
+              productId,
+              productHandle
             );
 
             if (checkbox.autoUncheckTimeout) {
@@ -780,12 +784,16 @@ class ProductMultiStep {
           const accessoryImage =
             item.querySelector("[data-accessory-image]")?.src || "";
           const productId = parseInt(checkbox.dataset.productId);
+          const productHandle =
+            item.closest("[data-accessory-item]")?.dataset.productHandle ||
+            null;
           this.addAccessory(
             selectedVariantId,
             accessoryTitle,
             accessoryPrice,
             accessoryImage,
-            productId
+            productId,
+            productHandle
           );
         }
       }
@@ -822,7 +830,14 @@ class ProductMultiStep {
     }
   }
 
-  addAccessory(variantId, title, price, image, productId = null) {
+  addAccessory(
+    variantId,
+    title,
+    price,
+    image,
+    productId = null,
+    productHandle = null
+  ) {
     // console.log('Adding accessory:', variantId, title);
     // console.log('Current accessories:', this.selectedAccessories);
     const existing = this.selectedAccessories.find(
@@ -836,6 +851,7 @@ class ProductMultiStep {
         image: image,
         quantity: 1,
         productId: productId,
+        productHandle: productHandle,
       });
       // console.log('Accessory added. Total accessories:', this.selectedAccessories.length);
     } else {
@@ -1595,62 +1611,91 @@ class ProductMultiStep {
         // Base is in cart, upgrade it using cart method
         await this.upgradeBaseToSmart(baseCartItem);
       } else {
-        // Base not in cart yet - find smart variant from the same product
-        // Find the accessory item in DOM by productId
-        const accessoriesContainer = this.container.querySelector(
-          "[data-accessories-container]"
+        // Base not in cart yet - fetch product JSON and find smart variant
+        if (!baseAccessory.productHandle) {
+          return; // Can't fetch without handle
+        }
+
+        // Fetch product JSON
+        const productResponse = await fetch(
+          `/products/${baseAccessory.productHandle}.js`
         );
-        if (accessoriesContainer && baseAccessory.productId) {
-          const accessoryItem = accessoriesContainer.querySelector(
-            `[data-accessory-item][data-product-id="${baseAccessory.productId}"]`
-          );
+        if (!productResponse.ok) {
+          return; // Product not found
+        }
 
-          if (accessoryItem) {
-            // Get smart option value
-            const smartOptionInput = this.container.querySelector(
-              "[data-smart-option-input]"
-            );
-            if (smartOptionInput) {
-              const smartValue =
-                smartOptionInput.dataset.smartValue.toLowerCase();
+        const baseProduct = await productResponse.json();
 
-              // Find variant option that matches smart value
-              const variantOptions = accessoryItem.querySelectorAll(
-                "[data-variant-option]"
-              );
+        // Find current variant
+        const currentVariant = baseProduct.variants.find(
+          (v) => v.id === baseAccessory.id
+        );
 
-              for (const option of variantOptions) {
-                const optionValue = (option.value || "").toLowerCase();
-                // Check if this option value contains smart (but not non/no/classic)
-                if (
-                  optionValue.includes("smart") &&
-                  !optionValue.includes("non") &&
-                  !optionValue.includes("no ") &&
-                  !optionValue.includes("classic")
-                ) {
-                  // Found smart variant option - get its variant ID
-                  const smartVariantId = parseInt(option.dataset.variantId);
-                  const smartPrice = parseInt(option.dataset.variantPrice);
-                  const smartTitle =
-                    option
-                      .closest("[data-accessory-item]")
-                      .querySelector("h4")
-                      ?.textContent?.trim() || baseAccessory.title;
+        if (!currentVariant) {
+          return; // Current variant not found
+        }
 
-                  // Replace classic base with smart base in selectedAccessories
-                  const accessoryIndex = this.selectedAccessories.findIndex(
-                    (acc) => acc.id === baseAccessory.id
-                  );
-                  if (accessoryIndex > -1) {
-                    this.selectedAccessories[accessoryIndex].id =
-                      smartVariantId;
-                    this.selectedAccessories[accessoryIndex].price = smartPrice;
-                    this.selectedAccessories[accessoryIndex].title = smartTitle;
-                  }
-                  break;
-                }
-              }
+        // Find smart option position
+        let smartOptionPosition = -1;
+        for (let i = 0; i < currentVariant.options.length; i++) {
+          const option = (currentVariant.options[i] || "").toLowerCase();
+          if (
+            option.includes("smart") ||
+            option.includes("non") ||
+            option.includes("no ")
+          ) {
+            smartOptionPosition = i;
+            break;
+          }
+        }
+
+        // Get smart option value
+        const smartOptionInput = this.container.querySelector(
+          "[data-smart-option-input]"
+        );
+        if (!smartOptionInput) {
+          return;
+        }
+        const smartValue = smartOptionInput.dataset.smartValue;
+
+        // Find smart variant using same logic as upgradeBaseToSmart
+        const smartVariant = baseProduct.variants.find((v) => {
+          if (!v.available) {
+            return false;
+          }
+
+          // Check if smart option position has the smart value
+          if (smartOptionPosition >= 0) {
+            const variantSmartOption = (
+              v.options[smartOptionPosition] || ""
+            ).toLowerCase();
+            const smartValueLower = (smartValue || "").toLowerCase();
+            if (variantSmartOption !== smartValueLower) {
+              return false;
             }
+          }
+
+          // Match all other options exactly
+          for (let i = 0; i < currentVariant.options.length; i++) {
+            if (i === smartOptionPosition) {
+              continue; // Skip smart option position (already checked)
+            }
+            if (currentVariant.options[i] !== v.options[i]) {
+              return false;
+            }
+          }
+
+          return true;
+        });
+
+        if (smartVariant) {
+          // Replace classic base with smart base in selectedAccessories
+          const accessoryIndex = this.selectedAccessories.findIndex(
+            (acc) => acc.id === baseAccessory.id
+          );
+          if (accessoryIndex > -1) {
+            this.selectedAccessories[accessoryIndex].id = smartVariant.id;
+            this.selectedAccessories[accessoryIndex].price = smartVariant.price;
           }
         }
       }
