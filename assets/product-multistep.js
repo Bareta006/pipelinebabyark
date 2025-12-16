@@ -644,7 +644,9 @@ class ProductMultiStep {
     const isSmartSelected =
       smartOptionLower.includes("smart") &&
       !smartOptionLower.includes("non") &&
-      !smartOptionLower.includes("classic");
+      !smartOptionLower.includes("classic") &&
+      !smartOptionLower.startsWith("no ") &&
+      !smartOptionLower.startsWith("no-");
 
     accessoryItems.forEach((item) => {
       const titleElement = item.querySelector("h4");
@@ -1206,9 +1208,14 @@ class ProductMultiStep {
 
     // console.log('Selected smart option:', this.selectedSmartOption);
 
+    const smartOptionLower = this.selectedSmartOption
+      ? this.selectedSmartOption.toLowerCase()
+      : "";
     if (
       this.selectedSmartOption &&
-      this.selectedSmartOption.toLowerCase().includes("non")
+      (smartOptionLower.includes("non") ||
+        smartOptionLower.startsWith("no ") ||
+        smartOptionLower.startsWith("no-"))
     ) {
       html += `
         <div class="summary-upgrade">
