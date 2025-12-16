@@ -807,6 +807,8 @@ body .step-actions .back-button {
     min-width: 80px !important;
         padding: 9px 10px;
             gap: 5px;
+            top: 5px;
+    left: 2vw;
   }
 }
 
