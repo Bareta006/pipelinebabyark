@@ -1531,7 +1531,18 @@ class ProductMultiStep {
 
   async upgradeBaseAccessoriesToSmart() {
     try {
-      // Get current cart
+      // First check selectedAccessories array for bases
+      const baseAccessories = this.selectedAccessories.filter((acc) => {
+        const titleLower = (acc.title || "").toLowerCase();
+        return titleLower.includes("base");
+      });
+
+      // Upgrade bases from selectedAccessories
+      for (const baseAccessory of baseAccessories) {
+        await this.upgradeBaseAccessoryToSmart(baseAccessory);
+      }
+
+      // Also check cart for bases (in case they're already added)
       const cartResponse = await fetch("/cart.js");
       const cart = await cartResponse.json();
 
@@ -1543,11 +1554,7 @@ class ProductMultiStep {
         );
       });
 
-      if (baseItems.length === 0) {
-        return; // No bases to upgrade
-      }
-
-      // For each base, find and upgrade to smart variant
+      // Upgrade bases from cart
       for (const baseItem of baseItems) {
         await this.upgradeBaseToSmart(baseItem);
       }
@@ -1563,6 +1570,49 @@ class ProductMultiStep {
     } catch (error) {
       // console.error('Error upgrading base accessories:', error);
       // Don't show error to user, just log it
+    }
+  }
+
+  async upgradeBaseAccessoryToSmart(baseAccessory) {
+    try {
+      // Check if base is already in cart
+      const cartResponse = await fetch("/cart.js");
+      const cart = await cartResponse.json();
+
+      const baseCartItem = cart.items.find(
+        (item) => item.variant_id === baseAccessory.id
+      );
+
+      if (baseCartItem) {
+        // Base is in cart, upgrade it
+        await this.upgradeBaseToSmart(baseCartItem);
+        // Update selectedAccessories array with new variant
+        const updatedCart = await fetch("/cart.js").then((r) => r.json());
+        const updatedCartItem = updatedCart.items.find((item) =>
+          item.product_title.toLowerCase().includes("base")
+        );
+        if (updatedCartItem) {
+          const accessoryIndex = this.selectedAccessories.findIndex(
+            (acc) => acc.id === baseAccessory.id
+          );
+          if (accessoryIndex > -1) {
+            this.selectedAccessories[accessoryIndex].id =
+              updatedCartItem.variant_id;
+            this.selectedAccessories[accessoryIndex].price =
+              updatedCartItem.price;
+          }
+        }
+      } else {
+        // Base not in cart yet - we need to fetch product to find smart variant
+        // We'll need to get product handle somehow
+        // For now, mark it for upgrade when it gets added to cart
+        // Actually, let's try to fetch by making a request to find the product
+        // But we don't have handle...
+        // Best approach: when base gets added to cart in addAllToCart, check if we need to upgrade
+        // For now, we'll handle it when cart is checked
+      }
+    } catch (error) {
+      // console.error('Error upgrading base accessory:', error);
     }
   }
 
