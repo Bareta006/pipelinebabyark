@@ -727,18 +727,67 @@ class ProductMultiStep {
     const variantOptions = item.querySelectorAll(
       "[data-variant-option]:checked"
     );
+
     variantOptions.forEach((option) => {
       const position = parseInt(option.dataset.optionPosition);
       selectedOptions[position - 1] = option.value;
     });
 
-    const priceEl = item.querySelector(".accessory-item__price");
-    if (priceEl) {
-      const wasChecked = checkbox.checked;
-      const oldVariantId = parseInt(checkbox.dataset.accessoryId);
+    // Find the selected variant ID from checked options
+    const selectedVariantId =
+      variantOptions.length > 0
+        ? parseInt(variantOptions[variantOptions.length - 1].dataset.variantId)
+        : null;
 
-      if (wasChecked) {
-        this.removeAccessory(oldVariantId);
+    if (selectedVariantId) {
+      // Get selected variant option to get price
+      const selectedOption = Array.from(variantOptions).find(
+        (opt) => parseInt(opt.dataset.variantId) === selectedVariantId
+      );
+
+      if (selectedOption) {
+        // Update checkbox with new variant ID, price, and availability
+        checkbox.dataset.accessoryId = selectedVariantId;
+        checkbox.dataset.accessoryPrice =
+          selectedOption.dataset.variantPrice ||
+          checkbox.dataset.accessoryPrice;
+        checkbox.dataset.variantAvailable = "true";
+        checkbox.disabled = false;
+
+        // Update displayed price
+        const priceEl = item.querySelector(".accessory-item__price");
+        const comparePriceEl = item.querySelector(
+          ".accessory-item__compare-price"
+        );
+        if (priceEl && selectedOption.dataset.variantPrice) {
+          const variantPrice = parseInt(selectedOption.dataset.variantPrice);
+          const discountedPrice = Math.round(variantPrice * 0.8);
+          priceEl.textContent = `$${(discountedPrice / 100).toFixed(2)}`;
+          if (comparePriceEl) {
+            comparePriceEl.textContent = `$${(variantPrice / 100).toFixed(2)}`;
+          }
+        }
+
+        // If checkbox was checked, update the accessory in selection
+        const wasChecked = checkbox.checked;
+        const oldVariantId = parseInt(checkbox.dataset.accessoryId);
+
+        if (wasChecked && oldVariantId !== selectedVariantId) {
+          this.removeAccessory(oldVariantId);
+          // Re-add with new variant
+          const accessoryTitle = checkbox.dataset.accessoryTitle;
+          const accessoryPrice = parseInt(checkbox.dataset.accessoryPrice);
+          const accessoryImage =
+            item.querySelector("[data-accessory-image]")?.src || "";
+          const productId = parseInt(checkbox.dataset.productId);
+          this.addAccessory(
+            selectedVariantId,
+            accessoryTitle,
+            accessoryPrice,
+            accessoryImage,
+            productId
+          );
+        }
       }
     }
   }

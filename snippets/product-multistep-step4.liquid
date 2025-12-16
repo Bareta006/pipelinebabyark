@@ -44,7 +44,28 @@
           {%- if accessory.variants.size > 1 -%}
             {%- assign has_variants = true -%}
           {%- endif -%}
+          
+          {%- comment -%} Check if accessory has any available variants {%- endcomment -%}
+          {%- assign has_available_variant = false -%}
+          {%- for variant in accessory.variants -%}
+            {%- if variant.available -%}
+              {%- assign has_available_variant = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          
+          {%- if has_available_variant -%}
 
+          {%- comment -%} Check if accessory has any available variants {%- endcomment -%}
+          {%- assign has_available_variant = false -%}
+          {%- for variant in accessory.variants -%}
+            {%- if variant.available -%}
+              {%- assign has_available_variant = true -%}
+              {%- break -%}
+            {%- endif -%}
+          {%- endfor -%}
+          
+          {%- if has_available_variant -%}
           {%- assign custom_image_override = null -%}
           {%- assign product_id_str = accessory.id | append: '' -%}
           {%- for override in accessory_image_overrides -%}
@@ -86,6 +107,7 @@
               {%- if has_variants -%}
                   {%- for option in accessory.options_with_values -%}
                     <div class="accessory-variant-options">
+                      {%- assign first_checked_done = false -%}
                       {%- for value in option.values -%}
                         {%- assign option_index = option.position | minus: 1 -%}
                         {%- assign variant_for_value = null -%}
@@ -96,6 +118,7 @@
                           {%- endif -%}
                         {%- endfor -%}
 
+                        {%- if variant_for_value.available -%}
                         <div class="swatch__button">
                           <input type="radio"
                                  name="accessory-{{ accessory.id }}-{{ option.name | handleize }}"
@@ -103,17 +126,20 @@
                                  data-variant-option
                                  data-option-position="{{ option.position }}"
                                  data-variant-id="{{ variant_for_value.id }}"
+                                 data-variant-available="true"
+                                 data-variant-price="{{ variant_for_value.price }}"
                                  {%- if variant_for_value.featured_image -%}
                                  data-variant-image="{{ variant_for_value.featured_image | image_url: width: 400 }}"
                                  {%- endif -%}
                                  id="accessory-{{ accessory.id }}-{{ option.name | handleize }}-{{ forloop.index }}"
-                                 {% if forloop.first %}checked{% endif %}>
+                                 {% if forloop.first and not first_checked_done %}checked{% assign first_checked_done = true %}{% endif %}>
                           <label class="swatch__label"
                                  for="accessory-{{ accessory.id }}-{{ option.name | handleize }}-{{ forloop.index }}"
                                  data-swatch="{{ value }}">
                             <span class="visually-hidden">{{ value }}</span>
                           </label>
                         </div>
+                        {%- endif -%}
                       {%- endfor -%}
                     </div>
                   {%- endfor -%}
@@ -121,15 +147,24 @@
               </div>
 
               <div class="accessory-item__action">
+                {%- assign first_available_variant = accessory.variants.first -%}
+                {%- for variant in accessory.variants -%}
+                  {%- if variant.available -%}
+                    {%- assign first_available_variant = variant -%}
+                    {%- break -%}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if first_available_variant.available -%}
                 <input type="checkbox"
                        data-accessory-checkbox
-                       data-accessory-id="{{ accessory.variants.first.id }}"
-                       data-accessory-price="{{ accessory.variants.first.price }}"
+                       data-accessory-id="{{ first_available_variant.id }}"
+                       data-accessory-price="{{ first_available_variant.price }}"
                        data-accessory-title="{{ accessory.title | escape }}"
                        data-product-id="{{ accessory.id }}"
+                       data-variant-available="true"
                        data-delivery-time="{{ accessory.metafields.delivery.delivery_time.value }}"
                        data-delivery-date="{{ accessory.metafields.delivery.estimated_date.value }}"
-                       data-variant-delivery-date="{{ accessory.variants.first.metafields.delivery.delivery_estimated_date.value }}"
+                       data-variant-delivery-date="{{ first_available_variant.metafields.delivery.delivery_estimated_date.value }}"
                        id="accessory-{{ accessory.id }}"
                        class="accessory-checkbox-hidden">
                 <label for="accessory-{{ accessory.id }}" class="accessory-add-btn">
@@ -144,6 +179,7 @@
               </div>
             </div>
           </div>
+          {%- endif -%}
         {%- endfor -%}
       {%- else -%}
         <div class="accessories-loading">

@@ -309,6 +309,15 @@ Priority order:
   - If non-smart selected: Hide accessories with "smart" in product name (but NOT those starting with "no " or "no-")
 - **Purpose**: Show only compatible accessories based on smart/non-smart selection
 
+### Accessory Availability Filtering
+- **Location**: Liquid template (`product-multistep-step4.liquid`)
+- **Logic**:
+  - **Variant Options**: Only shows swatches for variants where `variant.available == true`
+  - **Entire Item**: If accessory has variants and NONE are available, the entire accessory item is hidden
+  - **Single Variant**: If accessory has only one variant and it's not available, the entire item is hidden
+  - **Add Button**: Only shown if at least one variant is available
+- **Purpose**: Prevents users from seeing or attempting to add unavailable accessories
+
 ## URL Parameters
 
 ### Step Navigation
