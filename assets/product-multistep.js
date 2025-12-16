@@ -1615,17 +1615,26 @@ class ProductMultiStep {
         const accessoriesContainer = this.container.querySelector(
           "[data-accessories-container]"
         );
-        if (accessoriesContainer && baseAccessory.productId) {
-          const classicBaseItem = accessoriesContainer.querySelector(
-            `[data-accessory-item][data-product-id="${baseAccessory.productId}"][data-base-type="classic"]`
-          );
+        if (accessoriesContainer) {
+          // Try to find classic base item by productHandle first, then by productId
+          let classicBaseItem = null;
+          if (baseAccessory.productHandle) {
+            classicBaseItem = accessoriesContainer.querySelector(
+              `[data-accessory-item][data-product-handle="${baseAccessory.productHandle}"][data-base-type="classic"]`
+            );
+          }
+          if (!classicBaseItem && baseAccessory.productId) {
+            classicBaseItem = accessoriesContainer.querySelector(
+              `[data-accessory-item][data-product-id="${baseAccessory.productId}"][data-base-type="classic"]`
+            );
+          }
 
           if (classicBaseItem) {
             const smartVariantId = classicBaseItem.dataset.smartBaseVariantId;
             if (smartVariantId) {
-              // Get smart base item to get price and title
+              // Find smart base item to get price and title
               const smartBaseItem = accessoriesContainer.querySelector(
-                `[data-accessory-item][data-base-type="smart"][data-smart-base-variant-id="${smartVariantId}"], [data-accessory-item][data-base-type="smart"]`
+                `[data-accessory-item][data-base-type="smart"]`
               );
 
               let smartPrice = baseAccessory.price;
@@ -1635,12 +1644,29 @@ class ProductMultiStep {
               );
 
               if (smartBaseItem) {
-                const smartCheckbox = smartBaseItem.querySelector(
+                // Try to find checkbox with matching variant ID
+                const smartCheckboxes = smartBaseItem.querySelectorAll(
                   "[data-accessory-checkbox]"
                 );
-                if (smartCheckbox) {
-                  smartPrice = parseInt(smartCheckbox.dataset.accessoryPrice);
-                  smartTitle = smartCheckbox.dataset.accessoryTitle;
+                for (const checkbox of smartCheckboxes) {
+                  if (
+                    parseInt(checkbox.dataset.accessoryId) ===
+                    parseInt(smartVariantId)
+                  ) {
+                    smartPrice = parseInt(checkbox.dataset.accessoryPrice);
+                    smartTitle = checkbox.dataset.accessoryTitle;
+                    break;
+                  }
+                }
+                // Fallback to first checkbox if variant not found
+                if (smartCheckboxes.length > 0) {
+                  const firstCheckbox = smartCheckboxes[0];
+                  if (!smartPrice || smartPrice === baseAccessory.price) {
+                    smartPrice = parseInt(firstCheckbox.dataset.accessoryPrice);
+                  }
+                  if (!smartTitle || smartTitle === baseAccessory.title) {
+                    smartTitle = firstCheckbox.dataset.accessoryTitle;
+                  }
                 }
               }
 
