@@ -1922,4 +1922,11 @@ body:has([data-multistep-container]) .float-grid.product-single {
     .multistep-container{
     padding: 0 15px;
   }
+  .product__inner {
+        padding-top: 15px;
+    }
+    .progress-dots {
+
+  padding: 0 0 10px 0;
+}
 }
