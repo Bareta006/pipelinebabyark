@@ -1808,9 +1808,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
 }
 
 @media (min-width: 769px) {
-  .multistep-container{
-    padding: 0 15px;
-  }
+
 
   .product-features {
     display: grid;
@@ -1918,5 +1916,10 @@ body:has([data-multistep-container]) .float-grid.product-single {
   .step3-btn {
     max-width: 365px;
     min-width: 365px;
+  }
+}
+@media (max-width: 480px) {
+    .multistep-container{
+    padding: 0 15px;
   }
 }
