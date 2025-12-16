@@ -1978,7 +1978,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
  .multistep-step--4   .accessories-discount-banner {
         margin-bottom: 15px;
     }
-        .feature-modal-content {
+  .feature-modal-content {
         gap: 220px !important;
     }
 }
