@@ -48,13 +48,15 @@
           {%- comment -%} Check if accessory has any available variants {%- endcomment -%}
           {%- assign has_available_variant = false -%}
           {%- for variant in accessory.variants -%}
-            {%- if variant.available -%}
+            {%- if variant.available == true -%}
               {%- assign has_available_variant = true -%}
               {%- break -%}
             {%- endif -%}
           {%- endfor -%}
           
-          {%- if has_available_variant -%}
+          {%- unless has_available_variant -%}
+            {%- continue -%}
+          {%- endunless -%}
           {%- assign custom_image_override = null -%}
           {%- assign product_id_str = accessory.id | append: '' -%}
           {%- for override in accessory_image_overrides -%}
@@ -168,7 +170,6 @@
               </div>
             </div>
           </div>
-          {%- endif -%}
         {%- endfor -%}
       {%- else -%}
         <div class="accessories-loading">
