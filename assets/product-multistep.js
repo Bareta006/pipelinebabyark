@@ -1344,7 +1344,7 @@ class ProductMultiStep {
 
     // Find Affirm element in step 5
     const affirmElement = this.container.querySelector(
-      ".affirm-as-low-as[data-affirm-type='product']"
+      ".affirm-as-low-as[data-page-type='product']"
     );
 
     if (affirmElement && totalInCents > 0) {
