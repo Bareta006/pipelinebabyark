@@ -1259,16 +1259,23 @@ class ProductMultiStep {
     const savings = subtotal - totalDiscounted;
 
     if (totalsContainer) {
+      let savingsRow = "";
+      if (savings > 0) {
+        savingsRow = `
+          <div class="summary-total-row summary-total-savings">
+            <span>Your Save</span>
+            <span>-${this.formatMoney(savings)}</span>
+          </div>
+        `;
+      }
+
       totalsContainer.innerHTML = `
         <div class="summary-totals">
           <div class="summary-total-row">
             <span>Subtotal</span>
             <span>${this.formatMoney(subtotal)}</span>
           </div>
-          <div class="summary-total-row summary-total-savings">
-            <span>Your Save</span>
-            <span>-${this.formatMoney(savings)}</span>
-          </div>
+          ${savingsRow}
           <div class="summary-total-row summary-total-final">
             <span>Total</span>
             <span class="totalMultiStep">${this.formatMoney(
