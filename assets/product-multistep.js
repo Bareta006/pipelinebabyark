@@ -684,11 +684,13 @@ class ProductMultiStep {
             item.querySelector("[data-accessory-image]")?.src || "";
 
           if (e.target.checked) {
+            const productId = parseInt(e.target.dataset.productId);
             this.addAccessory(
               variantId,
               accessoryTitle,
               accessoryPrice,
-              accessoryImage
+              accessoryImage,
+              productId
             );
 
             if (checkbox.autoUncheckTimeout) {
@@ -771,7 +773,7 @@ class ProductMultiStep {
     }
   }
 
-  addAccessory(variantId, title, price, image) {
+  addAccessory(variantId, title, price, image, productId = null) {
     // console.log('Adding accessory:', variantId, title);
     // console.log('Current accessories:', this.selectedAccessories);
     const existing = this.selectedAccessories.find(
@@ -784,6 +786,7 @@ class ProductMultiStep {
         price: price,
         image: image,
         quantity: 1,
+        productId: productId,
       });
       // console.log('Accessory added. Total accessories:', this.selectedAccessories.length);
     } else {
@@ -1454,8 +1457,13 @@ class ProductMultiStep {
           );
         }
 
-        // Update selected variant and re-render summary
+        // Update selected variant first
         this.selectedVariant = smartVariant;
+
+        // Check for base accessories and upgrade them to smart
+        await this.upgradeBaseAccessoriesToSmart();
+
+        // Re-render summary after all upgrades
         this.renderOrderSummary();
       } catch (error) {
         // console.error('Error updating cart:', error);
@@ -1469,6 +1477,152 @@ class ProductMultiStep {
     } else {
       // console.error('Smart variant not found');
       alert("Smart version not available for this combination");
+    }
+  }
+
+  async upgradeBaseAccessoriesToSmart() {
+    try {
+      // Get current cart
+      const cartResponse = await fetch("/cart.js");
+      const cart = await cartResponse.json();
+
+      // Find base accessories in cart (check if product title contains "base")
+      const baseItems = cart.items.filter((item) => {
+        const titleLower = (item.product_title || "").toLowerCase();
+        return (
+          titleLower.includes("base") && item.product_id !== this.productData.id
+        );
+      });
+
+      if (baseItems.length === 0) {
+        return; // No bases to upgrade
+      }
+
+      // For each base, find and upgrade to smart variant
+      for (const baseItem of baseItems) {
+        await this.upgradeBaseToSmart(baseItem);
+      }
+
+      // Dispatch cart change event after all base upgrades
+      const updatedCart = await fetch("/cart.js").then((r) => r.json());
+      document.dispatchEvent(
+        new CustomEvent("theme:cart:change", {
+          detail: { cart: updatedCart },
+          bubbles: true,
+        })
+      );
+    } catch (error) {
+      // console.error('Error upgrading base accessories:', error);
+      // Don't show error to user, just log it
+    }
+  }
+
+  async upgradeBaseToSmart(baseCartItem) {
+    try {
+      // Get product handle from cart item URL
+      const productUrl = baseCartItem.url || "";
+      const handleMatch = productUrl.match(/\/products\/([^\/]+)/);
+
+      if (!handleMatch) {
+        return; // Can't get handle
+      }
+
+      const productHandle = handleMatch[1];
+
+      // Fetch product JSON
+      const productResponse = await fetch(`/products/${productHandle}.js`);
+      if (!productResponse.ok) {
+        return; // Product not found
+      }
+
+      const baseProduct = await productResponse.json();
+
+      // Find the current base variant
+      const currentBaseVariant = baseProduct.variants.find(
+        (v) => v.id === baseCartItem.variant_id
+      );
+
+      if (!currentBaseVariant) {
+        return; // Current variant not found
+      }
+
+      // Find smart variant of base
+      // Match all options from current variant, but find one with smart option
+      const smartBaseVariant = baseProduct.variants.find((v) => {
+        // Check if this variant has the smart option
+        const hasSmartOption = v.options.some((opt) => {
+          if (!opt) return false;
+          const optLower = opt.toLowerCase();
+          return (
+            optLower.includes("smart") &&
+            !optLower.includes("non") &&
+            !optLower.includes("no ") &&
+            !optLower.includes("classic")
+          );
+        });
+
+        if (!hasSmartOption || !v.available) {
+          return false;
+        }
+
+        // Match other options (non-smart options should match)
+        for (let i = 0; i < currentBaseVariant.options.length; i++) {
+          const currentOption = currentBaseVariant.options[i];
+          const variantOption = v.options[i];
+
+          // Skip if this is the smart option position
+          const currentOptionLower = (currentOption || "").toLowerCase();
+          const isSmartOptionPosition =
+            currentOptionLower.includes("smart") ||
+            currentOptionLower.includes("non") ||
+            currentOptionLower.includes("no ");
+
+          if (!isSmartOptionPosition && currentOption !== variantOption) {
+            return false;
+          }
+        }
+
+        return true;
+      });
+
+      if (smartBaseVariant) {
+        // Remove non-smart base and add smart base
+        await fetch("/cart/change.js", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            id: baseCartItem.key,
+            quantity: 0,
+          }),
+        });
+
+        // Get delivery properties for the base
+        const baseProperties = this.getAccessoryDeliveryProperties(
+          baseCartItem.variant_id
+        );
+
+        // Add smart base variant
+        await this.addToCart(
+          smartBaseVariant.id,
+          baseCartItem.quantity,
+          baseProperties
+        );
+
+        // Update selectedAccessories array
+        const accessoryIndex = this.selectedAccessories.findIndex(
+          (acc) => acc.id === baseCartItem.variant_id
+        );
+        if (accessoryIndex > -1) {
+          this.selectedAccessories[accessoryIndex].id = smartBaseVariant.id;
+          this.selectedAccessories[accessoryIndex].price =
+            smartBaseVariant.price;
+        }
+      }
+    } catch (error) {
+      // console.error('Error upgrading base to smart:', error);
+      // Don't show error, just fail silently
     }
   }
 

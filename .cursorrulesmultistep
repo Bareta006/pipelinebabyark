@@ -150,10 +150,11 @@ The template consists of two main sections:
 
 5. **Accessories Management**:
    - `attachAccessoryListeners()`: Sets up accessory selection handlers
-   - `addAccessory(variantId, title, price, image)`: Adds accessory to selection
+   - `addAccessory(variantId, title, price, image, productId)`: Adds accessory to selection (stores productId for base upgrades)
    - `removeAccessory(variantId)`: Removes accessory from selection
    - `updateAccessoryVariant(item)`: Updates accessory variant selection
    - `updateAccessoryImage(item, changedOption)`: Updates accessory image
+   - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId }`
 
 6. **Cart Operations**:
    - `addToCart(variantId, quantity, properties)`: Adds single item to cart
@@ -167,6 +168,8 @@ The template consists of two main sections:
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
    - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
    - **Cart Update**: When upgrading to smart, removes non-smart variant and adds smart variant with same delivery properties
+   - **Base Upgrade**: `upgradeBaseAccessoriesToSmart()` checks cart for base accessories and upgrades them
+   - **Base Upgrade Logic**: `upgradeBaseToSmart(baseCartItem)` fetches base product data, finds smart variant, and replaces in cart
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm payment messaging with current total price
 
 8. **Affirm Integration**:
@@ -263,6 +266,11 @@ Priority order:
 - Clicking "ADD" button:
   - Updates `selectedSmartOption` to smart value
   - Finds matching smart variant
+  - Removes non-smart variant from cart and adds smart variant
+  - **Base Accessory Upgrade**: Automatically checks cart for base accessories
+  - If base found, upgrades it to smart version (removes non-smart base, adds smart base)
+  - Preserves delivery properties and quantities
+  - Updates `selectedAccessories` array with new base variant ID and price
   - Re-renders order summary with updated pricing
 
 ### Smart Option Values
