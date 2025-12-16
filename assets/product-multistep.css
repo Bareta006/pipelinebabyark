@@ -1930,14 +1930,14 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
   padding: 0 0 10px 0;
 }
-.step2-variant-and-buttons-container .step-actions{
+.step2-variant-and-buttons-container .step-actions,.multistep-step--4 .step-actions{
   display: flex;
   flex-direction: row-reverse;
 }
-.step2-variant-and-buttons-container .step-actions button.action-button:not(.btn--secondary){
+.step2-variant-and-buttons-container .step-actions button.action-button:not(.btn--secondary),.multistep-step--4 .step-actions button.action-button:not(.btn--secondary){
   flex-grow: 1;
 }
-.step2-variant-and-buttons-container .step-actions button.action-button.btn--secondary{
+.step2-variant-and-buttons-container .step-actions button.action-button.btn--secondary,.multistep-step--4 .step-actions button.action-button.btn--secondary{
   flex-shrink: 2.5;
 }
 }
