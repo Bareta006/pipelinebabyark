@@ -1711,6 +1711,27 @@ class ProductMultiStep {
       section.style.display = "none";
     });
 
+    // Hide accessibility widget and chat widget
+    const accessiblyWidget = document.querySelector(
+      "#accessiblyAppWidgetButton"
+    );
+    if (accessiblyWidget) {
+      if (!accessiblyWidget.dataset.originalDisplay) {
+        const computedStyle = window.getComputedStyle(accessiblyWidget);
+        accessiblyWidget.dataset.originalDisplay = computedStyle.display || "";
+      }
+      accessiblyWidget.style.display = "none";
+    }
+
+    const tidioChat = document.querySelector("#tidio-chat");
+    if (tidioChat) {
+      if (!tidioChat.dataset.originalDisplay) {
+        const computedStyle = window.getComputedStyle(tidioChat);
+        tidioChat.dataset.originalDisplay = computedStyle.display || "";
+      }
+      tidioChat.style.display = "none";
+    }
+
     // Mark as hidden to prevent recursive calls
     this.sectionsHidden = true;
 
