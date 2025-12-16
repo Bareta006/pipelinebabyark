@@ -1833,7 +1833,9 @@ body:has([data-multistep-container]) .float-grid.product-single {
   flex-direction: column;
   gap: 20px;
 }
-
+.affirm-modal-trigger{
+  text-decoration: underline;
+}
 @media (min-width: 769px) {
 
 
