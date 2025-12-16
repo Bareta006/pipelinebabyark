@@ -204,9 +204,10 @@
   color: #22282D;
 }
 
-/*.btn--secondary:hover {
+.btn--secondary:hover {
   background-color: #f6f6f6;
-}*/ 
+  color: #22282D;
+}
 
 .step1-container {
   display: flex;
