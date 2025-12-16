@@ -762,6 +762,22 @@ border-radius: 10px 10px 0 0;
   display: flex;
 }
 
+body .step-actions .back-button {
+    position: fixed;
+    top: 50px;
+    left: 5vw;
+    width: 98px;
+    min-width: 98px;
+    padding: 9px 23px;
+    font-size: 18px;
+    font-weight: 400;
+    text-transform: initial;
+    border-radius: 26px;
+    background: #FFF;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.10);
+    color: #454545;
+}
+
 @media (max-width: 768px) {
 
   .accessory-add-btn {
