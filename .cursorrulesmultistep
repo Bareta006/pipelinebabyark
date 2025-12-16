@@ -270,12 +270,27 @@ Priority order:
   - **Base Accessory Upgrade**: Automatically checks `selectedAccessories` and cart for base accessories
   - **Logic**: 
     - Checks if base title contains "classic"
-    - If in cart: Uses `upgradeBaseToSmart()` to fetch product JSON and find smart variant
-    - If NOT in cart: Finds smart variant ID from DOM `data-smart-base-variant-id` attribute on classic base item
-    - Replaces classic base variant ID with smart base variant ID in `selectedAccessories`
-    - Updates price and title from smart base item in DOM
+    - **If base is in cart**: Uses `upgradeBaseToSmart()`:
+      - Extracts product handle from cart item URL (regex: `/\/products\/([^\/\?]+)/`)
+      - Fetches classic base product JSON
+      - Detects if classic base (single variant or title contains "classic")
+      - If classic base: Finds smart base product handle from DOM (`data-base-type="smart"`), fetches smart base product JSON
+      - Matches smart base variant by shell color (bases only have one color option in `option1`)
+      - Removes classic base from cart and adds smart base variant
+      - Updates `selectedAccessories` array with smart base variant ID, price, and title
+      - Re-renders order summary if on step 5
+    - **If base NOT in cart**: Uses `upgradeBaseAccessoryToSmart()`:
+      - Finds classic base item in DOM using `productHandle` or `productId`
+      - Reads `data-smart-base-variant-id` from classic base item
+      - Finds smart base item in DOM to get price and title from checkbox
+      - Updates `selectedAccessories` array with smart base variant ID, price, and title
+  - **Variant Matching for Classic Base**:
+    - Classic base has NO variants (single product)
+    - Smart base HAS variants (color options: Eggshell White, Charcoal Grey, etc.)
+    - Matching: Smart base variant `option1` must match main product's `selectedShellColor`
+    - Example: If shell color is "Eggshell White", find smart base variant with `option1 === "Eggshell White"`
   - Preserves delivery properties and quantities
-  - Re-renders order summary with updated pricing
+  - Re-renders order summary with updated pricing and base information
 
 ### Smart Option Values
 - Stored in `[data-smart-option-input]` element
