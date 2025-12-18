@@ -604,7 +604,7 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
-        "padding_top": 36,
+        "padding_top": 40,
         "padding_bottom": 40
       }
     },
@@ -684,8 +684,8 @@
         "text_block_hbNYyx"
       ],
       "custom_css": [
-        "> div {background: linear-gradient(312deg, #e9ddce 0.88%, #e8ecea 95.54%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        "h2 {background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
+        "> div {background: #fff;}",
+        "h2 {font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],
       "name": "Text columns with images2",
