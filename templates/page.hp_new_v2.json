@@ -396,7 +396,8 @@
         ".icon--left .icon__column__icon {margin-bottom: 0;}",
         ".icon__column__text p {font-size: 32px; color: #333;}",
         ".icon--left .icon__column {display: flex; justify-content: center; align-items: center;}",
-        "@media (max-width:480px){.icon__column__text p {font-size: 14px;}}"
+        ".medium-up--one-half,.medium-up--one-third {width: 33.33%;}",
+        "@media (max-width: 480px) {.icon__column__text p {font-size: 14px; }}"
       ],
       "name": "Icon columns",
       "settings": {
