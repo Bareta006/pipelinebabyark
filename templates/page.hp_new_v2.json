@@ -392,8 +392,8 @@
         "icon_block_Q8TqDy"
       ],
       "custom_css": [
-        ".clearfix,.clearfix:after {display: none; clear:unset;}",
-        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap;}",
+        ".clearfix,.clearfix:after {display: none; clear: unset;}",
+        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap; width:960px; max-width:100%; margin:0 auto;}",
         ".icon--left .icon__column__icon {margin-bottom: 0;}",
         ".icon--left .icon__column {display: flex; justify-content: center; align-items: center;}"
       ],
