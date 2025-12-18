@@ -189,7 +189,7 @@
                   assign input_id = 'color-' | append: forloop.index
                   assign swatch_bg_image = swatch_image
                   if swatch_bg_image == blank and variant_for_image.featured_image
-                    assign swatch_bg_image = variant_for_image.featured_image | image_url: width: 120
+                    assign swatch_bg_image = variant_for_image.featured_image | image_url: width: 184
                   endif
                 -%}
 
@@ -203,7 +203,7 @@
                         {% if forloop.first and has_available_variant %}checked{% endif %}>
                   <label for="{{ input_id }}" class="swatch-label"
                         {% if swatch_bg_image %}
-                        style="background-image: url('{{ swatch_bg_image | image_url: width: 120 }}');"
+                        style="background-image: url('{{ swatch_bg_image | image_url: width: 184 }}');"
                         {% endif %}>
                   </label>
                 {% if has_available_variant == true %}
