@@ -26,15 +26,12 @@
     overlay_opacity: overlay_opacity,
     overlay_color: overlay_color,
     enable_overlay_text: enable_overlay_text,
-    full_height_content: full_height_content,
-    content_bg_color: content_bg_color,
-    mobile_card_bg_color: mobile_card_bg_color,
     height: height,
     block_id: block_id
   %}
 {% endcomment %}
 
-<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}" {% if mobile_card_bg_color != blank %}style="--mobile-card-bg: {{ mobile_card_bg_color }};"{% endif %}>
+<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}">
   
   <!-- Background Video - Desktop (Priority over image) -->
   {% if desktop_video != blank %}
@@ -102,9 +99,8 @@
   
   <!-- Content -->
   <div class="hero__content__wrapper {{ text_align | default: 'align--bottom-left' }}" 
-       style="--title-color-desktop: {{ title_color_desktop | default: '#ffffff' }}; --title-color-mobile: {{ title_color_mobile | default: '#ffffff' }}; --desc-color-desktop: {{ description_color_desktop | default: '#ffffff' }}; --desc-color-mobile: {{ description_color_mobile | default: '#ffffff' }}; {% if mobile_card_bg_color != blank %}--mobile-card-bg: {{ mobile_card_bg_color }};{% endif %}">
-    <div class="hero__content {% if enable_overlay_text %} backdrop--hero{% endif %} {% if full_height_content %}hero__content--full-height{% endif %}" 
-         {% if enable_overlay_text %} style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"{% elsif content_bg_color != blank %} style="background-color: {{ content_bg_color }};"{% endif %}>
+       style="--title-color-desktop: {{ title_color_desktop | default: '#ffffff' }}; --title-color-mobile: {{ title_color_mobile | default: '#ffffff' }}; --desc-color-desktop: {{ description_color_desktop | default: '#ffffff' }}; --desc-color-mobile: {{ description_color_mobile | default: '#ffffff' }};">
+    <div class="hero__content {% if enable_overlay_text %} backdrop--hero{% endif %}" {% if enable_overlay_text %} style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"{% endif %}>
       
       {% if badge_text != blank %}
         <div class="hero__badge" style="background-color: {{ badge_bg_color | default: '#000000' }}; color: {{ badge_text_color | default: '#ffffff' }};">
