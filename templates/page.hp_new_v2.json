@@ -300,7 +300,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 650px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 46px;\n  opacity: 0.92;\n  background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%);\n  background-clip: text;\n  -webkit-background-clip: text;\n  -webkit-text-fill-color: transparent;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\nbackground: linear-gradient(0deg, #F8F7F7 0%, #F8F7F7 100%), linear-gradient(0deg, #1D1D1B 0%, #1D1D1B 100%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n}\n</style>",
+        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 650px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 46px;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\nbackground: linear-gradient(0deg, #F8F7F7 0%, #F8F7F7 100%), linear-gradient(0deg, #1D1D1B 0%, #1D1D1B 100%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -340,7 +340,7 @@
           "settings": {
             "icon_name": "icon-shipment-world",
             "icon_alt": "shopify://shop_images/Icon_4.svg",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>100 Days Free Trial</p>",
             "link_text": "",
@@ -352,7 +352,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/Icon_5.svg",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>3 Years Warranty</p>",
             "link_text": "",
@@ -364,7 +364,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/Isolation_Mode.svg",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>Free CPST onboarding</p>",
             "link_text": "",
@@ -376,7 +376,7 @@
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/Group_1597881570.svg",
-            "icon_color": "#AAAAAA",
+            "icon_color": "#aaaaaa",
             "title": "",
             "text": "<p>No expiration date</p>",
             "link_text": "",
