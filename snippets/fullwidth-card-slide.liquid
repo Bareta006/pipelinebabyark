@@ -7,6 +7,9 @@
     mobile_image: mobile_image,
     desktop_video: desktop_video,
     mobile_video: mobile_video,
+    badge_text: badge_text,
+    badge_bg_color: badge_bg_color,
+    badge_text_color: badge_text_color,
     title: title,
     description: description,
     title_color_desktop: title_color_desktop,
@@ -98,6 +101,12 @@
   <div class="hero__content__wrapper {{ text_align | default: 'align--bottom-left' }}" 
        style="--title-color-desktop: {{ title_color_desktop | default: '#ffffff' }}; --title-color-mobile: {{ title_color_mobile | default: '#ffffff' }}; --desc-color-desktop: {{ description_color_desktop | default: '#ffffff' }}; --desc-color-mobile: {{ description_color_mobile | default: '#ffffff' }};">
     <div class="hero__content {% if enable_overlay_text %} backdrop--hero{% endif %}" {% if enable_overlay_text %} style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"{% endif %}>
+      
+      {% if badge_text != blank %}
+        <div class="hero__badge" style="background-color: {{ badge_bg_color | default: '#000000' }}; color: {{ badge_text_color | default: '#ffffff' }};">
+          {{ badge_text }}
+        </div>
+      {% endif %}
       
       {% if title != blank %}
         <h1 class="hero__title heading-size-{{ title_size | default: 9 }}" style="color: var(--title-color-desktop);">

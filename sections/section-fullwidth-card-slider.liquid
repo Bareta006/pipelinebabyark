@@ -43,6 +43,9 @@
                  mobile_image: block.settings.mobile_image,
                  desktop_video: block.settings.desktop_video,
                  mobile_video: block.settings.mobile_video,
+                 badge_text: block.settings.badge_text,
+                 badge_bg_color: block.settings.badge_bg_color,
+                 badge_text_color: block.settings.badge_text_color,
                  title: block.settings.title,
                  description: block.settings.description,
                  title_color_desktop: block.settings.title_color_desktop,
@@ -246,6 +249,17 @@
   }
 
   /* Hero content styling - following theme patterns */
+  #shopify-section-{{ section.id }} .hero__badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
   #shopify-section-{{ section.id }} .hero__title {
     margin-bottom: 1rem;
     font-size: 36px;
@@ -355,6 +369,12 @@
       width: 100%;
       margin: 0;
         padding: 24px 0;
+    }
+
+    #shopify-section-{{ section.id }} .hero__badge {
+      font-size: 12px;
+      padding: 0.4rem 0.8rem;
+      margin-bottom: 0.75rem;
     }
 
     #shopify-section-{{ section.id }} .hero__title {
@@ -539,29 +559,46 @@
         });
         
         setTimeout(() => {
-          const firstSlide = allSlides[0];
+          // Find first slide with image (skip videos if they don't have proper height)
+          let targetMedia = null;
+          let targetMediaHeight = 0;
           
-          // Find first media wrapper (video or image)
-          let firstMedia = firstSlide.querySelector('.fullwidth-card__video-mobile') || 
-                          firstSlide.querySelector('.fullwidth-card__image-mobile');
-          
-          if (firstMedia) {
-            const targetMediaHeight = firstMedia.offsetHeight;
+          for (let i = 0; i < allSlides.length; i++) {
+            const slide = allSlides[i];
+            const imageWrapper = slide.querySelector('.fullwidth-card__image-mobile');
+            const videoWrapper = slide.querySelector('.fullwidth-card__video-mobile');
             
-            if (targetMediaHeight > 0) {
-              // Apply to ALL slides' media wrappers
-              allSlides.forEach(slide => {
-                const videoWrapper = slide.querySelector('.fullwidth-card__video-mobile');
-                const imageWrapper = slide.querySelector('.fullwidth-card__image-mobile');
-                
-                if (videoWrapper) {
-                  videoWrapper.style.height = targetMediaHeight + 'px';
-                }
-                if (imageWrapper) {
-                  imageWrapper.style.height = targetMediaHeight + 'px';
-                }
-              });
+            // Prefer image over video for reliable dimensions
+            if (imageWrapper) {
+              const height = imageWrapper.offsetHeight;
+              if (height > 0) {
+                targetMedia = imageWrapper;
+                targetMediaHeight = height;
+                break;
+              }
+            } else if (videoWrapper && !targetMedia) {
+              // Fallback to video if no image found yet
+              const height = videoWrapper.offsetHeight;
+              if (height > 0) {
+                targetMedia = videoWrapper;
+                targetMediaHeight = height;
+              }
             }
+          }
+          
+          if (targetMedia && targetMediaHeight > 0) {
+            // Apply to ALL slides' media wrappers
+            allSlides.forEach(slide => {
+              const videoWrapper = slide.querySelector('.fullwidth-card__video-mobile');
+              const imageWrapper = slide.querySelector('.fullwidth-card__image-mobile');
+              
+              if (videoWrapper) {
+                videoWrapper.style.height = targetMediaHeight + 'px';
+              }
+              if (imageWrapper) {
+                imageWrapper.style.height = targetMediaHeight + 'px';
+              }
+            });
           }
         }, 100);
         
@@ -573,20 +610,35 @@
         });
         
         setTimeout(() => {
-          const firstSlide = allSlides[0];
-          const firstCard = firstSlide.querySelector('.fullwidth-card');
+          // Find first slide with image (skip videos if they don't have proper height)
+          let targetCard = null;
+          let targetHeight = 0;
           
-          if (firstCard) {
-            const targetHeight = firstCard.offsetHeight;
+          for (let i = 0; i < allSlides.length; i++) {
+            const slide = allSlides[i];
+            const card = slide.querySelector('.fullwidth-card');
+            const hasImage = card && (card.querySelector('.fullwidth-card__image-desktop') || card.querySelector('.fullwidth-card__image-mobile'));
             
-            if (targetHeight > 0) {
-              allSlides.forEach(slide => {
-                const card = slide.querySelector('.fullwidth-card');
-                if (card) {
-                  card.style.height = targetHeight + 'px';
+            if (card) {
+              const height = card.offsetHeight;
+              // Prefer cards with images, but accept any card with valid height
+              if (height > 0) {
+                if (hasImage || !targetCard) {
+                  targetCard = card;
+                  targetHeight = height;
+                  if (hasImage) break; // Found image card, use it
                 }
-              });
+              }
             }
+          }
+          
+          if (targetCard && targetHeight > 0) {
+            allSlides.forEach(slide => {
+              const card = slide.querySelector('.fullwidth-card');
+              if (card) {
+                card.style.height = targetHeight + 'px';
+              }
+            });
           }
         }, 100);
       }
@@ -894,6 +946,24 @@
         {
           "type": "header",
           "content": "Content"
+        },
+        {
+          "type": "text",
+          "id": "badge_text",
+          "label": "Badge Text",
+          "info": "Text displayed above the title"
+        },
+        {
+          "type": "color",
+          "id": "badge_bg_color",
+          "label": "Badge Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "badge_text_color",
+          "label": "Badge Text Color",
+          "default": "#ffffff"
         },
         {
           "type": "text",
