@@ -369,6 +369,9 @@
   .slider-arrow--next {
     right: 8px;
   }
+  .multistep-hero-section {
+  padding: 20px 0;
+}
 }
 
 .variant-option-group {
@@ -1727,7 +1730,7 @@ top: 11vw;
 }
 
 .multistep-hero-section {
-  padding: 20px 0;
+  padding: 20px;
 }
 
 .feature-modal-content {
