@@ -1327,7 +1327,15 @@ class ProductMultiStep {
             <span>14 sensors, alerts & more $200</span>
             </div>
           </div>
-          <button data-upgrade-to-smart class="btn-text-add-upgrade">ADD</button>
+          <button data-upgrade-to-smart class="btn-text-add-upgrade">
+            <span class="btn-text-add-upgrade-text">ADD</span>
+            <span class="btn-text-added-upgrade-text" style="display: none;">
+              <span>Added</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13.3333 4L6 11.3333L2.66666 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
         </div>
       `;
     }
@@ -1387,7 +1395,9 @@ class ProductMultiStep {
       "[data-upgrade-to-smart]"
     );
     if (upgradeBtn) {
-      upgradeBtn.addEventListener("click", () => this.upgradeToSmart());
+      upgradeBtn.addEventListener("click", () =>
+        this.upgradeToSmart(upgradeBtn)
+      );
     }
 
     if (deliveryBullet) {
@@ -1480,7 +1490,7 @@ class ProductMultiStep {
     }
   }
 
-  async upgradeToSmart() {
+  async upgradeToSmart(btn = null) {
     const smartOptionInput = this.container.querySelector(
       "[data-smart-option-input]"
     );
@@ -1556,6 +1566,24 @@ class ProductMultiStep {
 
         // Check for base accessories and upgrade them to smart
         await this.upgradeBaseAccessoriesToSmart();
+
+        // Show "added" state on button
+        if (btn) {
+          const addText = btn.querySelector(".btn-text-add-upgrade-text");
+          const addedText = btn.querySelector(".btn-text-added-upgrade-text");
+
+          if (addText && addedText) {
+            addText.style.display = "none";
+            addedText.style.display = "flex";
+            btn.classList.add("showing-added");
+
+            setTimeout(() => {
+              addText.style.display = "inline-block";
+              addedText.style.display = "none";
+              btn.classList.remove("showing-added");
+            }, 2000);
+          }
+        }
 
         // Re-render summary after all upgrades
         this.renderOrderSummary();

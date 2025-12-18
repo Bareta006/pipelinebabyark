@@ -264,6 +264,8 @@ Priority order:
 - Available in Step 5 if non-smart version selected
 - Shows upgrade card with $200 price
 - Clicking "ADD" button:
+  - Shows "added" state: Hides "ADD" text, shows "Added" text with checkmark icon, adds `showing-added` class
+  - After 2 seconds: Reverts to "ADD" state (but stays on Step 5, doesn't navigate)
   - Updates `selectedSmartOption` to smart value
   - Finds matching smart variant
   - Removes non-smart variant from cart and adds smart variant
