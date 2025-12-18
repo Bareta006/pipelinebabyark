@@ -533,95 +533,6 @@
         "padding_bottom": 0
       }
     },
-    "section_icons_grid_7cHcKR": {
-      "type": "section-icons-grid",
-      "blocks": {
-        "icon_block_7EGFj7": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-basket-return",
-            "icon_alt": "shopify://shop_images/Group_34860_1.svg",
-            "icon_color": "#ffffff",
-            "title": "",
-            "text": "<p>Crash tested according<br/>to FMVSS 213</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_KbHpVe": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-shipment-world",
-            "icon_alt": "shopify://shop_images/Group_34864_1.svg",
-            "icon_color": "#ffffff",
-            "title": "",
-            "text": "<p>In accordance with ISO 16750 and more</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_w4dExL": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Group_34862_1.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>California Proposition <br/>65 & 12</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_kLfLPJ": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Vector_11.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>FCC & EMC<br/>Compliance</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        },
-        "icon_block_FHCgmz": {
-          "type": "icon_block",
-          "settings": {
-            "icon_name": "icon-phone",
-            "icon_alt": "shopify://shop_images/Vector_12.svg",
-            "icon_color": "#000000",
-            "title": "",
-            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
-            "link_text": "",
-            "link_url": ""
-          }
-        }
-      },
-      "block_order": [
-        "icon_block_7EGFj7",
-        "icon_block_KbHpVe",
-        "icon_block_w4dExL",
-        "icon_block_kLfLPJ",
-        "icon_block_FHCgmz"
-      ],
-      "custom_css": [],
-      "name": "Icon columns grid",
-      "settings": {
-        "title": "Complies with the strictest standards",
-        "bg": "palette--light bg--neutral",
-        "icons_size": 72,
-        "icon_alignment": "icon--top",
-        "layout": "grid--stacked",
-        "align_text": "text-center",
-        "mobile_carousel": true,
-        "mobile_icons_count": 3,
-        "autoplay_mobile": true,
-        "arrow_position": "center",
-        "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "section_inline_cards_phzrEF": {
       "type": "section-inline-cards",
       "blocks": {
@@ -656,10 +567,10 @@
         "card_irJJEA"
       ],
       "custom_css": [
-        "section {background: linear-gradient(149deg, #373534 1.7%, #67483f 91.34%), linear-gradient(309deg, #2d3862 -11.27%, #22282d 100.82%), #d9d9d9;}",
+        "section {background: linear-gradient(0deg, #1D1D1B 0%, #1D1D1B 100%), linear-gradient(309deg, #2D3862 -11.27%, #22282D 100.82%), #D9D9D9;}",
         ".inline-cards-content {background: transparent;}",
         "h2 {color: #fff;}",
-        "h2 strong {background: linear-gradient(95deg, #fff 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700;}",
+        "h2 strong {font-weight: 700;}",
         ".flickity-button {color: #fff;}"
       ],
       "name": "Inline Cards",
@@ -777,6 +688,95 @@
         "width": "wrapper",
         "padding_top": 60,
         "padding_bottom": 60
+      }
+    },
+    "section_icons_grid_7cHcKR": {
+      "type": "section-icons-grid",
+      "blocks": {
+        "icon_block_7EGFj7": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/Group_34860_1.svg",
+            "icon_color": "#ffffff",
+            "title": "",
+            "text": "<p>Crash tested according<br/>to FMVSS 213</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_KbHpVe": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Group_34864_1.svg",
+            "icon_color": "#ffffff",
+            "title": "",
+            "text": "<p>In accordance with ISO 16750 and more</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_w4dExL": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Group_34862_1.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>California Proposition <br/>65 & 12</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_kLfLPJ": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Vector_11.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>FCC & EMC<br/>Compliance</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_FHCgmz": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Vector_12.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Flammability FMVSS 302 & California Proposition 65</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_7EGFj7",
+        "icon_block_KbHpVe",
+        "icon_block_w4dExL",
+        "icon_block_kLfLPJ",
+        "icon_block_FHCgmz"
+      ],
+      "custom_css": [],
+      "name": "Icon columns grid",
+      "settings": {
+        "title": "Complies with the strictest standards",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 72,
+        "icon_alignment": "icon--top",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "mobile_carousel": true,
+        "mobile_icons_count": 3,
+        "autoplay_mobile": true,
+        "arrow_position": "center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "1761563838e965cf15": {
@@ -981,9 +981,9 @@
     "section_icons_Vx4fxk",
     "section_fullwidth_card_slider_47qVDr",
     "section_html_iHYUXJ",
-    "section_icons_grid_7cHcKR",
     "section_inline_cards_phzrEF",
     "section_columns2_VKzfLG",
+    "section_icons_grid_7cHcKR",
     "1761563838e965cf15",
     "testimonials_carousel_AwMwJj",
     "section_html_gaw4nc",
