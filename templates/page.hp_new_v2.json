@@ -586,7 +586,7 @@
         "h2 {color: #fff;}",
         "h2 strong {font-weight: 700;}",
         ".flickity-button {color: #fff;}",
-        "@media (max-width: 480px) {.mobile-carousel-enabled .flickity-button{color:#fff; }}"
+        "@media (max-width: 480px) {.mobile-carousel-enabled .flickity-button {color: #fff; }}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -604,8 +604,8 @@
         "text_color": "text--neutral",
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "section_columns2_VKzfLG": {
@@ -676,16 +676,38 @@
             "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "video_button_color": "text--white"
           }
+        },
+        "text_block_DxBpHM": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": false,
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": false,
+            "show_video_controls": true,
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
         }
       },
       "block_order": [
         "text_block_ifVz3D",
         "text_block_JQkHnM",
-        "text_block_hbNYyx"
+        "text_block_hbNYyx",
+        "text_block_DxBpHM"
       ],
       "custom_css": [
-        "> div {background: linear-gradient(312deg, #e9ddce 0.88%, #e8ecea 95.54%), linear-gradient(141deg, #7e5748 35.67%, #c49b7d 93.76%), #d9dfdf;}",
-        "h2 {background: linear-gradient(95deg, #4b4741 16.03%, #d1956a 98.87%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
+        "> div {background: #fff;}",
+        "h2 {font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],
       "name": "Text columns with images2",
