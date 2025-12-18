@@ -676,12 +676,34 @@
             "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
             "video_button_color": "text--white"
           }
+        },
+        "text_block_DxBpHM": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": false,
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": false,
+            "show_video_controls": true,
+            "enable_image": true,
+            "shape_class": "",
+            "title": "Feature images or videos",
+            "text": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
         }
       },
       "block_order": [
         "text_block_ifVz3D",
         "text_block_JQkHnM",
-        "text_block_hbNYyx"
+        "text_block_hbNYyx",
+        "text_block_DxBpHM"
       ],
       "custom_css": [
         "> div {background: #fff;}",
