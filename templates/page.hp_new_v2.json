@@ -732,6 +732,7 @@
       "custom_css": [
         "> div {background: #fff;}",
         "h2 {font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
+        ".column__media{border-radius: 12px; overflow: hidden;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],
       "name": "Text columns with images2",
