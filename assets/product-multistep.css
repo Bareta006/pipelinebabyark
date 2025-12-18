@@ -395,6 +395,8 @@
   flex-direction: column;
   align-items: left;
   gap: 8px;
+  min-height: 213px;
+  min-width:184px;
 }
 
 .swatch-option input[type="radio"] {
@@ -1429,6 +1431,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
   .swatch-option {
     min-height: 210px;
+    min-width: 96px;
   }
   .step1-product-container {
     gap: 150px
