@@ -1468,33 +1468,34 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
 
   .plus-icon-1 {
-    top: 50px;
-    left: 180px;
+top: 11vw;
+        left: 43vw;
   }
   
   .plus-icon-3 {
-    top: 198px;
-    left: 80px;
+        top: 48vw;
+        left: 22vw;
   }
   
   .plus-icon-5 {
-    top: 240px;
-    left: 212px;
+        top: 61vw;
+        left: 52vw;
   }
   
   .plus-icon-4 {
-    top: 285px;
-    left: 260px;
+        top: 75vw;
+        left: 68vw;
+    }
   }
   
   .plus-icon-2 {
-    top: 142px;
-    left: 110px;
+        top: 40vw;
+        left: 30vw;
   }
   
   .plus-icon-6 {
-    top: 277px;
-    left: 115px;
+        top: 71vw;
+        left: 27vw;
   
   }
 
