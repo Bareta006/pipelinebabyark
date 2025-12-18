@@ -54,8 +54,9 @@ class ProductMultiStep {
     const initialStep =
       stepParam && !isNaN(stepParam) ? parseInt(stepParam) : 1;
 
-    // If jumping directly to step 2, trigger click on customize button
-    if (initialStep === 2) {
+    // If step is 2, 3, 4, or 5, trigger customize button (shows step 2)
+    // For steps 3, 4, 5 - ignore them and just show step 2
+    if (initialStep >= 2 && initialStep <= 5) {
       const customizeBtn = this.container.querySelector("[data-customize-btn]");
       if (customizeBtn) {
         // Trigger click on customize button to hide sections and enter fullscreen
