@@ -250,10 +250,31 @@
     right: 0.625rem;
   }
 
-  /* Desktop - hide arrows */
+  /* Desktop - Grid Layout (No Carousel) */
   @media (min-width: 750px) {
     #shopify-section-{{ section.id }} .flickity-button {
       display: none;
+    }
+
+    /* Disable Flickity carousel on desktop - use flexbox grid instead */
+    #shopify-section-{{ section.id }} flickity-carousel > div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+
+    /* Calculate width accounting for gaps: (100% - (gaps)) / columns */
+    #shopify-section-{{ section.id }} flickity-carousel .index__column {
+      flex: 0 0 calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }});
+      max-width: calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }});
+      min-width: 0;
+    }
+
+    /* Hide Flickity viewport and slider on desktop */
+    #shopify-section-{{ section.id }} flickity-carousel .flickity-viewport,
+    #shopify-section-{{ section.id }} flickity-carousel .flickity-slider {
+      display: contents;
     }
   }
 
@@ -280,6 +301,49 @@
     }
   }
 </style>
+
+<script>
+  (function() {
+    const section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    const carousel = section.querySelector('flickity-carousel');
+    if (!carousel) return;
+
+    const carouselInner = carousel.querySelector('[data-carousel]');
+    if (!carouselInner) return;
+
+    function handleDesktopLayout() {
+      const isDesktop = window.innerWidth >= 750;
+      
+      if (isDesktop) {
+        // Disable Flickity on desktop
+        const flickityInstance = window.Flickity && window.Flickity.data(carouselInner);
+        if (flickityInstance) {
+          flickityInstance.destroy();
+        }
+        
+        // Remove data-carousel attribute to prevent re-initialization
+        carouselInner.removeAttribute('data-carousel');
+      } else {
+        // Re-enable Flickity on mobile if it was disabled
+        if (!carouselInner.hasAttribute('data-carousel')) {
+          carouselInner.setAttribute('data-carousel', '');
+        }
+      }
+    }
+
+    // Initial check
+    handleDesktopLayout();
+
+    // Handle resize
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(handleDesktopLayout, 100);
+    });
+  })();
+</script>
 
 {% schema %}
   {

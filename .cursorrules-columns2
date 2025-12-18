@@ -1,0 +1,218 @@
+# Section Columns2 Documentation
+
+## Overview
+
+The `section-columns2.liquid` section displays a horizontal carousel of columns, each containing media (image or video) and content (title, text, button). Uses Flickity carousel for horizontal scrolling.
+
+## File Structure
+
+- **Section**: `/sections/section-columns2.liquid`
+- **Dependencies**: Flickity carousel component, `image-grid-sizes` snippet, `image-grid-srcset` snippet, `image` snippet, `video-popup` snippet
+
+## Media Priority
+
+1. **Video Priority**: If `enable_video` is checked, video displays (even if `enable_image` is also checked)
+2. **Video File Priority**: Shopify native video (`video_file`) takes priority over external video URL (`video_url`)
+3. **Image Fallback**: If video is not enabled or not provided, image displays
+
+## Video Types
+
+### Native Shopify Video
+- Uses `video_tag` filter with `video_file`
+- Supports: `controls`, `autoplay`, `loop`, `muted`, `playsinline`, `preload`
+- Class: `column__video-native`
+- Wrapped in: `column__video-wrapper`
+
+### External Video (YouTube/Vimeo)
+- YouTube: Extracts video ID from URL (supports both `youtube.com` and `youtu.be` formats)
+- Vimeo: Extracts video ID from URL
+- Uses iframe embed
+- Class: `column__video-iframe`
+- Default aspect ratio: 16/9
+
+## Desktop Behavior
+
+### Layout
+- Grid columns: Controlled by `grid_large` setting (default: 3)
+- Uses CSS Grid with Flickity carousel
+- Text alignment: Controlled by `align_text` setting (applies to all columns)
+
+### Styling
+- **Media Container** (`.column__media`):
+  - `position: relative`
+  - `margin-bottom: 1.5rem`
+  
+- **Video Wrapper** (`.column__video-wrapper`):
+  - `width: 100%`
+  - `position: relative`
+  - `border-radius: 12px`
+  - `overflow: hidden`
+  - `background-color: #000`
+  
+- **Video Native** (`.column__video-native`):
+  - `width: 100%`
+  - `height: 100%`
+  - `object-fit: cover`
+  
+- **Video Iframe** (`.column__video-iframe`):
+  - `aspect-ratio: 16/9` (default)
+  - Can be overridden by `scale_image` setting
+  
+- **Title** (`.accent-title-large`):
+  - Font: "centrano2"
+  - Font-size: 32px
+  - Font-weight: 400
+  - Text-align: left
+  
+- **Text** (`.rte p`):
+  - Font-size: 20px
+  - Line-height: 1.4
+  - Text-align: left
+
+### Navigation
+- **Flickity Arrows**: Hidden on desktop (`@media (min-width: 750px)`)
+
+### Video Scaling
+- When `scale_image` is enabled:
+  - Video wrapper gets `aspect-ratio: var(--wh-ratio, 1)`
+  - Video elements become `position: absolute` with `object-fit: cover`
+  - Respects `wh_ratio` setting (default: 1)
+
+## Mobile Behavior
+
+### Layout
+- Grid columns: Controlled by `grid_mobile` setting (default: 1.2 items)
+- Breakpoint: `max-width: 749px`
+- Carousel padding: `padding-bottom: 2rem`
+
+### Styling
+- **Media Container** (`.column__media`):
+  - `margin-bottom: 1rem` (reduced from desktop 1.5rem)
+  
+- **Title** (`.accent-title-large`):
+  - Font-size: 24px (reduced from desktop 32px)
+  - Line-height: 1.2
+  
+- **Text** (`.rte p`):
+  - Font-size: 16px (reduced from desktop 20px)
+  - Line-height: 1.4
+
+### Navigation
+- **Flickity Arrows**: 
+  - Only shown if `show_mobile_arrows` checkbox is enabled
+  - Position: `bottom: -1.125rem`
+  - Previous arrow: `right: 4rem`
+  - Next arrow: `right: 1rem`
+  - Hidden if section doesn't have `.show-mobile-arrows` class
+
+### Progress Bar
+- Optional mobile scrollbar (`progress_bar_mobile` setting)
+- Uses `custom-scrollbar` component
+- Only visible on mobile (`small-down--show` class)
+
+## Interactive Features
+
+### Video Popup
+- Optional play button overlay
+- Enabled via `enable_video_popup` checkbox
+- Uses `video-popup` snippet
+- Button color controlled by `video_button_color` setting
+- Only shows if `enable_video_popup` is checked
+
+### Image Link
+- If `button_label` is blank but `button_link` is provided:
+  - Entire image becomes clickable via `link-over-image` class
+  - Only applies when video popup is NOT enabled
+
+### Button
+- Standard button with `button_label` and `button_link`
+- Styled via `button_color` and `button_style` settings
+- Only shows if `button_label` is provided
+
+## Grid System
+
+### Desktop
+- Uses `data-grid-large` attribute
+- Value: `{{ section.settings.grid_large }}` (default: 3)
+- CSS variable: `--grid-large-items`
+
+### Tablet
+- Uses `data-grid-medium` attribute
+- Value: `{{ section.settings.grid_medium }}` (default: 3)
+- CSS variable: `--grid-medium-items`
+
+### Mobile
+- Uses `data-grid-small` attribute
+- Value: `{{ section.settings.grid_mobile }}` (default: 1.2)
+- CSS variable: `--grid-small-items`
+
+## Flickity Configuration
+
+```javascript
+{
+  "pageDots": false,
+  "prevNextButtons": true,
+  "wrapAround": false,
+  "contain": true,
+  "cellAlign": "left",
+  "freeScroll": false
+}
+```
+
+## Image Rendering
+
+- Uses `image-grid-sizes` snippet for responsive sizes
+- Uses `image-grid-srcset` snippet for srcset
+- Supports `shape_class` for image shapes (rounded, circle, etc.)
+- Supports `scale_image` and `wh_ratio` for aspect ratio control
+- Uses `cover: true` for object-fit
+
+## Critical Rules
+
+1. **Video Priority**: Video always takes priority over image when `enable_video` is checked
+2. **Video File Priority**: Shopify native video takes priority over external video URL
+3. **Mobile Arrows**: Only shown if `show_mobile_arrows` is enabled AND section has `.show-mobile-arrows` class
+4. **Desktop Arrows**: Always hidden on desktop (min-width: 750px)
+5. **Text Alignment**: `align_text` setting applies to ALL columns (not per-column)
+6. **Mobile Breakpoint**: Uses `max-width: 749px` for mobile styles
+7. **Video Scaling**: When `scale_image` is enabled, videos respect `wh_ratio` setting
+8. **Image Link**: Only works when video popup is NOT enabled and button label is blank
+9. **Liquid Syntax**: Never use `and not` in Liquid - use nested `if`/`unless` statements
+
+## Section Settings
+
+### Main Settings
+- `title`: Section title/kicker
+- `bg`: Background color palette
+- `align_text`: Text alignment for all columns (left/center/right)
+- `scale_image`: Enable image/video scaling
+- `wh_ratio`: Width/height ratio for scaling (0.5 to 5, default: 1)
+- `grid_large`: Desktop columns (3-6, default: 3)
+- `grid_medium`: Tablet columns (1-4, default: 3)
+- `grid_mobile`: Mobile columns (1-3, default: 1.2)
+- `progress_bar_mobile`: Show mobile scrollbar
+- `show_mobile_arrows`: Show mobile navigation arrows
+- `width`: Section width (wrapper options)
+- `padding_top`: Top padding (0-180px)
+- `padding_bottom`: Bottom padding (0-180px)
+
+### Block Settings
+- `enable_video`: Show inline video (takes priority over image)
+- `video_file`: Shopify native video upload
+- `video_url`: YouTube/Vimeo URL (only if no Shopify video)
+- `video_autoplay`: Autoplay video (mutes when enabled)
+- `video_loop`: Loop video
+- `show_video_controls`: Show video controls
+- `enable_image`: Show image (only if video not enabled)
+- `image`: Image picker
+- `shape_class`: Image shape (rounded, circle, etc.)
+- `title`: Column title
+- `text`: Column text (richtext)
+- `button_label`: Button text (leave blank to link from image)
+- `button_link`: Button/image link
+- `button_color`: Button color
+- `button_style`: Button style
+- `enable_video_popup`: Show video popup overlay
+- `video_popup_link`: Video popup URL (YouTube/Vimeo)
+- `video_button_color`: Popup button color
+
