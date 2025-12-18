@@ -104,7 +104,13 @@
   <div class="hero__content__wrapper {{ text_align | default: 'align--bottom-left' }}" 
        style="--title-color-desktop: {{ title_color_desktop | default: '#ffffff' }}; --title-color-mobile: {{ title_color_mobile | default: '#ffffff' }}; --desc-color-desktop: {{ description_color_desktop | default: '#ffffff' }}; --desc-color-mobile: {{ description_color_mobile | default: '#ffffff' }}; {% if mobile_card_bg_color != blank %}--mobile-card-bg: {{ mobile_card_bg_color }};{% endif %}">
     <div class="hero__content {% if enable_overlay_text %} backdrop--hero{% endif %} {% if full_height_content %}hero__content--full-height{% endif %}" 
-         {% if enable_overlay_text and not full_height_content %} style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"{% elsif content_bg_color != blank %} style="background-color: {{ content_bg_color }};"{% endif %}>
+         {% if full_height_content %}
+           {% if content_bg_color != blank %} style="background-color: {{ content_bg_color }};"{% endif %}
+         {% elsif enable_overlay_text %}
+           style="--bg: {{ overlay_color | default: '#000000' }}; --opacity: {{ overlay_opacity | divided_by: 100.0 }};"
+         {% elsif content_bg_color != blank %}
+           style="background-color: {{ content_bg_color }};"
+         {% endif %}>
       
       {% if badge_text != blank %}
         <div class="hero__badge" style="background-color: {{ badge_bg_color | default: '#000000' }}; color: {{ badge_text_color | default: '#ffffff' }};">

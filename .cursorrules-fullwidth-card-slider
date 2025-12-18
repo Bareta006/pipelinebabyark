@@ -1,0 +1,113 @@
+# Fullwidth Card Slider Section Documentation
+
+## Overview
+
+The Fullwidth Card Slider section (`section-fullwidth-card-slider.liquid`) displays a carousel of full-width cards with images/videos and overlay content. Each card can have customizable content, badges, buttons, and styling options.
+
+## File Structure
+
+- **Section**: `/sections/section-fullwidth-card-slider.liquid`
+- **Snippet**: `/snippets/fullwidth-card-slide.liquid`
+- **Dependencies**: Flickity carousel component
+
+## Card Features
+
+### Badge Text
+- **Setting**: `badge_text` (text field)
+- **Location**: Displayed above card title
+- **Styling**: 
+  - `badge_bg_color`: Background color (default: #000000)
+  - `badge_text_color`: Text color (default: #ffffff)
+- **Display**: Inline block with padding, border-radius, uppercase text
+
+### Full Height Content
+- **Setting**: `full_height_content` (checkbox)
+- **Behavior**: When enabled, makes `.hero__content` 100% height of the card
+- **Width**: 50% (desktop) - maintains half-width layout
+- **Layout**: Flex column with proper alignment based on text alignment setting
+- **Background**: When enabled, uses `content_bg_color` instead of overlay (if set)
+- **Alignment**: Respects wrapper's alignment class (top/middle/bottom, left/center/right)
+  - Vertical: `justify-content` (flex-start/center/flex-end)
+  - Horizontal: `align-items` and `text-align` (flex-start/center/flex-end)
+
+### Content Background Color
+- **Setting**: `content_bg_color` (color picker)
+- **Application**: Applied as inline `background-color` style to `.hero__content`
+- **Priority**: When `full_height_content` is enabled, this takes priority over overlay
+- **Usage**: Works with full-height mode to provide background for content area
+
+### Mobile Card Background Color
+- **Setting**: `mobile_card_bg_color` (color picker)
+- **Application**: Applied via CSS variable `--mobile-card-bg` to `.fullwidth-card`
+- **Scope**: Only active on mobile (`@media screen and (max-width: 749px)`)
+- **Usage**: Sets background color for entire card on mobile devices
+
+## Video Ratio Fix
+
+### Problem
+When first card is a video, it doesn't have reliable dimensions for height equalization.
+
+### Solution
+- **Mobile**: JavaScript searches through slides to find first slide with an image wrapper, uses its height for equalization
+- **Desktop**: JavaScript searches through slides to find first card with an image, uses its height for equalization
+- **Logic**: Prefers images over videos for reliable dimensions, falls back to video if no image found
+
+### Implementation
+- `equalizeSlideHeights()` function loops through slides
+- Finds first slide with image (mobile: `.fullwidth-card__image-mobile`, desktop: `.fullwidth-card__image-desktop`)
+- Uses that slide's height to equalize all slides
+- Falls back to video if no image found
+
+## Alignment System
+
+### Text Alignment Classes
+Applied to `.hero__content__wrapper`:
+- `align--top-left`, `align--top-center`, `align--top-right`
+- `align--middle-left`, `align--middle-center`, `align--middle-right`
+- `align--bottom-left`, `align--bottom-center`, `align--bottom-right`
+
+### Full Height Alignment
+When `full_height_content` is enabled:
+- Wrapper's alignment class determines content positioning
+- CSS applies `justify-content` (vertical) and `align-items` + `text-align` (horizontal)
+- All 9 alignment combinations properly handled
+
+## Media Handling
+
+### Desktop
+- Video takes priority over image
+- Video autoplays when slide is active
+- Image shown if no video
+
+### Mobile
+- Mobile video/image takes priority
+- Falls back to desktop video/image if mobile not provided
+- Default layout: Image/video on top, content below (unless `mobile_text_overlay` enabled)
+
+## Height Equalization
+
+### Desktop
+- Equalizes full card heights
+- Uses first card's height as target
+- Applies to all cards in carousel
+
+### Mobile
+- Equalizes media wrapper heights only (not full card)
+- Uses first slide's media height as target
+- Applies to all slides' media wrappers
+
+## Video Autoplay
+
+- Videos muted by default
+- Autoplay when slide becomes active
+- Uses `video-autoplay-wrapper` class (theme standard)
+- `data-video-autoplay` attribute for theme integration
+
+## Critical Rules
+
+1. **Liquid Syntax**: Never use `and not` in Liquid - use nested `if`/`unless` statements
+2. **Background Priority**: When `full_height_content` is enabled, `content_bg_color` takes priority over overlay
+3. **Width**: Full-height content maintains 50% width on desktop (don't change this)
+4. **Mobile Background**: Only applies on mobile breakpoint (max-width: 749px)
+5. **Video Ratio**: Always search for image-based slides first for reliable dimensions
+
