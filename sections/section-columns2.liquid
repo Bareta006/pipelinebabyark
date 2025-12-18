@@ -257,24 +257,36 @@
     }
 
     /* Disable Flickity carousel on desktop - use flexbox grid instead */
-    #shopify-section-{{ section.id }} flickity-carousel > div {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem;
+    #shopify-section-{{ section.id }} flickity-carousel {
+      display: block;
+    }
+
+    #shopify-section-{{ section.id }} flickity-carousel .flickity-viewport {
+      display: block !important;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    #shopify-section-{{ section.id }} flickity-carousel .flickity-slider {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      gap: 1.5rem !important;
+      width: 100% !important;
+      transform: none !important;
+      position: relative !important;
+      left: 0 !important;
     }
 
     /* Calculate width accounting for gaps: (100% - (gaps)) / columns */
     #shopify-section-{{ section.id }} flickity-carousel .index__column {
-      flex: 0 0 calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }});
-      max-width: calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }});
-      min-width: 0;
-    }
-
-    /* Hide Flickity viewport and slider on desktop */
-    #shopify-section-{{ section.id }} flickity-carousel .flickity-viewport,
-    #shopify-section-{{ section.id }} flickity-carousel .flickity-slider {
-      display: contents;
+      flex: 0 0 calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }}) !important;
+      max-width: calc((100% - (1.5rem * ({{ section.settings.grid_large }} - 1))) / {{ section.settings.grid_large }}) !important;
+      min-width: 0 !important;
+      position: relative !important;
+      left: auto !important;
+      transform: none !important;
+      margin-left: 0 !important;
     }
   }
 
