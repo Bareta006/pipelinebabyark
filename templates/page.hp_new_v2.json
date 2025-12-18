@@ -306,6 +306,17 @@
         "padding_bottom": 0
       }
     },
+    "section_multistep_hero_97gHnM": {
+      "type": "section-multistep-hero",
+      "name": "Multistep Product Hero",
+      "settings": {
+        "product": "",
+        "product_handle": "",
+        "heading": "",
+        "cutline": "",
+        "button_text": "Customize"
+      }
+    },
     "section_fullwidth_card_slider_47qVDr": {
       "type": "section-fullwidth-card-slider",
       "blocks": {
@@ -856,6 +867,7 @@
     "section_logos_wD9LRL",
     "section_double2_ietMK7",
     "section_html_JTm889",
+    "section_multistep_hero_97gHnM",
     "section_fullwidth_card_slider_47qVDr",
     "section_html_iHYUXJ",
     "section_icons_grid_7cHcKR",
