@@ -1567,26 +1567,38 @@ class ProductMultiStep {
         // Check for base accessories and upgrade them to smart
         await this.upgradeBaseAccessoriesToSmart();
 
-        // Show "added" state on button
-        if (btn) {
-          const addText = btn.querySelector(".btn-text-add-upgrade-text");
-          const addedText = btn.querySelector(".btn-text-added-upgrade-text");
-
-          if (addText && addedText) {
-            addText.style.display = "none";
-            addedText.style.display = "flex";
-            btn.classList.add("showing-added");
-
-            setTimeout(() => {
-              addText.style.display = "inline-block";
-              addedText.style.display = "none";
-              btn.classList.remove("showing-added");
-            }, 2000);
-          }
-        }
-
         // Re-render summary after all upgrades
         this.renderOrderSummary();
+
+        // Show "added" state on button (find it again after re-render)
+        const summaryContainer = this.container.querySelector(
+          "[data-order-summary]"
+        );
+        if (summaryContainer) {
+          const upgradeBtn = summaryContainer.querySelector(
+            "[data-upgrade-to-smart]"
+          );
+          if (upgradeBtn) {
+            const addText = upgradeBtn.querySelector(
+              ".btn-text-add-upgrade-text"
+            );
+            const addedText = upgradeBtn.querySelector(
+              ".btn-text-added-upgrade-text"
+            );
+
+            if (addText && addedText) {
+              addText.style.display = "none";
+              addedText.style.display = "flex";
+              upgradeBtn.classList.add("showing-added");
+
+              setTimeout(() => {
+                addText.style.display = "inline-block";
+                addedText.style.display = "none";
+                upgradeBtn.classList.remove("showing-added");
+              }, 2000);
+            }
+          }
+        }
       } catch (error) {
         // console.error('Error updating cart:', error);
         alert(

@@ -747,7 +747,8 @@ border-radius: 10px 10px 0 0;
 }
 
 [data-add-smart-btn].showing-added,
-[data-next-step].showing-added {
+[data-next-step].showing-added,
+[data-upgrade-to-smart].showing-added {
   background: #A7A5A3;
   border-color: #A7A5A3;
   color: black;
@@ -765,6 +766,12 @@ border-radius: 10px 10px 0 0;
 
 .accessory-checkbox-hidden:checked + .accessory-add-btn .btn-text-added {
   display: flex;
+}
+
+[data-upgrade-to-smart] .btn-text-added-upgrade-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 body .step-actions .back-button {
