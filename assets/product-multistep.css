@@ -1554,7 +1554,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
 
   .swatch-option {
-    min-height: 107px;
+    min-height: 115px;
         min-width: 96px;
   }
 
