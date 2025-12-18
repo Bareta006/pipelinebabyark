@@ -865,6 +865,85 @@
         "padding_bottom": 36
       }
     },
+    "section_centered_animated_graphs_CzicNA": {
+      "type": "section-centered-animated-graphs",
+      "blocks": {
+        "animated_graphs_d8bVxJ": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "1-yr old Rear-Facing",
+            "text_left": "",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 247,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_BPQ9fG": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "3-yr old Rear-Facing",
+            "text_left": "",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 236,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_d9ztgQ": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "3-yr old Forward-Facing",
+            "text_left": "",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 249,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        },
+        "animated_graphs_kAaRxc": {
+          "type": "AnimatedGraphs",
+          "settings": {
+            "block_title": "6-yr old Forward-Facing",
+            "text_left": "",
+            "text_right": 1000,
+            "text_right_after": "",
+            "number_field": 321,
+            "competitor_number": 0,
+            "competitor": ""
+          }
+        }
+      },
+      "block_order": [
+        "animated_graphs_d8bVxJ",
+        "animated_graphs_BPQ9fG",
+        "animated_graphs_d9ztgQ",
+        "animated_graphs_kAaRxc"
+      ],
+      "name": "Centered AnimatedGraphs",
+      "settings": {
+        "background_color": "#f7f7f7",
+        "text_color": "text-dark",
+        "width": "wrapper",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "title": "We publish what\nothers don’t",
+        "title_size_desktop": 58,
+        "title_size_mobile": 38,
+        "title_color_desktop": "#000000",
+        "title_color_mobile": "#000000",
+        "textarea": "Most brands don’t disclose their Head Injury Criterion (HIC) scores -we do. The maximum federal limit is 1000, but not all seats perform the same. We believe parents deserve full transparency to make informed choices about their child’s safety.",
+        "textarea_size_desktop": 24,
+        "textarea_size_mobile": 20,
+        "textarea_color_desktop": "#000000",
+        "textarea_color_mobile": "#000000",
+        "blocks_max_width": 600,
+        "blocks_justify": "center"
+      }
+    },
     "testimonials_carousel_AwMwJj": {
       "type": "testimonials-carousel",
       "blocks": {
@@ -1045,6 +1124,7 @@
     "section_inline_cards_phzrEF",
     "section_columns2_VKzfLG",
     "section_icons_grid_7cHcKR",
+    "section_centered_animated_graphs_CzicNA",
     "1761563838e965cf15",
     "testimonials_carousel_AwMwJj",
     "section_html_gaw4nc",
