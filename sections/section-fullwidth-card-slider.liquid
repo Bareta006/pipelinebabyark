@@ -420,11 +420,13 @@
       border-radius: 20px;
     }
 
-    /* Full height content: video wrapper gets padding, video element gets border radius */
-    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile {
+    /* Full height content: media wrappers get padding, media elements get border radius */
+    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile,
+    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__image-mobile {
       padding: 20px;
     }
-    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile video {
+    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile video,
+    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__image-mobile img {
       border-radius: 20px;
     }
     

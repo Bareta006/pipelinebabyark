@@ -110,4 +110,8 @@ When `full_height_content` is enabled:
 3. **Width**: Full-height content maintains 50% width on desktop (don't change this)
 4. **Mobile Background**: Only applies on mobile breakpoint (max-width: 749px)
 5. **Video Ratio**: Always search for image-based slides first for reliable dimensions
+6. **Full Height Mobile Styling**: When `full_height_content` checkbox is checked:
+   - Both `.fullwidth-card__video-mobile` AND `.fullwidth-card__image-mobile` get `padding: 20px`
+   - Both `video` elements AND `img` elements get `border-radius: 20px` (matches card border radius)
+   - Applies to ALL media types, not just videos
 
