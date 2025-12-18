@@ -34,7 +34,7 @@
   %}
 {% endcomment %}
 
-<div class="fullwidth-card {{ height }} {% if full_height_content %}fullwidth-card--full-height-content{% endif %}" data-block-id="{{ block_id }}" {% if mobile_card_bg_color != blank %}style="--mobile-card-bg: {{ mobile_card_bg_color }};"{% endif %}>
+<div class="fullwidth-card {{ height }}" data-block-id="{{ block_id }}" {% if mobile_card_bg_color != blank %}style="--mobile-card-bg: {{ mobile_card_bg_color }};"{% endif %}>
   
   <!-- Background Video - Desktop (Priority over image) -->
   {% if desktop_video != blank %}

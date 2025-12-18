@@ -421,10 +421,12 @@
       border-radius: 20px;
     }
 
-    /* Full height content: video gets card border radius and padding */
+    /* Full height content: video wrapper gets padding, video element gets border radius */
     #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile {
-      border-radius: 20px;
       padding: 20px;
+    }
+    #shopify-section-{{ section.id }} .fullwidth-card--full-height-content .fullwidth-card__video-mobile video {
+      border-radius: 20px;
     }
     
     /* Ensure image wrapper respects the height class */
