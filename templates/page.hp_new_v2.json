@@ -309,7 +309,7 @@
     "section_multistep_hero_97gHnM": {
       "type": "section-multistep-hero",
       "custom_css": [
-        "{background-color:#Fff; z-index: 2;}"
+        "{background-color: #fff; z-index: 2;}"
       ],
       "name": "Multistep Product Hero",
       "settings": {
@@ -318,6 +318,90 @@
         "heading": "",
         "cutline": "",
         "button_text": "Customize"
+      }
+    },
+    "section_icons_Vx4fxk": {
+      "type": "section-icons",
+      "blocks": {
+        "icon_block_8bmizF": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-basket-return",
+            "icon_alt": "shopify://shop_images/Icon_3.svg",
+            "icon_color": "#000000",
+            "title": "",
+            "text": "<p>Free Delivery</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_NDTPb3": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-shipment-world",
+            "icon_alt": "shopify://shop_images/Icon_4.svg",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>100 Days Free Trial</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_fF6aen": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Icon_5.svg",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>3 Years Warranty</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_Xzjahk": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Isolation_Mode.svg",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>Free CPST onboarding</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        },
+        "icon_block_Q8TqDy": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-phone",
+            "icon_alt": "shopify://shop_images/Group_1597881570.svg",
+            "icon_color": "#AAAAAA",
+            "title": "",
+            "text": "<p>No expiration date</p>",
+            "link_text": "",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "icon_block_8bmizF",
+        "icon_block_NDTPb3",
+        "icon_block_fF6aen",
+        "icon_block_Xzjahk",
+        "icon_block_Q8TqDy"
+      ],
+      "name": "Icon columns",
+      "settings": {
+        "title": "",
+        "bg": "palette--light bg--neutral",
+        "icons_size": 36,
+        "icon_alignment": "icon--left",
+        "layout": "grid--stacked",
+        "align_text": "text-center",
+        "width": "wrapper",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "section_fullwidth_card_slider_47qVDr": {
@@ -871,6 +955,7 @@
     "section_double2_ietMK7",
     "section_html_JTm889",
     "section_multistep_hero_97gHnM",
+    "section_icons_Vx4fxk",
     "section_fullwidth_card_slider_47qVDr",
     "section_html_iHYUXJ",
     "section_icons_grid_7cHcKR",
