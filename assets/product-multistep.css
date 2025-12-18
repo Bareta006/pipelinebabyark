@@ -500,7 +500,9 @@
   overflow: hidden;
   background: #f6f6f6;
 }
-
+.smart-feature-item .feature-media .video-autoplay-wrapper{
+  position: relative;
+}
 .feature-media img,
 .feature-media video {
   width: 100%;
