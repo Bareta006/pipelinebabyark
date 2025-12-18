@@ -308,6 +308,9 @@
     },
     "section_multistep_hero_97gHnM": {
       "type": "section-multistep-hero",
+      "custom_css": [
+        "{z-index: 2;}"
+      ],
       "name": "Multistep Product Hero",
       "settings": {
         "product": "the-babyark-advanced-convertible-car-seat",
