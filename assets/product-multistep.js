@@ -59,6 +59,11 @@ class ProductMultiStep {
     if (initialStep >= 2 && initialStep <= 5) {
       const customizeBtn = this.container.querySelector("[data-customize-btn]");
       if (customizeBtn) {
+        // Update URL to step=2
+        const newUrl = new URL(window.location);
+        newUrl.searchParams.set("step", "2");
+        window.history.replaceState({}, "", newUrl);
+
         // Trigger click on customize button to hide sections and enter fullscreen
         customizeBtn.click();
         this.currentSlide = 0;
