@@ -392,12 +392,8 @@
         "icon_block_Q8TqDy"
       ],
       "custom_css": [
-        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap; width: 1280px; max-width: 100%; row-gap: 20px; margin: 0 auto;}",
-        ".icon--left .icon__column__icon {margin-bottom: 0;}",
-        ".icon__column__text p {font-size: 32px; color: #333;}",
-        ".icon--left .icon__column {display: flex; justify-content: center; align-items: center;}",
-        ".medium-up--one-half,.medium-up--one-third {width: 33.33%;}",
-        "@media (max-width: 480px) {.icon__column__text p {font-size: 14px; } .icon__column__icon{width:16px; }}"
+        "@media (min-width: 481px) {.float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap; width: 1280px; max-width: 100%; row-gap: 20px; margin: 0 auto; } .icon--left .icon__column__icon {margin-bottom: 0; } .icon__column__text p {font-size: 32px; color: #333; } .icon--left .icon__column {display: flex; justify-content: center; align-items: center; } .medium-up--one-half, .medium-up--one-third {width: 33.33%; }}",
+        "@media (max-width: 480px) {.icon__column__text p {font-size: 18px; } .icon__column__icon {width: 24px; }}"
       ],
       "name": "Icon columns",
       "settings": {
