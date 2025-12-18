@@ -686,9 +686,32 @@
             "video_loop": false,
             "show_video_controls": true,
             "enable_image": true,
-            "shape_class": "",
-            "title": "Feature images or videos",
-            "text": "<p>Add inline videos or images. Share blog posts, products, or promotions with your customers. Use this text to describe products, share details on availability and style, or as a space to display recent reviews or FAQs.</p>",
+            "image": "shopify://shop_images/Rectangle_1486127496.png",
+            "shape_class": "rounded-lg",
+            "title": "Hassle free movement",
+            "text": "<p>Putting a seat in and taking it out shouldn’t be a sport. Babyark was built with easy transport in mind</p>",
+            "button_label": "",
+            "button_link": "",
+            "button_color": "btn--neutral",
+            "button_style": "btn--soft",
+            "enable_video_popup": false,
+            "video_popup_link": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "video_button_color": "text--white"
+          }
+        },
+        "text_block_EBqBHr": {
+          "type": "text_block",
+          "settings": {
+            "enable_video": false,
+            "video_url": "",
+            "video_autoplay": false,
+            "video_loop": false,
+            "show_video_controls": true,
+            "enable_image": true,
+            "image": "shopify://shop_images/Rectangle_1486127497.png",
+            "shape_class": "rounded-lg",
+            "title": "No expiration date",
+            "text": "<p>Unlike other seats, babyark is built with materials that withstand time. Babyark has no expectation date</p>",
             "button_label": "",
             "button_link": "",
             "button_color": "btn--neutral",
@@ -703,7 +726,8 @@
         "text_block_ifVz3D",
         "text_block_JQkHnM",
         "text_block_hbNYyx",
-        "text_block_DxBpHM"
+        "text_block_DxBpHM",
+        "text_block_EBqBHr"
       ],
       "custom_css": [
         "> div {background: #fff;}",
