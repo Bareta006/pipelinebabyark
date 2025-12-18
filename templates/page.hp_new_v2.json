@@ -414,27 +414,6 @@
     "section_fullwidth_card_slider_47qVDr": {
       "type": "section-fullwidth-card-slider",
       "blocks": {
-        "card_AmL46e": {
-          "type": "card",
-          "settings": {
-            "desktop_image": "shopify://shop_images/Group_1597881533.png",
-            "mobile_image": "shopify://shop_images/Screenshot_2025-10-09_at_12.41.45_1_1.png",
-            "overlay_opacity": 20,
-            "overlay_color": "#000000",
-            "enable_overlay_text": true,
-            "title": "Side Impact Protection",
-            "title_color_desktop": "#ffffff",
-            "title_color_mobile": "#000000",
-            "description": "<p>Prioritizing side-impact protection from <br/>day one. The BioArk™ system absorbs and redirects crash forces to the seat’s structure, shielding your child in a T-bone collision.<br/></p>",
-            "description_color_desktop": "#ffffff",
-            "description_color_mobile": "#000000",
-            "text_align": "align--bottom-left",
-            "button_text": "Learn More",
-            "button_link": "",
-            "button_color": "btn--primary",
-            "button_style": "btn"
-          }
-        },
         "card_LmN9Gk": {
           "type": "card",
           "settings": {
@@ -452,6 +431,27 @@
             "description_color_mobile": "#000000",
             "text_align": "align--bottom-left",
             "button_text": "Discover",
+            "button_link": "",
+            "button_color": "btn--primary",
+            "button_style": "btn"
+          }
+        },
+        "card_AmL46e": {
+          "type": "card",
+          "settings": {
+            "desktop_image": "shopify://shop_images/Group_1597881533.png",
+            "mobile_image": "shopify://shop_images/Screenshot_2025-10-09_at_12.41.45_1_1.png",
+            "overlay_opacity": 20,
+            "overlay_color": "#000000",
+            "enable_overlay_text": true,
+            "title": "Side Impact Protection",
+            "title_color_desktop": "#ffffff",
+            "title_color_mobile": "#000000",
+            "description": "<p>Prioritizing side-impact protection from <br/>day one. The BioArk™ system absorbs and redirects crash forces to the seat’s structure, shielding your child in a T-bone collision.<br/></p>",
+            "description_color_desktop": "#ffffff",
+            "description_color_mobile": "#000000",
+            "text_align": "align--bottom-left",
+            "button_text": "Learn More",
             "button_link": "",
             "button_color": "btn--primary",
             "button_style": "btn"
@@ -480,8 +480,8 @@
         }
       },
       "block_order": [
-        "card_AmL46e",
         "card_LmN9Gk",
+        "card_AmL46e",
         "card_CGNqzm"
       ],
       "custom_css": [
