@@ -970,9 +970,10 @@ class ProductMultiStep {
     const step3 = this.container.querySelector('[data-step="3"]');
     if (!step3) return;
 
-    const videos = step3.querySelectorAll(".step3-feature-video");
-    videos.forEach((video) => {
-      if (video.tagName === "VIDEO") {
+    const videoWrappers = step3.querySelectorAll(".video-autoplay-wrapper");
+    videoWrappers.forEach((wrapper) => {
+      const video = wrapper.querySelector("video");
+      if (video) {
         video.muted = true;
         video.play().catch((e) => {
           // Autoplay failed, ignore silently
@@ -985,9 +986,10 @@ class ProductMultiStep {
     const step3 = this.container.querySelector('[data-step="3"]');
     if (!step3) return;
 
-    const videos = step3.querySelectorAll(".step3-feature-video");
-    videos.forEach((video) => {
-      if (video.tagName === "VIDEO") {
+    const videoWrappers = step3.querySelectorAll(".video-autoplay-wrapper");
+    videoWrappers.forEach((wrapper) => {
+      const video = wrapper.querySelector("video");
+      if (video) {
         video.pause();
         video.currentTime = 0; // Reset to beginning
       }
