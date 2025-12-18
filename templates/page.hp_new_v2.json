@@ -309,7 +309,8 @@
     "section_multistep_hero_97gHnM": {
       "type": "section-multistep-hero",
       "custom_css": [
-        "{background-color: #fff; z-index: 2;}"
+        "{background-color: #fff; z-index: 2; padding-bottom: 60px;}",
+        "@media (max-width:480px){{padding-bottom:0px; }}"
       ],
       "name": "Multistep Product Hero",
       "settings": {
@@ -404,7 +405,7 @@
         "layout": "grid--stacked",
         "align_text": "text-left",
         "width": "wrapper",
-        "padding_top": 36,
+        "padding_top": 0,
         "padding_bottom": 60
       }
     },
