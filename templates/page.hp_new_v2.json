@@ -393,9 +393,9 @@
       ],
       "custom_css": [
         ".clearfix,.clearfix:after {display: none; clear: unset;}",
-        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap; width: 1280px; max-width: 100%; margin: 0 auto;}",
+        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap; width: 1280px; max-width: 100%; row-gap: 20px; margin: 0 auto;}",
         ".icon--left .icon__column__icon {margin-bottom: 0;}",
-        ".icon__column__text p {font-size: 32px; color:#333;}",
+        ".icon__column__text p {font-size: 32px; color: #333;}",
         ".icon--left .icon__column {display: flex; justify-content: center; align-items: center;}"
       ],
       "name": "Icon columns",
@@ -408,7 +408,7 @@
         "align_text": "text-left",
         "width": "wrapper",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 60
       }
     },
     "section_fullwidth_card_slider_47qVDr": {
