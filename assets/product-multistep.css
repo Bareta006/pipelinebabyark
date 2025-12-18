@@ -1086,12 +1086,12 @@ body:has([data-multistep-container]) .float-grid.product-single {
   left: 109px;
 }
 
-.plus-icon-2 {
+.plus-icon-3 {
   top: 170px;
   right: 2px;
 }
 
-.plus-icon-3 {
+.plus-icon-5 {
   top: 210px;
   left: 180px;
 }
@@ -1101,7 +1101,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   left: 195px;
 }
 
-.plus-icon-5 {
+.plus-icon-2 {
   top: 130px;
   left: 42px;
 }
@@ -1451,12 +1451,12 @@ body:has([data-multistep-container]) .float-grid.product-single {
     left: 180px;
   }
   
-  .plus-icon-2 {
+  .plus-icon-3 {
     top: 198px;
     left: 80px;
   }
   
-  .plus-icon-3 {
+  .plus-icon-5 {
     top: 240px;
     left: 212px;
   }
@@ -1466,7 +1466,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
     left: 260px;
   }
   
-  .plus-icon-5 {
+  .plus-icon-2 {
     top: 142px;
     left: 110px;
   }
