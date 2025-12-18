@@ -46,6 +46,9 @@
                  badge_text: block.settings.badge_text,
                  badge_bg_color: block.settings.badge_bg_color,
                  badge_text_color: block.settings.badge_text_color,
+                 full_height_content: block.settings.full_height_content,
+                 content_bg_color: block.settings.content_bg_color,
+                 mobile_card_bg_color: block.settings.mobile_card_bg_color,
                  title: block.settings.title,
                  description: block.settings.description,
                  title_color_desktop: block.settings.title_color_desktop,
@@ -248,6 +251,57 @@
     max-width: 55%;
   }
 
+  /* Full height content - makes content 100% height and adjusts alignment */
+  #shopify-section-{{ section.id }} .hero__content--full-height {
+    height: 100%;
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    box-sizing: border-box;
+  }
+
+  /* Alignment fixes for full height content */
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-left,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-center,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-right {
+    justify-content: flex-start;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-left,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-center,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-right {
+    justify-content: center;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-left,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-center,
+  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-right {
+    justify-content: flex-end;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-left .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-left .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-left .hero__content--full-height {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-center .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-center .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-center .hero__content--full-height {
+    align-items: center;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-right .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-right .hero__content--full-height,
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-right .hero__content--full-height {
+    align-items: flex-end;
+    text-align: right;
+  }
+
   /* Hero content styling - following theme patterns */
   #shopify-section-{{ section.id }} .hero__badge {
     display: inline-block;
@@ -323,6 +377,11 @@
       display: flex;
       flex-direction: column;
       border-radius: 20px;
+    }
+
+    /* Mobile card background color */
+    #shopify-section-{{ section.id }} .fullwidth-card[style*="--mobile-card-bg"] {
+      background-color: var(--mobile-card-bg);
     }
 
     /* Show mobile image/video, hide desktop image/video */
@@ -946,6 +1005,25 @@
         {
           "type": "header",
           "content": "Content"
+        },
+        {
+          "type": "checkbox",
+          "id": "full_height_content",
+          "label": "Full height content",
+          "info": "Makes content area 100% height of the card",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "content_bg_color",
+          "label": "Content Background Color",
+          "info": "Background color for the content area"
+        },
+        {
+          "type": "color",
+          "id": "mobile_card_bg_color",
+          "label": "Mobile Card Background Color",
+          "info": "Background color for the entire card on mobile"
         },
         {
           "type": "text",
