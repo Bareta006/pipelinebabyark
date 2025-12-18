@@ -54,6 +54,23 @@ class ProductMultiStep {
     const initialStep =
       stepParam && !isNaN(stepParam) ? parseInt(stepParam) : 1;
 
+    // If jumping directly to step 2+, trigger click on customize button
+    if (initialStep >= 2) {
+      const customizeBtn = this.container.querySelector("[data-customize-btn]");
+      if (customizeBtn) {
+        // Trigger click on customize button to hide sections and enter fullscreen
+        customizeBtn.click();
+        // Then show the requested step (customize button shows step 2, so override if needed)
+        if (initialStep !== 2) {
+          setTimeout(() => {
+            this.showStep(initialStep);
+          }, 0);
+        }
+        this.currentSlide = 0;
+        return;
+      }
+    }
+
     this.showStep(initialStep);
     this.currentSlide = 0;
   }
