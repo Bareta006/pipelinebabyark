@@ -39,9 +39,11 @@
           <div class="smart-feature-item">
             <div class="feature-media">
               {%- if feature.video != blank -%}
-                <video autoplay muted loop playsinline>
-                  <source src="{{ feature.video }}" type="video/mp4">
-                </video>
+                <div class="video-autoplay-wrapper">
+                  <video muted loop playsinline data-video-autoplay data-step3-video>
+                    <source src="{{ feature.video }}" type="video/mp4">
+                  </video>
+                </div>
               {%- elsif feature.image != blank -%}
                 <img src="{{ feature.image | image_url: width: 400 }}"
                      alt="{{ feature.title }}"

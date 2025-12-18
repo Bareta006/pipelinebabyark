@@ -948,6 +948,14 @@ class ProductMultiStep {
       });
     }
 
+    if (stepNumber === 3) {
+      // Play all videos in step 3 when entering
+      this.playStep3Videos();
+    } else {
+      // Pause all videos when leaving step 3
+      this.pauseStep3Videos();
+    }
+
     if (stepNumber === 4) {
       this.filterAccessoriesBySmartOption();
       this.attachAccessoryListeners();
@@ -956,6 +964,34 @@ class ProductMultiStep {
     if (stepNumber === 5) {
       this.renderOrderSummary();
     }
+  }
+
+  playStep3Videos() {
+    const step3 = this.container.querySelector('[data-step="3"]');
+    if (!step3) return;
+
+    const videos = step3.querySelectorAll("[data-step3-video]");
+    videos.forEach((video) => {
+      if (video.tagName === "VIDEO") {
+        video.muted = true;
+        video.play().catch((e) => {
+          // Autoplay failed, ignore silently
+        });
+      }
+    });
+  }
+
+  pauseStep3Videos() {
+    const step3 = this.container.querySelector('[data-step="3"]');
+    if (!step3) return;
+
+    const videos = step3.querySelectorAll("[data-step3-video]");
+    videos.forEach((video) => {
+      if (video.tagName === "VIDEO") {
+        video.pause();
+        video.currentTime = 0; // Reset to beginning
+      }
+    });
   }
 
   initializeSlider() {
