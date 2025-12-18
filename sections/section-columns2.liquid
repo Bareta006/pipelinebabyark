@@ -333,14 +333,94 @@
       }
     }
 
-    // Initial check
-    handleDesktopLayout();
+    // Function to equalize media heights (images and videos)
+    function equalizeMediaHeights() {
+      const allColumns = section.querySelectorAll('.index__column');
+      if (!allColumns.length) return;
+
+      // Reset all media heights
+      allColumns.forEach(column => {
+        const media = column.querySelector('.column__media');
+        if (media) {
+          media.style.height = '';
+        }
+      });
+
+      setTimeout(() => {
+        // Find first column with image (prefer images over videos for reliable dimensions)
+        let targetMedia = null;
+        let targetHeight = 0;
+
+        for (let i = 0; i < allColumns.length; i++) {
+          const column = allColumns[i];
+          const media = column.querySelector('.column__media');
+          if (!media) continue;
+
+          // Check if this column has an image (not video)
+          const hasImage = media.querySelector('img') && !media.querySelector('.column__video-wrapper');
+          const hasVideo = media.querySelector('.column__video-wrapper');
+
+          if (hasImage) {
+            // Found image - use its height
+            const height = media.offsetHeight;
+            if (height > 0) {
+              targetMedia = media;
+              targetHeight = height;
+              break; // Found image, use it
+            }
+          } else if (hasVideo && !targetMedia) {
+            // Fallback to video if no image found yet
+            const height = media.offsetHeight;
+            if (height > 0) {
+              targetMedia = media;
+              targetHeight = height;
+            }
+          }
+        }
+
+        // Apply target height to all media containers
+        if (targetMedia && targetHeight > 0) {
+          allColumns.forEach(column => {
+            const media = column.querySelector('.column__media');
+            if (media) {
+              media.style.height = targetHeight + 'px';
+            }
+          });
+        }
+      }, 100);
+    }
+
+    // Initialize
+    function init() {
+      handleDesktopLayout();
+      equalizeMediaHeights();
+    }
+
+    // Wait for DOM ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
 
     // Handle resize
     let resizeTimeout;
     window.addEventListener('resize', function() {
       clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(handleDesktopLayout, 100);
+      resizeTimeout = setTimeout(function() {
+        handleDesktopLayout();
+        equalizeMediaHeights();
+      }, 200);
+    });
+
+    // Re-equalize when images load
+    const images = section.querySelectorAll('img');
+    images.forEach(img => {
+      if (img.complete) {
+        equalizeMediaHeights();
+      } else {
+        img.addEventListener('load', equalizeMediaHeights);
+      }
     });
   })();
 </script>

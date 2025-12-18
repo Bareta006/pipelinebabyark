@@ -2,7 +2,10 @@
 
 ## Overview
 
-The `section-columns2.liquid` section displays a horizontal carousel of columns, each containing media (image or video) and content (title, text, button). Uses Flickity carousel for horizontal scrolling.
+The `section-columns2.liquid` section displays columns with media (image or video) and content (title, text, button). 
+- **Desktop**: Flexbox grid layout (no carousel) with wrapping and centered incomplete rows
+- **Mobile**: Flickity carousel for horizontal scrolling
+- **Media Height Equalization**: Automatically equalizes heights of mixed images and videos by finding the first image and using its height
 
 ## File Structure
 
@@ -33,9 +36,11 @@ The `section-columns2.liquid` section displays a horizontal carousel of columns,
 ## Desktop Behavior
 
 ### Layout
+- **No Carousel**: Desktop uses flexbox grid layout, NOT Flickity carousel
 - Grid columns: Controlled by `grid_large` setting (default: 3)
-- Uses CSS Grid with Flickity carousel
+- Flexbox with `flex-wrap: wrap` and `justify-content: center` for centered incomplete rows
 - Text alignment: Controlled by `align_text` setting (applies to all columns)
+- Flickity is disabled on desktop via JavaScript (prevents initialization)
 
 ### Styling
 - **Media Container** (`.column__media`):
@@ -167,6 +172,32 @@ The `section-columns2.liquid` section displays a horizontal carousel of columns,
 - Supports `scale_image` and `wh_ratio` for aspect ratio control
 - Uses `cover: true` for object-fit
 
+## Media Height Equalization
+
+### Overview
+When columns contain mixed media (images and videos), all media containers are equalized to the same height. The system finds the first column with an image and uses its height as the target for all columns.
+
+### Logic
+1. **Find Target**: Iterates through all columns to find the first one with an image (not video)
+2. **Prefer Images**: Images are preferred over videos for reliable dimensions
+3. **Fallback**: If no image is found, uses the first video column's height
+4. **Apply Height**: Applies the target height to all `.column__media` containers
+
+### Implementation
+- Function: `equalizeMediaHeights()`
+- Target Element: `.column__media` container
+- Detection: Checks for `img` element AND absence of `.column__video-wrapper`
+- Timing: Uses `setTimeout(100ms)` to allow layout calculation
+- Triggers:
+  - On page load (DOM ready)
+  - On window resize (debounced 200ms)
+  - When images finish loading
+
+### Desktop vs Mobile
+- **Desktop**: Equalizes media heights for grid layout
+- **Mobile**: Equalizes media heights for carousel layout
+- Same logic applies to both breakpoints
+
 ## Critical Rules
 
 1. **Video Priority**: Video always takes priority over image when `enable_video` is checked
@@ -178,6 +209,7 @@ The `section-columns2.liquid` section displays a horizontal carousel of columns,
 7. **Video Scaling**: When `scale_image` is enabled, videos respect `wh_ratio` setting
 8. **Image Link**: Only works when video popup is NOT enabled and button label is blank
 9. **Liquid Syntax**: Never use `and not` in Liquid - use nested `if`/`unless` statements
+10. **Media Height Equalization**: Always equalize media heights when mixed images/videos are present - find first image, use its height, apply to all media containers
 
 ## Section Settings
 
