@@ -583,6 +583,10 @@
   .feature-description {
     font-size: 14px;
   }
+  .multistep-step--3 .price-smart-multistep{
+    font-size: 18px;
+    margin-bottom: 0px;
+  }
 }
 
 .step-actions--vertical {
@@ -1597,6 +1601,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   .product-title {
     font-size: 30px;
     margin-bottom: 30px;
+            padding: 0px 30px;
   }
 
   .step-title {
