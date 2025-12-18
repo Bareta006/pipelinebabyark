@@ -391,6 +391,11 @@
         "icon_block_Xzjahk",
         "icon_block_Q8TqDy"
       ],
+      "custom_css": [
+        ".float-grid {justify-content: center; align-items: center; display: flex; flex-wrap: wrap;}",
+        ".icon--left .icon__column__icon {margin-bottom: 0;}",
+        ".icon--left .icon__column {display: flex; justify-content: center;}"
+      ],
       "name": "Icon columns",
       "settings": {
         "title": "",
