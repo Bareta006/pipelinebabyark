@@ -840,31 +840,6 @@
         "padding_bottom": 36
       }
     },
-    "1761563838e965cf15": {
-      "type": "apps",
-      "blocks": {
-        "tolstoy_shoppable_video_quiz_carousel_block_pFXyWA": {
-          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
-          "settings": {
-            "publishId": "b8cvxgx5q69e1"
-          }
-        }
-      },
-      "block_order": [
-        "tolstoy_shoppable_video_quiz_carousel_block_pFXyWA"
-      ],
-      "custom_css": [
-        ".tolstoy-carousel-container {width: 100%;}",
-        ".tolstoy-carousel-arrow-button-container {display: none;}"
-      ],
-      "settings": {
-        "text_color": "text--neutral",
-        "bg": "palette--light bg--neutral",
-        "width": "wrapper--none",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "section_centered_animated_graphs_CzicNA": {
       "type": "section-centered-animated-graphs",
       "blocks": {
@@ -925,7 +900,7 @@
       ],
       "name": "Centered AnimatedGraphs",
       "settings": {
-        "background_color": "#f7f7f7",
+        "background_color": "#f8f7f7",
         "text_color": "text-dark",
         "width": "wrapper",
         "padding_top": 60,
@@ -942,6 +917,31 @@
         "textarea_color_mobile": "#000000",
         "blocks_max_width": 600,
         "blocks_justify": "center"
+      }
+    },
+    "1761563838e965cf15": {
+      "type": "apps",
+      "blocks": {
+        "tolstoy_shoppable_video_quiz_carousel_block_pFXyWA": {
+          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "settings": {
+            "publishId": "b8cvxgx5q69e1"
+          }
+        }
+      },
+      "block_order": [
+        "tolstoy_shoppable_video_quiz_carousel_block_pFXyWA"
+      ],
+      "custom_css": [
+        ".tolstoy-carousel-container {width: 100%;}",
+        ".tolstoy-carousel-arrow-button-container {display: none;}"
+      ],
+      "settings": {
+        "text_color": "text--neutral",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper--none",
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "testimonials_carousel_AwMwJj": {
