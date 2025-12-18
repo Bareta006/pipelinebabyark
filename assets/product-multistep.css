@@ -1430,7 +1430,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
     align-self: start;
   }
   .swatch-option {
-    min-height: 210px;
+    min-height: 213px;
   }
   .step1-product-container {
     gap: 150px
