@@ -586,7 +586,7 @@
         "h2 {color: #fff;}",
         "h2 strong {font-weight: 700;}",
         ".flickity-button {color: #fff;}",
-        "@media (max-width: 480px) {.mobile-carousel-enabled .flickity-button{color:#fff; }}"
+        "@media (max-width: 480px) {.mobile-carousel-enabled .flickity-button {color: #fff; }}"
       ],
       "name": "Inline Cards",
       "settings": {
@@ -605,7 +605,7 @@
         "bg": "palette--light bg--neutral",
         "width": "wrapper",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 40
       }
     },
     "section_columns2_VKzfLG": {
