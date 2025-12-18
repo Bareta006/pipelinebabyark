@@ -252,7 +252,7 @@
         "judge_me_reviews_review_widget_cTypRr"
       ],
       "custom_css": [
-        "no.jdgm-row-media {display: none;}"
+        ".jdgm-row-media {display: none;}"
       ],
       "settings": {
         "text_color": "text--neutral",
