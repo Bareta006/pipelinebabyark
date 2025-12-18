@@ -1431,7 +1431,6 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
   .swatch-option {
     min-height: 210px;
-    min-width: 96px;
   }
   .step1-product-container {
     gap: 150px
@@ -1556,6 +1555,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
   .swatch-option {
     min-height: 107px;
+        min-width: 96px;
   }
 
   .summary-totals-container {
