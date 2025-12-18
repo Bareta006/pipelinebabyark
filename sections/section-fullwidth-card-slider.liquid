@@ -262,42 +262,54 @@
     box-sizing: border-box;
   }
 
-  /* Alignment fixes for full height content */
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-left,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-center,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--top-right {
+  /* Alignment fixes for full height content - wrapper has alignment class, content gets styled */
+  /* Top alignments */
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-left .hero__content--full-height {
     justify-content: flex-start;
-  }
-
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-left,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-center,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--middle-right {
-    justify-content: center;
-  }
-
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-left,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-center,
-  #shopify-section-{{ section.id }} .hero__content__wrapper .hero__content--full-height.align--bottom-right {
-    justify-content: flex-end;
-  }
-
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-left .hero__content--full-height,
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-left .hero__content--full-height,
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-left .hero__content--full-height {
     align-items: flex-start;
     text-align: left;
   }
-
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-center .hero__content--full-height,
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-center .hero__content--full-height,
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-center .hero__content--full-height {
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-center .hero__content--full-height {
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
   }
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-right .hero__content--full-height {
+    justify-content: flex-start;
+    align-items: flex-end;
+    text-align: right;
+  }
 
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--top-right .hero__content--full-height,
-  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-right .hero__content--full-height,
+  /* Middle alignments */
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-left .hero__content--full-height {
+    justify-content: center;
+    align-items: flex-start;
+    text-align: left;
+  }
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-center .hero__content--full-height {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--middle-right .hero__content--full-height {
+    justify-content: center;
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  /* Bottom alignments */
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-left .hero__content--full-height {
+    justify-content: flex-end;
+    align-items: flex-start;
+    text-align: left;
+  }
+  #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-center .hero__content--full-height {
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+  }
   #shopify-section-{{ section.id }} .hero__content__wrapper.align--bottom-right .hero__content--full-height {
+    justify-content: flex-end;
     align-items: flex-end;
     text-align: right;
   }
