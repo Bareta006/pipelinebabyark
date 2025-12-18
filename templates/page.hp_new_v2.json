@@ -310,7 +310,7 @@
       "type": "section-multistep-hero",
       "custom_css": [
         "{background-color: #fff; z-index: 2; padding-bottom: 60px;}",
-        "@media (max-width:480px){{padding-bottom:0px; }}"
+        "@media (max-width: 480px) {{padding-bottom: 0px; }}"
       ],
       "name": "Multistep Product Hero",
       "settings": {
@@ -483,7 +483,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; }}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile{height:78vw; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
