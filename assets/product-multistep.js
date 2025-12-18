@@ -970,7 +970,7 @@ class ProductMultiStep {
     const step3 = this.container.querySelector('[data-step="3"]');
     if (!step3) return;
 
-    const videos = step3.querySelectorAll("[data-step3-video]");
+    const videos = step3.querySelectorAll(".step3-feature-video");
     videos.forEach((video) => {
       if (video.tagName === "VIDEO") {
         video.muted = true;
@@ -985,7 +985,7 @@ class ProductMultiStep {
     const step3 = this.container.querySelector('[data-step="3"]');
     if (!step3) return;
 
-    const videos = step3.querySelectorAll("[data-step3-video]");
+    const videos = step3.querySelectorAll(".step3-feature-video");
     videos.forEach((video) => {
       if (video.tagName === "VIDEO") {
         video.pause();
