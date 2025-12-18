@@ -818,6 +818,9 @@ body .step-actions .back-button {
     top: 5px;
     left: 2vw;
   }
+  .smart-feature-item .feature-media .video-autoplay-wrapper video{
+    object-position: right;
+  }
 }
 
 .order-summary-container {
