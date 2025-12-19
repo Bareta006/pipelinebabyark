@@ -732,7 +732,7 @@
       "custom_css": [
         "> div {background: #fff;}",
         "h2 {font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
-        ".column__media{border-radius: 12px; overflow: hidden;}",
+        ".column__media {border-radius: 12px; overflow: hidden;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],
       "name": "Text columns with images2",
@@ -1033,7 +1033,7 @@
       ],
       "name": "Custom HTML",
       "settings": {
-        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"/products/the-babyark-advanced-convertible-car-seat\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
+        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"https://babyark.com/products/the-babyark-advanced-convertible-car-seat?step=2\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
