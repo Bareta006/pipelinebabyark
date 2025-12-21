@@ -280,7 +280,8 @@
         "video_4E3YKi"
       ],
       "custom_css": [
-        "{z-index: 2;}"
+        "{z-index: 2;}",
+        "@media (max-width:480px){.brick__section--reverse {flex-direction: column; }}"
       ],
       "name": "Image with text no2",
       "settings": {
