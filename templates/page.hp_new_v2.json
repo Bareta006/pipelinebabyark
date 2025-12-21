@@ -447,7 +447,7 @@
           "type": "card",
           "settings": {
             "desktop_image": "shopify://shop_images/New_child_in_babyark_2_2.png",
-            "mobile_image": "shopify://shop_images/Screenshot_2025-10-09_at_12.41.45_1_1.png",
+            "mobile_image": "shopify://shop_images/New_child_in_babyark_2_2_1.png",
             "overlay_opacity": 20,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
@@ -473,8 +473,8 @@
         "card_CGNqzm": {
           "type": "card",
           "settings": {
-            "desktop_image": "shopify://shop_images/Group_1597881522.png",
-            "mobile_image": "shopify://shop_images/Group_1597881524.png",
+            "desktop_image": "shopify://shop_images/Group_1597881580.png",
+            "mobile_image": "shopify://shop_images/Group_1597881581.png",
             "overlay_opacity": 20,
             "overlay_color": "#000000",
             "enable_overlay_text": true,
