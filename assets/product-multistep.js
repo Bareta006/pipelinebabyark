@@ -1269,9 +1269,9 @@ class ProductMultiStep {
             <h4 class="summary-product-title">${this.productData.title}</h4>
             <p class="summary-variant-info">Color: ${
               this.selectedColor
-            }, Shell: ${this.selectedShellColor}, ${
+            }, Shell: ${this.selectedShellColor}, <strong>${
         this.selectedSmartOption
-      }</p>
+      }</strong></p>
           </div>
           </div>
           <div class="summary-product-pricing">
