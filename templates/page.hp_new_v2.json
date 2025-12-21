@@ -504,7 +504,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; }}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
