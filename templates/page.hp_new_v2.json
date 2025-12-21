@@ -460,7 +460,7 @@
             "title": "Side Impact Protection",
             "title_color_desktop": "#ffffff",
             "title_color_mobile": "#ffffff",
-            "description": "<p>Prioritizing side-impact protection from <br/>day one. The BioArk™ system absorbs and redirects crash forces to the seat’s structure, shielding your child in a T-bone collision.<br/></p>",
+            "description": "<p>Prioritizing side-impact protection from day one. The BioArk™ system absorbs and redirects crash forces to the seat’s structure, shielding your child in a T-bone collision.<br/></p>",
             "description_color_desktop": "#ffffff",
             "description_color_mobile": "#ffffff",
             "text_align": "align--middle-left",
@@ -504,7 +504,7 @@
         "card_CGNqzm"
       ],
       "custom_css": [
-        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p{min-height:134px; }}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p {min-height: 134px; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
