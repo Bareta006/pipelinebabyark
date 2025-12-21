@@ -1089,7 +1089,7 @@
         "video_8WCk3h"
       ],
       "custom_css": [
-        ">section {background-image: url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Rectangle_1486127498.png?v=1766319031); background-size: cover; background-position: center;}",
+        "> section {background: #F8F8F8 url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Rectangle_1486127498.png?v=1766319031) no-repeat center / contain;}",
         ".rte p:not(:first-child) {font-size: 30px !important;}",
         ".rte p:not(:first-child) strong {font-size: 35px !important;}",
         "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; text-align: left; } .rte p:not(:first-child), .rte p:not(:first-child) strong {font-size: 20px !important; text-align: left; }}"
