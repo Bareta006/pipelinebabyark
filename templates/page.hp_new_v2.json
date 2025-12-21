@@ -281,7 +281,7 @@
       ],
       "custom_css": [
         "{z-index: 2;}",
-        "@media (max-width:480px){.brick__section--reverse {flex-direction: column; }}"
+        "@media (max-width: 480px) {.brick__section--reverse {flex-direction: column; } .brick__block__text .text__standard {padding-top: 0px; padding-bottom: 36px; }}"
       ],
       "name": "Image with text no2",
       "settings": {
