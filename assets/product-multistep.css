@@ -927,7 +927,12 @@ body .step-actions .back-button {
   font-weight: 300;
   margin: 0;
 }
-
+.summary-variant-info strong {
+  font-weight: 600;
+  color:#000;
+  font-size: 14px;
+  display: block;  
+}
 .summary-product-pricing {
   display: flex;
   flex-direction: column;
