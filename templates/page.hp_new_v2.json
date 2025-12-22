@@ -1049,7 +1049,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n@media (min-width:1024px){\n.section-double2:last-child .rte p:first-child strong {\n    display: block;\n    font-size: 110px;\n    line-height: 0;\n}\n}\n.section-double2:last-child .rte p:first-child {\n    text-align: left !important;\nmargin-bottom:20px;\n  }\n.section-double2:last-child .rte p:not(:first-child),.section-double2:last-child .rte p:not(:first-child) strong{\nfont-weight:800;}\n@media (max-width:480px){\n.section-double2:last-child .rte p:not(:first-child) strong{\nfont-size:35px !important;}\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n}\n</style>"
+        "custom_liquid": "<style>\n@media (min-width:1024px){\n.section-double2:last-child .rte p:first-child strong {\n    display: block;\n    font-size: 110px;\n    line-height: 0;\n}\n}\n.section-double2:last-child .rte p:not(:first-child),.section-double2:last-child \n.rte p:not(:first-child) strong {\n  font-size: 30px !important;\n}\n.section-double2:last-child .rte p:first-child {\n    text-align: left !important;\nmargin-bottom:20px;\n  }\n.section-double2:last-child .rte p:not(:first-child),.section-double2:last-child .rte p:not(:first-child) strong{\nfont-weight:800;}\n@media (max-width:480px){\n.rte p:not(:first-child),\n.rte p:not(:first-child) strong {\n  font-size: 30px !important;\n}\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n}\n</style>"
       }
     },
     "section_double2_34cTmT": {
@@ -1103,8 +1103,7 @@
       ],
       "custom_css": [
         "> section {background: #f8f8f8 url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Rectangle_1486127498.png?v=1766319031) no-repeat center / contain;}",
-        ".rte p:not(:first-child),.rte p:not(:first-child) strong {font-size: 30px !important;}",
-        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; text-align: left; margin-bottom: 20px; } .rte p:not(:first-child), .rte p:not(:first-child) strong {font-size: 20px !important; text-align: left !important; font-weight: 800; } > section {background-size: cover; }}"
+        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; text-align: left; margin-bottom: 20px; } > section {background-size: cover; }}"
       ],
       "name": "Image with text no2",
       "settings": {
