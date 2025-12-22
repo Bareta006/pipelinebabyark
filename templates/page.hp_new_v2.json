@@ -505,7 +505,7 @@
       ],
       "custom_css": [
         ".flickity-button {bottom: -3.125rem;}",
-        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p {min-height: 134px; } .section-padding{padding-bottom:80px; } .flickity-button {bottom: -4.125rem;}}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p {min-height: 134px; } .section-padding {padding-bottom: 80px; } .flickity-button {bottom: -4.125rem; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
@@ -1051,7 +1051,7 @@
           "settings": {
             "kicker": "",
             "title": "",
-            "text": "<p>“What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p>Automobile designer for Ferrari & Maserati</p>",
+            "text": "<p>“What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p><strong>Automobile designer for Ferrari & Maserati</strong></p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
