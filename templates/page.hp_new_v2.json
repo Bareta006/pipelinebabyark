@@ -1119,7 +1119,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n@media (max-width:480px){\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n}\n</style>"
+        "custom_liquid": "<style>\n  .shopify-section.section-double2:last-child .brick__block .rte p:first-child {\n    text-align: left !important;\n  }\n@media (max-width:480px){\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n}\n</style>"
       }
     }
   },
