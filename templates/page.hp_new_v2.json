@@ -1035,7 +1035,8 @@
     "section_html_gaw4nc": {
       "type": "section-html",
       "custom_css": [
-        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; transform: translateX(-50%) !important; display: block; width: 200px;}"
+        "a#floatingButton {position: fixed; left: 50%; bottom: 50px; z-index: 1; display: block; width: 200px; transform: translate3d(-50%, 0, 0) !important; -webkit-transform: translate3d(-50%, 0, 0) !important;}",
+        "a#floatingButton:active,a#floatingButton:focus,a#floatingButton:focus-visible{transform: translate3d(-50%,0,0) !important; -webkit-transform: translate3d(-50%,0,0) !important;}"
       ],
       "name": "Custom HTML",
       "settings": {
