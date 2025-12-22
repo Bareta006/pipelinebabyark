@@ -684,12 +684,13 @@
         "text_block_DxBpHM": {
           "type": "text_block",
           "settings": {
-            "enable_video": false,
+            "enable_video": true,
+            "video_file": "shopify://files/videos/Sequence 01 (1).mp4",
             "video_url": "",
             "video_autoplay": false,
             "video_loop": false,
             "show_video_controls": true,
-            "enable_image": true,
+            "enable_image": false,
             "image": "shopify://shop_images/Rectangle_1486127496.png",
             "shape_class": "",
             "title": "Hassle free movement",
@@ -706,12 +707,13 @@
         "text_block_EBqBHr": {
           "type": "text_block",
           "settings": {
-            "enable_video": false,
+            "enable_video": true,
+            "video_file": "shopify://files/videos/Sequence 02.mp4",
             "video_url": "",
             "video_autoplay": false,
             "video_loop": false,
             "show_video_controls": true,
-            "enable_image": true,
+            "enable_image": false,
             "image": "shopify://shop_images/Rectangle_1486127497.png",
             "shape_class": "",
             "title": "No expiration date",
