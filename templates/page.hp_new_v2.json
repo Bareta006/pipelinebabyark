@@ -531,7 +531,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-icons-grid > div > .wrapper {\npadding:90px 0; \n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "html": "<style>\n.section-icons-grid > div > .wrapper {\npadding:60px 0; \n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
