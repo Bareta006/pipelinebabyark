@@ -14,7 +14,7 @@
     "section_liquid_nDdLqE": {
       "type": "section-liquid",
       "settings": {
-        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:42px;\nobject-fit:contain;}\n.product__block__icon > .icon-holder >div{\nwidth:42px;}  \nbody ._storiesContainer_1v61q_7{\ndisplay:block!important;}\n.tolstoy-stories .tolstoy-stories-main-container{\n  overflow: hidden;\n}\n@media (max-width:480px){\nhtml,body{overflow-x:hidden;\n}\n#tidio-chat{\nbottom:20% !important;\nright:0 !important;\n}\nbody #accessiblyAppWidgetButton.accessibly-app-widget-button-container.middle-right {\n    top: auto !important;\nbottom:30% !important;\n}\n</style>"
+        "custom_liquid": "<style>\n.product__block__icon > .icon-holder >div > img{\nheight:42px;\nobject-fit:contain;}\n.product__block__icon > .icon-holder >div{\nwidth:42px;}  \nbody ._storiesContainer_1v61q_7{\ndisplay:block!important;}\n.tolstoy-stories .tolstoy-stories-main-container{\n  overflow: hidden;\n}\n@media (max-width:480px){\nhtml,body{overflow-x:hidden;\n}\n#tidio-chat{\nbottom:20% !important;\nright:-10px !important;\n}\nbody #accessiblyAppWidgetButton.accessibly-app-widget-button-container.middle-right {\n    top: auto !important;\nbottom:30% !important;\n}\n</style>"
       }
     },
     "section_liquid_NTjR4q": {
