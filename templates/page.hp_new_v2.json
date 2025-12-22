@@ -295,8 +295,8 @@
         "bg_position_mobile": "center center",
         "preload_image": false,
         "width": "wrapper",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "section_html_JTm889": {
