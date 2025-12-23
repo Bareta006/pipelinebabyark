@@ -615,7 +615,7 @@ class ProductMultiStep {
       lowestVariant.compare_at_price > lowestVariant.price
     ) {
       const compareAtPrice = this.formatMoney(lowestVariant.compare_at_price);
-      priceElement.innerHTML = `Start at ${lowestPrice} <span style="text-decoration: line-through;">${compareAtPrice}</span>`;
+      priceElement.innerHTML = `${lowestPrice} <span style="text-decoration: line-through; font-weight: 400; font-size: 0.7em;">${compareAtPrice}</span>`;
     } else {
       priceElement.textContent = lowestPrice;
     }

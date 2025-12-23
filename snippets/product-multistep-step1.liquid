@@ -27,7 +27,7 @@
           <span class="price" data-product-price>
             {%- if lowest_variant != null -%}
               {%- if lowest_compare_at_price != null and lowest_compare_at_price > lowest_price -%}
-                Start at {{ lowest_price | money }} <span style="text-decoration: line-through;">{{ lowest_compare_at_price | money }}</span>
+                {{ lowest_price | money }} <span style="text-decoration: line-through; font-weight: 400; font-size: 0.7em;">{{ lowest_compare_at_price | money }}</span>
               {%- else -%}
                 {{ lowest_price | money }}
               {%- endif -%}
