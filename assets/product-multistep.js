@@ -107,6 +107,11 @@ class ProductMultiStep {
     const prevBtns = this.container.querySelectorAll("[data-prev-step]");
     prevBtns.forEach((btn) => {
       btn.addEventListener("click", (e) => {
+        // If on step 2, redirect to /pages/hp2
+        if (this.currentStep === 2) {
+          window.location.href = "/pages/hp2";
+          return;
+        }
         const prevStep = parseInt(e.currentTarget.dataset.prevStep);
         this.showStep(prevStep);
       });
