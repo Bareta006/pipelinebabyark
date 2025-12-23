@@ -22,9 +22,35 @@
         <p class="product-cutline">{{ product.metafields.theme.cutline.value }}</p>
       {%- endif -%}
 
+      {%- liquid
+        assign lowest_variant = null
+        assign lowest_price = null
+        assign lowest_compare_at_price = null
+        
+        if product != blank
+          for variant in product.variants
+            if variant.available
+              if lowest_variant == null or variant.price < lowest_price
+                assign lowest_variant = variant
+                assign lowest_price = variant.price
+                assign lowest_compare_at_price = variant.compare_at_price
+              endif
+            endif
+          endfor
+        endif
+      -%}
+
       <div class="product-price">
         <span class="price" data-product-price-hero>
-          {{ current_variant.price | money }}
+          {%- if lowest_variant != null -%}
+            {%- if lowest_compare_at_price != null and lowest_compare_at_price > lowest_price -%}
+              Start at {{ lowest_price | money }} <span style="text-decoration: line-through;">{{ lowest_compare_at_price | money }}</span>
+            {%- else -%}
+              {{ lowest_price | money }}
+            {%- endif -%}
+          {%- else -%}
+            {{ current_variant.price | money }}
+          {%- endif -%}
         </span>
       </div>
     </div>

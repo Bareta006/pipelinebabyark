@@ -45,24 +45,25 @@ The Multistep Product Hero section (`section-multistep-hero.liquid`) is a standa
 - **Data Source**: Product JSON from `[data-product-json-hero]` script tag
 
 ### Price Calculation
-1. Loads product data from JSON script tag
-2. Filters variants to **available variants only**
-3. Finds the variant with the **lowest price**
-4. Formats and displays the price
+- **CRITICAL**: Price is calculated in **Liquid on initial render** to prevent flash of incorrect price (FOUC)
+- Liquid logic: Loops through `product.variants`, filters by `variant.available`, finds variant with lowest `variant.price`
+- **NO VISIBLE PRICE CHANGE**: Price renders correctly from server-side, no client-side update flash
+- JavaScript `updateHeroPrice()` function exists as fallback but should not be needed since Liquid renders correctly
 
 ### Price Display Format
 - **With Compare At Price**: `"Start at {lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at)
 - **Without Compare At Price**: `"{lowest_price}$"`
 
 ### Implementation Details
-- Price element has `data-product-price-hero` attribute for JavaScript targeting
-- Product JSON is embedded in `[data-product-json-hero]` script tag
-- Price updates automatically on page load
-- Uses `formatMoney()` helper function: converts cents to dollars with 2 decimal places
+- Price element has `data-product-price-hero` attribute for JavaScript targeting (fallback only)
+- Product JSON is embedded in `[data-product-json-hero]` script tag (for JavaScript fallback)
+- Price is calculated and rendered in Liquid template before page load
+- Uses Shopify `money` filter for proper currency formatting
 
 ### Example
 - Lowest variant: $739.00, Compare at: $790.00
 - Display: "Start at $739.00 ~~$790.00~~"
+- **No flash**: Price displays correctly immediately, no visible change after page load
 
 ## Feature Points
 

@@ -43,11 +43,13 @@ The template consists of two main sections:
 - **Navigation**: Clicking "Customize" or URL parameter `?step=2` advances to Step 2
 - **Fullscreen**: Not active (normal page view)
 - **Dynamic Price Display**:
+  - **CRITICAL**: Price is calculated in **Liquid on initial render** to prevent flash of incorrect price (FOUC)
   - Scans all **available variants only** to find the lowest price variant
   - Displays: `"Start at {lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at if exists)
   - Or: `"{lowest_price}$"` if no compare_at_price
-  - Updated automatically on page load and when showing step 1
-  - Method: `updateStep1Price()`
+  - Liquid logic: Loops through `product.variants`, filters by `variant.available`, finds variant with lowest `variant.price`
+  - JavaScript `updateStep1Price()` method exists as fallback but should not be needed since Liquid renders correctly
+  - **NO VISIBLE PRICE CHANGE**: Price renders correctly from server-side, no client-side update flash
 
 ### Step 2: Color & Shell Selection
 - **Purpose**: Select fabric color and shell color options
