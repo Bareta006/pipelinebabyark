@@ -51,7 +51,8 @@ The Multistep Product Hero section (`section-multistep-hero.liquid`) is a standa
 - JavaScript `updateHeroPrice()` function exists as fallback but should not be needed since Liquid renders correctly
 
 ### Price Display Format
-- **With Compare At Price**: `"Start at {lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at)
+- **With Compare At Price**: `"{lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at)
+- Strikethrough price styling: `font-weight: 400; font-size: 0.7em;` (smaller and lighter)
 - **Without Compare At Price**: `"{lowest_price}$"`
 
 ### Implementation Details

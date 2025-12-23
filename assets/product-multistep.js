@@ -667,7 +667,7 @@ class ProductMultiStep {
       const strikethroughDifference =
         smartVariant.compare_at_price - classicVariant.price;
       const strikethroughPrice = this.formatMoney(strikethroughDifference);
-      priceElement.innerHTML = `${upgradePrice} <span style="text-decoration: line-through;">${strikethroughPrice}</span>`;
+      priceElement.innerHTML = `${upgradePrice} <span style="text-decoration: line-through; font-weight: 400; font-size: 0.7em;">${strikethroughPrice}</span>`;
     } else {
       priceElement.textContent = upgradePrice;
     }
