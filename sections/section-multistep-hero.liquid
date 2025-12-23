@@ -121,9 +121,29 @@
   {%- endfor -%}
 {%- endfor -%}
 
+{%- if product != blank -%}
 <script type="application/json" data-product-json-hero>
-  {{ product | json }}
+  {
+    "id": {{ product.id | json }},
+    "title": {{ product.title | json }},
+    "handle": {{ product.handle | json }},
+    "variants": [
+      {%- for variant in product.variants -%}
+        {
+          "id": {{ variant.id | json }},
+          "title": {{ variant.title | json }},
+          "price": {{ variant.price | json }},
+          "compare_at_price": {{ variant.compare_at_price | json }},
+          "available": {{ variant.available | json }},
+          "option1": {{ variant.option1 | json }},
+          "option2": {{ variant.option2 | json }},
+          "option3": {{ variant.option3 | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
 </script>
+{%- endif -%}
 
 <script>
 (function() {
@@ -174,15 +194,28 @@
 
   function updateHeroPrice() {
     const productJsonScript = document.querySelector('[data-product-json-hero]');
-    if (!productJsonScript) return;
+    if (!productJsonScript) {
+      console.log('Hero price: Product JSON script not found');
+      return;
+    }
 
     try {
       const productData = JSON.parse(productJsonScript.textContent);
-      if (!productData || !productData.variants) return;
+      console.log('Hero price: Product data loaded', productData);
+      
+      if (!productData || !productData.variants) {
+        console.log('Hero price: No variants found', productData);
+        return;
+      }
 
       // Find lowest price variant from available variants only
       const availableVariants = productData.variants.filter((v) => v.available);
-      if (availableVariants.length === 0) return;
+      console.log('Hero price: Available variants', availableVariants.length);
+      
+      if (availableVariants.length === 0) {
+        console.log('Hero price: No available variants');
+        return;
+      }
 
       let lowestVariant = availableVariants[0];
       for (let i = 1; i < availableVariants.length; i++) {
@@ -191,8 +224,13 @@
         }
       }
 
+      console.log('Hero price: Lowest variant', lowestVariant);
+
       const priceElement = document.querySelector('[data-product-price-hero]');
-      if (!priceElement) return;
+      if (!priceElement) {
+        console.log('Hero price: Price element not found');
+        return;
+      }
 
       const lowestPrice = formatMoney(lowestVariant.price);
 
@@ -202,8 +240,10 @@
       ) {
         const compareAtPrice = formatMoney(lowestVariant.compare_at_price);
         priceElement.innerHTML = `Start at ${lowestPrice} <span style="text-decoration: line-through;">${compareAtPrice}</span>`;
+        console.log('Hero price: Updated with compare at', lowestPrice, compareAtPrice);
       } else {
         priceElement.textContent = lowestPrice;
+        console.log('Hero price: Updated without compare at', lowestPrice);
       }
     } catch (e) {
       console.error('Error updating hero price:', e);
