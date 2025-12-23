@@ -217,6 +217,7 @@
         "logo_image_kYCq8d"
       ],
       "custom_css": [
+        "{z-index: 2;}",
         "@media (max-width: 480px) {{margin-bottom: -90px; } .logo-bar__wrapper {z-index: 3; }}"
       ],
       "name": "Logo list",
