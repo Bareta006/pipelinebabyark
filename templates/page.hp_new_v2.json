@@ -217,6 +217,7 @@
         "logo_image_kYCq8d"
       ],
       "custom_css": [
+        "{z-index: 2;}",
         "@media (max-width: 480px) {{margin-bottom: -90px; } .logo-bar__wrapper {z-index: 3; }}"
       ],
       "name": "Logo list",
@@ -1035,7 +1036,8 @@
     "section_html_gaw4nc": {
       "type": "section-html",
       "custom_css": [
-        "a#floatingButton{position: fixed; left: 0; right: 0; bottom: 50px; z-index: 1; width: 200px; margin: 0 auto; display: block; transform: none !important;}"
+        "a#floatingButton {position: fixed; left: 0; right: 0; bottom: 50px; z-index: 1; width: 200px; margin: 0 auto; display: block; transform: none !important;}",
+        "@media (min-width: 1024px) {a#floatingButton {font-size: 24px; width: 280px; }}"
       ],
       "name": "Custom HTML",
       "settings": {
