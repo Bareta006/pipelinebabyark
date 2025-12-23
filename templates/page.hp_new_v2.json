@@ -1036,7 +1036,7 @@
       "type": "section-html",
       "custom_css": [
         "a#floatingButton {position: fixed; left: 0; right: 0; bottom: 50px; z-index: 1; width: 200px; margin: 0 auto; display: block; transform: none !important;}",
-        "@media (min-width:1024px){}"
+        "@media (min-width: 1024px) {a#floatingButton {font-size: 24px; width: 280px; }}"
       ],
       "name": "Custom HTML",
       "settings": {
