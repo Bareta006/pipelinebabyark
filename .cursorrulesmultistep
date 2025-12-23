@@ -42,6 +42,12 @@ The template consists of two main sections:
   - "Customize" button to start customization
 - **Navigation**: Clicking "Customize" or URL parameter `?step=2` advances to Step 2
 - **Fullscreen**: Not active (normal page view)
+- **Dynamic Price Display**:
+  - Scans all **available variants only** to find the lowest price variant
+  - Displays: `"Start at {lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at if exists)
+  - Or: `"{lowest_price}$"` if no compare_at_price
+  - Updated automatically on page load and when showing step 1
+  - Method: `updateStep1Price()`
 
 ### Step 2: Color & Shell Selection
 - **Purpose**: Select fabric color and shell color options
@@ -61,10 +67,19 @@ The template consists of two main sections:
 - **Features**:
   - "Add Smart Capabilities" button
   - "Skip" option for non-smart version
-  - Smart option adds $200 upgrade
+  - **Dynamic Upgrade Price Display**: Calculates price difference between smart and classic variants for selected color combination
   - Final variant selection (color + shell + smart option)
 - **Variant Selection**: Complete variant matching with all three options
 - **Fullscreen**: Active
+- **Dynamic Upgrade Price Calculation**:
+  - Finds all variants matching the selected shell color + fabric color from step 2
+  - Identifies lowest price variant (classic) and highest price variant (smart) for that color combo
+  - Calculates: `smart_price - classic_price = upgrade_difference`
+  - Calculates: `smart_compare_at_price - classic_price = strikethrough_difference` (if smart has compare_at)
+  - Displays: `"{upgrade_difference}$ and {strikethrough_difference}$"` (with strikethrough on second price if compare_at exists)
+  - Or: `"{upgrade_difference}$"` if no compare_at_price on smart variant
+  - Updates automatically when step 3 is shown and when colors change in step 2 (if already on step 3)
+  - Method: `updateStep3UpgradePrice()`
 
 ### Step 4: Accessories Selection
 - **Purpose**: Browse and add optional accessories

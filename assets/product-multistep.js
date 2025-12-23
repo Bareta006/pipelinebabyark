@@ -73,6 +73,11 @@ class ProductMultiStep {
 
     this.showStep(initialStep);
     this.currentSlide = 0;
+
+    // Initialize step 1 price on load
+    if (initialStep === 1) {
+      this.updateStep1Price();
+    }
   }
 
   loadProductData() {
@@ -224,6 +229,11 @@ class ProductMultiStep {
       this.selectedColor = colorSelected.value;
       this.selectedShellColor = shellColorSelected.value;
       this.selectPartialVariant();
+
+      // Update step 3 upgrade price if we're on step 3
+      if (this.currentStep === 3) {
+        this.updateStep3UpgradePrice();
+      }
     }
   }
 
@@ -577,6 +587,90 @@ class ProductMultiStep {
   formatMoney(cents) {
     const dollars = cents / 100;
     return "$" + dollars.toFixed(2);
+  }
+
+  updateStep1Price() {
+    if (!this.productData || !this.productData.variants) return;
+
+    // Find lowest price variant from available variants only
+    const availableVariants = this.productData.variants.filter(
+      (v) => v.available
+    );
+    if (availableVariants.length === 0) return;
+
+    let lowestVariant = availableVariants[0];
+    for (let i = 1; i < availableVariants.length; i++) {
+      if (availableVariants[i].price < lowestVariant.price) {
+        lowestVariant = availableVariants[i];
+      }
+    }
+
+    const priceElement = this.container.querySelector("[data-product-price]");
+    if (!priceElement) return;
+
+    const lowestPrice = this.formatMoney(lowestVariant.price);
+
+    if (
+      lowestVariant.compare_at_price &&
+      lowestVariant.compare_at_price > lowestVariant.price
+    ) {
+      const compareAtPrice = this.formatMoney(lowestVariant.compare_at_price);
+      priceElement.innerHTML = `Start at ${lowestPrice} <span style="text-decoration: line-through;">${compareAtPrice}</span>`;
+    } else {
+      priceElement.textContent = lowestPrice;
+    }
+  }
+
+  updateStep3UpgradePrice() {
+    if (!this.productData || !this.productData.variants) return;
+    if (!this.selectedColor || !this.selectedShellColor) return;
+
+    // Find all variants matching the selected shell color and fabric color
+    const matchingVariants = this.productData.variants.filter((v) => {
+      if (!v.available) return false;
+
+      const matchesShell =
+        v.option1?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
+        v.option2?.toLowerCase() === this.selectedShellColor?.toLowerCase() ||
+        v.option3?.toLowerCase() === this.selectedShellColor?.toLowerCase();
+
+      const matchesColor =
+        v.option1?.toLowerCase() === this.selectedColor?.toLowerCase() ||
+        v.option2?.toLowerCase() === this.selectedColor?.toLowerCase() ||
+        v.option3?.toLowerCase() === this.selectedColor?.toLowerCase();
+
+      return matchesShell && matchesColor;
+    });
+
+    if (matchingVariants.length < 2) {
+      // Need at least 2 variants (smart and classic) for the same color combo
+      return;
+    }
+
+    // Sort by price to find lowest (classic) and highest (smart)
+    matchingVariants.sort((a, b) => a.price - b.price);
+    const classicVariant = matchingVariants[0];
+    const smartVariant = matchingVariants[matchingVariants.length - 1];
+
+    // Calculate upgrade difference
+    const upgradeDifference = smartVariant.price - classicVariant.price;
+
+    const priceElement = this.container.querySelector(".price-smart-multistep");
+    if (!priceElement) return;
+
+    const upgradePrice = this.formatMoney(upgradeDifference);
+
+    if (
+      smartVariant.compare_at_price &&
+      smartVariant.compare_at_price > smartVariant.price
+    ) {
+      const strikethroughDifference =
+        smartVariant.compare_at_price - classicVariant.price;
+      const strikethroughPrice = this.formatMoney(strikethroughDifference);
+      priceElement.innerHTML = `${upgradePrice} <span style="text-decoration: line-through;">${strikethroughPrice}</span>`;
+    } else {
+      priceElement.textContent = upgradePrice;
+    }
   }
 
   getImageUrl(imageUrl, size = 400) {
@@ -939,6 +1033,16 @@ class ProductMultiStep {
     }
 
     this.updateProgress();
+
+    // Update step 1 price when showing step 1
+    if (stepNumber === 1) {
+      this.updateStep1Price();
+    }
+
+    // Update step 3 upgrade price when showing step 3
+    if (stepNumber === 3) {
+      this.updateStep3UpgradePrice();
+    }
 
     if (stepNumber === 2) {
       // Get default selected swatches and filter gallery
