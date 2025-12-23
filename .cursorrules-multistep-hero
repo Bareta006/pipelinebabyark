@@ -1,0 +1,139 @@
+# Multistep Product Hero Section Documentation
+
+## Overview
+
+The Multistep Product Hero section (`section-multistep-hero.liquid`) is a standalone section that displays a hero preview of a multistep product customization flow. It provides a preview of the product with features, pricing, and a link to start the customization process.
+
+## File Location
+
+- **Section**: `/sections/section-multistep-hero.liquid`
+- **CSS**: Uses `/assets/product-multistep.css` (shared with multistep product template)
+
+## Section Structure
+
+### HTML Structure
+- `.multistep-hero-section`: Main container
+  - `.step1-container`: Content container
+    - `.step1-info`: Product info section
+      - `.product-title`: Product heading
+      - `.product-cutline`: Product cutline/subtitle
+      - `.product-price`: Price display container
+        - `.price[data-product-price-hero]`: Price element (dynamically updated)
+    - `.step1-product-container`: Product media and features
+      - `.step1-images`: Image container with feature points
+      - `.step1-features-container`: Features list and CTA button
+
+### Feature Modal
+- `.feature-modal-backdrop[data-feature-backdrop-hero]`: Modal backdrop
+- `.feature-modal-content`: Modal content container
+- `.feature-modal-body[data-feature-modal-body-hero]`: Modal body for feature content
+
+## Section Settings
+
+1. **Product** (`product`): Product picker - selects the product to display
+2. **Product Handle** (`product_handle`): Fallback text field if product picker doesn't work
+3. **Heading** (`heading`): Custom heading (defaults to product title if blank)
+4. **Cutline** (`cutline`): Custom cutline/subtitle (defaults to product metafield if blank)
+5. **Hero Image** (`hero_image`): Custom hero image (defaults to hardcoded images if blank)
+6. **Button Text** (`button_text`): Customize button text (default: "Customize")
+
+## Dynamic Price Display
+
+### Price Logic
+- **Purpose**: Display the lowest available variant price to show the starting price
+- **Method**: `updateHeroPrice()` function in section script
+- **Data Source**: Product JSON from `[data-product-json-hero]` script tag
+
+### Price Calculation
+1. Loads product data from JSON script tag
+2. Filters variants to **available variants only**
+3. Finds the variant with the **lowest price**
+4. Formats and displays the price
+
+### Price Display Format
+- **With Compare At Price**: `"Start at {lowest_price}$ {compare_at_price}$"` (with strikethrough on compare_at)
+- **Without Compare At Price**: `"{lowest_price}$"`
+
+### Implementation Details
+- Price element has `data-product-price-hero` attribute for JavaScript targeting
+- Product JSON is embedded in `[data-product-json-hero]` script tag
+- Price updates automatically on page load
+- Uses `formatMoney()` helper function: converts cents to dollars with 2 decimal places
+
+### Example
+- Lowest variant: $739.00, Compare at: $790.00
+- Display: "Start at $739.00 ~~$790.00~~"
+
+## Feature Points
+
+### Feature Modal System
+- Feature points are interactive buttons with `[data-feature-modal-hero]` attribute
+- Each feature point has a unique ID (1-6)
+- Feature data stored in `[data-feature-data-hero="{id}"]` JSON script tags
+- Clicking a feature point opens a modal with feature details
+
+### Feature Data Structure
+```json
+{
+  "title": "Feature Title",
+  "description": "Feature description",
+  "image": "https://image-url.jpg"
+}
+```
+
+### Feature Order
+Features are displayed in a specific order defined by `feature_order`:
+1. d-3-o-jolt-free
+2. side-impact-protection
+3. anti-rebound-bar
+4. support-leg
+5. energy-absorption-coils
+6. rigid-latch
+
+## Navigation
+
+### Customize Button
+- Links to product page with `?step=2` query parameter
+- URL format: `{{ product.url }}?step=2`
+- Triggers the multistep product customization flow
+
+## JavaScript Functionality
+
+### Feature Modal Handlers
+- Opens/closes feature modals
+- Populates modal content from JSON data
+- Handles backdrop clicks to close
+
+### Price Update Handler
+- Runs on DOMContentLoaded or immediately if DOM already loaded
+- Updates price display with lowest variant price
+- Handles errors gracefully (logs to console)
+
+## CSS Classes
+
+Uses shared CSS from `product-multistep.css`:
+- `.step1-container`: Main container styling
+- `.step1-info`: Info section styling
+- `.product-title`: Title typography
+- `.product-cutline`: Cutline typography
+- `.product-price`: Price container styling
+- `.product-feature-item`: Feature item styling
+- `.btn--steps`: Button styling
+- `.feature-modal-*`: Modal styling classes
+
+## Critical Rules
+
+1. **Price Element**: Must have `data-product-price-hero` attribute for JavaScript targeting
+2. **Product JSON**: Must be embedded in `[data-product-json-hero]` script tag for price calculation
+3. **Available Variants Only**: Price calculation only considers variants where `v.available === true`
+4. **Compare At Price**: Only displayed if `compare_at_price > price` (prevents showing equal prices)
+5. **Format Money**: Always formats as "$XX.XX" with 2 decimal places
+6. **Error Handling**: Price update function catches and logs errors without breaking page
+
+## Integration with Multistep Product Template
+
+- This section is a **standalone preview** of the multistep product flow
+- Clicking "Customize" navigates to the full multistep product template
+- Uses the same CSS and similar structure to maintain visual consistency
+- Price logic matches Step 1 of the multistep product template
+

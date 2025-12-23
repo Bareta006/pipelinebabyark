@@ -23,7 +23,7 @@
       {%- endif -%}
 
       <div class="product-price">
-        <span class="price">
+        <span class="price" data-product-price-hero>
           {{ current_variant.price | money }}
         </span>
       </div>
@@ -121,6 +121,10 @@
   {%- endfor -%}
 {%- endfor -%}
 
+<script type="application/json" data-product-json-hero>
+  {{ product | json }}
+</script>
+
 <script>
 (function() {
   const backdrop = document.querySelector('[data-feature-backdrop-hero]');
@@ -160,6 +164,57 @@
         backdrop.style.display = 'none';
       }
     });
+  }
+
+  // Dynamic price update for hero section
+  function formatMoney(cents) {
+    const dollars = cents / 100;
+    return "$" + dollars.toFixed(2);
+  }
+
+  function updateHeroPrice() {
+    const productJsonScript = document.querySelector('[data-product-json-hero]');
+    if (!productJsonScript) return;
+
+    try {
+      const productData = JSON.parse(productJsonScript.textContent);
+      if (!productData || !productData.variants) return;
+
+      // Find lowest price variant from available variants only
+      const availableVariants = productData.variants.filter((v) => v.available);
+      if (availableVariants.length === 0) return;
+
+      let lowestVariant = availableVariants[0];
+      for (let i = 1; i < availableVariants.length; i++) {
+        if (availableVariants[i].price < lowestVariant.price) {
+          lowestVariant = availableVariants[i];
+        }
+      }
+
+      const priceElement = document.querySelector('[data-product-price-hero]');
+      if (!priceElement) return;
+
+      const lowestPrice = formatMoney(lowestVariant.price);
+
+      if (
+        lowestVariant.compare_at_price &&
+        lowestVariant.compare_at_price > lowestVariant.price
+      ) {
+        const compareAtPrice = formatMoney(lowestVariant.compare_at_price);
+        priceElement.innerHTML = `Start at ${lowestPrice} <span style="text-decoration: line-through;">${compareAtPrice}</span>`;
+      } else {
+        priceElement.textContent = lowestPrice;
+      }
+    } catch (e) {
+      console.error('Error updating hero price:', e);
+    }
+  }
+
+  // Initialize price on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateHeroPrice);
+  } else {
+    updateHeroPrice();
   }
 })();
 </script>
