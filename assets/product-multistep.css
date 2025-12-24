@@ -557,7 +557,12 @@
     align-items: center;
     gap: 8px;
   }
-
+  .option-swatches {
+    display: flex;
+    gap: 0px;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
   .smart-feature-item {
     flex-direction: row;
     gap: 20px;
