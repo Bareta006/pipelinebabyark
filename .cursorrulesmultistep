@@ -179,13 +179,22 @@ The template consists of two main sections:
    - `addToCart(variantId, quantity, properties)`: Adds single item to cart
    - `getCart()`: Fetches current cart state from `/cart.js`
    - `isItemInCart(cart, variantId, properties)`: Checks if an item with matching variant ID and properties already exists in cart
+   - `haveAccessoriesChanged()`: Compares `selectedAccessories` with `lastSyncedAccessories` to detect if accessories changed
    - `addAllToCart()`: Adds main product + all accessories to cart
-     - **Smart Duplicate Prevention**: Checks cart before adding items to prevent duplicates
-     - Only adds main product if it's not already in cart (matching variant ID and delivery properties)
-     - Only adds accessories if they're not already in cart (matching variant ID and delivery properties)
-     - **Cart Refresh Strategy**: Refreshes cart after each add operation to ensure accurate duplicate detection
-     - Cart is refreshed: after adding main product, before checking each accessory, and after adding each accessory
-     - This prevents duplicate products when navigating back from step 5 to step 4 and then forward to step 5 again multiple times
+     - **CRITICAL**: Only called when main product is NOT in cart (first visit to step 5)
+     - Adds main product if not in cart
+     - Calls `syncAccessoriesToCart()` to sync accessories
+     - Updates `lastSyncedAccessories` snapshot after successful sync
+   - `syncAccessoriesToCart()`: Syncs accessories to cart
+     - **CRITICAL**: Only called when accessories have changed since last sync
+     - Checks each accessory individually in cart (matching variant_id + properties)
+     - Syncs quantity to match `selectedAccessories.quantity`
+     - Updates `lastSyncedAccessories` snapshot after successful sync
+   - **Accessory Change Detection**: 
+     - Tracks `lastSyncedAccessories` (snapshot of what was last synced)
+     - Compares `selectedAccessories` to `lastSyncedAccessories` before syncing
+     - Only syncs if they differ (user clicked more/less accessories)
+     - This ensures accessories are only synced when user actually changes selections, NOT on every step 5 visit
    - `isItemInCart(cart, variantId, properties)`: Checks if item exists in cart
      - Matches by variant ID
      - If properties provided, matches by variant ID + properties
@@ -222,7 +231,13 @@ The template consists of two main sections:
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 
 7. **Order Summary**:
-   - `renderOrderSummary()`: Generates HTML for Step 5 summary
+   - `renderOrderSummary()`: Generates HTML for Step 5 summary (now async)
+   - **CRITICAL**: Reads from actual cart, not `selectedAccessories`
+   - Fetches cart using `getCart()`
+   - For each accessory in `selectedAccessories`, finds matching cart item by variant_id + properties
+   - Displays actual cart quantities, not `selectedAccessories.quantity`
+   - Calculates totals from actual cart quantities
+   - This ensures display matches what's actually in cart
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
    - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
