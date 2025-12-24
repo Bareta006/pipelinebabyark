@@ -2704,15 +2704,29 @@ class ProductMultiStep {
       const desiredMainQuantity = this.cartState.mainProductAdded ? 1 : 0;
       const mainDifference = desiredMainQuantity - currentMainQuantity;
 
-      if (mainDifference > 0) {
-        // Need to add
-        await this.addToCart(
-          this.selectedVariant.id,
-          mainDifference,
-          properties
+      // CRITICAL: If cart already has main product with correct variant and quantity, skip syncing main product
+      const shouldSkipMainProductSync =
+        mainDifference === 0 &&
+        currentMainQuantity === 1 &&
+        this.cartState.mainProductVariantId &&
+        mainProductItems.some(
+          (item) => item.variant_id === this.cartState.mainProductVariantId
         );
+
+      if (shouldSkipMainProductSync) {
+        // Cart already matches cartState for main product - skip syncing main product
+        this.addDebugLog(
+          "CART",
+          `syncCartToState: Main product already matches cartState (variant ${this.cartState.mainProductVariantId}), skipping main product sync`
+        );
+      } else if (mainDifference > 0) {
+        // Need to add
+        // CRITICAL: Use cartState.mainProductVariantId if it exists (from cart), otherwise use selectedVariant.id
+        const variantIdToAdd =
+          this.cartState.mainProductVariantId || this.selectedVariant.id;
+        await this.addToCart(variantIdToAdd, mainDifference, properties);
         this.cartState.mainProductAdded = true;
-        this.cartState.mainProductVariantId = this.selectedVariant.id;
+        this.cartState.mainProductVariantId = variantIdToAdd;
         this.cartState.mainProductProperties = properties;
         cart = await this.getCart();
       } else if (mainDifference < 0) {
