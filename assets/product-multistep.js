@@ -180,10 +180,27 @@ class ProductMultiStep {
       btn.disabled = true;
 
       // Ensure main product is marked as added if we have a selected variant
+      // CRITICAL: Only update if cartState hasn't been initialized from cart yet
+      // If cart already has items, preserve the existing variant ID from cart
       if (this.selectedVariant && !this.cartState.mainProductAdded) {
-        this.cartState.mainProductAdded = true;
-        this.cartState.mainProductVariantId = this.selectedVariant.id;
-        this.cartState.mainProductProperties = this.getDeliveryProperties();
+        // Check if cart already has main product with different variant
+        const cart = await this.getCart();
+        const existingMainProduct = cart.items.find(
+          (item) => this.productData && item.product_id === this.productData.id
+        );
+
+        if (existingMainProduct) {
+          // Cart already has main product - use that variant ID
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = existingMainProduct.variant_id;
+          this.cartState.mainProductProperties =
+            existingMainProduct.properties || {};
+        } else {
+          // No main product in cart - use selected variant
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = this.selectedVariant.id;
+          this.cartState.mainProductProperties = this.getDeliveryProperties();
+        }
       }
 
       // Update cartState with current selections
@@ -1517,12 +1534,16 @@ class ProductMultiStep {
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
       // Get actual quantity from cart (not just cartState boolean)
+      // CRITICAL: Use cartState.mainProductVariantId instead of selectedVariant.id
+      // because cart might have different variant than currently selected
+      const variantIdToFind =
+        this.cartState.mainProductVariantId || this.selectedVariant?.id;
       this.addDebugLog(
         "INFO",
-        `Looking for main product: variant_id ${this.selectedVariant.id}, cart has ${cart.items.length} items`
+        `Looking for main product: variant_id ${variantIdToFind} (cartState: ${this.cartState.mainProductVariantId}, selected: ${this.selectedVariant?.id}), cart has ${cart.items.length} items`
       );
       const mainProductCartItem = cart.items.find(
-        (item) => item.variant_id === this.selectedVariant.id
+        (item) => item.variant_id === variantIdToFind
       );
       this.addDebugLog(
         "INFO",
@@ -1554,9 +1575,7 @@ class ProductMultiStep {
         );
       }
       html += `
-        <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
-          this.selectedVariant.id
-        }" data-is-main-product="true">
+        <div class="summary-item summary-item--product" data-summary-item data-variant-id="${variantIdToFind}" data-is-main-product="true">
         <div class="summary-product-details-container">
           <div class="summary-product-image">
             ${
@@ -2646,11 +2665,30 @@ class ProductMultiStep {
       let cart = await this.getCart();
 
       // Only sync if cartState has been initialized (don't delete existing cart on page load)
+      // CRITICAL: If cart has items but cartState is empty/not initialized, don't sync (would clear cart)
       if (
         !this.cartState ||
         (!this.cartState.hasOwnProperty("mainProductAdded") &&
           cart.items.length > 0)
       ) {
+        this.addDebugLog(
+          "CART",
+          `syncCartToState skipped: cartState not initialized, cart has ${cart.items.length} items`
+        );
+        return;
+      }
+
+      // Additional safety: If cart has items but cartState says nothing is added, don't sync
+      // This prevents clearing existing cart items
+      if (
+        cart.items.length > 0 &&
+        !this.cartState.mainProductAdded &&
+        this.cartState.accessories.length === 0
+      ) {
+        this.addDebugLog(
+          "CART",
+          `syncCartToState skipped: cart has items but cartState is empty (would clear cart)`
+        );
         return;
       }
 

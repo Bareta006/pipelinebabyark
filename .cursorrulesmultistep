@@ -282,10 +282,24 @@ The template consists of two main sections:
        - Calls `renderOrderSummary()` to refresh display
      - **Display Logic**: `renderOrderSummary()` reads actual quantities from cart:
        - Gets cart items and finds matching items by `variant_id`
-       - Stores `item.key` (line item key) in HTML attributes for direct updates
+       - **Line Item Key Extraction**: 
+         - Uses `item.key` (primary) or `item.id` (fallback) from cart.js API
+         - Stores line item key in HTML attributes (`data-update-cart` for input, `data-line-item-key` for buttons)
+         - **CRITICAL**: Shopify's `/cart.js` API may return `key` property or may need to use `id` property
+         - Debug logging shows full cart item structure if key is missing
        - Main product: Gets quantity from `cart.items.find()` by variant_id
        - Accessories: Gets quantity from `cart.items.find()` by variant_id
        - This ensures display matches actual cart state
+     - **Debug Logging for Troubleshooting**:
+       - When rendering summary, logs main product cart item lookup (variant_id search)
+       - Logs full cart item structure if found (to see all available properties)
+       - Logs line item key extraction (shows if `key` or `id` was used)
+       - Logs error if cart item found but no key/id available
+       - When buttons clicked, logs button click detection and line item key value
+       - Logs error if button has no line item key (shows button HTML for debugging)
+       - Logs error if input element not found for button
+       - All debug logs go to debug panel Event Log (type "INFO" or "error")
+       - **Purpose**: Helps diagnose why quantity pickers might not work (missing keys, wrong selectors, etc.)
      - **CSS Styling**: Uses theme's existing quantity picker styles from `theme.css`:
        - `.quantity__wrapper`: Flexbox container with max-width 103px, min-width 75px
        - `.quantity__input`: Centered text, border, padding 11px 30px
