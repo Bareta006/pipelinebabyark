@@ -3610,6 +3610,10 @@ class ProductMultiStep {
           <pre data-debug-variant></pre>
         </div>
         <div class="debug-section">
+          <h4>Variant Image Map Debug</h4>
+          <pre data-debug-variantimage></pre>
+        </div>
+        <div class="debug-section">
           <h4>Event Log</h4>
           <pre data-debug-events style="max-height: 150px;"></pre>
         </div>
@@ -3855,6 +3859,43 @@ class ProductMultiStep {
         } else {
           variantEl.textContent = "No variant selected";
         }
+      }
+
+      // Update variant image map debug
+      const variantImageEl = panel.querySelector("[data-debug-variantimage]");
+      if (variantImageEl) {
+        const variantIdToLookup =
+          this.cartState.mainProductVariantId || this.selectedVariant?.id;
+        const imageFromMap = variantIdToLookup
+          ? this.variantImageMap[variantIdToLookup]
+          : null;
+        let normalizedImage = imageFromMap;
+        if (
+          normalizedImage &&
+          typeof normalizedImage === "string" &&
+          normalizedImage.startsWith("//")
+        ) {
+          normalizedImage = "https:" + normalizedImage;
+        }
+        variantImageEl.textContent = JSON.stringify(
+          {
+            map_size: Object.keys(this.variantImageMap).length,
+            variant_id_lookup: variantIdToLookup,
+            variant_id_type: typeof variantIdToLookup,
+            found_in_map: !!imageFromMap,
+            image_from_map: imageFromMap,
+            image_normalized: normalizedImage,
+            map_has_string_key: variantIdToLookup
+              ? `"${variantIdToLookup}"` in this.variantImageMap
+              : false,
+            map_has_number_key: variantIdToLookup
+              ? variantIdToLookup in this.variantImageMap
+              : false,
+            sample_map_keys: Object.keys(this.variantImageMap).slice(0, 3),
+          },
+          null,
+          2
+        );
       }
 
       // Update event log
