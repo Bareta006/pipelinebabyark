@@ -237,15 +237,22 @@ The template consists of two main sections:
    - **CRITICAL**: Reads from `cartState` JSON (which matches cart after sync)
    - Called AFTER `syncCartToState()` finishes (in `handleNextStep()`)
    - Fetches cart to verify sync completed, but displays from `cartState`
-   - For each accessory in `cartState.accessories`, finds matching accessory in `selectedAccessories` for display info
-   - Displays quantities from `cartState.accessories[].quantity`
-   - Calculates totals from `cartState.accessories[]` quantities
-   - This ensures display matches `cartState` JSON (which matches cart after sync)
+   - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
+   - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
+   - This ensures display matches actual cart state, not just `cartState` JSON
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
      - Updates `cartState.accessories[]` with new variant ID when upgrading bases
      - Then calls `syncCartToState()` to sync cart
      - Then calls `renderOrderSummary()` to update display
+   - **Totals Calculation**: 
+     - **Main Product**: Uses `variantForDisplay.price` (from cart) multiplied by actual quantity from cart (`mainProductCartItem.quantity`)
+     - **Accessories**: Uses `accessoryState.price` (from cartState) multiplied by actual quantity from cart (`accessoryCartItem.quantity`)
+     - Both read actual quantities from cart (not just cartState) to ensure totals match cart after quantity changes
+     - Accessories get 20% discount (multiplied by 0.8)
+     - Main product has no discount
+     - Totals are recalculated every time `renderOrderSummary()` is called (after quantity changes)
+     - Debug logging shows quantity, price, and total for each item
    - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
    - **Cart Update**: When upgrading to smart, removes non-smart variant and adds smart variant with same delivery properties
    - **Base Upgrade**: `upgradeBaseAccessoriesToSmart()` checks cart for base accessories and upgrades them

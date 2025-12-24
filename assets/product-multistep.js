@@ -1820,28 +1820,59 @@ class ProductMultiStep {
     let subtotal = 0;
     let totalDiscounted = 0;
 
-    if (this.selectedVariant) {
-      subtotal += this.selectedVariant.price;
-      totalDiscounted += this.selectedVariant.price;
+    // Calculate main product total using variantForDisplay (from cart) and actual quantity from cart
+    if (variantForDisplay && mainProductCartItem) {
+      const mainProductQuantity = mainProductCartItem.quantity;
+      const mainProductTotal = variantForDisplay.price * mainProductQuantity;
+      subtotal += mainProductTotal;
+      totalDiscounted += mainProductTotal;
+      this.addDebugLog(
+        "INFO",
+        `Totals: Main product quantity ${mainProductQuantity}, price ${variantForDisplay.price}, total ${mainProductTotal}`
+      );
     }
 
     // Calculate totals from cartState JSON (which matches cart after sync)
+    // Use actual cart quantities, not just cartState quantities
     if (this.cartState.accessories && this.cartState.accessories.length > 0) {
       for (const accessoryState of this.cartState.accessories) {
         if (accessoryState.quantity === 0) continue;
 
-        const accessory = this.selectedAccessories.find(
+        // Get actual quantity from cart (not just cartState)
+        const accessoryCartItem = cart.items.find(
+          (item) => item.variant_id === accessoryState.variantId
+        );
+        const quantity = accessoryCartItem
+          ? accessoryCartItem.quantity
+          : accessoryState.quantity;
+
+        // Use accessoryState data (from cartState) for price, fallback to selectedAccessories
+        const accessoryFromSelected = this.selectedAccessories.find(
           (acc) => acc.id === accessoryState.variantId
         );
+        const accessoryPrice =
+          accessoryState.price || accessoryFromSelected?.price || 0;
 
-        if (accessory) {
-          const quantity = accessoryState.quantity;
-          const accessoryTotal = accessory.price * quantity;
-          subtotal += accessoryTotal;
-          totalDiscounted += accessoryTotal * 0.8;
-        }
+        const accessoryTotal = accessoryPrice * quantity;
+        subtotal += accessoryTotal;
+        totalDiscounted += accessoryTotal * 0.8;
+        this.addDebugLog(
+          "INFO",
+          `Totals: Accessory ${
+            accessoryState.variantId
+          } quantity ${quantity}, price ${accessoryPrice}, total ${accessoryTotal}, discounted ${
+            accessoryTotal * 0.8
+          }`
+        );
       }
     }
+
+    this.addDebugLog(
+      "INFO",
+      `Totals calculated: subtotal ${subtotal}, totalDiscounted ${totalDiscounted}, savings ${
+        subtotal - totalDiscounted
+      }`
+    );
 
     const savings = subtotal - totalDiscounted;
 
