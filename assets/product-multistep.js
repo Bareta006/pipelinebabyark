@@ -1517,21 +1517,40 @@ class ProductMultiStep {
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
       // Get actual quantity from cart (not just cartState boolean)
+      this.addDebugLog(
+        "INFO",
+        `Looking for main product: variant_id ${this.selectedVariant.id}, cart has ${cart.items.length} items`
+      );
       const mainProductCartItem = cart.items.find(
         (item) => item.variant_id === this.selectedVariant.id
+      );
+      this.addDebugLog(
+        "INFO",
+        `Main product cart item found: ${!!mainProductCartItem}, variant_id match: ${
+          mainProductCartItem?.variant_id
+        }`
       );
       const mainProductQuantity = mainProductCartItem
         ? mainProductCartItem.quantity
         : 0;
       // Get line item key - Shopify cart.js uses 'key' property
+      // Log full cart item to see what properties it has
+      if (mainProductCartItem) {
+        this.addDebugLog(
+          "INFO",
+          `Main product cart item full structure: ${JSON.stringify(
+            mainProductCartItem
+          )}`
+        );
+      }
       const mainProductLineItemKey =
         mainProductCartItem?.key || mainProductCartItem?.id || "";
       if (mainProductCartItem && !mainProductLineItemKey) {
         this.addDebugLog(
           "error",
-          `Main product cart item found but no key/id: ${JSON.stringify(
+          `Main product cart item found but no key/id. Available keys: ${Object.keys(
             mainProductCartItem
-          )}`
+          ).join(", ")}`
         );
       }
       html += `
@@ -1702,6 +1721,18 @@ class ProductMultiStep {
     html += "</div>";
 
     summaryContainer.innerHTML = html;
+
+    // Debug: Check if main product buttons have line item keys
+    const mainProductIncreaseBtn = summaryContainer.querySelector(
+      "[data-increase-quantity][data-is-main-product='true'], [data-increase-quantity]"
+    );
+    if (mainProductIncreaseBtn) {
+      const mainKey = mainProductIncreaseBtn.getAttribute("data-line-item-key");
+      this.addDebugLog(
+        "INFO",
+        `Main product increase button lineItemKey after render: "${mainKey}"`
+      );
+    }
 
     // Attach quantity picker event listeners AFTER HTML is set
     // Small delay ensures DOM is fully ready
@@ -3580,23 +3611,39 @@ class ProductMultiStep {
           e.preventDefault();
           e.stopPropagation();
           const lineItemKey = btn.getAttribute("data-line-item-key");
-          if (!lineItemKey) return;
+          this.addDebugLog(
+            "QTY",
+            `Decrease button clicked, lineItemKey: "${lineItemKey}"`
+          );
+          if (!lineItemKey) {
+            this.addDebugLog(
+              "error",
+              `Decrease button has no lineItemKey. Button HTML: ${btn.outerHTML}`
+            );
+            return;
+          }
 
           const input = btn.parentElement.querySelector("[data-update-cart]");
-          if (input) {
-            const currentQty = parseInt(input.value, 10) || 0;
-            const newQty = Math.max(parseInt(input.min) || 0, currentQty - 1);
-            // Set flag to prevent input change event from firing
-            input.dataset.programmaticUpdate = "true";
-            input.value = newQty;
-            delete input.dataset.programmaticUpdate;
+          if (!input) {
             this.addDebugLog(
-              "QTY",
-              `Decrease: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
+              "error",
+              `No input found for lineItemKey ${lineItemKey}`
             );
-            await this.updateCartItemQuantityDirect(lineItemKey, newQty);
-            await this.refreshSummaryAfterQuantityChange();
+            return;
           }
+
+          const currentQty = parseInt(input.value, 10) || 0;
+          const newQty = Math.max(parseInt(input.min) || 0, currentQty - 1);
+          // Set flag to prevent input change event from firing
+          input.dataset.programmaticUpdate = "true";
+          input.value = newQty;
+          delete input.dataset.programmaticUpdate;
+          this.addDebugLog(
+            "QTY",
+            `Decrease: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
+          );
+          await this.updateCartItemQuantityDirect(lineItemKey, newQty);
+          await this.refreshSummaryAfterQuantityChange();
         });
       });
 
@@ -3612,23 +3659,39 @@ class ProductMultiStep {
           e.preventDefault();
           e.stopPropagation();
           const lineItemKey = btn.getAttribute("data-line-item-key");
-          if (!lineItemKey) return;
+          this.addDebugLog(
+            "QTY",
+            `Increase button clicked, lineItemKey: "${lineItemKey}"`
+          );
+          if (!lineItemKey) {
+            this.addDebugLog(
+              "error",
+              `Increase button has no lineItemKey. Button HTML: ${btn.outerHTML}`
+            );
+            return;
+          }
 
           const input = btn.parentElement.querySelector("[data-update-cart]");
-          if (input) {
-            const currentQty = parseInt(input.value, 10) || 0;
-            const newQty = Math.min(parseInt(input.max) || 99, currentQty + 1);
-            // Set flag to prevent input change event from firing
-            input.dataset.programmaticUpdate = "true";
-            input.value = newQty;
-            delete input.dataset.programmaticUpdate;
+          if (!input) {
             this.addDebugLog(
-              "QTY",
-              `Increase: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
+              "error",
+              `No input found for lineItemKey ${lineItemKey}`
             );
-            await this.updateCartItemQuantityDirect(lineItemKey, newQty);
-            await this.refreshSummaryAfterQuantityChange();
+            return;
           }
+
+          const currentQty = parseInt(input.value, 10) || 0;
+          const newQty = Math.min(parseInt(input.max) || 99, currentQty + 1);
+          // Set flag to prevent input change event from firing
+          input.dataset.programmaticUpdate = "true";
+          input.value = newQty;
+          delete input.dataset.programmaticUpdate;
+          this.addDebugLog(
+            "QTY",
+            `Increase: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
+          );
+          await this.updateCartItemQuantityDirect(lineItemKey, newQty);
+          await this.refreshSummaryAfterQuantityChange();
         });
       });
   }
