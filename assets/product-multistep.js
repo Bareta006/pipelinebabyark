@@ -3530,29 +3530,31 @@ class ProductMultiStep {
   }
 
   attachQuantityPickerListeners() {
-    // Remove old listeners by cloning and replacing (simpler than tracking)
     const summaryContainer = this.container.querySelector(
       "[data-order-summary]"
     );
     if (!summaryContainer) return;
 
-    // Input change/blur (async handlers)
+    // Input change handler (like theme's initInputs) - uses line item key
     summaryContainer.querySelectorAll("[data-update-cart]").forEach((input) => {
-      input.addEventListener("change", async () => {
-        input.disabled = true;
-        try {
-          await this.handleQuantityChange(input);
-        } finally {
-          input.disabled = false;
-        }
-      });
-      input.addEventListener("blur", async () => {
-        input.disabled = true;
-        try {
-          await this.handleQuantityChange(input);
-        } finally {
-          input.disabled = false;
-        }
+      // Prevent duplicate listeners
+      if (input.dataset.listenerAttached) return;
+      input.dataset.listenerAttached = "true";
+
+      const lineItemKey = input.getAttribute("data-update-cart");
+      if (!lineItemKey) return;
+
+      input.addEventListener("change", async (e) => {
+        // Skip if this was a programmatic update (from button click)
+        if (e.target.dataset.programmaticUpdate) return;
+
+        const quantity = parseInt(e.target.value, 10) || 0;
+        this.addDebugLog(
+          "QTY",
+          `Input change: lineItemKey ${lineItemKey}, quantity ${quantity}`
+        );
+        await this.updateCartItemQuantityDirect(lineItemKey, quantity);
+        await this.refreshSummaryAfterQuantityChange();
       });
     });
 
@@ -3560,6 +3562,10 @@ class ProductMultiStep {
     summaryContainer
       .querySelectorAll("[data-decrease-quantity]")
       .forEach((btn) => {
+        // Prevent duplicate listeners
+        if (btn.dataset.listenerAttached) return;
+        btn.dataset.listenerAttached = "true";
+
         btn.addEventListener("click", async (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -3570,7 +3576,10 @@ class ProductMultiStep {
           if (input) {
             const currentQty = parseInt(input.value, 10) || 0;
             const newQty = Math.max(parseInt(input.min) || 0, currentQty - 1);
+            // Set flag to prevent input change event from firing
+            input.dataset.programmaticUpdate = "true";
             input.value = newQty;
+            delete input.dataset.programmaticUpdate;
             this.addDebugLog(
               "QTY",
               `Decrease: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
@@ -3585,6 +3594,10 @@ class ProductMultiStep {
     summaryContainer
       .querySelectorAll("[data-increase-quantity]")
       .forEach((btn) => {
+        // Prevent duplicate listeners
+        if (btn.dataset.listenerAttached) return;
+        btn.dataset.listenerAttached = "true";
+
         btn.addEventListener("click", async (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -3595,7 +3608,10 @@ class ProductMultiStep {
           if (input) {
             const currentQty = parseInt(input.value, 10) || 0;
             const newQty = Math.min(parseInt(input.max) || 99, currentQty + 1);
+            // Set flag to prevent input change event from firing
+            input.dataset.programmaticUpdate = "true";
             input.value = newQty;
+            delete input.dataset.programmaticUpdate;
             this.addDebugLog(
               "QTY",
               `Increase: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
