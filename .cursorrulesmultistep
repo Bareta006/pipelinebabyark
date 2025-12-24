@@ -193,11 +193,27 @@ The template consists of two main sections:
    - `getCartItemQuantity(cart, variantId, properties)`: Gets current quantity of item in cart
      - Returns 0 if item not found
      - Matches by variant ID + properties (same logic as isItemInCart)
+   - `getCartItem(cart, variantId, properties)`: Gets the full cart item object (including key, quantity, etc.)
+     - Returns null if item not found
+     - Matches by variant ID + properties
+   - `updateCartItemQuantity(lineItemKey, quantity)`: Updates cart item quantity using `/cart/change.js`
+     - Uses Shopify's cart change API to set exact quantity
+     - Dispatches `theme:cart:change` event after update
    - **Accessory Quantity Logic**: 
-     - Quantity is based on how many times user clicked the accessory checkbox/button, NOT how many times they navigated to step 5
-     - When adding accessories, compares desired quantity (from selectedAccessories) vs current cart quantity
-     - Only adds the difference: `quantityToAdd = desiredQuantity - currentCartQuantity`
-     - If desired quantity <= current cart quantity, skips adding (prevents duplicates)
+     - **CRITICAL**: Quantity is based EXACTLY on how many times user clicked the accessory checkbox/button
+     - Quantity is NOT affected by how many times user navigates from step 4 to step 5
+     - When syncing accessories to cart, ensures cart quantity matches `selectedAccessories` quantity exactly
+     - Logic:
+       - If desired quantity = 0: Remove item from cart (if exists)
+       - If item not in cart: Add with desired quantity
+       - If item exists but quantity differs: Update to desired quantity using `/cart/change.js`
+       - If quantities match: Do nothing
+     - This ensures cart always reflects the exact number of clicks, regardless of navigation
+   - **Upgrade to Smart Compatibility**:
+     - When upgrading bases to smart, properties are preserved from cart item to ensure matching works correctly
+     - When syncing accessories after upgrade, first finds cart item by variant ID (handles upgraded items where properties might differ)
+     - Uses cart item's properties for matching if available, otherwise gets from DOM
+     - This ensures upgraded accessories (classic → smart) are correctly matched and synced
    - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 

@@ -2089,12 +2089,15 @@ class ProductMultiStep {
           }),
         });
 
-        // Get delivery properties for the base
-        const baseProperties = this.getAccessoryDeliveryProperties(
-          baseCartItem.variant_id
-        );
+        // Get delivery properties for the base (use properties from cart item to preserve them)
+        // Cart item properties take precedence, fallback to getting from DOM
+        const baseProperties =
+          baseCartItem.properties &&
+          Object.keys(baseCartItem.properties).length > 0
+            ? baseCartItem.properties
+            : this.getAccessoryDeliveryProperties(baseCartItem.variant_id);
 
-        // Add smart base variant
+        // Add smart base variant with preserved properties
         await this.addToCart(
           smartBaseVariant.id,
           baseCartItem.quantity,
@@ -2112,6 +2115,11 @@ class ProductMultiStep {
             smartBaseVariant.price;
           this.selectedAccessories[accessoryIndex].title =
             smartBaseVariant.name || smartBaseVariant.title;
+          // Preserve properties for future matching
+          if (!this.selectedAccessories[accessoryIndex].properties) {
+            this.selectedAccessories[accessoryIndex].properties =
+              baseProperties;
+          }
         }
 
         // Re-render order summary if we're on step 5
@@ -2163,7 +2171,14 @@ class ProductMultiStep {
   getCartItemQuantity(cart, variantId, properties = {}) {
     if (!cart || !cart.items) return 0;
 
-    const matchingItem = cart.items.find((item) => {
+    const matchingItem = this.getCartItem(cart, variantId, properties);
+    return matchingItem ? matchingItem.quantity : 0;
+  }
+
+  getCartItem(cart, variantId, properties = {}) {
+    if (!cart || !cart.items) return null;
+
+    return cart.items.find((item) => {
       // Check if variant ID matches
       if (item.variant_id !== variantId) return false;
 
@@ -2180,8 +2195,39 @@ class ProductMultiStep {
 
       return propertiesMatch;
     });
+  }
 
-    return matchingItem ? matchingItem.quantity : 0;
+  async updateCartItemQuantity(lineItemKey, quantity) {
+    try {
+      const response = await fetch("/cart/change.js", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: lineItemKey,
+          quantity: quantity,
+        }),
+      });
+
+      if (response.ok) {
+        const cart = await fetch("/cart.js").then((r) => r.json());
+        document.dispatchEvent(
+          new CustomEvent("theme:cart:change", {
+            detail: { cart: cart },
+            bubbles: true,
+          })
+        );
+        return true;
+      } else {
+        const error = await response.json();
+        // console.error('Cart update failed:', error);
+        return false;
+      }
+    } catch (error) {
+      // console.error('Error updating cart:', error);
+      return false;
+    }
   }
 
   async addAllToCart() {
@@ -2226,36 +2272,64 @@ class ProductMultiStep {
       }
 
       // console.log('Adding accessories to cart:', this.selectedAccessories);
-      // Process accessories one by one, refreshing cart after each add
+      // Process accessories one by one, syncing cart quantity with selectedAccessories
       let currentCart = cart;
       for (const accessory of this.selectedAccessories) {
-        const accessoryProperties = this.getAccessoryDeliveryProperties(
-          accessory.id
-        );
-
         // Refresh cart before checking each accessory to get latest state
         currentCart = await this.getCart();
 
-        // Get current quantity in cart for this accessory
-        const currentQuantity = currentCart
-          ? this.getCartItemQuantity(
+        // First, try to find cart item by variant ID only (to handle upgraded items)
+        // This helps when properties might differ between classic/smart variants
+        let cartItem = null;
+        if (currentCart && currentCart.items) {
+          cartItem = currentCart.items.find(
+            (item) => item.variant_id === accessory.id
+          );
+        }
+
+        // If found by variant ID, use its properties for matching
+        // Otherwise, get properties from DOM
+        let accessoryProperties = {};
+        if (cartItem && cartItem.properties) {
+          accessoryProperties = cartItem.properties;
+        } else {
+          accessoryProperties = this.getAccessoryDeliveryProperties(
+            accessory.id
+          );
+          // Try to find cart item again with properties
+          if (!cartItem && currentCart) {
+            cartItem = this.getCartItem(
               currentCart,
               accessory.id,
               accessoryProperties
-            )
-          : 0;
+            );
+          }
+        }
 
-        // Only add/update if desired quantity is greater than current quantity
-        if (accessory.quantity > currentQuantity) {
-          const quantityToAdd = accessory.quantity - currentQuantity;
+        const currentQuantity = cartItem ? cartItem.quantity : 0;
+        const desiredQuantity = accessory.quantity;
+
+        // Sync cart quantity to match exactly what user selected
+        if (desiredQuantity === 0) {
+          // If desired quantity is 0, remove from cart
+          if (cartItem) {
+            await this.updateCartItemQuantity(cartItem.key, 0);
+            currentCart = await this.getCart();
+          }
+        } else if (currentQuantity === 0) {
+          // Item not in cart, add it with desired quantity
           await this.addToCart(
             accessory.id,
-            quantityToAdd,
+            desiredQuantity,
             accessoryProperties
           );
-          // Refresh cart after adding to ensure next check is accurate
+          currentCart = await this.getCart();
+        } else if (currentQuantity !== desiredQuantity) {
+          // Item exists but quantity doesn't match, update it
+          await this.updateCartItemQuantity(cartItem.key, desiredQuantity);
           currentCart = await this.getCart();
         }
+        // If quantities match, do nothing
       }
     } catch (error) {
       // console.error('Error adding to cart:', error);
