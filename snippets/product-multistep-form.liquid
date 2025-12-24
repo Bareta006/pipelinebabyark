@@ -71,6 +71,14 @@
   }
 </script>
 
+<script type="application/json" data-variant-image-map>
+{
+  {%- for variant in product.variants -%}
+    "{{ variant.id }}": {% if variant.image %}"{{ variant.image | img_url: 'master' }}"{% else %}"{{ product.featured_image | img_url: 'master' }}"{% endif %}{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+}
+</script>
+
 <div class="multistep-container" data-multistep-container data-accessories-collection="accessories">
   <div class="multistep-progress" data-progress-dots style="display: none;">
     <div class="progress-dots">

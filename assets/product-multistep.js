@@ -109,35 +109,31 @@ class ProductMultiStep {
     if (productJsonScript) {
       try {
         this.productData = JSON.parse(productJsonScript.textContent);
-        // Build variant image map for quick lookup: { variantId: imageUrl }
-        // Shopify uses variant.image (not variant.featured_image)
-        this.variantImageMap = {};
-        if (
-          this.productData.variants &&
-          Array.isArray(this.productData.variants)
-        ) {
-          this.productData.variants.forEach((variant) => {
-            if (variant.id && variant.image) {
-              // variant.image can be a URL string or object with src property
-              const imageUrl =
-                typeof variant.image === "string"
-                  ? variant.image
-                  : variant.image.src || variant.image.url;
-              if (imageUrl) {
-                this.variantImageMap[variant.id] = imageUrl;
-              }
-            }
-          });
-        }
+      } catch (e) {
+        // console.error('Error parsing product JSON:', e);
+      }
+    }
+
+    // Load variant image map from Liquid-generated JSON (simpler and more reliable)
+    const variantImageMapScript = document.querySelector(
+      "[data-variant-image-map]"
+    );
+    if (variantImageMapScript) {
+      try {
+        this.variantImageMap = JSON.parse(variantImageMapScript.textContent);
         this.addDebugLog(
           "INFO",
-          `Built variant image map with ${
+          `Loaded variant image map from Liquid with ${
             Object.keys(this.variantImageMap).length
           } variants`
         );
       } catch (e) {
-        // console.error('Error parsing product JSON:', e);
+        // console.error('Error parsing variant image map:', e);
+        this.variantImageMap = {};
       }
+    } else {
+      this.variantImageMap = {};
+      this.addDebugLog("error", "Variant image map script tag not found");
     }
   }
 
