@@ -179,6 +179,13 @@ class ProductMultiStep {
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
 
+      // Ensure main product is marked as added if we have a selected variant
+      if (this.selectedVariant && !this.cartState.mainProductAdded) {
+        this.cartState.mainProductAdded = true;
+        this.cartState.mainProductVariantId = this.selectedVariant.id;
+        this.cartState.mainProductProperties = this.getDeliveryProperties();
+      }
+
       // Update cartState with current selections
       this.updateCartStateFromAccessories();
 
