@@ -262,17 +262,22 @@ The template consists of two main sections:
      - **Accessory Constraints**: `min="0" max="99"` (accessories can have multiple quantities)
      - **Event Listeners**: 
        - `attachQuantityPickerListeners()`: Attaches listeners to all quantity inputs and +/- buttons
-       - Prevents duplicate listeners using `dataset.listenerAttached` flag
-       - Input: `change` and `blur` events trigger `handleQuantityChange()`
-       - Buttons: `click` events update input value then trigger `handleQuantityChange()`
+       - **CRITICAL**: All handlers are async and disable buttons/inputs during processing to prevent double-clicks
+       - Input: `change` and `blur` events trigger `handleQuantityChange()` (async, disables input during processing)
+       - Buttons: `click` events update input value then trigger `handleQuantityChange()` (async, disables button during processing)
+       - Uses `e.preventDefault()` and `e.stopPropagation()` on button clicks
      - **Quantity Change Handler**: `handleQuantityChange(input)`:
        - Validates min/max constraints
        - Updates `cartState` (main product or accessory quantity)
        - For main product: Sets `cartState.mainProductAdded` to false if quantity is 0
-       - For accessories: Removes from `cartState.accessories` and `selectedAccessories` if quantity is 0
+       - For accessories: Updates `selectedAccessories` quantity, then calls `updateCartStateFromAccessories()`
        - Calls `syncCartToState()` to sync actual Shopify cart
        - Calls `renderOrderSummary()` to refresh display
        - Logs all changes to debug panel Event Log with type "QTY"
+     - **Display Logic**: `renderOrderSummary()` reads actual quantities from cart (not just `cartState`) to ensure display matches reality
+       - Main product: Gets quantity from `cart.items.find()` by variant_id
+       - Accessories: Gets quantity from `cart.items.find()` by variant_id
+       - This ensures display updates immediately after cart sync
      - **CSS Styling**:
        - `.summary-quantity-picker`: Flexbox container with gap
        - `.summary-quantity-input`: 50px width, centered text, no spinner arrows
@@ -280,8 +285,11 @@ The template consists of two main sections:
        - Buttons use `−` and `+` characters
        - Responsive spacing and alignment
      - **Cart Sync**: Quantity changes trigger `syncCartToState()` which ensures cart matches `cartState` exactly
+       - **CRITICAL**: `syncCartToState()` checks if `cartState` was initialized before syncing (prevents deleting existing cart on page load)
+       - Always removes all items with variant_id first, then adds exact quantity (prevents duplicates)
      - **Zero Quantity**: Setting quantity to 0 removes item from cart and hides it from summary
      - **Error Handling**: Wrapped in try/catch with error logging to debug panel
+     - **Page Load Protection**: `syncCartToState()` returns early if `cartState` hasn't been initialized from cart (prevents deleting existing cart items on page load)
 
 8. **Affirm Integration**:
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm element with current total

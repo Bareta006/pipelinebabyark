@@ -1509,8 +1509,13 @@ class ProductMultiStep {
         this.productData.featured_image;
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
-      // Main product quantity is always 1 if added, 0 if not
-      const mainProductQuantity = this.cartState.mainProductAdded ? 1 : 0;
+      // Get actual quantity from cart (not just cartState boolean)
+      const mainProductCartItem = cart.items.find(
+        (item) => item.variant_id === this.selectedVariant.id
+      );
+      const mainProductQuantity = mainProductCartItem
+        ? mainProductCartItem.quantity
+        : 0;
       html += `
         <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
           this.selectedVariant.id
@@ -1569,7 +1574,13 @@ class ProductMultiStep {
         );
 
         if (accessory) {
-          const quantity = accessoryState.quantity;
+          // Get actual quantity from cart (not just cartState)
+          const accessoryCartItem = cart.items.find(
+            (item) => item.variant_id === accessoryState.variantId
+          );
+          const quantity = accessoryCartItem
+            ? accessoryCartItem.quantity
+            : accessoryState.quantity;
           const discountedPrice = accessory.price * 0.8;
           const totalDiscountedPrice = discountedPrice * quantity;
           const totalPrice = accessory.price * quantity;
@@ -2568,6 +2579,17 @@ class ProductMultiStep {
       const properties = this.getDeliveryProperties();
       let cart = await this.getCart();
 
+      // Only sync if cartState has been initialized (don't delete existing cart on page load)
+      // Check if cartState was initialized by checking if it has the expected structure
+      if (
+        !this.cartState ||
+        (!this.cartState.hasOwnProperty("mainProductAdded") &&
+          cart.items.length > 0)
+      ) {
+        // CartState not initialized yet, don't sync (will be initialized from cart)
+        return;
+      }
+
       // Sync main product - ALWAYS remove all existing items first, then add exact quantity
       const mainProductVariantId =
         this.cartState.mainProductVariantId || this.selectedVariant.id;
@@ -3452,32 +3474,50 @@ class ProductMultiStep {
     );
     if (!summaryContainer) return;
 
-    // Input change/blur
+    // Input change/blur (async handlers)
     summaryContainer
       .querySelectorAll("[data-quantity-input]")
       .forEach((input) => {
-        input.addEventListener("change", () =>
-          this.handleQuantityChange(input)
-        );
-        input.addEventListener("blur", () => this.handleQuantityChange(input));
+        input.addEventListener("change", async () => {
+          input.disabled = true;
+          try {
+            await this.handleQuantityChange(input);
+          } finally {
+            input.disabled = false;
+          }
+        });
+        input.addEventListener("blur", async () => {
+          input.disabled = true;
+          try {
+            await this.handleQuantityChange(input);
+          } finally {
+            input.disabled = false;
+          }
+        });
       });
 
-    // +/- buttons
+    // +/- buttons (async handlers)
     summaryContainer
       .querySelectorAll("[data-quantity-decrease]")
       .forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
           e.preventDefault();
-          const variantId = btn.dataset.variantId;
-          const input = summaryContainer.querySelector(
-            `[data-quantity-input][data-variant-id="${variantId}"]`
-          );
-          if (input) {
-            input.value = Math.max(
-              parseInt(input.min) || 0,
-              parseInt(input.value) - 1
+          e.stopPropagation();
+          btn.disabled = true;
+          try {
+            const variantId = btn.dataset.variantId;
+            const input = summaryContainer.querySelector(
+              `[data-quantity-input][data-variant-id="${variantId}"]`
             );
-            this.handleQuantityChange(input);
+            if (input) {
+              input.value = Math.max(
+                parseInt(input.min) || 0,
+                parseInt(input.value) - 1
+              );
+              await this.handleQuantityChange(input);
+            }
+          } finally {
+            btn.disabled = false;
           }
         });
       });
@@ -3485,18 +3525,24 @@ class ProductMultiStep {
     summaryContainer
       .querySelectorAll("[data-quantity-increase]")
       .forEach((btn) => {
-        btn.addEventListener("click", (e) => {
+        btn.addEventListener("click", async (e) => {
           e.preventDefault();
-          const variantId = btn.dataset.variantId;
-          const input = summaryContainer.querySelector(
-            `[data-quantity-input][data-variant-id="${variantId}"]`
-          );
-          if (input) {
-            input.value = Math.min(
-              parseInt(input.max) || 99,
-              parseInt(input.value) + 1
+          e.stopPropagation();
+          btn.disabled = true;
+          try {
+            const variantId = btn.dataset.variantId;
+            const input = summaryContainer.querySelector(
+              `[data-quantity-input][data-variant-id="${variantId}"]`
             );
-            this.handleQuantityChange(input);
+            if (input) {
+              input.value = Math.min(
+                parseInt(input.max) || 99,
+                parseInt(input.value) + 1
+              );
+              await this.handleQuantityChange(input);
+            }
+          } finally {
+            btn.disabled = false;
           }
         });
       });
