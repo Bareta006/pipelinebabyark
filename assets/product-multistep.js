@@ -165,13 +165,12 @@ class ProductMultiStep {
         : false;
 
       // Only call addAllToCart if main product isn't in cart yet
-      // If it's already in cart, just sync accessories (they're handled in addAllToCart)
+      // If it's already in cart, don't sync again - just show summary
+      // Accessories are already in cart from first visit
       if (!mainInCart) {
         await this.addAllToCart();
-      } else {
-        // Main product already in cart, just sync accessories
-        await this.syncAccessoriesToCart();
       }
+      // If main product already in cart, do nothing - just show summary
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
