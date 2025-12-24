@@ -2970,7 +2970,28 @@ class ProductMultiStep {
 
     this.debugEnabled = debugParam === "true" || debugStorage === "true";
 
-    if (!this.debugEnabled) return;
+    console.log(
+      "Debug enabled?",
+      this.debugEnabled,
+      "debugParam:",
+      debugParam,
+      "debugStorage:",
+      debugStorage
+    );
+
+    if (!this.debugEnabled) {
+      console.log("Debug panel not enabled");
+      return;
+    }
+
+    // Wait for body to be ready
+    if (!document.body) {
+      console.log("Body not ready, retrying...");
+      setTimeout(() => this.initDebugPanel(), 100);
+      return;
+    }
+
+    console.log("Creating debug panel...");
 
     // Create debug panel HTML
     const debugPanel = document.createElement("div");
@@ -3005,6 +3026,7 @@ class ProductMultiStep {
       </div>
     `;
     document.body.appendChild(debugPanel);
+    console.log("Debug panel created and appended to body");
 
     // Add debug panel CSS
     if (!document.getElementById("multistep-debug-styles")) {
@@ -3021,7 +3043,7 @@ class ProductMultiStep {
           color: #fff;
           border-radius: 8px;
           box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-          z-index: 999999999;
+          z-index: 9999999999 !important;
           font-family: 'Courier New', monospace;
           font-size: 12px;
           overflow: hidden;
