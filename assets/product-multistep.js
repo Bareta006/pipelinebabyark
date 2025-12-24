@@ -2795,6 +2795,54 @@ class ProductMultiStep {
         return;
       }
 
+      // CRITICAL: Check if cart already matches cartState exactly - if so, skip entire sync
+      const mainProductItemsCheck = cart.items.filter(
+        (item) => this.productData && item.product_id === this.productData.id
+      );
+      const cartAccessoriesCheck = cart.items.filter(
+        (item) => !this.productData || item.product_id !== this.productData.id
+      );
+
+      // Check main product match
+      const mainProductMatches =
+        (this.cartState.mainProductAdded &&
+          mainProductItemsCheck.length === 1 &&
+          mainProductItemsCheck[0].variant_id ===
+            this.cartState.mainProductVariantId &&
+          mainProductItemsCheck[0].quantity === 1) ||
+        (!this.cartState.mainProductAdded &&
+          mainProductItemsCheck.length === 0);
+
+      // Check accessories match
+      const cartAccessoryMap = new Map();
+      cartAccessoriesCheck.forEach((item) => {
+        const key = item.variant_id;
+        cartAccessoryMap.set(
+          key,
+          (cartAccessoryMap.get(key) || 0) + item.quantity
+        );
+      });
+
+      const stateAccessoryMap = new Map();
+      this.cartState.accessories.forEach((acc) => {
+        stateAccessoryMap.set(acc.variantId, acc.quantity);
+      });
+
+      const accessoriesMatch =
+        cartAccessoryMap.size === stateAccessoryMap.size &&
+        Array.from(cartAccessoryMap.entries()).every(
+          ([variantId, quantity]) =>
+            stateAccessoryMap.get(variantId) === quantity
+        );
+
+      if (mainProductMatches && accessoriesMatch) {
+        this.addDebugLog(
+          "CART",
+          `syncCartToState SKIPPED: Cart already matches cartState exactly (main product: ${mainProductMatches}, accessories: ${accessoriesMatch})`
+        );
+        return;
+      }
+
       // Sync main product - calculate difference and add/remove only what's needed
       // Check ALL main product items (by product_id, not just variant_id)
       const mainProductItems = cart.items.filter(
