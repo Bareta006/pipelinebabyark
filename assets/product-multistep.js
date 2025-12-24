@@ -120,7 +120,19 @@ class ProductMultiStep {
     );
     if (variantImageMapScript) {
       try {
-        this.variantImageMap = JSON.parse(variantImageMapScript.textContent);
+        const rawMap = JSON.parse(variantImageMapScript.textContent);
+        // Normalize image URLs: convert protocol-relative (//) to https://
+        this.variantImageMap = {};
+        Object.keys(rawMap).forEach((variantId) => {
+          let imageUrl = rawMap[variantId];
+          if (imageUrl && typeof imageUrl === "string") {
+            // Fix protocol-relative URLs (//) to https://
+            if (imageUrl.startsWith("//")) {
+              imageUrl = "https:" + imageUrl;
+            }
+            this.variantImageMap[variantId] = imageUrl;
+          }
+        });
         this.addDebugLog(
           "INFO",
           `Loaded variant image map from Liquid with ${
