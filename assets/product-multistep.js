@@ -157,20 +157,22 @@ class ProductMultiStep {
 
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
-      // Check if main product is already in cart - if so, we've already added items
+      // Always sync accessories to cart to match selectedAccessories quantities
+      // This ensures cart reflects exactly how many times user clicked each accessory
+      await this.syncAccessoriesToCart();
+
+      // Check if main product is already in cart
       const cart = await this.getCart();
       const properties = this.getDeliveryProperties();
       const mainInCart = cart
         ? this.isItemInCart(cart, this.selectedVariant.id, properties)
         : false;
 
-      // Only call addAllToCart if main product isn't in cart yet
-      // If it's already in cart, don't sync again - just show summary
-      // Accessories are already in cart from first visit
+      // Only add main product if it's not in cart yet
       if (!mainInCart) {
-        await this.addAllToCart();
+        await this.addToCart(this.selectedVariant.id, 1, properties);
       }
-      // If main product already in cart, do nothing - just show summary
+
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
@@ -1367,7 +1369,7 @@ class ProductMultiStep {
     }
   }
 
-  renderOrderSummary() {
+  async renderOrderSummary() {
     const summaryContainer = this.container.querySelector(
       "[data-order-summary]"
     );
@@ -1378,6 +1380,10 @@ class ProductMultiStep {
       "[data-delivery-bullet]"
     );
     if (!summaryContainer) return;
+
+    // Get actual cart to display real quantities
+    const cart = await this.getCart();
+    const properties = this.getDeliveryProperties();
 
     let html = '<div class="order-summary">';
 
@@ -1415,40 +1421,56 @@ class ProductMultiStep {
       `;
     }
 
-    if (this.selectedAccessories.length > 0) {
-      this.selectedAccessories.forEach((accessory) => {
-        const discountedPrice = accessory.price * 0.8;
-        const totalDiscountedPrice = discountedPrice * accessory.quantity;
-        const totalPrice = accessory.price * accessory.quantity;
-        const imageUrl = accessory.image
-          ? this.getImageUrl(accessory.image, 200)
-          : "";
+    // Display accessories from actual cart, not selectedAccessories
+    if (cart && cart.items && this.selectedAccessories.length > 0) {
+      for (const accessory of this.selectedAccessories) {
+        const accessoryProperties = this.getAccessoryDeliveryProperties(
+          accessory.id
+        );
+        const cartItem = this.getCartItem(
+          cart,
+          accessory.id,
+          accessoryProperties
+        );
 
-        html += `
-          <div class="summary-item summary-item--product">
-            <div class="summary-product-details-container">
-              <div class="summary-product-image">
-                ${
-                  imageUrl
-                    ? `<img src="${imageUrl}" alt="${accessory.title}">`
-                    : ""
-                }
+        if (cartItem && cartItem.quantity > 0) {
+          // Use actual cart quantity, not selectedAccessories quantity
+          const cartQuantity = cartItem.quantity;
+          const discountedPrice = accessory.price * 0.8;
+          const totalDiscountedPrice = discountedPrice * cartQuantity;
+          const totalPrice = accessory.price * cartQuantity;
+          const imageUrl = accessory.image
+            ? this.getImageUrl(accessory.image, 200)
+            : "";
+
+          html += `
+            <div class="summary-item summary-item--product">
+              <div class="summary-product-details-container">
+                <div class="summary-product-image">
+                  ${
+                    imageUrl
+                      ? `<img src="${imageUrl}" alt="${accessory.title}">`
+                      : ""
+                  }
+                </div>
+                <div class="summary-product-details">
+                  <h4 class="summary-product-title">${accessory.title}${
+            cartQuantity > 1 ? ` x${cartQuantity}` : ""
+          }</h4>
+                </div>
               </div>
-              <div class="summary-product-details">
-                <h4 class="summary-product-title">${accessory.title}${
-          accessory.quantity > 1 ? ` x${accessory.quantity}` : ""
-        }</h4>
+              <div class="summary-product-pricing">
+                <p class="summary-price-discounted">${this.formatMoney(
+                  totalDiscountedPrice
+                )}</p>
+                <p class="summary-price-full">${this.formatMoney(
+                  totalPrice
+                )}</p>
               </div>
             </div>
-            <div class="summary-product-pricing">
-              <p class="summary-price-discounted">${this.formatMoney(
-                totalDiscountedPrice
-              )}</p>
-              <p class="summary-price-full">${this.formatMoney(totalPrice)}</p>
-            </div>
-          </div>
-        `;
-      });
+          `;
+        }
+      }
     }
 
     // console.log('Selected smart option:', this.selectedSmartOption);
@@ -1504,11 +1526,26 @@ class ProductMultiStep {
       totalDiscounted += this.selectedVariant.price;
     }
 
-    this.selectedAccessories.forEach((accessory) => {
-      const accessoryTotal = accessory.price * accessory.quantity;
-      subtotal += accessoryTotal;
-      totalDiscounted += accessoryTotal * 0.8;
-    });
+    // Calculate totals from actual cart quantities, not selectedAccessories
+    if (cart && cart.items && this.selectedAccessories.length > 0) {
+      for (const accessory of this.selectedAccessories) {
+        const accessoryProperties = this.getAccessoryDeliveryProperties(
+          accessory.id
+        );
+        const cartItem = this.getCartItem(
+          cart,
+          accessory.id,
+          accessoryProperties
+        );
+
+        if (cartItem && cartItem.quantity > 0) {
+          const cartQuantity = cartItem.quantity;
+          const accessoryTotal = accessory.price * cartQuantity;
+          subtotal += accessoryTotal;
+          totalDiscounted += accessoryTotal * 0.8;
+        }
+      }
+    }
 
     const savings = subtotal - totalDiscounted;
 
