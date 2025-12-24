@@ -2145,7 +2145,12 @@ class ProductMultiStep {
       // Check if variant ID matches
       if (item.variant_id !== variantId) return false;
 
-      // Check if properties match (compare as JSON strings for simplicity)
+      // If no properties provided, just match by variant ID
+      if (!properties || Object.keys(properties).length === 0) {
+        return true;
+      }
+
+      // Check if properties match
       const itemProperties = item.properties || {};
       const propertiesMatch = Object.keys(properties).every((key) => {
         return itemProperties[key] === properties[key];
@@ -2192,18 +2197,24 @@ class ProductMultiStep {
           alert("Failed to add main product to cart");
           return;
         }
+        // Refresh cart after adding main product
+        cart = await this.getCart();
       }
 
       // console.log('Adding accessories to cart:', this.selectedAccessories);
-      // Refresh cart before checking accessories
-      const updatedCart = await this.getCart();
+      // Process accessories one by one, refreshing cart after each add
+      let currentCart = cart;
       for (const accessory of this.selectedAccessories) {
         const accessoryProperties = this.getAccessoryDeliveryProperties(
           accessory.id
         );
+
+        // Refresh cart before checking each accessory to get latest state
+        currentCart = await this.getCart();
+
         // Only add accessory if it's not already in cart
-        const accessoryInCart = updatedCart
-          ? this.isItemInCart(updatedCart, accessory.id, accessoryProperties)
+        const accessoryInCart = currentCart
+          ? this.isItemInCart(currentCart, accessory.id, accessoryProperties)
           : false;
 
         if (!accessoryInCart) {
@@ -2212,6 +2223,8 @@ class ProductMultiStep {
             accessory.quantity,
             accessoryProperties
           );
+          // Refresh cart after adding to ensure next check is accurate
+          currentCart = await this.getCart();
         }
       }
     } catch (error) {

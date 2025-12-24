@@ -183,7 +183,13 @@ The template consists of two main sections:
      - **Smart Duplicate Prevention**: Checks cart before adding items to prevent duplicates
      - Only adds main product if it's not already in cart (matching variant ID and delivery properties)
      - Only adds accessories if they're not already in cart (matching variant ID and delivery properties)
-     - This prevents duplicate products when navigating back from step 5 to step 4 and then forward to step 5 again
+     - **Cart Refresh Strategy**: Refreshes cart after each add operation to ensure accurate duplicate detection
+     - Cart is refreshed: after adding main product, before checking each accessory, and after adding each accessory
+     - This prevents duplicate products when navigating back from step 5 to step 4 and then forward to step 5 again multiple times
+   - `isItemInCart(cart, variantId, properties)`: Checks if item exists in cart
+     - Matches by variant ID
+     - If properties provided, matches by variant ID + properties
+     - If no properties provided, matches by variant ID only
    - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 
