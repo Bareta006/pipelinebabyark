@@ -1557,9 +1557,17 @@ class ProductMultiStep {
 
     let html = '<div class="order-summary">';
 
-    if (this.selectedVariant) {
+    // Use cartState.mainProductVariantId to find variant (matches cart), fallback to selectedVariant
+    const variantIdForDisplay =
+      this.cartState.mainProductVariantId || this.selectedVariant?.id;
+    const variantForDisplay = variantIdForDisplay
+      ? this.productData.variants.find((v) => v.id === variantIdForDisplay) ||
+        this.selectedVariant
+      : this.selectedVariant;
+
+    if (variantForDisplay) {
       const variantImage =
-        this.selectedVariant.featured_image?.src ||
+        variantForDisplay.featured_image?.src ||
         this.productData.featured_image;
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
@@ -1617,9 +1625,23 @@ class ProductMultiStep {
           <div class="summary-product-details">
             <h4 class="summary-product-title">${this.productData.title}</h4>
             <p class="summary-variant-info">Color: ${
-              this.selectedColor
-            }, Shell: ${this.selectedShellColor}, <strong>${
-        this.selectedSmartOption
+              this.selectedColor ||
+              variantForDisplay.option1 ||
+              variantForDisplay.option2 ||
+              variantForDisplay.option3 ||
+              ""
+            }, Shell: ${
+        this.selectedShellColor ||
+        variantForDisplay.option1 ||
+        variantForDisplay.option2 ||
+        variantForDisplay.option3 ||
+        ""
+      }, <strong>${
+        this.selectedSmartOption ||
+        variantForDisplay.option1 ||
+        variantForDisplay.option2 ||
+        variantForDisplay.option3 ||
+        ""
       }</strong></p>
           </div>
           </div>
@@ -1630,7 +1652,7 @@ class ProductMultiStep {
                      class="quantity__input" 
                      data-quantity-input 
                      data-update-cart="${mainProductLineItemKey}"
-                     data-variant-id="${this.selectedVariant.id}"
+                     data-variant-id="${variantIdForDisplay}"
                      data-is-main-product="true"
                      min="0" 
                      max="1" 
@@ -1639,7 +1661,7 @@ class ProductMultiStep {
               <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${mainProductLineItemKey}" aria-label="Increase quantity">+</button>
             </div>
             <p class="summary-price-discounted">${this.formatMoney(
-              this.selectedVariant.price
+              variantForDisplay.price
             )}</p>
           </div>
         </div>

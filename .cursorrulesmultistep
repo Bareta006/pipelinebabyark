@@ -276,10 +276,11 @@ The template consists of two main sections:
        - Logs to debug panel with type "CART"
        - Returns true/false for success/failure
      - **Refresh After Update**: `refreshSummaryAfterQuantityChange()`:
-       - Calls `initializeCartStateFromCart()` to refresh `cartState` from actual cart
-       - Updates `selectedAccessories` quantities to match cart
-       - Calls `updateCartStateFromAccessories()` to sync `cartState.accessories`
+       - Calls `initializeCartStateFromCart()` to refresh `cartState` from actual cart (updates both main product and accessories)
+       - Updates `selectedAccessories` quantities to match cart (for accessories only)
+       - Calls `updateCartStateFromAccessories()` to sync `cartState.accessories` from `selectedAccessories`
        - Calls `renderOrderSummary()` to refresh display
+       - **CRITICAL**: Main product variant display uses `cartState.mainProductVariantId` (from cart), not `selectedVariant`, ensuring display matches cart after quantity changes
      - **Display Logic**: `renderOrderSummary()` reads actual quantities from cart:
        - Gets cart items and finds matching items by `variant_id`
        - **Line Item Key Extraction**: 
@@ -287,9 +288,14 @@ The template consists of two main sections:
          - Stores line item key in HTML attributes (`data-update-cart` for input, `data-line-item-key` for buttons)
          - **CRITICAL**: Shopify's `/cart.js` API may return `key` property or may need to use `id` property
          - Debug logging shows full cart item structure if key is missing
-       - Main product: Gets quantity from `cart.items.find()` by variant_id
+       - **Main Product Variant**: Uses `cartState.mainProductVariantId` (from cart) to find variant for display, NOT `selectedVariant` (which may be stale)
+         - Finds variant from `productData.variants` using `cartState.mainProductVariantId`
+         - Falls back to `selectedVariant` if `cartState.mainProductVariantId` is not available
+         - Uses `variantForDisplay` for price, image, and variant info (ensures display matches cart)
+         - This ensures main product display matches cart state, same as accessories
+       - Main product: Gets quantity from `cart.items.find()` by variant_id (using `cartState.mainProductVariantId`)
        - Accessories: Gets quantity from `cart.items.find()` by variant_id
-       - This ensures display matches actual cart state
+       - This ensures display matches actual cart state for both main product and accessories
      - **Debug Logging for Troubleshooting**:
        - When rendering summary, logs main product cart item lookup (variant_id search)
        - Logs full cart item structure if found (to see all available properties)
