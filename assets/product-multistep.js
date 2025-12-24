@@ -2278,45 +2278,40 @@ class ProductMultiStep {
         // Refresh cart before checking each accessory to get latest state
         currentCart = await this.getCart();
 
-        // First, try to find cart item by variant ID only (to handle upgraded items)
-        // This helps when properties might differ between classic/smart variants
-        let cartItem = null;
+        // Get properties from DOM for this accessory
+        const accessoryProperties = this.getAccessoryDeliveryProperties(
+          accessory.id
+        );
+
+        // Find ALL cart items with matching variant_id (sum all quantities)
+        let matchingCartItems = [];
         if (currentCart && currentCart.items) {
-          cartItem = currentCart.items.find(
+          matchingCartItems = currentCart.items.filter(
             (item) => item.variant_id === accessory.id
           );
         }
 
-        // If found by variant ID, use its properties for matching
-        // Otherwise, get properties from DOM
-        let accessoryProperties = {};
-        if (cartItem && cartItem.properties) {
-          accessoryProperties = cartItem.properties;
-        } else {
-          accessoryProperties = this.getAccessoryDeliveryProperties(
-            accessory.id
+        // Calculate total quantity in cart for this variant
+        let totalCartQuantity = 0;
+        let firstMatchingItem = null;
+        if (matchingCartItems.length > 0) {
+          totalCartQuantity = matchingCartItems.reduce(
+            (sum, item) => sum + item.quantity,
+            0
           );
-          // Try to find cart item again with properties
-          if (!cartItem && currentCart) {
-            cartItem = this.getCartItem(
-              currentCart,
-              accessory.id,
-              accessoryProperties
-            );
-          }
+          firstMatchingItem = matchingCartItems[0];
         }
 
-        const currentQuantity = cartItem ? cartItem.quantity : 0;
         const desiredQuantity = accessory.quantity;
 
         // Sync cart quantity to match exactly what user selected
         if (desiredQuantity === 0) {
-          // If desired quantity is 0, remove from cart
-          if (cartItem) {
+          // If desired quantity is 0, remove all matching items from cart
+          for (const cartItem of matchingCartItems) {
             await this.updateCartItemQuantity(cartItem.key, 0);
-            currentCart = await this.getCart();
           }
-        } else if (currentQuantity === 0) {
+          currentCart = await this.getCart();
+        } else if (totalCartQuantity === 0) {
           // Item not in cart, add it with desired quantity
           await this.addToCart(
             accessory.id,
@@ -2324,12 +2319,32 @@ class ProductMultiStep {
             accessoryProperties
           );
           currentCart = await this.getCart();
-        } else if (currentQuantity !== desiredQuantity) {
-          // Item exists but quantity doesn't match, update it
-          await this.updateCartItemQuantity(cartItem.key, desiredQuantity);
+        } else if (totalCartQuantity < desiredQuantity) {
+          // Cart has less than desired, add the difference
+          const quantityToAdd = desiredQuantity - totalCartQuantity;
+          await this.addToCart(
+            accessory.id,
+            quantityToAdd,
+            accessoryProperties
+          );
           currentCart = await this.getCart();
+        } else if (totalCartQuantity > desiredQuantity) {
+          // Cart has more than desired, update first item to desired quantity
+          // and remove the rest
+          if (firstMatchingItem) {
+            // Update first item to desired quantity
+            await this.updateCartItemQuantity(
+              firstMatchingItem.key,
+              desiredQuantity
+            );
+            // Remove all other matching items
+            for (let i = 1; i < matchingCartItems.length; i++) {
+              await this.updateCartItemQuantity(matchingCartItems[i].key, 0);
+            }
+            currentCart = await this.getCart();
+          }
         }
-        // If quantities match, do nothing
+        // If quantities match exactly, do nothing
       }
     } catch (error) {
       // console.error('Error adding to cart:', error);

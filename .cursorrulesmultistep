@@ -203,12 +203,16 @@ The template consists of two main sections:
      - **CRITICAL**: Quantity is based EXACTLY on how many times user clicked the accessory checkbox/button
      - Quantity is NOT affected by how many times user navigates from step 4 to step 5
      - When syncing accessories to cart, ensures cart quantity matches `selectedAccessories` quantity exactly
+     - **Cart Matching Strategy**: Sums ALL cart items with matching variant_id (not just first one)
+       - Uses `.filter()` to find all matching items, then sums their quantities
+       - Compares total cart quantity vs `selectedAccessories.quantity`
      - Logic:
-       - If desired quantity = 0: Remove item from cart (if exists)
-       - If item not in cart: Add with desired quantity
-       - If item exists but quantity differs: Update to desired quantity using `/cart/change.js`
-       - If quantities match: Do nothing
-     - This ensures cart always reflects the exact number of clicks, regardless of navigation
+       - If desired quantity = 0: Remove ALL matching items from cart
+       - If total cart quantity = 0: Add with desired quantity
+       - If total cart quantity < desired quantity: Add only the difference
+       - If total cart quantity > desired quantity: Update first item to desired quantity, remove rest
+       - If quantities match exactly: Do nothing
+     - This ensures cart always reflects the exact number of clicks, regardless of navigation or duplicate line items
    - **Upgrade to Smart Compatibility**:
      - When upgrading bases to smart, properties are preserved from cart item to ensure matching works correctly
      - When syncing accessories after upgrade, first finds cart item by variant ID (handles upgraded items where properties might differ)
