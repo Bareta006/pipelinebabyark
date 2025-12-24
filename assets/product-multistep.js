@@ -3036,7 +3036,7 @@ class ProductMultiStep {
         #multistep-debug-panel {
           position: fixed;
           top: 20px;
-          right: 20px;
+          left: 20px;
           width: 400px;
           max-height: 80vh;
           background: #1a1a1a;
