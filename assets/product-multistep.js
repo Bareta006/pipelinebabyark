@@ -1571,11 +1571,6 @@ class ProductMultiStep {
       : this.selectedVariant;
 
     if (variantForDisplay) {
-      const variantImage =
-        variantForDisplay.featured_image?.src ||
-        this.productData.featured_image;
-      const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
-
       // Get actual quantity from cart (not just cartState boolean)
       // variantIdToFind is now defined above, outside this block
       this.addDebugLog(
@@ -1590,6 +1585,52 @@ class ProductMultiStep {
         `Main product cart item found: ${!!mainProductCartItem}, variant_id match: ${
           mainProductCartItem?.variant_id
         }`
+      );
+
+      // CRITICAL: Variant image selection with priority order
+      // 1. Cart item image (most reliable - Shopify returns correct variant image)
+      // 2. Variant featured_image from product JSON
+      // 3. Product featured_image (fallback)
+      let variantImage = null;
+      let imageSource = "none";
+
+      if (mainProductCartItem?.image) {
+        variantImage = mainProductCartItem.image;
+        imageSource = "cart_item";
+        this.addDebugLog(
+          "INFO",
+          `Using cart item image: ${variantImage} (variant_id: ${mainProductCartItem.variant_id})`
+        );
+      } else if (variantForDisplay.featured_image?.src) {
+        variantImage = variantForDisplay.featured_image.src;
+        imageSource = "variant_featured_image";
+        this.addDebugLog(
+          "INFO",
+          `Using variant featured_image: ${variantImage} (variant_id: ${variantForDisplay.id})`
+        );
+      } else if (this.productData.featured_image) {
+        variantImage = this.productData.featured_image;
+        imageSource = "product_featured_image";
+        this.addDebugLog(
+          "INFO",
+          `Using product featured_image fallback: ${variantImage} (variant_id: ${variantForDisplay.id}, variant has no featured_image)`
+        );
+      }
+
+      // Debug: Log what variantForDisplay contains
+      this.addDebugLog(
+        "INFO",
+        `variantForDisplay: id=${variantForDisplay.id}, title=${
+          variantForDisplay.title
+        }, featured_image=${
+          variantForDisplay.featured_image ? "exists" : "null/undefined"
+        }`
+      );
+
+      const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
+      this.addDebugLog(
+        "INFO",
+        `Final image URL: ${imageUrl} (source: ${imageSource})`
       );
       const mainProductQuantity = mainProductCartItem
         ? mainProductCartItem.quantity

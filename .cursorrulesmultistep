@@ -255,6 +255,13 @@ The template consists of two main sections:
    - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
    - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
    - This ensures display matches actual cart state, not just `cartState` JSON
+   - **Variant Image Selection**:
+     - **CRITICAL**: Uses priority order for main product image:
+       1. `mainProductCartItem.image` (from cart API - most reliable, Shopify returns correct variant image)
+       2. `variantForDisplay.featured_image?.src` (from product JSON variant object)
+       3. `this.productData.featured_image` (fallback - static product image)
+     - **Debug Logging**: Logs which image source is used, variant ID, and image URL for troubleshooting
+     - **Why**: Even if variants have featured images in Shopify backend, product JSON might not include them, so cart item image is most reliable
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
      - Updates `cartState.accessories[]` with new variant ID when upgrading bases
