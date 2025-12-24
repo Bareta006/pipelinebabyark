@@ -1655,7 +1655,7 @@ class ProductMultiStep {
                      data-variant-id="${variantIdForDisplay}"
                      data-is-main-product="true"
                      min="0" 
-                     max="1" 
+                     max="10" 
                      value="${mainProductQuantity}" 
                      aria-label="Quantity">
               <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${mainProductLineItemKey}" aria-label="Increase quantity">+</button>
