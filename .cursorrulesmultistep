@@ -156,6 +156,11 @@ The template consists of two main sections:
    - `showStep(stepNumber)`: Shows/hides steps, manages fullscreen state
    - `handleNextStep(nextStep, btn)`: Validates and advances steps
      - **CRITICAL**: When going from step 4 to step 5:
+       - **PRESERVE & ADD LOGIC**: Always adds the selected variant to cart (preserves existing items)
+       - Checks if selected variant is already in cart
+       - If NOT in cart: Adds selected variant (preserves all existing items)
+       - If already in cart: Updates cartState to reflect it
+       - **E-commerce standard**: If cart has variant A and user selects variant B, cart should have BOTH
        - Calls `updateCartStateFromAccessories()` to update JSON state
        - Calls `syncCartToState()` to sync cart to match JSON
        - Calls `showStep(5)` AFTER sync finishes
@@ -211,19 +216,21 @@ The template consists of two main sections:
      - `syncCartToState()`: Syncs cart to match `cartState` JSON
        - **CRITICAL**: This is the ONLY method that modifies cart
        - Called when going to step 5 (after updating `cartState`)
-       - **Main Product Quantity Preservation**: 
-         - **CRITICAL**: Preserves actual cart quantity if main product is already added, don't assume 1
-         - If `cartState.mainProductAdded === true` and cart has main product, preserves existing quantity (e.g., if cart has 2, keeps 2)
-         - Only sets to 1 if cart is empty (first time adding)
-         - Logic: `desiredMainQuantity = currentMainQuantity > 0 ? currentMainQuantity : 1`
+       - **PRESERVE & ADD LOGIC (Main Product)**:
+         - **CRITICAL**: Always preserves existing items in cart, adds selected variant IN ADDITION
+         - **E-commerce standard**: If cart has variant A and user selects variant B, cart should have BOTH
+         - Checks if selected variant (`cartState.mainProductVariantId`) is already in cart
+         - If NOT in cart: Adds selected variant with quantity 1 (preserves all existing items)
+         - If already in cart: Preserves it, no action needed
+         - **NEVER removes existing variants** - only adds new selection
+         - This ensures users can have multiple variants of the same product in cart
        - **Cart Match Check**: 
          - Checks if cart already matches `cartState` before syncing
-         - Main product match: Checks for any quantity > 0 (not just 1), variant ID must match
+         - Main product match: Checks if selected variant exists in cart (any quantity > 0)
          - Accessories match: Checks exact quantities for each accessory variant
          - If cart matches, skips entire sync (prevents unnecessary cart operations)
-       - Adds main product if `cartState.mainProductAdded === false`
        - Syncs accessories: removes items not in `cartState`, adds/updates items from `cartState`
-       - Ensures cart matches `cartState` exactly
+       - Ensures selected variant is in cart (preserves existing items)
      - `propertiesMatch(props1, props2)`: Helper to compare property objects
        - Normalizes properties (removes null/empty values)
        - Returns true if properties match or both are empty

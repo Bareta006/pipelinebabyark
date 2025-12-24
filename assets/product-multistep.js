@@ -213,45 +213,40 @@ class ProductMultiStep {
         )}, selectedAccessories: ${JSON.stringify(this.selectedAccessories)}`
       );
 
-      // Ensure main product is marked as added if we have a selected variant
-      // CRITICAL: Only update if cartState hasn't been initialized from cart yet
-      // If cart already has items, preserve the existing variant ID from cart
-      if (this.selectedVariant && !this.cartState.mainProductAdded) {
-        // Check if cart already has main product with different variant
+      // CRITICAL: Always add the selected variant to cart (preserve existing items)
+      // E-commerce standard: If cart has variant A and user selects variant B, cart should have BOTH
+      if (this.selectedVariant) {
         const cart = await this.getCart();
         this.addDebugLog(
           "STEP",
-          `handleNextStep: Checking cart, has ${cart.items.length} items`
-        );
-        const existingMainProduct = cart.items.find(
-          (item) => this.productData && item.product_id === this.productData.id
+          `handleNextStep: Checking cart, has ${cart.items.length} items, selected variant: ${this.selectedVariant.id}`
         );
 
-        if (existingMainProduct) {
-          // Cart already has main product - use that variant ID
-          this.cartState.mainProductAdded = true;
-          this.cartState.mainProductVariantId = existingMainProduct.variant_id;
-          this.cartState.mainProductProperties =
-            existingMainProduct.properties || {};
-          this.addDebugLog(
-            "STEP",
-            `handleNextStep: Found existing main product in cart, using variant ${existingMainProduct.variant_id}`
-          );
-        } else {
-          // No main product in cart - use selected variant
+        // Check if selected variant is already in cart
+        const selectedVariantInCart = cart.items.find(
+          (item) => item.variant_id === this.selectedVariant.id
+        );
+
+        if (!selectedVariantInCart) {
+          // Selected variant NOT in cart - add it (preserve existing items)
           this.cartState.mainProductAdded = true;
           this.cartState.mainProductVariantId = this.selectedVariant.id;
           this.cartState.mainProductProperties = this.getDeliveryProperties();
           this.addDebugLog(
             "STEP",
-            `handleNextStep: No main product in cart, using selected variant ${this.selectedVariant.id}`
+            `handleNextStep: Selected variant ${this.selectedVariant.id} not in cart, will add it (preserving existing items)`
+          );
+        } else {
+          // Selected variant already in cart - just update cartState to reflect it
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = this.selectedVariant.id;
+          this.cartState.mainProductProperties =
+            selectedVariantInCart.properties || this.getDeliveryProperties();
+          this.addDebugLog(
+            "STEP",
+            `handleNextStep: Selected variant ${this.selectedVariant.id} already in cart, updating cartState`
           );
         }
-      } else {
-        this.addDebugLog(
-          "STEP",
-          `handleNextStep: cartState.mainProductAdded already true (${this.cartState.mainProductAdded}), skipping main product check`
-        );
       }
 
       // Update cartState with current selections
@@ -2983,82 +2978,49 @@ class ProductMultiStep {
         return;
       }
 
-      // Sync main product - calculate difference and add/remove only what's needed
+      // Sync main product - ADD selected variant if not already in cart (PRESERVE existing items)
+      // E-commerce standard: If cart has variant A and user selects variant B, cart should have BOTH
       // Check ALL main product items (by product_id, not just variant_id)
       const mainProductItems = cart.items.filter(
         (item) => this.productData && item.product_id === this.productData.id
       );
-      const currentMainQuantity = mainProductItems.reduce(
-        (sum, item) => sum + item.quantity,
-        0
-      );
-      // CRITICAL: Preserve actual cart quantity if main product is added, don't assume 1
-      // If cartState says main product is added but doesn't specify quantity, preserve current cart quantity
-      // Only set to 1 if cart is empty (first time adding)
-      const desiredMainQuantity = this.cartState.mainProductAdded
-        ? currentMainQuantity > 0
-          ? currentMainQuantity
-          : 1 // Preserve existing quantity, or 1 if not in cart
-        : 0;
-      const mainDifference = desiredMainQuantity - currentMainQuantity;
 
-      // CRITICAL: If cart already has main product with correct variant and quantity, skip syncing main product
-      const shouldSkipMainProductSync =
-        mainDifference === 0 &&
-        currentMainQuantity === 1 &&
-        this.cartState.mainProductVariantId &&
-        mainProductItems.some(
+      if (
+        this.cartState.mainProductAdded &&
+        this.cartState.mainProductVariantId
+      ) {
+        // Check if selected variant is already in cart
+        const selectedVariantInCart = mainProductItems.find(
           (item) => item.variant_id === this.cartState.mainProductVariantId
         );
 
-      if (shouldSkipMainProductSync) {
-        // Cart already matches cartState for main product - skip syncing main product
+        if (!selectedVariantInCart) {
+          // Selected variant NOT in cart - add it (preserve all existing items)
+          const properties =
+            this.cartState.mainProductProperties ||
+            this.getDeliveryProperties();
+          await this.addToCart(
+            this.cartState.mainProductVariantId,
+            1,
+            properties
+          );
+          this.addDebugLog(
+            "CART",
+            `syncCartToState: Added selected variant ${this.cartState.mainProductVariantId} to cart (preserved ${mainProductItems.length} existing main product items)`
+          );
+          cart = await this.getCart();
+        } else {
+          // Selected variant already in cart - preserve it, no action needed
+          this.addDebugLog(
+            "CART",
+            `syncCartToState: Selected variant ${this.cartState.mainProductVariantId} already in cart (quantity: ${selectedVariantInCart.quantity}), preserving all items`
+          );
+        }
+      } else {
         this.addDebugLog(
           "CART",
-          `syncCartToState: Main product already matches cartState (variant ${this.cartState.mainProductVariantId}), skipping main product sync`
+          `syncCartToState: No main product to sync (mainProductAdded: ${this.cartState.mainProductAdded}, variantId: ${this.cartState.mainProductVariantId})`
         );
-      } else if (mainDifference > 0) {
-        // Need to add
-        // CRITICAL: Use cartState.mainProductVariantId if it exists (from cart), otherwise use selectedVariant.id
-        const variantIdToAdd =
-          this.cartState.mainProductVariantId || this.selectedVariant.id;
-        await this.addToCart(variantIdToAdd, mainDifference, properties);
-        this.cartState.mainProductAdded = true;
-        this.cartState.mainProductVariantId = variantIdToAdd;
-        this.cartState.mainProductProperties = properties;
-        cart = await this.getCart();
-      } else if (mainDifference < 0) {
-        // Need to remove - remove from items matching the current selected variant first
-        let toRemove = Math.abs(mainDifference);
-        const selectedVariantItems = mainProductItems.filter(
-          (item) => item.variant_id === this.selectedVariant.id
-        );
-
-        // First try to remove from items matching selected variant
-        for (const item of selectedVariantItems) {
-          if (toRemove <= 0) break;
-          const removeFromThis = Math.min(item.quantity, toRemove);
-          const newQuantity = item.quantity - removeFromThis;
-          await this.updateCartItemQuantity(item.key, newQuantity);
-          toRemove -= removeFromThis;
-        }
-
-        // If still need to remove, remove from other variants
-        if (toRemove > 0) {
-          const variantIdToMatch =
-            this.cartState.mainProductVariantId || this.selectedVariant.id;
-          const otherVariantItems = mainProductItems.filter(
-            (item) => item.variant_id !== variantIdToMatch
-          );
-          for (const item of otherVariantItems) {
-            if (toRemove <= 0) break;
-            const removeFromThis = Math.min(item.quantity, toRemove);
-            const newQuantity = item.quantity - removeFromThis;
-            await this.updateCartItemQuantity(item.key, newQuantity);
-            toRemove -= removeFromThis;
-          }
-        }
-        cart = await this.getCart();
       }
 
       // Sync accessories - calculate difference and add/remove only what's needed
