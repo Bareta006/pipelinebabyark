@@ -42,6 +42,9 @@ class ProductMultiStep {
     // Initialize cartState from cart on page load
     await this.initializeCartStateFromCart();
 
+    // Initialize debug panel if enabled
+    this.initDebugPanel();
+
     // console.log('=== Init Method ===');
     const sliderTrack = this.container.querySelector("[data-slider-track]");
     if (sliderTrack) {
@@ -1032,6 +1035,11 @@ class ProductMultiStep {
   showStep(stepNumber) {
     // console.log('=== Show Step Called ===', stepNumber);
     this.currentStep = stepNumber;
+
+    // Update debug panel
+    if (this.debugEnabled) {
+      this.updateDebugPanel();
+    }
 
     const header = document.querySelector(".header__wrapper");
     if (header) {
@@ -2387,6 +2395,11 @@ class ProductMultiStep {
       price: acc.price,
       image: acc.image,
     }));
+
+    // Update debug panel
+    if (this.debugEnabled) {
+      this.updateDebugPanel();
+    }
   }
 
   // Sync cart to match cartState JSON
@@ -2417,6 +2430,11 @@ class ProductMultiStep {
           this.cartState.mainProductVariantId = this.selectedVariant.id;
           this.cartState.mainProductProperties = properties;
           cart = await this.getCart();
+
+          // Update debug panel
+          if (this.debugEnabled) {
+            this.updateDebugPanel();
+          }
         }
       } else {
         // Main product already added, verify it's still in cart
@@ -2941,6 +2959,247 @@ class ProductMultiStep {
 
     // Reset flag
     this.sectionsHidden = false;
+  }
+
+  // Debug Panel Methods
+  initDebugPanel() {
+    // Check if debug is enabled via URL parameter or localStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const debugParam = urlParams.get("debug");
+    const debugStorage = localStorage.getItem("multistep_debug");
+
+    this.debugEnabled = debugParam === "true" || debugStorage === "true";
+
+    if (!this.debugEnabled) return;
+
+    // Create debug panel HTML
+    const debugPanel = document.createElement("div");
+    debugPanel.id = "multistep-debug-panel";
+    debugPanel.innerHTML = `
+      <div class="debug-panel-header">
+        <h3>Multistep Debug Panel</h3>
+        <button class="debug-toggle" data-debug-toggle>Collapse</button>
+        <button class="debug-close" data-debug-close>×</button>
+      </div>
+      <div class="debug-panel-content" data-debug-content>
+        <div class="debug-section">
+          <h4>Current Step</h4>
+          <div data-debug-step>1</div>
+        </div>
+        <div class="debug-section">
+          <h4>cartState JSON</h4>
+          <pre data-debug-cartstate></pre>
+        </div>
+        <div class="debug-section">
+          <h4>selectedAccessories</h4>
+          <pre data-debug-selectedaccessories></pre>
+        </div>
+        <div class="debug-section">
+          <h4>Current Cart</h4>
+          <pre data-debug-cart></pre>
+        </div>
+        <div class="debug-section">
+          <h4>Selected Variant</h4>
+          <pre data-debug-variant></pre>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(debugPanel);
+
+    // Add debug panel CSS
+    if (!document.getElementById("multistep-debug-styles")) {
+      const style = document.createElement("style");
+      style.id = "multistep-debug-styles";
+      style.textContent = `
+        #multistep-debug-panel {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          width: 400px;
+          max-height: 80vh;
+          background: #1a1a1a;
+          color: #fff;
+          border-radius: 8px;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+          z-index: 999999999;
+          font-family: 'Courier New', monospace;
+          font-size: 12px;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+        }
+        .debug-panel-header {
+          background: #2a2a2a;
+          padding: 10px 15px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-bottom: 1px solid #444;
+        }
+        .debug-panel-header h3 {
+          margin: 0;
+          font-size: 14px;
+          font-weight: bold;
+        }
+        .debug-toggle, .debug-close {
+          background: #444;
+          color: #fff;
+          border: none;
+          padding: 5px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 12px;
+        }
+        .debug-toggle:hover, .debug-close:hover {
+          background: #555;
+        }
+        .debug-panel-content {
+          padding: 15px;
+          overflow-y: auto;
+          flex: 1;
+        }
+        .debug-panel-content.collapsed {
+          display: none;
+        }
+        .debug-section {
+          margin-bottom: 20px;
+          padding-bottom: 15px;
+          border-bottom: 1px solid #333;
+        }
+        .debug-section:last-child {
+          border-bottom: none;
+        }
+        .debug-section h4 {
+          margin: 0 0 10px 0;
+          font-size: 13px;
+          color: #4a9eff;
+        }
+        .debug-section pre {
+          margin: 0;
+          padding: 10px;
+          background: #0a0a0a;
+          border-radius: 4px;
+          overflow-x: auto;
+          white-space: pre-wrap;
+          word-wrap: break-word;
+          font-size: 11px;
+          line-height: 1.4;
+          max-height: 200px;
+          overflow-y: auto;
+        }
+        .debug-section div[data-debug-step] {
+          padding: 10px;
+          background: #0a0a0a;
+          border-radius: 4px;
+          font-size: 14px;
+          font-weight: bold;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // Attach event listeners
+    debugPanel
+      .querySelector("[data-debug-toggle]")
+      .addEventListener("click", () => {
+        const content = debugPanel.querySelector("[data-debug-content]");
+        const toggle = debugPanel.querySelector("[data-debug-toggle]");
+        content.classList.toggle("collapsed");
+        toggle.textContent = content.classList.contains("collapsed")
+          ? "Expand"
+          : "Collapse";
+      });
+
+    debugPanel
+      .querySelector("[data-debug-close]")
+      .addEventListener("click", () => {
+        localStorage.setItem("multistep_debug", "false");
+        debugPanel.remove();
+        this.debugEnabled = false;
+      });
+
+    // Initial update
+    this.updateDebugPanel();
+
+    // Update every 500ms
+    this.debugInterval = setInterval(() => {
+      if (this.debugEnabled) {
+        this.updateDebugPanel();
+      }
+    }, 500);
+  }
+
+  async updateDebugPanel() {
+    if (!this.debugEnabled) return;
+
+    const panel = document.getElementById("multistep-debug-panel");
+    if (!panel) return;
+
+    // Update step
+    const stepEl = panel.querySelector("[data-debug-step]");
+    if (stepEl) {
+      stepEl.textContent = this.currentStep;
+    }
+
+    // Update cartState
+    const cartStateEl = panel.querySelector("[data-debug-cartstate]");
+    if (cartStateEl) {
+      cartStateEl.textContent = JSON.stringify(this.cartState, null, 2);
+    }
+
+    // Update selectedAccessories
+    const selectedAccessoriesEl = panel.querySelector(
+      "[data-debug-selectedaccessories]"
+    );
+    if (selectedAccessoriesEl) {
+      selectedAccessoriesEl.textContent = JSON.stringify(
+        this.selectedAccessories,
+        null,
+        2
+      );
+    }
+
+    // Update current cart
+    const cartEl = panel.querySelector("[data-debug-cart]");
+    if (cartEl) {
+      const cart = await this.getCart();
+      if (cart) {
+        cartEl.textContent = JSON.stringify(
+          {
+            item_count: cart.item_count,
+            items: cart.items.map((item) => ({
+              variant_id: item.variant_id,
+              quantity: item.quantity,
+              properties: item.properties,
+              title: item.product_title,
+            })),
+          },
+          null,
+          2
+        );
+      } else {
+        cartEl.textContent = "Cart is empty or error fetching";
+      }
+    }
+
+    // Update selected variant
+    const variantEl = panel.querySelector("[data-debug-variant]");
+    if (variantEl) {
+      if (this.selectedVariant) {
+        variantEl.textContent = JSON.stringify(
+          {
+            id: this.selectedVariant.id,
+            title: this.selectedVariant.title,
+            price: this.selectedVariant.price,
+            available: this.selectedVariant.available,
+          },
+          null,
+          2
+        );
+      } else {
+        variantEl.textContent = "No variant selected";
+      }
+    }
   }
 }
 
