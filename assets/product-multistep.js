@@ -2160,6 +2160,30 @@ class ProductMultiStep {
     });
   }
 
+  getCartItemQuantity(cart, variantId, properties = {}) {
+    if (!cart || !cart.items) return 0;
+
+    const matchingItem = cart.items.find((item) => {
+      // Check if variant ID matches
+      if (item.variant_id !== variantId) return false;
+
+      // If no properties provided, just match by variant ID
+      if (!properties || Object.keys(properties).length === 0) {
+        return true;
+      }
+
+      // Check if properties match
+      const itemProperties = item.properties || {};
+      const propertiesMatch = Object.keys(properties).every((key) => {
+        return itemProperties[key] === properties[key];
+      });
+
+      return propertiesMatch;
+    });
+
+    return matchingItem ? matchingItem.quantity : 0;
+  }
+
   async addAllToCart() {
     try {
       if (!this.selectedVariant) {
@@ -2212,15 +2236,21 @@ class ProductMultiStep {
         // Refresh cart before checking each accessory to get latest state
         currentCart = await this.getCart();
 
-        // Only add accessory if it's not already in cart
-        const accessoryInCart = currentCart
-          ? this.isItemInCart(currentCart, accessory.id, accessoryProperties)
-          : false;
+        // Get current quantity in cart for this accessory
+        const currentQuantity = currentCart
+          ? this.getCartItemQuantity(
+              currentCart,
+              accessory.id,
+              accessoryProperties
+            )
+          : 0;
 
-        if (!accessoryInCart) {
+        // Only add/update if desired quantity is greater than current quantity
+        if (accessory.quantity > currentQuantity) {
+          const quantityToAdd = accessory.quantity - currentQuantity;
           await this.addToCart(
             accessory.id,
-            accessory.quantity,
+            quantityToAdd,
             accessoryProperties
           );
           // Refresh cart after adding to ensure next check is accurate

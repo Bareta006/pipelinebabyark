@@ -190,6 +190,14 @@ The template consists of two main sections:
      - Matches by variant ID
      - If properties provided, matches by variant ID + properties
      - If no properties provided, matches by variant ID only
+   - `getCartItemQuantity(cart, variantId, properties)`: Gets current quantity of item in cart
+     - Returns 0 if item not found
+     - Matches by variant ID + properties (same logic as isItemInCart)
+   - **Accessory Quantity Logic**: 
+     - Quantity is based on how many times user clicked the accessory checkbox/button, NOT how many times they navigated to step 5
+     - When adding accessories, compares desired quantity (from selectedAccessories) vs current cart quantity
+     - Only adds the difference: `quantityToAdd = desiredQuantity - currentCartQuantity`
+     - If desired quantity <= current cart quantity, skips adding (prevents duplicates)
    - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 
