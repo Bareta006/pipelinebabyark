@@ -177,7 +177,13 @@ The template consists of two main sections:
 
 6. **Cart Operations**:
    - `addToCart(variantId, quantity, properties)`: Adds single item to cart
+   - `getCart()`: Fetches current cart state from `/cart.js`
+   - `isItemInCart(cart, variantId, properties)`: Checks if an item with matching variant ID and properties already exists in cart
    - `addAllToCart()`: Adds main product + all accessories to cart
+     - **Smart Duplicate Prevention**: Checks cart before adding items to prevent duplicates
+     - Only adds main product if it's not already in cart (matching variant ID and delivery properties)
+     - Only adds accessories if they're not already in cart (matching variant ID and delivery properties)
+     - This prevents duplicate products when navigating back from step 5 to step 4 and then forward to step 5 again
    - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 

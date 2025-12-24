@@ -2125,6 +2125,36 @@ class ProductMultiStep {
     }
   }
 
+  async getCart() {
+    try {
+      const response = await fetch("/cart.js");
+      if (response.ok) {
+        return await response.json();
+      }
+      return null;
+    } catch (error) {
+      // console.error('Error fetching cart:', error);
+      return null;
+    }
+  }
+
+  isItemInCart(cart, variantId, properties = {}) {
+    if (!cart || !cart.items) return false;
+
+    return cart.items.some((item) => {
+      // Check if variant ID matches
+      if (item.variant_id !== variantId) return false;
+
+      // Check if properties match (compare as JSON strings for simplicity)
+      const itemProperties = item.properties || {};
+      const propertiesMatch = Object.keys(properties).every((key) => {
+        return itemProperties[key] === properties[key];
+      });
+
+      return propertiesMatch;
+    });
+  }
+
   async addAllToCart() {
     try {
       if (!this.selectedVariant) {
@@ -2141,29 +2171,48 @@ class ProductMultiStep {
         return;
       }
 
+      // Fetch current cart to check what's already there
+      const cart = await this.getCart();
+
       const properties = this.getDeliveryProperties();
       // console.log('Delivery properties:', properties);
 
-      const mainAdded = await this.addToCart(
-        this.selectedVariant.id,
-        1,
-        properties
-      );
-      if (!mainAdded) {
-        alert("Failed to add main product to cart");
-        return;
+      // Only add main product if it's not already in cart
+      const mainInCart = cart
+        ? this.isItemInCart(cart, this.selectedVariant.id, properties)
+        : false;
+
+      if (!mainInCart) {
+        const mainAdded = await this.addToCart(
+          this.selectedVariant.id,
+          1,
+          properties
+        );
+        if (!mainAdded) {
+          alert("Failed to add main product to cart");
+          return;
+        }
       }
 
       // console.log('Adding accessories to cart:', this.selectedAccessories);
+      // Refresh cart before checking accessories
+      const updatedCart = await this.getCart();
       for (const accessory of this.selectedAccessories) {
         const accessoryProperties = this.getAccessoryDeliveryProperties(
           accessory.id
         );
-        await this.addToCart(
-          accessory.id,
-          accessory.quantity,
-          accessoryProperties
-        );
+        // Only add accessory if it's not already in cart
+        const accessoryInCart = updatedCart
+          ? this.isItemInCart(updatedCart, accessory.id, accessoryProperties)
+          : false;
+
+        if (!accessoryInCart) {
+          await this.addToCart(
+            accessory.id,
+            accessory.quantity,
+            accessoryProperties
+          );
+        }
       }
     } catch (error) {
       // console.error('Error adding to cart:', error);
