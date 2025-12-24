@@ -2509,14 +2509,28 @@ class ProductMultiStep {
 
       // Check if main product is in cart (by checking if any item matches current product)
       if (this.productData && this.productData.id) {
-        const mainProductItem = cart.items.find(
+        const mainProductItems = cart.items.filter(
           (item) => item.product_id === this.productData.id
         );
-        if (mainProductItem) {
-          this.cartState.mainProductAdded = true;
-          this.cartState.mainProductVariantId = mainProductItem.variant_id;
-          this.cartState.mainProductProperties =
-            mainProductItem.properties || {};
+        if (mainProductItems.length > 0) {
+          // Use the first main product item (or find matching variant if we have selectedVariant)
+          const mainProductItem = this.selectedVariant
+            ? mainProductItems.find(
+                (item) => item.variant_id === this.selectedVariant.id
+              ) || mainProductItems[0]
+            : mainProductItems[0];
+
+          if (mainProductItem) {
+            this.cartState.mainProductAdded = true;
+            this.cartState.mainProductVariantId = mainProductItem.variant_id;
+            this.cartState.mainProductProperties =
+              mainProductItem.properties || {};
+          }
+        } else {
+          // No main product in cart
+          this.cartState.mainProductAdded = false;
+          this.cartState.mainProductVariantId = null;
+          this.cartState.mainProductProperties = {};
         }
       }
 
@@ -2589,10 +2603,9 @@ class ProductMultiStep {
       }
 
       // Sync main product - calculate difference and add/remove only what's needed
-      const mainProductVariantId =
-        this.cartState.mainProductVariantId || this.selectedVariant.id;
+      // Check ALL main product items (by product_id, not just variant_id)
       const mainProductItems = cart.items.filter(
-        (item) => item.variant_id === mainProductVariantId
+        (item) => this.productData && item.product_id === this.productData.id
       );
       const currentMainQuantity = mainProductItems.reduce(
         (sum, item) => sum + item.quantity,
@@ -2608,18 +2621,38 @@ class ProductMultiStep {
           mainDifference,
           properties
         );
+        this.cartState.mainProductAdded = true;
         this.cartState.mainProductVariantId = this.selectedVariant.id;
         this.cartState.mainProductProperties = properties;
         cart = await this.getCart();
       } else if (mainDifference < 0) {
-        // Need to remove
+        // Need to remove - remove from items matching the current selected variant first
         let toRemove = Math.abs(mainDifference);
-        for (const item of mainProductItems) {
+        const selectedVariantItems = mainProductItems.filter(
+          (item) => item.variant_id === this.selectedVariant.id
+        );
+
+        // First try to remove from items matching selected variant
+        for (const item of selectedVariantItems) {
           if (toRemove <= 0) break;
           const removeFromThis = Math.min(item.quantity, toRemove);
           const newQuantity = item.quantity - removeFromThis;
           await this.updateCartItemQuantity(item.key, newQuantity);
           toRemove -= removeFromThis;
+        }
+
+        // If still need to remove, remove from other variants
+        if (toRemove > 0) {
+          const otherVariantItems = mainProductItems.filter(
+            (item) => item.variant_id !== this.selectedVariant.id
+          );
+          for (const item of otherVariantItems) {
+            if (toRemove <= 0) break;
+            const removeFromThis = Math.min(item.quantity, toRemove);
+            const newQuantity = item.quantity - removeFromThis;
+            await this.updateCartItemQuantity(item.key, newQuantity);
+            toRemove -= removeFromThis;
+          }
         }
         cart = await this.getCart();
       }
