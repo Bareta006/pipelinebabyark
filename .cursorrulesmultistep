@@ -256,19 +256,19 @@ The template consists of two main sections:
    - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
    - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
    - This ensures display matches actual cart state, not just `cartState` JSON
-   - **Variant Image Selection**:
+     - **Variant Image Selection**:
      - **CRITICAL**: Uses simple variant image map lookup from Liquid-generated JSON
      - **Variant Image Map**: Built in Liquid template (`product-multistep-form.liquid`) and loaded in JavaScript
        - **Liquid Script Tag**: `<script type="application/json" data-variant-image-map>` outputs `{ variantId: imageUrl }` for all variants
        - **Liquid Logic**: Loops through `product.variants`, uses `variant.image | img_url: 'master'` if exists, falls back to `product.featured_image | img_url: 'master'`
        - **JavaScript Loading**: Reads from `[data-variant-image-map]` script tag in `loadProductData()`
-       - **URL Normalization**: Converts protocol-relative URLs (`//domain.com/...`) to `https://domain.com/...` for proper image loading
        - Stores variant images for quick O(1) lookup
      - **Lookup Logic**: 
-       - Primary: `this.variantImageMap[variantId]` (variant-specific image from map, with normalized URL)
+       - Primary: `this.variantImageMap[variantId]` (variant-specific image from map)
+       - **URL Normalization**: Converts protocol-relative URLs (`//domain.com/...`) to `https://domain.com/...` on the spot when looking up (simple fix at point of use)
        - Fallback: `this.productData.featured_image` (main product image if variant not in map)
      - **Debug Logging**: Logs how many variants loaded from Liquid, variant ID lookup, whether found in map, and final image URL
-     - **Why Simple**: Liquid has direct access to variant images, no need to parse product JSON variants, handles fallback in Liquid, more reliable
+     - **Why Simple**: Liquid has direct access to variant images, no need to parse product JSON variants, handles fallback in Liquid, URL fix happens at point of use, more reliable
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
      - Updates `cartState.accessories[]` with new variant ID when upgrading bases

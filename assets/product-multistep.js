@@ -120,19 +120,7 @@ class ProductMultiStep {
     );
     if (variantImageMapScript) {
       try {
-        const rawMap = JSON.parse(variantImageMapScript.textContent);
-        // Normalize image URLs: convert protocol-relative (//) to https://
-        this.variantImageMap = {};
-        Object.keys(rawMap).forEach((variantId) => {
-          let imageUrl = rawMap[variantId];
-          if (imageUrl && typeof imageUrl === "string") {
-            // Fix protocol-relative URLs (//) to https://
-            if (imageUrl.startsWith("//")) {
-              imageUrl = "https:" + imageUrl;
-            }
-            this.variantImageMap[variantId] = imageUrl;
-          }
-        });
+        this.variantImageMap = JSON.parse(variantImageMapScript.textContent);
         this.addDebugLog(
           "INFO",
           `Loaded variant image map from Liquid with ${
@@ -1625,9 +1613,17 @@ class ProductMultiStep {
       );
 
       // Simple variant image lookup from map, fallback to product featured image
-      const variantImage =
+      let variantImage =
         this.variantImageMap[variantIdToFind] ||
         this.productData.featured_image;
+      // Fix protocol-relative URLs (//) to https:// on the spot
+      if (
+        variantImage &&
+        typeof variantImage === "string" &&
+        variantImage.startsWith("//")
+      ) {
+        variantImage = "https:" + variantImage;
+      }
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
       this.addDebugLog(
