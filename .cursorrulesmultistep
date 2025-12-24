@@ -190,6 +190,7 @@ The template consists of two main sections:
    - **Base Upgrade**: `upgradeBaseAccessoriesToSmart()` checks cart for base accessories and upgrades them
    - **Base Upgrade Logic**: `upgradeBaseToSmart(baseCartItem)` fetches base product data, finds smart variant, and replaces in cart
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm payment messaging with current total price
+   - **Dynamic Smart Upgrade Price**: "Add Smart Capabilities" price in summary uses `getSmartUpgradePrice()` to calculate price difference dynamically (same logic as Step 3), displays with compare_at_price strikethrough styling if applicable
 
 8. **Affirm Integration**:
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm element with current total

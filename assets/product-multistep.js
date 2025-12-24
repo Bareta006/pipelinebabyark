@@ -621,9 +621,9 @@ class ProductMultiStep {
     }
   }
 
-  updateStep3UpgradePrice() {
-    if (!this.productData || !this.productData.variants) return;
-    if (!this.selectedColor || !this.selectedShellColor) return;
+  getSmartUpgradePrice() {
+    if (!this.productData || !this.productData.variants) return null;
+    if (!this.selectedColor || !this.selectedShellColor) return null;
 
     // Find all variants matching the selected shell color and fabric color
     const matchingVariants = this.productData.variants.filter((v) => {
@@ -644,7 +644,7 @@ class ProductMultiStep {
 
     if (matchingVariants.length < 2) {
       // Need at least 2 variants (smart and classic) for the same color combo
-      return;
+      return null;
     }
 
     // Sort by price to find lowest (classic) and highest (smart)
@@ -654,10 +654,6 @@ class ProductMultiStep {
 
     // Calculate upgrade difference
     const upgradeDifference = smartVariant.price - classicVariant.price;
-
-    const priceElement = this.container.querySelector(".price-smart-multistep");
-    if (!priceElement) return;
-
     const upgradePrice = this.formatMoney(upgradeDifference);
 
     if (
@@ -667,9 +663,23 @@ class ProductMultiStep {
       const strikethroughDifference =
         smartVariant.compare_at_price - classicVariant.price;
       const strikethroughPrice = this.formatMoney(strikethroughDifference);
-      priceElement.innerHTML = `${upgradePrice} <span style="text-decoration: line-through; font-weight: 400; font-size: 0.7em;">${strikethroughPrice}</span>`;
+      return `${upgradePrice} <span style="text-decoration: line-through; font-weight: 400; font-size: 0.7em;">${strikethroughPrice}</span>`;
     } else {
-      priceElement.textContent = upgradePrice;
+      return upgradePrice;
+    }
+  }
+
+  updateStep3UpgradePrice() {
+    const priceHtml = this.getSmartUpgradePrice();
+    if (!priceHtml) return;
+
+    const priceElement = this.container.querySelector(".price-smart-multistep");
+    if (!priceElement) return;
+
+    if (typeof priceHtml === "string" && priceHtml.includes("<span")) {
+      priceElement.innerHTML = priceHtml;
+    } else {
+      priceElement.textContent = priceHtml;
     }
   }
 
@@ -1439,6 +1449,9 @@ class ProductMultiStep {
         smartOptionLower.startsWith("no ") ||
         smartOptionLower.startsWith("no-"))
     ) {
+      // Calculate dynamic upgrade price (same logic as Step 3)
+      const upgradePriceHtml = this.getSmartUpgradePrice() || "$200";
+
       html += `
         <div class="summary-upgrade">
           <div class="summary-upgrade-container">
@@ -1446,11 +1459,11 @@ class ProductMultiStep {
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M21.25 2.5H8.75C7.36929 2.5 6.25 3.61929 6.25 5V25C6.25 26.3807 7.36929 27.5 8.75 27.5H21.25C22.6307 27.5 23.75 26.3807 23.75 25V5C23.75 3.61929 22.6307 2.5 21.25 2.5Z" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M15 22.5H15.0125" stroke="black" stroke-opacity="0.89" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+            </svg>
             </div>
             <div class="summary-upgrade-content">
             <div class="summary-upgrade-title">Add Smart Capabilities</div>
-            <span>14 sensors, alerts & more $200</span>
+            <span>14 sensors, alerts & more ${upgradePriceHtml}</span>
             </div>
           </div>
           <button data-upgrade-to-smart class="btn-text-add-upgrade">
