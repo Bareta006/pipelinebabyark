@@ -228,7 +228,7 @@ class ProductMultiStep {
       }
 
       // Update cartState with current selections
-      this.updateCartStateFromAccessories();
+      await this.updateCartStateFromAccessories();
       this.addDebugLog(
         "STEP",
         `handleNextStep: After updateCartStateFromAccessories, cartState: ${JSON.stringify(
@@ -2661,15 +2661,68 @@ class ProductMultiStep {
   }
 
   // Update cartState JSON from selectedAccessories array
-  updateCartStateFromAccessories() {
-    this.cartState.accessories = this.selectedAccessories.map((acc) => ({
-      variantId: acc.id,
-      quantity: acc.quantity,
-      properties: this.getAccessoryDeliveryProperties(acc.id),
-      title: acc.title,
-      price: acc.price,
-      image: acc.image,
-    }));
+  // CRITICAL: Preserve accessories that are in cart but not in selectedAccessories (from previous sessions)
+  async updateCartStateFromAccessories() {
+    try {
+      // Get current cart to see what accessories are actually there
+      const cart = await this.getCart();
+      // Find accessories in cart that are NOT the main product
+      const cartAccessories = cart.items.filter(
+        (item) => !this.productData || item.product_id !== this.productData.id
+      );
+
+      // Start with accessories from cart (preserve existing)
+      const preservedAccessories = cartAccessories
+        .filter((cartItem) => {
+          // Only preserve if NOT in selectedAccessories (user hasn't interacted with it this session)
+          return !this.selectedAccessories.some(
+            (sel) => sel.id === cartItem.variant_id
+          );
+        })
+        .map((item) => ({
+          variantId: item.variant_id,
+          quantity: item.quantity,
+          properties: item.properties || {},
+          title: item.product_title,
+          price: item.price,
+          image: item.image,
+        }));
+
+      // Add/update accessories from selectedAccessories (user interacted with these)
+      const selectedAccessoriesState = this.selectedAccessories.map((acc) => ({
+        variantId: acc.id,
+        quantity: acc.quantity,
+        properties: this.getAccessoryDeliveryProperties(acc.id),
+        title: acc.title,
+        price: acc.price,
+        image: acc.image,
+      }));
+
+      // Merge: preserved + selected
+      this.cartState.accessories = [
+        ...preservedAccessories,
+        ...selectedAccessoriesState,
+      ];
+
+      this.addDebugLog(
+        "CART",
+        `updateCartStateFromAccessories: Preserved ${preservedAccessories.length} accessories from cart, added ${selectedAccessoriesState.length} from selectedAccessories`
+      );
+    } catch (error) {
+      // Fallback: if cart fetch fails, just use selectedAccessories
+      this.cartState.accessories = this.selectedAccessories.map((acc) => ({
+        variantId: acc.id,
+        quantity: acc.quantity,
+        properties: this.getAccessoryDeliveryProperties(acc.id),
+        title: acc.title,
+        price: acc.price,
+        image: acc.image,
+      }));
+      this.addDebugLog(
+        "CART",
+        `updateCartStateFromAccessories: Error fetching cart, using selectedAccessories only: ${error.message}`
+      );
+    }
 
     // Update debug panel
     if (this.debugEnabled) {
