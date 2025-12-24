@@ -31,6 +31,9 @@ class ProductMultiStep {
       accessories: [], // [{variantId, quantity, properties, title, price, image}]
     };
 
+    // Variant image map: { variantId: imageUrl } for quick lookup
+    this.variantImageMap = {};
+
     // Step navigation history for debugging
     this.stepHistory = [];
 
@@ -106,6 +109,24 @@ class ProductMultiStep {
     if (productJsonScript) {
       try {
         this.productData = JSON.parse(productJsonScript.textContent);
+        // Build variant image map for quick lookup: { variantId: imageUrl }
+        this.variantImageMap = {};
+        if (
+          this.productData.variants &&
+          Array.isArray(this.productData.variants)
+        ) {
+          this.productData.variants.forEach((variant) => {
+            if (variant.id && variant.featured_image?.src) {
+              this.variantImageMap[variant.id] = variant.featured_image.src;
+            }
+          });
+        }
+        this.addDebugLog(
+          "INFO",
+          `Built variant image map with ${
+            Object.keys(this.variantImageMap).length
+          } variants`
+        );
       } catch (e) {
         // console.error('Error parsing product JSON:', e);
       }
@@ -1587,50 +1608,18 @@ class ProductMultiStep {
         }`
       );
 
-      // CRITICAL: Variant image selection with priority order
-      // 1. Cart item image (most reliable - Shopify returns correct variant image)
-      // 2. Variant featured_image from product JSON
-      // 3. Product featured_image (fallback)
-      let variantImage = null;
-      let imageSource = "none";
-
-      if (mainProductCartItem?.image) {
-        variantImage = mainProductCartItem.image;
-        imageSource = "cart_item";
-        this.addDebugLog(
-          "INFO",
-          `Using cart item image: ${variantImage} (variant_id: ${mainProductCartItem.variant_id})`
-        );
-      } else if (variantForDisplay.featured_image?.src) {
-        variantImage = variantForDisplay.featured_image.src;
-        imageSource = "variant_featured_image";
-        this.addDebugLog(
-          "INFO",
-          `Using variant featured_image: ${variantImage} (variant_id: ${variantForDisplay.id})`
-        );
-      } else if (this.productData.featured_image) {
-        variantImage = this.productData.featured_image;
-        imageSource = "product_featured_image";
-        this.addDebugLog(
-          "INFO",
-          `Using product featured_image fallback: ${variantImage} (variant_id: ${variantForDisplay.id}, variant has no featured_image)`
-        );
-      }
-
-      // Debug: Log what variantForDisplay contains
-      this.addDebugLog(
-        "INFO",
-        `variantForDisplay: id=${variantForDisplay.id}, title=${
-          variantForDisplay.title
-        }, featured_image=${
-          variantForDisplay.featured_image ? "exists" : "null/undefined"
-        }`
-      );
-
+      // Simple variant image lookup from map, fallback to product featured image
+      const variantImage =
+        this.variantImageMap[variantIdToFind] ||
+        this.productData.featured_image;
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
+
       this.addDebugLog(
         "INFO",
-        `Final image URL: ${imageUrl} (source: ${imageSource})`
+        `Variant image lookup: variant_id=${variantIdToFind}, found_in_map=${!!this
+          .variantImageMap[variantIdToFind]}, using=${
+          variantImage ? "variant_image" : "product_featured_image"
+        }, url=${imageUrl}`
       );
       const mainProductQuantity = mainProductCartItem
         ? mainProductCartItem.quantity

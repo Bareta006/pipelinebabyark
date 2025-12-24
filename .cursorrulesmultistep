@@ -142,6 +142,7 @@ The template consists of two main sections:
 - `sectionsHidden`: Flag to prevent recursive section hiding
 - `sliderInitialized`: Flag to prevent multiple slider initializations
 - `sliderEventHandlers`: Object storing event handler references to prevent duplicate attachments
+- `variantImageMap`: **Variant image lookup map** - `{ variantId: imageUrl }` built from `productData.variants` for quick image lookup
 - `cartState`: **JSON state object** - Single source of truth for cart state
   - `mainProductAdded`: Boolean - whether main product was added to cart
   - `mainProductVariantId`: Number - variant ID of main product in cart
@@ -256,12 +257,15 @@ The template consists of two main sections:
    - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
    - This ensures display matches actual cart state, not just `cartState` JSON
    - **Variant Image Selection**:
-     - **CRITICAL**: Uses priority order for main product image:
-       1. `mainProductCartItem.image` (from cart API - most reliable, Shopify returns correct variant image)
-       2. `variantForDisplay.featured_image?.src` (from product JSON variant object)
-       3. `this.productData.featured_image` (fallback - static product image)
-     - **Debug Logging**: Logs which image source is used, variant ID, and image URL for troubleshooting
-     - **Why**: Even if variants have featured images in Shopify backend, product JSON might not include them, so cart item image is most reliable
+     - **CRITICAL**: Uses simple variant image map lookup
+     - **Variant Image Map**: Built once in `loadProductData()` from `productData.variants`
+       - Creates `this.variantImageMap = { variantId: imageUrl }` for all variants
+       - Stores variant featured images for quick O(1) lookup
+     - **Lookup Logic**: 
+       - Primary: `this.variantImageMap[variantId]` (variant-specific image from map)
+       - Fallback: `this.productData.featured_image` (main product image if variant not in map)
+     - **Debug Logging**: Logs variant ID, whether found in map, and final image URL
+     - **Why Simple**: Direct lookup by variant ID is faster and more reliable than multiple fallback checks
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
      - Updates `cartState.accessories[]` with new variant ID when upgrading bases
