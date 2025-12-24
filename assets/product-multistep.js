@@ -3497,238 +3497,108 @@ class ProductMultiStep {
   }
 
   attachQuantityPickerListeners() {
-    const quantityInputs = this.container.querySelectorAll(
-      "[data-quantity-input]"
+    // Remove old listeners by cloning and replacing (simpler than tracking)
+    const summaryContainer = this.container.querySelector(
+      "[data-order-summary]"
     );
-    quantityInputs.forEach((input) => {
-      // Prevent duplicate listeners
-      if (input.dataset.listenerAttached) return;
-      input.dataset.listenerAttached = "true";
+    if (!summaryContainer) return;
 
-      input.addEventListener("change", async (e) => {
-        await this.handleQuantityChange(e.target);
+    // Input change/blur
+    summaryContainer
+      .querySelectorAll("[data-quantity-input]")
+      .forEach((input) => {
+        input.addEventListener("change", () =>
+          this.handleQuantityChange(input)
+        );
+        input.addEventListener("blur", () => this.handleQuantityChange(input));
       });
 
-      input.addEventListener("blur", async (e) => {
-        await this.handleQuantityChange(e.target);
+    // +/- buttons
+    summaryContainer
+      .querySelectorAll("[data-quantity-decrease]")
+      .forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const variantId = btn.dataset.variantId;
+          const input = summaryContainer.querySelector(
+            `[data-quantity-input][data-variant-id="${variantId}"]`
+          );
+          if (input) {
+            input.value = Math.max(
+              parseInt(input.min) || 0,
+              parseInt(input.value) - 1
+            );
+            this.handleQuantityChange(input);
+          }
+        });
       });
-    });
 
-    // Attach +/- button listeners
-    const decreaseButtons = this.container.querySelectorAll(
-      "[data-quantity-decrease]"
-    );
-    this.addDebugLog(
-      "ATTACH",
-      `Found ${decreaseButtons.length} decrease buttons`
-    );
-    decreaseButtons.forEach((btn) => {
-      if (btn.dataset.listenerAttached) {
-        this.addDebugLog(
-          "SKIP",
-          `Decrease button listener already attached for variant ${btn.dataset.variantId}`
-        );
-        return;
-      }
-      btn.dataset.listenerAttached = "true";
-      const variantId = parseInt(btn.dataset.variantId);
-      this.addDebugLog(
-        "ATTACH",
-        `Attaching decrease button listener for variant ${variantId}`
-      );
-      btn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.addDebugLog(
-          "CLICK",
-          `Decrease button clicked for variant ${variantId}`
-        );
-        const input = this.container.querySelector(
-          `[data-quantity-input][data-variant-id="${variantId}"]`
-        );
-        if (input) {
-          const currentValue = parseInt(input.value) || 0;
-          const min = parseInt(input.min) || 0;
-          const newValue = Math.max(min, currentValue - 1);
-          this.addDebugLog(
-            "QTY",
-            `Decreasing quantity from ${currentValue} to ${newValue}`
+    summaryContainer
+      .querySelectorAll("[data-quantity-increase]")
+      .forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          const variantId = btn.dataset.variantId;
+          const input = summaryContainer.querySelector(
+            `[data-quantity-input][data-variant-id="${variantId}"]`
           );
-          input.value = newValue;
-          await this.handleQuantityChange(input);
-        } else {
-          this.addDebugLog(
-            "error",
-            `Could not find input for variant ${variantId}`
-          );
-        }
+          if (input) {
+            input.value = Math.min(
+              parseInt(input.max) || 99,
+              parseInt(input.value) + 1
+            );
+            this.handleQuantityChange(input);
+          }
+        });
       });
-    });
-
-    const increaseButtons = this.container.querySelectorAll(
-      "[data-quantity-increase]"
-    );
-    this.addDebugLog(
-      "ATTACH",
-      `Found ${increaseButtons.length} increase buttons`
-    );
-    increaseButtons.forEach((btn) => {
-      if (btn.dataset.listenerAttached) {
-        this.addDebugLog(
-          "SKIP",
-          `Increase button listener already attached for variant ${btn.dataset.variantId}`
-        );
-        return;
-      }
-      btn.dataset.listenerAttached = "true";
-      const variantId = parseInt(btn.dataset.variantId);
-      this.addDebugLog(
-        "ATTACH",
-        `Attaching increase button listener for variant ${variantId}`
-      );
-      btn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        this.addDebugLog(
-          "CLICK",
-          `Increase button clicked for variant ${variantId}`
-        );
-        const input = this.container.querySelector(
-          `[data-quantity-input][data-variant-id="${variantId}"]`
-        );
-        if (input) {
-          const currentValue = parseInt(input.value) || 0;
-          const max = parseInt(input.max) || 99;
-          const newValue = Math.min(max, currentValue + 1);
-          this.addDebugLog(
-            "QTY",
-            `Increasing quantity from ${currentValue} to ${newValue}`
-          );
-          input.value = newValue;
-          await this.handleQuantityChange(input);
-        } else {
-          this.addDebugLog(
-            "error",
-            `Could not find input for variant ${variantId}`
-          );
-        }
-      });
-    });
   }
 
   async handleQuantityChange(input) {
-    try {
-      const variantId = parseInt(input.dataset.variantId);
-      const isMainProduct = input.dataset.isMainProduct === "true";
-      let newQuantity = parseInt(input.value) || 0;
+    const variantId = parseInt(input.dataset.variantId);
+    const isMainProduct = input.dataset.isMainProduct === "true";
+    let newQuantity = parseInt(input.value) || 0;
 
-      // Validate min/max
-      const min = parseInt(input.min) || 0;
-      const max = parseInt(input.max) || 99;
-      newQuantity = Math.max(min, Math.min(max, newQuantity));
+    // Validate min/max
+    const min = parseInt(input.min) || 0;
+    const max = parseInt(input.max) || 99;
+    newQuantity = Math.max(min, Math.min(max, newQuantity));
+    input.value = newQuantity;
 
-      // Update input value if it was clamped
-      if (newQuantity !== parseInt(input.value)) {
-        input.value = newQuantity;
-      }
+    this.addDebugLog(
+      "QTY",
+      `Quantity: ${variantId}, main: ${isMainProduct}, qty: ${newQuantity}`
+    );
 
-      this.addDebugLog(
-        "QTY",
-        `Quantity changed: variantId ${variantId}, isMainProduct: ${isMainProduct}, newQuantity: ${newQuantity}`
-      );
-
-      if (isMainProduct) {
-        // Handle main product quantity change
-        if (newQuantity === 0) {
-          // Remove main product from cart
-          this.cartState.mainProductAdded = false;
-          this.cartState.mainProductVariantId = null;
-          this.cartState.mainProductProperties = {};
-          // Sync cart to remove main product
-          await this.syncCartToState();
-        } else {
-          // Ensure main product is in cart with quantity 1 (main product is always quantity 1)
-          if (!this.cartState.mainProductAdded) {
-            const properties = this.getDeliveryProperties();
-            this.cartState.mainProductAdded = true;
-            this.cartState.mainProductVariantId = variantId;
-            this.cartState.mainProductProperties = properties;
-          }
-          // Sync cart to ensure main product is present with quantity 1
-          await this.syncCartToState();
-        }
+    if (isMainProduct) {
+      // Main product: just update cartState
+      if (newQuantity === 0) {
+        this.cartState.mainProductAdded = false;
       } else {
-        // Handle accessory quantity change
-        if (newQuantity === 0) {
-          // Remove from cartState and selectedAccessories
-          this.cartState.accessories = this.cartState.accessories.filter(
-            (acc) => acc.variantId !== variantId
-          );
-          this.selectedAccessories = this.selectedAccessories.filter(
-            (acc) => acc.id !== variantId
-          );
-
-          // Remove from cart
-          const cart = await this.getCart();
-          if (cart && cart.items) {
-            const accessoryItems = cart.items.filter(
-              (item) => item.variant_id === variantId
-            );
-            for (const item of accessoryItems) {
-              await this.updateCartItemQuantity(item.key, 0);
-            }
-          }
-        } else {
-          // Update cartState
-          const accessoryState = this.cartState.accessories.find(
-            (acc) => acc.variantId === variantId
-          );
-          if (accessoryState) {
-            accessoryState.quantity = newQuantity;
-          } else {
-            // Add to cartState if not exists
-            const accessory = this.selectedAccessories.find(
-              (acc) => acc.id === variantId
-            );
-            if (accessory) {
-              this.cartState.accessories.push({
-                variantId: variantId,
-                quantity: newQuantity,
-                properties: this.getAccessoryDeliveryProperties(variantId),
-                title: accessory.title,
-                price: accessory.price,
-                image: accessory.image,
-              });
-            }
-          }
-
-          // Update selectedAccessories
-          const accessory = this.selectedAccessories.find(
-            (acc) => acc.id === variantId
-          );
-          if (accessory) {
-            accessory.quantity = newQuantity;
-          }
-
-          // Sync cart to match new quantity
-          await this.syncCartToState();
-        }
+        this.cartState.mainProductAdded = true;
       }
-
-      // Re-render summary with updated quantities
-      await this.renderOrderSummary();
-      this.addDebugLog(
-        "QTY",
-        "Quantity change complete and summary re-rendered"
+    } else {
+      // Accessory: update selectedAccessories (like addAccessory/removeAccessory)
+      const accessory = this.selectedAccessories.find(
+        (acc) => acc.id === variantId
       );
-    } catch (error) {
-      this.addDebugLog(
-        "error",
-        `Error in handleQuantityChange: ${error.message}`,
-        error
-      );
-      alert("There was an error updating the quantity. Please try again.");
+      if (newQuantity === 0) {
+        // Remove completely
+        this.selectedAccessories = this.selectedAccessories.filter(
+          (acc) => acc.id !== variantId
+        );
+      } else if (accessory) {
+        // Update quantity
+        accessory.quantity = newQuantity;
+      }
+      // Update cartState from selectedAccessories (like addAccessory does)
+      this.updateCartStateFromAccessories();
     }
+
+    // Sync cart (like when going to step 5)
+    await this.syncCartToState();
+
+    // Refresh summary
+    await this.renderOrderSummary();
   }
 }
 
