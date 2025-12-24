@@ -169,13 +169,24 @@ class ProductMultiStep {
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
 
+      // Store old cartState for comparison
+      const oldCartState = JSON.parse(JSON.stringify(this.cartState));
+
       // Update cartState with current selections
       this.updateCartStateFromAccessories();
 
-      // Sync cart to match cartState JSON
-      await this.syncCartToState();
+      // Only sync if cartState actually changed
+      const stateChanged = this.hasCartStateChanged(
+        oldCartState,
+        this.cartState
+      );
 
-      // After cart sync finishes, render summary
+      if (stateChanged) {
+        // Sync cart to match cartState JSON
+        await this.syncCartToState();
+      }
+
+      // After cart sync finishes (or if no sync needed), render summary
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
@@ -2379,14 +2390,27 @@ class ProductMultiStep {
 
   // Update cartState JSON from selectedAccessories array
   updateCartStateFromAccessories() {
-    this.cartState.accessories = this.selectedAccessories.map((acc) => ({
-      variantId: acc.id,
-      quantity: acc.quantity,
-      properties: this.getAccessoryDeliveryProperties(acc.id),
-      title: acc.title,
-      price: acc.price,
-      image: acc.image,
-    }));
+    this.cartState.accessories = this.selectedAccessories.map((acc) => {
+      // Try to preserve existing properties from cartState if accessory already exists
+      const existing = this.cartState.accessories.find(
+        (a) => a.variantId === acc.id
+      );
+
+      // Use existing properties if available, otherwise get from DOM
+      const properties =
+        existing && existing.properties
+          ? existing.properties
+          : this.getAccessoryDeliveryProperties(acc.id);
+
+      return {
+        variantId: acc.id,
+        quantity: acc.quantity,
+        properties: properties,
+        title: acc.title,
+        price: acc.price,
+        image: acc.image,
+      };
+    });
   }
 
   // Sync cart to match cartState JSON
@@ -2490,6 +2514,39 @@ class ProductMultiStep {
           cart = await this.getCart();
         }
       }
+
+      // After syncing, update cartState from actual cart to ensure they match exactly
+      // This ensures properties match what's actually in cart
+      cart = await this.getCart();
+      if (cart && cart.items) {
+        const cartAccessories = cart.items.filter(
+          (item) => !this.productData || item.product_id !== this.productData.id
+        );
+
+        // Update cartState.accessories with actual cart data (preserve quantities from cartState)
+        this.cartState.accessories = this.cartState.accessories.map(
+          (accState) => {
+            const cartItem = cartAccessories.find(
+              (item) =>
+                item.variant_id === accState.variantId &&
+                this.propertiesMatch(accState.properties, item.properties || {})
+            );
+
+            if (cartItem) {
+              // Use actual cart properties and quantity
+              return {
+                variantId: accState.variantId,
+                quantity: accState.quantity, // Keep desired quantity from state
+                properties: cartItem.properties || {}, // Use actual cart properties
+                title: accState.title,
+                price: accState.price,
+                image: accState.image,
+              };
+            }
+            return accState;
+          }
+        );
+      }
     } catch (error) {
       // console.error('Error syncing cart to state:', error);
       alert("There was an error updating cart. Please try again.");
@@ -2509,6 +2566,57 @@ class ProductMultiStep {
     if (keys1.length !== keys2.length) return false;
 
     return keys1.every((key) => props1[key] === props2[key]);
+  }
+
+  // Helper: Check if cartState changed
+  hasCartStateChanged(oldState, newState) {
+    // Check main product
+    if (oldState.mainProductAdded !== newState.mainProductAdded) {
+      return true;
+    }
+    if (oldState.mainProductVariantId !== newState.mainProductVariantId) {
+      return true;
+    }
+
+    // Check accessories count
+    if (oldState.accessories.length !== newState.accessories.length) {
+      return true;
+    }
+
+    // Check each accessory
+    for (const newAcc of newState.accessories) {
+      const oldAcc = oldState.accessories.find(
+        (acc) =>
+          acc.variantId === newAcc.variantId &&
+          this.propertiesMatch(acc.properties, newAcc.properties)
+      );
+
+      if (!oldAcc) {
+        // New accessory added
+        return true;
+      }
+
+      if (oldAcc.quantity !== newAcc.quantity) {
+        // Quantity changed
+        return true;
+      }
+    }
+
+    // Check if any old accessory was removed
+    for (const oldAcc of oldState.accessories) {
+      const newAcc = newState.accessories.find(
+        (acc) =>
+          acc.variantId === oldAcc.variantId &&
+          this.propertiesMatch(acc.properties, oldAcc.properties)
+      );
+
+      if (!newAcc) {
+        // Accessory removed
+        return true;
+      }
+    }
+
+    return false;
   }
 
   haveAccessoriesChanged() {
