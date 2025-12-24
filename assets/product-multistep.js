@@ -8,7 +8,6 @@ class ProductMultiStep {
     this.selectedShellColor = null;
     this.selectedSmartOption = null;
     this.selectedAccessories = [];
-    this.lastSyncedAccessories = []; // Track what was last synced to cart
     this.productData = null;
     this.accessoriesCollection = [];
     this.allSliderSlides = null;
@@ -24,13 +23,24 @@ class ProductMultiStep {
       mouseleave: null,
     };
 
+    // JSON state tracking - single source of truth
+    this.cartState = {
+      mainProductAdded: false,
+      mainProductVariantId: null,
+      mainProductProperties: {},
+      accessories: [], // [{variantId, quantity, properties, title, price, image}]
+    };
+
     this.init();
   }
 
-  init() {
+  async init() {
     this.loadProductData();
     this.attachEventListeners();
     this.attachBannerListeners();
+
+    // Initialize cartState from cart on page load
+    await this.initializeCartStateFromCart();
 
     // console.log('=== Init Method ===');
     const sliderTrack = this.container.querySelector("[data-slider-track]");
@@ -158,24 +168,14 @@ class ProductMultiStep {
 
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
-      // Check if main product is already in cart
-      const cart = await this.getCart();
-      const properties = this.getDeliveryProperties();
-      const mainInCart = cart
-        ? this.isItemInCart(cart, this.selectedVariant.id, properties)
-        : false;
 
-      // Check if accessories have changed since last sync
-      const accessoriesChanged = this.haveAccessoriesChanged();
+      // Update cartState with current selections
+      this.updateCartStateFromAccessories();
 
-      if (!mainInCart) {
-        // First time - add main product and sync accessories
-        await this.addAllToCart();
-      } else if (accessoriesChanged) {
-        // Main product already in cart, but accessories changed - sync accessories only
-        await this.syncAccessoriesToCart();
-      }
-      // If main product in cart and accessories unchanged, do nothing - just show summary
+      // Sync cart to match cartState JSON
+      await this.syncCartToState();
+
+      // After cart sync finishes, render summary
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
@@ -1002,6 +1002,9 @@ class ProductMultiStep {
       existing.quantity++;
       // console.log('Accessory quantity increased to:', existing.quantity);
     }
+
+    // Update cartState JSON
+    this.updateCartStateFromAccessories();
   }
 
   removeAccessory(variantId) {
@@ -1021,6 +1024,9 @@ class ProductMultiStep {
         // console.log('Accessory removed completely');
       }
     }
+
+    // Update cartState JSON
+    this.updateCartStateFromAccessories();
   }
 
   showStep(stepNumber) {
@@ -1386,7 +1392,7 @@ class ProductMultiStep {
     );
     if (!summaryContainer) return;
 
-    // Get actual cart to display real quantities
+    // Get actual cart AFTER sync finishes to display real quantities
     const cart = await this.getCart();
 
     let html = '<div class="order-summary">';
@@ -1425,24 +1431,21 @@ class ProductMultiStep {
       `;
     }
 
-    // Display accessories from actual cart, matching to selectedAccessories for display info
-    if (cart && cart.items && this.selectedAccessories.length > 0) {
-      for (const accessory of this.selectedAccessories) {
-        const accessoryProperties = this.getAccessoryDeliveryProperties(
-          accessory.id
-        );
-        const cartItem = this.getCartItem(
-          cart,
-          accessory.id,
-          accessoryProperties
+    // Display accessories from cartState JSON (which matches cart after sync)
+    if (this.cartState.accessories && this.cartState.accessories.length > 0) {
+      for (const accessoryState of this.cartState.accessories) {
+        if (accessoryState.quantity === 0) continue;
+
+        // Find matching accessory in selectedAccessories for display info
+        const accessory = this.selectedAccessories.find(
+          (acc) => acc.id === accessoryState.variantId
         );
 
-        // Only display if item exists in cart with quantity > 0
-        if (cartItem && cartItem.quantity > 0) {
-          const cartQuantity = cartItem.quantity;
+        if (accessory) {
+          const quantity = accessoryState.quantity;
           const discountedPrice = accessory.price * 0.8;
-          const totalDiscountedPrice = discountedPrice * cartQuantity;
-          const totalPrice = accessory.price * cartQuantity;
+          const totalDiscountedPrice = discountedPrice * quantity;
+          const totalPrice = accessory.price * quantity;
           const imageUrl = accessory.image
             ? this.getImageUrl(accessory.image, 200)
             : "";
@@ -1459,7 +1462,7 @@ class ProductMultiStep {
               </div>
               <div class="summary-product-details">
                   <h4 class="summary-product-title">${accessory.title}${
-            cartQuantity > 1 ? ` x${cartQuantity}` : ""
+            quantity > 1 ? ` x${quantity}` : ""
           }</h4>
               </div>
             </div>
@@ -1528,21 +1531,18 @@ class ProductMultiStep {
       totalDiscounted += this.selectedVariant.price;
     }
 
-    // Calculate totals from actual cart quantities, not selectedAccessories
-    if (cart && cart.items && this.selectedAccessories.length > 0) {
-      for (const accessory of this.selectedAccessories) {
-        const accessoryProperties = this.getAccessoryDeliveryProperties(
-          accessory.id
-        );
-        const cartItem = this.getCartItem(
-          cart,
-          accessory.id,
-          accessoryProperties
+    // Calculate totals from cartState JSON (which matches cart after sync)
+    if (this.cartState.accessories && this.cartState.accessories.length > 0) {
+      for (const accessoryState of this.cartState.accessories) {
+        if (accessoryState.quantity === 0) continue;
+
+        const accessory = this.selectedAccessories.find(
+          (acc) => acc.id === accessoryState.variantId
         );
 
-        if (cartItem && cartItem.quantity > 0) {
-          const cartQuantity = cartItem.quantity;
-          const accessoryTotal = accessory.price * cartQuantity;
+        if (accessory) {
+          const quantity = accessoryState.quantity;
+          const accessoryTotal = accessory.price * quantity;
           subtotal += accessoryTotal;
           totalDiscounted += accessoryTotal * 0.8;
         }
@@ -2174,9 +2174,22 @@ class ProductMultiStep {
           }
         }
 
+        // Update cartState JSON
+        const cartStateIndex = this.cartState.accessories.findIndex(
+          (acc) => acc.variantId === baseCartItem.variant_id
+        );
+        if (cartStateIndex > -1) {
+          this.cartState.accessories[cartStateIndex].variantId =
+            smartBaseVariant.id;
+          this.cartState.accessories[cartStateIndex].price =
+            smartBaseVariant.price;
+          this.cartState.accessories[cartStateIndex].title =
+            smartBaseVariant.name || smartBaseVariant.title;
+        }
+
         // Re-render order summary if we're on step 5
         if (this.currentStep === 5) {
-          this.renderOrderSummary();
+          await this.renderOrderSummary();
         }
       }
     } catch (error) {
@@ -2311,53 +2324,191 @@ class ProductMultiStep {
     }
   }
 
-  async addAllToCart() {
+  // Initialize cartState JSON from cart on page load
+  async initializeCartStateFromCart() {
     try {
-      if (!this.selectedVariant) {
-        // console.error('No variant selected');
-        alert("Please complete all steps before checkout");
+      const cart = await this.getCart();
+      if (!cart || !cart.items || cart.items.length === 0) {
+        // Cart is empty, start with fresh state
+        this.cartState = {
+          mainProductAdded: false,
+          mainProductVariantId: null,
+          mainProductProperties: {},
+          accessories: [],
+        };
         return;
       }
 
-      // console.log('Adding main product to cart:', this.selectedVariant);
-      // console.log('Variant available:', this.selectedVariant.available);
+      // Check if main product is in cart (by checking if any item matches current product)
+      if (this.productData && this.productData.id) {
+        const mainProductItem = cart.items.find(
+          (item) => item.product_id === this.productData.id
+        );
+        if (mainProductItem) {
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = mainProductItem.variant_id;
+          this.cartState.mainProductProperties =
+            mainProductItem.properties || {};
+        }
+      }
+
+      // Find accessories (items that are NOT the main product)
+      const accessoryItems = cart.items.filter(
+        (item) => !this.productData || item.product_id !== this.productData.id
+      );
+
+      this.cartState.accessories = accessoryItems.map((item) => ({
+        variantId: item.variant_id,
+        quantity: item.quantity,
+        properties: item.properties || {},
+        title: item.product_title,
+        price: item.price,
+        image: item.image,
+      }));
+    } catch (error) {
+      // console.error('Error initializing cart state:', error);
+      // Start with empty state on error
+      this.cartState = {
+        mainProductAdded: false,
+        mainProductVariantId: null,
+        mainProductProperties: {},
+        accessories: [],
+      };
+    }
+  }
+
+  // Update cartState JSON from selectedAccessories array
+  updateCartStateFromAccessories() {
+    this.cartState.accessories = this.selectedAccessories.map((acc) => ({
+      variantId: acc.id,
+      quantity: acc.quantity,
+      properties: this.getAccessoryDeliveryProperties(acc.id),
+      title: acc.title,
+      price: acc.price,
+      image: acc.image,
+    }));
+  }
+
+  // Sync cart to match cartState JSON
+  async syncCartToState() {
+    try {
+      if (!this.selectedVariant) {
+        return;
+      }
 
       if (!this.selectedVariant.available) {
         alert("Selected variant is not available for purchase");
         return;
       }
 
-      // Fetch current cart to check what's already there
+      const properties = this.getDeliveryProperties();
       let cart = await this.getCart();
 
-      const properties = this.getDeliveryProperties();
-      // console.log('Delivery properties:', properties);
-
-      // Only add main product if it's not already in cart
-      const mainInCart = cart
-        ? this.isItemInCart(cart, this.selectedVariant.id, properties)
-        : false;
-
-      if (!mainInCart) {
+      // Update main product state
+      if (!this.cartState.mainProductAdded) {
+        // Add main product
         const mainAdded = await this.addToCart(
           this.selectedVariant.id,
           1,
           properties
         );
-        if (!mainAdded) {
-          alert("Failed to add main product to cart");
-          return;
+        if (mainAdded) {
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = this.selectedVariant.id;
+          this.cartState.mainProductProperties = properties;
+          cart = await this.getCart();
         }
-        // Refresh cart after adding main product
-        cart = await this.getCart();
+      } else {
+        // Main product already added, verify it's still in cart
+        const mainInCart = cart
+          ? this.isItemInCart(
+              cart,
+              this.cartState.mainProductVariantId,
+              this.cartState.mainProductProperties
+            )
+          : false;
+        if (!mainInCart) {
+          // Main product was removed from cart, re-add it
+          const mainAdded = await this.addToCart(
+            this.selectedVariant.id,
+            1,
+            properties
+          );
+          if (mainAdded) {
+            this.cartState.mainProductVariantId = this.selectedVariant.id;
+            this.cartState.mainProductProperties = properties;
+            cart = await this.getCart();
+          }
+        }
       }
 
-      // Sync accessories to cart
-      await this.syncAccessoriesToCart();
+      // Sync accessories - match cart to cartState.accessories
+      cart = await this.getCart();
+      const cartAccessories = cart.items.filter(
+        (item) => !this.productData || item.product_id !== this.productData.id
+      );
+
+      // Remove accessories from cart that are not in cartState
+      for (const cartItem of cartAccessories) {
+        const inState = this.cartState.accessories.find(
+          (acc) =>
+            acc.variantId === cartItem.variant_id &&
+            this.propertiesMatch(acc.properties, cartItem.properties || {})
+        );
+        if (!inState || inState.quantity === 0) {
+          // Remove from cart
+          await this.updateCartItemQuantity(cartItem.key, 0);
+          cart = await this.getCart();
+        }
+      }
+
+      // Add/update accessories from cartState
+      for (const accessory of this.cartState.accessories) {
+        if (accessory.quantity === 0) continue;
+
+        cart = await this.getCart();
+        const matchingCartItem = cart.items.find(
+          (item) =>
+            item.variant_id === accessory.variantId &&
+            this.propertiesMatch(accessory.properties, item.properties || {})
+        );
+
+        if (!matchingCartItem) {
+          // Add new accessory
+          await this.addToCart(
+            accessory.variantId,
+            accessory.quantity,
+            accessory.properties
+          );
+          cart = await this.getCart();
+        } else if (matchingCartItem.quantity !== accessory.quantity) {
+          // Update quantity
+          await this.updateCartItemQuantity(
+            matchingCartItem.key,
+            accessory.quantity
+          );
+          cart = await this.getCart();
+        }
+      }
     } catch (error) {
-      // console.error('Error adding to cart:', error);
-      alert("There was an error adding items to cart. Please try again.");
+      // console.error('Error syncing cart to state:', error);
+      alert("There was an error updating cart. Please try again.");
     }
+  }
+
+  // Helper: Check if two property objects match
+  propertiesMatch(props1, props2) {
+    const keys1 = Object.keys(props1 || {}).filter(
+      (k) => props1[k] !== null && props1[k] !== ""
+    );
+    const keys2 = Object.keys(props2 || {}).filter(
+      (k) => props2[k] !== null && props2[k] !== ""
+    );
+
+    if (keys1.length === 0 && keys2.length === 0) return true;
+    if (keys1.length !== keys2.length) return false;
+
+    return keys1.every((key) => props1[key] === props2[key]);
   }
 
   haveAccessoriesChanged() {

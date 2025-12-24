@@ -122,6 +122,7 @@ The template consists of two main sections:
 - Automatically initializes on `DOMContentLoaded`
 - Finds container via `[data-multistep-container]` selector
 - Loads product JSON from `[data-product-json]` script tag
+- Calls `initializeCartStateFromCart()` to initialize JSON state from cart
 
 **Key Properties**:
 - `currentStep`: Current step number (1-5)
@@ -136,12 +137,23 @@ The template consists of two main sections:
 - `sectionsHidden`: Flag to prevent recursive section hiding
 - `sliderInitialized`: Flag to prevent multiple slider initializations
 - `sliderEventHandlers`: Object storing event handler references to prevent duplicate attachments
+- `cartState`: **JSON state object** - Single source of truth for cart state
+  - `mainProductAdded`: Boolean - whether main product was added to cart
+  - `mainProductVariantId`: Number - variant ID of main product in cart
+  - `mainProductProperties`: Object - delivery properties for main product
+  - `accessories`: Array - accessories in cart state
+    - Each item: `{variantId, quantity, properties, title, price, image}`
 
 **Core Methods**:
 
 1. **Step Navigation**:
    - `showStep(stepNumber)`: Shows/hides steps, manages fullscreen state
    - `handleNextStep(nextStep, btn)`: Validates and advances steps
+     - **CRITICAL**: When going from step 4 to step 5:
+       - Calls `updateCartStateFromAccessories()` to update JSON state
+       - Calls `syncCartToState()` to sync cart to match JSON
+       - Calls `showStep(5)` AFTER sync finishes
+       - `renderOrderSummary()` is called automatically when step 5 is shown
    - `updateProgress()`: Updates progress dots visualization
 
 2. **Variant Selection**:
@@ -176,32 +188,32 @@ The template consists of two main sections:
    - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId }`
 
 6. **Cart Operations**:
+   - **JSON State System (cartState)** - **SINGLE SOURCE OF TRUTH**:
+     - `cartState`: JSON object tracking what should be in cart
+       - `mainProductAdded`: Boolean - whether main product was added
+       - `mainProductVariantId`: Number - variant ID of main product
+       - `mainProductProperties`: Object - delivery properties for main product
+       - `accessories`: Array - `[{variantId, quantity, properties, title, price, image}]`
+     - `initializeCartStateFromCart()`: Initializes `cartState` from cart on page load
+       - Called in `init()` method
+       - If cart has items, populates `cartState` from cart
+       - If cart is empty, starts with fresh empty state
+     - `updateCartStateFromAccessories()`: Updates `cartState.accessories` from `selectedAccessories`
+       - Called when accessories are clicked (`addAccessory()` / `removeAccessory()`)
+       - Maps `selectedAccessories` to `cartState.accessories` format
+       - Includes properties from `getAccessoryDeliveryProperties()`
+     - `syncCartToState()`: Syncs cart to match `cartState` JSON
+       - **CRITICAL**: This is the ONLY method that modifies cart
+       - Called when going to step 5 (after updating `cartState`)
+       - Adds main product if `cartState.mainProductAdded === false`
+       - Syncs accessories: removes items not in `cartState`, adds/updates items from `cartState`
+       - Ensures cart matches `cartState` exactly
+     - `propertiesMatch(props1, props2)`: Helper to compare property objects
+       - Normalizes properties (removes null/empty values)
+       - Returns true if properties match or both are empty
    - `addToCart(variantId, quantity, properties)`: Adds single item to cart
    - `getCart()`: Fetches current cart state from `/cart.js`
    - `isItemInCart(cart, variantId, properties)`: Checks if an item with matching variant ID and properties already exists in cart
-   - `haveAccessoriesChanged()`: Compares `selectedAccessories` with `lastSyncedAccessories` to detect if accessories changed
-   - `addAllToCart()`: Adds main product + all accessories to cart
-     - **CRITICAL**: Only called when main product is NOT in cart (first visit to step 5)
-     - Adds main product if not in cart
-     - Calls `syncAccessoriesToCart()` to sync accessories
-     - Updates `lastSyncedAccessories` snapshot after successful sync
-   - `syncAccessoriesToCart()`: Syncs accessories to cart
-     - **CRITICAL**: Only called when accessories have changed since last sync
-     - Checks each accessory individually in cart (matching variant_id + properties)
-     - Syncs quantity to match `selectedAccessories.quantity`
-     - Updates `lastSyncedAccessories` snapshot after successful sync
-   - **Accessory Change Detection**: 
-     - Tracks `lastSyncedAccessories` (snapshot of what was last synced)
-     - Compares `selectedAccessories` to `lastSyncedAccessories` before syncing
-     - Only syncs if they differ (user clicked more/less accessories)
-     - This ensures accessories are only synced when user actually changes selections, NOT on every step 5 visit
-   - `isItemInCart(cart, variantId, properties)`: Checks if item exists in cart
-     - Matches by variant ID
-     - If properties provided, matches by variant ID + properties
-     - If no properties provided, matches by variant ID only
-   - `getCartItemQuantity(cart, variantId, properties)`: Gets current quantity of item in cart
-     - Returns 0 if item not found
-     - Matches by variant ID + properties (same logic as isItemInCart)
    - `getCartItem(cart, variantId, properties)`: Gets the full cart item object (including key, quantity, etc.)
      - Returns null if item not found
      - Matches by variant ID + properties
@@ -210,36 +222,30 @@ The template consists of two main sections:
      - Dispatches `theme:cart:change` event after update
    - **Accessory Quantity Logic**: 
      - **CRITICAL**: Quantity is based EXACTLY on how many times user clicked the accessory checkbox/button
-     - Quantity is NOT affected by how many times user navigates from step 4 to step 5
-     - When syncing accessories to cart, ensures cart quantity matches `selectedAccessories` quantity exactly
-     - **Cart Matching Strategy**: Sums ALL cart items with matching variant_id (not just first one)
-       - Uses `.filter()` to find all matching items, then sums their quantities
-       - Compares total cart quantity vs `selectedAccessories.quantity`
-     - Logic:
-       - If desired quantity = 0: Remove ALL matching items from cart
-       - If total cart quantity = 0: Add with desired quantity
-       - If total cart quantity < desired quantity: Add only the difference
-       - If total cart quantity > desired quantity: Update first item to desired quantity, remove rest
-       - If quantities match exactly: Do nothing
-     - This ensures cart always reflects the exact number of clicks, regardless of navigation or duplicate line items
+     - Quantity is stored in `cartState.accessories[].quantity`
+     - When syncing, cart is updated to match `cartState.accessories` exactly
+     - This ensures cart always reflects the exact number of clicks, NOT how many times step 5 was visited
    - **Upgrade to Smart Compatibility**:
-     - When upgrading bases to smart, properties are preserved from cart item to ensure matching works correctly
-     - When syncing accessories after upgrade, first finds cart item by variant ID (handles upgraded items where properties might differ)
-     - Uses cart item's properties for matching if available, otherwise gets from DOM
-     - This ensures upgraded accessories (classic → smart) are correctly matched and synced
+     - When upgrading bases to smart, updates `cartState.accessories[]` with new variant ID
+     - Then calls `syncCartToState()` to sync cart
+     - Properties are preserved from cart item
    - `getDeliveryProperties()`: Extracts delivery date/time from inputs or metafields
    - `getAccessoryDeliveryProperties(variantId)`: Gets delivery info for accessories
 
 7. **Order Summary**:
-   - `renderOrderSummary()`: Generates HTML for Step 5 summary (now async)
-   - **CRITICAL**: Reads from actual cart, not `selectedAccessories`
-   - Fetches cart using `getCart()`
-   - For each accessory in `selectedAccessories`, finds matching cart item by variant_id + properties
-   - Displays actual cart quantities, not `selectedAccessories.quantity`
-   - Calculates totals from actual cart quantities
-   - This ensures display matches what's actually in cart
+   - `renderOrderSummary()`: Generates HTML for Step 5 summary (async)
+   - **CRITICAL**: Reads from `cartState` JSON (which matches cart after sync)
+   - Called AFTER `syncCartToState()` finishes (in `handleNextStep()`)
+   - Fetches cart to verify sync completed, but displays from `cartState`
+   - For each accessory in `cartState.accessories`, finds matching accessory in `selectedAccessories` for display info
+   - Displays quantities from `cartState.accessories[].quantity`
+   - Calculates totals from `cartState.accessories[]` quantities
+   - This ensures display matches `cartState` JSON (which matches cart after sync)
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
+     - Updates `cartState.accessories[]` with new variant ID when upgrading bases
+     - Then calls `syncCartToState()` to sync cart
+     - Then calls `renderOrderSummary()` to update display
    - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
    - **Cart Update**: When upgrading to smart, removes non-smart variant and adds smart variant with same delivery properties
    - **Base Upgrade**: `upgradeBaseAccessoriesToSmart()` checks cart for base accessories and upgrades them
