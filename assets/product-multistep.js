@@ -157,7 +157,21 @@ class ProductMultiStep {
 
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
-      await this.addAllToCart();
+      // Check if main product is already in cart - if so, we've already added items
+      const cart = await this.getCart();
+      const properties = this.getDeliveryProperties();
+      const mainInCart = cart
+        ? this.isItemInCart(cart, this.selectedVariant.id, properties)
+        : false;
+
+      // Only call addAllToCart if main product isn't in cart yet
+      // If it's already in cart, just sync accessories (they're handled in addAllToCart)
+      if (!mainInCart) {
+        await this.addAllToCart();
+      } else {
+        // Main product already in cart, just sync accessories
+        await this.syncAccessoriesToCart();
+      }
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
@@ -2178,22 +2192,51 @@ class ProductMultiStep {
   getCartItem(cart, variantId, properties = {}) {
     if (!cart || !cart.items) return null;
 
+    // Normalize properties - remove null/empty values for comparison
+    const searchProperties = {};
+    if (properties) {
+      Object.keys(properties).forEach((key) => {
+        if (properties[key] !== null && properties[key] !== "") {
+          searchProperties[key] = properties[key];
+        }
+      });
+    }
+    const searchKeys = Object.keys(searchProperties);
+
     return cart.items.find((item) => {
       // Check if variant ID matches
       if (item.variant_id !== variantId) return false;
 
-      // If no properties provided, just match by variant ID
-      if (!properties || Object.keys(properties).length === 0) {
+      const itemProperties = item.properties || {};
+      const itemKeys = Object.keys(itemProperties).filter(
+        (key) => itemProperties[key] !== null && itemProperties[key] !== ""
+      );
+
+      // If both have no properties, match by variant ID only
+      if (searchKeys.length === 0 && itemKeys.length === 0) {
         return true;
       }
 
-      // Check if properties match
-      const itemProperties = item.properties || {};
-      const propertiesMatch = Object.keys(properties).every((key) => {
-        return itemProperties[key] === properties[key];
-      });
+      // If search has no properties but item has properties, don't match
+      // (we want exact match when properties are involved)
+      if (searchKeys.length === 0 && itemKeys.length > 0) {
+        return false;
+      }
 
-      return propertiesMatch;
+      // If search has properties but item has none, don't match
+      if (searchKeys.length > 0 && itemKeys.length === 0) {
+        return false;
+      }
+
+      // Both have properties - check exact match
+      if (searchKeys.length !== itemKeys.length) {
+        return false;
+      }
+
+      // Check all properties match
+      return searchKeys.every((key) => {
+        return itemProperties[key] === searchProperties[key];
+      });
     });
   }
 
@@ -2271,9 +2314,19 @@ class ProductMultiStep {
         cart = await this.getCart();
       }
 
+      // Sync accessories to cart
+      await this.syncAccessoriesToCart();
+    } catch (error) {
+      // console.error('Error adding to cart:', error);
+      alert("There was an error adding items to cart. Please try again.");
+    }
+  }
+
+  async syncAccessoriesToCart() {
+    try {
       // console.log('Adding accessories to cart:', this.selectedAccessories);
       // Process accessories one by one, syncing cart quantity with selectedAccessories
-      let currentCart = cart;
+      let currentCart = await this.getCart();
       for (const accessory of this.selectedAccessories) {
         // Refresh cart before checking each accessory to get latest state
         currentCart = await this.getCart();
@@ -2283,66 +2336,41 @@ class ProductMultiStep {
           accessory.id
         );
 
-        // Find ALL cart items with matching variant_id (sum all quantities)
-        let matchingCartItems = [];
-        if (currentCart && currentCart.items) {
-          matchingCartItems = currentCart.items.filter(
-            (item) => item.variant_id === accessory.id
-          );
-        }
+        // Find cart item with matching variant_id AND properties
+        // Shopify creates separate line items if properties differ, so we must match both
+        const matchingCartItem = this.getCartItem(
+          currentCart,
+          accessory.id,
+          accessoryProperties
+        );
 
-        // Calculate total quantity in cart for this variant
-        let totalCartQuantity = 0;
-        let firstMatchingItem = null;
-        if (matchingCartItems.length > 0) {
-          totalCartQuantity = matchingCartItems.reduce(
-            (sum, item) => sum + item.quantity,
-            0
-          );
-          firstMatchingItem = matchingCartItems[0];
-        }
-
+        const currentQuantity = matchingCartItem
+          ? matchingCartItem.quantity
+          : 0;
         const desiredQuantity = accessory.quantity;
 
         // Sync cart quantity to match exactly what user selected
         if (desiredQuantity === 0) {
-          // If desired quantity is 0, remove all matching items from cart
-          for (const cartItem of matchingCartItems) {
-            await this.updateCartItemQuantity(cartItem.key, 0);
+          // If desired quantity is 0, remove from cart
+          if (matchingCartItem) {
+            await this.updateCartItemQuantity(matchingCartItem.key, 0);
+            currentCart = await this.getCart();
           }
-          currentCart = await this.getCart();
-        } else if (totalCartQuantity === 0) {
-          // Item not in cart, add it with desired quantity
+        } else if (currentQuantity === 0) {
+          // Item not in cart with these properties, add it with desired quantity
           await this.addToCart(
             accessory.id,
             desiredQuantity,
             accessoryProperties
           );
           currentCart = await this.getCart();
-        } else if (totalCartQuantity < desiredQuantity) {
-          // Cart has less than desired, add the difference
-          const quantityToAdd = desiredQuantity - totalCartQuantity;
-          await this.addToCart(
-            accessory.id,
-            quantityToAdd,
-            accessoryProperties
+        } else if (currentQuantity !== desiredQuantity) {
+          // Item exists but quantity doesn't match, update it to desired quantity
+          await this.updateCartItemQuantity(
+            matchingCartItem.key,
+            desiredQuantity
           );
           currentCart = await this.getCart();
-        } else if (totalCartQuantity > desiredQuantity) {
-          // Cart has more than desired, update first item to desired quantity
-          // and remove the rest
-          if (firstMatchingItem) {
-            // Update first item to desired quantity
-            await this.updateCartItemQuantity(
-              firstMatchingItem.key,
-              desiredQuantity
-            );
-            // Remove all other matching items
-            for (let i = 1; i < matchingCartItems.length; i++) {
-              await this.updateCartItemQuantity(matchingCartItems[i].key, 0);
-            }
-            currentCart = await this.getCart();
-          }
         }
         // If quantities match exactly, do nothing
       }
