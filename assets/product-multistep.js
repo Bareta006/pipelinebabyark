@@ -31,6 +31,9 @@ class ProductMultiStep {
       accessories: [], // [{variantId, quantity, properties, title, price, image}]
     };
 
+    // Step navigation history for debugging
+    this.stepHistory = [];
+
     this.init();
   }
 
@@ -183,6 +186,11 @@ class ProductMultiStep {
       this.showStep(nextStep);
     } else {
       this.showStep(nextStep);
+    }
+
+    // Update debug panel after navigation
+    if (this.debugEnabled) {
+      await this.updateDebugPanel();
     }
   }
 
@@ -1034,7 +1042,21 @@ class ProductMultiStep {
 
   showStep(stepNumber) {
     // console.log('=== Show Step Called ===', stepNumber);
+    const previousStep = this.currentStep;
     this.currentStep = stepNumber;
+
+    // Track step navigation history
+    this.stepHistory.push({
+      timestamp: new Date().toISOString(),
+      from: previousStep,
+      to: stepNumber,
+      action: previousStep < stepNumber ? "NEXT" : "BACK",
+    });
+
+    // Keep only last 50 steps
+    if (this.stepHistory.length > 50) {
+      this.stepHistory.shift();
+    }
 
     // Update debug panel
     if (this.debugEnabled) {
@@ -2999,6 +3021,7 @@ class ProductMultiStep {
     debugPanel.innerHTML = `
       <div class="debug-panel-header">
         <h3>Multistep Debug Panel</h3>
+        <button class="debug-copy" data-debug-copy title="Copy all debug data">Copy</button>
         <button class="debug-toggle" data-debug-toggle>Collapse</button>
         <button class="debug-close" data-debug-close>×</button>
       </div>
@@ -3006,6 +3029,10 @@ class ProductMultiStep {
         <div class="debug-section">
           <h4>Current Step</h4>
           <div data-debug-step>1</div>
+        </div>
+        <div class="debug-section">
+          <h4>Step Navigation History</h4>
+          <pre data-debug-stephistory></pre>
         </div>
         <div class="debug-section">
           <h4>cartState JSON</h4>
@@ -3063,7 +3090,7 @@ class ProductMultiStep {
           font-size: 14px;
           font-weight: bold;
         }
-        .debug-toggle, .debug-close {
+        .debug-toggle, .debug-close, .debug-copy {
           background: #444;
           color: #fff;
           border: none;
@@ -3071,9 +3098,16 @@ class ProductMultiStep {
           border-radius: 4px;
           cursor: pointer;
           font-size: 12px;
+          margin-left: 5px;
         }
-        .debug-toggle:hover, .debug-close:hover {
+        .debug-toggle:hover, .debug-close:hover, .debug-copy:hover {
           background: #555;
+        }
+        .debug-copy {
+          background: #4a9eff;
+        }
+        .debug-copy:hover {
+          background: #3a8eef;
         }
         .debug-panel-content {
           padding: 15px;
@@ -3140,6 +3174,12 @@ class ProductMultiStep {
         this.debugEnabled = false;
       });
 
+    debugPanel
+      .querySelector("[data-debug-copy]")
+      .addEventListener("click", async () => {
+        await this.copyDebugData();
+      });
+
     // Initial update
     this.updateDebugPanel();
 
@@ -3161,6 +3201,21 @@ class ProductMultiStep {
     const stepEl = panel.querySelector("[data-debug-step]");
     if (stepEl) {
       stepEl.textContent = this.currentStep;
+    }
+
+    // Update step history
+    const stepHistoryEl = panel.querySelector("[data-debug-stephistory]");
+    if (stepHistoryEl) {
+      const historyText = this.stepHistory
+        .slice(-20) // Show last 20 steps
+        .map((h, idx) => {
+          const stepNum = this.stepHistory.length - 20 + idx + 1;
+          return `${stepNum}. ${h.timestamp.split("T")[1].split(".")[0]} | ${
+            h.action
+          } | Step ${h.from} → Step ${h.to}`;
+        })
+        .join("\n");
+      stepHistoryEl.textContent = stepHistoryText || "No navigation yet";
     }
 
     // Update cartState
@@ -3221,6 +3276,58 @@ class ProductMultiStep {
       } else {
         variantEl.textContent = "No variant selected";
       }
+    }
+  }
+
+  async copyDebugData() {
+    const cart = await this.getCart();
+    const debugData = {
+      timestamp: new Date().toISOString(),
+      currentStep: this.currentStep,
+      stepHistory: this.stepHistory,
+      cartState: this.cartState,
+      selectedAccessories: this.selectedAccessories,
+      selectedVariant: this.selectedVariant
+        ? {
+            id: this.selectedVariant.id,
+            title: this.selectedVariant.title,
+            price: this.selectedVariant.price,
+            available: this.selectedVariant.available,
+          }
+        : null,
+      currentCart: cart
+        ? {
+            item_count: cart.item_count,
+            items: cart.items.map((item) => ({
+              variant_id: item.variant_id,
+              quantity: item.quantity,
+              properties: item.properties,
+              title: item.product_title,
+            })),
+          }
+        : null,
+    };
+
+    const jsonString = JSON.stringify(debugData, null, 2);
+
+    try {
+      await navigator.clipboard.writeText(jsonString);
+      const copyBtn = document.querySelector("[data-debug-copy]");
+      if (copyBtn) {
+        const originalText = copyBtn.textContent;
+        copyBtn.textContent = "Copied!";
+        copyBtn.style.background = "#4caf50";
+        setTimeout(() => {
+          copyBtn.textContent = originalText;
+          copyBtn.style.background = "#4a9eff";
+        }, 2000);
+      }
+      console.log("Debug data copied to clipboard");
+    } catch (err) {
+      console.error("Failed to copy:", err);
+      // Fallback: show in alert
+      alert("Copy failed. Check console for data.");
+      console.log("Debug Data:", jsonString);
     }
   }
 }
