@@ -1523,6 +1523,17 @@ class ProductMultiStep {
       const mainProductQuantity = mainProductCartItem
         ? mainProductCartItem.quantity
         : 0;
+      // Get line item key - Shopify cart.js uses 'key' property
+      const mainProductLineItemKey =
+        mainProductCartItem?.key || mainProductCartItem?.id || "";
+      if (mainProductCartItem && !mainProductLineItemKey) {
+        this.addDebugLog(
+          "error",
+          `Main product cart item found but no key/id: ${JSON.stringify(
+            mainProductCartItem
+          )}`
+        );
+      }
       html += `
         <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
           this.selectedVariant.id
@@ -1546,24 +1557,18 @@ class ProductMultiStep {
           </div>
           <div class="summary-product-pricing">
             <div class="quantity__wrapper" data-quantity-selector>
-              <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${
-                mainProductCartItem ? mainProductCartItem.key : ""
-              }" aria-label="Decrease quantity">&minus;</button>
+              <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${mainProductLineItemKey}" aria-label="Decrease quantity">&minus;</button>
               <input type="number" 
                      class="quantity__input" 
                      data-quantity-input 
-                     data-update-cart="${
-                       mainProductCartItem ? mainProductCartItem.key : ""
-                     }"
+                     data-update-cart="${mainProductLineItemKey}"
                      data-variant-id="${this.selectedVariant.id}"
                      data-is-main-product="true"
                      min="0" 
                      max="1" 
                      value="${mainProductQuantity}" 
                      aria-label="Quantity">
-              <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${
-                mainProductCartItem ? mainProductCartItem.key : ""
-              }" aria-label="Increase quantity">+</button>
+              <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${mainProductLineItemKey}" aria-label="Increase quantity">+</button>
             </div>
             <p class="summary-price-discounted">${this.formatMoney(
               this.selectedVariant.price
@@ -1591,6 +1596,17 @@ class ProductMultiStep {
           const quantity = accessoryCartItem
             ? accessoryCartItem.quantity
             : accessoryState.quantity;
+          // Get line item key - Shopify cart.js uses 'key' property
+          const accessoryLineItemKey =
+            accessoryCartItem?.key || accessoryCartItem?.id || "";
+          if (accessoryCartItem && !accessoryLineItemKey) {
+            this.addDebugLog(
+              "error",
+              `Accessory cart item found but no key/id: ${JSON.stringify(
+                accessoryCartItem
+              )}`
+            );
+          }
           const discountedPrice = accessory.price * 0.8;
           const totalDiscountedPrice = discountedPrice * quantity;
           const totalPrice = accessory.price * quantity;
@@ -1616,22 +1632,16 @@ class ProductMultiStep {
             </div>
               <div class="summary-product-pricing">
               <div class="quantity__wrapper" data-quantity-selector>
-                <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${
-                  accessoryCartItem ? accessoryCartItem.key : ""
-                }" aria-label="Decrease quantity">&minus;</button>
+                <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${accessoryLineItemKey}" aria-label="Decrease quantity">&minus;</button>
                 <input type="number" 
                        class="quantity__input" 
-                       data-update-cart="${
-                         accessoryCartItem ? accessoryCartItem.key : ""
-                       }"
+                       data-update-cart="${accessoryLineItemKey}"
                        data-variant-id="${accessoryState.variantId}"
                        min="0" 
                        max="99"
                        value="${quantity}" 
                        aria-label="Quantity">
-                <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${
-                  accessoryCartItem ? accessoryCartItem.key : ""
-                }" aria-label="Increase quantity">+</button>
+                <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${accessoryLineItemKey}" aria-label="Increase quantity">+</button>
               </div>
               <div class="summary-price-container">
                 <p class="summary-price-discounted">${this.formatMoney(
