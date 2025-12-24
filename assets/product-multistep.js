@@ -110,14 +110,22 @@ class ProductMultiStep {
       try {
         this.productData = JSON.parse(productJsonScript.textContent);
         // Build variant image map for quick lookup: { variantId: imageUrl }
+        // Shopify uses variant.image (not variant.featured_image)
         this.variantImageMap = {};
         if (
           this.productData.variants &&
           Array.isArray(this.productData.variants)
         ) {
           this.productData.variants.forEach((variant) => {
-            if (variant.id && variant.featured_image?.src) {
-              this.variantImageMap[variant.id] = variant.featured_image.src;
+            if (variant.id && variant.image) {
+              // variant.image can be a URL string or object with src property
+              const imageUrl =
+                typeof variant.image === "string"
+                  ? variant.image
+                  : variant.image.src || variant.image.url;
+              if (imageUrl) {
+                this.variantImageMap[variant.id] = imageUrl;
+              }
             }
           });
         }

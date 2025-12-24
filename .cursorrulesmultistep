@@ -260,7 +260,9 @@ The template consists of two main sections:
      - **CRITICAL**: Uses simple variant image map lookup
      - **Variant Image Map**: Built once in `loadProductData()` from `productData.variants`
        - Creates `this.variantImageMap = { variantId: imageUrl }` for all variants
-       - Stores variant featured images for quick O(1) lookup
+       - **Shopify Structure**: Uses `variant.image` (not `variant.featured_image`)
+       - Handles both string URLs and image objects (checks `variant.image.src` or `variant.image.url` if object)
+       - Stores variant images for quick O(1) lookup
      - **Lookup Logic**: 
        - Primary: `this.variantImageMap[variantId]` (variant-specific image from map)
        - Fallback: `this.productData.featured_image` (main product image if variant not in map)
