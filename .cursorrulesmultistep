@@ -760,6 +760,35 @@ The template includes complete product JSON with:
 - Price must be > 0 for Affirm to display
 - **Note**: The "Check your purchasing power" link was removed as it's not needed
 
+## Debug Panel System
+
+### Debug Panel Features
+- **Location**: Floating panel in top-left corner (when enabled)
+- **Enable**: Add `?debug=true` to URL or set `localStorage.setItem("multistep_debug", "true")`
+- **Sections**:
+  - Current Step: Current step number
+  - Step Navigation History: Last 20 step transitions with timestamps
+  - cartState JSON: Complete cart state object
+  - selectedAccessories: Array of selected accessories with quantities
+  - Current Cart: Actual cart items from Shopify
+  - Selected Variant: Currently selected variant info
+  - Event Log: Real-time log of important events (listener attachments, addAccessory calls, etc.)
+
+### Debug Event Log
+- **Purpose**: Track all important events for debugging (NOT console.log)
+- **Method**: `addDebugLog(type, message)` - adds entry to debug panel
+- **Types**: ATTACH, SKIP, EVENT, CALL, ADD, INCR, etc.
+- **CRITICAL RULE**: NEVER use `console.log()` for debugging - ALWAYS use `addDebugLog()` to add to debug panel
+- **Auto-updates**: Debug panel updates every 500ms automatically
+- **Copy Button**: Copies all debug data as JSON for analysis
+
+### Debug Panel Rules
+- **NEVER use console.log()** - Always use `this.addDebugLog(type, message)` instead
+- Debug panel shows all important data: cartState, selectedAccessories, current cart, step history, event log
+- Event log tracks: listener attachments, checkbox events, addAccessory calls, quantity changes
+- Debug panel updates automatically on step changes, accessory clicks, cart syncs
+- Use debug panel to diagnose issues, not console.log
+
 ## Future Enhancements
 
 Potential improvements:

@@ -34,6 +34,10 @@ class ProductMultiStep {
     // Step navigation history for debugging
     this.stepHistory = [];
 
+    // Debug event log
+    this.debugEventLog = [];
+    this.maxDebugLogEntries = 50;
+
     this.init();
   }
 
@@ -828,6 +832,10 @@ class ProductMultiStep {
       const checkbox = item.querySelector("[data-accessory-checkbox]");
 
       variantOptions.forEach((option) => {
+        // Prevent duplicate listeners
+        if (option.dataset.listenerAttached) return;
+        option.dataset.listenerAttached = "true";
+
         option.addEventListener("change", (e) => {
           this.updateAccessoryVariant(item);
           this.updateAccessoryImage(item, e.target);
@@ -835,7 +843,25 @@ class ProductMultiStep {
       });
 
       if (checkbox) {
+        // Prevent duplicate listeners
+        if (checkbox.dataset.listenerAttached) {
+          this.addDebugLog(
+            "SKIP",
+            `Duplicate listener attachment for checkbox: ${checkbox.dataset.accessoryId}`
+          );
+          return;
+        }
+        checkbox.dataset.listenerAttached = "true";
+        this.addDebugLog(
+          "ATTACH",
+          `Listener attached to checkbox: ${checkbox.dataset.accessoryId}`
+        );
+
         checkbox.addEventListener("change", (e) => {
+          this.addDebugLog(
+            "EVENT",
+            `Checkbox change: ${e.target.dataset.accessoryId}, checked: ${e.target.checked}`
+          );
           const variantId = parseInt(e.target.dataset.accessoryId);
           const accessoryTitle = e.target.dataset.accessoryTitle;
           const accessoryPrice = parseInt(e.target.dataset.accessoryPrice);
@@ -997,12 +1023,15 @@ class ProductMultiStep {
     productId = null,
     productHandle = null
   ) {
-    // console.log('Adding accessory:', variantId, title);
-    // console.log('Current accessories:', this.selectedAccessories);
+    this.addDebugLog(
+      "CALL",
+      `addAccessory() called for variantId: ${variantId}`
+    );
     const existing = this.selectedAccessories.find(
       (acc) => acc.id === variantId
     );
     if (!existing) {
+      this.addDebugLog("ADD", `Adding new accessory, quantity: 1`);
       this.selectedAccessories.push({
         id: variantId,
         title: title,
@@ -1012,10 +1041,14 @@ class ProductMultiStep {
         productId: productId,
         productHandle: productHandle,
       });
-      // console.log('Accessory added. Total accessories:', this.selectedAccessories.length);
     } else {
+      this.addDebugLog(
+        "INCR",
+        `Accessory exists, incrementing quantity from ${existing.quantity} to ${
+          existing.quantity + 1
+        }`
+      );
       existing.quantity++;
-      // console.log('Accessory quantity increased to:', existing.quantity);
     }
 
     // Update cartState JSON
@@ -3003,28 +3036,15 @@ class ProductMultiStep {
 
     this.debugEnabled = debugParam === "true" || debugStorage === "true";
 
-    console.log(
-      "Debug enabled?",
-      this.debugEnabled,
-      "debugParam:",
-      debugParam,
-      "debugStorage:",
-      debugStorage
-    );
-
     if (!this.debugEnabled) {
-      console.log("Debug panel not enabled");
       return;
     }
 
     // Wait for body to be ready
     if (!document.body) {
-      console.log("Body not ready, retrying...");
       setTimeout(() => this.initDebugPanel(), 100);
       return;
     }
-
-    console.log("Creating debug panel...");
 
     // Create debug panel HTML
     const debugPanel = document.createElement("div");
@@ -3061,10 +3081,13 @@ class ProductMultiStep {
           <h4>Selected Variant</h4>
           <pre data-debug-variant></pre>
         </div>
+        <div class="debug-section">
+          <h4>Event Log</h4>
+          <pre data-debug-events style="max-height: 150px;"></pre>
+        </div>
       </div>
     `;
     document.body.appendChild(debugPanel);
-    console.log("Debug panel created and appended to body");
 
     // Add debug panel CSS
     if (!document.getElementById("multistep-debug-styles")) {
@@ -3209,21 +3232,13 @@ class ProductMultiStep {
   async updateDebugPanel() {
     try {
       if (!this.debugEnabled) {
-        console.log("Debug panel disabled");
         return;
       }
 
       const panel = document.getElementById("multistep-debug-panel");
       if (!panel) {
-        console.warn("Debug panel not found in DOM");
         return;
       }
-
-      console.log("Updating debug panel...", {
-        currentStep: this.currentStep,
-        stepHistoryLength: this.stepHistory.length,
-        cartStateAccessories: this.cartState.accessories.length,
-      });
 
       // Update step
       const stepEl = panel.querySelector("[data-debug-step]");
@@ -3313,8 +3328,36 @@ class ProductMultiStep {
           variantEl.textContent = "No variant selected";
         }
       }
+
+      // Update event log
+      const eventsEl = panel.querySelector("[data-debug-events]");
+      if (eventsEl) {
+        const logText = this.debugEventLog
+          .slice(-30) // Show last 30 events
+          .map((entry) => {
+            const time = entry.timestamp.split("T")[1].split(".")[0];
+            return `[${time}] ${entry.type}: ${entry.message}`;
+          })
+          .join("\n");
+        eventsEl.textContent = logText || "No events yet";
+      }
     } catch (error) {
       console.error("Error updating debug panel:", error);
+    }
+  }
+
+  addDebugLog(type, message) {
+    if (!this.debugEnabled) return;
+
+    this.debugEventLog.push({
+      timestamp: new Date().toISOString(),
+      type: type,
+      message: message,
+    });
+
+    // Keep only last N entries
+    if (this.debugEventLog.length > this.maxDebugLogEntries) {
+      this.debugEventLog.shift();
     }
   }
 
