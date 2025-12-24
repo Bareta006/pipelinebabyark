@@ -1651,38 +1651,45 @@ class ProductMultiStep {
       for (const accessoryState of this.cartState.accessories) {
         if (accessoryState.quantity === 0) continue;
 
-        // Find matching accessory in selectedAccessories for display info
-        const accessory = this.selectedAccessories.find(
+        // Get actual quantity from cart (not just cartState)
+        const accessoryCartItem = cart.items.find(
+          (item) => item.variant_id === accessoryState.variantId
+        );
+        const quantity = accessoryCartItem
+          ? accessoryCartItem.quantity
+          : accessoryState.quantity;
+        // Get line item key - Shopify cart.js uses 'key' property
+        const accessoryLineItemKey =
+          accessoryCartItem?.key || accessoryCartItem?.id || "";
+        if (accessoryCartItem && !accessoryLineItemKey) {
+          this.addDebugLog(
+            "error",
+            `Accessory cart item found but no key/id: ${JSON.stringify(
+              accessoryCartItem
+            )}`
+          );
+        }
+
+        // Use accessoryState data (from cartState) for display - has title, price, image
+        // Fallback to selectedAccessories if available (for better image quality)
+        const accessoryFromSelected = this.selectedAccessories.find(
           (acc) => acc.id === accessoryState.variantId
         );
+        const displayTitle =
+          accessoryState.title || accessoryFromSelected?.title || "Accessory";
+        const displayPrice =
+          accessoryState.price || accessoryFromSelected?.price || 0;
+        const displayImage =
+          accessoryState.image || accessoryFromSelected?.image || "";
 
-        if (accessory) {
-          // Get actual quantity from cart (not just cartState)
-          const accessoryCartItem = cart.items.find(
-            (item) => item.variant_id === accessoryState.variantId
-          );
-          const quantity = accessoryCartItem
-            ? accessoryCartItem.quantity
-            : accessoryState.quantity;
-          // Get line item key - Shopify cart.js uses 'key' property
-          const accessoryLineItemKey =
-            accessoryCartItem?.key || accessoryCartItem?.id || "";
-          if (accessoryCartItem && !accessoryLineItemKey) {
-            this.addDebugLog(
-              "error",
-              `Accessory cart item found but no key/id: ${JSON.stringify(
-                accessoryCartItem
-              )}`
-            );
-          }
-          const discountedPrice = accessory.price * 0.8;
-          const totalDiscountedPrice = discountedPrice * quantity;
-          const totalPrice = accessory.price * quantity;
-          const imageUrl = accessory.image
-            ? this.getImageUrl(accessory.image, 200)
-            : "";
+        const discountedPrice = displayPrice * 0.8;
+        const totalDiscountedPrice = discountedPrice * quantity;
+        const totalPrice = displayPrice * quantity;
+        const imageUrl = displayImage
+          ? this.getImageUrl(displayImage, 200)
+          : "";
 
-          html += `
+        html += `
           <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
             accessoryState.variantId
           }" data-is-main-product="false">
@@ -1690,12 +1697,12 @@ class ProductMultiStep {
               <div class="summary-product-image">
                   ${
                     imageUrl
-                      ? `<img src="${imageUrl}" alt="${accessory.title}">`
+                      ? `<img src="${imageUrl}" alt="${displayTitle}">`
                       : ""
                   }
               </div>
               <div class="summary-product-details">
-                  <h4 class="summary-product-title">${accessory.title}</h4>
+                  <h4 class="summary-product-title">${displayTitle}</h4>
               </div>
             </div>
               <div class="summary-product-pricing">
@@ -1722,7 +1729,6 @@ class ProductMultiStep {
             </div>
           </div>
         `;
-        }
       }
     }
 
@@ -3910,7 +3916,18 @@ class ProductMultiStep {
           }
 
           const currentQty = parseInt(input.value, 10) || 0;
-          const newQty = Math.min(parseInt(input.max) || 99, currentQty + 1);
+          const maxQty = parseInt(input.max) || 99;
+          const newQty = Math.min(maxQty, currentQty + 1);
+
+          // If already at max quantity, don't update (prevents unnecessary API calls)
+          if (currentQty >= maxQty) {
+            this.addDebugLog(
+              "QTY",
+              `Increase blocked: Already at max quantity ${maxQty} for lineItemKey ${lineItemKey}`
+            );
+            return;
+          }
+
           // Set flag to prevent input change event from firing
           input.dataset.programmaticUpdate = "true";
           input.value = newQty;
