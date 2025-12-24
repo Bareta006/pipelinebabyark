@@ -2568,47 +2568,25 @@ class ProductMultiStep {
       const properties = this.getDeliveryProperties();
       let cart = await this.getCart();
 
-      // Update main product state
-      if (!this.cartState.mainProductAdded) {
-        // Add main product
-        const mainAdded = await this.addToCart(
-          this.selectedVariant.id,
-          1,
-          properties
-        );
-        if (mainAdded) {
-          this.cartState.mainProductAdded = true;
-          this.cartState.mainProductVariantId = this.selectedVariant.id;
-          this.cartState.mainProductProperties = properties;
-          cart = await this.getCart();
+      // Sync main product - ALWAYS remove all existing items first, then add exact quantity
+      const mainProductVariantId =
+        this.cartState.mainProductVariantId || this.selectedVariant.id;
+      const mainProductItems = cart.items.filter(
+        (item) => item.variant_id === mainProductVariantId
+      );
 
-          // Update debug panel
-          if (this.debugEnabled) {
-            this.updateDebugPanel();
-          }
-        }
-      } else {
-        // Main product already added, verify it's still in cart
-        const mainInCart = cart
-          ? this.isItemInCart(
-              cart,
-              this.cartState.mainProductVariantId,
-              this.cartState.mainProductProperties
-            )
-          : false;
-        if (!mainInCart) {
-          // Main product was removed from cart, re-add it
-          const mainAdded = await this.addToCart(
-            this.selectedVariant.id,
-            1,
-            properties
-          );
-          if (mainAdded) {
-            this.cartState.mainProductVariantId = this.selectedVariant.id;
-            this.cartState.mainProductProperties = properties;
-            cart = await this.getCart();
-          }
-        }
+      // ALWAYS remove all existing main product items first
+      for (const item of mainProductItems) {
+        await this.updateCartItemQuantity(item.key, 0);
+      }
+      cart = await this.getCart(); // Refresh cart after removals
+
+      // Then add main product if it should be added
+      if (this.cartState.mainProductAdded) {
+        await this.addToCart(this.selectedVariant.id, 1, properties);
+        this.cartState.mainProductVariantId = this.selectedVariant.id;
+        this.cartState.mainProductProperties = properties;
+        cart = await this.getCart(); // Refresh cart after adding
       }
 
       // Sync accessories - match cart to cartState.accessories
@@ -2617,57 +2595,28 @@ class ProductMultiStep {
         (item) => !this.productData || item.product_id !== this.productData.id
       );
 
-      // For each accessory in cartState, find ALL cart items with matching variant_id (ignore properties for existence check)
+      // For each accessory in cartState, ALWAYS remove all existing items with this variant_id, then add exact quantity
       for (const accessory of this.cartState.accessories) {
-        if (accessory.quantity === 0) {
-          // Remove all items with this variant_id from cart
-          const itemsToRemove = cartAccessories.filter(
-            (item) => item.variant_id === accessory.variantId
-          );
-          for (const item of itemsToRemove) {
-            await this.updateCartItemQuantity(item.key, 0);
-            cart = await this.getCart();
-          }
-          continue;
-        }
-
-        // Find ALL cart items with matching variant_id (ignore properties for existence check)
+        // Find ALL cart items with matching variant_id
         const matchingCartItems = cart.items.filter(
           (item) => item.variant_id === accessory.variantId
         );
 
-        // Calculate total quantity in cart for this variant
-        const totalCartQuantity = matchingCartItems.reduce(
-          (sum, item) => sum + item.quantity,
-          0
-        );
-
-        // Compare with desired quantity from cartState
-        if (totalCartQuantity === 0) {
-          // Not in cart at all - add it
-          await this.addToCart(
-            accessory.variantId,
-            accessory.quantity,
-            accessory.properties
-          );
-          cart = await this.getCart();
-        } else if (totalCartQuantity !== accessory.quantity) {
-          // Quantity doesn't match - set exact quantity
-          // First, remove ALL items with this variant_id
-          for (const item of matchingCartItems) {
-            await this.updateCartItemQuantity(item.key, 0);
-            cart = await this.getCart();
-          }
-
-          // Then add it with exact quantity
-          await this.addToCart(
-            accessory.variantId,
-            accessory.quantity,
-            accessory.properties
-          );
-          cart = await this.getCart();
+        // ALWAYS remove all existing items first (to prevent duplicates)
+        for (const item of matchingCartItems) {
+          await this.updateCartItemQuantity(item.key, 0);
         }
-        // If quantities match exactly, do nothing
+        cart = await this.getCart(); // Refresh cart after removals
+
+        // Then add exact quantity (if quantity > 0)
+        if (accessory.quantity > 0) {
+          await this.addToCart(
+            accessory.variantId,
+            accessory.quantity,
+            accessory.properties
+          );
+          cart = await this.getCart(); // Refresh cart after adding
+        }
       }
 
       // Remove accessories from cart that are NOT in cartState at all
