@@ -1613,8 +1613,9 @@ class ProductMultiStep {
       );
 
       // Simple variant image lookup from map, fallback to product featured image
+      // Convert variant ID to string because map keys are strings from Liquid JSON
       let variantImage =
-        this.variantImageMap[variantIdToFind] ||
+        this.variantImageMap[String(variantIdToFind)] ||
         this.productData.featured_image;
       // Fix protocol-relative URLs (//) to https:// on the spot
       if (
@@ -1629,7 +1630,7 @@ class ProductMultiStep {
       this.addDebugLog(
         "INFO",
         `Variant image lookup: variant_id=${variantIdToFind}, found_in_map=${!!this
-          .variantImageMap[variantIdToFind]}, using=${
+          .variantImageMap[String(variantIdToFind)]}, using=${
           variantImage ? "variant_image" : "product_featured_image"
         }, url=${imageUrl}`
       );
@@ -3867,7 +3868,7 @@ class ProductMultiStep {
         const variantIdToLookup =
           this.cartState.mainProductVariantId || this.selectedVariant?.id;
         const imageFromMap = variantIdToLookup
-          ? this.variantImageMap[variantIdToLookup]
+          ? this.variantImageMap[String(variantIdToLookup)]
           : null;
         let normalizedImage = imageFromMap;
         if (
