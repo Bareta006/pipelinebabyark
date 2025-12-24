@@ -2177,7 +2177,7 @@ class ProductMultiStep {
       }
 
       // Fetch current cart to check what's already there
-      const cart = await this.getCart();
+      let cart = await this.getCart();
 
       const properties = this.getDeliveryProperties();
       // console.log('Delivery properties:', properties);
