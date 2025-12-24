@@ -205,6 +205,16 @@ The template consists of two main sections:
      - `syncCartToState()`: Syncs cart to match `cartState` JSON
        - **CRITICAL**: This is the ONLY method that modifies cart
        - Called when going to step 5 (after updating `cartState`)
+       - **Main Product Quantity Preservation**: 
+         - **CRITICAL**: Preserves actual cart quantity if main product is already added, don't assume 1
+         - If `cartState.mainProductAdded === true` and cart has main product, preserves existing quantity (e.g., if cart has 2, keeps 2)
+         - Only sets to 1 if cart is empty (first time adding)
+         - Logic: `desiredMainQuantity = currentMainQuantity > 0 ? currentMainQuantity : 1`
+       - **Cart Match Check**: 
+         - Checks if cart already matches `cartState` before syncing
+         - Main product match: Checks for any quantity > 0 (not just 1), variant ID must match
+         - Accessories match: Checks exact quantities for each accessory variant
+         - If cart matches, skips entire sync (prevents unnecessary cart operations)
        - Adds main product if `cartState.mainProductAdded === false`
        - Syncs accessories: removes items not in `cartState`, adds/updates items from `cartState`
        - Ensures cart matches `cartState` exactly
@@ -246,7 +256,10 @@ The template consists of two main sections:
      - Then calls `syncCartToState()` to sync cart
      - Then calls `renderOrderSummary()` to update display
    - **Totals Calculation**: 
-     - **Main Product**: Uses `variantForDisplay.price` (from cart) multiplied by actual quantity from cart (`mainProductCartItem.quantity`)
+     - **CRITICAL**: `variantIdToFind` is defined OUTSIDE the `if (variantForDisplay)` block so it's accessible in totals calculation
+     - **Main Product**: Uses `variantForDisplay.price` (from cart) multiplied by actual quantity from cart
+       - Re-finds `mainProductCartItem` in totals section using `variantIdToFind` (defined earlier)
+       - Uses `cart.items.find()` by `variant_id` to get actual quantity
      - **Accessories**: Uses `accessoryState.price` (from cartState) multiplied by actual quantity from cart (`accessoryCartItem.quantity`)
      - Both read actual quantities from cart (not just cartState) to ensure totals match cart after quantity changes
      - Accessories get 20% discount (multiplied by 0.8)

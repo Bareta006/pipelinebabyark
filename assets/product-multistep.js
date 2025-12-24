@@ -1560,6 +1560,9 @@ class ProductMultiStep {
     // Use cartState.mainProductVariantId to find variant (matches cart), fallback to selectedVariant
     const variantIdForDisplay =
       this.cartState.mainProductVariantId || this.selectedVariant?.id;
+    // CRITICAL: Define variantIdToFind OUTSIDE if block so it's accessible in totals calculation
+    const variantIdToFind =
+      this.cartState.mainProductVariantId || this.selectedVariant?.id;
     const variantForDisplay = variantIdForDisplay
       ? this.productData.variants.find((v) => v.id === variantIdForDisplay) ||
         this.selectedVariant
@@ -1572,10 +1575,7 @@ class ProductMultiStep {
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
       // Get actual quantity from cart (not just cartState boolean)
-      // CRITICAL: Use cartState.mainProductVariantId instead of selectedVariant.id
-      // because cart might have different variant than currently selected
-      const variantIdToFind =
-        this.cartState.mainProductVariantId || this.selectedVariant?.id;
+      // variantIdToFind is now defined above, outside this block
       this.addDebugLog(
         "INFO",
         `Looking for main product: variant_id ${variantIdToFind} (cartState: ${this.cartState.mainProductVariantId}, selected: ${this.selectedVariant?.id}), cart has ${cart.items.length} items`
@@ -1821,15 +1821,21 @@ class ProductMultiStep {
     let totalDiscounted = 0;
 
     // Calculate main product total using variantForDisplay (from cart) and actual quantity from cart
-    if (variantForDisplay && mainProductCartItem) {
-      const mainProductQuantity = mainProductCartItem.quantity;
-      const mainProductTotal = variantForDisplay.price * mainProductQuantity;
-      subtotal += mainProductTotal;
-      totalDiscounted += mainProductTotal;
-      this.addDebugLog(
-        "INFO",
-        `Totals: Main product quantity ${mainProductQuantity}, price ${variantForDisplay.price}, total ${mainProductTotal}`
+    // Re-find mainProductCartItem for totals calculation (it was defined earlier but may be out of scope)
+    if (variantForDisplay && variantIdToFind) {
+      const mainProductCartItemForTotals = cart.items.find(
+        (item) => item.variant_id === variantIdToFind
       );
+      if (mainProductCartItemForTotals) {
+        const mainProductQuantity = mainProductCartItemForTotals.quantity;
+        const mainProductTotal = variantForDisplay.price * mainProductQuantity;
+        subtotal += mainProductTotal;
+        totalDiscounted += mainProductTotal;
+        this.addDebugLog(
+          "INFO",
+          `Totals: Main product quantity ${mainProductQuantity}, price ${variantForDisplay.price}, total ${mainProductTotal}`
+        );
+      }
     }
 
     // Calculate totals from cartState JSON (which matches cart after sync)
@@ -2862,13 +2868,18 @@ class ProductMultiStep {
         (item) => !this.productData || item.product_id !== this.productData.id
       );
 
-      // Check main product match
+      // Check main product match - preserve actual quantity, don't assume 1
+      const currentMainQuantityCheck = mainProductItemsCheck.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
       const mainProductMatches =
         (this.cartState.mainProductAdded &&
-          mainProductItemsCheck.length === 1 &&
-          mainProductItemsCheck[0].variant_id ===
-            this.cartState.mainProductVariantId &&
-          mainProductItemsCheck[0].quantity === 1) ||
+          mainProductItemsCheck.length > 0 &&
+          mainProductItemsCheck.some(
+            (item) => item.variant_id === this.cartState.mainProductVariantId
+          ) &&
+          currentMainQuantityCheck > 0) || // Any quantity > 0 matches, not just 1
         (!this.cartState.mainProductAdded &&
           mainProductItemsCheck.length === 0);
 
@@ -2911,7 +2922,14 @@ class ProductMultiStep {
         (sum, item) => sum + item.quantity,
         0
       );
-      const desiredMainQuantity = this.cartState.mainProductAdded ? 1 : 0;
+      // CRITICAL: Preserve actual cart quantity if main product is added, don't assume 1
+      // If cartState says main product is added but doesn't specify quantity, preserve current cart quantity
+      // Only set to 1 if cart is empty (first time adding)
+      const desiredMainQuantity = this.cartState.mainProductAdded
+        ? currentMainQuantity > 0
+          ? currentMainQuantity
+          : 1 // Preserve existing quantity, or 1 if not in cart
+        : 0;
       const mainDifference = desiredMainQuantity - currentMainQuantity;
 
       // CRITICAL: If cart already has main product with correct variant and quantity, skip syncing main product
