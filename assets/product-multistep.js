@@ -2580,64 +2580,82 @@ class ProductMultiStep {
       let cart = await this.getCart();
 
       // Only sync if cartState has been initialized (don't delete existing cart on page load)
-      // Check if cartState was initialized by checking if it has the expected structure
       if (
         !this.cartState ||
         (!this.cartState.hasOwnProperty("mainProductAdded") &&
           cart.items.length > 0)
       ) {
-        // CartState not initialized yet, don't sync (will be initialized from cart)
         return;
       }
 
-      // Sync main product - ALWAYS remove all existing items first, then add exact quantity
+      // Sync main product - calculate difference and add/remove only what's needed
       const mainProductVariantId =
         this.cartState.mainProductVariantId || this.selectedVariant.id;
       const mainProductItems = cart.items.filter(
         (item) => item.variant_id === mainProductVariantId
       );
+      const currentMainQuantity = mainProductItems.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+      );
+      const desiredMainQuantity = this.cartState.mainProductAdded ? 1 : 0;
+      const mainDifference = desiredMainQuantity - currentMainQuantity;
 
-      // ALWAYS remove all existing main product items first
-      for (const item of mainProductItems) {
-        await this.updateCartItemQuantity(item.key, 0);
-      }
-      cart = await this.getCart(); // Refresh cart after removals
-
-      // Then add main product if it should be added
-      if (this.cartState.mainProductAdded) {
-        await this.addToCart(this.selectedVariant.id, 1, properties);
+      if (mainDifference > 0) {
+        // Need to add
+        await this.addToCart(
+          this.selectedVariant.id,
+          mainDifference,
+          properties
+        );
         this.cartState.mainProductVariantId = this.selectedVariant.id;
         this.cartState.mainProductProperties = properties;
-        cart = await this.getCart(); // Refresh cart after adding
+        cart = await this.getCart();
+      } else if (mainDifference < 0) {
+        // Need to remove
+        let toRemove = Math.abs(mainDifference);
+        for (const item of mainProductItems) {
+          if (toRemove <= 0) break;
+          const removeFromThis = Math.min(item.quantity, toRemove);
+          const newQuantity = item.quantity - removeFromThis;
+          await this.updateCartItemQuantity(item.key, newQuantity);
+          toRemove -= removeFromThis;
+        }
+        cart = await this.getCart();
       }
 
-      // Sync accessories - match cart to cartState.accessories
+      // Sync accessories - calculate difference and add/remove only what's needed
       cart = await this.getCart();
-      const cartAccessories = cart.items.filter(
-        (item) => !this.productData || item.product_id !== this.productData.id
-      );
-
-      // For each accessory in cartState, ALWAYS remove all existing items with this variant_id, then add exact quantity
       for (const accessory of this.cartState.accessories) {
-        // Find ALL cart items with matching variant_id
         const matchingCartItems = cart.items.filter(
           (item) => item.variant_id === accessory.variantId
         );
+        const currentQuantity = matchingCartItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        const desiredQuantity = accessory.quantity;
+        const difference = desiredQuantity - currentQuantity;
 
-        // ALWAYS remove all existing items first (to prevent duplicates)
-        for (const item of matchingCartItems) {
-          await this.updateCartItemQuantity(item.key, 0);
-        }
-        cart = await this.getCart(); // Refresh cart after removals
-
-        // Then add exact quantity (if quantity > 0)
-        if (accessory.quantity > 0) {
+        if (difference > 0) {
+          // Need to add
           await this.addToCart(
             accessory.variantId,
-            accessory.quantity,
+            difference,
             accessory.properties
           );
-          cart = await this.getCart(); // Refresh cart after adding
+          cart = await this.getCart();
+        } else if (difference < 0) {
+          // Need to remove
+          let toRemove = Math.abs(difference);
+          for (const item of matchingCartItems) {
+            if (toRemove <= 0) break;
+            const removeFromThis = Math.min(item.quantity, toRemove);
+            const newQuantity = item.quantity - removeFromThis;
+            await this.updateCartItemQuantity(item.key, newQuantity);
+            toRemove -= removeFromThis;
+          }
+          cart = await this.getCart();
         }
       }
 
