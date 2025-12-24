@@ -157,10 +157,12 @@ class ProductMultiStep {
       );
     }
 
-    const checkoutBtn = this.container.querySelector("[data-checkout-btn]");
-    if (checkoutBtn) {
-      checkoutBtn.addEventListener("click", () => this.goToCheckout());
-    }
+    // CRITICAL: Use querySelectorAll to attach listeners to BOTH desktop and mobile checkout buttons
+    // Desktop button has "desktop--only" class, mobile button has "mobile--only" class
+    const checkoutBtns = this.container.querySelectorAll("[data-checkout-btn]");
+    checkoutBtns.forEach((btn) => {
+      btn.addEventListener("click", () => this.goToCheckout());
+    });
 
     const swatchRadios = this.container.querySelectorAll("[data-swatch-radio]");
     swatchRadios.forEach((radio) => {
@@ -2072,6 +2074,11 @@ class ProductMultiStep {
         );
 
         if (nonSmartLineItem) {
+          // CRITICAL: Preserve quantity when upgrading (don't hardcode to 1)
+          const quantityToPreserve = nonSmartLineItem.quantity;
+          const propertiesToPreserve =
+            nonSmartLineItem.properties || this.getDeliveryProperties();
+
           // Remove the non-smart variant
           await fetch("/cart/change.js", {
             method: "POST",
@@ -2084,9 +2091,12 @@ class ProductMultiStep {
             }),
           });
 
-          // Add the smart variant with same properties
-          const properties = this.getDeliveryProperties();
-          await this.addToCart(smartVariant.id, 1, properties);
+          // Add the smart variant with PRESERVED quantity and properties
+          await this.addToCart(
+            smartVariant.id,
+            quantityToPreserve,
+            propertiesToPreserve
+          );
 
           // Dispatch cart change event
           const updatedCart = await fetch("/cart.js").then((r) => r.json());
@@ -2095,6 +2105,19 @@ class ProductMultiStep {
               detail: { cart: updatedCart },
               bubbles: true,
             })
+          );
+
+          // CRITICAL: Update cartState with new smart variant ID and preserved quantity
+          this.cartState.mainProductVariantId = smartVariant.id;
+          this.cartState.mainProductProperties = propertiesToPreserve;
+          this.cartState.mainProductAdded = true;
+          this.addDebugLog(
+            "CART",
+            `Upgraded to smart: variant ${
+              smartVariant.id
+            }, quantity ${quantityToPreserve}, properties ${JSON.stringify(
+              propertiesToPreserve
+            )}`
           );
         }
 

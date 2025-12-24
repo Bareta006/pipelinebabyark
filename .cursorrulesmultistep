@@ -107,7 +107,12 @@ The template consists of two main sections:
   - Subtotal, savings, and total calculations
   - Delivery date/time display
   - "Upgrade to Smart" option (if non-smart selected)
-  - "Go to Checkout" button
+  - "Go to Checkout" button (desktop and mobile versions)
+  - **Checkout Button Implementation**:
+    - **CRITICAL**: Two buttons exist - one with `desktop--only` class (line 15) and one with `mobile--only` class (line 52)
+    - Both have `data-checkout-btn` attribute
+    - Event listener uses `querySelectorAll()` to attach to BOTH buttons (not just first one)
+    - This ensures mobile button works (desktop button is hidden on mobile, mobile button is hidden on desktop)
   - **Affirm Payment Messaging**: Dynamic price display based on final total (product + discounted accessories)
 - **Cart Addition**: All items added to cart before showing summary
 - **Fullscreen**: Active
@@ -436,7 +441,12 @@ Priority order:
   - After 2 seconds: Reverts to "ADD" state (but stays on Step 5, doesn't navigate)
   - Updates `selectedSmartOption` to smart value
   - Finds matching smart variant
-  - Removes non-smart variant from cart and adds smart variant
+  - **CRITICAL**: Preserves quantity when upgrading (uses `nonSmartLineItem.quantity`, not hardcoded 1)
+  - **CRITICAL**: Preserves properties from cart item (delivery date/time)
+  - Removes non-smart variant from cart and adds smart variant with preserved quantity and properties
+  - **CRITICAL**: Updates `cartState.mainProductVariantId` to new smart variant ID
+  - **CRITICAL**: Updates `cartState.mainProductProperties` with preserved properties
+  - **CRITICAL**: Calls `initializeCartStateFromCart()` after upgrade to fully sync cartState from cart
   - **Base Accessory Upgrade**: Automatically checks `selectedAccessories` and cart for base accessories
   - **Logic**: 
     - Checks if base title contains "classic"
