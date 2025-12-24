@@ -190,7 +190,11 @@ class ProductMultiStep {
 
     // Update debug panel after navigation
     if (this.debugEnabled) {
-      await this.updateDebugPanel();
+      try {
+        await this.updateDebugPanel();
+      } catch (err) {
+        console.error("Debug panel update error:", err);
+      }
     }
   }
 
@@ -1038,6 +1042,13 @@ class ProductMultiStep {
 
     // Update cartState JSON
     this.updateCartStateFromAccessories();
+
+    // Update debug panel
+    if (this.debugEnabled) {
+      this.updateDebugPanel().catch((err) =>
+        console.error("Debug panel update error:", err)
+      );
+    }
   }
 
   showStep(stepNumber) {
@@ -2420,7 +2431,9 @@ class ProductMultiStep {
 
     // Update debug panel
     if (this.debugEnabled) {
-      this.updateDebugPanel();
+      this.updateDebugPanel().catch((err) =>
+        console.error("Debug panel update error:", err)
+      );
     }
   }
 
@@ -3181,101 +3194,129 @@ class ProductMultiStep {
       });
 
     // Initial update
-    this.updateDebugPanel();
+    this.updateDebugPanel().catch((err) =>
+      console.error("Debug panel update error:", err)
+    );
 
     // Update every 500ms
     this.debugInterval = setInterval(() => {
       if (this.debugEnabled) {
-        this.updateDebugPanel();
+        this.updateDebugPanel().catch((err) =>
+          console.error("Debug panel update error:", err)
+        );
       }
     }, 500);
   }
 
   async updateDebugPanel() {
-    if (!this.debugEnabled) return;
+    try {
+      if (!this.debugEnabled) {
+        console.log("Debug panel disabled");
+        return;
+      }
 
-    const panel = document.getElementById("multistep-debug-panel");
-    if (!panel) return;
+      const panel = document.getElementById("multistep-debug-panel");
+      if (!panel) {
+        console.warn("Debug panel not found in DOM");
+        return;
+      }
 
-    // Update step
-    const stepEl = panel.querySelector("[data-debug-step]");
-    if (stepEl) {
-      stepEl.textContent = this.currentStep;
-    }
+      console.log("Updating debug panel...", {
+        currentStep: this.currentStep,
+        stepHistoryLength: this.stepHistory.length,
+        cartStateAccessories: this.cartState.accessories.length,
+      });
 
-    // Update step history
-    const stepHistoryEl = panel.querySelector("[data-debug-stephistory]");
-    if (stepHistoryEl) {
-      const historyText = this.stepHistory
-        .slice(-20) // Show last 20 steps
-        .map((h, idx) => {
-          const stepNum = this.stepHistory.length - 20 + idx + 1;
-          return `${stepNum}. ${h.timestamp.split("T")[1].split(".")[0]} | ${
-            h.action
-          } | Step ${h.from} → Step ${h.to}`;
-        })
-        .join("\n");
-      stepHistoryEl.textContent = stepHistoryText || "No navigation yet";
-    }
+      // Update step
+      const stepEl = panel.querySelector("[data-debug-step]");
+      if (stepEl) {
+        stepEl.textContent = this.currentStep;
+      }
 
-    // Update cartState
-    const cartStateEl = panel.querySelector("[data-debug-cartstate]");
-    if (cartStateEl) {
-      cartStateEl.textContent = JSON.stringify(this.cartState, null, 2);
-    }
+      // Update step history
+      const stepHistoryEl = panel.querySelector("[data-debug-stephistory]");
+      if (stepHistoryEl) {
+        try {
+          const historySlice = this.stepHistory.slice(-20); // Show last 20 steps
+          const historyText = historySlice
+            .map((h, idx) => {
+              const stepNum = Math.max(
+                1,
+                this.stepHistory.length - 20 + idx + 1
+              );
+              return `${stepNum}. ${
+                h.timestamp.split("T")[1].split(".")[0]
+              } | ${h.action} | Step ${h.from} → Step ${h.to}`;
+            })
+            .join("\n");
+          stepHistoryEl.textContent = historyText || "No navigation yet";
+        } catch (err) {
+          console.error("Error updating step history:", err);
+          stepHistoryEl.textContent = "Error displaying history";
+        }
+      }
 
-    // Update selectedAccessories
-    const selectedAccessoriesEl = panel.querySelector(
-      "[data-debug-selectedaccessories]"
-    );
-    if (selectedAccessoriesEl) {
-      selectedAccessoriesEl.textContent = JSON.stringify(
-        this.selectedAccessories,
-        null,
-        2
+      // Update cartState
+      const cartStateEl = panel.querySelector("[data-debug-cartstate]");
+      if (cartStateEl) {
+        cartStateEl.textContent = JSON.stringify(this.cartState, null, 2);
+      }
+
+      // Update selectedAccessories
+      const selectedAccessoriesEl = panel.querySelector(
+        "[data-debug-selectedaccessories]"
       );
-    }
-
-    // Update current cart
-    const cartEl = panel.querySelector("[data-debug-cart]");
-    if (cartEl) {
-      const cart = await this.getCart();
-      if (cart) {
-        cartEl.textContent = JSON.stringify(
-          {
-            item_count: cart.item_count,
-            items: cart.items.map((item) => ({
-              variant_id: item.variant_id,
-              quantity: item.quantity,
-              properties: item.properties,
-              title: item.product_title,
-            })),
-          },
+      if (selectedAccessoriesEl) {
+        selectedAccessoriesEl.textContent = JSON.stringify(
+          this.selectedAccessories,
           null,
           2
         );
-      } else {
-        cartEl.textContent = "Cart is empty or error fetching";
       }
-    }
 
-    // Update selected variant
-    const variantEl = panel.querySelector("[data-debug-variant]");
-    if (variantEl) {
-      if (this.selectedVariant) {
-        variantEl.textContent = JSON.stringify(
-          {
-            id: this.selectedVariant.id,
-            title: this.selectedVariant.title,
-            price: this.selectedVariant.price,
-            available: this.selectedVariant.available,
-          },
-          null,
-          2
-        );
-      } else {
-        variantEl.textContent = "No variant selected";
+      // Update current cart
+      const cartEl = panel.querySelector("[data-debug-cart]");
+      if (cartEl) {
+        const cart = await this.getCart();
+        if (cart) {
+          cartEl.textContent = JSON.stringify(
+            {
+              item_count: cart.item_count,
+              items: cart.items.map((item) => ({
+                variant_id: item.variant_id,
+                quantity: item.quantity,
+                properties: item.properties,
+                title: item.product_title,
+              })),
+            },
+            null,
+            2
+          );
+        } else {
+          cartEl.textContent = "Cart is empty or error fetching";
+        }
       }
+
+      // Update selected variant
+      const variantEl = panel.querySelector("[data-debug-variant]");
+      if (variantEl) {
+        if (this.selectedVariant) {
+          variantEl.textContent = JSON.stringify(
+            {
+              id: this.selectedVariant.id,
+              title: this.selectedVariant.title,
+              price: this.selectedVariant.price,
+              available: this.selectedVariant.available,
+            },
+            null,
+            2
+          );
+        } else {
+          variantEl.textContent = "No variant selected";
+        }
+      }
+    } catch (error) {
+      console.error("Error updating debug panel:", error);
     }
   }
 
