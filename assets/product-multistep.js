@@ -1477,8 +1477,12 @@ class ProductMultiStep {
         this.productData.featured_image;
       const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
+      // Main product quantity is always 1 if added, 0 if not
+      const mainProductQuantity = this.cartState.mainProductAdded ? 1 : 0;
       html += `
-        <div class="summary-item summary-item--product">
+        <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
+          this.selectedVariant.id
+        }" data-is-main-product="true">
         <div class="summary-product-details-container">
           <div class="summary-product-image">
             ${
@@ -1497,6 +1501,17 @@ class ProductMultiStep {
           </div>
           </div>
           <div class="summary-product-pricing">
+            <div class="summary-quantity-picker">
+              <input type="number" 
+                     class="summary-quantity-input" 
+                     data-quantity-input 
+                     data-variant-id="${this.selectedVariant.id}"
+                     data-is-main-product="true"
+                     min="0" 
+                     max="1" 
+                     value="${mainProductQuantity}" 
+                     aria-label="Quantity">
+            </div>
             <p class="summary-price-discounted">${this.formatMoney(
               this.selectedVariant.price
             )}</p>
@@ -1525,7 +1540,9 @@ class ProductMultiStep {
             : "";
 
           html += `
-          <div class="summary-item summary-item--product">
+          <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
+            accessoryState.variantId
+          }" data-is-main-product="false">
             <div class="summary-product-details-container">
               <div class="summary-product-image">
                   ${
@@ -1535,16 +1552,29 @@ class ProductMultiStep {
                   }
               </div>
               <div class="summary-product-details">
-                  <h4 class="summary-product-title">${accessory.title}${
-            quantity > 1 ? ` x${quantity}` : ""
-          }</h4>
+                  <h4 class="summary-product-title">${accessory.title}</h4>
               </div>
             </div>
             <div class="summary-product-pricing">
+              <div class="summary-quantity-picker">
+                <input type="number" 
+                       class="summary-quantity-input" 
+                       data-quantity-input 
+                       data-variant-id="${accessoryState.variantId}"
+                       data-is-main-product="false"
+                     min="0" 
+                     max="1"
+                       value="${quantity}" 
+                       aria-label="Quantity">
+              </div>
+              <div class="summary-price-container">
                 <p class="summary-price-discounted">${this.formatMoney(
                   totalDiscountedPrice
                 )}</p>
-              <p class="summary-price-full">${this.formatMoney(totalPrice)}</p>
+                <p class="summary-price-full">${this.formatMoney(
+                  totalPrice
+                )}</p>
+              </div>
             </div>
           </div>
         `;
@@ -1596,6 +1626,9 @@ class ProductMultiStep {
     html += "</div>";
 
     summaryContainer.innerHTML = html;
+
+    // Attach quantity picker event listeners
+    this.attachQuantityPickerListeners();
 
     let subtotal = 0;
     let totalDiscounted = 0;
@@ -1686,6 +1719,9 @@ class ProductMultiStep {
         `;
       }
     }
+
+    // Attach quantity picker event listeners
+    this.attachQuantityPickerListeners();
 
     // Attach click handler to Affirm purchasing power link
     const affirmLink = this.container.querySelector(
@@ -3411,6 +3447,143 @@ class ProductMultiStep {
       alert("Copy failed. Check console for data.");
       console.log("Debug Data:", jsonString);
     }
+  }
+
+  attachQuantityPickerListeners() {
+    const quantityInputs = this.container.querySelectorAll(
+      "[data-quantity-input]"
+    );
+    quantityInputs.forEach((input) => {
+      // Prevent duplicate listeners
+      if (input.dataset.listenerAttached) return;
+      input.dataset.listenerAttached = "true";
+
+      input.addEventListener("change", async (e) => {
+        await this.handleQuantityChange(e.target);
+      });
+
+      input.addEventListener("blur", async (e) => {
+        await this.handleQuantityChange(e.target);
+      });
+    });
+  }
+
+  async handleQuantityChange(input) {
+    const variantId = parseInt(input.dataset.variantId);
+    const isMainProduct = input.dataset.isMainProduct === "true";
+    let newQuantity = parseInt(input.value) || 0;
+
+    // Validate min/max
+    const min = parseInt(input.min) || 0;
+    const max = parseInt(input.max) || 99;
+    newQuantity = Math.max(min, Math.min(max, newQuantity));
+
+    // Update input value if it was clamped
+    if (newQuantity !== parseInt(input.value)) {
+      input.value = newQuantity;
+    }
+
+    this.addDebugLog(
+      "QTY",
+      `Quantity changed: variantId ${variantId}, isMainProduct: ${isMainProduct}, newQuantity: ${newQuantity}`
+    );
+
+    if (isMainProduct) {
+      // Handle main product quantity change
+      if (newQuantity === 0) {
+        // Remove main product from cart
+        const cart = await this.getCart();
+        if (cart && cart.items) {
+          const mainProductItem = cart.items.find(
+            (item) => item.variant_id === variantId
+          );
+          if (mainProductItem) {
+            await this.updateCartItemQuantity(mainProductItem.key, 0);
+            this.cartState.mainProductAdded = false;
+            this.cartState.mainProductVariantId = null;
+            this.cartState.mainProductProperties = {};
+          }
+        }
+      } else {
+        // Ensure main product is in cart with quantity 1 (main product is always quantity 1)
+        if (!this.cartState.mainProductAdded) {
+          const properties = this.getDeliveryProperties();
+          await this.addToCart(variantId, 1, properties);
+          this.cartState.mainProductAdded = true;
+          this.cartState.mainProductVariantId = variantId;
+          this.cartState.mainProductProperties = properties;
+        }
+        // Main product quantity is always 1, so if they set it to something else, just ensure it's 1
+        const cart = await this.getCart();
+        if (cart && cart.items) {
+          const mainProductItem = cart.items.find(
+            (item) => item.variant_id === variantId
+          );
+          if (mainProductItem && mainProductItem.quantity !== 1) {
+            await this.updateCartItemQuantity(mainProductItem.key, 1);
+          }
+        }
+      }
+    } else {
+      // Handle accessory quantity change
+      if (newQuantity === 0) {
+        // Remove from cartState and selectedAccessories
+        this.cartState.accessories = this.cartState.accessories.filter(
+          (acc) => acc.variantId !== variantId
+        );
+        this.selectedAccessories = this.selectedAccessories.filter(
+          (acc) => acc.id !== variantId
+        );
+
+        // Remove from cart
+        const cart = await this.getCart();
+        if (cart && cart.items) {
+          const accessoryItems = cart.items.filter(
+            (item) => item.variant_id === variantId
+          );
+          for (const item of accessoryItems) {
+            await this.updateCartItemQuantity(item.key, 0);
+          }
+        }
+      } else {
+        // Update cartState
+        const accessoryState = this.cartState.accessories.find(
+          (acc) => acc.variantId === variantId
+        );
+        if (accessoryState) {
+          accessoryState.quantity = newQuantity;
+        } else {
+          // Add to cartState if not exists
+          const accessory = this.selectedAccessories.find(
+            (acc) => acc.id === variantId
+          );
+          if (accessory) {
+            this.cartState.accessories.push({
+              variantId: variantId,
+              quantity: newQuantity,
+              properties: this.getAccessoryDeliveryProperties(variantId),
+              title: accessory.title,
+              price: accessory.price,
+              image: accessory.image,
+            });
+          }
+        }
+
+        // Update selectedAccessories
+        const accessory = this.selectedAccessories.find(
+          (acc) => acc.id === variantId
+        );
+        if (accessory) {
+          accessory.quantity = newQuantity;
+        }
+
+        // Sync cart to match new quantity
+        await this.syncCartToState();
+      }
+    }
+
+    // Re-render summary with updated quantities
+    await this.renderOrderSummary();
   }
 }
 

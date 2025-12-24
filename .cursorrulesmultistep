@@ -785,9 +785,10 @@ The template includes complete product JSON with:
 ### Debug Panel Rules
 - **NEVER use console.log()** - Always use `this.addDebugLog(type, message)` instead
 - Debug panel shows all important data: cartState, selectedAccessories, current cart, step history, event log
-- Event log tracks: listener attachments, checkbox events, addAccessory calls, quantity changes
-- Debug panel updates automatically on step changes, accessory clicks, cart syncs
+- Event log tracks: listener attachments, checkbox events, addAccessory calls, quantity changes (from quantity pickers in summary)
+- Debug panel updates automatically on step changes, accessory clicks, cart syncs, quantity picker changes
 - Use debug panel to diagnose issues, not console.log
+- **CRITICAL**: All debugging must go to debug panel event log, never console.log
 
 ## Future Enhancements
 
