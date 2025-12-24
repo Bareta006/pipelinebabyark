@@ -157,17 +157,18 @@ class ProductMultiStep {
 
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
-      // Check if main product is already in cart - if so, we've already added items
+      // Check if ANY item from this product is already in cart (by product_id, not variant_id)
+      // This is more reliable than checking variant_id + properties which might fail
       const cart = await this.getCart();
-      const properties = this.getDeliveryProperties();
-      const mainInCart = cart
-        ? this.isItemInCart(cart, this.selectedVariant.id, properties)
-        : false;
+      const productInCart =
+        cart && cart.items && this.productData
+          ? cart.items.some((item) => item.product_id === this.productData.id)
+          : false;
 
-      // Only call addAllToCart if main product isn't in cart yet (first time)
+      // Only call addAllToCart if product isn't in cart yet (first time)
       // If it's already in cart, don't sync - just show step 5 summary
       // Accessories are synced when user clicks checkbox, not on every step 5 visit
-      if (!mainInCart) {
+      if (!productInCart) {
         await this.addAllToCart();
       }
       btn.disabled = false;
