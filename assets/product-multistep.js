@@ -1545,22 +1545,25 @@ class ProductMultiStep {
           </div>
           </div>
           <div class="summary-product-pricing">
-            <div class="summary-quantity-picker">
-              <button type="button" class="summary-quantity-btn summary-quantity-minus" data-quantity-decrease data-variant-id="${
-                this.selectedVariant.id
-              }" data-is-main-product="true" aria-label="Decrease quantity">−</button>
+            <div class="quantity__wrapper" data-quantity-selector>
+              <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${
+                mainProductCartItem ? mainProductCartItem.key : ""
+              }" aria-label="Decrease quantity">&minus;</button>
               <input type="number" 
-                     class="summary-quantity-input" 
+                     class="quantity__input" 
                      data-quantity-input 
+                     data-update-cart="${
+                       mainProductCartItem ? mainProductCartItem.key : ""
+                     }"
                      data-variant-id="${this.selectedVariant.id}"
                      data-is-main-product="true"
                      min="0" 
                      max="1" 
                      value="${mainProductQuantity}" 
                      aria-label="Quantity">
-              <button type="button" class="summary-quantity-btn summary-quantity-plus" data-quantity-increase data-variant-id="${
-                this.selectedVariant.id
-              }" data-is-main-product="true" aria-label="Increase quantity">+</button>
+              <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${
+                mainProductCartItem ? mainProductCartItem.key : ""
+              }" aria-label="Increase quantity">+</button>
             </div>
             <p class="summary-price-discounted">${this.formatMoney(
               this.selectedVariant.price
@@ -1612,22 +1615,23 @@ class ProductMultiStep {
               </div>
             </div>
               <div class="summary-product-pricing">
-              <div class="summary-quantity-picker">
-                <button type="button" class="summary-quantity-btn summary-quantity-minus" data-quantity-decrease data-variant-id="${
-                  accessoryState.variantId
-                }" data-is-main-product="false" aria-label="Decrease quantity">−</button>
+              <div class="quantity__wrapper" data-quantity-selector>
+                <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${
+                  accessoryCartItem ? accessoryCartItem.key : ""
+                }" aria-label="Decrease quantity">&minus;</button>
                 <input type="number" 
-                       class="summary-quantity-input" 
-                       data-quantity-input 
+                       class="quantity__input" 
+                       data-update-cart="${
+                         accessoryCartItem ? accessoryCartItem.key : ""
+                       }"
                        data-variant-id="${accessoryState.variantId}"
-                       data-is-main-product="false"
                        min="0" 
                        max="99"
                        value="${quantity}" 
                        aria-label="Quantity">
-                <button type="button" class="summary-quantity-btn summary-quantity-plus" data-quantity-increase data-variant-id="${
-                  accessoryState.variantId
-                }" data-is-main-product="false" aria-label="Increase quantity">+</button>
+                <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${
+                  accessoryCartItem ? accessoryCartItem.key : ""
+                }" aria-label="Increase quantity">+</button>
               </div>
               <div class="summary-price-container">
                 <p class="summary-price-discounted">${this.formatMoney(
@@ -3533,124 +3537,145 @@ class ProductMultiStep {
     if (!summaryContainer) return;
 
     // Input change/blur (async handlers)
-    summaryContainer
-      .querySelectorAll("[data-quantity-input]")
-      .forEach((input) => {
-        input.addEventListener("change", async () => {
-          input.disabled = true;
-          try {
-            await this.handleQuantityChange(input);
-          } finally {
-            input.disabled = false;
-          }
-        });
-        input.addEventListener("blur", async () => {
-          input.disabled = true;
-          try {
-            await this.handleQuantityChange(input);
-          } finally {
-            input.disabled = false;
-          }
-        });
+    summaryContainer.querySelectorAll("[data-update-cart]").forEach((input) => {
+      input.addEventListener("change", async () => {
+        input.disabled = true;
+        try {
+          await this.handleQuantityChange(input);
+        } finally {
+          input.disabled = false;
+        }
       });
+      input.addEventListener("blur", async () => {
+        input.disabled = true;
+        try {
+          await this.handleQuantityChange(input);
+        } finally {
+          input.disabled = false;
+        }
+      });
+    });
 
-    // +/- buttons (async handlers)
+    // Decrease button (like theme's approach)
     summaryContainer
-      .querySelectorAll("[data-quantity-decrease]")
+      .querySelectorAll("[data-decrease-quantity]")
       .forEach((btn) => {
         btn.addEventListener("click", async (e) => {
           e.preventDefault();
           e.stopPropagation();
-          btn.disabled = true;
-          try {
-            const variantId = btn.dataset.variantId;
-            const input = summaryContainer.querySelector(
-              `[data-quantity-input][data-variant-id="${variantId}"]`
+          const lineItemKey = btn.getAttribute("data-line-item-key");
+          if (!lineItemKey) return;
+
+          const input = btn.parentElement.querySelector("[data-update-cart]");
+          if (input) {
+            const currentQty = parseInt(input.value, 10) || 0;
+            const newQty = Math.max(parseInt(input.min) || 0, currentQty - 1);
+            input.value = newQty;
+            this.addDebugLog(
+              "QTY",
+              `Decrease: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
             );
-            if (input) {
-              input.value = Math.max(
-                parseInt(input.min) || 0,
-                parseInt(input.value) - 1
-              );
-              await this.handleQuantityChange(input);
-            }
-          } finally {
-            btn.disabled = false;
+            await this.updateCartItemQuantityDirect(lineItemKey, newQty);
+            await this.refreshSummaryAfterQuantityChange();
           }
         });
       });
 
+    // Increase button (like theme's approach)
     summaryContainer
-      .querySelectorAll("[data-quantity-increase]")
+      .querySelectorAll("[data-increase-quantity]")
       .forEach((btn) => {
         btn.addEventListener("click", async (e) => {
           e.preventDefault();
           e.stopPropagation();
-          btn.disabled = true;
-          try {
-            const variantId = btn.dataset.variantId;
-            const input = summaryContainer.querySelector(
-              `[data-quantity-input][data-variant-id="${variantId}"]`
+          const lineItemKey = btn.getAttribute("data-line-item-key");
+          if (!lineItemKey) return;
+
+          const input = btn.parentElement.querySelector("[data-update-cart]");
+          if (input) {
+            const currentQty = parseInt(input.value, 10) || 0;
+            const newQty = Math.min(parseInt(input.max) || 99, currentQty + 1);
+            input.value = newQty;
+            this.addDebugLog(
+              "QTY",
+              `Increase: lineItemKey ${lineItemKey}, ${currentQty} -> ${newQty}`
             );
-            if (input) {
-              input.value = Math.min(
-                parseInt(input.max) || 99,
-                parseInt(input.value) + 1
-              );
-              await this.handleQuantityChange(input);
-            }
-          } finally {
-            btn.disabled = false;
+            await this.updateCartItemQuantityDirect(lineItemKey, newQty);
+            await this.refreshSummaryAfterQuantityChange();
           }
         });
       });
   }
 
-  async handleQuantityChange(input) {
-    const variantId = parseInt(input.dataset.variantId);
-    const isMainProduct = input.dataset.isMainProduct === "true";
-    let newQuantity = parseInt(input.value) || 0;
+  // Direct cart update using line item key (like theme's updateCart)
+  async updateCartItemQuantityDirect(lineItemKey, quantity) {
+    try {
+      const response = await fetch("/cart/change.js", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: lineItemKey,
+          quantity: quantity,
+        }),
+      });
 
-    // Validate min/max
-    const min = parseInt(input.min) || 0;
-    const max = parseInt(input.max) || 99;
-    newQuantity = Math.max(min, Math.min(max, newQuantity));
-    input.value = newQuantity;
-
-    this.addDebugLog(
-      "QTY",
-      `Quantity: ${variantId}, main: ${isMainProduct}, qty: ${newQuantity}`
-    );
-
-    if (isMainProduct) {
-      // Main product: just update cartState
-      if (newQuantity === 0) {
-        this.cartState.mainProductAdded = false;
-      } else {
-        this.cartState.mainProductAdded = true;
-      }
-    } else {
-      // Accessory: update selectedAccessories (like addAccessory/removeAccessory)
-      const accessory = this.selectedAccessories.find(
-        (acc) => acc.id === variantId
-      );
-      if (newQuantity === 0) {
-        // Remove completely
-        this.selectedAccessories = this.selectedAccessories.filter(
-          (acc) => acc.id !== variantId
+      if (response.ok) {
+        const cart = await response.json();
+        this.addDebugLog(
+          "CART",
+          `Cart updated: lineItemKey ${lineItemKey}, quantity ${quantity}`
         );
-      } else if (accessory) {
-        // Update quantity
-        accessory.quantity = newQuantity;
+
+        // Fire cart change event (like theme does)
+        document.dispatchEvent(
+          new CustomEvent("theme:cart:change", {
+            detail: { cart: cart },
+            bubbles: true,
+          })
+        );
+        return true;
+      } else {
+        const error = await response.json();
+        this.addDebugLog(
+          "error",
+          `Cart update failed: ${JSON.stringify(error)}`
+        );
+        return false;
       }
-      // Update cartState from selectedAccessories (like addAccessory does)
-      this.updateCartStateFromAccessories();
+    } catch (error) {
+      this.addDebugLog("error", `Error updating cart: ${error.message}`, error);
+      return false;
+    }
+  }
+
+  // Refresh summary and update cartState after quantity change
+  async refreshSummaryAfterQuantityChange() {
+    // Refresh cartState from actual cart
+    await this.initializeCartStateFromCart();
+
+    // Update selectedAccessories quantities to match cart
+    const cart = await this.getCart();
+    for (const cartItem of cart.items) {
+      if (this.productData && cartItem.product_id === this.productData.id) {
+        // Main product - handled by cartState
+        continue;
+      }
+
+      // Accessory - update selectedAccessories
+      const accessory = this.selectedAccessories.find(
+        (acc) => acc.id === cartItem.variant_id
+      );
+      if (accessory) {
+        accessory.quantity = cartItem.quantity;
+      }
     }
 
-    // Sync cart (like when going to step 5)
-    await this.syncCartToState();
+    // Update cartState from selectedAccessories
+    this.updateCartStateFromAccessories();
 
-    // Refresh summary
+    // Re-render summary
     await this.renderOrderSummary();
   }
 }
