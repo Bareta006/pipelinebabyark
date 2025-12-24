@@ -252,6 +252,36 @@ The template consists of two main sections:
    - **Base Upgrade Logic**: `upgradeBaseToSmart(baseCartItem)` fetches base product data, finds smart variant, and replaces in cart
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm payment messaging with current total price
    - **Dynamic Smart Upgrade Price**: "Add Smart Capabilities" price in summary uses `getSmartUpgradePrice()` to calculate price difference dynamically (same logic as Step 3), displays with compare_at_price strikethrough styling if applicable
+   - **Quantity Pickers**:
+     - **Location**: Step 5 summary for all items (main product and accessories)
+     - **HTML Structure**: Each quantity picker includes:
+       - `−` button (`data-quantity-decrease`) to decrease quantity
+       - Number input (`data-quantity-input`) with min/max constraints
+       - `+` button (`data-quantity-increase`) to increase quantity
+     - **Main Product Constraints**: `min="0" max="1"` (main product is always quantity 1 if added)
+     - **Accessory Constraints**: `min="0" max="99"` (accessories can have multiple quantities)
+     - **Event Listeners**: 
+       - `attachQuantityPickerListeners()`: Attaches listeners to all quantity inputs and +/- buttons
+       - Prevents duplicate listeners using `dataset.listenerAttached` flag
+       - Input: `change` and `blur` events trigger `handleQuantityChange()`
+       - Buttons: `click` events update input value then trigger `handleQuantityChange()`
+     - **Quantity Change Handler**: `handleQuantityChange(input)`:
+       - Validates min/max constraints
+       - Updates `cartState` (main product or accessory quantity)
+       - For main product: Sets `cartState.mainProductAdded` to false if quantity is 0
+       - For accessories: Removes from `cartState.accessories` and `selectedAccessories` if quantity is 0
+       - Calls `syncCartToState()` to sync actual Shopify cart
+       - Calls `renderOrderSummary()` to refresh display
+       - Logs all changes to debug panel Event Log with type "QTY"
+     - **CSS Styling**:
+       - `.summary-quantity-picker`: Flexbox container with gap
+       - `.summary-quantity-input`: 50px width, centered text, no spinner arrows
+       - `.summary-quantity-btn`: 28x28px buttons with border, hover effects
+       - Buttons use `−` and `+` characters
+       - Responsive spacing and alignment
+     - **Cart Sync**: Quantity changes trigger `syncCartToState()` which ensures cart matches `cartState` exactly
+     - **Zero Quantity**: Setting quantity to 0 removes item from cart and hides it from summary
+     - **Error Handling**: Wrapped in try/catch with error logging to debug panel
 
 8. **Affirm Integration**:
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm element with current total
@@ -786,9 +816,11 @@ The template includes complete product JSON with:
 - **NEVER use console.log()** - Always use `this.addDebugLog(type, message)` instead
 - Debug panel shows all important data: cartState, selectedAccessories, current cart, step history, event log
 - Event log tracks: listener attachments, checkbox events, addAccessory calls, quantity changes (from quantity pickers in summary)
+- Quantity picker changes logged with type "QTY" showing: variantId, isMainProduct, newQuantity
 - Debug panel updates automatically on step changes, accessory clicks, cart syncs, quantity picker changes
 - Use debug panel to diagnose issues, not console.log
 - **CRITICAL**: All debugging must go to debug panel event log, never console.log
+- **Quantity Picker Debugging**: When quantity changes, check Event Log for "QTY" entries showing variant ID, product type, and new quantity
 
 ## Future Enhancements
 

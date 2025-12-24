@@ -758,7 +758,10 @@ class ProductMultiStep {
 
       if (response.ok) {
         const result = await response.json();
-        // console.log('Added to cart successfully:', result);
+        this.addDebugLog(
+          "CART",
+          `Added to cart: variantId ${variantId}, quantity ${quantity}`
+        );
         const cart = await fetch("/cart.js").then((r) => r.json());
         document.dispatchEvent(
           new CustomEvent("theme:cart:change", {
@@ -769,11 +772,40 @@ class ProductMultiStep {
         return true;
       } else {
         const error = await response.json();
-        // console.error('Cart add failed:', error);
+        this.addDebugLog("error", `Cart add failed: ${JSON.stringify(error)}`);
         return false;
       }
     } catch (error) {
-      // console.error('Error adding to cart:', error);
+      // Ignore third-party script errors (like loomi.jitsu) that intercept fetch
+      // Only log actual cart errors
+      if (
+        error.message &&
+        !error.message.includes("loomi") &&
+        !error.message.includes("jitsu")
+      ) {
+        this.addDebugLog(
+          "error",
+          `Error adding to cart: ${error.message}`,
+          error
+        );
+      }
+      // Still try to proceed - the cart operation might have succeeded despite the error
+      // Check cart state to verify
+      try {
+        const cart = await this.getCart();
+        const itemInCart = cart.items.find(
+          (item) => item.variant_id === variantId
+        );
+        if (itemInCart) {
+          this.addDebugLog(
+            "CART",
+            `Cart add succeeded despite error (item found in cart)`
+          );
+          return true;
+        }
+      } catch (checkError) {
+        // Ignore check errors
+      }
       return false;
     }
   }
@@ -1639,8 +1671,11 @@ class ProductMultiStep {
 
     summaryContainer.innerHTML = html;
 
-    // Attach quantity picker event listeners
-    this.attachQuantityPickerListeners();
+    // Attach quantity picker event listeners AFTER HTML is set
+    // Small delay ensures DOM is fully ready
+    setTimeout(() => {
+      this.attachQuantityPickerListeners();
+    }, 0);
 
     let subtotal = 0;
     let totalDiscounted = 0;
@@ -3452,12 +3487,12 @@ class ProductMultiStep {
           copyBtn.style.background = "#4a9eff";
         }, 2000);
       }
-      console.log("Debug data copied to clipboard");
+      this.addDebugLog("INFO", "Debug data copied to clipboard");
     } catch (err) {
-      console.error("Failed to copy:", err);
+      this.addDebugLog("error", `Failed to copy debug data: ${err.message}`);
       // Fallback: show in alert
-      alert("Copy failed. Check console for data.");
-      console.log("Debug Data:", jsonString);
+      alert("Copy failed. Check debug panel for data.");
+      this.addDebugLog("INFO", `Debug Data: ${jsonString}`);
     }
   }
 
@@ -3483,20 +3518,49 @@ class ProductMultiStep {
     const decreaseButtons = this.container.querySelectorAll(
       "[data-quantity-decrease]"
     );
+    this.addDebugLog(
+      "ATTACH",
+      `Found ${decreaseButtons.length} decrease buttons`
+    );
     decreaseButtons.forEach((btn) => {
-      if (btn.dataset.listenerAttached) return;
+      if (btn.dataset.listenerAttached) {
+        this.addDebugLog(
+          "SKIP",
+          `Decrease button listener already attached for variant ${btn.dataset.variantId}`
+        );
+        return;
+      }
       btn.dataset.listenerAttached = "true";
+      const variantId = parseInt(btn.dataset.variantId);
+      this.addDebugLog(
+        "ATTACH",
+        `Attaching decrease button listener for variant ${variantId}`
+      );
       btn.addEventListener("click", async (e) => {
         e.preventDefault();
-        const variantId = parseInt(btn.dataset.variantId);
+        e.stopPropagation();
+        this.addDebugLog(
+          "CLICK",
+          `Decrease button clicked for variant ${variantId}`
+        );
         const input = this.container.querySelector(
           `[data-quantity-input][data-variant-id="${variantId}"]`
         );
         if (input) {
           const currentValue = parseInt(input.value) || 0;
           const min = parseInt(input.min) || 0;
-          input.value = Math.max(min, currentValue - 1);
+          const newValue = Math.max(min, currentValue - 1);
+          this.addDebugLog(
+            "QTY",
+            `Decreasing quantity from ${currentValue} to ${newValue}`
+          );
+          input.value = newValue;
           await this.handleQuantityChange(input);
+        } else {
+          this.addDebugLog(
+            "error",
+            `Could not find input for variant ${variantId}`
+          );
         }
       });
     });
@@ -3504,20 +3568,49 @@ class ProductMultiStep {
     const increaseButtons = this.container.querySelectorAll(
       "[data-quantity-increase]"
     );
+    this.addDebugLog(
+      "ATTACH",
+      `Found ${increaseButtons.length} increase buttons`
+    );
     increaseButtons.forEach((btn) => {
-      if (btn.dataset.listenerAttached) return;
+      if (btn.dataset.listenerAttached) {
+        this.addDebugLog(
+          "SKIP",
+          `Increase button listener already attached for variant ${btn.dataset.variantId}`
+        );
+        return;
+      }
       btn.dataset.listenerAttached = "true";
+      const variantId = parseInt(btn.dataset.variantId);
+      this.addDebugLog(
+        "ATTACH",
+        `Attaching increase button listener for variant ${variantId}`
+      );
       btn.addEventListener("click", async (e) => {
         e.preventDefault();
-        const variantId = parseInt(btn.dataset.variantId);
+        e.stopPropagation();
+        this.addDebugLog(
+          "CLICK",
+          `Increase button clicked for variant ${variantId}`
+        );
         const input = this.container.querySelector(
           `[data-quantity-input][data-variant-id="${variantId}"]`
         );
         if (input) {
           const currentValue = parseInt(input.value) || 0;
           const max = parseInt(input.max) || 99;
-          input.value = Math.min(max, currentValue + 1);
+          const newValue = Math.min(max, currentValue + 1);
+          this.addDebugLog(
+            "QTY",
+            `Increasing quantity from ${currentValue} to ${newValue}`
+          );
+          input.value = newValue;
           await this.handleQuantityChange(input);
+        } else {
+          this.addDebugLog(
+            "error",
+            `Could not find input for variant ${variantId}`
+          );
         }
       });
     });
