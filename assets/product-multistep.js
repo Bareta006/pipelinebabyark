@@ -179,12 +179,23 @@ class ProductMultiStep {
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
 
+      this.addDebugLog(
+        "STEP",
+        `handleNextStep: Going to step 5, cartState before: ${JSON.stringify(
+          this.cartState
+        )}, selectedAccessories: ${JSON.stringify(this.selectedAccessories)}`
+      );
+
       // Ensure main product is marked as added if we have a selected variant
       // CRITICAL: Only update if cartState hasn't been initialized from cart yet
       // If cart already has items, preserve the existing variant ID from cart
       if (this.selectedVariant && !this.cartState.mainProductAdded) {
         // Check if cart already has main product with different variant
         const cart = await this.getCart();
+        this.addDebugLog(
+          "STEP",
+          `handleNextStep: Checking cart, has ${cart.items.length} items`
+        );
         const existingMainProduct = cart.items.find(
           (item) => this.productData && item.product_id === this.productData.id
         );
@@ -195,16 +206,35 @@ class ProductMultiStep {
           this.cartState.mainProductVariantId = existingMainProduct.variant_id;
           this.cartState.mainProductProperties =
             existingMainProduct.properties || {};
+          this.addDebugLog(
+            "STEP",
+            `handleNextStep: Found existing main product in cart, using variant ${existingMainProduct.variant_id}`
+          );
         } else {
           // No main product in cart - use selected variant
           this.cartState.mainProductAdded = true;
           this.cartState.mainProductVariantId = this.selectedVariant.id;
           this.cartState.mainProductProperties = this.getDeliveryProperties();
+          this.addDebugLog(
+            "STEP",
+            `handleNextStep: No main product in cart, using selected variant ${this.selectedVariant.id}`
+          );
         }
+      } else {
+        this.addDebugLog(
+          "STEP",
+          `handleNextStep: cartState.mainProductAdded already true (${this.cartState.mainProductAdded}), skipping main product check`
+        );
       }
 
       // Update cartState with current selections
       this.updateCartStateFromAccessories();
+      this.addDebugLog(
+        "STEP",
+        `handleNextStep: After updateCartStateFromAccessories, cartState: ${JSON.stringify(
+          this.cartState
+        )}`
+      );
 
       // Sync cart to match cartState JSON
       await this.syncCartToState();
@@ -2652,7 +2682,15 @@ class ProductMultiStep {
   // Sync cart to match cartState JSON
   async syncCartToState() {
     try {
+      this.addDebugLog(
+        "CART",
+        `syncCartToState START: cartState=${JSON.stringify(
+          this.cartState
+        )}, selectedVariant=${this.selectedVariant?.id}`
+      );
+
       if (!this.selectedVariant) {
+        this.addDebugLog("CART", "syncCartToState SKIP: No selectedVariant");
         return;
       }
 
@@ -2663,6 +2701,18 @@ class ProductMultiStep {
 
       const properties = this.getDeliveryProperties();
       let cart = await this.getCart();
+      this.addDebugLog(
+        "CART",
+        `syncCartToState: Initial cart has ${
+          cart.items.length
+        } items: ${JSON.stringify(
+          cart.items.map((i) => ({
+            variant_id: i.variant_id,
+            quantity: i.quantity,
+            product_id: i.product_id,
+          }))
+        )}`
+      );
 
       // Only sync if cartState has been initialized (don't delete existing cart on page load)
       // CRITICAL: If cart has items but cartState is empty/not initialized, don't sync (would clear cart)
@@ -2747,8 +2797,10 @@ class ProductMultiStep {
 
         // If still need to remove, remove from other variants
         if (toRemove > 0) {
+          const variantIdToMatch =
+            this.cartState.mainProductVariantId || this.selectedVariant.id;
           const otherVariantItems = mainProductItems.filter(
-            (item) => item.variant_id !== this.selectedVariant.id
+            (item) => item.variant_id !== variantIdToMatch
           );
           for (const item of otherVariantItems) {
             if (toRemove <= 0) break;
@@ -2798,8 +2850,28 @@ class ProductMultiStep {
 
       // Remove accessories from cart that are NOT in cartState at all
       cart = await this.getCart();
+      this.addDebugLog(
+        "CART",
+        `syncCartToState: Before removing accessories, cart has ${
+          cart.items.length
+        } items: ${JSON.stringify(
+          cart.items.map((i) => ({
+            variant_id: i.variant_id,
+            quantity: i.quantity,
+            product_id: i.product_id,
+          }))
+        )}`
+      );
       const cartAccessoriesAfterSync = cart.items.filter(
         (item) => !this.productData || item.product_id !== this.productData.id
+      );
+      this.addDebugLog(
+        "CART",
+        `syncCartToState: Filtered accessories: ${
+          cartAccessoriesAfterSync.length
+        } items, cartState.accessories: ${JSON.stringify(
+          this.cartState.accessories
+        )}`
       );
 
       for (const cartItem of cartAccessoriesAfterSync) {
@@ -2808,6 +2880,10 @@ class ProductMultiStep {
         );
         if (!inState || inState.quantity === 0) {
           // Remove from cart
+          this.addDebugLog(
+            "CART",
+            `syncCartToState: REMOVING accessory variant ${cartItem.variant_id} (not in cartState or quantity 0)`
+          );
           await this.updateCartItemQuantity(cartItem.key, 0);
           cart = await this.getCart();
         }
