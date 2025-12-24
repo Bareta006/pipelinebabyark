@@ -2537,21 +2537,19 @@ class ProductMultiStep {
           cart = await this.getCart();
         } else if (totalCartQuantity !== accessory.quantity) {
           // Quantity doesn't match - set exact quantity
-          // Update first item to desired quantity, remove the rest
-          if (matchingCartItems.length > 0) {
-            // Update first item to desired quantity
-            await this.updateCartItemQuantity(
-              matchingCartItems[0].key,
-              accessory.quantity
-            );
+          // First, remove ALL items with this variant_id
+          for (const item of matchingCartItems) {
+            await this.updateCartItemQuantity(item.key, 0);
             cart = await this.getCart();
-
-            // Remove all other items with this variant_id
-            for (let i = 1; i < matchingCartItems.length; i++) {
-              await this.updateCartItemQuantity(matchingCartItems[i].key, 0);
-              cart = await this.getCart();
-            }
           }
+
+          // Then add it with exact quantity
+          await this.addToCart(
+            accessory.variantId,
+            accessory.quantity,
+            accessory.properties
+          );
+          cart = await this.getCart();
         }
         // If quantities match exactly, do nothing
       }
