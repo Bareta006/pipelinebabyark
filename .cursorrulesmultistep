@@ -254,42 +254,51 @@ The template consists of two main sections:
    - **Dynamic Smart Upgrade Price**: "Add Smart Capabilities" price in summary uses `getSmartUpgradePrice()` to calculate price difference dynamically (same logic as Step 3), displays with compare_at_price strikethrough styling if applicable
    - **Quantity Pickers**:
      - **Location**: Step 5 summary for all items (main product and accessories)
-     - **HTML Structure**: Each quantity picker includes:
-       - `−` button (`data-quantity-decrease`) to decrease quantity
-       - Number input (`data-quantity-input`) with min/max constraints
-       - `+` button (`data-quantity-increase`) to increase quantity
+     - **HTML Structure**: Uses theme's quantity picker classes (same as side cart):
+       - Container: `quantity__wrapper` with `data-quantity-selector`
+       - `−` button: `quantity__button quantity__button--minus` with `data-decrease-quantity` and `data-line-item-key` (line item key from cart)
+       - Number input: `quantity__input` with `data-update-cart` (line item key from cart) and min/max constraints
+       - `+` button: `quantity__button quantity__button--plus` with `data-increase-quantity` and `data-line-item-key` (line item key from cart)
+       - **CRITICAL**: Uses line item keys (`item.key` from cart) for direct cart updates, NOT variant IDs
      - **Main Product Constraints**: `min="0" max="1"` (main product is always quantity 1 if added)
      - **Accessory Constraints**: `min="0" max="99"` (accessories can have multiple quantities)
      - **Event Listeners**: 
        - `attachQuantityPickerListeners()`: Attaches listeners to all quantity inputs and +/- buttons
-       - **CRITICAL**: All handlers are async and disable buttons/inputs during processing to prevent double-clicks
-       - Input: `change` and `blur` events trigger `handleQuantityChange()` (async, disables input during processing)
-       - Buttons: `click` events update input value then trigger `handleQuantityChange()` (async, disables button during processing)
+       - **CRITICAL**: Uses `dataset.listenerAttached` flag to prevent duplicate listeners (HTML is recreated on each render)
+       - Input: `change` event reads `data-update-cart` (line item key) and calls `updateCartItemQuantityDirect()`
+       - Buttons: `click` events read `data-line-item-key`, update input value, then call `updateCartItemQuantityDirect()`
        - Uses `e.preventDefault()` and `e.stopPropagation()` on button clicks
-     - **Quantity Change Handler**: `handleQuantityChange(input)`:
-       - Validates min/max constraints
-       - Updates `cartState` (main product or accessory quantity)
-       - For main product: Sets `cartState.mainProductAdded` to false if quantity is 0
-       - For accessories: Updates `selectedAccessories` quantity, then calls `updateCartStateFromAccessories()`
-       - Calls `syncCartToState()` to sync actual Shopify cart
+       - **Prevents Double Updates**: Uses `dataset.programmaticUpdate` flag when buttons update input value to prevent input change event from firing
+     - **Direct Cart Update**: `updateCartItemQuantityDirect(lineItemKey, quantity)`:
+       - Uses `/cart/change.js` API with `{id: lineItemKey, quantity: quantity}` (same as theme's side cart)
+       - Directly updates cart item by its key (no complex sync logic)
+       - Fires `theme:cart:change` event after update
+       - Logs to debug panel with type "CART"
+       - Returns true/false for success/failure
+     - **Refresh After Update**: `refreshSummaryAfterQuantityChange()`:
+       - Calls `initializeCartStateFromCart()` to refresh `cartState` from actual cart
+       - Updates `selectedAccessories` quantities to match cart
+       - Calls `updateCartStateFromAccessories()` to sync `cartState.accessories`
        - Calls `renderOrderSummary()` to refresh display
-       - Logs all changes to debug panel Event Log with type "QTY"
-     - **Display Logic**: `renderOrderSummary()` reads actual quantities from cart (not just `cartState`) to ensure display matches reality
+     - **Display Logic**: `renderOrderSummary()` reads actual quantities from cart:
+       - Gets cart items and finds matching items by `variant_id`
+       - Stores `item.key` (line item key) in HTML attributes for direct updates
        - Main product: Gets quantity from `cart.items.find()` by variant_id
        - Accessories: Gets quantity from `cart.items.find()` by variant_id
-       - This ensures display updates immediately after cart sync
-     - **CSS Styling**:
-       - `.summary-quantity-picker`: Flexbox container with gap
-       - `.summary-quantity-input`: 50px width, centered text, no spinner arrows
-       - `.summary-quantity-btn`: 28x28px buttons with border, hover effects
-       - Buttons use `−` and `+` characters
-       - Responsive spacing and alignment
-     - **Cart Sync**: Quantity changes trigger `syncCartToState()` which ensures cart matches `cartState` exactly
-       - **CRITICAL**: `syncCartToState()` checks if `cartState` was initialized before syncing (prevents deleting existing cart on page load)
-       - Always removes all items with variant_id first, then adds exact quantity (prevents duplicates)
-     - **Zero Quantity**: Setting quantity to 0 removes item from cart and hides it from summary
+       - This ensures display matches actual cart state
+     - **CSS Styling**: Uses theme's existing quantity picker styles from `theme.css`:
+       - `.quantity__wrapper`: Flexbox container with max-width 103px, min-width 75px
+       - `.quantity__input`: Centered text, border, padding 11px 30px
+       - `.quantity__button`: Absolute positioned buttons (left/right), hover effects
+       - No custom CSS needed - uses theme's styles
+     - **Cart Updates**: 
+       - **SIMPLE APPROACH**: Direct updates using line item keys (like theme's side cart)
+       - No complex sync logic - just update cart directly by line item key
+       - Cart API handles all the logic (add/remove/update)
+       - Much simpler and more reliable than remove-all-then-add approach
+     - **Zero Quantity**: Setting quantity to 0 removes item from cart (handled by Shopify cart API)
      - **Error Handling**: Wrapped in try/catch with error logging to debug panel
-     - **Page Load Protection**: `syncCartToState()` returns early if `cartState` hasn't been initialized from cart (prevents deleting existing cart items on page load)
+     - **Debug Logging**: All quantity changes logged to debug panel Event Log with type "QTY" showing line item key and quantity changes
 
 8. **Affirm Integration**:
    - `refreshAffirmPrice(totalInDollars)`: Updates Affirm element with current total
