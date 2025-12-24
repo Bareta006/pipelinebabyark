@@ -1618,14 +1618,18 @@ class ProductMultiStep {
         this.variantImageMap[String(variantIdToFind)] ||
         this.productData.featured_image;
       // Fix protocol-relative URLs (//) to https:// on the spot
-      if (
-        variantImage &&
-        typeof variantImage === "string" &&
-        variantImage.startsWith("//")
-      ) {
-        variantImage = "https:" + variantImage;
+      let imageUrl = "";
+      if (variantImage && typeof variantImage === "string") {
+        if (variantImage.startsWith("//")) {
+          imageUrl = "https:" + variantImage;
+        } else {
+          imageUrl = variantImage;
+        }
+        // Only use getImageUrl for product featured_image fallback, not for map URLs (map URLs are already correct)
+        if (!this.variantImageMap[String(variantIdToFind)]) {
+          imageUrl = this.getImageUrl(imageUrl, 200);
+        }
       }
-      const imageUrl = variantImage ? this.getImageUrl(variantImage, 200) : "";
 
       this.addDebugLog(
         "INFO",
@@ -1772,7 +1776,7 @@ class ProductMultiStep {
                   <h4 class="summary-product-title">${displayTitle}</h4>
               </div>
             </div>
-              <div class="summary-product-pricing">
+            <div class="summary-product-pricing">
               <div class="quantity__wrapper" data-quantity-selector>
                 <button type="button" class="quantity__button quantity__button--minus" data-decrease-quantity data-line-item-key="${accessoryLineItemKey}" aria-label="Decrease quantity">&minus;</button>
                 <input type="number" 
