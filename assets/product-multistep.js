@@ -169,24 +169,13 @@ class ProductMultiStep {
     if (this.currentStep === 4 && nextStep === 5) {
       btn.disabled = true;
 
-      // Store old cartState for comparison
-      const oldCartState = JSON.parse(JSON.stringify(this.cartState));
-
       // Update cartState with current selections
       this.updateCartStateFromAccessories();
 
-      // Only sync if cartState actually changed
-      const stateChanged = this.hasCartStateChanged(
-        oldCartState,
-        this.cartState
-      );
+      // Sync cart to match cartState JSON
+      await this.syncCartToState();
 
-      if (stateChanged) {
-        // Sync cart to match cartState JSON
-        await this.syncCartToState();
-      }
-
-      // After cart sync finishes (or if no sync needed), render summary
+      // After cart sync finishes, render summary
       btn.disabled = false;
       this.showStep(nextStep);
     } else {
@@ -2390,27 +2379,14 @@ class ProductMultiStep {
 
   // Update cartState JSON from selectedAccessories array
   updateCartStateFromAccessories() {
-    this.cartState.accessories = this.selectedAccessories.map((acc) => {
-      // Try to preserve existing properties from cartState if accessory already exists
-      const existing = this.cartState.accessories.find(
-        (a) => a.variantId === acc.id
-      );
-
-      // Use existing properties if available, otherwise get from DOM
-      const properties =
-        existing && existing.properties
-          ? existing.properties
-          : this.getAccessoryDeliveryProperties(acc.id);
-
-      return {
-        variantId: acc.id,
-        quantity: acc.quantity,
-        properties: properties,
-        title: acc.title,
-        price: acc.price,
-        image: acc.image,
-      };
-    });
+    this.cartState.accessories = this.selectedAccessories.map((acc) => ({
+      variantId: acc.id,
+      quantity: acc.quantity,
+      properties: this.getAccessoryDeliveryProperties(acc.id),
+      title: acc.title,
+      price: acc.price,
+      image: acc.image,
+    }));
   }
 
   // Sync cart to match cartState JSON
@@ -2472,80 +2448,76 @@ class ProductMultiStep {
         (item) => !this.productData || item.product_id !== this.productData.id
       );
 
-      // Remove accessories from cart that are not in cartState
-      for (const cartItem of cartAccessories) {
-        const inState = this.cartState.accessories.find(
-          (acc) =>
-            acc.variantId === cartItem.variant_id &&
-            this.propertiesMatch(acc.properties, cartItem.properties || {})
-        );
-        if (!inState || inState.quantity === 0) {
-          // Remove from cart
-          await this.updateCartItemQuantity(cartItem.key, 0);
-          cart = await this.getCart();
-        }
-      }
-
-      // Add/update accessories from cartState
+      // For each accessory in cartState, find ALL cart items with matching variant_id (ignore properties for existence check)
       for (const accessory of this.cartState.accessories) {
-        if (accessory.quantity === 0) continue;
+        if (accessory.quantity === 0) {
+          // Remove all items with this variant_id from cart
+          const itemsToRemove = cartAccessories.filter(
+            (item) => item.variant_id === accessory.variantId
+          );
+          for (const item of itemsToRemove) {
+            await this.updateCartItemQuantity(item.key, 0);
+            cart = await this.getCart();
+          }
+          continue;
+        }
 
-        cart = await this.getCart();
-        const matchingCartItem = cart.items.find(
-          (item) =>
-            item.variant_id === accessory.variantId &&
-            this.propertiesMatch(accessory.properties, item.properties || {})
+        // Find ALL cart items with matching variant_id (ignore properties for existence check)
+        const matchingCartItems = cart.items.filter(
+          (item) => item.variant_id === accessory.variantId
         );
 
-        if (!matchingCartItem) {
-          // Add new accessory
+        // Calculate total quantity in cart for this variant
+        const totalCartQuantity = matchingCartItems.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+
+        // Compare with desired quantity from cartState
+        if (totalCartQuantity === 0) {
+          // Not in cart at all - add it
           await this.addToCart(
             accessory.variantId,
             accessory.quantity,
             accessory.properties
           );
           cart = await this.getCart();
-        } else if (matchingCartItem.quantity !== accessory.quantity) {
-          // Update quantity
-          await this.updateCartItemQuantity(
-            matchingCartItem.key,
-            accessory.quantity
-          );
-          cart = await this.getCart();
+        } else if (totalCartQuantity !== accessory.quantity) {
+          // Quantity doesn't match - set exact quantity
+          // Update first item to desired quantity, remove the rest
+          if (matchingCartItems.length > 0) {
+            // Update first item to desired quantity
+            await this.updateCartItemQuantity(
+              matchingCartItems[0].key,
+              accessory.quantity
+            );
+            cart = await this.getCart();
+
+            // Remove all other items with this variant_id
+            for (let i = 1; i < matchingCartItems.length; i++) {
+              await this.updateCartItemQuantity(matchingCartItems[i].key, 0);
+              cart = await this.getCart();
+            }
+          }
         }
+        // If quantities match exactly, do nothing
       }
 
-      // After syncing, update cartState from actual cart to ensure they match exactly
-      // This ensures properties match what's actually in cart
+      // Remove accessories from cart that are NOT in cartState at all
       cart = await this.getCart();
-      if (cart && cart.items) {
-        const cartAccessories = cart.items.filter(
-          (item) => !this.productData || item.product_id !== this.productData.id
-        );
+      const cartAccessoriesAfterSync = cart.items.filter(
+        (item) => !this.productData || item.product_id !== this.productData.id
+      );
 
-        // Update cartState.accessories with actual cart data (preserve quantities from cartState)
-        this.cartState.accessories = this.cartState.accessories.map(
-          (accState) => {
-            const cartItem = cartAccessories.find(
-              (item) =>
-                item.variant_id === accState.variantId &&
-                this.propertiesMatch(accState.properties, item.properties || {})
-            );
-
-            if (cartItem) {
-              // Use actual cart properties and quantity
-              return {
-                variantId: accState.variantId,
-                quantity: accState.quantity, // Keep desired quantity from state
-                properties: cartItem.properties || {}, // Use actual cart properties
-                title: accState.title,
-                price: accState.price,
-                image: accState.image,
-              };
-            }
-            return accState;
-          }
+      for (const cartItem of cartAccessoriesAfterSync) {
+        const inState = this.cartState.accessories.find(
+          (acc) => acc.variantId === cartItem.variant_id
         );
+        if (!inState || inState.quantity === 0) {
+          // Remove from cart
+          await this.updateCartItemQuantity(cartItem.key, 0);
+          cart = await this.getCart();
+        }
       }
     } catch (error) {
       // console.error('Error syncing cart to state:', error);
@@ -2566,57 +2538,6 @@ class ProductMultiStep {
     if (keys1.length !== keys2.length) return false;
 
     return keys1.every((key) => props1[key] === props2[key]);
-  }
-
-  // Helper: Check if cartState changed
-  hasCartStateChanged(oldState, newState) {
-    // Check main product
-    if (oldState.mainProductAdded !== newState.mainProductAdded) {
-      return true;
-    }
-    if (oldState.mainProductVariantId !== newState.mainProductVariantId) {
-      return true;
-    }
-
-    // Check accessories count
-    if (oldState.accessories.length !== newState.accessories.length) {
-      return true;
-    }
-
-    // Check each accessory
-    for (const newAcc of newState.accessories) {
-      const oldAcc = oldState.accessories.find(
-        (acc) =>
-          acc.variantId === newAcc.variantId &&
-          this.propertiesMatch(acc.properties, newAcc.properties)
-      );
-
-      if (!oldAcc) {
-        // New accessory added
-        return true;
-      }
-
-      if (oldAcc.quantity !== newAcc.quantity) {
-        // Quantity changed
-        return true;
-      }
-    }
-
-    // Check if any old accessory was removed
-    for (const oldAcc of oldState.accessories) {
-      const newAcc = newState.accessories.find(
-        (acc) =>
-          acc.variantId === oldAcc.variantId &&
-          this.propertiesMatch(acc.properties, oldAcc.properties)
-      );
-
-      if (!newAcc) {
-        // Accessory removed
-        return true;
-      }
-    }
-
-    return false;
   }
 
   haveAccessoriesChanged() {
