@@ -1579,33 +1579,35 @@ class ProductMultiStep {
 
     let html = '<div class="order-summary">';
 
-    // Use cartState.mainProductVariantId to find variant (matches cart), fallback to selectedVariant
-    const variantIdForDisplay =
-      this.cartState.mainProductVariantId || this.selectedVariant?.id;
-    // CRITICAL: Define variantIdToFind OUTSIDE if block so it's accessible in totals calculation
-    const variantIdToFind =
-      this.cartState.mainProductVariantId || this.selectedVariant?.id;
-    const variantForDisplay = variantIdForDisplay
-      ? this.productData.variants.find((v) => v.id === variantIdForDisplay) ||
-        this.selectedVariant
-      : this.selectedVariant;
+    // CRITICAL: Display ALL main product variants from cart (not just cartState.mainProductVariantId)
+    // E-commerce standard: If cart has multiple variants, display each one separately
+    const mainProductCartItems = cart.items.filter(
+      (item) => this.productData && item.product_id === this.productData.id
+    );
 
-    if (variantForDisplay) {
-      // Get actual quantity from cart (not just cartState boolean)
-      // variantIdToFind is now defined above, outside this block
-      this.addDebugLog(
-        "INFO",
-        `Looking for main product: variant_id ${variantIdToFind} (cartState: ${this.cartState.mainProductVariantId}, selected: ${this.selectedVariant?.id}), cart has ${cart.items.length} items`
+    this.addDebugLog(
+      "INFO",
+      `Found ${
+        mainProductCartItems.length
+      } main product variants in cart: ${mainProductCartItems
+        .map((item) => item.variant_id)
+        .join(", ")}`
+    );
+
+    // Loop through ALL main product variants in cart
+    for (const mainProductCartItem of mainProductCartItems) {
+      const variantIdToFind = mainProductCartItem.variant_id;
+      const variantForDisplay = this.productData.variants.find(
+        (v) => v.id === variantIdToFind
       );
-      const mainProductCartItem = cart.items.find(
-        (item) => item.variant_id === variantIdToFind
-      );
-      this.addDebugLog(
-        "INFO",
-        `Main product cart item found: ${!!mainProductCartItem}, variant_id match: ${
-          mainProductCartItem?.variant_id
-        }`
-      );
+
+      if (!variantForDisplay) {
+        this.addDebugLog(
+          "error",
+          `Variant ${variantIdToFind} not found in productData.variants`
+        );
+        continue;
+      }
 
       // Simple variant image lookup from map, fallback to product featured image
       // Convert variant ID to string because map keys are strings from Liquid JSON
@@ -1626,29 +1628,11 @@ class ProductMultiStep {
         }
       }
 
-      this.addDebugLog(
-        "INFO",
-        `Variant image lookup: variant_id=${variantIdToFind}, found_in_map=${!!this
-          .variantImageMap[String(variantIdToFind)]}, using=${
-          variantImage ? "variant_image" : "product_featured_image"
-        }, url=${imageUrl}`
-      );
-      const mainProductQuantity = mainProductCartItem
-        ? mainProductCartItem.quantity
-        : 0;
+      const mainProductQuantity = mainProductCartItem.quantity;
       // Get line item key - Shopify cart.js uses 'key' property
-      // Log full cart item to see what properties it has
-      if (mainProductCartItem) {
-        this.addDebugLog(
-          "INFO",
-          `Main product cart item full structure: ${JSON.stringify(
-            mainProductCartItem
-          )}`
-        );
-      }
       const mainProductLineItemKey =
         mainProductCartItem?.key || mainProductCartItem?.id || "";
-      if (mainProductCartItem && !mainProductLineItemKey) {
+      if (!mainProductLineItemKey) {
         this.addDebugLog(
           "error",
           `Main product cart item found but no key/id. Available keys: ${Object.keys(
@@ -1656,6 +1640,24 @@ class ProductMultiStep {
           ).join(", ")}`
         );
       }
+
+      // Extract variant options for display
+      const variantColor =
+        variantForDisplay.option1 ||
+        variantForDisplay.option2 ||
+        variantForDisplay.option3 ||
+        "";
+      const variantShell =
+        variantForDisplay.option1 ||
+        variantForDisplay.option2 ||
+        variantForDisplay.option3 ||
+        "";
+      const variantSmart =
+        variantForDisplay.option1 ||
+        variantForDisplay.option2 ||
+        variantForDisplay.option3 ||
+        "";
+
       html += `
         <div class="summary-item summary-item--product" data-summary-item data-variant-id="${variantIdToFind}" data-is-main-product="true">
         <div class="summary-product-details-container">
@@ -1668,25 +1670,7 @@ class ProductMultiStep {
           </div>
           <div class="summary-product-details">
             <h4 class="summary-product-title">${this.productData.title}</h4>
-            <p class="summary-variant-info">Color: ${
-              this.selectedColor ||
-              variantForDisplay.option1 ||
-              variantForDisplay.option2 ||
-              variantForDisplay.option3 ||
-              ""
-            }, Shell: ${
-        this.selectedShellColor ||
-        variantForDisplay.option1 ||
-        variantForDisplay.option2 ||
-        variantForDisplay.option3 ||
-        ""
-      }, <strong>${
-        this.selectedSmartOption ||
-        variantForDisplay.option1 ||
-        variantForDisplay.option2 ||
-        variantForDisplay.option3 ||
-        ""
-      }</strong></p>
+            <p class="summary-variant-info">Color: ${variantColor}, Shell: ${variantShell}, <strong>${variantSmart}</strong></p>
           </div>
           </div>
           <div class="summary-product-pricing">
@@ -1696,7 +1680,7 @@ class ProductMultiStep {
                      class="quantity__input" 
                      data-quantity-input 
                      data-update-cart="${mainProductLineItemKey}"
-                     data-variant-id="${variantIdForDisplay}"
+                     data-variant-id="${variantIdToFind}"
                      data-is-main-product="true"
                      min="0" 
                      max="10" 
@@ -1864,20 +1848,20 @@ class ProductMultiStep {
     let subtotal = 0;
     let totalDiscounted = 0;
 
-    // Calculate main product total using variantForDisplay (from cart) and actual quantity from cart
-    // Re-find mainProductCartItem for totals calculation (it was defined earlier but may be out of scope)
-    if (variantForDisplay && variantIdToFind) {
-      const mainProductCartItemForTotals = cart.items.find(
-        (item) => item.variant_id === variantIdToFind
+    // Calculate totals for ALL main product variants in cart
+    for (const mainProductCartItem of mainProductCartItems) {
+      const variantIdToFind = mainProductCartItem.variant_id;
+      const variantForDisplay = this.productData.variants.find(
+        (v) => v.id === variantIdToFind
       );
-      if (mainProductCartItemForTotals) {
-        const mainProductQuantity = mainProductCartItemForTotals.quantity;
+      if (variantForDisplay) {
+        const mainProductQuantity = mainProductCartItem.quantity;
         const mainProductTotal = variantForDisplay.price * mainProductQuantity;
         subtotal += mainProductTotal;
         totalDiscounted += mainProductTotal;
         this.addDebugLog(
           "INFO",
-          `Totals: Main product quantity ${mainProductQuantity}, price ${variantForDisplay.price}, total ${mainProductTotal}`
+          `Totals: Main product variant ${variantIdToFind}, quantity ${mainProductQuantity}, price ${variantForDisplay.price}, total ${mainProductTotal}`
         );
       }
     }

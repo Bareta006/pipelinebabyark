@@ -257,12 +257,20 @@ The template consists of two main sections:
 
 7. **Order Summary**:
    - `renderOrderSummary()`: Generates HTML for Step 5 summary (async)
-   - **CRITICAL**: Reads from `cartState` JSON (which matches cart after sync)
+   - **CRITICAL**: Reads from actual cart (not just `cartState` JSON) to display ALL items
    - Called AFTER `syncCartToState()` finishes (in `handleNextStep()`)
-   - Fetches cart to verify sync completed, but displays from `cartState`
-   - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
-   - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
-   - This ensures display matches actual cart state, not just `cartState` JSON
+   - Fetches cart to get all items and display them
+   - **Main Product Display**:
+     - **CRITICAL**: Displays ALL main product variants from cart (not just `cartState.mainProductVariantId`)
+     - Loops through ALL cart items where `product_id === this.productData.id`
+     - Each variant displayed separately with its own quantity picker, image, price, and variant info
+     - This ensures if cart has variant A and variant B, both are shown in summary
+     - Uses variant image map for each variant's image
+     - Extracts variant options (color, shell, smart) from `variantForDisplay` for each variant
+   - **Accessories Display**:
+     - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
+     - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
+   - This ensures display matches actual cart state, showing all variants and accessories
      - **Variant Image Selection**:
      - **CRITICAL**: Uses simple variant image map lookup from Liquid-generated JSON
      - **Variant Image Map**: Built in Liquid template (`product-multistep-form.liquid`) and loaded in JavaScript
@@ -282,16 +290,16 @@ The template consists of two main sections:
      - Then calls `syncCartToState()` to sync cart
      - Then calls `renderOrderSummary()` to update display
    - **Totals Calculation**: 
-     - **CRITICAL**: `variantIdToFind` is defined OUTSIDE the `if (variantForDisplay)` block so it's accessible in totals calculation
-     - **Main Product**: Uses `variantForDisplay.price` (from cart) multiplied by actual quantity from cart
-       - Re-finds `mainProductCartItem` in totals section using `variantIdToFind` (defined earlier)
-       - Uses `cart.items.find()` by `variant_id` to get actual quantity
+     - **Main Product**: Loops through ALL main product variants in cart
+       - For each variant: Uses `variantForDisplay.price` (from productData) multiplied by actual quantity from cart
+       - Sums all main product variant totals
+       - Debug logging shows quantity, price, and total for each variant
      - **Accessories**: Uses `accessoryState.price` (from cartState) multiplied by actual quantity from cart (`accessoryCartItem.quantity`)
      - Both read actual quantities from cart (not just cartState) to ensure totals match cart after quantity changes
      - Accessories get 20% discount (multiplied by 0.8)
      - Main product has no discount
      - Totals are recalculated every time `renderOrderSummary()` is called (after quantity changes)
-     - Debug logging shows quantity, price, and total for each item
+     - Debug logging shows quantity, price, and total for each item (main product variants and accessories)
    - **Savings Display**: "Your Save" row only shown if savings > 0 (accessories discount)
    - **Cart Update**: When upgrading to smart, removes non-smart variant and adds smart variant with same delivery properties
    - **Base Upgrade**: `upgradeBaseAccessoriesToSmart()` checks cart for base accessories and upgrades them
