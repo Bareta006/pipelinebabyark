@@ -1,0 +1,60 @@
+<script>
+(function () {
+  var KEY = "variant_event_queue";
+
+  function flushVariantQueue() {
+    try {
+      // Ensure analytics is available
+      if (!(window.Shopify &&
+            window.Shopify.analytics &&
+            typeof window.Shopify.analytics.publish === "function")) {
+        return;
+      }
+
+      var raw = localStorage.getItem(KEY);
+      if (!raw) return;
+
+      var queue = JSON.parse(raw);
+      if (!Array.isArray(queue) || queue.length === 0) {
+        localStorage.removeItem(KEY);
+        return;
+      }
+
+      queue.forEach(function (eventData) {
+        try {
+          window.Shopify.analytics.publish("variant:experiment_executed", eventData);
+        } catch (e) {
+          // If publish fails for one event, just log it; we're still clearing the queue
+          if (console && console.warn) {
+            console.warn("[Variant redirect] Failed to publish queued event", e, eventData);
+          }
+        }
+      });
+
+      // Clear queue after successful flush
+      localStorage.removeItem(KEY);
+    } catch (e) {
+      if (console && console.warn) {
+        console.warn("[Variant redirect] Failed to flush queue", e);
+      }
+    }
+  }
+
+  // Poll until Shopify.analytics is ready
+  var intervalId = setInterval(function () {
+    if (window.Shopify &&
+        window.Shopify.analytics &&
+        typeof window.Shopify.analytics.publish === "function") {
+      flushVariantQueue();
+      clearInterval(intervalId);
+    }
+  }, 500);
+
+  // Also attempt a one-off flush on DOM ready (in case analytics is already there)
+  if (document.readyState === "complete" || document.readyState === "interactive") {
+    flushVariantQueue();
+  } else {
+    document.addEventListener("DOMContentLoaded", flushVariantQueue);
+  }
+})();
+</script>
