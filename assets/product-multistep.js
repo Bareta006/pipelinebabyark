@@ -1642,21 +1642,23 @@ class ProductMultiStep {
       }
 
       // Extract variant options for display
-      const variantColor =
-        variantForDisplay.option1 ||
-        variantForDisplay.option2 ||
-        variantForDisplay.option3 ||
-        "";
-      const variantShell =
-        variantForDisplay.option1 ||
-        variantForDisplay.option2 ||
-        variantForDisplay.option3 ||
-        "";
-      const variantSmart =
-        variantForDisplay.option1 ||
-        variantForDisplay.option2 ||
-        variantForDisplay.option3 ||
-        "";
+      // Find which option contains "Smart" (Smart Capabilities or No Smart Capabilities)
+      let variantSmart = "";
+      const options = [
+        variantForDisplay.option1,
+        variantForDisplay.option2,
+        variantForDisplay.option3,
+      ];
+      for (const option of options) {
+        if (option && option.toLowerCase().includes("smart")) {
+          variantSmart = option;
+          break;
+        }
+      }
+
+      // For color and shell, use the remaining options (or fallback to first two)
+      const variantColor = variantForDisplay.option1 || "";
+      const variantShell = variantForDisplay.option2 || "";
 
       html += `
         <div class="summary-item summary-item--product" data-summary-item data-variant-id="${variantIdToFind}" data-is-main-product="true">
