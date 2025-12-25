@@ -74,7 +74,7 @@
 
 .summary-upgrade-title {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   color: #488282;
 }
@@ -154,7 +154,7 @@
 .step-title {
   font-family: var(--FONT-STACK-HEADING);
   font-size: 36px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -1.08px;
   margin-bottom: 35px;
   text-align: center;
@@ -232,7 +232,7 @@
 .product-title {
   font-family: var(--FONT-STACK-HEADING);
   font-size: 42px;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -1.5px;
   margin-bottom: 35px;
 }
@@ -377,7 +377,7 @@
 
 .option-title {
   font-size: 18px;
-  font-weight: 400;
+  font-weight: 500;
   margin-bottom: 10px;
   text-align: center;
 }
@@ -584,7 +584,7 @@
 
   .feature-title {
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
   }
 
   .feature-description {
@@ -667,7 +667,7 @@ border-radius: 10px 10px 0 0;
 
 .accessory-item__info h4 {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
   color: #22282D;
 }
@@ -680,13 +680,13 @@ border-radius: 10px 10px 0 0;
 
 .accessory-item__price {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: #488282;
 }
 
 .accessory-item__compare-price {
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   color: #999;
   text-decoration: line-through;
 }
@@ -787,7 +787,7 @@ body .step-actions .back-button {
     min-width: 110px !important;
     padding: 9px 23px;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 500;
     text-transform: initial;
     border-radius: 26px;
     background: #FFF;
@@ -871,7 +871,7 @@ body .step-actions .back-button {
 
 .summary-item h4 {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
 }
 
 .summary-product-details-container {
@@ -947,7 +947,7 @@ body .step-actions .back-button {
 
 .summary-price-discounted {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 500;
   color: #22282D;
   margin: 0;
 }
@@ -1238,7 +1238,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
 
   .product-feature-item .feature-title {    
     font-size: 20px !important;
-    font-weight: 400;
+    font-weight: 500;
     max-width: 145px;
   }
 
@@ -1344,7 +1344,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
   .feature-description {
     font-size: 14px;
-    font-weight: 400;
+    font-weight: 500;
   }
   .feature-media {
     width: 330px;
@@ -1872,7 +1872,7 @@ top: 11vw;
 .feature-modal-body-dynamic-content-text p {
   font-size: 16px;
   line-height: 16px;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0;
 }
 
