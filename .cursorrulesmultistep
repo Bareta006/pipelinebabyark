@@ -93,6 +93,11 @@ The template consists of two main sections:
   - Checkbox selection with auto-uncheck after 2 seconds
   - Variant options for accessories (if applicable)
   - Image updates based on accessory variant selection
+  - **Auto-Initialize Variants**: When step 4 is shown, automatically selects first available variant for each accessory and updates images to match
+    - Method: `initializeAccessoryVariants()` called in `showStep(4)`
+    - Finds first checked variant option (set by Liquid template)
+    - Calls `updateAccessoryImage()` and `updateAccessoryVariant()` to update image and state
+    - Ensures images match selected variants on first load
   - 20% discount applied to accessories
 - **Accessories Collection**: Configured via `data-accessories-collection` attribute (default: "accessories")
 - **Cart Addition**: Accessories added separately with delivery properties
@@ -199,7 +204,17 @@ The template consists of two main sections:
    - `removeAccessory(variantId)`: Removes accessory from selection
    - `updateAccessoryVariant(item)`: Updates accessory variant selection
      - When variant changes, extracts variant options from selected option element and stores them
-   - `updateAccessoryImage(item, changedOption)`: Updates accessory image
+   - `updateAccessoryImage(item, changedOption)`: Updates accessory image based on variant selection
+     - Checks `data-variant-images` custom map first (if exists on accessory item)
+     - Falls back to `data-variant-image` attribute on variant option element
+   - `getAccessoryVariantImage(variantId)`: Gets variant-specific image from DOM for summary display
+     - Looks up variant option in step 4 DOM by variant ID
+     - Uses same logic as `updateAccessoryImage()`: custom map → variant attribute → null
+     - Used in `renderOrderSummary()` to show correct variant images (fixes Smart Base image issue)
+   - `initializeAccessoryVariants()`: Auto-selects first available variant for each accessory when step 4 loads
+     - Finds first checked variant option (set by Liquid template)
+     - Calls `updateAccessoryImage()` and `updateAccessoryVariant()` to update image and state
+     - Ensures images match selected variants on first load
    - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId, productHandle, variantOptions: [] }`
      - `variantOptions`: Array of variant option strings (e.g., ["Red", "Large", "Smart"])
      - Stored when accessory is added, extracted from DOM variant option elements
@@ -290,13 +305,20 @@ The template consists of two main sections:
        - If `accessoryCartItem` is `null` (item removed from cart), skips displaying that accessory line (`continue`)
        - This ensures removed accessories don't show in summary even if they're still in `cartState.accessories`
      - Displays quantities from actual cart (`accessoryCartItem.quantity`), not `cartState.accessories[].quantity`
+     - **Variant Image Lookup**: **CRITICAL** - Gets variant-specific image from DOM, not generic product image
+       - Method: `getAccessoryVariantImage(variantId)` looks up variant image from step 4 DOM
+       - First checks `data-variant-images` custom map (if exists on accessory item)
+       - Falls back to `data-variant-image` attribute on variant option element
+       - Only falls back to `accessoryState.image` / `selectedAccessories[].image` if DOM lookup fails
+       - **Why**: Cart API returns generic product image, not variant-specific image (especially for Smart Base)
+       - **Result**: Summary shows correct variant image matching what user selected in step 4
      - **Variant Info Display**: Shows variant options (size, color, etc.) below accessory title
        - Extracts variant options from `accessoryState.variantOptions` (stored when adding accessory)
        - Falls back to extracting from cart item title (if title contains " - " separator)
        - Displays variant options in `<p class="summary-variant-info">` format
        - Options containing "Smart" are wrapped in `<strong>` tags (same as main product)
        - Format: `Option1, Option2, <strong>Smart Option</strong>` or just `Option1, Option2`
-     - This ensures display matches actual cart state, showing all variants and accessories with their variant options
+     - This ensures display matches actual cart state, showing all variants and accessories with their variant options and correct variant images
      - **Variant Image Selection**:
      - **CRITICAL**: Uses simple variant image map lookup from Liquid-generated JSON
      - **Variant Image Map**: Built in Liquid template (`product-multistep-form.liquid`) and loaded in JavaScript

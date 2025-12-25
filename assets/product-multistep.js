@@ -1165,6 +1165,76 @@ class ProductMultiStep {
     }
   }
 
+  // Get variant-specific image for an accessory variant ID from DOM
+  getAccessoryVariantImage(variantId) {
+    // Find the accessory item in step 4 DOM that has this variant
+    const accessoriesContainer = this.container.querySelector(
+      "[data-accessories-container]"
+    );
+    if (!accessoriesContainer) return null;
+
+    const accessoryItems = accessoriesContainer.querySelectorAll(
+      "[data-accessory-item]"
+    );
+
+    for (const item of accessoryItems) {
+      // Check if this item has a variant option matching the variantId
+      const variantOption = item.querySelector(
+        `[data-variant-option][data-variant-id="${variantId}"]`
+      );
+
+      if (variantOption) {
+        // First, check for custom variant images map (data-variant-images)
+        const variantImagesData = item.dataset.variantImages;
+        if (variantImagesData) {
+          try {
+            const variantImages = JSON.parse(variantImagesData);
+            if (variantImages[variantId]) {
+              return variantImages[variantId];
+            }
+          } catch (e) {
+            // Error parsing, continue to fallback
+          }
+        }
+
+        // Fallback to data-variant-image attribute on the variant option
+        const variantImageUrl = variantOption.dataset.variantImage;
+        if (variantImageUrl) {
+          return variantImageUrl;
+        }
+      }
+    }
+
+    return null;
+  }
+
+  // Initialize accessory variants: auto-select first available variant for each accessory
+  // This ensures images match the selected variants on first load
+  initializeAccessoryVariants() {
+    const accessoriesContainer = this.container.querySelector(
+      "[data-accessories-container]"
+    );
+    if (!accessoriesContainer) return;
+
+    const accessoryItems = accessoriesContainer.querySelectorAll(
+      "[data-accessory-item]"
+    );
+
+    accessoryItems.forEach((item) => {
+      // Find the first checked variant option (set by Liquid template)
+      const firstCheckedOption = item.querySelector(
+        "[data-variant-option]:checked"
+      );
+
+      if (firstCheckedOption) {
+        // Update the image to match the first checked variant
+        this.updateAccessoryImage(item, firstCheckedOption);
+        // Update variant state (price, etc.)
+        this.updateAccessoryVariant(item);
+      }
+    });
+  }
+
   addAccessory(
     variantId,
     title,
@@ -1349,6 +1419,8 @@ class ProductMultiStep {
     if (stepNumber === 4) {
       this.filterAccessoriesBySmartOption();
       this.attachAccessoryListeners();
+      // Auto-select first available variant for each accessory (updates images)
+      this.initializeAccessoryVariants();
     }
 
     if (stepNumber === 5) {
@@ -1781,8 +1853,18 @@ class ProductMultiStep {
           accessoryState.title || accessoryFromSelected?.title || "Accessory";
         const displayPrice =
           accessoryState.price || accessoryFromSelected?.price || 0;
-        const displayImage =
-          accessoryState.image || accessoryFromSelected?.image || "";
+
+        // CRITICAL: Get variant-specific image from DOM first (for Smart Base and other accessories with variants)
+        // This ensures we show the correct variant image, not the generic product image from cart API
+        let displayImage = this.getAccessoryVariantImage(
+          accessoryState.variantId
+        );
+
+        // Fallback to stored images if DOM lookup fails
+        if (!displayImage) {
+          displayImage =
+            accessoryState.image || accessoryFromSelected?.image || "";
+        }
 
         // Extract variant options from cart item title or stored variant options
         // Cart item title format: "Product Name - Option1 - Option2" or just "Product Name"
