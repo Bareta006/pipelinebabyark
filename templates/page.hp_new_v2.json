@@ -336,7 +336,7 @@
             "icon_alt": "shopify://shop_images/Icon_3.svg",
             "icon_color": "#000000",
             "title": "",
-            "text": "<p>Free Delivery</p>",
+            "text": "<p>Free delivery</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -348,7 +348,7 @@
             "icon_alt": "shopify://shop_images/Icon_4.svg",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>100 Days Free Trial</p>",
+            "text": "<p>100 days free trial</p>",
             "link_text": "",
             "link_url": ""
           }
@@ -360,7 +360,7 @@
             "icon_alt": "shopify://shop_images/Icon_5.svg",
             "icon_color": "#aaaaaa",
             "title": "",
-            "text": "<p>3 Years Warranty</p>",
+            "text": "<p>3 Years warranty</p>",
             "link_text": "",
             "link_url": ""
           }
