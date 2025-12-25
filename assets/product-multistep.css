@@ -396,7 +396,7 @@
   align-items: left;
   gap: 8px;
   min-height: 213px;
-  min-width:184px;
+  width:184px;
 }
 
 .swatch-option input[type="radio"] {
@@ -1640,7 +1640,7 @@ top: 11vw;
 
   .swatch-option {
     min-height: 115px;
-        min-width: 132px;
+        width: 112px;
   }
 
   .summary-totals-container {
