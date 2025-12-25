@@ -1048,11 +1048,22 @@ class ProductMultiStep {
 
   updateAccessoryVariant(item) {
     const checkbox = item.querySelector("[data-accessory-checkbox]");
-    if (!checkbox) return;
+    if (!checkbox) {
+      this.addDebugLog(
+        "STEP4",
+        "updateAccessoryVariant() FAILED: No [data-accessory-checkbox] found"
+      );
+      return;
+    }
 
     const selectedOptions = [];
     const variantOptions = item.querySelectorAll(
       "[data-variant-option]:checked"
+    );
+
+    this.addDebugLog(
+      "STEP4",
+      `updateAccessoryVariant() Found ${variantOptions.length} checked variant options`
     );
 
     variantOptions.forEach((option) => {
@@ -1065,6 +1076,13 @@ class ProductMultiStep {
       variantOptions.length > 0
         ? parseInt(variantOptions[variantOptions.length - 1].dataset.variantId)
         : null;
+
+    this.addDebugLog(
+      "STEP4",
+      `updateAccessoryVariant() Selected variant ID: ${selectedVariantId}, Options: ${JSON.stringify(
+        selectedOptions
+      )}`
+    );
 
     if (selectedVariantId) {
       // Get selected variant option to get price
@@ -1137,10 +1155,22 @@ class ProductMultiStep {
 
   updateAccessoryImage(item, changedOption) {
     const imageEl = item.querySelector("[data-accessory-image]");
-    if (!imageEl) return;
+    if (!imageEl) {
+      this.addDebugLog(
+        "STEP4",
+        "updateAccessoryImage() FAILED: No [data-accessory-image] element found"
+      );
+      return;
+    }
 
+    const variantId = changedOption.dataset.variantId;
     const variantImagesData = item.dataset.variantImages;
     let customImageUrl = null;
+
+    this.addDebugLog(
+      "STEP4",
+      `updateAccessoryImage() START: variantId=${variantId}, hasCustomMap=${!!variantImagesData}`
+    );
 
     if (variantImagesData) {
       try {
@@ -1149,18 +1179,43 @@ class ProductMultiStep {
 
         if (selectedVariantId && variantImages[selectedVariantId]) {
           customImageUrl = variantImages[selectedVariantId];
+          this.addDebugLog(
+            "STEP4",
+            `updateAccessoryImage() Found image in custom map: ${customImageUrl}`
+          );
+        } else {
+          this.addDebugLog(
+            "STEP4",
+            `updateAccessoryImage() Variant ${selectedVariantId} not found in custom map`
+          );
         }
       } catch (e) {
-        // console.error('Error parsing variant images:', e);
+        this.addDebugLog(
+          "STEP4",
+          `updateAccessoryImage() ERROR parsing variant images: ${e.message}`
+        );
       }
     }
 
     if (customImageUrl) {
       imageEl.src = customImageUrl;
+      this.addDebugLog(
+        "STEP4",
+        `updateAccessoryImage() Updated image from custom map: ${customImageUrl}`
+      );
     } else {
       const newImageUrl = changedOption.dataset.variantImage;
       if (newImageUrl) {
         imageEl.src = newImageUrl;
+        this.addDebugLog(
+          "STEP4",
+          `updateAccessoryImage() Updated image from data-variant-image: ${newImageUrl}`
+        );
+      } else {
+        this.addDebugLog(
+          "STEP4",
+          `updateAccessoryImage() WARNING: No image URL found for variant ${variantId}`
+        );
       }
     }
   }
@@ -1211,28 +1266,122 @@ class ProductMultiStep {
   // Initialize accessory variants: auto-select first available variant for each accessory
   // This ensures images match the selected variants on first load
   initializeAccessoryVariants() {
+    this.addDebugLog(
+      "STEP4",
+      "initializeAccessoryVariants() START - Auto-selecting first variant for each accessory"
+    );
+
     const accessoriesContainer = this.container.querySelector(
       "[data-accessories-container]"
     );
-    if (!accessoriesContainer) return;
+    if (!accessoriesContainer) {
+      this.addDebugLog(
+        "STEP4",
+        "initializeAccessoryVariants() FAILED: [data-accessories-container] not found"
+      );
+      return;
+    }
 
     const accessoryItems = accessoriesContainer.querySelectorAll(
       "[data-accessory-item]"
     );
+    this.addDebugLog(
+      "STEP4",
+      `initializeAccessoryVariants() Found ${accessoryItems.length} accessory items`
+    );
 
-    accessoryItems.forEach((item) => {
+    let processedCount = 0;
+    let skippedCount = 0;
+
+    accessoryItems.forEach((item, index) => {
+      const productId = item.dataset.productId;
+      const productHandle = item.dataset.productHandle;
+      const productTitle = item.querySelector("h4")?.textContent || "Unknown";
+
+      this.addDebugLog(
+        "STEP4",
+        `initializeAccessoryVariants() Processing accessory ${index + 1}/${
+          accessoryItems.length
+        }: ${productTitle} (ID: ${productId}, Handle: ${productHandle})`
+      );
+
       // Find the first checked variant option (set by Liquid template)
       const firstCheckedOption = item.querySelector(
         "[data-variant-option]:checked"
       );
 
-      if (firstCheckedOption) {
-        // Update the image to match the first checked variant
-        this.updateAccessoryImage(item, firstCheckedOption);
-        // Update variant state (price, etc.)
-        this.updateAccessoryVariant(item);
+      if (!firstCheckedOption) {
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() SKIPPED: No checked variant option found for ${productTitle}`
+        );
+        skippedCount++;
+        return;
       }
+
+      const variantId = firstCheckedOption.dataset.variantId;
+      const variantImage = firstCheckedOption.dataset.variantImage;
+      const variantPrice = firstCheckedOption.dataset.variantPrice;
+
+      this.addDebugLog(
+        "STEP4",
+        `initializeAccessoryVariants() Found checked variant: ID=${variantId}, Price=${variantPrice}, Image=${
+          variantImage ? "YES" : "NO"
+        }`
+      );
+
+      // Check if image element exists
+      const imageEl = item.querySelector("[data-accessory-image]");
+      let currentImageSrc = null;
+      if (!imageEl) {
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() WARNING: No [data-accessory-image] element found for ${productTitle}`
+        );
+      } else {
+        currentImageSrc = imageEl.src;
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() Current image src: ${currentImageSrc}`
+        );
+      }
+
+      // Update the image to match the first checked variant
+      this.updateAccessoryImage(item, firstCheckedOption);
+      this.addDebugLog(
+        "STEP4",
+        `initializeAccessoryVariants() Called updateAccessoryImage() for ${productTitle}`
+      );
+
+      // Update variant state (price, etc.)
+      this.updateAccessoryVariant(item);
+      this.addDebugLog(
+        "STEP4",
+        `initializeAccessoryVariants() Called updateAccessoryVariant() for ${productTitle}`
+      );
+
+      // Verify image was updated
+      if (imageEl && currentImageSrc) {
+        const newImageSrc = imageEl.src;
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() New image src: ${newImageSrc}`
+        );
+        if (currentImageSrc === newImageSrc && variantImage) {
+          this.addDebugLog(
+            "STEP4",
+            `initializeAccessoryVariants() WARNING: Image did not change for ${productTitle} (might be same image or update failed)`
+          );
+        }
+      }
+
+      processedCount++;
     });
+
+    this.addDebugLog(
+      "STEP4",
+      `initializeAccessoryVariants() COMPLETE: Processed ${processedCount}, Skipped ${skippedCount}`
+    );
   }
 
   addAccessory(
@@ -1417,10 +1566,17 @@ class ProductMultiStep {
     }
 
     if (stepNumber === 4) {
+      this.addDebugLog(
+        "STEP4",
+        "showStep(4) - Step 4 shown, initializing accessories"
+      );
       this.filterAccessoriesBySmartOption();
       this.attachAccessoryListeners();
       // Auto-select first available variant for each accessory (updates images)
-      this.initializeAccessoryVariants();
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        this.initializeAccessoryVariants();
+      });
     }
 
     if (stepNumber === 5) {
