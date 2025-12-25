@@ -2171,68 +2171,169 @@ class ProductMultiStep {
     });
 
     if (smartVariant) {
-      // Update cart: remove non-smart variant and add smart variant
+      // Update cart: upgrade ALL non-smart variants to smart
       try {
         // Get current cart
         const cartResponse = await fetch("/cart.js");
         const cart = await cartResponse.json();
 
-        // Find the non-smart variant line item
-        const nonSmartLineItem = cart.items.find(
-          (item) =>
-            item.product_id === this.productData.id &&
-            item.variant_id === this.selectedVariant.id
+        // Find ALL main product items in cart
+        const mainProductItems = cart.items.filter(
+          (item) => this.productData && item.product_id === this.productData.id
         );
 
-        if (nonSmartLineItem) {
-          // CRITICAL: Preserve quantity when upgrading (don't hardcode to 1)
-          const quantityToPreserve = nonSmartLineItem.quantity;
-          const propertiesToPreserve =
-            nonSmartLineItem.properties || this.getDeliveryProperties();
+        // Helper function to check if a variant is non-smart
+        const isNonSmartVariant = (variant) => {
+          if (!variant) return false;
+          const options = [
+            variant.option1,
+            variant.option2,
+            variant.option3,
+          ].filter(Boolean);
+          return options.some(
+            (opt) =>
+              opt.toLowerCase().includes("non") ||
+              opt.toLowerCase().startsWith("no ") ||
+              opt.toLowerCase().startsWith("no-")
+          );
+        };
 
-          // Remove the non-smart variant
-          await fetch("/cart/change.js", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              id: nonSmartLineItem.key,
-              quantity: 0,
-            }),
+        // Helper function to find smart variant matching color + shell
+        const findSmartVariantForNonSmart = (nonSmartVariant) => {
+          if (!nonSmartVariant) return null;
+
+          // Extract color and shell from non-smart variant (exclude smart option)
+          const nonSmartOptions = [
+            nonSmartVariant.option1,
+            nonSmartVariant.option2,
+            nonSmartVariant.option3,
+          ]
+            .filter(Boolean)
+            .filter(
+              (opt) =>
+                !opt.toLowerCase().includes("smart") &&
+                !opt.toLowerCase().includes("non") &&
+                !opt.toLowerCase().startsWith("no ") &&
+                !opt.toLowerCase().startsWith("no-")
+            );
+
+          // Find smart variant with same color + shell
+          return this.productData.variants.find((v) => {
+            const vOptions = [v.option1, v.option2, v.option3].filter(Boolean);
+
+            // Must be smart (contains "smart" but not "non" or "no")
+            const isSmart = vOptions.some(
+              (opt) =>
+                opt.toLowerCase().includes("smart") &&
+                !opt.toLowerCase().includes("non") &&
+                !opt.toLowerCase().startsWith("no ") &&
+                !opt.toLowerCase().startsWith("no-")
+            );
+            if (!isSmart) return false;
+
+            // Extract non-smart options from smart variant (exclude smart option)
+            const vNonSmartOptions = vOptions.filter(
+              (opt) =>
+                !opt.toLowerCase().includes("smart") &&
+                !opt.toLowerCase().includes("non") &&
+                !opt.toLowerCase().startsWith("no ") &&
+                !opt.toLowerCase().startsWith("no-")
+            );
+
+            // Check if all non-smart options match (color + shell)
+            // Options can be in any position, so we check if all values exist in both arrays
+            if (nonSmartOptions.length !== vNonSmartOptions.length) {
+              return false;
+            }
+
+            // Check if every option in non-smart exists in smart variant (case-insensitive)
+            return nonSmartOptions.every((opt) =>
+              vNonSmartOptions.some(
+                (vOpt) => vOpt.toLowerCase() === opt.toLowerCase()
+              )
+            );
           });
+        };
 
-          // Add the smart variant with PRESERVED quantity and properties
-          await this.addToCart(
-            smartVariant.id,
-            quantityToPreserve,
-            propertiesToPreserve
+        // Process each main product item
+        let upgradedCount = 0;
+        let currentCart = cart;
+
+        for (const cartItem of mainProductItems) {
+          // Find variant in productData
+          const variant = this.productData.variants.find(
+            (v) => v.id === cartItem.variant_id
           );
 
+          // Check if this variant is non-smart
+          if (variant && isNonSmartVariant(variant)) {
+            // Find matching smart variant
+            const matchingSmartVariant = findSmartVariantForNonSmart(variant);
+
+            if (matchingSmartVariant) {
+              // Preserve quantity and properties
+              const quantityToPreserve = cartItem.quantity;
+              const propertiesToPreserve =
+                cartItem.properties || this.getDeliveryProperties();
+
+              // Remove the non-smart variant
+              await fetch("/cart/change.js", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  id: cartItem.key || cartItem.id,
+                  quantity: 0,
+                }),
+              });
+
+              // Add the smart variant with PRESERVED quantity and properties
+              await this.addToCart(
+                matchingSmartVariant.id,
+                quantityToPreserve,
+                propertiesToPreserve
+              );
+
+              upgradedCount++;
+              this.addDebugLog(
+                "CART",
+                `Upgraded variant ${cartItem.variant_id} (qty: ${quantityToPreserve}) to smart variant ${matchingSmartVariant.id}`
+              );
+
+              // Refresh cart after each upgrade
+              currentCart = await fetch("/cart.js").then((r) => r.json());
+            } else {
+              this.addDebugLog(
+                "CART",
+                `Could not find matching smart variant for variant ${cartItem.variant_id}`
+              );
+            }
+          }
+        }
+
+        if (upgradedCount > 0) {
           // Dispatch cart change event
-          const updatedCart = await fetch("/cart.js").then((r) => r.json());
+          const finalCart = await fetch("/cart.js").then((r) => r.json());
           document.dispatchEvent(
             new CustomEvent("theme:cart:change", {
-              detail: { cart: updatedCart },
+              detail: { cart: finalCart },
               bubbles: true,
             })
           );
 
-          // CRITICAL: Update cartState with new smart variant ID and preserved quantity
-          this.cartState.mainProductVariantId = smartVariant.id;
-          this.cartState.mainProductProperties = propertiesToPreserve;
-          this.cartState.mainProductAdded = true;
+          // CRITICAL: Re-initialize cartState from cart after all upgrades
+          await this.initializeCartStateFromCart();
+
           this.addDebugLog(
             "CART",
-            `Upgraded to smart: variant ${
-              smartVariant.id
-            }, quantity ${quantityToPreserve}, properties ${JSON.stringify(
-              propertiesToPreserve
-            )}`
+            `Upgraded ${upgradedCount} non-smart variant(s) to smart`
           );
+        } else {
+          this.addDebugLog("CART", `No non-smart variants found to upgrade`);
         }
 
-        // Update selected variant first
+        // Update selected variant to smart variant (for UI consistency)
         this.selectedVariant = smartVariant;
 
         // Check for base accessories and upgrade them to smart
