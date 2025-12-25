@@ -981,13 +981,43 @@ class ProductMultiStep {
             const productHandle =
               item.closest("[data-accessory-item]")?.dataset.productHandle ||
               null;
+
+            // Extract variant options from selected variant option elements
+            const variantOptions = [];
+            const selectedOptions = item.querySelectorAll(
+              "[data-variant-option]:checked, [data-variant-option][selected]"
+            );
+            selectedOptions.forEach((opt) => {
+              const optionText =
+                opt.textContent.trim() ||
+                opt.value ||
+                opt.dataset.variantOption;
+              if (optionText) {
+                variantOptions.push(optionText);
+              }
+            });
+            // If no selected options found, try to get from all options (fallback)
+            if (variantOptions.length === 0) {
+              const allOptions = item.querySelectorAll("[data-variant-option]");
+              allOptions.forEach((opt) => {
+                const optionText =
+                  opt.textContent.trim() ||
+                  opt.value ||
+                  opt.dataset.variantOption;
+                if (optionText && !variantOptions.includes(optionText)) {
+                  variantOptions.push(optionText);
+                }
+              });
+            }
+
             this.addAccessory(
               variantId,
               accessoryTitle,
               accessoryPrice,
               accessoryImage,
               productId,
-              productHandle
+              productHandle,
+              variantOptions
             );
 
             if (checkbox.autoUncheckTimeout) {
@@ -1080,13 +1110,25 @@ class ProductMultiStep {
           const productHandle =
             item.closest("[data-accessory-item]")?.dataset.productHandle ||
             null;
+          // Extract variant options from selected option element
+          const variantOptions = [];
+          if (selectedOption) {
+            const optionText =
+              selectedOption.textContent.trim() ||
+              selectedOption.value ||
+              selectedOption.dataset.variantOption;
+            if (optionText) {
+              variantOptions.push(optionText);
+            }
+          }
           this.addAccessory(
             selectedVariantId,
             accessoryTitle,
             accessoryPrice,
             accessoryImage,
             productId,
-            productHandle
+            productHandle,
+            variantOptions
           );
         }
       }
@@ -1129,7 +1171,8 @@ class ProductMultiStep {
     price,
     image,
     productId = null,
-    productHandle = null
+    productHandle = null,
+    variantOptions = null
   ) {
     this.addDebugLog(
       "CALL",
@@ -1148,6 +1191,7 @@ class ProductMultiStep {
         quantity: 1,
         productId: productId,
         productHandle: productHandle,
+        variantOptions: variantOptions || [],
       });
     } else {
       this.addDebugLog(
@@ -1157,6 +1201,10 @@ class ProductMultiStep {
         }`
       );
       existing.quantity++;
+      // Update variant options if provided
+      if (variantOptions && variantOptions.length > 0) {
+        existing.variantOptions = variantOptions;
+      }
     }
 
     // Update cartState JSON
@@ -1734,12 +1782,46 @@ class ProductMultiStep {
         const displayImage =
           accessoryState.image || accessoryFromSelected?.image || "";
 
+        // Extract variant options from cart item title or stored variant options
+        // Cart item title format: "Product Name - Option1 - Option2" or just "Product Name"
+        let variantOptions = [];
+        if (accessoryCartItem && accessoryCartItem.title) {
+          // Try to extract variant info from title (if it contains " - ")
+          const titleParts = accessoryCartItem.title.split(" - ");
+          if (titleParts.length > 1) {
+            // Variant options are after the product name
+            variantOptions = titleParts.slice(1);
+          }
+        }
+        // If we have stored variant options in accessoryState, use those
+        if (
+          accessoryState.variantOptions &&
+          accessoryState.variantOptions.length > 0
+        ) {
+          variantOptions = accessoryState.variantOptions;
+        }
+
         const discountedPrice = displayPrice * 0.8;
         const totalDiscountedPrice = discountedPrice * quantity;
         const totalPrice = displayPrice * quantity;
         const imageUrl = displayImage
           ? this.getImageUrl(displayImage, 200)
           : "";
+
+        // Build variant info display (similar to main product)
+        let variantInfoHtml = "";
+        if (variantOptions.length > 0) {
+          const variantInfoParts = variantOptions.map((opt, index) => {
+            // Check if this option contains "Smart" (like main product)
+            if (opt.toLowerCase().includes("smart")) {
+              return `<strong>${opt}</strong>`;
+            }
+            return opt;
+          });
+          variantInfoHtml = `<p class="summary-variant-info">${variantInfoParts.join(
+            ", "
+          )}</p>`;
+        }
 
         html += `
           <div class="summary-item summary-item--product" data-summary-item data-variant-id="${
@@ -1755,6 +1837,7 @@ class ProductMultiStep {
               </div>
               <div class="summary-product-details">
                   <h4 class="summary-product-title">${displayTitle}</h4>
+                  ${variantInfoHtml}
               </div>
             </div>
             <div class="summary-product-pricing">
@@ -2756,14 +2839,25 @@ class ProductMultiStep {
         (item) => !this.productData || item.product_id !== this.productData.id
       );
 
-      this.cartState.accessories = accessoryItems.map((item) => ({
-        variantId: item.variant_id,
-        quantity: item.quantity,
-        properties: item.properties || {},
-        title: item.product_title,
-        price: item.price,
-        image: item.image,
-      }));
+      this.cartState.accessories = accessoryItems.map((item) => {
+        // Try to extract variant options from cart item title
+        let variantOptions = [];
+        if (item.title && item.title.includes(" - ")) {
+          const titleParts = item.title.split(" - ");
+          if (titleParts.length > 1) {
+            variantOptions = titleParts.slice(1);
+          }
+        }
+        return {
+          variantId: item.variant_id,
+          quantity: item.quantity,
+          properties: item.properties || {},
+          title: item.product_title,
+          price: item.price,
+          image: item.image,
+          variantOptions: variantOptions,
+        };
+      });
     } catch (error) {
       // console.error('Error initializing cart state:', error);
       // Start with empty state on error
@@ -2795,14 +2889,25 @@ class ProductMultiStep {
             (sel) => sel.id === cartItem.variant_id
           );
         })
-        .map((item) => ({
-          variantId: item.variant_id,
-          quantity: item.quantity,
-          properties: item.properties || {},
-          title: item.product_title,
-          price: item.price,
-          image: item.image,
-        }));
+        .map((item) => {
+          // Try to extract variant options from cart item title
+          let variantOptions = [];
+          if (item.title && item.title.includes(" - ")) {
+            const titleParts = item.title.split(" - ");
+            if (titleParts.length > 1) {
+              variantOptions = titleParts.slice(1);
+            }
+          }
+          return {
+            variantId: item.variant_id,
+            quantity: item.quantity,
+            properties: item.properties || {},
+            title: item.product_title,
+            price: item.price,
+            image: item.image,
+            variantOptions: variantOptions,
+          };
+        });
 
       // Add/update accessories from selectedAccessories (user interacted with these)
       const selectedAccessoriesState = this.selectedAccessories.map((acc) => ({
@@ -2812,6 +2917,7 @@ class ProductMultiStep {
         title: acc.title,
         price: acc.price,
         image: acc.image,
+        variantOptions: acc.variantOptions || [],
       }));
 
       // Merge: preserved + selected

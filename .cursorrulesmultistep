@@ -192,11 +192,17 @@ The template consists of two main sections:
 
 5. **Accessories Management**:
    - `attachAccessoryListeners()`: Sets up accessory selection handlers
-   - `addAccessory(variantId, title, price, image, productId)`: Adds accessory to selection (stores productId for base upgrades)
+   - `addAccessory(variantId, title, price, image, productId, productHandle, variantOptions)`: Adds accessory to selection
+     - Stores `productId` for base upgrades
+     - Stores `variantOptions` array (extracted from selected variant option elements in DOM)
+     - Variant options are extracted from `[data-variant-option]` elements when checkbox is clicked
    - `removeAccessory(variantId)`: Removes accessory from selection
    - `updateAccessoryVariant(item)`: Updates accessory variant selection
+     - When variant changes, extracts variant options from selected option element and stores them
    - `updateAccessoryImage(item, changedOption)`: Updates accessory image
-   - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId }`
+   - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId, productHandle, variantOptions: [] }`
+     - `variantOptions`: Array of variant option strings (e.g., ["Red", "Large", "Smart"])
+     - Stored when accessory is added, extracted from DOM variant option elements
 
 6. **Cart Operations**:
    - **JSON State System (cartState)** - **SINGLE SOURCE OF TRUTH**:
@@ -213,6 +219,9 @@ The template consists of two main sections:
        - Called when accessories are clicked (`addAccessory()` / `removeAccessory()`)
        - Maps `selectedAccessories` to `cartState.accessories` format
        - Includes properties from `getAccessoryDeliveryProperties()`
+       - **Preserves variant options**: Stores `variantOptions` from `selectedAccessories` in `cartState.accessories`
+       - **Preserves accessories from cart**: When initializing from cart, extracts variant options from cart item title (if title contains " - " separator)
+       - `cartState.accessories` structure: `{ variantId, quantity, properties, title, price, image, variantOptions: [] }`
      - `syncCartToState()`: Syncs cart to match `cartState` JSON
        - **CRITICAL**: This is the ONLY method that modifies cart
        - Called when going to step 5 (after updating `cartState`)
@@ -224,6 +233,9 @@ The template consists of two main sections:
          - If already in cart: Preserves it, no action needed
          - **NEVER removes existing variants** - only adds new selection
          - This ensures users can have multiple variants of the same product in cart
+         - **Page Load Behavior**: If page loads with items already in cart, they are preserved
+         - **Multiple Variants**: Cart can contain multiple variants of the main product simultaneously
+         - **Summary Display**: All main product variants in cart are displayed separately in Step 5 summary
        - **Cart Match Check**: 
          - Checks if cart already matches `cartState` before syncing
          - Main product match: Checks if selected variant exists in cart (any quantity > 0)
@@ -267,10 +279,20 @@ The template consists of two main sections:
      - This ensures if cart has variant A and variant B, both are shown in summary
      - Uses variant image map for each variant's image
      - Extracts variant options (color, shell, smart) from `variantForDisplay` for each variant
+     - **Smart Option Detection**: Loops through `option1`, `option2`, `option3` to find the one containing "smart" (case-insensitive)
+       - The option containing "smart" is displayed in `<strong>` tags
+       - Values are either "Smart Capabilities" or "No Smart Capabilities"
+       - Color and shell use `option1` and `option2` as fallbacks (may need refinement if Smart is in those positions)
    - **Accessories Display**:
      - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
      - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
-   - This ensures display matches actual cart state, showing all variants and accessories
+     - **Variant Info Display**: Shows variant options (size, color, etc.) below accessory title
+       - Extracts variant options from `accessoryState.variantOptions` (stored when adding accessory)
+       - Falls back to extracting from cart item title (if title contains " - " separator)
+       - Displays variant options in `<p class="summary-variant-info">` format
+       - Options containing "Smart" are wrapped in `<strong>` tags (same as main product)
+       - Format: `Option1, Option2, <strong>Smart Option</strong>` or just `Option1, Option2`
+     - This ensures display matches actual cart state, showing all variants and accessories with their variant options
      - **Variant Image Selection**:
      - **CRITICAL**: Uses simple variant image map lookup from Liquid-generated JSON
      - **Variant Image Map**: Built in Liquid template (`product-multistep-form.liquid`) and loaded in JavaScript
