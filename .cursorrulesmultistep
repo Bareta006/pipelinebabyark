@@ -308,8 +308,23 @@ The template consists of two main sections:
      - **Why Simple**: Liquid has direct access to variant images, no need to parse product JSON variants, handles fallback in Liquid, URL fix happens at point of use, more reliable
    - `getDeliveryText()`: Formats delivery information for display
    - `upgradeToSmart()`: Allows upgrading to smart version from summary
-     - Updates `cartState.accessories[]` with new variant ID when upgrading bases
-     - Then calls `syncCartToState()` to sync cart
+     - **CRITICAL**: Upgrades ALL non-smart variants in cart (not just one)
+     - **Process**:
+       1. Finds ALL main product items in cart (`product_id === this.productData.id`)
+       2. For each item, checks if variant is non-smart using `isNonSmartVariant()` helper
+       3. For each non-smart variant, finds matching smart variant using `findSmartVariantForNonSmart()` helper
+       4. Upgrades each non-smart variant individually:
+          - Preserves quantity and properties for each variant
+          - Removes non-smart variant from cart
+          - Adds matching smart variant with preserved quantity and properties
+       5. After all upgrades, re-initializes `cartState` from cart using `initializeCartStateFromCart()`
+       6. Re-renders summary to show updated variants
+     - **Helper Functions**:
+       - `isNonSmartVariant(variant)`: Checks if variant contains "non", "no ", or "no-" in any option
+       - `findSmartVariantForNonSmart(nonSmartVariant)`: Finds matching smart variant by comparing color + shell options (excluding smart option), handles options in any position
+     - **Why upgrade all**: If cart has multiple non-smart variants (different colors/shells or same variant with quantity > 1), all are upgraded, not just the one matching `this.selectedVariant.id`
+     - **Works after quantity changes**: Even if user removed items from cart, upgrade still works because it checks actual cart items, not `this.selectedVariant`
+     - Updates `cartState.accessories[]` with new variant ID when upgrading bases (via `upgradeBaseAccessoriesToSmart()`)
      - Then calls `renderOrderSummary()` to update display
    - **Totals Calculation**: 
      - **Main Product**: Loops through ALL main product variants in cart
@@ -486,18 +501,24 @@ Priority order:
 
 ### Upgrade Flow
 - Available in Step 5 if non-smart version selected
-- Shows upgrade card with $200 price
+- Shows upgrade card with dynamic upgrade price (calculated from variant price difference)
 - Clicking "ADD" button:
   - Shows "added" state: Hides "ADD" text, shows "Added" text with checkmark icon, adds `showing-added` class
   - After 2 seconds: Reverts to "ADD" state (but stays on Step 5, doesn't navigate)
   - Updates `selectedSmartOption` to smart value
-  - Finds matching smart variant
-  - **CRITICAL**: Preserves quantity when upgrading (uses `nonSmartLineItem.quantity`, not hardcoded 1)
-  - **CRITICAL**: Preserves properties from cart item (delivery date/time)
-  - Removes non-smart variant from cart and adds smart variant with preserved quantity and properties
-  - **CRITICAL**: Updates `cartState.mainProductVariantId` to new smart variant ID
-  - **CRITICAL**: Updates `cartState.mainProductProperties` with preserved properties
-  - **CRITICAL**: Calls `initializeCartStateFromCart()` after upgrade to fully sync cartState from cart
+  - **CRITICAL**: Upgrades ALL non-smart variants in cart (not just one)
+  - **Process**:
+    1. Finds all main product items in cart (`product_id === this.productData.id`)
+    2. Identifies which variants are non-smart using `isNonSmartVariant()` helper (checks for "non", "no ", or "no-" in options)
+    3. For each non-smart variant, finds matching smart variant using `findSmartVariantForNonSmart()` helper (matches color + shell, excludes smart option)
+    4. Upgrades each non-smart variant individually:
+       - **CRITICAL**: Preserves quantity when upgrading (uses `cartItem.quantity`, not hardcoded 1)
+       - **CRITICAL**: Preserves properties from cart item (delivery date/time)
+       - Removes non-smart variant from cart
+       - Adds matching smart variant with preserved quantity and properties
+    5. After all upgrades, calls `initializeCartStateFromCart()` to fully sync cartState from cart
+  - **Works after quantity changes**: Even if user removed items from cart, upgrade still works because it checks actual cart items, not `this.selectedVariant`
+  - **Multiple variants**: If cart has variant A (qty 2) and variant B (qty 1), both are upgraded separately with their own quantities preserved
   - **Base Accessory Upgrade**: Automatically checks `selectedAccessories` and cart for base accessories
   - **Logic**: 
     - Checks if base title contains "classic"
