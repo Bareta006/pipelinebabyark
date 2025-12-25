@@ -507,7 +507,7 @@
       ],
       "custom_css": [
         ".flickity-button {bottom: -3.125rem;}",
-        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p {min-height: 134px; } .section-padding {padding-bottom: 80px; } .flickity-button {bottom: -4.125rem; }}"
+        "@media (max-width: 480px) {.backdrop--hero:before {background: none; } .hero__content {padding-top: 20px; } .hero__title {min-height:80px;} .fullwidth-card__video-mobile {height: 78vw; } .fullwidth-card-slide {padding: 0 5px; } .hero__description p {min-height: 134px; } .section-padding {padding-bottom: 80px; } .flickity-button {bottom: -4.125rem; }}"
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
