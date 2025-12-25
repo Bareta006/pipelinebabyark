@@ -1,0 +1,167 @@
+<script>
+(function () {
+  // ---------------------------------------
+  // EXPERIMENTS CONFIG
+  // ---------------------------------------
+  var EXPERIMENTS = [
+    {
+      id: "EXP4CC1ADEB",
+      live: true,
+      sourcePath: "/",
+      targetUrl: "https://babyark.com/pages/hp2",
+      ratio: 0.5
+    }
+    // Add more experiments here...
+  ];
+
+  // ---------------------------------------
+  // SESSION HELPERS
+  // ---------------------------------------
+  function ensureSession() {
+    try {
+      if (!sessionStorage.getItem("gb_session_start")) {
+        sessionStorage.setItem("gb_session_start", new Date().toISOString());
+      }
+      if (!sessionStorage.getItem("gb_session_id")) {
+        var sid = "sess_" + Math.random().toString(36).substring(2, 10);
+        sessionStorage.setItem("gb_session_id", sid);
+      }
+    } catch (e) {}
+  }
+
+  function getSessionId() {
+    try {
+      return sessionStorage.getItem("gb_session_id");
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // ---------------------------------------
+  // HELPERS
+  // ---------------------------------------
+  function getStableUserId() {
+    var KEY = "gb_anonymous_id";
+    var id = null;
+    try {
+      id = window.localStorage.getItem(KEY);
+    } catch (e) {}
+
+    if (!id) {
+      id = "user_" + Math.random().toString(36).substring(2, 10);
+      try {
+        window.localStorage.setItem(KEY, id);
+      } catch (e) {}
+    }
+    return id;
+  }
+
+  function getBucket(userId, experimentId) {
+    var str = userId + ":" + experimentId;
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+      hash = (hash * 31 + str.charCodeAt(i)) | 0;
+    }
+    return (hash >>> 0) / 4294967296;
+  }
+
+  function queueExperimentEvent(data) {
+    try {
+      var KEY = "variant_event_queue";
+      var raw = localStorage.getItem(KEY);
+      var queue = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(queue)) queue = [];
+      queue.push(data);
+      localStorage.setItem(KEY, JSON.stringify(queue));
+    } catch (e) {
+      if (console && console.warn) {
+        console.warn("[Variant redirect] Failed to queue event", e);
+      }
+    }
+  }
+
+  function buildExperimentEvent(expId, variationId, bucket, inExperiment) {
+    var data = {
+      experiment_id: expId,
+      variation_id: variationId,
+      bucket: bucket,
+      in_experiment: inExperiment,
+      source: "head-redirect",
+      is_ab_test: true,
+      is_force_rule: false,
+      timestamp: new Date().toISOString()
+    };
+
+    var sid = getSessionId();
+    if (sid) data.session_id = sid;
+
+    return data;
+  }
+
+  function redirectTo(baseUrl) {
+    var url = baseUrl;
+    var qs = window.location.search;
+
+    if (qs && qs !== "") {
+      url += (url.indexOf("?") === -1) ? qs : "&" + qs.slice(1);
+    }
+
+    window.location.replace(url);
+  }
+
+  // ---------------------------------------
+  // FIND MATCHING EXPERIMENT
+  // ---------------------------------------
+  var path = window.location.pathname;
+  var params = new URLSearchParams(window.location.search);
+  if (params.has("oseid")) {
+    return;
+  }
+
+  var exp = null;
+  for (var i = 0; i < EXPERIMENTS.length; i++) {
+    if (EXPERIMENTS[i].sourcePath === path) {
+      exp = EXPERIMENTS[i];
+      break;
+    }
+  }
+  console.log('exp is', exp)
+
+  // No matching experiment for this path
+  if (!exp) return;
+
+  // Initialize session
+  ensureSession();
+
+  // ---------------------------------------
+  // 1) PREVIEW OVERRIDE (?{EXP_ID}=1)
+  // ---------------------------------------
+  if (params.get(exp.id) === "1") {
+    redirectTo(exp.targetUrl);
+    return;
+  }
+
+  // ---------------------------------------
+  // 2) EXPERIMENT NOT LIVE - STOP
+  // ---------------------------------------
+  if (!exp.live) return;
+
+  // ---------------------------------------
+  // 3) REAL EXPERIMENT LOGIC (BUCKETING)
+  // ---------------------------------------
+  var userId = getStableUserId();
+  var bucket = getBucket(userId, exp.id);
+  console.log('bucket is', bucket)
+  var shouldRedirect = bucket > exp.ratio;
+    console.log('shouldRedirect values',shouldRedirect, bucket, exp.ratio)
+  var variationId = shouldRedirect ? 1 : 0;
+
+  var eventData = buildExperimentEvent(exp.id, variationId, bucket, true);
+  queueExperimentEvent(eventData);
+
+  if (shouldRedirect) {
+    console.log('should redirect to', exp.targetUrl)
+    redirectTo(exp.targetUrl);
+  }
+})();
+</script>
