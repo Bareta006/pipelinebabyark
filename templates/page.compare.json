@@ -245,7 +245,7 @@
       "custom_css": [
         "> div {background-color: #d5d5d5;}",
         ".kicker-flourished:after {display: none;}",
-        "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; } h2.kicker-flourished {font-family: \"centrano2\", sans-serif; text-transform: none; font-size: 45px; color: #848484; font-weight: 400; letter-spacing: -1.35px; }}"
+        "@media (min-width: 960px) {.grid__item {width: 20%; } .clearfix {display: none; } h2.kicker-flourished {font-family: \"centrano2\", sans-serif; text-transform: none; font-size: 45px; color: #848484; font-weight: 500; letter-spacing: -1.35px; }}"
       ],
       "settings": {
         "title": "Complies with the strictest standards",

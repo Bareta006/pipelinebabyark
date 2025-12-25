@@ -305,7 +305,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 650px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 46px;\n  font-style: normal;\n  font-weight: 400;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\nbackground: linear-gradient(0deg, #F8F7F7 0%, #F8F7F7 100%), linear-gradient(0deg, #1D1D1B 0%, #1D1D1B 100%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n.section-icons .grid__item{\nwidth:50%;\n}\n.section-icons .icon__column__icon {\n        width: 24px;\nmargin:0;\n    }\n.section-icons .icon--left .icon__column {\n    display: flex;\ngap:3px;\n        align-items: center;\n}\n.section-icons .icon__column__text p {\n        font-size: 14px !important;\n    }\n.section-icons .grid__item:last-child{\ndisplay:none;\n}\n}\n</style>",
+        "html": "<style>\n.section-fullwidth-card-slider .section__title {\n  width: 650px;\n  max-width: 100%;\n  margin: 0 auto 60px;\n  font-size: 46px;\n  font-style: normal;\n  font-weight: 500;\n  line-height: 120%;\n  letter-spacing: -1px;\n}\n.section-fullwidth-card-slider  .flickity-button {\n  color: #473c2d;\n}\n.section-fullwidth-card-slider  section {\nbackground: linear-gradient(0deg, #F8F7F7 0%, #F8F7F7 100%), linear-gradient(0deg, #1D1D1B 0%, #1D1D1B 100%), linear-gradient(313deg, #E9DDCE 1.04%, #E8ECEA 99.74%), linear-gradient(141deg, #7E5748 35.67%, #C49B7D 93.76%), #D9DFDF;\n}\n\n@media (max-width: 480px) {\n.section-fullwidth-card-slider .section__title{\nfont-size:30px;\n}\n.section-icons .grid__item{\nwidth:50%;\n}\n.section-icons .icon__column__icon {\n        width: 24px;\nmargin:0;\n    }\n.section-icons .icon--left .icon__column {\n    display: flex;\ngap:3px;\n        align-items: center;\n}\n.section-icons .icon__column__text p {\n        font-size: 14px !important;\n    }\n.section-icons .grid__item:last-child{\ndisplay:none;\n}\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -533,7 +533,7 @@
       "type": "section-html",
       "name": "Custom HTML",
       "settings": {
-        "html": "<style>\n.section-icons-grid > div > .wrapper {\npadding:30px 0; \n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\n  font-weight: 400;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
+        "html": "<style>\n.section-icons-grid > div > .wrapper {\npadding:30px 0; \n  max-width: calc(var(--LAYOUT-WIDTH) - (var(--outer) * 2));\n\n}\n.section-icons-grid .kicker-flourished:after {\n  display: none;\n}\n.section-icons-grid h2 {\n  font-family: \"centrano2\", sans-serif;\n  font-size: 34px;\n  font-weight: 500;\n  text-transform: none;\n  letter-spacing: -1.5px;\n}\n@media (min-width: 960px) {\n  .section-icons-grid .carousel-slide {\n    width: 20%;\n    clear: none;\n  }\n  .section-icons-grid .clearfix {\n    display: none;\n  }\n}\n\n\n@media (max-width: 480px) {\n  .section-icons-grid > div > .wrapper {\n    padding: 30px 0;\n    margin-bottom: 60px;\nwidth:90%;\n  }\n  .section-icons-grid h2 {\n    font-size: 30px;\n    padding: 0 20px;\n  }\n}\n</style>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
@@ -739,7 +739,7 @@
       ],
       "custom_css": [
         "> div {background: #fff;}",
-        "h2 {font-style: normal; font-weight: 400; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
+        "h2 {font-style: normal; font-weight: 500; text-transform: none; letter-spacing: -1px; font-size: 46px; width: 768px; max-width: 100%; margin: 0 auto 60px; text-align: center;}",
         ".column__media {border-radius: 12px; overflow: hidden;}",
         "@media (max-width: 480px) {h2 {font-size: 30px; }}"
       ],

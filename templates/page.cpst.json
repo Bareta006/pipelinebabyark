@@ -74,11 +74,11 @@
         "powerful_form_builder_app_block_64Vmy3"
       ],
       "custom_css": [
-        "h3 {font-weight: 400; font-size: 42px;}",
+        "h3 {font-weight: 500; font-size: 42px;}",
         "p,label {font-size: 18px;}",
         ".globo-form-input {margin-top: 5px;}",
         ".globo-list-control .checkbox-wrapper {box-shadow: none !important; background: none;}",
-        ".wizard__submit {border-radius: 50px; margin: 0 auto; display: block; font-size: 18px; width: 140px; padding: 10px 15px; font-weight: 400;}",
+        ".wizard__submit {border-radius: 50px; margin: 0 auto; display: block; font-size: 18px; width: 140px; padding: 10px 15px; font-weight: 500;}",
         "@media (max-width: 480px) {.g-container {padding: 0 16px; }}"
       ],
       "settings": {
