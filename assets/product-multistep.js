@@ -1755,9 +1755,11 @@ class ProductMultiStep {
         const accessoryCartItem = cart.items.find(
           (item) => item.variant_id === accessoryState.variantId
         );
-        const quantity = accessoryCartItem
-          ? accessoryCartItem.quantity
-          : accessoryState.quantity;
+
+        // CRITICAL: If item not in cart, don't display it (it was removed)
+        if (!accessoryCartItem) continue;
+
+        const quantity = accessoryCartItem.quantity;
         // Get line item key - Shopify cart.js uses 'key' property
         const accessoryLineItemKey =
           accessoryCartItem?.key || accessoryCartItem?.id || "";

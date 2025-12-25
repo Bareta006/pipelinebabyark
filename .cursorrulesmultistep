@@ -285,7 +285,11 @@ The template consists of two main sections:
        - Color and shell use `option1` and `option2` as fallbacks (may need refinement if Smart is in those positions)
    - **Accessories Display**:
      - For each accessory in `cartState.accessories`, uses `accessoryState` data (title, price, image) for display, with fallback to `selectedAccessories`
-     - Displays quantities from actual cart (`cart.items.find()` by variant_id), not just `cartState.accessories[].quantity`
+     - **CRITICAL**: Only displays accessories that actually exist in cart
+       - Gets `accessoryCartItem` from cart using `cart.items.find()` by variant_id
+       - If `accessoryCartItem` is `null` (item removed from cart), skips displaying that accessory line (`continue`)
+       - This ensures removed accessories don't show in summary even if they're still in `cartState.accessories`
+     - Displays quantities from actual cart (`accessoryCartItem.quantity`), not `cartState.accessories[].quantity`
      - **Variant Info Display**: Shows variant options (size, color, etc.) below accessory title
        - Extracts variant options from `accessoryState.variantOptions` (stored when adding accessory)
        - Falls back to extracting from cart item title (if title contains " - " separator)
