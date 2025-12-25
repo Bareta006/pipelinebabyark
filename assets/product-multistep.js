@@ -1305,54 +1305,37 @@ class ProductMultiStep {
         }: ${productTitle} (ID: ${productId}, Handle: ${productHandle})`
       );
 
-      // Find the first checked variant option (set by Liquid template)
-      const firstCheckedOption = item.querySelector(
-        "[data-variant-option]:checked"
-      );
+      // SIMPLE: Find the first .swatch__button in this accessory item
+      const firstSwatchButton = item.querySelector(".swatch__button");
 
-      if (!firstCheckedOption) {
+      if (!firstSwatchButton) {
         this.addDebugLog(
           "STEP4",
-          `initializeAccessoryVariants() SKIPPED: No checked variant option found for ${productTitle}`
+          `initializeAccessoryVariants() SKIPPED: No .swatch__button found for ${productTitle}`
         );
         skippedCount++;
         return;
       }
 
-      const variantId = firstCheckedOption.dataset.variantId;
-      const variantImage = firstCheckedOption.dataset.variantImage;
-      const variantPrice = firstCheckedOption.dataset.variantPrice;
-
-      this.addDebugLog(
-        "STEP4",
-        `initializeAccessoryVariants() Found checked variant: ID=${variantId}, Price=${variantPrice}, Image=${
-          variantImage ? "YES" : "NO"
-        }`
-      );
-
-      // Find the .swatch__label associated with this checked input
-      // The label is inside the parent .swatch__button
-      const swatchButton = firstCheckedOption.closest(".swatch__button");
-      const swatchLabel = swatchButton
-        ? swatchButton.querySelector(".swatch__label")
-        : null;
+      // Find the .swatch__label inside the first .swatch__button
+      const swatchLabel = firstSwatchButton.querySelector(".swatch__label");
 
       if (!swatchLabel) {
         this.addDebugLog(
           "STEP4",
-          `initializeAccessoryVariants() WARNING: No .swatch__label found for ${productTitle}, trying to click input directly`
+          `initializeAccessoryVariants() SKIPPED: No .swatch__label found in first .swatch__button for ${productTitle}`
         );
-        // Fallback: click the input if label not found
-        firstCheckedOption.click();
-      } else {
-        // SIMPLE: Click the label - this triggers the existing change event handlers
-        // which will call updateAccessoryImage() and updateAccessoryVariant() automatically
-        swatchLabel.click();
-        this.addDebugLog(
-          "STEP4",
-          `initializeAccessoryVariants() Clicked .swatch__label for first checked variant of ${productTitle} - event handlers will update image/variant`
-        );
+        skippedCount++;
+        return;
       }
+
+      // SIMPLE: Click the label - this triggers the existing change event handlers
+      // which will call updateAccessoryImage() and updateAccessoryVariant() automatically
+      swatchLabel.click();
+      this.addDebugLog(
+        "STEP4",
+        `initializeAccessoryVariants() Clicked .swatch__label in first .swatch__button for ${productTitle} - event handlers will update image/variant`
+      );
 
       clickedCount++;
     });
