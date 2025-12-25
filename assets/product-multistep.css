@@ -1415,7 +1415,7 @@ body:has([data-multistep-container]) .float-grid.product-single {
   }
 
   .variant-option-group {
-    margin-bottom: 18px;
+    margin-bottom: 15px;
   }
 
   .smart-feature-showcase {
@@ -1532,7 +1532,7 @@ min-height: 50px;
     margin-bottom: 20px
   }
   .step2-product-container .step-actions {
-    margin-top: 15px !important
+    margin-top: -10px !important
   }
 
   .summary-total-final {
