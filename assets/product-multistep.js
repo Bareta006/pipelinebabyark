@@ -1330,13 +1330,29 @@ class ProductMultiStep {
         }`
       );
 
-      // SIMPLE: Just click it - this triggers the existing change event handlers
-      // which will call updateAccessoryImage() and updateAccessoryVariant() automatically
-      firstCheckedOption.click();
-      this.addDebugLog(
-        "STEP4",
-        `initializeAccessoryVariants() Clicked first checked variant for ${productTitle} - event handlers will update image/variant`
-      );
+      // Find the .swatch__label associated with this checked input
+      // The label is inside the parent .swatch__button
+      const swatchButton = firstCheckedOption.closest(".swatch__button");
+      const swatchLabel = swatchButton
+        ? swatchButton.querySelector(".swatch__label")
+        : null;
+
+      if (!swatchLabel) {
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() WARNING: No .swatch__label found for ${productTitle}, trying to click input directly`
+        );
+        // Fallback: click the input if label not found
+        firstCheckedOption.click();
+      } else {
+        // SIMPLE: Click the label - this triggers the existing change event handlers
+        // which will call updateAccessoryImage() and updateAccessoryVariant() automatically
+        swatchLabel.click();
+        this.addDebugLog(
+          "STEP4",
+          `initializeAccessoryVariants() Clicked .swatch__label for first checked variant of ${productTitle} - event handlers will update image/variant`
+        );
+      }
 
       clickedCount++;
     });

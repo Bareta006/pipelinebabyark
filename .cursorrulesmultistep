@@ -95,8 +95,9 @@ The template consists of two main sections:
   - Image updates based on accessory variant selection
   - **Auto-Initialize Variants**: When step 4 is shown, automatically selects first available variant for each accessory and updates images to match
     - Method: `initializeAccessoryVariants()` called in `showStep(4)` wrapped in `requestAnimationFrame()`
-    - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template) and clicks it
-    - Clicking triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
+    - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template), finds its associated `.swatch__label`, and clicks the label
+    - **CRITICAL**: Clicks the `.swatch__label` element (not the radio input) - this is what users click and what triggers events properly
+    - Clicking the label triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
     - Uses existing, tested code path instead of manual updates
     - Ensures images match selected variants on first load
   - 20% discount applied to accessories
@@ -213,8 +214,10 @@ The template consists of two main sections:
      - Uses same logic as `updateAccessoryImage()`: custom map → variant attribute → null
      - Used in `renderOrderSummary()` to show correct variant images (fixes Smart Base image issue)
    - `initializeAccessoryVariants()`: Auto-selects first available variant for each accessory when step 4 loads
-     - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template) and clicks it
-     - Clicking triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
+     - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template), finds its associated `.swatch__label`, and clicks the label
+     - **CRITICAL**: Clicks the `.swatch__label` element (not the radio input) - this is what users click and what triggers events properly
+     - Finds label by: `firstCheckedOption.closest(".swatch__button").querySelector(".swatch__label")`
+     - Clicking the label triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
      - Uses existing, tested code path instead of manual updates - more reliable and simpler
      - Ensures images match selected variants on first load
    - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId, productHandle, variantOptions: [] }`
