@@ -94,9 +94,10 @@ The template consists of two main sections:
   - Variant options for accessories (if applicable)
   - Image updates based on accessory variant selection
   - **Auto-Initialize Variants**: When step 4 is shown, automatically selects first available variant for each accessory and updates images to match
-    - Method: `initializeAccessoryVariants()` called in `showStep(4)`
-    - Finds first checked variant option (set by Liquid template)
-    - Calls `updateAccessoryImage()` and `updateAccessoryVariant()` to update image and state
+    - Method: `initializeAccessoryVariants()` called in `showStep(4)` wrapped in `requestAnimationFrame()`
+    - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template) and clicks it
+    - Clicking triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
+    - Uses existing, tested code path instead of manual updates
     - Ensures images match selected variants on first load
   - 20% discount applied to accessories
 - **Accessories Collection**: Configured via `data-accessories-collection` attribute (default: "accessories")
@@ -212,8 +213,9 @@ The template consists of two main sections:
      - Uses same logic as `updateAccessoryImage()`: custom map → variant attribute → null
      - Used in `renderOrderSummary()` to show correct variant images (fixes Smart Base image issue)
    - `initializeAccessoryVariants()`: Auto-selects first available variant for each accessory when step 4 loads
-     - Finds first checked variant option (set by Liquid template)
-     - Calls `updateAccessoryImage()` and `updateAccessoryVariant()` to update image and state
+     - **SIMPLE SOLUTION**: Finds first checked variant option (set by Liquid template) and clicks it
+     - Clicking triggers existing `change` event handlers which automatically call `updateAccessoryImage()` and `updateAccessoryVariant()`
+     - Uses existing, tested code path instead of manual updates - more reliable and simpler
      - Ensures images match selected variants on first load
    - **Accessory Data Structure**: `{ id, title, price, image, quantity, productId, productHandle, variantOptions: [] }`
      - `variantOptions`: Array of variant option strings (e.g., ["Red", "Large", "Smart"])

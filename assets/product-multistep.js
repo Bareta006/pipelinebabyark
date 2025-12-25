@@ -1268,7 +1268,7 @@ class ProductMultiStep {
   initializeAccessoryVariants() {
     this.addDebugLog(
       "STEP4",
-      "initializeAccessoryVariants() START - Auto-selecting first variant for each accessory"
+      "initializeAccessoryVariants() START - Clicking first checked variant for each accessory"
     );
 
     const accessoriesContainer = this.container.querySelector(
@@ -1290,7 +1290,7 @@ class ProductMultiStep {
       `initializeAccessoryVariants() Found ${accessoryItems.length} accessory items`
     );
 
-    let processedCount = 0;
+    let clickedCount = 0;
     let skippedCount = 0;
 
     accessoryItems.forEach((item, index) => {
@@ -1330,57 +1330,20 @@ class ProductMultiStep {
         }`
       );
 
-      // Check if image element exists
-      const imageEl = item.querySelector("[data-accessory-image]");
-      let currentImageSrc = null;
-      if (!imageEl) {
-        this.addDebugLog(
-          "STEP4",
-          `initializeAccessoryVariants() WARNING: No [data-accessory-image] element found for ${productTitle}`
-        );
-      } else {
-        currentImageSrc = imageEl.src;
-        this.addDebugLog(
-          "STEP4",
-          `initializeAccessoryVariants() Current image src: ${currentImageSrc}`
-        );
-      }
-
-      // Update the image to match the first checked variant
-      this.updateAccessoryImage(item, firstCheckedOption);
+      // SIMPLE: Just click it - this triggers the existing change event handlers
+      // which will call updateAccessoryImage() and updateAccessoryVariant() automatically
+      firstCheckedOption.click();
       this.addDebugLog(
         "STEP4",
-        `initializeAccessoryVariants() Called updateAccessoryImage() for ${productTitle}`
+        `initializeAccessoryVariants() Clicked first checked variant for ${productTitle} - event handlers will update image/variant`
       );
 
-      // Update variant state (price, etc.)
-      this.updateAccessoryVariant(item);
-      this.addDebugLog(
-        "STEP4",
-        `initializeAccessoryVariants() Called updateAccessoryVariant() for ${productTitle}`
-      );
-
-      // Verify image was updated
-      if (imageEl && currentImageSrc) {
-        const newImageSrc = imageEl.src;
-        this.addDebugLog(
-          "STEP4",
-          `initializeAccessoryVariants() New image src: ${newImageSrc}`
-        );
-        if (currentImageSrc === newImageSrc && variantImage) {
-          this.addDebugLog(
-            "STEP4",
-            `initializeAccessoryVariants() WARNING: Image did not change for ${productTitle} (might be same image or update failed)`
-          );
-        }
-      }
-
-      processedCount++;
+      clickedCount++;
     });
 
     this.addDebugLog(
       "STEP4",
-      `initializeAccessoryVariants() COMPLETE: Processed ${processedCount}, Skipped ${skippedCount}`
+      `initializeAccessoryVariants() COMPLETE: Clicked ${clickedCount}, Skipped ${skippedCount}`
     );
   }
 
