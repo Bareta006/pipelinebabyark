@@ -1508,7 +1508,9 @@ top: 11vw;
         left: 27vw;
   
   }
-
+.swatch-text-below {
+min-height: 50px;
+}
   .step1-features-container {
     padding: 15px
   }
