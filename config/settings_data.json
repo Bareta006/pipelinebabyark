@@ -132,11 +132,6 @@
         "disabled": false,
         "settings": {}
       },
-      "1291562577487733835": {
-        "type": "shopify://apps/black-crow-ai-that-delivers/blocks/blackcrow_ai_script/3e73f597-cb71-47a1-8a06-0c931482ecd2",
-        "disabled": false,
-        "settings": {}
-      },
       "9685131899227788811": {
         "type": "shopify://apps/appio-google-customer-reviews/blocks/integration/2cd926e4-a36d-402c-a9a5-ffe77be80384",
         "disabled": false,
@@ -156,6 +151,16 @@
           "add_to_cart_selector": "",
           "adjacent_element_selector": ""
         }
+      },
+      "2567389343055140935": {
+        "type": "shopify://apps/microsoft-clarity/blocks/clarity_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
+        "disabled": false,
+        "settings": {}
+      },
+      "2200952712151285029": {
+        "type": "shopify://apps/microsoft-clarity/blocks/brandAgents_js/31c3d126-8116-4b4a-8ba1-baeda7c4aeea",
+        "disabled": false,
+        "settings": {}
       }
     }
   },
