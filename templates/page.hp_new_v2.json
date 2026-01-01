@@ -1106,7 +1106,7 @@
       ],
       "custom_css": [
         "> section {background: #f8f8f8 url(https://cdn.shopify.com/s/files/1/0552/2135/4567/files/Rectangle_1486127498.png?v=1766319031) no-repeat center / contain;}",
-        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; text-align: left; margin-bottom: 20px; } > section {background-size: cover; }}"
+        "@media (max-width: 480px) {.rte p:first-child {font-size: 20px !important; text-align: left; margin-bottom: 20px; } > section {background-size: cover; } .hero__btn {margin-top:50px; }}"
       ],
       "name": "Image with text no2",
       "settings": {
