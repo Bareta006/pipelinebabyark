@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>Holiday Sale - $100 Off Smart - Ends Soon!</p>",
+            "text": "<p>New Year's - Limited Offer - $100 Off babyark</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,

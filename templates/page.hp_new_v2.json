@@ -57,7 +57,7 @@
       "settings": {
         "mobile_special_arrange": true,
         "image": "shopify://shop_images/Group_1597881578.png",
-        "mobile_image": "shopify://shop_images/Group_1597881582.png",
+        "mobile_image": "shopify://shop_images/Group_1597881583.png",
         "height": "use_image",
         "overlay_opacity": 15,
         "overlay_color": "#000000",
@@ -240,7 +240,7 @@
           "settings": {
             "kicker": "",
             "title": "",
-            "text": "<p>★★★★★ 4.8</p><h3>Smart Effortless Design</h3><h3></h3><p>We set out to build the world’s <strong>safest, smartest,</strong> and most <strong>comfortable </strong>car seat.. We may have taken it a little too far.</p>",
+            "text": "<p>★★★★★ 4.8</p><h3>Smart Effortless Design</h3><h3></h3><p>We set out to build the world’s <strong>safest, smartest,</strong> and most <strong>comfortable </strong>car seat. We may have taken it too far..</p>",
             "font_size": 8,
             "text_columns": 1,
             "align_text": "text-left",
@@ -435,7 +435,7 @@
             "title": "Energy Absorption",
             "title_color_desktop": "#ffffff",
             "title_color_mobile": "#ffffff",
-            "description": "<p>Engineered with our patented SafeCoil™ energy absorption system, a breakthrough inspired by the same physics that protect Formula 1 drivers. <br/></p>",
+            "description": "<p>Engineered with our patented SafeCoil™ system, inspired by the same physics that protect Formula 1 drivers. In a crash, SafeCoil™ gently absorbs and spreads the force, so less impact reaches your child.<br/></p>",
             "description_color_desktop": "#ffffff",
             "description_color_mobile": "#ffffff",
             "text_align": "align--middle-left",
@@ -511,7 +511,7 @@
       ],
       "name": "Fullwidth Card Slider",
       "settings": {
-        "title": "Built with aviation-grade materials and next-gen impact engineering",
+        "title": "Built with aviation-grade materials and engineered to withstand high impact forces.",
         "description": "",
         "title_alignment": "text-center",
         "title_size": 8,
@@ -628,7 +628,7 @@
             "show_video_controls": false,
             "enable_image": false,
             "shape_class": "",
-            "title": "Magnetic Harness staps",
+            "title": "Magnetic harness straps",
             "text": "<p>babyark’s magnetic harness keeps straps out of the way- making it easier to get your child in and out.</p>",
             "button_label": "",
             "button_link": "",
@@ -719,7 +719,7 @@
             "image": "shopify://shop_images/Rectangle_1486127497.png",
             "shape_class": "",
             "title": "No expiration date",
-            "text": "<p>Unlike other seats, babyark is built with materials that withstand time. babyark has no expectation date</p>",
+            "text": "<p>Unlike other seats, babyark is built with materials that withstand time. babyark has no expiration date</p>",
             "button_label": "",
             "button_link": "",
             "button_color": "btn--neutral",
@@ -745,7 +745,7 @@
       ],
       "name": "Text columns with images2",
       "settings": {
-        "title": "High-end materials, designed to last and keep your little ones safe, snug and happy",
+        "title": "Designed to last and keep your little ones safe, snug and happy",
         "bg": "palette--light bg--neutral",
         "align_text": "text-center",
         "scale_image": true,
@@ -1020,7 +1020,7 @@
       ],
       "name": "Testimonials Carousel",
       "settings": {
-        "title": "What our customers say",
+        "title": "Trusted by Parents. Loved by Children",
         "title_color": "#000000",
         "title_alignment": "center",
         "title_font_size": 40,
@@ -1052,7 +1052,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<style>\n@media (min-width:1024px){\n.section-double2:last-child .rte p:first-child strong {\n    display: block;\n    font-size: 110px;\n    line-height: 0;\n}\n}\n\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)),\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)) strong {\n  font-size: 25px !important;\ntext-align:left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) {\n  font-size: 30px !important;\n  text-align: left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) strong {\n  font-size: 30px !important;\n}\n\n.section-double2:last-child .rte p:first-child {\n    text-align: left !important;\nmargin-bottom:20px;\n  }\n.section-double2:last-child .rte p:not(:first-child),.section-double2:last-child .rte p:not(:first-child) strong{\nfont-weight:800;}\n@media (max-width:480px){\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n/* All section-double2: every <p> except the 1st and 2nd */\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)),\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)) strong {\n  font-size: 25px !important;\n}\n\n/* The LAST section-double2 on the page (works in modern browsers) */\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) {\n  font-size: 30px !important;\n  text-align: left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) strong {\n  font-size: 30px !important;\n}\n\n}\n</style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  var el = document.getElementById('navShop');\n  if (el && el.tagName === 'A') {\n    el.href = 'https://babyark.com/products/the-babyark-advanced-convertible-car-seat?step=2';\n  }\n});\n</script>"
+        "custom_liquid": "<style>\n@media (min-width:1024px){\n.section-double2:last-child .rte p:first-child strong {\n    display: block;\n    font-size: 110px;\n    line-height: 0;\n}\n}\n\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)),\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)) strong {\n  font-size: 25px !important;\ntext-align:left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) {\n  font-size: 30px !important;\n  text-align: left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) strong {\n  font-size: 30px !important;\n}\n\n.section-double2:last-child .rte p:first-child {\n    text-align: left !important;\nmargin-bottom:20px;\n  }\n.section-double2:last-child .rte p:not(:first-child),.section-double2:last-child .rte p:not(:first-child) strong{\nfont-weight:800;}\n@media (max-width:480px){\n.shopify-section.section-double2:last-child .brick__block:not(:first-child){\npadding-top:100px;\n}\n/* All section-double2: every <p> except the 1st and 2nd */\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)),\n.shopify-section.section-double2 .rte p:not(:first-of-type):not(:nth-of-type(2)) strong {\n  font-size: 25px !important;\n}\n\n/* The LAST section-double2 on the page (works in modern browsers) */\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) {\n  font-size: 30px !important;\n  text-align: left;\n}\n.shopify-section.section-double2:not(:has(~ .shopify-section.section-double2)) .rte p:nth-of-type(2) strong {\n  font-size: 30px !important;\n}\n\n}\n</style>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\n  var el = document.getElementById('navShop');\n  if (el && el.tagName === 'A') {\n    el.href = 'https://babyark.com/products/the-babyark-advanced-convertible-car-seat';\n  }\n});\n</script>"
       }
     },
     "section_double2_34cTmT": {
@@ -1063,7 +1063,7 @@
           "settings": {
             "kicker": "",
             "title": "",
-            "text": "<p><strong>“</strong>What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p><strong>Automobile designer for Ferrari & Maserati</strong></p>",
+            "text": "<p><strong>“</strong>What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p><strong>Automobile designer for Ferrari & McLaren</strong></p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
