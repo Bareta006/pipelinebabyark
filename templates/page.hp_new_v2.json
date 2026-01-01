@@ -1020,7 +1020,7 @@
       ],
       "name": "Testimonials Carousel",
       "settings": {
-        "title": "Trusted by Parents. Loved by Children",
+        "title": "",
         "title_color": "#000000",
         "title_alignment": "center",
         "title_font_size": 40,
