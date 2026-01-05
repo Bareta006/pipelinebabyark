@@ -32,9 +32,9 @@
         </filter>
         </defs>
       </svg>
-      <span class="accessories-discount-banner-text">
+      <!--<span class="accessories-discount-banner-text">
         GET 20% OFF WHEN ORDERING A SEAT
-      </span>
+      </span>-->
     </div>
     <div class="accessories-grid" data-accessories-container>
       {%- if accessories_collection.products.size > 0 -%}
@@ -118,9 +118,11 @@
               <div class="accessory-item__info">
                 <h4>{{ accessory.title }}</h4>
                 <div class="accessory-item__pricing">
+                  {%- comment -%} 20% discount temporarily disabled {%- endcomment -%}
                   {%- assign discounted_price = accessory.variants.first.price | times: 0.8 | round -%}
-                  <span class="accessory-item__price">${{ discounted_price | money_without_currency }}</span>
-                  <span class="accessory-item__compare-price">{{ accessory.variants.first.price | money }}</span>
+                  {%- comment -%} <span class="accessory-item__price">${{ discounted_price | money_without_currency }}</span>
+                  <span class="accessory-item__compare-price">{{ accessory.variants.first.price | money }}</span> {%- endcomment -%}
+                  <span class="accessory-item__price">{{ accessory.variants.first.price | money }}</span>
                 </div>
               </div>
 

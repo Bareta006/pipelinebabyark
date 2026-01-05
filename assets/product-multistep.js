@@ -1106,10 +1106,15 @@ class ProductMultiStep {
         );
         if (priceEl && selectedOption.dataset.variantPrice) {
           const variantPrice = parseInt(selectedOption.dataset.variantPrice);
-          const discountedPrice = Math.round(variantPrice * 0.8);
-          priceEl.textContent = `$${(discountedPrice / 100).toFixed(2)}`;
+          // 20% discount temporarily disabled
+          // const discountedPrice = Math.round(variantPrice * 0.8);
+          // priceEl.textContent = `$${(discountedPrice / 100).toFixed(2)}`;
+          // if (comparePriceEl) {
+          //   comparePriceEl.textContent = `$${(variantPrice / 100).toFixed(2)}`;
+          // }
+          priceEl.textContent = `$${(variantPrice / 100).toFixed(2)}`;
           if (comparePriceEl) {
-            comparePriceEl.textContent = `$${(variantPrice / 100).toFixed(2)}`;
+            comparePriceEl.style.display = "none";
           }
         }
 
@@ -2003,8 +2008,9 @@ class ProductMultiStep {
           variantOptions = accessoryState.variantOptions;
         }
 
-        const discountedPrice = displayPrice * 0.8;
-        const totalDiscountedPrice = discountedPrice * quantity;
+        // 20% discount temporarily disabled
+        // const discountedPrice = displayPrice * 0.8;
+        // const totalDiscountedPrice = discountedPrice * quantity;
         const totalPrice = displayPrice * quantity;
         const imageUrl = displayImage
           ? this.getImageUrl(displayImage, 200)
@@ -2056,10 +2062,8 @@ class ProductMultiStep {
                 <button type="button" class="quantity__button quantity__button--plus" data-increase-quantity data-line-item-key="${accessoryLineItemKey}" aria-label="Increase quantity">+</button>
               </div>
               <div class="summary-price-container">
+                <!-- 20% discount temporarily disabled - showing regular price only -->
                 <p class="summary-price-discounted">${this.formatMoney(
-                  totalDiscountedPrice
-                )}</p>
-                <p class="summary-price-full">${this.formatMoney(
                   totalPrice
                 )}</p>
               </div>
@@ -2176,37 +2180,38 @@ class ProductMultiStep {
 
         const accessoryTotal = accessoryPrice * quantity;
         subtotal += accessoryTotal;
-        totalDiscounted += accessoryTotal * 0.8;
+        // 20% discount temporarily disabled
+        // totalDiscounted += accessoryTotal * 0.8;
+        totalDiscounted += accessoryTotal;
         this.addDebugLog(
           "INFO",
           `Totals: Accessory ${
             accessoryState.variantId
-          } quantity ${quantity}, price ${accessoryPrice}, total ${accessoryTotal}, discounted ${
-            accessoryTotal * 0.8
-          }`
+          } quantity ${quantity}, price ${accessoryPrice}, total ${accessoryTotal}`
         );
       }
     }
 
     this.addDebugLog(
       "INFO",
-      `Totals calculated: subtotal ${subtotal}, totalDiscounted ${totalDiscounted}, savings ${
-        subtotal - totalDiscounted
-      }`
+      `Totals calculated: subtotal ${subtotal}, total ${totalDiscounted}`
     );
 
-    const savings = subtotal - totalDiscounted;
+    // 20% discount temporarily disabled - no savings to show
+    // const savings = subtotal - totalDiscounted;
 
     if (totalsContainer) {
-      let savingsRow = "";
-      if (savings > 0) {
-        savingsRow = `
-          <div class="summary-total-row summary-total-savings">
-            <span>Your Save</span>
-            <span>-${this.formatMoney(savings)}</span>
-          </div>
-        `;
-      }
+      // Savings row temporarily disabled
+      // let savingsRow = "";
+      // if (savings > 0) {
+      //   savingsRow = `
+      //     <div class="summary-total-row summary-total-savings">
+      //       <span>Your Save</span>
+      //       <span>-${this.formatMoney(savings)}</span>
+      //     </div>
+      //   `;
+      // }
+      const savingsRow = "";
 
       totalsContainer.innerHTML = `
         <div class="summary-totals">
