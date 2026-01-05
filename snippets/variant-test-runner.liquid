@@ -14,6 +14,7 @@
   src="https://growthbook-scripts.vercel.app/growthbook-bundle.js"
   data-gb-sdk-key="{{ shop.metafields.growthbook.sdk_key }}"
   data-gb-shop="{{ shop.domain }}"
+  data-gb-variant-shop-id="0527f1ac-fabe-4afb-b72c-bff74d3366ae"
   {% if customer %}data-gb-customer-id="{{ customer.id }}"{% endif %}
   {% if template %}data-gb-page-type="{{ request.page_type }}"{% endif %}
   async
