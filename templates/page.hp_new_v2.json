@@ -1063,7 +1063,7 @@
           "settings": {
             "kicker": "",
             "title": "",
-            "text": "<p><strong>“</strong>What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p><strong>Automobile designer for Ferrari & McLaren</strong></p>",
+            "text": "<p><strong>“</strong>What makes this car seat unique is it’s going to set a new standard of safety, technology and design”.</p><p><strong>Frank Stephenson</strong></p><p><strong>Automobile designer for<br/>Ferrari & McLaren</strong></p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
