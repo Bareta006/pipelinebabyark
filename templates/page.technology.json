@@ -214,7 +214,7 @@
           "settings": {
             "kicker": "",
             "title": "Guided Installation, Verified by Technology",
-            "text": "<p>Installation is no longer trial and error — it’s sensor-verified and app-confirmed. </p><p>babyark’s connected car seat technology walks you through each step of installation with <strong>visual and audio guidance via the companion app</strong>, using real-time data from the built-in sensors.</p><p> The app provides feedback if steps are not completed successfully, proceeding to trigger the next stage or indicating corrections needed.</p>",
+            "text": "<p>Installation is no longer trial and error, t’s sensor-verified and app-confirmed. </p><p>babyark’s connected car seat technology walks you through each step of installation with <strong>visual and audio guidance via the companion app</strong>, using real-time data from the built-in sensors.</p><p> The app provides feedback if steps are not completed successfully, proceeding to trigger the next stage or indicating corrections needed.</p>",
             "font_size": 5,
             "text_columns": 1,
             "align_text": "text-left",
