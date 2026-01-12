@@ -218,7 +218,7 @@
         "logo_image_kYCq8d"
       ],
       "custom_css": [
-        "{z-index: 2;}",
+        "{z-index: 3;}",
         "@media (max-width: 480px) {{margin-bottom: -90px; } .logo-bar__wrapper {z-index: 3; }}"
       ],
       "name": "Logo list",
@@ -283,7 +283,7 @@
       ],
       "custom_css": [
         "{z-index: 2;}",
-        "@media (max-width: 480px) {.brick__section--reverse {flex-direction: column; } .brick__block__text .text__standard {padding-top: 0px; padding-bottom: 36px; }}"
+        "@media (max-width: 480px) {.brick__section--reverse {flex-direction: column; } .brick__block__text .text__standard {padding-top: 90px; padding-bottom: 36px; }}"
       ],
       "name": "Image with text no2",
       "settings": {
