@@ -1932,6 +1932,7 @@ min-height: 50px;
 .step1-features-container .btn--steps{
   width: 300px;
   margin: 0 auto;
+  display: block;
 }
 @media (min-width: 769px) {
 
