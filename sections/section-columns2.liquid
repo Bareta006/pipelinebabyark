@@ -34,7 +34,7 @@
                 {% comment %} Video Media {% endcomment %}
                 {% if block.settings.video_file != blank %}
                   {% comment %} Native Shopify Video {% endcomment %}
-                  <div class="column__video-wrapper">
+                  <div class="column__video-wrapper{% if section.settings.scale_image %} scaled-video{% endif %}"{% if section.settings.scale_image %} style="--wh-ratio: {{ section.settings.wh_ratio }};"{% endif %}>
                     {{ block.settings.video_file | video_tag: 
                       controls: block.settings.show_video_controls, 
                       autoplay: block.settings.video_autoplay, 
@@ -47,7 +47,7 @@
                   </div>
                 {% elsif block.settings.video_url != blank %}
                   {% comment %} External Video (YouTube/Vimeo) {% endcomment %}
-                  <div class="column__video-wrapper">
+                  <div class="column__video-wrapper{% if section.settings.scale_image %} scaled-video{% endif %}"{% if section.settings.scale_image %} style="--wh-ratio: {{ section.settings.wh_ratio }};"{% endif %}>
                     {% if block.settings.video_url contains 'youtube' or block.settings.video_url contains 'youtu.be' %}
                       {% assign video_id = block.settings.video_url | split: 'v=' | last | split: '&' | first %}
                       {% if block.settings.video_url contains 'youtu.be' %}

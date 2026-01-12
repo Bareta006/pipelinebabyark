@@ -25,13 +25,15 @@ The `section-columns2.liquid` section displays columns with media (image or vide
 - Supports: `controls`, `autoplay`, `loop`, `muted`, `playsinline`, `preload`
 - Class: `column__video-native`
 - Wrapped in: `column__video-wrapper`
+- Scaling: When `scale_image` is enabled, wrapper gets `scaled-video` class and `--wh-ratio` CSS variable. Video becomes absolutely positioned with `object-fit: cover` to fill wrapper's aspect ratio.
 
 ### External Video (YouTube/Vimeo)
 - YouTube: Extracts video ID from URL (supports both `youtube.com` and `youtu.be` formats)
 - Vimeo: Extracts video ID from URL
 - Uses iframe embed
 - Class: `column__video-iframe`
-- Default aspect ratio: 16/9
+- Default aspect ratio: 16/9 (when scaling is disabled)
+- Scaling: When `scale_image` is enabled, wrapper gets `scaled-video` class and `--wh-ratio` CSS variable. Iframe becomes absolutely positioned to fill wrapper's aspect ratio, overriding default 16/9 ratio.
 
 ## Desktop Behavior
 
@@ -79,9 +81,13 @@ The `section-columns2.liquid` section displays columns with media (image or vide
 
 ### Video Scaling
 - When `scale_image` is enabled:
-  - Video wrapper gets `aspect-ratio: var(--wh-ratio, 1)`
-  - Video elements become `position: absolute` with `object-fit: cover`
-  - Respects `wh_ratio` setting (default: 1)
+  - Video wrapper (`column__video-wrapper`) gets `scaled-video` class added conditionally
+  - CSS variable `--wh-ratio` is set inline on the wrapper with value from `section.settings.wh_ratio`
+  - CSS applies `aspect-ratio: var(--wh-ratio, 1)` to `.column__video-wrapper.scaled-video`
+  - Video elements (both native and iframe) become `position: absolute` with `object-fit: cover` (for native) or fill wrapper (for iframe)
+  - Applies to both native Shopify videos (`video_file`) and external videos (`video_url` - YouTube/Vimeo)
+  - Respects `wh_ratio` setting (range: 0.5 to 5, default: 1)
+  - Implementation: Conditional class and inline style added to both video wrapper divs (lines 37 and 50)
 
 ## Mobile Behavior
 
@@ -206,7 +212,7 @@ When columns contain mixed media (images and videos), all media containers are e
 4. **Desktop Arrows**: Always hidden on desktop (min-width: 750px)
 5. **Text Alignment**: `align_text` setting applies to ALL columns (not per-column)
 6. **Mobile Breakpoint**: Uses `max-width: 749px` for mobile styles
-7. **Video Scaling**: When `scale_image` is enabled, videos respect `wh_ratio` setting
+7. **Video Scaling**: When `scale_image` is enabled, videos respect `wh_ratio` setting. Implementation: Both video wrapper divs (native and external) conditionally receive `scaled-video` class and inline `--wh-ratio` CSS variable when `section.settings.scale_image` is true. CSS then applies aspect-ratio based on this variable.
 8. **Image Link**: Only works when video popup is NOT enabled and button label is blank
 9. **Liquid Syntax**: Never use `and not` in Liquid - use nested `if`/`unless` statements
 10. **Media Height Equalization**: Always equalize media heights when mixed images/videos are present - find first image, use its height, apply to all media containers
