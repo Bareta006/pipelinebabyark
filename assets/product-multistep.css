@@ -1929,6 +1929,10 @@ min-height: 50px;
 .affirm-modal-trigger{
   text-decoration: underline;
 }
+.step1-features-container .btn--steps{
+  width: 300px;
+  margin: 0 auto;
+}
 @media (min-width: 769px) {
 
 
