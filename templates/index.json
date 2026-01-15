@@ -361,6 +361,7 @@
         },
         "icon_block_Q8TqDy": {
           "type": "icon_block",
+          "disabled": true,
           "settings": {
             "icon_name": "icon-phone",
             "icon_alt": "shopify://shop_images/Group_1597881570.svg",
