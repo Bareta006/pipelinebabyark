@@ -295,6 +295,7 @@
     },
     "section_multistep_hero_97gHnM": {
       "type": "section-multistep-hero",
+      "disabled": true,
       "custom_css": [
         "{background-color: #fff; z-index: 2; padding-bottom: 60px; padding-top: 60px;}",
         "@media (max-width: 480px) {{padding-top: 00px; padding-bottom: 0px; }}"
