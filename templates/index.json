@@ -1028,7 +1028,7 @@
       ],
       "name": "Custom HTML",
       "settings": {
-        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"https://babyark.com/products/the-babyark-advanced-convertible-car-seat?step=2\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
+        "html": "<a id=\"floatingButton\" class=\"standard__cta hero__btn btn btn--white btn--large aos-init aos-animate\" href=\"https://babyark.com/products/the-babyark-advanced-convertible-car-seat\" data-aos=\"hero\" data-aos-anchor=\"[data-section-id='template--17286115754055__section_hero_4LVqG3']\" data-aos-order=\"2\">\n        Get babyark\n      </a>",
         "width": "wrapper",
         "padding_top": 0,
         "padding_bottom": 0
