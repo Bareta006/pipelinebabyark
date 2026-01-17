@@ -892,6 +892,7 @@
         "animated_graphs_d9ztgQ",
         "animated_graphs_kAaRxc"
       ],
+      "disabled": true,
       "name": "Centered AnimatedGraphs",
       "settings": {
         "background_color": "#f8f7f7",
