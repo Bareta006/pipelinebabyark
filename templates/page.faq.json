@@ -124,11 +124,12 @@
           "type": "text",
           "settings": {
             "title": "What are the physical dimensions of the seat installed in rear-facing and forward-facing?",
-            "content": "<p>For detailed specifications of the seat in both rear-facing and forward-facing positions, please refer to this <a href=\"https://babyark.com/products/the-convertible-car-seat-eggshell-white-moonlight\" title=\"https://babyark.com/products/the-convertible-car-seat-eggshell-white-moonlight\">link </a>.</p>"
+            "content": "<p><strong>Dimensions Seat + Base</strong></p><p>Rear-facing: L 30 x H 27.5 x W 17 in / 75 x 70 x 44 cm<br/>Forward-facing: L 27 x H 30 x W 17 in / L 68.5 x H 75 x W 44 cm</p><p><strong>Weight</strong></p><p>Base 18 lbs. / 8.2 kg<br/>Seat 27 lbs. / 12.5 kg</p><p><strong>Connection Features</strong></p><p>Rigid LATCH, Seat belt, Top tether</p><p><strong>Child Height</strong></p><p>Up to 49 in / 124 cm</p><p><strong>Child Weight</strong></p><h6>Rear-facing 4-50 lbs / 1.8-22.7 kg<br/>Forward-facing 26.5-65 lbs / 12-29.5 kg<br/><strong><br/>Internal dimensions </strong></h6><p><br/>Maximum harness height:​ </p><ul><li>16.7 inches (Smart and Classic models)</li><li>16.3 inches (Premium model)</li><li>Shoulder width: 12.3 inches​</li><li>Seating depth: 12.6 inches​</li></ul>"
           }
         },
         "text_iPwQC6": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "What are the internal dimensions of the seat?",
             "content": "<p>Maximum harness height:​ </p><ul><li>16.7 inches (Smart and Classic models)</li><li>16.3 inches (Premium model)</li><li>Shoulder width: 12.3 inches​</li><li>Seating depth: 12.6 inches​</li></ul>"
@@ -136,6 +137,7 @@
         },
         "text_mWWqeH": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Does the babyark seat follow the \"80/20 rule\" for contact with the vehicle?",
             "content": "<p>The 80/20 rule is a guideline that suggests that 80% of the car seat should be on the vehicle seat, with only 20% overhanging.</p><p>Due to the incredibly strong structure of the babyark base and its energy-absorbing system, babyark is not required to adhere to this suggestion.</p><p>As previously stated, babyark has undergone and passed with flying colors all required crash testing and has safety features which help make it one of the most robust seats on the market.</p>"
@@ -150,6 +152,7 @@
         },
         "text_ifJ3jP": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Can I change the recline position of the babyark car seat while it is installed and my child is seated?",
             "content": "<p>Yes, the recline position can be adjusted even when the seat is installed, and your child is seated. </p><p>Simply pull the lever on the front of the seat and adjust to the desired position. Ensure the seat remains within the \"safe recline zone\" for both rear-facing and forward-facing orientations.</p>"
