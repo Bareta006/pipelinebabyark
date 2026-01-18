@@ -98,6 +98,7 @@
         "multistep_form"
       ],
       "custom_css": [
+        "{z-index: 3;}",
         ".shopify-app-block {display: none;}"
       ],
       "settings": {
@@ -123,6 +124,7 @@
     "section_wide_card_hero_TpyKNx": {
       "type": "section-wide-card-hero",
       "custom_css": [
+        "{z-index: 3;}",
         "section {background-color: #f7f7f7;}"
       ],
       "name": "Wide card hero",
