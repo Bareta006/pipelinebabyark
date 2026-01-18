@@ -267,7 +267,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<div class=\"floatWarpper\">\n<a id=\"customizeFloat\" class=\"btn btn--large\">Customize</a>\n</div>\n<style>\n.floatWarpper{\nwidth:100%;\ntext-align:center;\nposition:fixed;\nleft:0;\nbottom:60px;\nz-index:1;\n}\n#customizeFloat{\nborder:none !important}\n\n@media (max-width:480px){ \n.floatWarpper{\n        z-index: 2;\n        bottom: 60px;\n}\n}\n</style>\n<script>\ndocument.addEventListener('click', function (e) {\n  const trigger = e.target.closest('#customizeFloat');\n  if (!trigger) return;\n\n  const targetBtn = document.querySelector('button.btn--step-1');\n  if (targetBtn) {\n    targetBtn.click();\n  }\n});\n</script>"
+        "custom_liquid": "<div class=\"floatWarpper\">\n<a id=\"customizeFloat\" class=\"btn btn--large\">Customize</a>\n</div>\n<style>\n.floatWarpper{\nwidth:100%;\ntext-align:center;\nposition:fixed;\nleft:0;\nbottom:60px;\nz-index:1;\n}\n#customizeFloat{\nborder:none !important}\n\n@media (max-width:480px){ \n.floatWarpper{\n        z-index: 2;\n        bottom: 60px;\n}\n#customizeFloat{\nwidth: 80%;}\n}\n</style>\n<script>\ndocument.addEventListener('click', function (e) {\n  const trigger = e.target.closest('#customizeFloat');\n  if (!trigger) return;\n\n  const targetBtn = document.querySelector('button.btn--step-1');\n  if (targetBtn) {\n    targetBtn.click();\n  }\n});\n</script>"
       }
     }
   },
