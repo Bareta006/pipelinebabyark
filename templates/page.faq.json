@@ -578,11 +578,12 @@
           "type": "text",
           "settings": {
             "title": "How can I file a warranty claim?",
-            "content": "<p>To initiate a warranty claim, please contact babyark's customer service department through one of the following methods:</p><p>Email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>"
+            "content": "<p>To initiate a warranty claim, please contact babyark's customer service department via this Email: <a href=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>"
           }
         },
         "text_9NMb3M": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "How can I know if my babyark has been involved in a car accident?",
             "content": "<p>babyark has 3 ways to detect crashes:</p><p>On all models:</p><ul><li>Visual indication - The SafeCoil™ will be elongated, and the top and bottom shells will no longer be aligned.</li></ul><p>On our Smart and Premium models:</p><ul><li> Electronic light indication - If the crash was severe enough and the seat requires replacement, the safety LED ring in the base will light up in a circular pattern in red.</li><li>App alert - If the crash was severe and the seat needs replacement, the babyark app will notify you.<br/><br/>If the babyark car seat did not detect a crash, it can continue to be used as long as it also meets the NHTSA (National Highway Traffic Safety Administration) minor crash guidelines:</li></ul><p> i.The vehicle was able to be driven away from the crash site<br/>ii. The vehicle door nearest to the car seat was not damaged<br/>iii. None of the passengers in the vehicle sustained any injuries in the crash<br/>iv. If the vehicle has airbags, the airbags did not deploy during the crash<br/>v. There is no visible damage to the car seat</p><p><br/>If any of these conditions are not met the car seat must be replaced, even if the babyark seat did not detect a crash.</p>"
@@ -644,6 +645,7 @@
         },
         "text_dETwVV": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Will my 100-day trial transfer to the replacement seat?",
             "content": "<p>Yes! When you purchase a replacement seat as part of an exchange, the 100-day trial will restart for the new seat from the date it is delivered.</p>"
@@ -651,6 +653,7 @@
         },
         "text_VMfiCi": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Are there any fees for exchanges or returns?",
             "content": "<p>Customers are responsible for return shipping costs.</p>"
@@ -658,9 +661,10 @@
         },
         "text_fHRgFX": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Can I exchange a seat that has been used?",
-            "content": "<p>If your seat is outside the 100-day trial window, it will not qualify for a return or exchange.</p><p>If your seat is within the 100-day window, you may return it!</p>"
+            "content": "<p>If your seat is within the 100-day window, you may return it!</p>"
           }
         }
       },
