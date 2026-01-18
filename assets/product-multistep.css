@@ -1296,7 +1296,11 @@ body:has([data-multistep-container]) .float-grid.product-single {
   .step3-container .step-title {
     font-size: 42px;
   }
+  .step3-container .step-actions .btn--steps.action-button.step3-btn{
+            width: 240px;
+            max-width: 240px;
 
+  }
   .price-smart-multistep {
     font-size: 32px;
   }
