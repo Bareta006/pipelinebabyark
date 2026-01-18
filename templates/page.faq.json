@@ -755,6 +755,7 @@
         "text_kwHcHt",
         "text_LHcHBR"
       ],
+      "disabled": true,
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
       ],
