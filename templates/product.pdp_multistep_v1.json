@@ -266,7 +266,7 @@
       "type": "section-liquid",
       "name": "Custom Liquid",
       "settings": {
-        "custom_liquid": "<a id=\"customizeFloat\" class=\"btn btn--steps btn--large btn--step-1\">Customize</a>"
+        "custom_liquid": "<a id=\"customizeFloat\" class=\"btn btn--steps btn--large btn--step-1\">Customize</a>\n<script>\ndocument.addEventListener('click', function (e) {\n  const trigger = e.target.closest('#customizeFloat');\n  if (!trigger) return;\n\n  const targetBtn = document.querySelector('button.btn--step-1');\n  if (targetBtn) {\n    targetBtn.click();\n  }\n});\n</script>"
       }
     }
   },
