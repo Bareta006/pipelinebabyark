@@ -58,7 +58,7 @@
         "icon_text_block_RzbcRE"
       ],
       "custom_css": [
-        "{z-index: 2;}",
+        "{z-index: 5;}",
         "@media (max-width: 480px) {.wrapper.section-padding {padding-bottom: 0; }}"
       ],
       "name": "Features with image",
