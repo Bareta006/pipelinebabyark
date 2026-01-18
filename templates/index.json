@@ -577,7 +577,6 @@
         "h2 {color: #fff;}",
         "h2 strong {font-weight: 700;}",
         ".flickity-button {color: #fff;}",
-        ".card-content {padding-bottom: 20px;}",
         "@media (max-width: 480px) {.mobile-carousel-enabled .flickity-button {color: #fff; }}"
       ],
       "name": "Inline Cards",
