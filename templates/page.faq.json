@@ -536,6 +536,7 @@
         "text_TECHVd",
         "text_63ckJg"
       ],
+      "disabled": true,
       "custom_css": [
         ".section-faq {background-color: #fafafa;}"
       ],
