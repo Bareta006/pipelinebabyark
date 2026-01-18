@@ -243,8 +243,16 @@
     "accordion-section-2": {
       "type": "section-faq",
       "blocks": {
+        "text_7yeciJ": {
+          "type": "text",
+          "settings": {
+            "title": "What are the benefits of using the babyark app?",
+            "content": "<p>The babyark app is helpful for users of all seat models.</p><p>The babyark app enhances safety, convenience, and connectivity for Premium and Smart seats by offering:</p><ul><li>Step-by-step installation guidance for a secure setup.</li><li>Safety alerts, including forgotten child and buckle notifications and crash detection.</li><li>Seat orientation alerts, ensuring the correct rear-facing or forward-facing position based on your child’s age and weight.</li><li>Activity tracking, providing insights on ride duration and time spent in the seat.</li><li>Family connectivity, allowing multiple users to access and share seat data.</li></ul><p>While many of the features of our intelligent app are for Smart and Premium seats, the app also supports the Classic model support, featuring installation videos and key information.</p><p>We prioritize minimal data collection to respect your family's privacy while delivering essential safety features.</p>"
+          }
+        },
         "accordion_block_2_0": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Can I use the app in an area without cellular coverage?",
             "content": "<p>The babyark app uses BLE communication which allows it to function offline or in places with no cellular reception. If you're using the app for the first time, you will need an internet connection to register and pair your babyark seat with the app.</p>"
@@ -260,12 +268,13 @@
         "accordion_block_2_2": {
           "type": "text",
           "settings": {
-            "title": "How often do I need to charge the SmartBase? Do I need to replace batteries?",
-            "content": "<p>The ACTV8™ SmartBase features a rechargeable battery.</p><p>We recommend an initial charge of approximately two hours before first use to ensure proper function of all sensors and light indicators. </p><p>With continued use, the base will need periodic recharging. The battery LED indicator will flash green during charging (for Premium) and blue light (for Smart), and red when the battery is critically low.</p>"
+            "title": "Does the SmartBase require charging?",
+            "content": "<p>The ACTV8™ SmartBase features a rechargeable battery.</p><p>We recommend an initial charge of approximately two hours before first use to ensure proper function of all sensors and light indicators. </p><p>With continued use, the base will need periodic recharging. The battery LED indicator will flash green during charging (for Premium) and blue light (for Smart), and red when the battery is critically low.</p><p>The seat is completely functional as a child car seat even if the smart features are not working.  </p>"
           }
         },
         "accordion_block_2_3": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "How long does the SmartBase battery last?",
             "content": "<p>A fully charged battery typically lasts between three to four weeks. When the battery is critically low, the battery LED indicator on the front of the base will flash red.</p>"
@@ -309,6 +318,7 @@
         },
         "text_wdMcyj": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "Whats should I do if I spill liquid on my babyark car seat or base? Will it affect the sensors and electronics?",
             "content": "<p>The car seat itself contains no electronics. In the event of a spill, promptly absorb as much liquid as possible with a towel, remove the fabric cover, and allow it to air dry. </p><p>If you need to wash the fabric cover, follow the cleaning instructions in the manual and on the fabric care tags. </p><p>The SmartBase contains electronics and is not waterproof. While minor spills are unlikely to cause damage, avoid large spills or submerging the base in liquids.</p>"
@@ -316,20 +326,15 @@
         },
         "text_EQCMdm": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "title": "How do I use the mobile app to safely install the babyark car seat?",
             "content": "<p>Begin by downloading the babyark app to your mobile device. After pairing your babyark seat with the app (which must be done with cellular coverage) and providing initial information, follow the on-screen instructions for step-by-step installation guidance. </p><p>Make sure to follow the instructions for seat setup according to your child’s height and weight. </p><p>Our babyark Smart and Premium seats provide real-time feedback during the installation process, walking you through the process with sensor and LED light assistance. </p><p>Our Classic seat helps you through installation with informative videos and explanatory screens. Either way, installation with babyark is a breeze!</p>"
           }
-        },
-        "text_7yeciJ": {
-          "type": "text",
-          "settings": {
-            "title": "What are the benefits of using the babyark app?",
-            "content": "<p>The babyark app is helpful for users of all seat models.</p><p>The babyark app enhances safety, convenience, and connectivity for Premium and Smart seats by offering:</p><ul><li>Step-by-step installation guidance for a secure setup.</li><li>Safety alerts, including forgotten child and buckle notifications and crash detection.</li><li>Seat orientation alerts, ensuring the correct rear-facing or forward-facing position based on your child’s age and weight.</li><li>Activity tracking, providing insights on ride duration and time spent in the seat.</li><li>Family connectivity, allowing multiple users to access and share seat data.</li></ul><p>While many of the features of our intelligent app are for Smart and Premium seats, the app also supports the Classic model support, featuring installation videos and key information.</p><p>We prioritize minimal data collection to respect your family's privacy while delivering essential safety features.</p>"
-          }
         }
       },
       "block_order": [
+        "text_7yeciJ",
         "accordion_block_2_0",
         "accordion_block_2_1",
         "accordion_block_2_2",
@@ -340,8 +345,7 @@
         "text_PYmA8r",
         "text_za8D7h",
         "text_wdMcyj",
-        "text_EQCMdm",
-        "text_7yeciJ"
+        "text_EQCMdm"
       ],
       "custom_css": [
         ".section-faq {background-color: #fafafa;}"
