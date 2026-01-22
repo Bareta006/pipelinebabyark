@@ -298,6 +298,40 @@
         "enable_sticky_mobile": true
       }
     },
+    "section_wide_card_hero_VW8QTc": {
+      "type": "section-wide-card-hero",
+      "custom_css": [
+        "{z-index: 3;}",
+        "section {background-color: #f7f7f7;}"
+      ],
+      "name": "Wide card hero",
+      "settings": {
+        "background_image_desktop": "shopify://shop_images/Group_1597881647.png",
+        "background_image_mobile": "shopify://shop_images/Group_1597881538_2_1.png",
+        "border_radius": 50,
+        "image": "shopify://shop_images/saatchi_mom_1.png",
+        "image_mobile": "shopify://shop_images/Copy_of_220906-Babyark-11391_4.png",
+        "image_alignment": "right",
+        "text_1": "<p>100 DAYS</p>",
+        "text_1_size_desktop": 46,
+        "text_1_size_mobile": 30,
+        "text_1_color": "#ffffff",
+        "text_1_bg_color": "#7692ff",
+        "text_1_padding": 8,
+        "text_2": "<p>MONEY BACK GUARANTEE</p>",
+        "text_2_size_desktop": 52,
+        "text_2_size_mobile": 30,
+        "text_2_color": "#ffffff",
+        "text_3": "<p>If you don't feel 10x safer putting your little one in babyark, we'll refund every penny. No questions asked, no hassle – just peace of mind.</p>",
+        "text_3_size_desktop": 24,
+        "text_3_size_mobile": 18,
+        "text_3_color": "#ffffff",
+        "bg": "palette--light bg--neutral",
+        "width": "wrapper",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "apps_hXV8Rb": {
       "type": "apps",
       "blocks": {
@@ -778,6 +812,7 @@
   "order": [
     "section_liquid_3BhB6X",
     "main",
+    "section_wide_card_hero_VW8QTc",
     "apps_hXV8Rb",
     "section_icons_grid_jwTBNP",
     "section_double_new_U8Re4G",
