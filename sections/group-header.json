@@ -17,7 +17,7 @@
         "announce_text": {
           "type": "text",
           "settings": {
-            "text": "<p>100 Day Risk Free Trial + Free Delivery </p>",
+            "text": "<p>Due to high holiday demand we are out currently of stock - Join our newsletter for updates.</p>",
             "target_url_enabled": false,
             "target_url": "",
             "target_referrer_enabled": false,
