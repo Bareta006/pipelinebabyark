@@ -13,7 +13,7 @@
       "type": "affiliate-landing-form",
       "name": "Affiliate Landing Form",
       "settings": {
-        "webhook_url": "https://eve-patents-assist-nam.trycloudflare.com/referrals/register",
+        "webhook_url": "https://app.babyark.com/v2/referrals/register",
         "redirect_url": "/products/babyark-convertible-car-seat-smart",
         "background_image_desktop": "shopify://shop_images/045A9091_1_3.png",
         "background_image_mobile": "shopify://shop_images/0823fc37-5021-4d7a-bf72-16bad7d32118.jpg",
