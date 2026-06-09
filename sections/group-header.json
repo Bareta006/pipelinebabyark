@@ -16,6 +16,7 @@
       "blocks": {
         "announce_text": {
           "type": "text",
+          "disabled": true,
           "settings": {
             "text": "<p>Due to high holiday demand we are currently out of stock - Preorders available for April </p>",
             "target_url_enabled": false,
