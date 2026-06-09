@@ -46,6 +46,11 @@
   <!-- Preloading ================================================================== -->
 
   <link rel="preconnect" href="https://fonts.shopify.com" crossorigin>
+  <!-- Risk-free perf: warm up connections to asset/critical origins (hints only) -->
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <link rel="dns-prefetch" href="https://monorail-edge.shopifysvc.com">
+  <link rel="dns-prefetch" href="https://live.visually-io.com">
   <link rel="preload" href="{{ settings.font_body_family | font_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ settings.font_heading_family | font_url }}" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="{{ settings.font_accent_family | font_url }}" as="font" type="font/woff2" crossorigin>
