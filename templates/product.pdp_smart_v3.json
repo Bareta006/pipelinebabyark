@@ -188,7 +188,7 @@
           }
         },
         "tolstoy_shoppable_video_ugc_stories_block_gpNBgK": {
-          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "type": "shopify://apps/tolstoy-ads-image-video/blocks/stories-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
             "publishId": "h7xj8mqpubub9"
           }
@@ -757,7 +757,7 @@
       "type": "apps",
       "blocks": {
         "tolstoy_shoppable_video_ugc_carousel_block_GFtgXd": {
-          "type": "shopify://apps/tolstoy-shoppable-video-quiz/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
+          "type": "shopify://apps/tolstoy-ads-image-video/blocks/carousel-block/06fa8282-42ff-403e-b67c-1936776aed11",
           "settings": {
             "publishId": "xv6zpinlwpm0j"
           }
@@ -843,7 +843,7 @@
       "type": "apps",
       "blocks": {
         "judge_me_reviews_review_widget_MXkTRw": {
-          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_page/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
           "settings": {}
         }
       },

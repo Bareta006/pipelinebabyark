@@ -1,0 +1,45 @@
+{%- comment -%}
+  jdgm-badge-shop-sync
+  Judge.me's preview badge is product-scoped (shows this product's review count).
+  Since PDPs now render the All Reviews widget (store-wide total), this keeps the
+  small preview badge in sync with the store-wide count/average shown by that widget,
+  so the page is consistent (e.g. "(371 reviews)" instead of the product's "(279 reviews)").
+  Source of truth: .jdgm-all-reviews__header[data-number-of-reviews|data-average-rating].
+  No-op on pages without the All Reviews widget. Self-disables after the widgets settle.
+{%- endcomment -%}
+<script>
+  (function () {
+    function syncBadges() {
+      var header = document.querySelector('.jdgm-all-reviews__header');
+      var badges = document.querySelectorAll('.jdgm-prev-badge');
+      if (!header || !badges.length) return false;
+      var n = header.getAttribute('data-number-of-reviews');
+      var a = header.getAttribute('data-average-rating');
+      if (!n) return false;
+      var label = '(' + n + ' reviews)';
+      var didWrite = false;
+      badges.forEach(function (b) {
+        var t = b.querySelector('.jdgm-prev-badge__text');
+        if (t && t.textContent !== label) { t.textContent = label; didWrite = true; }
+        if (b.getAttribute('data-number-of-reviews') !== n) { b.setAttribute('data-number-of-reviews', n); didWrite = true; }
+        if (a && b.getAttribute('data-average-rating') !== a) { b.setAttribute('data-average-rating', a); didWrite = true; }
+      });
+      return didWrite || true; // truthy once header+badge both exist
+    }
+
+    function start() {
+      syncBadges();
+      // Judge.me renders/re-renders asynchronously; watch and re-apply.
+      var obs = new MutationObserver(function () { syncBadges(); });
+      obs.observe(document.body, { childList: true, subtree: true });
+      // Stop watching once things have settled to avoid lingering work.
+      setTimeout(function () { obs.disconnect(); }, 20000);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', start);
+    } else {
+      start();
+    }
+  })();
+</script>
