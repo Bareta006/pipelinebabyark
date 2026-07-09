@@ -101,7 +101,7 @@
         "text_fzLycb": {
           "type": "text",
           "settings": {
-            "title": "Which crash tests did the babyark car seat  pass",
+            "title": "Which crash tests did the babyark car seat  pass?",
             "content": "<p>Our seats are crash tested according to federal regulations and FMVSS213 which governs motor vehicles. In addition, we've run over 200 additional tests to ensure your little one's safety, at various speeds and with different child weights, addressing front and side impact. We compare our test results and HIC scores to the federal regulations, as well as the major car seat brands in our industry.</p>"
           }
         },
@@ -196,6 +196,13 @@
             "content": "<p>The fabric seat covers zip off and can be washed in the washing machine. Extra seat covers can also be purchased for use on laundry day.</p>"
           }
         },
+        "text_lbwCu9": {
+          "type": "text",
+          "settings": {
+            "title": "Does babyark offer support for premature or very small babies?",
+            "content": "<p>Yes. In addition to the infant insert that comes with every babyark seat, we offer a <strong>\"Low birth weight cushion\"</strong>. This cushion provides extra support to help achieve a proper harness fit for very small babies. It's available <strong>free of charge</strong> to families who need it - just contact our customer support and we'll be happy to assist.</p>"
+          }
+        },
         "text_qQfL93": {
           "type": "text",
           "disabled": true,
@@ -222,7 +229,8 @@
         "text_LDBfJf",
         "text_pCJxTx",
         "text_pJH3tL",
-        "text_qQfL93"
+        "text_qQfL93",
+        "text_lbwCu9"
       ],
       "custom_css": [
         ".section-faq {background-color: #efefef;}"
