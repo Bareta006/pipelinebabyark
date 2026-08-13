@@ -88,6 +88,7 @@
       "blocks": {
         "logo_image_tnaaYz": {
           "type": "logo_image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Bumb.png",
             "link": "https://www.thebump.com/a/best-convertible-car-seats#product-3",
@@ -168,6 +169,7 @@
         },
         "logo_image_f8XP8E": {
           "type": "logo_image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Forbes_31a4b871-6da4-438f-9d7f-c477c645f67d.png",
             "link": "https://www.forbes.com/sites/forbes-personal-shopper/2024/08/07/prevent-hot-car-deaths/",
