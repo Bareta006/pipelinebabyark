@@ -149,6 +149,7 @@
         },
         "logo_image_HTyb6R": {
           "type": "logo_image",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/Engadget.png",
             "link": "https://www.engadget.com/the-babyark-uses-sensor-laden-anticrash-materials-to-keep-your-kids-safe-in-auto-wrecks-041807015.html",
