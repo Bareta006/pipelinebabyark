@@ -31,7 +31,7 @@
           "type": "button",
           "settings": {
             "link_text_1": "shop babyark",
-            "link_1": "shopify://products/the-babyark-advanced-convertible-car-seat",
+            "link_1": "shopify://collections/car-seat2",
             "button_size_1": "btn--long",
             "button_style_1": "btn",
             "button_color_1": "btn--white",
@@ -174,7 +174,7 @@
       "custom_css": [
         ".section__title {font-size: 46px;}",
         ".section__description p {font-size: 20px;}",
-        ".card-content{padding:1.25rem;}",
+        ".card-content {padding: 1.25rem;}",
         "@media (max-width: 480px) {.section__title {font-size: 36px; } .section__description p {font-size: 16px; } .wrapper--full {padding-left: 0; padding-right: 0; } .inline-cards-content {border-radius: 0; background: #fff; }}"
       ],
       "name": "Inline Cards",
