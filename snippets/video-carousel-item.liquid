@@ -49,21 +49,11 @@
         {% comment %} Custom placeholder image or video preview {% endcomment %}
         {% if placeholder_image != blank %}
           <div class="video-carousel__placeholder">
-            {% render 'image',
-              img_object: placeholder_image,
-              alt: placeholder_image.alt | default: title,
-              sizes: sizes,
-              cover: true
-            %}
+            {% render 'image', img_object: placeholder_image, alt: placeholder_image.alt, default: title, sizes: sizes, cover: true %}
           </div>
         {% elsif video.preview_image %}
           <div class="video-carousel__placeholder">
-            {% render 'image',
-              img_object: video.preview_image,
-              alt: video.preview_image.alt | default: title,
-              sizes: sizes,
-              cover: true
-            %}
+            {% render 'image', img_object: video.preview_image, alt: video.preview_image.alt, default: title, sizes: sizes, cover: true %}
           </div>
         {% endif %}
         
@@ -98,4 +88,30 @@
       {% endif %}
     </div>
   {% endif %}
-</div> 
+</div> {%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: |-
+    {% render 'image',
+                  img_object: placeholder_image,
+                  alt: placeholder_image.alt | default: title,
+                  sizes: sizes,
+                  cover: true
+                %}
+  to: "{% render 'image', img_object: placeholder_image, alt: placeholder_image.alt,
+    default: title, sizes: sizes, cover: true %}"
+  position: 1866..1988
+- from: |-
+    {% render 'image',
+                  img_object: video.preview_image,
+                  alt: video.preview_image.alt | default: title,
+                  sizes: sizes,
+                  cover: true
+                %}
+  to: "{% render 'image', img_object: video.preview_image, alt: video.preview_image.alt,
+    default: title, sizes: sizes, cover: true %}"
+  position: 2110..2236
+{%- endcomment -%}

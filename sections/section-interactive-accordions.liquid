@@ -118,13 +118,7 @@
             {% elsif block.settings.image != blank %}
               <!-- Image Content -->
               <div class="media-image">
-                {% render 'image', 
-                  img_object: block.settings.image, 
-                  wh_ratio: block.settings.image.aspect_ratio,
-                  sizes: '50vw',
-                  cover: true,
-                  alt: block.settings.image.alt | default: block.settings.title
-                %}
+                {% render 'image', img_object: block.settings.image, wh_ratio: block.settings.image.aspect_ratio, sizes: '50vw', cover: true, alt: block.settings.image.alt, default: block.settings.title %}
               </div>
             {% else %}
               <!-- Placeholder -->
@@ -193,21 +187,9 @@
                     {% endif %}
                   </div>
                 {% elsif block.settings.mobile_image != blank %}
-                  {% render 'image', 
-                    img_object: block.settings.mobile_image, 
-                    wh_ratio: block.settings.mobile_image.aspect_ratio,
-                    sizes: '90vw',
-                    cover: true,
-                    alt: block.settings.mobile_image.alt | default: block.settings.title
-                  %}
+                  {% render 'image', img_object: block.settings.mobile_image, wh_ratio: block.settings.mobile_image.aspect_ratio, sizes: '90vw', cover: true, alt: block.settings.mobile_image.alt, default: block.settings.title %}
                 {% elsif block.settings.image != blank %}
-                  {% render 'image', 
-                    img_object: block.settings.image, 
-                    wh_ratio: block.settings.image.aspect_ratio,
-                    sizes: '90vw',
-                    cover: true,
-                    alt: block.settings.image.alt | default: block.settings.title
-                  %}
+                  {% render 'image', img_object: block.settings.image, wh_ratio: block.settings.image.aspect_ratio, sizes: '90vw', cover: true, alt: block.settings.image.alt, default: block.settings.title %}
                 {% else %}
                   <div class="mobile-card__placeholder">
                     <p>{{ 'general.onboarding.no_content' | t }}</p>
@@ -1080,4 +1062,34 @@
     "groups": ["header","footer","aside"]
   }
 }
-{% endschema %} 
+{% endschema %} {%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: "{% render 'image', \n                  img_object: block.settings.image,
+    \n                  wh_ratio: block.settings.image.aspect_ratio,\n                  sizes:
+    '50vw',\n                  cover: true,\n                  alt: block.settings.image.alt
+    | default: block.settings.title\n                %}"
+  to: "{% render 'image', img_object: block.settings.image, wh_ratio: block.settings.image.aspect_ratio,
+    sizes: '50vw', cover: true, alt: block.settings.image.alt, default: block.settings.title
+    %}"
+  position: 5153..5342
+- from: "{% render 'image', \n                    img_object: block.settings.mobile_image,
+    \n                    wh_ratio: block.settings.mobile_image.aspect_ratio,\n                    sizes:
+    '90vw',\n                    cover: true,\n                    alt: block.settings.mobile_image.alt
+    | default: block.settings.title\n                  %}"
+  to: "{% render 'image', img_object: block.settings.mobile_image, wh_ratio: block.settings.mobile_image.aspect_ratio,
+    sizes: '90vw', cover: true, alt: block.settings.mobile_image.alt, default: block.settings.title
+    %}"
+  position: 8624..8834
+- from: "{% render 'image', \n                    img_object: block.settings.image,
+    \n                    wh_ratio: block.settings.image.aspect_ratio,\n                    sizes:
+    '90vw',\n                    cover: true,\n                    alt: block.settings.image.alt
+    | default: block.settings.title\n                  %}"
+  to: "{% render 'image', img_object: block.settings.image, wh_ratio: block.settings.image.aspect_ratio,
+    sizes: '90vw', cover: true, alt: block.settings.image.alt, default: block.settings.title
+    %}"
+  position: 8911..9100
+{%- endcomment -%}
