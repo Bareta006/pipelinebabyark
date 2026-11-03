@@ -84,7 +84,7 @@
         "icon_block_NxwCiG": {
           "type": "icon_block",
           "settings": {
-            "icon_name": "icon-support-headphones",
+            "icon_name": "icon-chat",
             "icon_color": "#22282d",
             "title": "Email",
             "text": "<p><a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>",
