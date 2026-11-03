@@ -70,6 +70,17 @@
     "section_icons_3WwBAY": {
       "type": "section-icons",
       "blocks": {
+        "icon_block_hFY7Ub": {
+          "type": "icon_block",
+          "settings": {
+            "icon_name": "icon-leaf",
+            "icon_color": "#aaaaaa",
+            "title": "OPEN A TICKET",
+            "text": "",
+            "link_text": "Go to support center »",
+            "link_url": "https://www.support.babyark.com/hc/en-us/requests/new"
+          }
+        },
         "icon_block_NxwCiG": {
           "type": "icon_block",
           "settings": {
@@ -94,6 +105,7 @@
         }
       },
       "block_order": [
+        "icon_block_hFY7Ub",
         "icon_block_NxwCiG",
         "icon_block_RC3Awy"
       ],
@@ -124,6 +136,7 @@
       "block_order": [
         "text_Le6DyF"
       ],
+      "disabled": true,
       "settings": {
         "align_text": "text-center",
         "text_color": "text--neutral",
@@ -140,7 +153,7 @@
         "text_gPAAyB": {
           "type": "text",
           "settings": {
-            "text": "<p>To ensure a faster response time please choose one of the categories below so we can direct your inquiry to the right department.</p><p></p><p></p><p>By submitting your contact information to us, you hereby confirm that you have read and agreed to our <a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\">Privacy Policy</a></p><h2>How can we help ?</h2>",
+            "text": "<p></p><p>By submitting your contact information to us, you hereby confirm that you have read and agreed to our&nbsp;<a href=\"https://babyark.com/pages/privacy-policy\" target=\"_blank\">Privacy Policy</a></p><h2></h2>",
             "text_size": 5,
             "text_columns": 1
           }
@@ -161,6 +174,7 @@
     },
     "section_liquid_aecLiX": {
       "type": "section-liquid",
+      "disabled": true,
       "custom_css": [
         ".wrapper--narrow {width: 480px; max-width: 100%;}"
       ],
@@ -181,6 +195,7 @@
       "block_order": [
         "powerful_form_builder_app_block_w8YQGy"
       ],
+      "disabled": true,
       "custom_css": [],
       "settings": {
         "text_color": "text--neutral",
