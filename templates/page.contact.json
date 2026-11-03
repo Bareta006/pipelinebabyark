@@ -73,7 +73,7 @@
         "icon_block_hFY7Ub": {
           "type": "icon_block",
           "settings": {
-            "icon_name": "icon-chat",
+            "icon_name": "icon-email",
             "icon_color": "#22282d",
             "title": "CONTACT FORM",
             "text": "<p><a href=\"https://www.support.babyark.com/hc/en-us/requests/new\" target=\"_blank\" title=\"https://www.support.babyark.com/hc/en-us/requests/new\"><span style=\"text-decoration:underline\">Submit an Inquiry »</span></a></p>",
@@ -84,7 +84,7 @@
         "icon_block_NxwCiG": {
           "type": "icon_block",
           "settings": {
-            "icon_name": "icon-email",
+            "icon_name": "icon-support-headphones",
             "icon_color": "#22282d",
             "title": "Email",
             "text": "<p><a href=\"mailto:contact@babyark.com\" title=\"mailto:contact@babyark.com\">contact@babyark.com</a></p>",
