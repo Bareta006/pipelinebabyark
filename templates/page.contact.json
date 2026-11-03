@@ -74,9 +74,9 @@
           "type": "icon_block",
           "settings": {
             "icon_name": "icon-chat",
-            "icon_color": "#22282D",
-            "title": "OPEN A TICKET",
-            "text": "<p><a href=\"https://www.support.babyark.com/hc/en-us/requests/new\" target=\"_blank\" title=\"https://www.support.babyark.com/hc/en-us/requests/new\"><span style=\"text-decoration:underline\">Go to support center »</span></a></p>",
+            "icon_color": "#22282d",
+            "title": "CONTACT FORM",
+            "text": "<p><a href=\"https://www.support.babyark.com/hc/en-us/requests/new\" target=\"_blank\" title=\"https://www.support.babyark.com/hc/en-us/requests/new\"><span style=\"text-decoration:underline\">Submit an Inquiry »</span></a></p>",
             "link_text": "",
             "link_url": "https://www.support.babyark.com/hc/en-us/requests/new"
           }
