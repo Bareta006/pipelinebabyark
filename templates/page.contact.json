@@ -73,7 +73,7 @@
         "icon_block_hFY7Ub": {
           "type": "icon_block",
           "settings": {
-            "icon_name": "icon-leaf",
+            "icon_name": "icon-chat",
             "icon_color": "#aaaaaa",
             "title": "OPEN A TICKET",
             "text": "",
@@ -98,7 +98,7 @@
             "icon_name": "icon-phone",
             "icon_color": "#22282d",
             "title": "Phone",
-            "text": "<p><a href=\"tel:8889222927\" title=\"tel:8889222927\">(888) 922-2927</a></p>",
+            "text": "<p><a href=\"tel:8889222927\" title=\"tel:8889222927\">+1 (888) 922-2927</a></p>",
             "link_text": "",
             "link_url": ""
           }
